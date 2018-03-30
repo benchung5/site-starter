@@ -36,11 +36,11 @@ function loadConfig() {
 
 //for sw precache
 const staticFileGlobs = [
-   PATHS.dist + "/**.html",
-   PATHS.dist + PATHS.distAssets + "/css/**.css",
-   PATHS.dist + PATHS.distAssets + "/js/**.js",
-   PATHS.dist + PATHS.distAssets + "/img/icons/**.{svg,png,jpg,gif}",
-   PATHS.dist + PATHS.distAssets + "/img/placeholder-images/**.{svg,png,jpg,gif}",
+   "/**.html",
+   "assets/css/**.css",
+   "assets/js/**.js",
+   "assets/img/icons/**.{svg,png,jpg,gif}",
+   "assets/img/placeholder-images/**.{svg,png,jpg,gif}",
 ]
 
 
@@ -146,7 +146,7 @@ function headJavascript() {
 // Compile Sass into CSS
 // In production, the CSS is compressed
 function sass() {
-  return gulp.src('src/assets/scss/app.scss')
+  return gulp.src('src/scss/app.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       includePaths: PATHS.sass
@@ -205,7 +205,7 @@ function javascript() {
 // Copy images to the "dist" folder
 // In production, the images are compressed
 function images() {
-  return gulp.src('src/assets/img/**/*')
+  return gulp.src('src/img/**/*')
     .pipe($.if(PRODUCTION, $.imagemin({
       progressive: true
     })))
@@ -237,20 +237,20 @@ function rsyncTemplates(done) {
 function watch() {
   gulp.watch(PATHS.media, media);
   gulp.watch(PATHS.favicons, favicons);
-  gulp.watch('src/assets/scss/**/*.scss').on('all', gulp.series(sass));
-  gulp.watch('src/assets/js/app/**/*.js').on('all', gulp.series(javascript));
-  gulp.watch('src/assets/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
-  gulp.watch('src/assets/js/head/**/*.js').on('all', gulp.series(headJavascript));
-  gulp.watch('src/assets/img/**/*').on('all', gulp.series(images));
+  gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass));
+  gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript));
+  gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
+  gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript));
+  gulp.watch('src/img/**/*').on('all', gulp.series(images));
 }
 
 // Watch for changes to static assets, and ee templates then rsync
 function watchProduction() {
   //watch assets
   gulp.watch(PATHS.media, media);
-  gulp.watch('src/assets/scss/**/*.scss').on('all', gulp.series(sass, rsyncAssets));
-  gulp.watch('src/assets/js/app/**/*.js').on('all', gulp.series(javascript, rsyncAssets));
-  gulp.watch('src/assets/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript, rsyncAssets));
-  gulp.watch('src/assets/js/head/**/*.js').on('all', gulp.series(headJavascript, rsyncAssets));
-  gulp.watch('src/assets/img/**/*').on('all', gulp.series(images, rsyncAssets));
+  gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, rsyncAssets));
+  gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript, rsyncAssets));
+  gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript, rsyncAssets));
+  gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript, rsyncAssets));
+  gulp.watch('src/img/**/*').on('all', gulp.series(images, rsyncAssets));
 }

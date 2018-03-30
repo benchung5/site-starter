@@ -17,19 +17,19 @@ PATHS:
   #================================================
   # Paths to static assets that aren't images, CSS, or JavaScript
   media:
-    - "src/assets/media/**/*"
+    - "src/media/**/*"
   # Path to favicons, app icons, xml and mainfest files
   favicons:
-    - "src/assets/favicons/**/*"
+    - "src/favicons/**/*"
   # Paths to JavaScript libraries, which are combined into one file
   vendor:
-    - "src/assets/js/vendor/*.js"
+    - "src/js/vendor/*.js"
   # Paths to Sass libraries, which can then be loaded with @import
   javascript:
   # entry for external js file
-    - "src/assets/js/app/app.js"
+    - "src/js/app/app.js"
   # js files to insert into the head
   head:
-    - "src/assets/js/head/*.js"
+    - "src/js/head/*.js"
   manifest:
     - "src/manifest/manifest.json"
