@@ -1,0 +1,417 @@
+/* ==========================================================================
+mixins
+========================================================================== */
+
+//usage: @include h-align-absolute(90px);
+
+//horizontal align absolute positioned items
+@mixin h-align-absolute($width) {
+  position: absolute;
+  width: $width;
+  left:50%;
+  margin-left: #{-($width/2)};
+}
+
+//vertical align absolute positioned items
+@mixin v-align-absolute($height) {
+  position: absolute;
+  top:50%;
+  margin-top: #{-($height/2)};
+}
+
+// card grid breakpoints
+// use:   
+// @include MQ(M) {
+//    display: none;
+//  }
+$S:     820px; 
+$M:     1460px;     
+$L:     1865px;
+
+@mixin MQ($canvas) {
+  @if $canvas == S {
+   @media only screen and (min-width: $S) { @content; } 
+  }
+  @else if $canvas == M {
+   @media only screen and (min-width: $M) { @content; } 
+  }
+  @else if $canvas == L {
+   @media only screen and (min-width: $L) { @content; } 
+  }
+}
+
+//using foundation breakpoints
+// @include breakpoint(large down) {
+//  ...
+// }
+
+//modal
+@mixin modal-inner($max-width, $pading-vertical, $padding-horizontal) {
+  background: $white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  //padding: 2.5em 4em;
+  padding: $pading-vertical $padding-horizontal;
+  flex-basis: $max-width;
+  margin: auto;
+  width: 100%;
+  @media (max-width: $max-width) {
+    padding: 1em 0.7em;
+    flex-basis: 100%;
+  }
+}
+
+.portal {
+   width: 100vw;
+   height: 100vh;
+   background: rgba(0,0,0, 0.8);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: fixed;
+   z-index: 100;
+   opacity: 0;
+   visibility: hidden;
+   transition: opacity 0.6s, visibility 0.6s;
+   &.on {
+     opacity: 1 !important;
+     visibility: visible !important;
+    }
+    .portal-inner {
+       @include modal-inner(20em, 2em, 4em);
+    }
+}
+
+
+/* ==========================================================================
+extends
+========================================================================== */
+//usage: @extend %shadow-box
+
+%shadow-box {
+    border-radius: $corner-roundness;
+    box-shadow: $dark-shadow;
+}
+
+/*horizontal/vertical align*/
+%align-parent {
+    transform-style: preserve-3d;
+}
+%h-align-child {
+    position: relative;
+    left:50%;
+    transform: translateX(-50%);
+}
+%v-align-child {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+//flexbox vertical align
+%fb-v-align {
+  display: flex;
+  align-items: center;
+}
+
+%kill-outline {
+    outline: none;
+    border: none;
+    text-decoration: none;
+    box-shadow: none;
+}
+
+%button-base {
+  color: $white;
+  @extend %kill-outline;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-family: $body-font;
+  cursor: pointer;
+}
+
+%bold-base {
+  font-family: $body-font;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: $title-font-color;
+}
+
+%body-font-base {
+  font-family: $body-font;
+  text-transform: none;
+  font-weight: 300;
+  color: $title-font-color;
+}
+
+%copy-button-style {
+  //@include button($expand, $background, $background-hover, $color, $style);
+  @include button(false, $primary-color, $primary-color, $white, solid);
+  @extend %button-base;
+}
+
+%border-light {
+  border: 1px solid $light-border-color;
+}
+
+%boxed-card {
+  @extend %border-light;
+  background: $white;
+}
+
+%button-sml {
+  font-size: $small-font-size;
+  background: transparent;
+  color: $title-font-color;
+  @extend %kill-outline;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-family: $body-font;
+}
+
+%button-wide-padding {
+  padding: 1rem 4.3rem;
+}
+
+%input-lg {
+  padding: $large-input-padding;
+  font-size: 1.3em;
+  height: auto;
+}
+
+%medium-title {
+  font-family: $body-font;
+  font-size: 1.3em;
+  font-weight: 900;
+}
+
+%long-margin-title {
+  margin-bottom: 2.5em;
+}
+
+
+/* ==========================================================================
+global-styles
+========================================================================== */
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+html, body {
+   //prevent scroll on iphone
+   height: 100%;
+   width: 100%;
+   position: relative;
+   // position: fixed;
+   // overflow: hidden;
+}
+
+a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none !important;
+    color: $primary-color;
+}
+
+h1 {
+  font-family: 'nobelbold';
+}
+
+h1, h2, h3, h4 {
+  text-transform: uppercase;
+}
+
+h3 {
+  font-weight: 600;
+}
+
+hr {
+  border-bottom: $dashed;
+}
+
+label {
+  text-transform: uppercase;
+  padding: 0 0 1.25rem;
+}
+
+[type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], 
+[type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], 
+[type='url'], [type='color'], textarea {
+  margin-bottom: 0;
+}
+
+.input-group-button a, .input-group-button input, .input-group-button button, .input-group-button label
+{
+  font-size: 1.3rem;
+  padding: 1rem 2rem;
+  height: auto;
+}
+
+.button {
+  @extend %button-base;
+  font-size: 1.3rem;
+  &.secondary {
+    color: #BBBBBB;
+  }
+}
+
+.error_message, .errors li {
+  color: $alert-color;
+  font-weight: 300;
+  text-transform: none;
+  list-style-type: none;
+}
+.errors {
+  margin: 0;
+}
+
+input.submit-button, button.submit-button {
+  @extend %button-wide-padding;
+  float: left;
+  margin-top: 3em;
+}
+
+@media print {
+    .no-print { display: none; }
+} 
+
+/* ==========================================================================
+helper classes
+========================================================================== */
+
+/*horizontally align*/
+
+.align-parent {
+    transform-style: preserve-3d;
+}
+
+/*horizontal align*/
+
+.h-align-child {
+    position: relative;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+/*vertical align*/
+
+.v-align-child {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.bold-base {
+  @extend %bold-base;
+}
+
+/* ==========================================================================
+//accessibility
+========================================================================== */
+
+/* default styling before what input executes, and mouse activated focus */
+*:focus, [data-whatinput="mouse"] :focus {
+  //outline: 0px;
+  outline-style: hidden;
+  outline: none;
+}
+
+/* keyboard */
+[data-whatinput="keyboard"] :focus {
+  outline-style: dashed;
+    outline-color: yellow;
+}
+
+/* ==========================================================================
+offline mode
+========================================================================== */
+
+.offline-message {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+page layout
+========================================================================== */
+
+.site-wrapper {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  &.internal {
+    padding-top: $header-height;
+  }
+}
+
+.page-content {
+  flex: 1;
+  padding-top: $page-gutter;
+  padding-bottom: $page-gutter;
+  .page-content-inner {
+    padding: 0 1.5em;
+  }
+}
+
+/* ==========================================================================
+header
+========================================================================== */
+
+#header {
+  min-height: $header-height;
+  background: rgba(0,0,0, 0.8);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  .menu-container {
+    @extend %fb-v-align;
+    ul {
+      height: $header-height;
+    }
+  }
+  .logo-main {
+    margin: 0;
+    padding: 0;
+    display: block;
+    line-height: 0;
+    font-size: inherit;
+    img {
+      min-width: 190px;
+    }
+  }
+}
+
+/* ==========================================================================
+footer
+========================================================================== */
+
+#footer {
+  min-height: $header-height;
+  background: rgba(0,0,0, 0.8);
+}
+
+/* ==========================================================================
+static pages
+========================================================================== */
+
+/*
+home page
+================================ */
+
+#hero {
+  .hero-bg {
+    background: url(../img/hero.jpg) no-repeat left center;
+    background-size: cover;
+    width: 100vw;
+    height: 740px;
+    transform-style: preserve-3d;
+    .hero-title {
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%);
+      transform: translateX(-50%);
+      padding: 0 2em;
+    }
+  }
+}

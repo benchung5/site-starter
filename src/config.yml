@@ -1,0 +1,35 @@
+# Your project's server will run on localhost:xxxx at this port
+PORT: 8080
+
+# UnCSS will use these settings
+UNCSS_OPTIONS:
+  html:
+    - "src/**/*.html"
+  ignore:
+    - !!js/regexp ^\.is-.*
+
+# Gulp will reference these paths when it copies files
+PATHS:
+  # Builde paths (static sites version)
+  #================================================
+  dist: "../assets"
+  distAssets: ""
+  #================================================
+  # Paths to static assets that aren't images, CSS, or JavaScript
+  media:
+    - "src/assets/media/**/*"
+  # Path to favicons, app icons, xml and mainfest files
+  favicons:
+    - "src/assets/favicons/**/*"
+  # Paths to JavaScript libraries, which are combined into one file
+  vendor:
+    - "src/assets/js/vendor/*.js"
+  # Paths to Sass libraries, which can then be loaded with @import
+  javascript:
+  # entry for external js file
+    - "src/assets/js/app/app.js"
+  # js files to insert into the head
+  head:
+    - "src/assets/js/head/*.js"
+  manifest:
+    - "src/manifest/manifest.json"
