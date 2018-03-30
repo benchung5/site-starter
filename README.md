@@ -8,4 +8,4 @@ npm install
 ```
 start
 ```
-npm sta
+npm start
