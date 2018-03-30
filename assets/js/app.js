@@ -77,19 +77,35 @@ module.exports = __webpack_require__(1);
 "use strict";
 
 
-//config
+var _login = __webpack_require__(2);
 
-var _jquery = __webpack_require__(2);
+var _login2 = _interopRequireDefault(_login);
+
+var _jquery = __webpack_require__(3);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//config
 var env = "development" || "development";
 
 window.$ = _jquery2.default;
 
 (function () {
+	/* ==========================================================================
+ // init angular
+ ========================================================================== */
+
+	//init angular
+	angular.module('1pix', ['login']);
+
+	angular.module('1pix').config(function () {
+		//configuratoin
+	});
+
+	(0, _login2.default)();
+
 	/* ==========================================================================
  // register service worker
  ========================================================================== */
@@ -208,6 +224,47 @@ window.$ = _jquery2.default;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var controllerLogin = function controllerLogin() {
+
+	angular.module('login', []).controller('login', function ($scope) {
+
+		$scope.form = {
+			email: '',
+			password: '',
+			keepMeIn: false
+		};
+
+		$scope.login = function () {
+			console.log('logout');
+		};
+
+		$scope.logout = function () {
+			console.log('logout');
+		};
+	});
+
+	// angular.module('login', []).
+	// 	component('login', {
+	// 		//quick version:
+	// 		//template: '<div></div>'
+	// 		// templateUrl: '/templates/blog-list.html',
+	// 		controller: function($scope) {
+	// 		}
+	// 	});
+};
+
+exports.default = controllerLogin;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = jQuery;

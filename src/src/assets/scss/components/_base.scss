@@ -47,7 +47,7 @@ $L:     1865px;
 
 //modal
 @mixin modal-inner($max-width, $pading-vertical, $padding-horizontal) {
-  background: $white;
+  background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   //padding: 2.5em 4em;
   padding: $pading-vertical $padding-horizontal;
@@ -121,7 +121,7 @@ extends
 }
 
 %button-base {
-  color: $white;
+  color: #fff;
   @extend %kill-outline;
   text-transform: uppercase;
   font-weight: 900;
@@ -144,8 +144,6 @@ extends
 }
 
 %copy-button-style {
-  //@include button($expand, $background, $background-hover, $color, $style);
-  @include button(false, $primary-color, $primary-color, $white, solid);
   @extend %button-base;
 }
 
@@ -155,7 +153,7 @@ extends
 
 %boxed-card {
   @extend %border-light;
-  background: $white;
+  background: #fff;
 }
 
 %button-sml {

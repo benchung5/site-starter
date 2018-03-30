@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" ng-app="1pix">
   <head>
 
   <!-- meta -->
@@ -128,13 +128,36 @@
  
   </head>
   
-  <body>
+  <body ng-controller="login">
 
     <!-- preload screen (put above everything) -->
     <div class="preload">
     </div>
 
-    Hello world
+    <!-- begin main content -->
+    <div class="nav">
+      <a href="#/dashboard">Home</a>
+      <a href="#/reports">Reports</a>
+    </div>
+
+    <div class="logout">
+      <a href="" ng-click="logout()">
+        <i class="glyphicon glyphicon-log-out"></i>
+        Log out
+      </a>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close">X</span>
+      </div>
+      <div class="modal-body">
+        <div class="alert">
+          Invalid email or password
+        </div>
+      </div>
+    </div>
+    <!-- end main content -->
 
     <!-- vendor libs -->
     <script src="assets/js/vendor.js"></script>

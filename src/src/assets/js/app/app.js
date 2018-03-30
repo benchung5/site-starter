@@ -1,11 +1,28 @@
 'use strict';
 
+import controllerLogin from './components/login';
 //config
 const env = process.env.NODE_ENV || "development";
 import $ from 'jquery';
 window.$ = $;
 
+
 (function() {
+	/* ==========================================================================
+	// init angular
+	========================================================================== */
+
+	//init angular
+	angular.module('1pix', [
+		'login'
+	]);
+
+	angular.module('1pix').config(function() {
+		//configuratoin
+	});
+
+	controllerLogin();
+ 
 	/* ==========================================================================
 	// register service worker
 	========================================================================== */
