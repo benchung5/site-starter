@@ -1,5 +1,14 @@
 <?php
 
+require_once('uri.php');
+
+function __autoload($class_name) 
+{
+    if (file_exists('./controllers/'.$class_name.'.php')) {
+      require_once './controllers/'.$class_name.'.php';
+    }
+}
+
 class Route {
 
 	public static $validRoutes = array();
@@ -9,10 +18,12 @@ class Route {
 
 		self::$validRoutes[] = $route;
 
-		if (isset($_GET['url'])) {
+		$segments = Uri::get_segments();
+
+		if (isset($segments[0])) {
 			//if the current url matches the provided route,
 			//execute the callback
-			if ($_GET['url'] == $route) {
+			if ($segments[0] == $route) {
 				$callback->__invoke();
 			}
 		}

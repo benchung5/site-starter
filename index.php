@@ -1,32 +1,29 @@
 <?php
 
 include_once './config.php';
+require_once './lib/uri.php';
 
-//require_once('./routes/routes.php');
-
-/*
-The following function will strip the script name from URL
-i.e.  http://www.something.com/search/book/fitzgerald will become /search/book/fitzgerald
-*/
-function getCurrentUri()
+//autoload all controller classes
+function __autoload($class_name) 
 {
-    $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
-    $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath));
-    if (strstr($uri, '?')) $uri = substr($uri, 0, strpos($uri, '?'));
-    //$uri = '/' . trim($uri, '/');
-    $uri = trim($uri, '/');
-    return $uri;
+    if (file_exists('./controllers/'.$class_name.'.php')) {
+      require_once './controllers/'.$class_name.'.php';
+    }
 }
 
-$base_url = getCurrentUri();
+$segments = Uri::get_segments();
 
-$segments = array();
-$url_array = explode('/', $base_url);
-
-foreach($url_array as $segment)
-{
-    if(trim($segment) != '')
-        array_push($segments, $segment);
+//index.php?page=proeducts
+$page  = $segments[0];
+$controller = $config['CONTROLLER_PATH'] . $page . '.php';
+$view  = $config['VIEW_PATH'] . $page . '.php';
+$_404  = $config['VIEW_PATH'] . '404.php';
+if (file_exists($controller)) {
+   $contr = new About_us();
 }
 
-print_r($segments);
+$main_content = $_404;
+if (file_exists($view)) {
+   $main_content = $view;
+}
+include $config['VIEW_PATH']. 'layout.php';

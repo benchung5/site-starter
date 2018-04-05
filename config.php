@@ -1,3 +1,7 @@
 <?php
 
-const ROOT_URL = '/1pix_app/';
+$config = [
+    'ROOT_URL' => '/1pix_app/',
+    'CONTROLLER_PATH' => './controllers/',
+    'VIEW_PATH' => './views/',
+];
