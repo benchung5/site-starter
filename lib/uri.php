@@ -2,10 +2,9 @@
 
 class Uri 
 {
-	/*
-	The following function will strip the script name from URL
-	i.e.  http://www.something.com/search/book/fitzgerald will become /search/book/fitzgerald
-	*/
+	public function __construct() {
+	}
+
 	private function _get_current_uri()
 	{
 	    $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
@@ -16,7 +15,7 @@ class Uri
 	    return $uri;
 	}
 
-	public static function get_segments()
+	private function get_segments()
 	{
 		$base_url = self::_get_current_uri();
 
@@ -30,5 +29,19 @@ class Uri
 		}
 
 		return $segments;
+	}
+
+	public static function get_parts() 
+	{
+		$segments = self::get_segments();
+		$parts = [];
+
+		$parts['controller'] = isset($segments[0]) ? $segments[0] : 'index';
+		$parts['action'] = isset($segments[1]) ? $segments[1] : 'index';
+		//params for the action
+		unset($segments[0], $segments[1]);
+		$parts['params'] = (!empty($segments)) ? array_values($segments) : [];
+
+		return $parts;
 	}
 }

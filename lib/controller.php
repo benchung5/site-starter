@@ -2,13 +2,17 @@
 include_once('./lib/database.php');
 include_once('./lib/view.php');
 
-class Controller {
-	public static function render($view_name)
-	{
-		require_once('./views/'.$view_name.'.php');
+class Controller 
+{
+	protected $view;
+	protected $model;
 
-		//optional call to function on object that
-		//extends from this controller.
-		//static::doSomething();
+	public function __construct() {
+	}
+
+	public function render($view_name, $data = [])
+	{
+		$this->view = new View();
+		$this->view->render($view_name, $data);
 	}
 }

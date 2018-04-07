@@ -3,7 +3,7 @@
 include_once './config.php';
 require_once './lib/uri.php';
 
-//autoload all controller classes
+//autoload controller classes
 function __autoload($class_name) 
 {
     if (file_exists('./controllers/'.$class_name.'.php')) {
@@ -11,19 +11,16 @@ function __autoload($class_name)
     }
 }
 
-$segments = Uri::get_segments();
+$segments = Uri::get_parts();
+$controller = Config::paths('CONTROLLER_PATH') . $segments['controller'] . '.php';
 
-//index.php?page=proeducts
-$page  = $segments[0];
-$controller = $config['CONTROLLER_PATH'] . $page . '.php';
-$view  = $config['VIEW_PATH'] . $page . '.php';
-$_404  = $config['VIEW_PATH'] . '404.php';
 if (file_exists($controller)) {
-   $contr = new About_us();
+	$contr = new $segments['controller'];
+	if (method_exists($contr, $segments['action'])) {
+		call_user_func_array([$contr, $segments['action']], $segments['params']);
+	}
+	$contr->index();
+} else {
+	$main_content = Config::paths('VIEW_PATH') . '404.php';
+	include Config::paths('VIEW_PATH'). 'layout.php';
 }
-
-$main_content = $_404;
-if (file_exists($view)) {
-   $main_content = $view;
-}
-include $config['VIEW_PATH']. 'layout.php';
