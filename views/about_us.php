@@ -1,2 +1,12 @@
 <h1>about us</h1>
-<h3><? print_r($view_data) ?></h3>
+
+data:
+<ul>
+	<?php 
+	if (isset($view_data['vehicles'])) {
+		foreach($view_data['vehicles'] as $vehicle) {
+			echo '<li>'.$vehicle['name'].'</li>';
+		}
+	}
+	?>
+</ul>

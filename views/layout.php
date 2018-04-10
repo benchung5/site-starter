@@ -108,13 +108,13 @@
   </script>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="<?= Config::paths('ROOT_URL').'assets/css/app.css' ?>">
 
   <!-- Fonts -->
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
   
   <!-- Head scripts like Modernizr -->
-  <script src="assets/js/head.js"></script>
+  <script src="<?= Config::paths('ROOT_URL').'assets/js/head.js' ?>"></script>
 
   <!-- Analytics -->
   <script>
@@ -141,8 +141,8 @@
     <!-- end main content -->
 
     <!-- vendor libs -->
-    <script src="assets/js/vendor.js"></script>
+    <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
     <!-- app js -->
-    <script src="assets/js/app.js"></script>
+    <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
   </body>
 </html>

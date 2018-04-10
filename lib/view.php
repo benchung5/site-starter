@@ -13,12 +13,7 @@ class View
 		if (file_exists($view_path)) {
 
 			$main_content = $view_path;
-			include Config::paths('VIEW_PATH'). 'layout.php';
+			include_once Config::paths('VIEW_PATH'). 'layout.php';
 		}
 	}
-
-	// public function getAction() 
-	// {
-	// 	return (explode('/', $this->view_file)[1])
-	// }
 }
