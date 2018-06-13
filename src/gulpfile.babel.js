@@ -49,7 +49,7 @@ const staticFileGlobs = [
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, javascript, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, javascript, angularJavascript, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
@@ -132,6 +132,17 @@ function vendorJavascript() {
     ))
     .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'))
 }
+
+// Copy angular javascript
+function angularJavascript() {
+  return gulp.src(PATHS.angular)
+    //.pipe($.concat('vendor.js'))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js/angular'))
+}
+
 
 // Combine head js into one file
 function headJavascript() {
@@ -239,6 +250,7 @@ function watch() {
   gulp.watch(PATHS.favicons, favicons);
   gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass));
   gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript));
+  gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript));
   gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
   gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript));
   gulp.watch('src/img/**/*').on('all', gulp.series(images));
@@ -250,6 +262,7 @@ function watchProduction() {
   gulp.watch(PATHS.media, media);
   gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, rsyncAssets));
   gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript, rsyncAssets));
+  gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript, rsyncAssets));
   gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript, rsyncAssets));
   gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript, rsyncAssets));
   gulp.watch('src/img/**/*').on('all', gulp.series(images, rsyncAssets));

@@ -3,7 +3,15 @@ include_once('./lib/controller.php');
 
 class Index extends Controller 
 {
-	public function __construct() {
+	public function __construct() 
+	{
+	}
+
+	public function index($param = null) {
+		//get data from db
+		$model = $this->load_model('model_sample');
 		
+		//pass view data to view
+		$this->render('index');
 	}
 }

@@ -28,6 +28,9 @@ PATHS:
   javascript:
   # entry for external js file
     - "src/js/app/app.js"
+  angular:
+  # js app parts to load via script
+    - "src/js/angular/**/*.js"
   # js files to insert into the head
   head:
     - "src/js/head/*.js"

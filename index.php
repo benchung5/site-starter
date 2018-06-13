@@ -24,3 +24,7 @@ if (file_exists($controller)) {
 	$main_content = Config::paths('VIEW_PATH') . '404.php';
 	include Config::paths('VIEW_PATH'). 'layout.php';
 }
+
+// footer scripts
+echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/app.js"></script>';
+echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/controllers/login.js"></script>';

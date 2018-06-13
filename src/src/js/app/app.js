@@ -1,34 +1,15 @@
 'use strict';
 
-import controllerLogin from './components/login';
 //config
 const env = process.env.NODE_ENV || "development";
 import $ from 'jquery';
 window.$ = $;
 
 
-(function() {
-	/* ==========================================================================
-	// init angular
-	========================================================================== */
-
-	//init angular
-	angular.module('1pix', [
-		'login'
-	]);
-
-	angular.module('1pix').config(function() {
-		//configuratoin
-	});
-
-	controllerLogin();
- 
+(function() { 
 	/* ==========================================================================
 	// register service worker
 	========================================================================== */
-
-	/* eslint-env browser */
-	'use strict';
 
 	if ('serviceWorker' in navigator) {
 	  // Your service-worker.js *must* be located at the top-level directory relative to your site.

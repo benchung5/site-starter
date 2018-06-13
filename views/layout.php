@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="en" ng-app="1pix">
+<html class="no-js" lang="en" ng-app="onePix">
   <head>
 
   <!-- meta -->
@@ -128,7 +128,7 @@
  
   </head>
   
-  <body ng-controller="login">
+  <body>
 
     <!-- preload screen (put above everything) -->
     <div class="preload">
@@ -144,5 +144,7 @@
     <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
     <!-- app js -->
     <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
+    <!-- footer scripts are loaded belew here -->
+
   </body>
 </html>
