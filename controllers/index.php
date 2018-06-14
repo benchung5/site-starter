@@ -5,6 +5,7 @@ class Index extends Controller
 {
 	public function __construct() 
 	{
+		$this->load_script('controllers/login.js');
 	}
 
 	public function index($param = null) {
