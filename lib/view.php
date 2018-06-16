@@ -3,6 +3,8 @@ include_once './config.php';
 
 class View 
 {
+	protected $view_data = [];
+
 	public function __construct() 
 	{
 	}
@@ -11,9 +13,17 @@ class View
 	{
 		$view_path = './views/'.$view_file.'.php';
 		if (file_exists($view_path)) {
-
 			$main_content = $view_path;
 			include_once Config::paths('VIEW_PATH'). 'layout.php';
+		}
+	}
+
+	public function insert($view_file)
+	{
+		$view_path = './views/'.$view_file.'.php';
+		if (file_exists($view_path)) {
+			$main_content = $view_path;
+			include_once $main_content;
 		}
 	}
 }
