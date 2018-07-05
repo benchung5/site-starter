@@ -1,5 +1,5 @@
-/src/node_modules
-/src/npm-debug.log
-/assets
-/vendor
+src/node_modules
+src/npm-debug.log
+assets
+vendor
 composer.phar
