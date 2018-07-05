@@ -5,6 +5,7 @@ class Model {
 	public $db = null;
 
 	public function __construct() {
-		$this->db = new Db();
+		 $Db = new Db();
+		 $this->db = $Db->connect();
 	}
 }

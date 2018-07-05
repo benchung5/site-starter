@@ -1,25 +1,20 @@
 <?php
-
+require_once './vendor/autoload.php';
+use Config\Config as Config;
+use Controllers\Index as Index;
 include_once './config.php';
 require_once './lib/uri.php';
-
-//autoload controller classes
-function __autoload($class_name) 
-{
-    if (file_exists('./controllers/'.$class_name.'.php')) {
-      require_once './controllers/'.$class_name.'.php';
-    }
-}
 
 $segments = Uri::get_parts();
 $controller = Config::paths('CONTROLLER_PATH') . $segments['controller'] . '.php';
 
 if (file_exists($controller)) {
-	$contr = new $segments['controller'];
+	$controller_class_name = "Controllers\\".$segments['controller'];
+	$contr = new $controller_class_name;
 	if (method_exists($contr, $segments['action'])) {
 		call_user_func_array([$contr, $segments['action']], $segments['params']);
 	}
-	//call controller intex function
+	//call controller index function
 	$contr->index();
 	//run footer scripts
 	$contr->run_scripts();

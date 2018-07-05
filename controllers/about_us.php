@@ -1,4 +1,6 @@
 <?php
+namespace Controllers;
+use Lib\Controller as Controller;
 include_once('./lib/controller.php');
 include_once('./models/model_sample.php');
 
@@ -13,7 +15,7 @@ class About_us extends Controller
 		$model = $this->load_model('model_sample');
 		
 		//pass view data to view
-		$view_data = ['vehicles'=>$model->get_vehicles()];
+		$view_data = ['vehicles' => $model->get_vehicles()];
 		$this->render('about_us', $view_data );
 	}
 }

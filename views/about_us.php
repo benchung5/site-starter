@@ -5,7 +5,7 @@ data:
 	<?php 
 	if (isset($view_data['vehicles'])) {
 		foreach($view_data['vehicles'] as $vehicle) {
-			echo '<li>'.$vehicle['name'].'</li>';
+			echo '<li>'.$vehicle->name.'</li>';
 		}
 	}
 	?>

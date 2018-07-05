@@ -1,3 +1,5 @@
+<?php use Config\Config as Config; ?>
+
 <!doctype html>
 <html class="no-js" lang="en" ng-app="onePix">
   <head>
