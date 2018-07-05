@@ -1,4 +1,5 @@
-<?php 
+<?php
+namespace Lib;
 use Buki\Pdox as Pdox;
 
 class Db 

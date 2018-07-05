@@ -1,7 +1,6 @@
 <?php
 namespace Lib;
-use Config\Config as Config;
-include_once './config.php';
+use Config\Config;
 
 class View 
 {

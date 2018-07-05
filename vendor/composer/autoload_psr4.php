@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Lib\\' => array($baseDir . '/lib'),
     'Controllers\\' => array($baseDir . '/controllers'),
+    'Config\\' => array($baseDir . '/config'),
     'Buki\\' => array($vendorDir . '/izniburak/pdox/src'),
 );

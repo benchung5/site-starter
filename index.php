@@ -1,9 +1,8 @@
 <?php
 require_once './vendor/autoload.php';
-use Config\Config as Config;
-use Controllers\Index as Index;
-include_once './config.php';
-require_once './lib/uri.php';
+use Config\Config;
+use Controllers\Index;
+use Lib\Uri;
 
 $segments = Uri::get_parts();
 $controller = Config::paths('CONTROLLER_PATH') . $segments['controller'] . '.php';

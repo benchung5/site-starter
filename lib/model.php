@@ -1,5 +1,6 @@
 <?php
-include_once('./lib/database.php');
+namespace Lib;
+use Lib\Db;
 
 class Model {
 	public $db = null;

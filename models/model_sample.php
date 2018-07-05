@@ -1,5 +1,6 @@
 <?php
-include_once('./lib/model.php');
+
+use Lib\Model;
 
 class model_sample extends Model 
 {

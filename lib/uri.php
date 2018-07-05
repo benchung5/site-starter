@@ -1,4 +1,5 @@
 <?php
+namespace Lib;
 
 class Uri 
 {

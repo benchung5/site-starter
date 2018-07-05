@@ -1,7 +1,6 @@
 <?php
 namespace Controllers;
-use Lib\Controller as Controller;
-include_once('./lib/controller.php');
+use Lib\Controller;
 
 class Admin extends Controller 
 {

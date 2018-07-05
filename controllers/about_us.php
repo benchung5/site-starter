@@ -1,8 +1,6 @@
 <?php
 namespace Controllers;
-use Lib\Controller as Controller;
-include_once('./lib/controller.php');
-include_once('./models/model_sample.php');
+use Lib\Controller;
 
 class About_us extends Controller 
 {
