@@ -6,6 +6,7 @@ class Admin_pages extends Controller
 {
 	public function __construct() 
 	{
+		parent::__construct();
 	}
 
 	public function index($param = null) {		

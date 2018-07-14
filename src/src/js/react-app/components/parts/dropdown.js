@@ -1,0 +1,94 @@
+import React, { Component } from 'react';
+import Transition from 'react-transition-group/Transition';
+
+//for transition
+const duration = 200;
+const defaultBodyStyle = {
+		  transition: `height ${duration}ms ease-in-out`,
+		  height: 0,
+		  visibility: 'hidden',
+		}
+const defaultArrowStyle = {
+		// transition: `transform ${duration}ms ease-in-out`,
+		transform: 'rotate(0deg)',
+}
+const arrowTransitionStyles = {
+		  entering: { transform: 'rotate(-180deg)' },
+		  entered:  { transform: 'rotate(-180deg)' },
+		}
+
+class Dropdown extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			active: false,
+			//for transition 
+			bodyTransitionStyles: {
+			  entering: { height: '250px' },
+			  entered:  { height: '250px' },
+			}
+		}
+	}
+
+	onDropdownClick() {
+		if(!this.state.active) {
+			this.setState({ active: true });
+		} else {
+			this.setState({ active: false });
+		}
+	}
+
+	componentDidMount() {
+		if(this.props.height) {
+			this.setState({
+				bodyTransitionStyles: {
+				  entering: { height: this.props.height + 'px', visibility: 'visible' },
+				  entered: { height: this.props.height + 'px', visibility: 'visible' },
+				  exiting: { height: 0, visibility: 'visible' },
+				  exited: { height: 0, visibility: 'hidden' },
+				}
+			});
+		}
+	}
+
+	render() {
+		const { name, isDisabled, classProp, id, img, children } = this.props;
+	    return (
+	    	<Transition in={this.state.active} timeout={duration}>
+	    	{(state) => (
+		       <div className={`dropdown-toggle ${classProp ? classProp : ""}`}>
+			       <a
+				       href="#"
+				       className={`dropdown-button menu-item ${isDisabled ? "disabled" : ""}`}
+				       onClick={this.onDropdownClick.bind(this)}
+				       data-id={id}
+				       data-is-active={this.state.active}
+				       data-is-disabled={isDisabled}
+				       alt={name}
+				       >
+				       <div className="left">
+				       	<img src={`/assets/img/icons/${img}`} />
+				       </div>
+				       <div className="center">
+				        <span className="item-label">{name}</span>
+				       </div>
+				       <div className="right">
+				       	<img 
+				       	style={{...defaultArrowStyle, ...arrowTransitionStyles[state]}}
+				       	className="icon-arrow" src={`/assets/img/icons/arrow.svg`}
+				       	/>
+				       </div>
+			       </a>
+			       <div ref="body" className="dropdown-body" style={{...defaultBodyStyle, ...this.state.bodyTransitionStyles[state]}}>
+			       	{children}
+			       </div>
+		       </div>
+	       )}
+	       </Transition>
+	    );
+	}
+
+}
+
+export default Dropdown;

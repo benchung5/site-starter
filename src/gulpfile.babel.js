@@ -13,6 +13,11 @@ const absPath = require('path');
 const webpackStream = require('webpack-stream');
 const named = require('vinyl-named');
 var swPrecache = require('sw-precache');
+const webpackConfig = require('./webpack.config.js');
+const webpackProdConfig = require('./webpack.production.config.js');
+const WebpackDevServer = require('webpack-dev-server');
+//grab existing webpack config file
+var configDevServer = Object.create(webpackConfig);
 
 // Check for --production flag
 const PRODUCTION = !!(yargs.argv.production);
@@ -49,15 +54,65 @@ const staticFileGlobs = [
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, javascript, angularJavascript, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassHome, sassAdmin, javascript, angularJavascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
-  gulp.series('build', gulp.parallel([watch])));
+  gulp.series('build', gulp.parallel([watch, devServer])));
 
 // Build the site, and watch for file (and ee file) changes then rsync
 gulp.task('rsync',
   gulp.series('build', watchProduction));
+
+function devServer() {
+  // Start a webpack-dev-server
+  // ** remember to include <script src="http://localhost:8080/webpack-dev-server.js"></script>
+  // in index.html file to get hot reloading working properly
+  const server = new WebpackDevServer(webpack(configDevServer), {
+      //location of bundle in relation to index.html (to enable serve from memory)
+      //publicPath: '/assets/js/',
+      publicPath: 'http://localhost:8080/assets/js/',
+      inline: true,
+      stats: {
+          colors: true
+      },
+      hot: true,
+      historyApiFallback: {
+      rewrites: [
+          // shows /index.html as the landing page
+          //{ from: /^\/$/, to: '/index.html' },
+          // shows /explore.html for all routes starting with /explore or /admin
+          //{ from: /^\/explore/, to: '/explore.html' },
+          //{ from: /^\/admin/, to: '/explore.html' },
+          
+          // shows /404.html on all other pages
+          // { from: /./, to: '/404.html' }
+        ]
+      },
+      contentBase: absPath.resolve(__dirname, PATHS.dist)
+  });
+
+  server.listen(8080, 'localhost', function(err) {
+      if(err) throw new gutil.PluginError('webpack-dev-server', err);
+      gutil.log('starting webpack dev server');
+      //proxy.run();
+  });
+}
+
+function webpackBuild() {
+  //if production
+  if(PRODUCTION) {
+    return gulp.src(PATHS.react)
+      .pipe(named())
+      .pipe(webpackStream(webpackProdConfig, webpack))
+      .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+  } else {
+      return gulp.src(PATHS.react)
+       .pipe(named())
+       .pipe(webpackStream(webpackConfig, webpack))
+       .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+  }
+}
 
 function generateServiceWorker(done) {
   swPrecache.write(PATHS.dist + PATHS.distAssets + '/js/service-worker.js', {
@@ -123,6 +178,12 @@ function favicons() {
     .pipe(gulp.dest(PATHS.dist + '/favicons'));
 }
 
+//Copy the uploads folder for testing
+function copyUploads() {
+  return gulp.src(PATHS.uploads)
+    .pipe(gulp.dest(PATHS.dist + '/uploads'));
+}
+
 // Combine vendor js into one file
 function vendorJavascript() {
   return gulp.src(PATHS.vendor)
@@ -163,6 +224,40 @@ function sass() {
       includePaths: PATHS.sass
     })
       .on('error', $.sass.logError))
+    .pipe($.autoprefixer())
+    // Comment in the pipe below to run UnCSS in production
+    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+    .pipe($.if(PRODUCTION, $.cssnano()))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/css'))
+}
+
+// Compile Home Sass into CSS
+// In production, the CSS is compressed
+function sassHome() {
+  return gulp.src('src/scss/home.scss')
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({
+      includePaths: PATHS.sass
+    })
+      .on('error', $.sass.logError))
+    //settings for autoprefixer in package.json
+    .pipe($.autoprefixer())
+    // Comment in the pipe below to run UnCSS in production
+    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+    .pipe($.if(PRODUCTION, $.cssnano()))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/css'))
+}
+
+function sassAdmin() {
+  return gulp.src('src/scss/admin.scss')
+    .pipe($.sourcemaps.init())
+    .pipe($.sass({
+      includePaths: PATHS.sass
+    })
+      .on('error', $.sass.logError))
+    //settings for autoprefixer in package.json
     .pipe($.autoprefixer())
     // Comment in the pipe below to run UnCSS in production
     //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))

@@ -15,7 +15,8 @@ class View
 		$view_path = './views/'.$view_file.'.php';
 		if (file_exists($view_path)) {
 			$main_content = $view_path;
-			include_once Config::paths('VIEW_PATH'). 'layout.php';
+			//include_once Config::paths('VIEW_PATH'). 'layout.php';
+			include_once './layout.php';
 		}
 	}
 

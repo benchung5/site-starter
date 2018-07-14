@@ -1,6 +1,7 @@
 <?php
 namespace Lib;
 use Config\Config;
+use Lib\Utils;
 
 class Controller 
 {

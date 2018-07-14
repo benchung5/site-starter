@@ -1,0 +1,52 @@
+import { combineReducers } from 'redux';
+import { reducer as form } from 'redux-form';
+import reducerArticle from './reducerArticle';
+import reducerArticles from './reducerArticles';
+import reducerAuth from './reducerAuth';
+import reducerUser from './reducerUser';
+import reducerUsers from './reducerUsers';
+import reducerCategory from './reducerCategory';
+import reducerCategories from './reducerCategories';
+import reducerTheme from './reducerTheme';
+import reducerThemes from './reducerThemes';
+import reducerLocation from './reducerLocation';
+import reducerGlobal from './reducerGlobal';
+import reducerViews from './reducerViews';
+import reducerRoutes from './reducerRoutes';
+import reducerNearMe from './reducerNearMe';
+import reducerMapStyle from './reducerMapStyle';
+import reducerShowSingle from './reducerShowSingle';
+import reducerShowMenu from './reducerShowMenu';
+import reducerDb from './reducerDb';
+import reducerIsOnline from './reducerIsOnline';
+import reducerLang from './reducerLang';
+import reducerInternalLoad from './reducerInternalLoad';
+import reducerInitialLoad from './reducerInitialLoad';
+
+const rootReducer = combineReducers({
+  form,
+  article: reducerArticle,
+  articles: reducerArticles,
+  auth: reducerAuth,
+  user: reducerUser,
+  users: reducerUsers,
+  category: reducerCategory,
+  categories: reducerCategories,
+  theme: reducerTheme,
+  themes: reducerThemes,
+  map: reducerLocation,
+  global: reducerGlobal,
+  views: reducerViews,
+  routes: reducerRoutes,
+  nearMe: reducerNearMe,
+  mapStyle: reducerMapStyle,
+  showSingle: reducerShowSingle,
+  showMenu: reducerShowMenu,
+  db: reducerDb,
+  isOnline: reducerIsOnline,
+  language: reducerLang,
+  initialLoad: reducerInitialLoad,
+  internalLoad: reducerInternalLoad,
+});
+
+export default rootReducer;
