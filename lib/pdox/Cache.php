@@ -9,7 +9,7 @@
   * @license  The MIT License (MIT) - <http://opensource.org/licenses/MIT>
   */
 
-namespace Buki;
+namespace Lib\Pdox;
 
 class Cache
 {

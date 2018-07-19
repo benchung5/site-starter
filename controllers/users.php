@@ -71,6 +71,23 @@ class Users extends Controller
 
 	public function create()
 	{
+		$users = $this->load_model('Users_model');
 
+		$data = Utils::json_read();
+
+		$email = Utils::validateParameter('email', $data['email'], STRING);
+		$password = Utils::validateParameter('pass', $data['password'], STRING);
+		try {
+			$users->add_user(['email' => $email, 'password' => $password, 'active' => 1, 'created_on' => date('Y-m-d')]);
+
+			$id = $users->db->insertId();
+			$new_user = $users->get_user(['id' => $id]);
+
+			Utils::json_respond(SUCCESS_RESPONSE, $new_user->email);
+		} catch (Exception $e) {
+			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+		}
+
+		Auth::generateToken();
 	}
 }

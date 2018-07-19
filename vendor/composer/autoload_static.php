@@ -16,10 +16,6 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
             'Controllers\\' => 12,
             'Config\\' => 7,
         ),
-        'B' => 
-        array (
-            'Buki\\' => 5,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -34,10 +30,6 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
         'Config\\' => 
         array (
             0 => __DIR__ . '/../..' . '/config',
-        ),
-        'Buki\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/izniburak/pdox/src',
         ),
     );
 

@@ -9,12 +9,13 @@
   * @license  The MIT License (MIT) - <http://opensource.org/licenses/MIT>
   */
 
-namespace Buki;
+namespace Lib\Pdox;
 
-use Buki\Cache;
+use Lib\Pdox\Cache;
 use PDO;
 use PDOException;
 use Closure;
+use Lib\Utils;
 
 class Pdox
 {
@@ -481,14 +482,15 @@ class Pdox
 
   public function error()
   {
-    $msg = '<h1>Database Error</h1>';
-    $msg .= '<h4>Query: <em style="font-weight:normal;">"'.$this->query.'"</em></h4>';
-    $msg .= '<h4>Error: <em style="font-weight:normal;">'.$this->error.'</em></h4>';
+    // $msg = '<h1>Database Error</h1>';
+    // $msg .= '<h4>Query: <em style="font-weight:normal;">"'.$this->query.'"</em></h4>';
+    // $msg .= '<h4>Error: <em style="font-weight:normal;">'.$this->error.'</em></h4>';
 
-    if($this->debug === true)
-      die($msg);
-    else
-      throw new PDOException($this->error . ". ("  . $this->query . ")");
+    // if($this->debug === true)
+    //   die($msg);
+    // else
+    //   throw new PDOException($this->error . ". ("  . $this->query . ")");
+    Utils::json_respond_error(ACCESS_TOKEN_ERRORS, $this->error);
   }
 
   public function get($type = false)

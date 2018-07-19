@@ -45,7 +45,7 @@ export function signupUser({ email, password }) {
         } else {
           dispatch({
             type: ADD_USER,
-            payload: response.data.userEmail
+            payload: response.data
           });
           //localStorage.setItem('token', response.data.token);
         }
