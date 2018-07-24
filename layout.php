@@ -170,6 +170,9 @@
     ?>
     <!-- end main content -->
 
+    <!-- react container -->
+    <div class="app-container" style="height: 100vh;"></div>
+
     <!-- vendor libs -->
     <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
     <!-- app js -->

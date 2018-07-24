@@ -2,14 +2,18 @@
 namespace Lib;
 use Config\Config;
 use Lib\Utils;
+use Lib\Validation\Validator;
 
 class Controller 
 {
 	protected $view;
 	protected $model;
 	protected $scripts = [];
+	public $validator = null;
 
-	public function __construct() {
+	public function __construct() 
+	{
+		$this->validator = new Validator();
 	}
 
 	public function render($view_name, $data = [])

@@ -33,8 +33,6 @@ class Index extends Controller
 		$validator->addRule('zip', 'Invalid Zip Code', 'zip');
 
 		$validator->validate();
-
-		    $validator->validate();
 	   
 	    // Retrieve an associative array of "sanitized" form inputs (HTML tags stripped, etc.)
 	    $entries = $validator->getEntries();

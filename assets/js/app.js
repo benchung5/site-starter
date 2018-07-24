@@ -2213,12 +2213,18 @@ module.exports = {
     UPLOADS_PATH: '/uploads/article_images/'
   },
   "production": {
-    SERVER_URL: "https://artintheopen.ca/api",
-    ROOT_URL: "https://artintheopen.ca",
+    //SERVER_URL: "https://artintheopen.ca/api",
+    SERVER_URL: "https://mylivedomain.com",
+    ROOT_URL: "https://mylivedomain.com",
     UPLOADS_PATH: '/uploads/article_images/'
   },
   "globals": {
-    HIDE_MENU_THRESHOLD: 1150
+    HIDE_MENU_THRESHOLD: 1150,
+    POST_CONFIG: {
+      headers: {
+        'CONTENT_TYPE': 'application/json'
+      }
+    }
   }
 };
 

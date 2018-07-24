@@ -8,7 +8,7 @@ use Lib\Validation\Validation_rule;
  * @category Forms
  * @author Christopher Wojcik <cpw1485@gmail.com>
  */
-class Validator 
+class Validator
 {    
     /**
      * An array of rule objects
@@ -262,6 +262,20 @@ class Validator
         $sum = array_sum($digits) + $check_dig;        
         return ($sum % 10) == 0;
     }
+
+    /**
+     * Validate the input as a password
+     * 
+     * @param   string  $value  The value to test
+     * @return  boolean 
+     */
+    public function asPassword($value)
+    {
+        if(is_string($value)) {
+            return true;
+        }
+        return false;
+    }
     
     /**
      * Clean up a string to remove html tags, strip slashes, etc.
@@ -317,6 +331,7 @@ class Validator
          *                          phone,
          *                          zip,
          *                          creditcard,
+         *                          password,
          *                          callback         * 
          */
         switch ($rule->ruletype) {
@@ -382,6 +397,11 @@ class Validator
                 break;
             case 'creditcard' :
                 if (!($this->asCreditCard($value))) {
+                    $this->_errors[$rule->fieldname] = $rule->message;
+                    return;
+                }
+            case 'password' :
+                if (!($this->asPassword($value))) {
                     $this->_errors[$rule->fieldname] = $rule->message;
                     return;
                 }

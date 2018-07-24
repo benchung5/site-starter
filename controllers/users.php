@@ -48,10 +48,19 @@ class Users extends Controller
 
 		$data = Utils::json_read();
 
-		$email = Utils::validateParameter('email', $data['email'], STRING);
-		$password = Utils::validateParameter('pass', $data['password'], STRING);
+		$this->validator->addEntries(['email' => $data['email']]);
+		$this->validator->addEntries(['password' => $data['password']]);
+		$this->validator->addRule('email', 'Must be a valid email address', 'email');
+		$this->validator->addRule('password', 'Must be a valid password', 'password');
+		$this->validator->validate();
+
+		if ($this->validator->foundErrors()) {
+		    $errors = $this->validator->getErrors();
+		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+		}
+
 		try {
-			$user = $users->get_user(['email' => $email, 'password' => $password]);
+			$user = $users->get_user(['email' => $data['email'], 'password' => $data['password']]);
 			
 			if (! $user) {
 				Utils::json_respond(INVALID_USER_PASS, "Email or Password is incorrect.");
@@ -75,10 +84,19 @@ class Users extends Controller
 
 		$data = Utils::json_read();
 
-		$email = Utils::validateParameter('email', $data['email'], STRING);
-		$password = Utils::validateParameter('pass', $data['password'], STRING);
+		$this->validator->addEntries(['email' => $data['email']]);
+		$this->validator->addEntries(['password' => $data['password']]);
+		$this->validator->addRule('email', 'Must be a valid email address', 'email');
+		$this->validator->addRule('password', 'Must be a valid password', 'password');
+		$this->validator->validate();
+
+		if ($this->validator->foundErrors()) {
+		    $errors = $this->validator->getErrors();
+		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+		}
+
 		try {
-			$users->add_user(['email' => $email, 'password' => $password, 'active' => 1, 'created_on' => date('Y-m-d')]);
+			$users->add_user(['email' => $data['email'], 'password' => $data['password'], 'active' => 1, 'created_on' => date('Y-m-d')]);
 
 			$id = $users->db->insertId();
 			$new_user = $users->get_user(['id' => $id]);

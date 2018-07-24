@@ -3,6 +3,10 @@ namespace Lib;
 
 class Utils
 {
+	public function __construct() {
+		parent::__construct();
+	}
+
 	public static function json_read()
 	{
 		if($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -34,38 +38,5 @@ class Utils
 		header('Status: '.$code);
 		$errorMsg = json_encode(['error' => $message]);
 		echo $errorMsg; exit;
-	}
-
-	//*****replace later
-	public static function validateParameter($fieldName, $value, $dataType, $required = true) 
-	{
-		if($required == true && empty($value) == true) {
-			self::json_respond_error(VALIDATE_PARAMETER_REQUIRED, $fieldName . " parameter is required.");
-		}
-
-		switch ($dataType) {
-			case BOOLEAN:
-				if(!is_bool($value)) {
-					self::json_respond_error(VALIDATE_PARAMETER_DATATYPE, "Datatype is not valid for " . $fieldName . '. It should be boolean.');
-				}
-				break;
-			case INTEGER:
-				if(!is_numeric($value)) {
-					self::json_respond_error(VALIDATE_PARAMETER_DATATYPE, "Datatype is not valid for " . $fieldName . '. It should be numeric.');
-				}
-				break;
-
-			case STRING:
-				if(!is_string($value)) {
-					self::json_respond_error(VALIDATE_PARAMETER_DATATYPE, "Datatype is not valid for " . $fieldName . '. It should be string.');
-				}
-				break;
-			
-			default:
-				self::json_respond_error(VALIDATE_PARAMETER_DATATYPE, "Datatype is not valid for " . $fieldName);
-				break;
-		}
-
-		return $value;
 	}
 }
