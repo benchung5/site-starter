@@ -49,4 +49,34 @@ class Users_model extends Model
 			return $data['email'];
 		}
 	}
+
+	public function remove($opts = []) 
+	{
+		$this->db->table('users');
+
+		if (isset($opts['id'])) {
+			$this->db->where('id', '=', $opts['id']);
+		}
+
+		if (isset($opts['email'])) {
+			$this->db->where('email', '=', $opts['email']);
+		}
+
+		if ($opts) {
+			$this->db->delete();
+		}
+	}
+
+	public function get_all($opts = []) {
+		$this->db->table('users');
+
+		if (isset($opts)) {
+			$this->db->select(implode(',', $opts));
+		} else {
+			$this->db->select('*');
+		}
+
+		$result = $this->db->getAll();
+		return $result;
+	}
 }

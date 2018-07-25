@@ -7,10 +7,12 @@ use Lib\Utils;
 
 class Users extends Controller 
 {
-	protected $userId;
+	protected $users = null;
 
 	public function __construct() 
 	{
+		$this->users = $this->load_model('Users_model');
+
 		parent::__construct();
 	}
 
@@ -21,14 +23,12 @@ class Users extends Controller
 
 	public function verify() 
 	{
-		$users = $this->load_model('Users_model');
-
 		$data = Utils::json_read();
 
 		try {
 			$payload = Auth::validateToken();
 
-			$user = $users->get_user(['id' => $data['id']]);
+			$user = $this->users->get_user(['id' => $data['id']]);
 
 			if (! $user) {
 				Utils::json_respond(INVALID_USER_PASS, "This user is not found in our database.");
@@ -44,8 +44,6 @@ class Users extends Controller
 
 	public function sign_in()
 	{
-		$users = $this->load_model('Users_model');
-
 		$data = Utils::json_read();
 
 		$this->validator->addEntries(['email' => $data['email']]);
@@ -60,7 +58,7 @@ class Users extends Controller
 		}
 
 		try {
-			$user = $users->get_user(['email' => $data['email'], 'password' => $data['password']]);
+			$user = $this->users->get_user(['email' => $data['email'], 'password' => $data['password']]);
 			
 			if (! $user) {
 				Utils::json_respond(INVALID_USER_PASS, "Email or Password is incorrect.");
@@ -80,8 +78,6 @@ class Users extends Controller
 
 	public function create()
 	{
-		$users = $this->load_model('Users_model');
-
 		$data = Utils::json_read();
 
 		$this->validator->addEntries(['email' => $data['email']]);
@@ -96,10 +92,10 @@ class Users extends Controller
 		}
 
 		try {
-			$users->add_user(['email' => $data['email'], 'password' => $data['password'], 'active' => 1, 'created_on' => date('Y-m-d')]);
+			$this->users->add_user(['email' => $data['email'], 'password' => $data['password'], 'active' => 1, 'created_on' => date('Y-m-d')]);
 
-			$id = $users->db->insertId();
-			$new_user = $users->get_user(['id' => $id]);
+			$id = $this->users->db->insertId();
+			$new_user = $this->users->get_user(['id' => $id]);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_user->email);
 		} catch (Exception $e) {
@@ -107,5 +103,24 @@ class Users extends Controller
 		}
 
 		Auth::generateToken();
+	}
+
+	public function delete()
+	{
+		$data = Utils::json_read();
+
+		$this->users->remove(['email' => $data['email']]);
+
+		Utils::json_respond(SUCCESS_RESPONSE, $data['email']);
+	}
+
+	public function all() 
+	{
+		$users = $this->users->get_all(['id', 'email']);
+		if ($users) {
+			Utils::json_respond(SUCCESS_RESPONSE, $users);
+		} else {
+			Utils::json_respond(SUCCESS_RESPONSE, array());
+		}
 	}
 }
