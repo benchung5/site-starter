@@ -1,5 +1,6 @@
 <?php
 namespace Lib;
+use Config\Config;
 
 class Uri 
 {
@@ -36,10 +37,21 @@ class Uri
 		$segments = self::get_segments();
 		$parts = [];
 
-		$parts['controller'] = isset($segments[0]) ? $segments[0] : 'index';
-		$parts['action'] = isset($segments[1]) ? $segments[1] : 'index';
-		//params for the action
-		unset($segments[0], $segments[1]);
+		$index = 0;
+
+		// controller
+		if (isset($segments[0]) && is_dir(Config::paths('CONTROLLER_PATH').$segments[0])) {
+			$parts['controller_dir'] = $segments[0];
+			$index = 1;
+		}
+		$parts['controller'] = isset($segments[$index]) ? $segments[$index] : 'index';
+		$index++;
+
+		//action
+		$parts['action'] = isset($segments[$index]) ? $segments[$index] : 'index';
+
+		// action parameters
+		$segments = array_slice($segments, $index);
 		$parts['params'] = (!empty($segments)) ? array_values($segments) : [];
 
 		return $parts;

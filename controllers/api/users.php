@@ -1,5 +1,5 @@
 <?php 
-namespace Controllers;
+namespace Controllers\Api;
 use Lib\Controller;
 use Lib\Auth\Auth;
 use Lib\Utils;
