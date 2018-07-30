@@ -23,7 +23,7 @@ class CategoryIndex extends Component {
 		return this.props.categories.map((item, index) => {
 			return (
 				<li className="list-group-item" key={item.slug}>
-				    <span>{item.title}</span>
+				    <span>{item.name}</span>
 				    <a href="#" data-id={item._id} data-slug={item.slug} onClick={this.onDeleteCategoryClick.bind(this)}>Delete</a>
 				    <Link to={`/admin/category-list/${item.slug}`}>edit</Link>
 				</li>

@@ -18,7 +18,7 @@ class MultiSelect extends Component {
 
 	renderSelectOptions() {
 		return this.props.selectItems.map((item) => {
-			return { value: item._id, label: item.title }
+			return { value: item.id, label: item.name }
 		});
 	}
 

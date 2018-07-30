@@ -41,7 +41,7 @@ class AddCategory extends Component {
     if(this.props.categoryAdded && !this.props.errorMessage) {
       return (
         <div className="submission-message">
-          <span>Category: {this.props.categoryAdded.title}<br/>successfully added.</span>
+          <span>Category: {this.props.categoryAdded.name}<br/>successfully added.</span>
         </div>
         )
     }
@@ -71,15 +71,8 @@ class AddCategory extends Component {
               <h3>Add Catetgory</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
-                  label="title:"
-                  name="title"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="title (fr):"
-                  name="fr_title"
+                  label="name:"
+                  name="name"
                   component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
@@ -108,8 +101,8 @@ function validate(formProps) {
   const errors = {};
 
   //todo: use the map or foreach to shorten this code
-  if (!formProps.title) {
-    errors.title = 'Please enter a title';
+  if (!formProps.name) {
+    errors.name = 'Please enter a name';
   }
 
   if (!formProps.slug) {
@@ -130,7 +123,7 @@ function mapStateToProps(state) {
 export default RequireAuth(reduxForm({
   validate,
   form: 'category-add',
-  fields: ['title', 'slug'],
+  fields: ['name', 'slug'],
 })(
 connect(mapStateToProps, actions)(AddCategory)
 ));

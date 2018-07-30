@@ -8,7 +8,7 @@ class DropdownSelect extends Component {
 
 	renderSelectOptions() {
 		return this.props.selectItems.map((item) => {
-			return <option key={item.slug} value={ item._id }>{ item.title }</option>
+			return <option key={item.slug} value={ item.id }>{ item.name }</option>
 		});
 	}
 

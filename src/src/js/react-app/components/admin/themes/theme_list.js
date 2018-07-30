@@ -20,7 +20,7 @@ class ThemeIndex extends Component {
 		return this.props.themes.map((item, index) => {
 			return (
 				<li className="list-group-item" key={item.slug}>
-				    <span>{item.title}</span>
+				    <span>{item.name}</span>
 				    <a href="#" data-id={item._id} data-slug={item.slug} onClick={this.onDeleteThemeClick.bind(this)}>Delete</a>
 				    <Link to={`/admin/theme-list/${item.slug}`}>edit</Link>
 				</li>

@@ -15,8 +15,7 @@ class EditTheme extends Component {
 
     handleInitialize() {
         const formData = {
-            "title": this.props.themeData.title,
-            "fr_title": this.props.themeData.fr_title,
+            "name": this.props.themeData.name,
             //still must keep this for the id eventhough it isn't rendered
             "slug": this.props.themeData.slug
         };
@@ -34,7 +33,7 @@ class EditTheme extends Component {
         if(this.props.themeUpdated) {
             return (
                 <div>
-                    <span>Theme: {this.props.themeUpdated.title}<br/>successfully updated.</span>
+                    <span>Theme: {this.props.themeUpdated.name}<br/>successfully updated.</span>
                 </div>
             )
         }
@@ -67,16 +66,8 @@ class EditTheme extends Component {
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             <Field
                                 type="input"
-                                label="title:"
-                                name="title"
-                                component={renderField}
-                                onChange={this.onInputChange.bind(this)}
-                                onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                                type="input"
-                                label="title (fr):"
-                                name="fr_title"
+                                label="name:"
+                                name="name"
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
@@ -95,8 +86,8 @@ function validate(formProps) {
     const errors = {};
 
     //todo: use the map or foreach to shorten this code
-    if (!formProps.title) {
-        errors.title = 'Please enter a title';
+    if (!formProps.name) {
+        errors.name = 'Please enter a name';
     }
 
     return errors;
@@ -112,7 +103,7 @@ function mapStateToProps(state, ownProps) {
 export default RequireAuth(reduxForm({
     validate,
     form: 'theme-add',
-    fields: ['title', 'slug'],
+    fields: ['name', 'slug'],
 })(
     connect(mapStateToProps, actions)(EditTheme)
     ));

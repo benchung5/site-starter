@@ -41,7 +41,7 @@ class AddTheme extends Component {
     if(this.props.themeAdded && !this.props.errorMessage) {
       return (
         <div className="submission-message">
-          <span>theme: {this.props.themeAdded.title}<br/>successfully added.</span>
+          <span>theme: {this.props.themeAdded.name}<br/>successfully added.</span>
         </div>
         )
     }
@@ -71,15 +71,8 @@ class AddTheme extends Component {
               <h3>Add Theme</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
-                  label="title:"
-                  name="title"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="title (fr):"
-                  name="fr_title"
+                  label="name:"
+                  name="name"
                   component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
@@ -108,8 +101,8 @@ function validate(formProps) {
   const errors = {};
 
   //todo: use the map or foreach to shorten this code
-  if (!formProps.title) {
-    errors.title = 'Please enter a title';
+  if (!formProps.name) {
+    errors.name = 'Please enter a name';
   }
 
   if (!formProps.slug) {
@@ -130,7 +123,7 @@ function mapStateToProps(state) {
 export default RequireAuth(reduxForm({
   validate,
   form: 'theme-add',
-  fields: ['title', 'slug'],
+  fields: ['name', 'slug'],
 })(
 connect(mapStateToProps, actions)(AddTheme)
 ));

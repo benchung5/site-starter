@@ -15,8 +15,7 @@ class EditCategory extends Component {
 
     handleInitialize() {
         const formData = {
-            "title": this.props.categoryData.title,
-            "fr_title": this.props.categoryData.fr_title,
+            "name": this.props.categoryData.name,
             //still must keep this for the id eventhough it isn't rendered
             "slug": this.props.categoryData.slug
         };
@@ -34,7 +33,7 @@ class EditCategory extends Component {
         if(this.props.categoryUpdated) {
             return (
                 <div className="submission-message">
-                    <span>Category: {this.props.categoryUpdated.title}<br/>successfully updated.</span>
+                    <span>Category: {this.props.categoryUpdated.name}<br/>successfully updated.</span>
                 </div>
             )
         }
@@ -67,20 +66,12 @@ class EditCategory extends Component {
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             <Field
                                 type="input"
-                                label="title:"
-                                name="title"
+                                label="name:"
+                                name="name"
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
 
-                            />
-                            <Field
-                                type="input"
-                                label="title (fr):"
-                                name="fr_title"
-                                component={renderField}
-                                onChange={this.onInputChange.bind(this)}
-                                onFocus={this.onInputChange.bind(this)}
                             />
                             <button action="submit" className="btn btn-primary">Submit</button>
                         </form>
@@ -96,8 +87,8 @@ function validate(formProps) {
     const errors = {};
 
     //todo: use the map or foreach to shorten this code
-    if (!formProps.title) {
-        errors.title = 'Please enter a title';
+    if (!formProps.name) {
+        errors.name = 'Please enter a name';
     }
 
     return errors;
@@ -113,7 +104,7 @@ function mapStateToProps(state, ownProps) {
 export default RequireAuth(reduxForm({
     validate,
     form: 'category-add',
-    fields: ['title', 'slug'],
+    fields: ['name', 'slug'],
 })(
     connect(mapStateToProps, actions)(EditCategory)
     ));

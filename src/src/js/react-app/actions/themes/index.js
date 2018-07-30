@@ -64,7 +64,7 @@ export function deleteTheme({ slug }) {
 
 export function getTheme(slug) {
 	return function(dispatch) {
-		axios.get(`${SERVER_URL}/themes/single?id=${slug}`)
+		axios.get(`${SERVER_URL}/themes/single/${slug}`)
 			.then((response) => {
 				dispatch({
 					type: GET_THEME,

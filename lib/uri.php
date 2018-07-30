@@ -51,7 +51,8 @@ class Uri
 		$parts['action'] = isset($segments[$index]) ? $segments[$index] : 'index';
 
 		// action parameters
-		$segments = array_slice($segments, $index);
+		$segments = array_slice($segments, $index+1);
+
 		$parts['params'] = (!empty($segments)) ? array_values($segments) : [];
 
 		return $parts;

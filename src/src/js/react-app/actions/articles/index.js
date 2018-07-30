@@ -40,7 +40,7 @@ export function searchArticlesAdmin(searchObj) {
 
         //set the obj in the get request
         //axios.get(`${SERVER_URL}/articles/search-admin/`, { params: query })
-        axios.get(`${SERVER_URL}/articles/search-admin/`, { params: searchObj })
+        axios.get(`${SERVER_URL}/articles/search_admin/`, { params: searchObj })
         .then(response => {
             dispatch({
                 type: SEARCH_ARTICLES_ADMIN,

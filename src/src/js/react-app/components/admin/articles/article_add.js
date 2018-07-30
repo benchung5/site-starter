@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
-//import * as actions from '../../actions/articles';
 import { addArticle, addArticleError, clearArticle } from '../../../actions/articles';
 import { fetchCategories } from '../../../actions/categories';
 import { fetchThemes } from '../../../actions/themes';
@@ -74,7 +73,7 @@ class AddArticle extends Component {
     if(this.props.articleAdded && !this.props.errorMessage) {
       return (
         <div className="submission-message">
-          <span>Article: {this.props.articleAdded.title}<br/>successfully added. </span>
+          <span>Article: {this.props.articleAdded.name}<br/>successfully added. </span>
         </div>
         )
     }
@@ -93,6 +92,15 @@ class AddArticle extends Component {
   onInputChange() {
       this.clearMessages();
   }
+
+  // <Field
+  //   type="textarea"
+  //   label="body:"
+  //   name="body"
+  //   component={renderField}
+  //   onChange={this.onInputChange.bind(this)}
+  //   onFocus={this.onInputChange.bind(this)}
+  // />
     
   render() {
       const { handleSubmit } = this.props;
@@ -104,15 +112,8 @@ class AddArticle extends Component {
               <h3>Add Article</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
-                  label="title:"
-                  name="title"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="title (fr):"
-                  name="fr_title"
+                  label="name:"
+                  name="name"
                   component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
@@ -125,64 +126,8 @@ class AddArticle extends Component {
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  label="artists (separate artists by comma):"
-                  name="artists"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="year:"
-                  name="year"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="location:"
-                  name="location"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="location (fr):"
-                  name="fr_location"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="street:"
-                  name="street"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="street (fr):"
-                  name="fr_street"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="city:"
-                  name="city"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="postal code:"
-                  name="postalCode"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
                   name="category"
-                  label="type"
+                  label="category"
                   component={renderDropdownSelect}
                   selectItems={this.props.categories}
                   onChange={this.onInputChange.bind(this)}
@@ -194,36 +139,6 @@ class AddArticle extends Component {
                   defaultSelect={true}
                   component={renderMultiSelect}
                   selectItems={this.props.themes}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="longitude:"
-                  name="locationx"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="latitude:"
-                  name="locationy"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  type="textarea"
-                  label="body:"
-                  name="body"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  type="textarea"
-                  label="body (fr):"
-                  name="fr_body"
-                  component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
@@ -249,8 +164,8 @@ function validate(formProps) {
   const errors = {};
 
   //todo: use the map or foreach to shorten this code
-  if (!formProps.title) {
-    errors.title = 'Please enter a title';
+  if (!formProps.name) {
+    errors.name = 'Please enter a name';
   }
 
   if (!formProps.slug) {
@@ -258,20 +173,11 @@ function validate(formProps) {
   }
 
   if (!formProps.category) {
-    errors.category = 'Please enter a type';
+    errors.category = 'Please enter a category';
   }
 
   if (!formProps.themes) {
     errors.themes = 'Please enter at least one theme';
-  }
-
-  //vaidate long/lat
-  let geoRegexp = new RegExp(/^(\-?\d+(\.\d+)?)$/);
-  if (!geoRegexp.test(formProps.locationx)) {
-    errors.locationx = 'Please enter a valid longitude';
-  }
-  if (!geoRegexp.test(formProps.locationy)) {
-    errors.locationy = 'Please enter a valid latitude';
   }
   
   return errors;
@@ -290,7 +196,8 @@ function mapStateToProps(state) {
 export default RequireAuth(reduxForm({
   validate,
   form: 'article-add',
-  fields: ['title', 'slug', 'locationx', 'locationy', 'body', 'files'],
+  fields: ['name', 'slug', 'files'],
+  //fields: ['name', 'slug', 'body', 'files'],
 })(
 connect(mapStateToProps, { addArticle, clearArticle, addArticleError, fetchCategories, fetchThemes, reset })(AddArticle)
 ));

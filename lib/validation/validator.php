@@ -276,6 +276,20 @@ class Validator
         }
         return false;
     }
+
+    /**
+     * Validate the input as a slug
+     * 
+     * @param   string  $value  The value to test
+     * @return  boolean 
+     */
+    public function asSlug($value)
+    {
+        if(is_string($value)) {
+            return true;
+        }
+        return false;
+    }
     
     /**
      * Clean up a string to remove html tags, strip slashes, etc.
@@ -402,6 +416,12 @@ class Validator
                 }
             case 'password' :
                 if (!($this->asPassword($value))) {
+                    $this->_errors[$rule->fieldname] = $rule->message;
+                    return;
+                }
+                break;
+            case 'slug' :
+                if (!($this->asSlug($value))) {
                     $this->_errors[$rule->fieldname] = $rule->message;
                     return;
                 }

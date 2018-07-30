@@ -24,6 +24,14 @@ class Utils
 		return $data;
 	}
 
+	public static function read_get() {
+		if($_SERVER['REQUEST_METHOD'] !== 'GET') {
+			self::json_respond_error(REQUEST_METHOD_NOT_VALID, 'Request Method is not valid.');
+		}
+
+		return $_GET;
+	}
+
 	public static function json_respond($code, $data)
 	{
 		header("content-type: application/json");
@@ -38,5 +46,19 @@ class Utils
 		header('Status: '.$code);
 		$errorMsg = json_encode(['error' => $message]);
 		echo $errorMsg; exit;
+	}
+
+	public static function upload() {
+		Utils::json_respond(SUCCESS_RESPONSE, $_FILES);
+
+		// // Undefined | Multiple Files | $_FILES Corruption Attack
+		// // If this request falls under any of them, treat it invalid.
+		// if (
+		//     !isset($_FILES['upfile']['error']) ||
+		//     is_array($_FILES['upfile']['error'])
+		// ) {
+		//     throw new RuntimeException('Invalid parameters.');
+		//     self::json_respond_error(REQUEST_CONTENTTYPE_NOT_VALID, 'Invalid parameters');
+		// }
 	}
 }
