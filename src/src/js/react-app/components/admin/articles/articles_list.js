@@ -53,7 +53,7 @@ class ArticlesIndex extends Component {
     renderArticles() {
         return this.props.articles.articles.map((article) => {
             return (
-                <li className="list-group-item" key={article.slug}>
+                <li className="list-group-item" key={article.id}>
                     <span>{article.name}</span>
                     <a href="#" data-id={article.id} data-slug={article.slug} onClick={this.onDeleteArticleClick.bind(this)}>Delete</a>
                     <a href="#" data-id={article.id} data-slug={article.slug} onClick={this.onDuplicateArticleClick.bind(this)}>Duplicate</a>

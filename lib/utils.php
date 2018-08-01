@@ -7,6 +7,22 @@ class Utils
 		parent::__construct();
 	}
 
+	public static function read_get() {
+		if($_SERVER['REQUEST_METHOD'] !== 'GET') {
+			self::json_respond_error(REQUEST_METHOD_NOT_VALID, 'Request Method is not valid.');
+		}
+
+		return $_GET;
+	}
+
+	public static function read_post() {
+		if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+			self::json_respond_error(REQUEST_METHOD_NOT_VALID, 'Request Method is not valid.');
+		}
+
+		return $_POST;
+	}
+
 	public static function json_read()
 	{
 		if($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -22,14 +38,6 @@ class Utils
 		$data = json_decode($request, true);
 
 		return $data;
-	}
-
-	public static function read_get() {
-		if($_SERVER['REQUEST_METHOD'] !== 'GET') {
-			self::json_respond_error(REQUEST_METHOD_NOT_VALID, 'Request Method is not valid.');
-		}
-
-		return $_GET;
 	}
 
 	public static function json_respond($code, $data)
@@ -49,7 +57,7 @@ class Utils
 	}
 
 	public static function upload() {
-		Utils::json_respond(SUCCESS_RESPONSE, $_FILES);
+		//Utils::json_respond(SUCCESS_RESPONSE, $_FILES);
 
 		// // Undefined | Multiple Files | $_FILES Corruption Attack
 		// // If this request falls under any of them, treat it invalid.

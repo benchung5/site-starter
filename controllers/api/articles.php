@@ -25,7 +25,8 @@ class Articles extends Controller
 		// $data = Utils::json_read();
 		// Utils::json_respond(SUCCESS_RESPONSE, $data);
 		// TODO: get this working
-		$data = Utils::upload();
+		$files = Utils::upload();
+		$data = Utils::read_post();
 
 		$this->validator->addEntries(['slug' => $data['slug']]);
 		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
@@ -37,11 +38,14 @@ class Articles extends Controller
 		}
 
 		try {
-			$this->articles->add(['slug' => $data['slug'], 'name' => $data['name'], 'created_on' => date('Y-m-d')]);
+			$new_article_id = $this->articles->add([
+				'slug' => $data['slug'], 
+				'name' => $data['name'], 
+				'category_id' => $data['category'],
+				'created_on' => date('Y-m-d'),
+			], $data['themes']);
 
-			$id = $this->articles->db->insertId();
-
-			$new_article = $this->articles->get(['id' => $id]);
+			$new_article = $this->articles->get(['id' => $new_article_id]);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_article);
 		} catch (Exception $e) {
@@ -55,7 +59,7 @@ class Articles extends Controller
 
 		$this->articles->remove(['slug' => $data['slug']]);
 
-		Utils::json_respond(SUCCESS_RESPONSE, $data['name']);
+		Utils::json_respond(SUCCESS_RESPONSE, $data['slug']);
 	}
 
 	public function all() 
@@ -102,7 +106,7 @@ class Articles extends Controller
 		if ($articles) {
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, array());
+			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => $data['limit']]);
 		}		
 	}
 }

@@ -27,31 +27,51 @@ class Articles_model extends Model
 		return $result;
 	}
 
-	public function add($data)
+	public function add($data, $themes)
 	{
 		if (is_array($data)) {
 
 			$this->db->table('articles')->insert($data);
+			$new_article_id = $this->db->insertId();
+			$themes = (! is_array($themes)) ? explode(',', $themes) : $themes;
 
-			return $this->db->insertId();
+			foreach ($themes as $theme) {
+				$ins = ['article_id' => $new_article_id, 'theme_id' => $theme];
+				$this->db->table('article_themes')->insert($ins);
+			}
+			
+			return $new_article_id;
 		}
+
+		return false;
 	}
 
-	public function remove($opts = []) 
+	public function remove($opts = [])
 	{
-		$this->db->table('articles');
-
-		if (isset($opts['id'])) {
-			$this->db->where('id', '=', $opts['id']);
-		}
-
-		if (isset($opts['slug'])) {
-			$this->db->where('slug', '=', $opts['slug']);
-		}
-
 		if ($opts) {
-			$this->db->delete();
+			$this->db->table('articles');
+
+			if (isset($opts['id'])) {
+				$this->db->where('id', '=', $opts['id']);
+			}
+
+			if (isset($opts['slug'])) {
+				$this->db->where('slug', '=', $opts['slug']);
+			}
+
+			$article = $this->db->get();
+
+			$deleted_article_id = $article->id;
+
+			$this->db->table('articles')->where('id', $deleted_article_id)->delete();
+
+			// remove associations
+			$this->db->table('article_themes')->where('article_id', $deleted_article_id)->delete();
+
+			return $deleted_article_id;
 		}
+
+		return false;
 	}
 
 	public function get_all($opts = []) 
