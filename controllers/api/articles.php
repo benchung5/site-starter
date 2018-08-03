@@ -22,9 +22,6 @@ class Articles extends Controller
 
 	public function create()
 	{
-		// $data = Utils::json_read();
-		// Utils::json_respond(SUCCESS_RESPONSE, $data);
-		// TODO: get this working
 		$files = Utils::upload();
 		$data = Utils::read_post();
 
@@ -74,9 +71,9 @@ class Articles extends Controller
 
 	public function single($slug) 
 	{
-		$articles = $this->articles->get(['slug' => $slug]);
-		if ($articles) {
-			Utils::json_respond(SUCCESS_RESPONSE, $articles);
+		$article = $this->articles->get(['slug' => $slug]);
+		if ($article) {
+			Utils::json_respond(SUCCESS_RESPONSE, $article);
 		} else {
 			Utils::json_respond(SUCCESS_RESPONSE, array());
 		}
@@ -84,7 +81,17 @@ class Articles extends Controller
 
 	public function update() 
 	{
-		$data = Utils::json_read();
+		$files = Utils::upload();
+		$data = Utils::read_post();
+
+		$this->validator->addEntries(['slug' => $data['slug']]);
+		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
+		$this->validator->validate();
+
+		if ($this->validator->foundErrors()) {
+		    $errors = $this->validator->getErrors();
+		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+		}
 
 		try {
 			$this->articles->update(['where' => ['slug' => $data['slug']], 'update' => ['name' => $data['name']]]);

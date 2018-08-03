@@ -23,8 +23,25 @@ class Articles_model extends Model
 		}
 
 		$result = $this->db->get();
-		
-		return $result;
+
+		if ($result) {
+			$result->images = [];
+
+			// get themes
+			$themes = $this->db->table('article_themes at')
+				->select('t.id, t.name')
+				->where('article_id', $result->id)
+				->innerJoin('themes t', 't.id', 'at.theme_id')
+				->getAll();
+
+			$result->themes = $themes;
+			
+			return $result;
+		}
+
+		return false;
+
+
 	}
 
 	public function add($data, $themes)

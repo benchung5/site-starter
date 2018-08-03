@@ -63,35 +63,20 @@ class EditArticle extends Component {
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images);
 
-        let artistsString = flattenObjArray(this.props.articleData.artists, 'artist').toString();
-        let categoryArray = flattenObjArray([this.props.articleData.category, '_id']);
         let themesArray = this.formatToMultiselect(this.props.articleData.themes);
 
         const formData = {
-            'title': this.props.articleData.title,
-            'fr_title': this.props.articleData.fr_title,
-            'artists': artistsString,
-            'year': this.props.articleData.year,
-            'location': this.props.articleData.location,
-            'fr_location': this.props.articleData.fr_location,
-            'street': this.props.articleData.street,
-            'fr_street': this.props.articleData.fr_street,
-            'city': this.props.articleData.city,
-            'postalCode': this.props.articleData.postalCode,
+            'name': this.props.articleData.name,
             //still must keep this for the id eventhough it isn't rendered
             'slug': this.props.articleData.slug,
-            'category': this.props.articleData.category._id,
+            'category': this.props.articleData.category_id,
             'themes': themesArray,
-            'locationx': this.props.articleData.geometry.coordinates[0],
-            'locationy': this.props.articleData.geometry.coordinates[1],
-            'body': this.props.articleData.body,
-            'fr_body': this.props.articleData.fr_body
         };
 
         this.props.initialize(formData);
     }
 
-    // if form isn't valit redux form will not call this function
+    // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
         //format themes data (must convert it to comma separated string over the network)
         let formpropsClone = clone(formProps);
@@ -103,7 +88,7 @@ class EditArticle extends Component {
 
     formatToMultiselect(inArray) {
         return inArray.map((item) => {
-            return { value: item._id, label: item.title }
+            return { value: item.id, label: item.name }
         });
     }
 
@@ -111,7 +96,7 @@ class EditArticle extends Component {
         if(this.props.articleUpdated) {
             return (
                 <div className="submission-message">
-                    <span>Article: {this.props.articleUpdated.title}<br/>successfully updated.</span>
+                    <span>Article: {this.props.articleUpdated.name}<br/>successfully updated.</span>
                 </div>
             )
         }
@@ -128,6 +113,15 @@ class EditArticle extends Component {
     onInputChange() {
         this.clearMessages();
     }
+
+    // <Field
+    //     type="textarea"
+    //     label="Body:"
+    //     name="body"
+    //     component={renderField}
+    //     onChange={this.onInputChange.bind(this)}
+    //     onFocus={this.onInputChange.bind(this)}
+    // />
     
     render() {
         const { handleSubmit } = this.props;
@@ -141,74 +135,11 @@ class EditArticle extends Component {
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             <Field
                                 type="input"
-                                label="title:"
-                                name="title"
+                                label="name:"
+                                name="name"
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="title (fr):"
-                              name="fr_title"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="artists (separate artists by comma):"
-                              name="artists"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="year:"
-                              name="year"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="location:"
-                              name="location"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="location (fr):"
-                              name="fr_location"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="street:"
-                              name="street"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="street (fr):"
-                              name="fr_street"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="city:"
-                              name="city"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              label="postal code:"
-                              name="postalCode"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
                                 name="category"
@@ -223,36 +154,6 @@ class EditArticle extends Component {
                               label="themes"
                               component={renderMultiSelect}
                               selectItems={this.props.themes}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                                label="longitude:"
-                                name="locationx"
-                                component={renderField}
-                                onChange={this.onInputChange.bind(this)}
-                                onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                                label="latitude:"
-                                name="locationy"
-                                component={renderField}
-                                onChange={this.onInputChange.bind(this)}
-                                onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                                type="textarea"
-                                label="Body:"
-                                name="body"
-                                component={renderField}
-                                onChange={this.onInputChange.bind(this)}
-                                onFocus={this.onInputChange.bind(this)}
-                            />
-                            <Field
-                              type="textarea"
-                              label="body (fr):"
-                              name="fr_body"
-                              component={renderField}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />
@@ -291,8 +192,8 @@ function validate(formProps) {
     const errors = {};
 
     //todo: use the map or foreach to shorten this code
-    if (!formProps.title) {
-        errors.title = 'Please enter a title';
+    if (!formProps.name) {
+        errors.name = 'Please enter a name';
     }
 
     if (!formProps.slug) {
@@ -307,15 +208,6 @@ function validate(formProps) {
         if (formProps.themes.length === 0) {
             errors.themes = 'Please enter at least one theme';
         }
-    }
-
-    //vaidate long/lat
-    let geoRegexp = new RegExp(/^(\-?\d+(\.\d+)?)$/);
-    if (!geoRegexp.test(formProps.locationx)) {
-        errors.locationx = 'Please enter a valid longitude';
-    }
-    if (!geoRegexp.test(formProps.locationy)) {
-        errors.locationy = 'Please enter a valid latitude';
     }
     
     return errors;
@@ -333,7 +225,8 @@ function mapStateToProps(state, ownProps) {
 export default RequireAuth(reduxForm({
     validate,
     form: 'article-add',
-    fields: ['title', 'slug', 'locationx', 'locationy', 'body'],
+    //fields: ['name', 'slug', 'locationx', 'locationy', 'body'],
+    fields: ['name', 'slug'],
 })(
     connect(mapStateToProps, { getArticle, fetchCategories, clearUpdateArticle, updateArticle, fetchThemes })(EditArticle)
     ));

@@ -66,7 +66,7 @@ export function searchArticlesAdmin(searchObj) {
 
 export function getArticle(slug) {
     return function(dispatch) {
-        axios.get(`${SERVER_URL}/articles/single?id=${slug}`)
+        axios.get(`${SERVER_URL}/articles/single/${slug}`)
         .then(response => {
             //if no response data, return a formatted object
             let data = {};

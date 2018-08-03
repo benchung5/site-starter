@@ -2207,7 +2207,7 @@ module.exports = jQuery;
 module.exports = {
   "development": {
     //SERVER_URL: "http://localhost:3090/api",
-    SERVER_URL: "http://localhost",
+    SERVER_URL: "http://localhost/api",
     //ROOT_URL: "http://localhost:8080",
     ROOT_URL: "http://localhost",
     UPLOADS_PATH: '/uploads/article_images/'

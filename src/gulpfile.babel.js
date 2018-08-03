@@ -83,7 +83,7 @@ function devServer() {
           //{ from: /^\/$/, to: '/index.html' },
           // shows /explore.html for all routes starting with /explore or /admin
           //{ from: /^\/explore/, to: '/explore.html' },
-          //{ from: /^\/admin/, to: '/explore.html' },
+          { from: /^\/admin/, to: '/index.php' },
           
           // shows /404.html on all other pages
           // { from: /./, to: '/404.html' }
