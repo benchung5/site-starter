@@ -40,8 +40,6 @@ class Articles_model extends Model
 		}
 
 		return false;
-
-
 	}
 
 	public function add($data, $themes)
@@ -114,6 +112,18 @@ class Articles_model extends Model
 		if (isset($opts['where']) && isset($opts['update'])) {
 			$this->db->table('articles');
 			$this->db->where($opts['where'])->update($opts['update']);
+		}
+		if (isset($opts['themes'])) {
+			$article_id = $this->db->table('articles')->where($opts['where'])->get()->id;
+
+			// clear existing associations
+			$this->db->table('article_themes')->where('article_id', $article_id)->delete();
+
+			// insert new associations
+			$themes = is_array($opts['themes']) ? $opts['themes'] : explode(',', $opts['themes']);
+			foreach ($themes as $theme_id) {
+				$this->db->table('article_themes')->insert(['article_id' => $article_id, 'theme_id' => $theme_id]);
+			}
 		}
 	}
 }

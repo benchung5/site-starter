@@ -94,7 +94,11 @@ class Articles extends Controller
 		}
 
 		try {
-			$this->articles->update(['where' => ['slug' => $data['slug']], 'update' => ['name' => $data['name']]]);
+			$this->articles->update([
+				'where' => ['slug' => $data['slug']], 
+				'update' => ['name' => $data['name']],
+				'themes' => $data['themes']
+			]);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
 		} catch (Exception $e) {
