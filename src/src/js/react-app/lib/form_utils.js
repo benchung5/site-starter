@@ -2,7 +2,7 @@ export  function createImgFormData(imgFieldName, formProps) {
     // convert to mulipart form data
     let formData = new FormData();
 
-    // append reqular fields to formData first
+    // append regular fields to formData first
     Object.keys(formProps).forEach(( key ) => {
     	if(key !== imgFieldName) {
     		formData.append(key, formProps[key]);
@@ -12,9 +12,9 @@ export  function createImgFormData(imgFieldName, formProps) {
     // append image fields to formData last
     Object.keys(formProps).forEach(( key ) => {
     	if(key === imgFieldName) {
-            formProps[key].forEach((item) => {
+            formProps[key].forEach((item, index) => {
               //multer just accepts a series of files with the same key name
-              formData.append('image', item);
+              formData.append('image'+'_'+index, item);
           });
         }
     });

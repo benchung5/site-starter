@@ -99,7 +99,6 @@ export function addArticle(formData) {
         headers: { 'content-type': 'multipart/form-data' }
     }
     return function(dispatch) {
-        // post to http://192.168.99.100/api/articles/create
         axios.post( `${SERVER_URL}/articles/create`, formData, config )
         .then( response => {
             if(response.data.error) {
