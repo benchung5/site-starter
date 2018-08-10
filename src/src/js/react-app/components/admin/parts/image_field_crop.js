@@ -79,8 +79,9 @@ class FileField extends Component {
     //remove these characters: ()';
     let bracketsReplaced = spacesReplaced.replace(/(\(|\)|'|;)+/g, '');
     //append date
-    var date = new Date().getTime();
-    let finalName = bracketsReplaced.replace(/(\.[\w\d_-]+)$/i, '-' + date + '$1');
+    // var date = new Date().getTime();
+    // let finalName = bracketsReplaced.replace(/(\.[\w\d_-]+)$/i, '-' + date + '$1');
+    let finalName = bracketsReplaced;
 
     return finalName;
   }

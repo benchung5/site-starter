@@ -56,9 +56,27 @@ class Utils
 		echo $errorMsg; exit;
 	}
 
-	public static function upload() 
+	public static function dbug($data) {
+		if (is_array($data)) {
+		    $data = implode( ',', $data);
+		}
+
+		//Something to write to txt log
+		$log  = $data.PHP_EOL.
+		        '-----------------------------------------------'.PHP_EOL;
+		//Save string to log, use FILE_APPEND to append.
+		file_put_contents('./log/debug_log.log', $log, FILE_APPEND);
+	}
+
+	public static function upload($folder) 
 	{
-		$destination = realpath('./uploads');
+		$path = realpath('./uploads');
+
+		if (! is_dir($path.'/'.$folder.'/temp')) {
+			mkdir($path.'/'.$folder.'/temp', 0777, true);
+		}
+
+		$path = $path.'/'.$folder.'/temp';
 				
 		// result info list
 		$result = array('error' => false, 'files' => array());
@@ -67,16 +85,16 @@ class Utils
 			$file_count = is_array($_FILES[$field_name]['error']) ? count($_FILES[$field_name]['error']) : 1;
 			
 			if ($file_count == 1 && $_FILES[$field_name]['error'] != UPLOAD_ERR_NO_FILE) {
-	            // if no errors
-				$result['files'][$field_name] = self::upload_transfer($destination, $field_name);
+	            // if just one file
+				$result['files'][$field_name] = self::upload_transfer($path, $field_name);
 			} elseif ($file_count > 1) {
-	            // if multiple errors for the file
+	            // if multiple files
 				for ($i=0; $i<$file_count; $i++) {
 					if ($_FILES[$field_name]['error'][$i] == UPLOAD_ERR_NO_FILE) {
 						continue;
 					}
 					//move to temp folder and return info
-					$result['files'][$field_name][$i] = self::upload_transfer($destination, $field_name, $i);
+					$result['files'][$field_name][$i] = self::upload_transfer($path, $field_name, $i);
 				}
 			}
 		}
@@ -85,15 +103,6 @@ class Utils
 		if (count($result['files']) == 0) {
 			$result['error'] = 'No files provided';
 		}
-
-	    //add on a hash
-	    if (! array_key_exists('hash', $result) || empty($result['hash'])) {
-	        $result['hash'] = md5(microtime().print_r($result, true));
-	    }
-
-	    //save the file data to the db
-	    //$new_id = $this->files->save($data);
-	    $new_id = 1;
 
 	    return $result;
 	}
@@ -107,10 +116,18 @@ class Utils
 			'error'		=> ($index == null ? $_FILES[$field_name]['error'] : $_FILES[$field_name]['error'][$index]),
 			'size'		=> ($index == null ? $_FILES[$field_name]['size'] : $_FILES[$field_name]['size'][$index])
 		);
+
+		$result['extension'] = pathinfo($result['name'], PATHINFO_EXTENSION);
+
+		//add on a hash
+		if (! array_key_exists('hash', $result) || empty($result['hash'])) {
+		    $result['hash'] = md5(microtime().print_r($result, true));
+		}
+
+		$filename = $result['hash'].'.'.$result['extension'];
 		
-		$filename = basename($result['name']);
 		$target = $destination.'/'.$filename;
-		
+
 		// move and overrite if exists
 		$ok = move_uploaded_file($result['tmp_name'], $target);
 		//$ok = @move_uploaded_file($result['tmp_name'], $target);
