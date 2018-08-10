@@ -2,6 +2,7 @@
 namespace Controllers\Api;
 use Lib\Controller;
 use Lib\Utils;
+use Lib\Upload;
 
 
 class Articles extends Controller 
@@ -24,7 +25,7 @@ class Articles extends Controller
 	{
 		$files = $this->load_model('files_model');
 		//handle posted files
-		$files_data = Utils::upload('articles');
+		$files_data = Upload::upload('articles');
 
 		Utils::dbug($files_data);
 		//save the file data to the db
@@ -33,9 +34,12 @@ class Articles extends Controller
 		} else {
 			foreach ($files_data['files'] as $file_data) {
 				$new_id = $files->add($file_data);
-				//move file, append new id, delete temp file
-				rename($file_data['tmp_name'], './uploads/articles/'.pathinfo($file_data['name'], PATHINFO_FILENAME).'_'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION));
-				unlink($file_data['tmp_name']);
+				// move file, append new id, delete temp file
+				$destination = './uploads/articles/'.pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+				rename($file_data['tmp_name'], $destination);
+				// unlink($file_data['tmp_name']);
+				// resize and create thumbs
+				Upload::process_img($destination);
 			}
 		}
 
