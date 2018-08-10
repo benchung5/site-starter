@@ -22,14 +22,24 @@ class Articles extends Controller
 
 	public function create()
 	{
+		$files = $this->load_model('files_model');
+		//handle posted files
 		$files_data = Utils::upload('articles');
 
-		Utils::dbug(json_encode($files_data));
+		Utils::dbug($files_data);
 		//save the file data to the db
-		//$new_id = $this->files->save($files_data);
-		//move file, append new id
+		if ($files_data['error']) {
+			Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, $files_data['error']);
+		} else {
+			foreach ($files_data['files'] as $file_data) {
+				$new_id = $files->add($file_data);
+				//move file, append new id, delete temp file
+				rename($file_data['tmp_name'], './uploads/articles/'.pathinfo($file_data['name'], PATHINFO_FILENAME).'_'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION));
+				unlink($file_data['tmp_name']);
+			}
+		}
 
-
+		//handle posted input
 		$data = Utils::read_post();
 
 		$this->validator->addEntries(['slug' => $data['slug']]);

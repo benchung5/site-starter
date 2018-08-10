@@ -36,3 +36,171 @@
 -----------------------------------------------
 {"error":false,"files":{"image_0":{"name":"5801694.jpg","type":"application\/octet-stream","tmp_name":"\/Applications\/XAMPP\/xamppfiles\/temp\/phpRweB6d","error":0,"size":18360,"extension":"jpg","hash":"ee788eec241bd7483d5871d0b38d2667"},"image_1":{"name":"Tall_Random_Cedar-1.jpg","type":"application\/octet-stream","tmp_name":"\/Applications\/XAMPP\/xamppfiles\/temp\/phpbmnQAe","error":0,"size":52531,"extension":"jpg","hash":"2ee1fd648b49ae571d830323b9346bd8"}}}
 -----------------------------------------------
+Array
+(
+    [error] => 
+    [files] => Array
+        (
+            [image_0] => Array
+                (
+                    [name] => 5801694.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/phpxcihzD
+                    [error] => 0
+                    [size] => 18360
+                    [extension] => jpg
+                    [hash] => 30096e1670a98a8cadbc7635634e1aca
+                )
+
+            [image_1] => Array
+                (
+                    [name] => Tall_Random_Cedar-1.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/phprC9d4q
+                    [error] => 0
+                    [size] => 52531
+                    [extension] => jpg
+                    [hash] => cb590a26789838f095be168036d5aee9
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [error] => 
+    [files] => Array
+        (
+            [image_0] => Array
+                (
+                    [ref_type] => articles
+                    [name] => 5801694.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/phplpCAo7
+                    [error] => 0
+                    [size] => 18360
+                    [extension] => jpg
+                    [hash] => 851b18b79819122c6df117fabc22dfd3
+                )
+
+            [image_1] => Array
+                (
+                    [ref_type] => articles
+                    [name] => Tall_Random_Cedar-1.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/php7mJxNb
+                    [error] => 0
+                    [size] => 52531
+                    [extension] => jpg
+                    [hash] => 940c9f12c6d242c0f62b0d97599ab6c0
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [error] => 
+    [files] => Array
+        (
+            [image_0] => Array
+                (
+                    [ref_type] => articles
+                    [name] => 5801694.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/phpB9hnQ0
+                    [error] => 0
+                    [size] => 18360
+                    [extension] => jpg
+                    [hash] => 5425a27b24cd5723b4e7b758aa496111
+                )
+
+            [image_1] => Array
+                (
+                    [ref_type] => articles
+                    [name] => Tall_Random_Cedar-1.jpg
+                    [type] => application/octet-stream
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/temp/php3uqqGR
+                    [error] => 0
+                    [size] => 52531
+                    [extension] => jpg
+                    [hash] => b578ac713ce8811ad0be6df91a0bcc21
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [error] => 
+    [files] => Array
+        (
+            [image_0] => Array
+                (
+                    [ref_type] => articles
+                    [name] => 5801694.jpg
+                    [type] => application/octet-stream
+                    [error] => 0
+                    [size] => 18360
+                    [extension] => jpg
+                    [hash] => e63b9aca8ab1eb010d68fa52bd55606f
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/e63b9aca8ab1eb010d68fa52bd55606f.jpg
+                )
+
+            [image_1] => Array
+                (
+                    [ref_type] => articles
+                    [name] => Tall_Random_Cedar-1.jpg
+                    [type] => application/octet-stream
+                    [error] => 0
+                    [size] => 52531
+                    [extension] => jpg
+                    [hash] => 4b7d33b2456b916dd67cfcbc9eac951b
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/4b7d33b2456b916dd67cfcbc9eac951b.jpg
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [error] => 
+    [files] => Array
+        (
+            [image_0] => Array
+                (
+                    [ref_type] => articles
+                    [name] => 5801694.jpg
+                    [type] => application/octet-stream
+                    [error] => 0
+                    [size] => 18360
+                    [extension] => jpg
+                    [hash] => d58f85997416fbdace54af065eacf0c3
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/d58f85997416fbdace54af065eacf0c3.jpg
+                )
+
+            [image_1] => Array
+                (
+                    [ref_type] => articles
+                    [name] => Tall_Random_Cedar-1.jpg
+                    [type] => application/octet-stream
+                    [error] => 0
+                    [size] => 52531
+                    [extension] => jpg
+                    [hash] => 370675e5921a4fcfe240d0e5763e6eea
+                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/370675e5921a4fcfe240d0e5763e6eea.jpg
+                )
+
+        )
+
+)
+
+-----------------------------------------------

@@ -56,27 +56,22 @@ class Utils
 		echo $errorMsg; exit;
 	}
 
-	public static function dbug($data) {
-		if (is_array($data)) {
-		    $data = implode( ',', $data);
-		}
-
+	public static function dbug($data) 
+	{
 		//Something to write to txt log
-		$log  = $data.PHP_EOL.
+		$log  = print_r($data, true).PHP_EOL.
 		        '-----------------------------------------------'.PHP_EOL;
 		//Save string to log, use FILE_APPEND to append.
 		file_put_contents('./log/debug_log.log', $log, FILE_APPEND);
 	}
 
-	public static function upload($folder) 
+	public static function upload($ref) 
 	{
 		$path = realpath('./uploads');
-
-		if (! is_dir($path.'/'.$folder.'/temp')) {
-			mkdir($path.'/'.$folder.'/temp', 0777, true);
+		if (! is_dir($path.'/'.$ref.'/temp')) {
+			mkdir($path.'/'.$ref.'/temp', 0777, true);
 		}
-
-		$path = $path.'/'.$folder.'/temp';
+		$path = $path.'/'.$ref.'/temp';
 				
 		// result info list
 		$result = array('error' => false, 'files' => array());
@@ -86,7 +81,7 @@ class Utils
 			
 			if ($file_count == 1 && $_FILES[$field_name]['error'] != UPLOAD_ERR_NO_FILE) {
 	            // if just one file
-				$result['files'][$field_name] = self::upload_transfer($path, $field_name);
+				$result['files'][$field_name] = self::upload_transfer($ref, $path, $field_name);
 			} elseif ($file_count > 1) {
 	            // if multiple files
 				for ($i=0; $i<$file_count; $i++) {
@@ -94,7 +89,7 @@ class Utils
 						continue;
 					}
 					//move to temp folder and return info
-					$result['files'][$field_name][$i] = self::upload_transfer($path, $field_name, $i);
+					$result['files'][$field_name][$i] = self::upload_transfer($ref, $path, $field_name, $i);
 				}
 			}
 		}
@@ -107,12 +102,12 @@ class Utils
 	    return $result;
 	}
 
-	protected function upload_transfer($destination, $field_name, $index = null)
+	protected function upload_transfer($ref, $destination, $field_name, $index = null)
 	{
 		$result = array(
+			'ref_type'  => $ref,
 			'name'		=> ($index == null ? $_FILES[$field_name]['name'] : $_FILES[$field_name]['name'][$index]),
 			'type'		=> ($index == null ? $_FILES[$field_name]['type'] : $_FILES[$field_name]['type'][$index]),
-			'tmp_name'	=> ($index == null ? $_FILES[$field_name]['tmp_name'] : $_FILES[$field_name]['tmp_name'][$index]),
 			'error'		=> ($index == null ? $_FILES[$field_name]['error'] : $_FILES[$field_name]['error'][$index]),
 			'size'		=> ($index == null ? $_FILES[$field_name]['size'] : $_FILES[$field_name]['size'][$index])
 		);
@@ -124,12 +119,13 @@ class Utils
 		    $result['hash'] = md5(microtime().print_r($result, true));
 		}
 
+		$temp_name	= ($index == null) ? $_FILES[$field_name]['tmp_name'] : $_FILES[$field_name]['tmp_name'][$index];
 		$filename = $result['hash'].'.'.$result['extension'];
-		
 		$target = $destination.'/'.$filename;
+		$result['tmp_name'] = $target;
 
 		// move and overrite if exists
-		$ok = move_uploaded_file($result['tmp_name'], $target);
+		$ok = move_uploaded_file($temp_name, $target);
 		//$ok = @move_uploaded_file($result['tmp_name'], $target);
 
 	    if (! $ok) {
