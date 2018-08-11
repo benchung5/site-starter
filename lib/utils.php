@@ -62,6 +62,7 @@ class Utils
 		$log  = print_r($data, true).PHP_EOL.
 		        '-----------------------------------------------'.PHP_EOL;
 		//Save string to log, use FILE_APPEND to append.
-		file_put_contents('./log/debug_log.log', $log, FILE_APPEND);
+		file_put_contents('./log/debug_log.log', $log, FILE_APPEND);	
+		chmod('./log/debug_log.log', 0777);
 	}
 }

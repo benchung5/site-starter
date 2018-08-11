@@ -3,3 +3,5 @@ src/npm-debug.log
 assets
 vendor
 composer.phar
+log
+uploads

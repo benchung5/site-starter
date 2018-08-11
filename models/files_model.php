@@ -68,11 +68,16 @@ class Files_model extends Model
 		// return $result;
 	}
 
+	public function update_associations($opts = []) 
+	{
+		// compare new image associations with existing ones and adjust
+	}
+
 	public function update($opts = []) 
 	{
-		// if (isset($opts['where']) && isset($opts['update'])) {
-		// 	$this->db->table('files');
-		// 	$this->db->where($opts['where'])->update($opts['update']);
-		// }
+		if (isset($opts['where']) && isset($opts['update'])) {
+			$this->db->table('files');
+			$this->db->where($opts['where'])->update($opts['update']);
+		}
 	}
 }

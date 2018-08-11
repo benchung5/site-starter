@@ -23,26 +23,6 @@ class Articles extends Controller
 
 	public function create()
 	{
-		$files = $this->load_model('files_model');
-		//handle posted files
-		$files_data = Upload::upload('articles');
-
-		Utils::dbug($files_data);
-		//save the file data to the db
-		if ($files_data['error']) {
-			Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, $files_data['error']);
-		} else {
-			foreach ($files_data['files'] as $file_data) {
-				$new_id = $files->add($file_data);
-				// move file, append new id, delete temp file
-				$destination = './uploads/articles/'.pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
-				rename($file_data['tmp_name'], $destination);
-				// unlink($file_data['tmp_name']);
-				// resize and create thumbs
-				Upload::process_img($destination);
-			}
-		}
-
 		//handle posted input
 		$data = Utils::read_post();
 
@@ -64,6 +44,9 @@ class Articles extends Controller
 			], $data['themes']);
 
 			$new_article = $this->articles->get(['id' => $new_article_id]);
+
+			//handle file uploads
+			Upload::upload('articles', $new_article_id);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_article);
 		} catch (Exception $e) {
@@ -102,7 +85,8 @@ class Articles extends Controller
 
 	public function update() 
 	{
-		$files = Utils::upload();
+		$files = $this->load_model('files_model');
+
 		$data = Utils::read_post();
 
 		$this->validator->addEntries(['slug' => $data['slug']]);
@@ -120,6 +104,13 @@ class Articles extends Controller
 				'update' => ['name' => $data['name']],
 				'themes' => $data['themes']
 			]);
+
+			$new_article = $this->articles->get(['slug' => $data['slug']]);
+
+			// new file uploads
+			Upload::upload('articles', $new_article->id);
+			// update original file uploads
+			$files->update_associations($new_article->id, $data['updated_images']);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
 		} catch (Exception $e) {

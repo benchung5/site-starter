@@ -56,7 +56,7 @@ class EditArticle extends Component {
         //convert to an array
         let images = [];
         Object.keys(this.props.articleData.images).forEach((key) => {
-            images[key] = this.props.articleData.images[key].source;
+            images[key] = this.props.articleData.images[key].name;
         })
         //store initial images for comparison later
         this.setState({ images });

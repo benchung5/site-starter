@@ -1,18 +1,21 @@
-Array
+stdClass Object
 (
-    [error] => 
-    [files] => Array
+    [id] => 71
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
         (
-            [image_0] => Array
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
                 (
-                    [ref_type] => articles
-                    [name] => Tall_Random_Cedar-1.jpg
-                    [type] => application/octet-stream
-                    [error] => 0
-                    [size] => 52531
-                    [extension] => jpg
-                    [hash] => 5144f4f426405d05482b0486287290f0
-                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/5144f4f426405d05482b0486287290f0.jpg
+                    [id] => 6
+                    [name] => test theme
                 )
 
         )
@@ -20,25 +23,28 @@ Array
 )
 
 -----------------------------------------------
-./uploads/articles/Tall_Random_Cedar-1-13.jpg
+./uploads/articles/5801694-36.jpg
 -----------------------------------------------
 ./uploads/articles
 -----------------------------------------------
-Array
+stdClass Object
 (
-    [error] => 
-    [files] => Array
+    [id] => 71
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
         (
-            [image_0] => Array
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
                 (
-                    [ref_type] => articles
-                    [name] => Tall_Random_Cedar-1.jpg
-                    [type] => application/octet-stream
-                    [error] => 0
-                    [size] => 52531
-                    [extension] => jpg
-                    [hash] => 828c836b5307b7f51e859317dc245cec
-                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/828c836b5307b7f51e859317dc245cec.jpg
+                    [id] => 6
+                    [name] => test theme
                 )
 
         )
@@ -46,25 +52,28 @@ Array
 )
 
 -----------------------------------------------
-./uploads/articles/Tall_Random_Cedar-1-14.jpg
+./uploads/articles/Tall_Random_Cedar-1-37.jpg
 -----------------------------------------------
 ./uploads/articles
 -----------------------------------------------
-Array
+stdClass Object
 (
-    [error] => 
-    [files] => Array
+    [id] => 72
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
         (
-            [image_0] => Array
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
                 (
-                    [ref_type] => articles
-                    [name] => Tall_Random_Cedar-1.jpg
-                    [type] => application/octet-stream
-                    [error] => 0
-                    [size] => 52531
-                    [extension] => jpg
-                    [hash] => 391d5c6fe7348dcd564f72869ebaf558
-                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/391d5c6fe7348dcd564f72869ebaf558.jpg
+                    [id] => 6
+                    [name] => test theme
                 )
 
         )
@@ -72,25 +81,28 @@ Array
 )
 
 -----------------------------------------------
-./uploads/articles/Tall_Random_Cedar-1-15.jpg
+./uploads/articles/5801694-38.jpg
 -----------------------------------------------
 ./uploads/articles
 -----------------------------------------------
-Array
+stdClass Object
 (
-    [error] => 
-    [files] => Array
+    [id] => 72
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
         (
-            [image_0] => Array
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
                 (
-                    [ref_type] => articles
-                    [name] => Tall_Random_Cedar-1.jpg
-                    [type] => application/octet-stream
-                    [error] => 0
-                    [size] => 52531
-                    [extension] => jpg
-                    [hash] => 3ecd700e6788cd9ff75731990dc310c1
-                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/3ecd700e6788cd9ff75731990dc310c1.jpg
+                    [id] => 6
+                    [name] => test theme
                 )
 
         )
@@ -98,25 +110,28 @@ Array
 )
 
 -----------------------------------------------
-./uploads/articles/Tall_Random_Cedar-1-16.jpg
+./uploads/articles/Tall_Random_Cedar-1-39.jpg
 -----------------------------------------------
 ./uploads/articles
 -----------------------------------------------
-Array
+stdClass Object
 (
-    [error] => 
-    [files] => Array
+    [id] => 73
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
         (
-            [image_0] => Array
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
                 (
-                    [ref_type] => articles
-                    [name] => Tall_Random_Cedar-1.jpg
-                    [type] => application/octet-stream
-                    [error] => 0
-                    [size] => 52531
-                    [extension] => jpg
-                    [hash] => 7928244db2e8c46e6dcdbdc2b2bbe0ee
-                    [tmp_name] => /Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/7928244db2e8c46e6dcdbdc2b2bbe0ee.jpg
+                    [id] => 6
+                    [name] => test theme
                 )
 
         )
@@ -124,7 +139,786 @@ Array
 )
 
 -----------------------------------------------
-./uploads/articles/Tall_Random_Cedar-1-17.jpg
+./uploads/articles/5801694-40.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 73
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-41.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 74
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-42.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 74
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-43.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 75
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-44.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 75
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-45.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 76
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 77
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 78
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 79
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 80
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-50.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 80
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-51.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 81
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 82
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 83
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-54.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 83
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-55.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 84
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-56.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 84
+    [slug] => 7
+    [name] => 7
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-57.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 85
+    [slug] => 1
+    [name] => test1
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-58.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 85
+    [slug] => 1
+    [name] => test1
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-59.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 86
+    [slug] => 1
+    [name] => 1
+    [category_id] => 6
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-60.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 86
+    [slug] => 1
+    [name] => 1
+    [category_id] => 6
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-61.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 87
+    [slug] => 1
+    [name] => 1
+    [category_id] => 6
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 87
+    [slug] => 1
+    [name] => 1
+    [category_id] => 6
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-62.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 88
+    [slug] => 1
+    [name] => 1
+    [category_id] => 6
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-64.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 88
+    [slug] => 1
+    [name] => 1
+    [category_id] => 6
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-65.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 89
+    [slug] => 2
+    [name] => 2
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/5801694-66.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+stdClass Object
+(
+    [id] => 89
+    [slug] => 2
+    [name] => 2
+    [category_id] => 5
+    [created_on] => 2018-08-11
+    [deleted_on] => 0000-00-00
+    [images] => Array
+        (
+        )
+
+    [themes] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 6
+                    [name] => test theme
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-67.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+./uploads/articles/968361-68.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+./uploads/articles/4949794-69.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+./uploads/articles/4949794-70.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+./uploads/articles/5801694-71.jpg
+-----------------------------------------------
+./uploads/articles
+-----------------------------------------------
+./uploads/articles/Tall_Random_Cedar-1-72.jpg
 -----------------------------------------------
 ./uploads/articles
 -----------------------------------------------

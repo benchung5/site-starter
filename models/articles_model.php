@@ -25,16 +25,18 @@ class Articles_model extends Model
 		$result = $this->db->get();
 
 		if ($result) {
-			$result->images = [];
+			// get images
+			$result->images = $this->db->table('files')
+				->select('id, name')
+				->where('ref_id', $result->id)
+				->getAll();
 
 			// get themes
-			$themes = $this->db->table('article_themes at')
+			$result->themes = $this->db->table('article_themes at')
 				->select('t.id, t.name')
 				->where('article_id', $result->id)
 				->innerJoin('themes t', 't.id', 'at.theme_id')
 				->getAll();
-
-			$result->themes = $themes;
 			
 			return $result;
 		}

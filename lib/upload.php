@@ -10,11 +10,39 @@ class Upload
 		parent::__construct();
 	}
 
-	public static function upload($ref) 
+	public function upload($ref_type, $ref_id) 
+	{
+		$files = $this->load_model('files_model');
+
+		$files_data = self::upload_files($ref_type);
+		//save the file data to the db
+		if ($files_data['error']) {
+			Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, $files_data['error']);
+		} else {
+			foreach ($files_data['files'] as $file_data) {
+				$file_data['ref_id'] = $ref_id;
+				$new_id = $files->add($file_data);
+				$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+				//update filename with new file id
+				$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
+
+				// move file, append new id, delete temp file
+				$destination = './uploads/'.$ref_type.'/'.$new_name;
+				rename($file_data['tmp_name'], $destination);
+				// resize and create thumbs
+				self::process_img($destination);
+			}
+		}
+	}
+
+	public static function upload_files($ref) 
 	{
 		$path = realpath('./uploads');
 		if (! is_dir($path.'/'.$ref.'/temp')) {
+			// development mode
 			mkdir($path.'/'.$ref.'/temp', 0777, true);
+			chmod($path.'/'.$ref, 0777);
+			chmod($path.'/'.$ref.'/temp', 0777);
 		}
 		$path = $path.'/'.$ref.'/temp';
 				
@@ -97,9 +125,6 @@ class Upload
 	        $constraint->upsize();
 	      });
 	  }
-
-	  Utils::dbug($path);
-	  Utils::dbug(pathinfo($path, PATHINFO_DIRNAME));
 
 	  //create thumbs
 	  self::create_thumb($path, 'sml', 150, 100);
