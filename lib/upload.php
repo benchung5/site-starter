@@ -16,9 +16,7 @@ class Upload
 
 		$files_data = self::upload_files($ref_type);
 		//save the file data to the db
-		if ($files_data['error']) {
-			Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, $files_data['error']);
-		} else {
+		if (! $files_data['error']) {
 			foreach ($files_data['files'] as $file_data) {
 				$file_data['ref_id'] = $ref_id;
 				$new_id = $files->add($file_data);

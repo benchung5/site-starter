@@ -68,9 +68,19 @@ class Files_model extends Model
 		// return $result;
 	}
 
-	public function update_associations($opts = []) 
+	public function update_associations($ref_id, $deleted_images) 
 	{
+		$deleted_images = is_array($deleted_images) ?: explode(',', $deleted_images); 
+
 		// compare new image associations with existing ones and adjust
+		$this->db->table('files');
+		foreach ($deleted_images as $deleted_image) {
+			$this->db
+			->where('ref_id', $ref_id)
+			->where('name', $deleted_image)
+			->delete();
+		}
+
 	}
 
 	public function update($opts = []) 
