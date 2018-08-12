@@ -51,7 +51,7 @@ class renderField extends Component {
 						url={pageUrl}
 						media={featuredImg}
 					/>
-					<SocialIcon url="https://www.instagram.com/aitoniagara/" style={{ height: 35, width: 35 }} />
+					<SocialIcon url="https://www.instagram.com/" style={{ height: 35, width: 35 }} />
 					<div onClick={this.onCloseClick.bind(this)} className="social-share-close"></div>
 				</div>
 			</div>

@@ -5,6 +5,7 @@ import * as actions from '../actions/global';
 import renderSearch from './parts/field_search';
 import { formatSearchString } from '../lib/stringUtils';
 import { viewsToggle } from '../actions/views';
+import settings from '../data/settings.js';
 
 
 class SearchForm extends Component {
@@ -19,7 +20,9 @@ class SearchForm extends Component {
 			this.props.dispatch(actions.searchArticles({ 
 				search: formatSearchString(formProps.search), 
 				categories: this.props.articlesGlobal.categories,
-				themes: this.props.articlesGlobal.themes
+				themes: this.props.articlesGlobal.themes,
+				offset: 0,
+				limit: settings.entriesPerPage
 			}));
 		}
 	}

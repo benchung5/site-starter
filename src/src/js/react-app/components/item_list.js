@@ -23,35 +23,25 @@ class ItemList extends Component {
     }
     
     renderItems() {
-         return this.props.articles.map((item) => {
+         return this.props.results.articles.map((item) => {
+            console.log(item);
              return (
-                 <div className={`list-item`} key={item._id}>
-                    <a href={`#${item.slug}`} className={`left active ${item.category.slug}`} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}>
+                 <div className={`list-item`} key={item.id}>
+                    <a href={`#${item.slug}`} className={`left active installation`} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}>
                         <div className="icon"></div>
                         { item.images[0] ?
-                        <div className='list-item-thumb' style={{ backgroundImage: `url(${ROOT_URL + UPLOADS_PATH + imgName(item.images[0].source, 'small')})` }} ></div>
+                        <div className='list-item-thumb' style={{ backgroundImage: `url(${ROOT_URL + UPLOADS_PATH + imgName(item.images[0], 'small')})` }} ></div>
                         :
                         <div className='list-item-thumb' style={{ backgroundImage: `url(${ROOT_URL}/assets/img/placeholder-images/placeholder-img-sml.jpg)` }} ></div>
                         }
                     </a>
                     
                     <div className="right">
-                        {(this.props.lang === 'fr') ?
-                            <div className="v-inner">
-                                <a href={`#${item.slug}`} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}><span className="title">{item.fr_title}</span></a>
-                                <span className="artists">{item.artists[0] ? this.stringDisplayFilter(item.artists[0].artist) : ''}</span>
-                                <span className="location">{item.fr_location}</span>
-                            </div>
-                            :
-                            <div className="v-inner">
-                                <a href={`#${item.slug}`} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}><span className="title">{item.title}</span></a>
-                                <span className="artists">{item.artists[0] ? this.stringDisplayFilter(item.artists[0].artist) : ''}</span>
-                                <span className="location">{item.location}</span>
-                            </div>
-                        }
-                        { item.dis &&
-                            <div className="distance">{item.dis}km</div>
-                        }
+                        <div className="v-inner">
+                            <a href={`#${item.slug}`} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}><span className="title">{item.name}</span></a>
+                            <span className="artists">text...</span>
+                            <span className="location">text...</span>
+                        </div>
                      </div>
                  </div>
              );
@@ -71,7 +61,7 @@ class ItemList extends Component {
 
 function mapStateToProps(state) {
     return {
-        articles: state.articles.searchResults,
+        results: state.articles.searchResults,
         lang: state.language.lang
     };
 }

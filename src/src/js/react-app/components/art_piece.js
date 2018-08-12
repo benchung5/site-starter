@@ -90,7 +90,7 @@ class ArtPiece extends Component {
         return this.props.articleData.themes.map((item) => {
             return (
                 <div key={item.slug}>
-                    {item.title}
+                    {item.name}
                 </div>
                 )
         });
@@ -103,12 +103,6 @@ class ArtPiece extends Component {
         } else {
             return ROOT_URL + this.placeholderImg;
         }
-    }
-
-    //*****  temporary filter to remove N/A and undefined from display in entries. Remove later *****
-    stringDisplayFilter(string) {
-        let outString = ((string === 'N/A') || (string === 'n/a') ||  (string === 'undefined')) ? '' : string;
-        return outString;
     }
 
     renderFeatured() {
@@ -134,53 +128,27 @@ class ArtPiece extends Component {
             {(state) => (
                 <div className={`art-piece`} style={{...defaultArtStyle, ...transitionArtStyles[state]}}>
                     <a href="#" className="close-btn" onClick={this.close.bind(this)}></a>
-                    <div className={`active ${this.props.articleData.category.title ? this.props.articleData.category.title.toLowerCase().replace(/\//g, '-') : ''}`}>
+                    <div className={`active ${this.props.articleData.category.name ? this.props.articleData.category.name.toLowerCase().replace(/\//g, '-') : ''}`}>
                         <div className="type-icon icon"></div>
                     </div>
                     {this.renderFeatured()}
-                    {(this.props.lang === 'fr') ?
                     <div className="content">
-                        <h1>{this.props.articleData.fr_title}</h1>
+                        <h1>{this.props.articleData.name}</h1>
                         <div className="title-group">
                             <div className="left">
-                                <h2>{this.stringifyObjArray(this.props.articleData.artists, 'artist')}</h2>     
-                                <h3>{`${this.props.articleData.category.title} ${(this.props.articleData.year !== 0) ? ('- ' + this.props.articleData.year) : ''}`}</h3>
+                                <h2>placeholder text...</h2>     
                             </div>
                             <div className="right">
                                 <SocialShare pageUrl={window.location.href} featuredImg={this.getFeaturedImg()} />
                             </div>
                         </div>
                         <div className="location-group">
-                            <h4>{this.props.articleData.fr_location}</h4>
-                            <h5>{`${this.props.articleData.fr_street} ${this.props.articleData.city}`}<br/>
-                            {`${this.props.articleData.postalCode}`}</h5>
+                            <h4>placeholder text...</h4>
                         </div>
                         <ExpandableContent
-                            body={this.stringDisplayFilter(this.props.articleData.fr_body)}
+                            body={'placeholder text...'}
                         />
                     </div>
-                    :
-                    <div className="content">
-                        <h1>{this.props.articleData.title}</h1>
-                        <div className="title-group">
-                            <div className="left">
-                                <h2>{this.stringifyObjArray(this.props.articleData.artists, 'artist')}</h2>     
-                                <h3>{`${this.props.articleData.category.title} ${(this.props.articleData.year !== 0) ? ('- ' + this.props.articleData.year) : ''}`}</h3>
-                            </div>
-                            <div className="right">
-                                <SocialShare pageUrl={window.location.href} featuredImg={this.getFeaturedImg()} />
-                            </div>
-                        </div>
-                        <div className="location-group">
-                            <h4>{this.props.articleData.location}</h4>
-                            <h5>{`${this.props.articleData.street} ${this.props.articleData.city}`}<br/>
-                            {`${this.props.articleData.postalCode}`}</h5>
-                        </div>
-                        <ExpandableContent
-                            body={this.stringDisplayFilter(this.props.articleData.body)}
-                        />
-                    </div>
-                    }
                     <div className="bottom">
                         <a className="logo"></a>
                         <a className="logo-wide"></a>
@@ -196,8 +164,7 @@ class ArtPiece extends Component {
 function mapStateToProps(state) {
     return { 
         articleData: state.article.articleSingle,
-        slug: state.showSingle.slug,
-        lang: state.language.lang
+        slug: state.showSingle.slug
     };
 }
 

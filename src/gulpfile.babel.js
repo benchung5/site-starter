@@ -81,8 +81,8 @@ function devServer() {
       rewrites: [
           // shows /index.html as the landing page
           //{ from: /^\/$/, to: '/index.html' },
-          // shows /explore.html for all routes starting with /explore or /admin
-          //{ from: /^\/explore/, to: '/explore.html' },
+          // goes to /index.php for all routes starting with /filter or /admin
+          { from: /^\/filter/, to: '/index.php' },
           { from: /^\/admin/, to: '/index.php' },
           
           // shows /404.html on all other pages

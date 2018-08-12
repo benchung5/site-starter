@@ -18,9 +18,9 @@ class Socials extends Component {
 
 		return (
 			<div className="socials">
-				<a href="https://www.facebook.com/aitoniagara/" target="_blank" className="social facebook"></a>
-				<a href="https://twitter.com/AITONiagara" target="_blank" className="social twitter"></a>
-				<a href="https://www.instagram.com/aitoniagara/" target="_blank" className="social instagram"></a>
+				<a href="https://www.facebook.com/" target="_blank" className="social facebook"></a>
+				<a href="https://twitter.com/" target="_blank" className="social twitter"></a>
+				<a href="https://www.instagram.com/" target="_blank" className="social instagram"></a>
 				<a className={`social ${this.props.lang}`} onClick={this.onLangClick.bind(this)}></a>
 			</div>
 		);

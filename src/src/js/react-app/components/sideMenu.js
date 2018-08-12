@@ -4,7 +4,7 @@ import Views from './buttons_views';
 import Types from './buttons_types';
 import Themes from './buttons_themes';
 // import Routes from './buttons_routes';
-import NearMe from './button_near_me';
+// import NearMe from './button_near_me';
 import { searchArticles } from '../actions/global';
 import Socials from './parts/socials';
 import OffLineMessage from './offline_message';
@@ -44,13 +44,15 @@ class SideMenu extends Component {
     }
   }
 
+  // <NearMe className="right near-me"/>
+
   render() {
     return (
       <Transition in={(this.props.showMenu == 'open') ? true : false} timeout={duration}>
         {(state) => (
           <div className={`side-menu ${this.props.showMenu}`} style={{...defaultStyle, ...transitionStyles[state]}}>
             <OffLineMessage/>
-            <NearMe className="right near-me"/>
+            
             <Views/>
             <Types/>
             <Themes/>

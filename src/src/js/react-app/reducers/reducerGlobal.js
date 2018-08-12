@@ -1,3 +1,4 @@
+import settings from '../data/settings.js';
 import {
     CATEGORIES_FILTER,
     THEMES_FILTER
@@ -6,7 +7,9 @@ import {
 const INITIAL_STATE = {
 	categories: [],
 	themes: [],
-    search: ''
+    search: '',
+    offset: 0,
+    limit: settings.entriesPerPage
 }
 
 export default function(state = INITIAL_STATE, action) {

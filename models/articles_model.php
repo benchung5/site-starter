@@ -93,17 +93,26 @@ class Articles_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('articles');
+		$this->db->table('articles a');
 
 		if (isset($opts['select'])) {
 			$this->db->select(implode(',', $opts['select']));
 		} else {
-			$this->db->select('*');
+			$this->db->select('a.id, a.name, a.category_id');
 		}
 
 		if (isset($opts['limit'])) {
 			$this->db->limit($opts['limit']);
 		}
+
+		if (isset($opts['like'])) {
+			$this->db->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
+		}
+
+		// include images
+		$this->db
+			->select('CONCAT_WS(",", f.name) AS images')
+			->innerJoin('files f', 'f.ref_id', 'a.id');
 
 		$result = $this->db->getAll();
 		return $result;

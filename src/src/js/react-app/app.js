@@ -122,10 +122,8 @@ ReactDOM.render(
       <div>
        <Switch history={customHistory}>
           {/* website */}
-          <Route history={customHistory} exact path="/" component={withPrefixer(Main)} />
-          <Route history={customHistory} path="/explore/artwork/:artId" component={ArtPiece} />
-          <Route history={customHistory} exact path="/explore-fr" component={Main} />
-          <Route history={customHistory} path="/explore-fr/artwork/:artId" component={ArtPiece} />
+          <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
+          <Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
           {/* admin */}
           <Route history={customHistory} path="/protected" component={protecetWarning} />
           <Route history={customHistory} path="/signin" component={signin} />

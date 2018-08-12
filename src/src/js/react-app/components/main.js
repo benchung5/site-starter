@@ -11,10 +11,10 @@ import SearchButton from './search_expandable';
 import ListPanel from './list_panel';
 import ArtPiece from './art_piece';
 import Loader from './loader';
-import { isOnline } from '../actions/isOnline';
-import { changeLanguage } from '../actions/lang';
 import OffLineModal from './offline_modal';
+import { isOnline } from '../actions/isOnline';
 import { showMenu } from '../actions/sideMenu';
+import { isInitialLoading } from '../actions/initialLoad';
 // import OfflineMap from './offline_map';
 
 class Main extends Component {
@@ -26,6 +26,7 @@ class Main extends Component {
   }
 
   componentWillMount() {
+    console.log('loading');
     // tell users that they are offline/online
     const that = this;
     window.addEventListener('load', function() {
@@ -44,12 +45,10 @@ class Main extends Component {
       window.addEventListener('online',  updateOnlineStatus);
       window.addEventListener('offline', updateOnlineStatus);
     });
+  }
 
-    //check if this is french url path
-    let path = window.location.pathname;
-    if(path === '/explore-fr') {
-      this.props.changeLanguage('fr');
-    }
+  componentDidMount() {
+    this.props.isInitialLoading(false);
   }
 
   onMapClick() {
@@ -60,6 +59,12 @@ class Main extends Component {
       }
     }
   }
+
+  // <MapComponent
+  //   onMapClick={this.onMapClick.bind(this)}
+  // />
+
+  // <SearchButton/>
 
   render() {
     return (
@@ -72,10 +77,6 @@ class Main extends Component {
         <MapStyleButton/>
         <ShowMenuButton/>
         <ShowListPanelButton/>
-        <SearchButton/>
-        <MapComponent
-          onMapClick={this.onMapClick.bind(this)}
-        />
         <OffLineModal/>
       </div>
     );
@@ -94,9 +95,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    changeLanguage: changeLanguage,
     isOnline: isOnline,
     showMenu: showMenu,
+    isInitialLoading: isInitialLoading
   }, dispatch);
 }
 

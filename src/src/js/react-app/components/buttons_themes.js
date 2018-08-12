@@ -36,7 +36,7 @@ class ThemesButtons extends Component {
 		return (
 		        <Dropdown
 		          classProp="themes-dropdown"
-		          name={labels[this.props.lang].themesTitle}
+		          name='Themes'
 		          img='theme.svg'
 		          height={360}
 		        >
@@ -56,7 +56,6 @@ class ThemesButtons extends Component {
 function mapStateToProps(state) {
 	return {
 		filteredThemes: state.global.themes,
-		lang: state.language.lang,
 	}
 }
 

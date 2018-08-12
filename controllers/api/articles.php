@@ -65,7 +65,7 @@ class Articles extends Controller
 
 	public function all() 
 	{
-		$articles = $this->articles->get_all(['id', 'slug', 'name']);
+		$articles = $this->articles->get_all();
 		if ($articles) {
 			Utils::json_respond(SUCCESS_RESPONSE, $articles);
 		} else {
@@ -125,6 +125,21 @@ class Articles extends Controller
 		$data = Utils::read_get();
 
 		$articles = $this->articles->get_all(['offset' => $data['offset'], 'limit' => $data['limit']]);
+
+		$result = ['articles' => $articles, 'count' => count($articles), 'offset' => $data['offset'], 'limit' => $data['limit']];
+
+		if ($articles) {
+			Utils::json_respond(SUCCESS_RESPONSE, $result);
+		} else {
+			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => $data['limit']]);
+		}		
+	}
+
+	public function search() 
+	{
+		$data = Utils::read_get();
+
+		$articles = $this->articles->get_all(['offset' => $data['offset'], 'limit' => $data['limit'], 'like' => $data['search'], 'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']]);
 
 		$result = ['articles' => $articles, 'count' => count($articles), 'offset' => $data['offset'], 'limit' => $data['limit']];
 

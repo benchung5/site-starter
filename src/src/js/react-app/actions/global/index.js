@@ -26,7 +26,7 @@ export function populateCatFilter() {
 			if (response.data) {
 				modifiedData = response.data.map((item, index) => {
 					//item.active = true;
-					return { _id: item._id, title: item.title, fr_title: item.fr_title, active: true };
+					return { id: item.id, name: item.name, active: true };
 				});
 				dispatch({
 					type: CATEGORIES_FILTER,
@@ -57,7 +57,7 @@ export function populateThemeFilter() {
 			if (response.data) {
 				modifiedData = response.data.map((item, index) => {
 					//item.active = true;
-					return { _id: item._id, title: item.title, fr_title: item.fr_title, active: true };
+					return { id: item.id, name: item.name, active: true };
 				});
 				dispatch({
 					type: THEMES_FILTER,
@@ -75,14 +75,13 @@ export function populateThemeFilter() {
 export function searchArticles(searchObj) {
     return function(dispatch) {
     	let query = buildQuery(searchObj);
-
     	//set the obj in the get request
         axios.get(`${SERVER_URL}/articles/search/`, { params: query })
         .then(response => {
             dispatch({
                 type: SEARCH_ARTICLES,
-                payload: formatMarkerCoords(response.data)
-                //payload: response.data
+                //payload: formatMarkerCoords(response.data)
+                payload: response.data
              });
         })
         .catch((err) => {
@@ -93,17 +92,17 @@ export function searchArticles(searchObj) {
     function buildQuery(inObj) {
     	const query = {};
 
-    	//just include the search as is
-    	if (inObj.search) {
-    		query.search = inObj.search;
-    	}
+        // just include search, offset and limit as is
+        query.search = inObj.search;
+        query.offset = inObj.offset;
+        query.limit = inObj.limit;
 
     	//format categories, query only active ones
     	if (inObj.categories) {
     		//return a new array without undefined
     		let catArray = inObj.categories.reduce(function(result, item) {
     		  if(item.active) {
-    		    result.push(item._id);
+    		    result.push(item.id);
     		  }
     		  return result;
     		}, []);
@@ -116,7 +115,7 @@ export function searchArticles(searchObj) {
     		//return a new array without undefined
     		let themeArray = inObj.themes.reduce(function(result, item) {
     		  if(item.active) {
-    		    result.push(item._id);
+    		    result.push(item.id);
     		  }
     		  return result;
     		}, []);
