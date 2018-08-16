@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import MapComponent from './map_component';
 import SideMenu from './sideMenu';
-import ShowMenuButton from './button_show_menu';
-import Search from './search';
+import Filter from './filter';
 import Loader from './loader';
 import OffLineModal from './offline_modal';
 import GridView from './grid_view';
@@ -65,10 +63,9 @@ class Main extends Component {
     return (
       <div className={`main-container ${this.props.lang}`}>
         <Loader/>
-        <Search/>
+        <Filter/>
         <SideMenu/>
         <GridView/>
-        <ShowMenuButton/>
         <OffLineModal/>
       </div>
     );

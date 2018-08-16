@@ -50,7 +50,7 @@ class SideMenuButton extends Component {
 	render() {
 		return (
 			<ButtonComponent
-			  classProp={`side-menu-btn map-button 
+			  classProp={`side-menu-btn
 			  	${this.props.showMenu}`}
 			  id={'side-menu-toggle'}
 			  name="Side Menu"

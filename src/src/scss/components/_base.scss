@@ -28,27 +28,6 @@ mixins
   margin-top: #{-($height/2)};
 }
 
-// card grid breakpoints
-// use:   
-// @include MQ(M) {
-//    display: none;
-//  }
-$S:     820px; 
-$M:     1460px;     
-$L:     1865px;
-
-@mixin MQ($canvas) {
-  @if $canvas == S {
-   @media only screen and (min-width: $S) { @content; } 
-  }
-  @else if $canvas == M {
-   @media only screen and (min-width: $M) { @content; } 
-  }
-  @else if $canvas == L {
-   @media only screen and (min-width: $L) { @content; } 
-  }
-}
-
 //using foundation breakpoints
 // @include breakpoint(large down) {
 //  ...
@@ -1480,6 +1459,101 @@ start filter page
 ========================================================================== */
 
 /* ==========================================================================
+product grid
+========================================================================== */
+
+// card grid breakpoints
+// use:   
+// @include MQ(M) {
+//    display: none;
+//  }
+$S:     820px; 
+$M:     1200px;     
+$L:     1865px;
+
+@mixin MQ($canvas) {
+  @if $canvas == S {
+   @media only screen and (min-width: $S) { @content; } 
+  }
+  @else if $canvas == M {
+   @media only screen and (min-width: $M) { @content; } 
+  }
+  @else if $canvas == L {
+   @media only screen and (min-width: $L) { @content; } 
+  }
+}
+
+.cards-container-wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+  .cards-container {
+    width: calc(100% + 1em);
+    margin-top: -.5em;
+    margin-left: -.5em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: flex-start;
+    // //justify-content: space-around;
+    // justify-content: space-between;
+    // align-content: flex-start;
+    // @media (max-width: $S) {
+    //   justify-content: center;
+    // }
+    .product-card {
+      cursor: pointer;
+      padding: .5em;
+      display: inline-block;
+      width: 50%;
+      .inner {
+        background-color: #1a1a1a;
+        height: 100%;
+        .image {
+          width: 100%;
+          height: 0;
+          padding-bottom: 56.25%;
+          display: block;
+          position: relative;
+          padding-bottom: 75%;
+          overflow: hidden;
+          margin: 0 auto;
+          .img-info {
+            color: #1a1a1a;
+            position: absolute;
+            z-index: 1;
+            left: 62%;
+            top: 23%;
+          }
+        }
+        .info {
+          background: #1a1a1a;
+          padding: 1em 1.7em 1.7em 1.7em;
+          font-size: .8em;
+        }
+      }
+      @include MQ(S) {
+        width: 33.33333%;
+      }
+      @include MQ(M) {
+        width: 25%;
+      }
+      @include MQ(L) {
+        width: 25%;
+      }
+      // @media (max-width: $S) {
+      //   max-width: 400px;
+      // }
+    }
+  }
+}
+
+
+
+/* ==========================================================================
 portal
 ========================================================================== */
 
@@ -1897,15 +1971,7 @@ map buttons
   }
 }
 
-.side-menu-btn {
-  top: 80px;
-  right: 10px;
-  background-color: $pink;
-  background-image: url(../img/icons/menu.svg);
-  background-size: 25px 14px;
-  width: 52px;
-  height: 52px;
-}
+
 
 .list-menu-btn {
   bottom: 20px;
@@ -1916,7 +1982,51 @@ map buttons
   height: 52px;
 }
 
+/* ==========================================================================
+filter
+========================================================================== */
 
+.filter {
+  display: flex;
+}
+
+.search-form {
+  position: relative;
+  width: 100%;
+  input {
+    height: 52px;
+    padding: 10px 45px;
+  }
+  .search-button {
+    position: absolute;
+    @include v-align-absolute(22px);
+    left: 15px;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+    background-image: url(../img/icons/search.svg);
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+  }
+  .search-clear {
+    position: absolute;
+    @include v-align-absolute(40px);
+    right: 17px;
+    @extend %close-button;
+  }
+}
+
+.side-menu-btn {
+  background-color: $pink;
+  background-image: url(../img/icons/menu.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 25px 14px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* ==========================================================================
 search list
@@ -1966,32 +2076,6 @@ search list
   .panel-bottom {
     padding: 0 2em;
     margin-top: 85px;
-  }
-}
-
-.search-form {
-  position: relative;
-  width: 100%;
-  input {
-    height: 52px;
-    padding: 10px 45px;
-  }
-  .search-button {
-    position: absolute;
-    @include v-align-absolute(22px);
-    left: 15px;
-    height: 22px;
-    width: 22px;
-    cursor: pointer;
-    background-image: url(../img/icons/search.svg);
-    background-size: 22px 22px;
-    background-repeat: no-repeat;
-  }
-  .search-clear {
-    position: absolute;
-    @include v-align-absolute(40px);
-    right: 17px;
-    @extend %close-button;
   }
 }
 

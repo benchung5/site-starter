@@ -3,12 +3,8 @@
 <div class="site-wrapper">
 	<div class="content-wrapper">
 
-		<div class="row">
-			<div class="small-12 columns">
-				<!-- react container -->
-				<div class="app-container"></div>	
-			</div>
-		</div>
+		<!-- react container -->
+		<div class="app-container"></div>	
 
 	</div><!-- /content wrapper -->
 
