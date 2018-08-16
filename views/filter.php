@@ -1,2 +1,19 @@
-<!-- react container -->
-<div class="app-container" style="height: 100vh;"></div>
+<?php $this->insert('header', $view_data ); ?>
+
+<div class="site-wrapper">
+	<div class="content-wrapper">
+
+		<div class="row">
+			<div class="small-12 columns">
+				<!-- react container -->
+				<div class="app-container"></div>	
+			</div>
+		</div>
+
+	</div><!-- /content wrapper -->
+
+	<?php $this->insert('footer', $view_data ); ?>
+
+</div><!-- /site wrapper -->
+
+

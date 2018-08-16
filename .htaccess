@@ -1,8 +1,15 @@
+# disable server choosing /file as /file.php
 Options -Multiviews
+
 RewriteEngine On
+
+# if the file/directory with the specified name in the browser doesn't exist, 
+# and the requested filename is not a symbolic link, procede to the RewriteRule
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
+
+# redirect to index.php, append the query string (QSA),  
 RewriteRule ^ index.php [QSA,L]
 
 #RewriteRule ^([^/]+)/? index.php?url=$1 [L,QSA]

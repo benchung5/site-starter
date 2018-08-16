@@ -558,13 +558,14 @@ page layout
   flex-direction: column;
 }
 
-.page-content {
+.content-wrapper {
   flex: 1;
   background: $white;
-  .page-content-inner {
-    padding: 0 1.5em;
-  }
 }
+body:not([data-index]) .content-wrapper {
+  //not index page
+}
+
 
 .columns.medium-media-padding {
   @include breakpoint(medium down) {
@@ -573,15 +574,9 @@ page layout
   }
 }
 
-/* ==========================================================================
-backgrounds
-========================================================================== */
-
-.content-wrapper {
-  position: absolute;
+.app-container {
+  height: 100vh;
   width: 100%;
-  z-index: 3;
-  overflow: hidden;
 }
 
 /* ==========================================================================
@@ -589,10 +584,10 @@ header
 ========================================================================== */
 
 #header {
-    position: absolute;
-    z-index: 5;
-    width: 100%;
-    flex-shrink: 0;
+  z-index: 5;
+  width: 100%;
+  flex-shrink: 0;
+  .header-inner {
     background: rgba(0,0,0,.8);
     .logo-container {
       display: flex;
@@ -633,10 +628,14 @@ header
         padding: 1.8rem .8rem;
       }
     }
+  }
 }
-
+// header home page
 body[data-index] #header {
-  background: transparent;
+  position: absolute;
+  .header-inner{
+    background: transparent;
+  }
 }
 
 /* ==========================================================================
@@ -650,7 +649,7 @@ $color : #fff;
 $transition: .3s; // increase this to see the transformations in 
 
 .mobile-menu-button {
-  position: fixed;
+  position: absolute;
   right: 0.5em;
   top: 0;
   transform: translateY($header-height/2 - 1.2);
@@ -704,22 +703,30 @@ $transition: .3s; // increase this to see the transformations in
   position: fixed;
   z-index: 9;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: #121212;
   color: white;
   font-size: 1em;
   overflow: auto;
   .mobile-menu-inner {
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
   }
-  .mobile-top-logo {
-    margin: 1.5em;
-    max-height: 3em;
+  .top {
+    //force them to maintain vertical height
+    flex-shrink: 0;
+    .mobile-top-logo {
+      margin: 1.5em;
+      max-height: 3em;
+    }
   }
   .menu-mobile {
+    //force them to maintain vertical height
+    flex-shrink: 0;
     > li {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: $border-light-transp;
       > a {
             margin: 0 auto;
             justify-content: center;
@@ -728,10 +735,18 @@ $transition: .3s; // increase this to see the transformations in
             font-family: $secondary-title-font;
             color: #fff;
           }
-
+      &:first-child {
+        border-top: $border-light-transp;
+      }
     }
   }
+  .mobile-menu-stretch {
+    flex: 1;
+  }
   .mobile-menu-buttons {
+    //force them to maintain vertical height
+    flex-shrink: 0;
+
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -1376,30 +1391,46 @@ gallery
 ========================================================================== */
 
 footer {
-  padding: 3.5em 2em;
-  .footer-logos-wrapper {
-    display: flex;
-    justify-content: center;
-    .footer-logos {
-      display: flex;
-      margin: 0 auto 2.5em;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      img {
-        margin: 0 2em 2em;
-      }
-    }
+
+  background-color: #121212;
+  color: #ddd;
+  padding: 2em; 
+  //force them to maintain vertical height
+  flex-shrink: 0;
+  a {
+    color: #b4b4b4;
   }
+
+  // .footer-logos-wrapper {
+  //   display: flex;
+  //   justify-content: center;
+  //   .footer-logos {
+  //     display: flex;
+  //     margin: 0 auto 2.5em;
+  //     align-items: center;
+  //     justify-content: center;
+  //     flex-wrap: wrap;
+  //     img {
+  //       margin: 0 2em 2em;
+  //     }
+  //   }
+  // }
+
   .footer-bottom {
     .columns {
       display: flex;
       flex-direction: column;
       align-items: center;
-      .socials {
-        display: flex;
-
+      .copywright {
+          font-size: 0.8em;
+          line-height: 0;
+          display: inline-block;
+          color: #7d7d7d;
+          text-transform: uppercase;
       }
+      // .socials {
+      //   display: flex;
+      // }
     }
   }
 }
@@ -1867,8 +1898,8 @@ map buttons
 }
 
 .side-menu-btn {
-  top: 20px;
-  right: 20px;
+  top: 80px;
+  right: 10px;
   background-color: $pink;
   background-image: url(../img/icons/menu.svg);
   background-size: 25px 14px;
@@ -1943,7 +1974,6 @@ search list
   width: 100%;
   input {
     height: 52px;
-    border-radius: 25px;
     padding: 10px 45px;
   }
   .search-button {

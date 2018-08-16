@@ -12,9 +12,10 @@ $segments = Uri::get_parts();
 
 $controller_dir = isset($segments['controller_dir']) ? $segments['controller_dir'].'/' : '';
 
-// if admin, redirect to index
+// Utils::dbug($controller_dir);
+// if admin, redirect to index (right now handled in dev server)
 if ($controller_dir == 'admin/') {
-
+	// Utils::dbug('admin hit');
 }
 
 $controller = Config::paths('CONTROLLER_PATH').$controller_dir.$segments['controller'].'.php';
@@ -30,7 +31,5 @@ if (file_exists($controller)) {
 	$contr->run_scripts();
 } else {
 	$contr = new Controllers\Four_o_four;
-	Utils::dbug($contr);
-
-	// call_user_func_array([$contr, 'index'], []);
+	call_user_func_array([$contr, 'index'], []);
 }

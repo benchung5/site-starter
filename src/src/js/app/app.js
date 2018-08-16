@@ -280,23 +280,35 @@ mobile menu
 
 var mobileMenuOpen = false;
 
-if (document.querySelector(".mobile-menu-button") && document.querySelector(".mobile-menu-container")) {
-	var menuButton = document.querySelector(".mobile-menu-button").querySelector(".grid-button");
-	var menuHolder = document.querySelector(".mobile-menu-container");
+var menuButtonHolder = document.querySelector(".mobile-menu-button");
+var menuHolder = document.querySelector(".mobile-menu-container");
+
+if (menuButtonHolder && menuHolder) {
+	var menuButton = menuButtonHolder.querySelector(".grid-button");
 
 	menuButton.addEventListener('click', function() {
 
 		if(!mobileMenuOpen) {
 			//open menu
-			TweenLite.to(menuHolder, 0.5, {autoAlpha: 1});
+			TweenLite.to(menuHolder, 0.5, {
+				autoAlpha: 1,
+				onStart: function() {
+					menuButtonHolder.style.position = 'fixed';
+				}
+			});
 			mobileMenuOpen = true;
 		} else {
 			//close menu
-			TweenLite.to(menuHolder, 0.5, {autoAlpha: 0});
+			TweenLite.to(menuHolder, 0.5, {
+				autoAlpha: 0,
+				onStart: function() {
+					menuButtonHolder.style.position = 'absolute';
+				}	
+			});
 			mobileMenuOpen = false;
 		}
 
-		toggleClass(menuButton, 'close');
+		$(menuButton).toggleClass('close');
 	});
 }
 

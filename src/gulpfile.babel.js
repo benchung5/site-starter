@@ -325,7 +325,7 @@ function rsyncTemplates(done) {
 function watch() {
   gulp.watch(PATHS.media, media);
   gulp.watch(PATHS.favicons, favicons);
-  gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass));
+  gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, sassAdmin));
   gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript));
   gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript));
   gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
