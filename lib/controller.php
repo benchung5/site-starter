@@ -19,6 +19,7 @@ class Controller
 	public function render($view_name, $data = [])
 	{
 		$this->view = new View();
+		$data['current_page'] = strtolower($this->get_class_name());
 		$this->view->render($view_name, $data);
 	}
 
@@ -46,5 +47,17 @@ class Controller
 			echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/'.$script.'"></script>';
 		}
 		
+	}
+
+	private function get_class_name()
+	{
+		$class_name = get_class($this);
+
+		//if it's a namespaced class
+	    if ($pos = strrpos($class_name, '\\')) {
+	    	return substr($class_name, $pos + 1);
+	    }
+	  
+	    return $pos;
 	}
 }

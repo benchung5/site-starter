@@ -1,7 +1,6 @@
 <?php
 namespace Controllers;
 use Lib\Controller;
-
 use Lib\Validation\Validator;
 
 class Index extends Controller 
@@ -12,7 +11,7 @@ class Index extends Controller
 	}
 
 	public function index($param = null) {
-		// //pass view data to view
+		// pass view data to view
 		$this->render('index');
 	}
 }

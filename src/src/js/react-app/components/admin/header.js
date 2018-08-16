@@ -35,7 +35,7 @@ class Header extends Component {
                 <nav className="">
                     <ul className="vertical menu header-nav">
                         <li className="nav-item">
-                        <a href="/explore" className="nav-link">Website</a>
+                        <a href="/" className="nav-link">Website</a>
                         </li>
                         {this.renderLinks() }
                     </ul>

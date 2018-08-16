@@ -37,6 +37,14 @@ class Articles_model extends Model
 				->where('article_id', $result->id)
 				->innerJoin('themes t', 't.id', 'at.theme_id')
 				->getAll();
+
+			// include categories
+			$category = $this->db->table('categories')
+				->select('name')
+				->where('id', $result->category_id)
+				->get();
+
+			$result->category_name = $category ? $category->name : '';
 			
 			return $result;
 		}
@@ -98,7 +106,7 @@ class Articles_model extends Model
 		if (isset($opts['select'])) {
 			$this->db->select(implode(',', $opts['select']));
 		} else {
-			$this->db->select('a.id, a.name, a.category_id');
+			$this->db->select('a.id, a.slug, a.name, a.category_id');
 		}
 
 		if (isset($opts['limit'])) {

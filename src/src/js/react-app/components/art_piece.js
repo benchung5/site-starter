@@ -99,7 +99,7 @@ class ArtPiece extends Component {
     getFeaturedImg() {
         //for share buttons
         if(this.props.articleData.images && this.props.articleData.images.length !== 0) {
-            return ROOT_URL + UPLOADS_PATH + imgName(this.props.articleData.images[0].source, 'large');
+            return ROOT_URL + UPLOADS_PATH + (this.props.articleData.images ? imgName(this.props.articleData.images[0].name, 'large') : null);
         } else {
             return ROOT_URL + this.placeholderImg;
         }
@@ -118,7 +118,6 @@ class ArtPiece extends Component {
             //else we've cleared images intentionally with: null
             return <div className="slider-wrapper"></div>
         }
-
     }
 
 
@@ -128,7 +127,7 @@ class ArtPiece extends Component {
             {(state) => (
                 <div className={`art-piece`} style={{...defaultArtStyle, ...transitionArtStyles[state]}}>
                     <a href="#" className="close-btn" onClick={this.close.bind(this)}></a>
-                    <div className={`active ${this.props.articleData.category.name ? this.props.articleData.category.name.toLowerCase().replace(/\//g, '-') : ''}`}>
+                    <div className={`active ${this.props.articleData.category_name ? this.props.articleData.category_name.toLowerCase().replace(/\//g, '-') : ''}`}>
                         <div className="type-icon icon"></div>
                     </div>
                     {this.renderFeatured()}

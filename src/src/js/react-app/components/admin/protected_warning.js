@@ -8,7 +8,7 @@ class ProtectedWarning extends Component {
 			<div className="admin-main">
 		        <div className="row">
 		                <div className="columns small-12">
-		                	<p>Please sign up or <Link className="" to="/signin">login</Link>.</p>
+		                	<p>Please sign up or <Link className="" to="/admin/signin">login</Link>.</p>
 		                </div>
 		        </div>
 		    </div>

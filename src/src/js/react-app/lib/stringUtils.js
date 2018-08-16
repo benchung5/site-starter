@@ -4,11 +4,11 @@ import escapeHtml from 'html-escape';
 export function imgName(imgName, size) {
     switch(size) {
         case 'large' :
-            return imgName.replace(/(\.[\w\d_-]+)$/i, '-lg$1');
+            return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-lg$1') : '';
         case 'medium' :
-            return imgName.replace(/(\.[\w\d_-]+)$/i, '-med$1');
+            return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-med$1') : '';
         case 'small' :
-            return imgName.replace(/(\.[\w\d_-]+)$/i, '-sml$1');
+            return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-sml$1') : '';
         default :
             ''
     }

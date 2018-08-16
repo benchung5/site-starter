@@ -54,7 +54,7 @@ const staticFileGlobs = [
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassHome, sassAdmin, javascript, angularJavascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, angularJavascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
@@ -82,8 +82,8 @@ function devServer() {
           // shows /index.html as the landing page
           //{ from: /^\/$/, to: '/index.html' },
           // goes to /index.php for all routes starting with /filter or /admin
-          { from: /^\/filter/, to: '/index.php' },
-          { from: /^\/admin/, to: '/index.php' },
+          // { from: /^\/filter/, to: '/index.php' },
+          // { from: /^\/admin/, to: '/index.php' },
           
           // shows /404.html on all other pages
           // { from: /./, to: '/404.html' }
@@ -224,24 +224,6 @@ function sass() {
       includePaths: PATHS.sass
     })
       .on('error', $.sass.logError))
-    .pipe($.autoprefixer())
-    // Comment in the pipe below to run UnCSS in production
-    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
-    .pipe($.if(PRODUCTION, $.cssnano()))
-    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
-    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/css'))
-}
-
-// Compile Home Sass into CSS
-// In production, the CSS is compressed
-function sassHome() {
-  return gulp.src('src/scss/home.scss')
-    .pipe($.sourcemaps.init())
-    .pipe($.sass({
-      includePaths: PATHS.sass
-    })
-      .on('error', $.sass.logError))
-    //settings for autoprefixer in package.json
     .pipe($.autoprefixer())
     // Comment in the pipe below to run UnCSS in production
     //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))

@@ -15,28 +15,28 @@ class SideMenuButton extends Component {
 		}
 	}
 
-	componentWillMount() {
-		this.checkMenuOpen();
-	}
+	// componentWillMount() {
+	// 	this.checkMenuOpen();
+	// }
 
-	componentDidMount() {
-		window.addEventListener('resize', () => {
-			this.checkMenuOpen();
-		});
-	}
+	// componentDidMount() {
+	// 	window.addEventListener('resize', () => {
+	// 		this.checkMenuOpen();
+	// 	});
+	// }
 
-	checkMenuOpen() {
-		//if on desktop, close open the side menu on load
-		if(window.innerWidth > globals.HIDE_MENU_THRESHOLD ) {
-			if ((this.props.showMenu === "close") || (this.props.showMenu === "")) {
-				this.props.dispatch(showMenu('open'));
-			}
-		} else {
-			if (this.props.showMenu === "open") {
-				this.props.dispatch(showMenu('close'));
-			}
-		}
-	}
+	// checkMenuOpen() {
+	// 	//if on desktop, close open the side menu on load
+	// 	if(window.innerWidth > globals.HIDE_MENU_THRESHOLD ) {
+	// 		if ((this.props.showMenu === "close") || (this.props.showMenu === "")) {
+	// 			this.props.dispatch(showMenu('open'));
+	// 		}
+	// 	} else {
+	// 		if (this.props.showMenu === "open") {
+	// 			this.props.dispatch(showMenu('close'));
+	// 		}
+	// 	}
+	// }
 
 	onItemClick(event) {
 		event.preventDefault();
@@ -44,10 +44,6 @@ class SideMenuButton extends Component {
 			this.props.dispatch(showMenu('close'));
 		} else {
 			this.props.dispatch(showMenu('open'));
-			//close list panel if open
-			this.props.dispatch(viewsToggle('close'));
-			//close art peice if open
-			this.props.dispatch(showSingle(''));
 		}
 	}
 

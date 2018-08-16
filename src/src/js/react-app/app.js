@@ -15,7 +15,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import customHistory from './history';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
 import asyncComponent from './lib/async_component';
 
@@ -118,16 +118,16 @@ const myPrefixer = (styles) => {
 ReactDOM.render(
   <PrefixerProvider prefixer={myPrefixer}>
   <Provider store={store}>
-    <BrowserRouter history={customHistory}>
+    <Router history={customHistory}>
       <div>
        <Switch history={customHistory}>
           {/* website */}
           <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
           <Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
           {/* admin */}
-          <Route history={customHistory} path="/protected" component={protecetWarning} />
-          <Route history={customHistory} path="/signin" component={signin} />
-          <Route history={customHistory} path="/signout" component={signout} />
+          <Route history={customHistory} path="/admin/protected" component={protecetWarning} />
+          <Route history={customHistory} path="/admin/signin" component={signin} />
+          <Route history={customHistory} path="/admin/signout" component={signout} />
           <Route history={customHistory} exact path="/admin" component={admin} />
           <Route history={customHistory} path="/admin/signup" component={signup} /> 
           <Route history={customHistory} exact path="/admin/articles-list" component={articlesList} />
@@ -143,7 +143,7 @@ ReactDOM.render(
           <Route history={customHistory} path="/admin/backup" component={backup} />
         </Switch> 
       </div>  
-    </BrowserRouter>
+    </Router>
   </Provider>
   </PrefixerProvider>
   , document.querySelector('.app-container'));

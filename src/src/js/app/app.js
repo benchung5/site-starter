@@ -18,7 +18,7 @@ load foundation plugins - keep this
 
 (function() {
 	//only register sw and manifest if on explore page...
-	if(window.location.pathname === '/explore') {
+	if(window.location.pathname === '/filter') {
 		/* ==========================================================================
 		// register service worker
 		========================================================================== */
@@ -89,16 +89,6 @@ load foundation plugins - keep this
 		 for(let registration of registrations) {
 		  registration.unregister()
 		} })
-	}
-
-	/* ==========================================================================
-	// french
-	========================================================================== */
-
-	//check if this is french url path
-	let path = window.location.pathname;
-	if(path === '/fr.html') {
-	  $(document.body).addClass('fr');
 	}
 
 
@@ -284,62 +274,222 @@ $(document).ready(function(){
 
 });
 
-// 'use strict';
+/* ==========================================================================
+mobile menu
+========================================================================== */
 
-// //config
-// const env = process.env.NODE_ENV || "development";
-// import $ from 'jquery';
-// window.$ = $;
+var mobileMenuOpen = false;
+
+if (document.querySelector(".mobile-menu-button") && document.querySelector(".mobile-menu-container")) {
+	var menuButton = document.querySelector(".mobile-menu-button").querySelector(".grid-button");
+	var menuHolder = document.querySelector(".mobile-menu-container");
+
+	menuButton.addEventListener('click', function() {
+
+		if(!mobileMenuOpen) {
+			//open menu
+			TweenLite.to(menuHolder, 0.5, {autoAlpha: 1});
+			mobileMenuOpen = true;
+		} else {
+			//close menu
+			TweenLite.to(menuHolder, 0.5, {autoAlpha: 0});
+			mobileMenuOpen = false;
+		}
+
+		toggleClass(menuButton, 'close');
+	});
+}
+
+/* ==========================================================================
+// 1pixel code
+========================================================================== */
+
+// (function ($, window, document, undefined) {
+    
+//     $.fn.onePixel = function ( options ) {
+        
+//         //enable all transition effects after page load (.preload class prevents them)
+//         $(window).load(function () {
+//             $("body").removeClass("preload");
+//         });
+        
+        
+//         // // fadein on page load --------------------------------------------------------//
+//         // to display loading animation before it's ready
+//         $(document).ready(function() {
+            
+//             //first check if there is a loading container on the page
+//             if ( $( ".loading-container" ).length ) {
+ 
+//                 //to show loading animation
+//                 $imgloader = $('.loading-container');
+//                 $loadingimg = $( '<div id="canvasloader-container" class="onepix-imgloader"></div>' );
+                
+
+//     //          $loadingimg.attr("src","images/flexslider/loading.gif");
+//                 $imgloader.prepend( $loadingimg );
+                
+//     //          canvasloader code
+//                 var cl = new CanvasLoader('canvasloader-container');
+//                 cl.setColor('#ffa937'); // default is '#000000'
+//                 cl.setDiameter(45); // default is 40
+//                 cl.setDensity(75); // default is 40
+//                 cl.setRange(0.7); // default is 1.3
+//                 cl.setSpeed(3); // default is 2
+//                 cl.setFPS(22); // default is 24
+//                 cl.show(); // Hidden by default
+                
+//                 $(window).load(function () {
+//                     $('.onepix-imgloader').fadeOut();
+//                     // fade in content (using opacity instead of fadein() so it retains it's height.
+//                     //if home slider doesn't exist (else the slider callback handles this)...
+//                     if (!$('.homeslider').length) {
+//                         fade_in_page();
+//                     }
+
+//                 });
+            
+//             }
+                
+//         });
+        
+//         //        used to bind loading for the page and flexslider ()
+//         function fade_in_page() {
+//             $('.loading-container > *:not(.onepix-imgloader)').fadeTo(8000, 100);
+//         }
+
+//         // mobile menu------------------------------------------------------------//
+//         $(document).ready(function() {
+       
+//             // non dropdown select version mobile menu
+//             $('#mobile-menu .menu').custom_mobileMenu();
+//         });
 
 
-// (function() { 
-// 	/* ==========================================================================
-// 	// register service worker
-// 	========================================================================== */
+//         // "stellar" parallax --------------------------------------------------//
 
-// 	if ('serviceWorker' in navigator) {
-// 	  // Your service-worker.js *must* be located at the top-level directory relative to your site.
-// 	  // It won't be able to control pages unless it's located at the same level or higher than them.
-// 	  // *Don't* register service worker file in, e.g., a scripts/ sub-directory!
-// 	  // See https://github.com/slightlyoff/ServiceWorker/issues/468
-// 	  navigator.serviceWorker.register('assets/js/service-worker.js').then(function(reg) {
-// 	    // updatefound is fired if service-worker.js changes.
-// 	    reg.onupdatefound = function() {
-// 	      // The updatefound event implies that reg.installing is set; see
-// 	      // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
-// 	      var installingWorker = reg.installing;
+//         //the window width threshhold to deactivat stellar
+//         var widthThresh = 1550;
 
-// 	      installingWorker.onstatechange = function() {
-// 	        switch (installingWorker.state) {
-// 	          case 'installed':
-// 	            if (navigator.serviceWorker.controller) {
-// 	              // At this point, the old content will have been purged and the fresh content will
-// 	              // have been added to the cache.
-// 	              // It's the perfect time to display a "New content is available; please refresh."
-// 	              // message in the page's interface.
-// 	              console.log('New or updated content is available.');
-// 	            } else {
-// 	              // At this point, everything has been precached.
-// 	              // It's the perfect time to display a "Content is cached for offline use." message.
-// 	              console.log('Content is now available offline!');
-// 	            }
-// 	            break;
+//         $(document).ready(function() {
+            
+//             if ($(window).width() > widthThresh) {
+//                 $.stellar({
+//                     horizontalScrolling: false,
+//                     //responsive: true
+                    
+//                     //set vertical offset in the data in the element as:
+//                     // data-stellar-vertical-offset="-700"
+//                     //because it needs to load on the fly if page refresh in mobile mode
+//                 });
+//             }
+//         })
 
-// 	          case 'redundant':
-// 	            console.error('The installing service worker became redundant.');
-// 	            break;
-// 	        }
-// 	      };
-// 	    };
-// 	  }).catch(function(e) {
-// 	    console.error('Error during service worker registration:', e);
-// 	  });
-// 	}
+//         $(document).ready(function() {
+//             react_to_window();
+//         });
+        
+// //      only activate stellar for window widths above or equal to 1550
+//         var stellarActivated = false;
+        
+//         $(window).resize(function() {
+//             react_to_window();
+//         });
+        
+//         function react_to_window() {
+//             if ($(window).width() <= widthThresh) {
+//                 if (stellarActivated == true) {
+//                     $(window).data('plugin_stellar').destroy();
+//                     stellarActivated = false;
+//                 }
+//             } else {
+//                 if (stellarActivated == false) {
+
+//                     $.stellar({
+//                        horizontalScrolling: false
+//                    });
+                    
+//                     $(window).data('plugin_stellar').init();
+//                     stellarActivated = true;
+//                 }
+//             }
+//         }
+        
+//         //header search form ----------------------------------------------------//
+
+//         //must do this since css won't allow it while controlling the shortcode
+//         $(function () {
+//             //copy the colour and hover color of the element (set by the shortcode) and apply it to the hover bg
+//             $('#searchform #searchclose').click(
+//                     function () {
+//                        $('#searchform #searchwrap').hide();
+//                     });
+//             $('#searchform #searchbtn').click(
+//                     function () {
+//                        $('#searchform #searchwrap').show();
+//                     });
+                
+//         });
+        
+//         //back to top --------------------------------------------------//
+
+//         $(function() {
+//             $(window).scroll(function() {
+//                 //important -> height: auto must be set or jquery scrollTop() won't work
+//                 if($(this).scrollTop() > 100) {
+//                     $('#toTop').fadeIn(3000);
+//                 } else {
+//                     $('#toTop').fadeOut();
+//                 }
+//             });
+//             $('#toTop').click(function() {
+//                 $('html, body').animate(
+//                 {
+//                     scrollTop:0
+//                 },
+//                 800,
+//                 "easeInOutExpo",
+//                 function() {
+//                     $('#toTop').fadeOut(1200);
+//                 });
+//             });
+//         });
+
+//     //end $.fn.onePixel = function ( options )
+//     }
+    
+//     // call the plugin (must use body since it will only work when an element is called)
+//     $('body').onePixel();
+
+    
+// })($, window, document);
+
+// // * ben - non dropdown select version. ----------------//
+// (function($) {
+// 	$.fn.custom_mobileMenu = function() {
+	    
+// 	    //attach the down arrow for submenu
+// 	    $( "#menu-custom-mobile-menu li" ).has( "ul" ).prepend("<span class='submenu-slide' href='#'><i class='fa fa-angle-down fa-6'></i></span>");
+
+// 	//    $( "h2" ).appendTo( $( ".container" ) );
+
+// 	    /* toggle nav */
+// 	    $("#mobile-selector").on("click", function(){
+// 	        $("#menu-custom-mobile-menu").slideToggle('fast');
+// 	        $(this).toggleClass("active");
+// 	    });
+	    
+// 	    /* toggle submenu items*/
+// 	    $("#menu-custom-mobile-menu li span.submenu-slide").on("click", function(){
+// 	        $(this).siblings( "ul.sub-menu" ).slideToggle('fast');
+// 	    });
+
+// 	};
+// })($);
 
 // 	/* ==========================================================================
 // 	// manifest
 // 	========================================================================== */
-
 
 // 	window.addEventListener('beforeinstallprompt', function(e) {
 // 	  // beforeinstallprompt Event fired
@@ -360,53 +510,3 @@ $(document).ready(function(){
 // 	});
 
 // })();
-
-
-// $(document).ready(function(){
-// 	/* ==========================================================================
-// 	// bowser
-// 	========================================================================== */
-
-// 	//browsers:
-// 	// safari
-// 	// firefox
-// 	// chrome
-// 	// msedge
-// 	// msie
-// 	// mobile
-// 	// ios
-
-// 	if (bowser.msedge) {
-// 	  //need this since modernizr doesn't add this one
-// 	  $('body').addClass('msedge');
-// 	}
-// 	if (bowser.safari) {
-// 	  $('body').addClass('safari');
-// 	}
-// 	if (bowser.iPhone) {
-// 	  $('body').addClass('iphone');
-// 	}
-// 	if (bowser.mobile && bowser.safari && bowser.version <= 8) {
-// 	  $('body').addClass('iphone-8-or-less');
-// 	}
-// 	if (bowser.tablet) {
-// 	  $('body').addClass('tablet');
-// 	}
-// 	if (!bowser.tablet && !bowser.mobile) {
-// 	  $('body').addClass('desktop');
-// 	}
-// 	if (bowser.mobile) {
-// 	  $('body').addClass('mobile');
-// 	}
-
-// 	/* ==========================================================================
-// 	testing
-// 	========================================================================== */
-
-// 	//media size
-// 	$(window).on('changed.zf.mediaquery', function(event, newSize, oldSize) {
-// 	  // newSize is the name of the now-current breakpoint, oldSize is the previous breakpoint
-// 	  // console.log(newSize);
-// 	});
-
-// });

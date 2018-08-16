@@ -9,7 +9,8 @@ class Admin extends Controller
 		parent::__construct();
 	}
 
-	public function index($param = null) {
+	public function index($param = null) 
+	{
 		$this->render('admin');
 	}
 }

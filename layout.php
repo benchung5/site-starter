@@ -158,20 +158,67 @@
  
   </head>
   
-  <body>
+  <body data-<?= $view_data['current_page']; ?>>
 
     <!-- preload screen (put above everything) -->
     <div class="preload">
     </div>
+
+    <!-- video modals -->
+<!--     <div id="vid1" class="modal" data-modal>
+      <div class="modal-inner"> 
+        <div class="flex-video">
+          <video id="vid1-video" data-src="assets/img/videos/welland-1280.webm" data-poster="assets/img/videos/vid-cover-welland-1280.jpg" class="wide" controls>
+            <source data-src="assets/img/videos/welland-1280.webm" type="video/webm"/>
+            <source data-src="assets/img/videos/welland-1280.mp4" type="video/mp4"/>
+          </video>
+        </div>
+      </div>
+      <button class="close"><span aria-hidden="true">&times;</span></a>
+    </div>
+
+    <div id="vid2" class="modal" data-modal>
+      <div class="modal-inner">
+        <div class="flex-video">
+          <video id="vid2-video" data-src="assets/img/videos/nikola-tesla-1280.webm" data-poster="assets/img/videos/vid-cover-nikola-tesla-1280.jpg" class="wide" controls>
+            <source data-src="assets/img/videos/nikola-tesla-1280.webm" type="video/webm"/>
+            <source data-src="assets/img/videos/nikola-tesla-1280.mp4" type="video/mp4"/>
+          </video>
+        </div>
+      </div>
+      <button class="close"><span aria-hidden="true">&times;</span></a>
+    </div>
+
+    <div id="vid3" class="modal" data-modal>
+      <div class="modal-inner">
+        <div class="flex-video">
+          <video id="vid3-video" data-src="assets/img/videos/grafitti-alley-1280.webm" data-poster="assets/img/videos/vid-cover-grafitti-alley-1280.jpg" class="wide" controls>
+            <source data-src="assets/img/videos/grafitti-alley-1280.webm" type="video/webm"/>
+            <source data-src="assets/img/videos/grafitti-alley-1280.mp4" type="video/mp4"/>
+          </video>
+        </div>
+      </div>
+      <button class="close"><span aria-hidden="true">&times;</span></a>
+    </div>
+
+    <div id="vid4" class="modal" data-modal>
+    <div class="modal-inner">
+      <div class="flex-video">
+        <video id="vid4-video" data-src="assets/img/videos/blades-of-steel-1280.webm" data-poster="assets/img/videos/vid-cover-blades-of-steel-1280.jpg" class="wide" controls>
+            <source data-src="assets/img/videos/blades-of-steel-1280.webm" type="video/webm"/>
+          <source data-src="assets/img/videos/blades-of-steel-1280.mp4" type="video/mp4"/>
+        </video>
+      </div>
+    </div>
+      <button class="close"><span aria-hidden="true">&times;</span></a>
+    </div> -->
+
 
     <!-- begin main content -->
     <?php
     include $main_content;
     ?>
     <!-- end main content -->
-
-    <!-- react container -->
-    <div class="app-container" style="height: 100vh;"></div>
 
     <!-- vendor libs -->
     <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>

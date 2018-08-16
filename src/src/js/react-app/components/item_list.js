@@ -24,13 +24,12 @@ class ItemList extends Component {
     
     renderItems() {
          return this.props.results.articles.map((item) => {
-            console.log(item);
              return (
                  <div className={`list-item`} key={item.id}>
                     <a href={`#${item.slug}`} className={`left active installation`} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}>
                         <div className="icon"></div>
-                        { item.images[0] ?
-                        <div className='list-item-thumb' style={{ backgroundImage: `url(${ROOT_URL + UPLOADS_PATH + imgName(item.images[0], 'small')})` }} ></div>
+                        { item.images ?
+                        <div className='list-item-thumb' style={{ backgroundImage: `url(${ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'small')})` }} ></div>
                         :
                         <div className='list-item-thumb' style={{ backgroundImage: `url(${ROOT_URL}/assets/img/placeholder-images/placeholder-img-sml.jpg)` }} ></div>
                         }

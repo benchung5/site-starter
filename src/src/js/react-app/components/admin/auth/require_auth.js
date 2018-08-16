@@ -10,14 +10,14 @@ export default function (ComposedComponent) {
         componentWillMount() {
             if (!this.props.authenticated) {
                 //this.context.router.push('/protected');
-                this.props.history.push('/protected');
+                this.props.history.push('/admin/protected');
             }
         } 
         //this one fires when component is updated
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
                 //this.context.router.push('/protected');
-                this.props.history.push('/protected');
+                this.props.history.push('/admin/protected');
             }
         }
         

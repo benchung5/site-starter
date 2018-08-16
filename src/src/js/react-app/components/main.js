@@ -3,15 +3,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MapComponent from './map_component';
 import SideMenu from './sideMenu';
-import MapStyleButton from './button_map_style';
-import LocationButton from './button_focus_location';
 import ShowMenuButton from './button_show_menu';
-import ShowListPanelButton from './button_show_list_panel';
-import SearchButton from './search_expandable';
-import ListPanel from './list_panel';
-import ArtPiece from './art_piece';
+import Search from './search';
 import Loader from './loader';
 import OffLineModal from './offline_modal';
+import GridView from './grid_view';
 import { isOnline } from '../actions/isOnline';
 import { showMenu } from '../actions/sideMenu';
 import { isInitialLoading } from '../actions/initialLoad';
@@ -26,7 +22,6 @@ class Main extends Component {
   }
 
   componentWillMount() {
-    console.log('loading');
     // tell users that they are offline/online
     const that = this;
     window.addEventListener('load', function() {
@@ -70,13 +65,10 @@ class Main extends Component {
     return (
       <div className={`main-container ${this.props.lang}`}>
         <Loader/>
+        <Search/>
         <SideMenu/>
-        <ListPanel/>
-        <ArtPiece />
-        <LocationButton/>
-        <MapStyleButton/>
+        <GridView/>
         <ShowMenuButton/>
-        <ShowListPanelButton/>
         <OffLineModal/>
       </div>
     );

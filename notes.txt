@@ -1,0 +1,5 @@
+to use angular1:
+put 
+AngularJS v1.6.9
+in vendor folder.
+uncomment the angular files

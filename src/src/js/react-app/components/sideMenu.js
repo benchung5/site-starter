@@ -57,8 +57,6 @@ class SideMenu extends Component {
             <Types/>
             <Themes/>
             <div className="bottom">
-              <Socials/>
-              <a className="logo" href="/"></a>
             </div>
           </div>
         )}
