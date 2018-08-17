@@ -1,6 +1,7 @@
 <?php
 
 use Lib\Model;
+use Lib\Utils;
 
 class Articles_model extends Model
 {
@@ -109,20 +110,30 @@ class Articles_model extends Model
 			$this->db->select('a.id, a.slug, a.name, a.category_id');
 		}
 
-		if (isset($opts['limit'])) {
-			$this->db->limit($opts['limit']);
+		if (isset($opts['offset']) && isset($opts['limit'])) {
+			$this->db->limit($opts['offset'], $opts['limit']);
+		}
+
+		if (is_array($opts['category'])) {
+			$this->db->in('a.category_id', $opts['category']);
+		} else {
+			// force no results since no category is selected
+			$this->db->in('a.category_id', [-1]);
 		}
 
 		if (isset($opts['like'])) {
-			$this->db->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
+			$this->db->grouped(function($q, $opts) {
+				$q->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
+			}, $opts);
 		}
 
 		// include images
 		$this->db
 			->select('CONCAT_WS(",", f.name) AS images')
-			->innerJoin('files f', 'f.ref_id', 'a.id');
+			->leftJoin('files f', 'f.ref_id', 'a.id');
 
 		$result = $this->db->getAll();
+
 		return $result;
 	}
 

@@ -139,7 +139,14 @@ class Articles extends Controller
 	{
 		$data = Utils::read_get();
 
-		$articles = $this->articles->get_all(['offset' => $data['offset'], 'limit' => $data['limit'], 'like' => $data['search'], 'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']]);
+		$articles = $this->articles->get_all([
+			'offset' => $data['offset'], 
+			'limit' => $data['limit'], 
+			'like' => isset($data['search']) ? $data['search'] : null, 
+			'category' => isset($data['category']) ? $data['category'] : null, 
+			'themes' => isset($data['themes']) ? $data['themes'] : null,
+			'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']
+		]);
 
 		$result = ['articles' => $articles, 'count' => count($articles), 'offset' => $data['offset'], 'limit' => $data['limit']];
 

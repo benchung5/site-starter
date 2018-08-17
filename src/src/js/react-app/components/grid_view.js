@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { showSingle } from '../actions/showSingle';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -10,28 +9,22 @@ import { imgName } from '../lib/stringUtils';
 
 
 class GridView extends Component {
-
-    onItemClick(slug) {
-        //e.preventDefault();
-        this.props.dispatch(showSingle(slug));
-    }
     
     renderItems() {
          return this.props.results.articles.map((item) => {
              return (
-
-                <a href={`#${item.slug}`} className="product-card" alt={item.name} key={item.id} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}>
+                <a href={`view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
                     <div className="inner">
                         <div className="image">
                             <div className="img-info"></div>
                             <picture>
-                                <source srcset={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'small')} media="(max-width: 1275px)"/>
-                                <source srcset={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
+                                <source srcSet={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
+                                <source srcSet={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
                                 <img src={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/> 
                             </picture>
                         </div>
                         <div className="info">
-                            <div className="info-detail">some info...</div>
+                            <div className="info-detail">{item.name}</div>
                         </div>
                     </div>
                 </a>

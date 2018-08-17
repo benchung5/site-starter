@@ -1,4 +1,7 @@
-<?php use Config\Config as Config; ?>
+<?php 
+use Config\Config as Config;
+use Lib\Uri;
+?>
 
 <!doctype html>
 <html class="no-js" lang="en" ng-app="onePix">
@@ -160,21 +163,28 @@
   
   <body data-<?= $view_data['current_page'] ?> >
 
-    <!-- preload screen (put above everything) -->
-    <div class="preload">
-    </div>
+  <!-- preload screen (put above everything) -->
+  <div class="preload">
+  </div>
 
-    <!-- begin main content -->
-    <?php
-    include $main_content;
-    ?>
-    <!-- end main content -->
+  <!-- begin main content -->
+  <?php
+  include $main_content;
+  ?>
+  <!-- end main content -->
 
-    <!-- vendor libs -->
-    <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
-    <!-- app js -->
-    <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
-    <!-- footer scripts are loaded belew here -->
-
-  <script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script></body>
+  <!-- vendor libs -->
+  <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
+  <!-- app js -->
+  <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
+  <!-- react js -->
+  <?php
+    $segments = Uri::get_parts();
+    $react_pages = ['admin', 'filter'];
+    if (isset($segments['controller']) && in_array($segments['controller'], $react_pages)) {
+      echo '<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script>';
+    }
+  ?>
+  <!-- footer scripts are loaded belew here -->
+</body>
 </html>

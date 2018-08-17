@@ -264,14 +264,31 @@ class Pdox
     return $this;
   }
 
-  public function grouped(Closure $obj)
+  // ben modified
+  public function grouped(Closure $obj, $opts)
   {
     $this->grouped = true;
-    call_user_func_array($obj, [$this]);
+
+    if ($opts) {
+      call_user_func_array($obj, [$this, $opts]);
+    } else {
+      call_user_func_array($obj, [$this]);
+    }
+    
+    
     $this->where .= ')';
 
     return $this;
   }
+
+  // public function grouped(Closure $obj)
+  // {
+  //   $this->grouped = true;
+  //   call_user_func_array($obj, [$this]);
+  //   $this->where .= ')';
+
+  //   return $this;
+  // }
 
   public function in($field, Array $keys, $type = '', $andOr = "AND")
   {
@@ -375,6 +392,13 @@ class Pdox
       $this->where = $where;
     else
       $this->where = $this->where . ' ' . $andOr . ' ' . $where;
+      // Ben updated
+      // if ($andOr == 'OR') {
+      //   $this->where = '('.$this->where.' '.$andOr.' '.$where.')';
+      // } else {
+      //   $this->where = $this->where . ' ' . $andOr . ' ' . $where;
+      // }
+      
 
     return $this;
   }
