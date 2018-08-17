@@ -21,8 +21,8 @@ class FileField extends Component {
        imgSrc: null
      }
      isSubmitting: false;
-     this.finalcropWidth = 450;
-     this.finalcropHeight = 300;
+     this.finalcropWidth = 600;
+     this.finalcropHeight = 600;
      this.maxDropCount = 10;
    }
 
@@ -242,15 +242,15 @@ class FileField extends Component {
             className="cropper"
             ref="cropper"
             src={this.state.imgSrc}
-            style={{width: 500, height: 333}}
+            style={{width: 333, height: 333}}
             // Cropper.js options
-            aspectRatio={4.5 / 3}
+            aspectRatio={1 / 1}
             zoomable={false}
             guides={false}
             preview=".img-preview"
             autoCropArea={1}
             //to force crop to image bounds:
-            //viewMode={2}
+            viewMode={2}
            />
             <div className="cropper-buttons">
               <button className="btn" onClick={this.onCropSubmit.bind(this)}>crop</button>

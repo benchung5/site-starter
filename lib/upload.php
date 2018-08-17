@@ -111,8 +111,8 @@ class Upload
 	  // read image from file
 	  $img = Image::make($path);
 	  
-	  $max_width = 1000;
-	  $max_height = 1000;
+	  $max_width = 600;
+	  $max_height = 600;
 
 	  if ($img->width() > $max_width || $img->height() > $max_height) {
 	    // resize to maximum width and maxium height
@@ -125,7 +125,7 @@ class Upload
 	  }
 
 	  //create thumbs
-	  self::create_thumb($path, 'sml', 150, 100);
+	  self::create_thumb($path, 'sml', 150, 150);
 
 	  return true;
 	}

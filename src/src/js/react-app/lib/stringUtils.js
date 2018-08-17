@@ -3,10 +3,8 @@ import escapeHtml from 'html-escape';
 //for saving and resizing images
 export function imgName(imgName, size) {
     switch(size) {
-        case 'large' :
-            return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-lg$1') : '';
-        case 'medium' :
-            return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-med$1') : '';
+        // case 'medium' :
+        //     return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-med$1') : '';
         case 'small' :
             return imgName ? imgName.replace(/(\.[\w\d_-]+)$/i, '-sml$1') : '';
         default :

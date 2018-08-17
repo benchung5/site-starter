@@ -23,13 +23,11 @@ class GridView extends Component {
                 <a href={`#${item.slug}`} className="product-card" alt={item.name} key={item.id} onClick={this.onItemClick.bind(this, item.slug)} data-slug={item.slug}>
                     <div className="inner">
                         <div className="image">
-                            <div className="img-info">
-                                img info...
-                            </div>
+                            <div className="img-info"></div>
                             <picture>
-                                <source srcset={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'small')}/>
-                                <source srcset={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'large')}/>
-                                <img src={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'small')}/> 
+                                <source srcset={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'small')} media="(max-width: 1275px)"/>
+                                <source srcset={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
+                                <img src={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/> 
                             </picture>
                         </div>
                         <div className="info">
