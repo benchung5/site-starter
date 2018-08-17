@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Transition from 'react-transition-group/Transition';
 
-const duration = 200;
+const duration = 150;
 const intLoaderStyle = {
           transition: `all ${duration}ms ease-in-out`,
           opacity: 0,
@@ -48,7 +48,7 @@ class LoaderInternal extends Component {
         this.setState({ isLoading: false });
       }
       this.setState({ lockLoad: false });
-    }, 400);
+    }, 150);
   }
 
   render() {

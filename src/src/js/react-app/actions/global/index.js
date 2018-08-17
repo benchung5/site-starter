@@ -2,6 +2,7 @@ import axios from 'axios';
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../../config')[env];
+import { isLoading } from '../internalLoad';
 
 import {
 	CATEGORIES_FILTER,
@@ -74,6 +75,7 @@ export function populateThemeFilter() {
 //perform the search
 export function searchArticles(searchObj) {
     return function(dispatch) {
+        dispatch(isLoading(true));
     	let query = buildQuery(searchObj);
     	//set the obj in the get request
         axios.get(`${SERVER_URL}/articles/search/`, { params: query })
@@ -83,6 +85,7 @@ export function searchArticles(searchObj) {
                 //payload: formatMarkerCoords(response.data)
                 payload: response.data
              });
+            dispatch(isLoading(false));
         })
         .catch((err) => {
             console.log('error searching articles: ', err);

@@ -110,15 +110,29 @@ class Articles_model extends Model
 			$this->db->select('a.id, a.slug, a.name, a.category_id');
 		}
 
-		if (isset($opts['offset']) && isset($opts['limit'])) {
+		if (isset($opts['offset'])) {
 			$this->db->limit($opts['offset'], $opts['limit']);
 		}
 
-		if (is_array($opts['category'])) {
-			$this->db->in('a.category_id', $opts['category']);
-		} else {
-			// force no results since no category is selected
-			$this->db->in('a.category_id', [-1]);
+		if (isset($opts['category'])) {
+			if (count($opts['category']) > 0) {
+				$this->db->in('a.category_id', $opts['category']);
+			} else {
+				// force no results since category is queried but no category is selected
+				return [];
+			}
+		}
+
+		if (isset($opts['themes'])) {
+			if (count($opts['themes']) > 0) {
+				$this->db
+					->innerJoin('article_themes at', 'at.article_id', 'a.id')
+					->innerJoin('themes t', 't.id', 'at.theme_id')
+					->in('t.id', $opts['themes']);
+			} else {
+				// force no results since theme is queried but no theme is selected
+				return [];
+			}
 		}
 
 		if (isset($opts['like'])) {

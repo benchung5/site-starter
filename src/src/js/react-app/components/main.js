@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SideMenu from './sideMenu';
 import Filter from './filter';
-import Loader from './loader';
 import OffLineModal from './offline_modal';
 import GridView from './grid_view';
 import { isOnline } from '../actions/isOnline';
 import { showMenu } from '../actions/sideMenu';
 import { isInitialLoading } from '../actions/initialLoad';
 // import OfflineMap from './offline_map';
+// import Loader from './loader';
 
 class Main extends Component {
 
@@ -56,13 +56,12 @@ class Main extends Component {
   // <MapComponent
   //   onMapClick={this.onMapClick.bind(this)}
   // />
-
   // <SearchButton/>
+  // <Loader/>
 
   render() {
     return (
       <div className={`main-container ${this.props.lang}`}>
-        <Loader/>
         <Filter/>
         <SideMenu/>
         <GridView/>

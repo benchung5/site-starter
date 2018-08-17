@@ -1686,7 +1686,7 @@ preloader
 
 .preload {
   pointer-events: none;
-  position: fixed;
+  position: absolute;
   width: 100vw;
   height: 100vh;
   right: 0;
@@ -1729,7 +1729,7 @@ internal loader
 
 .preload {
   &.internal-loader {
-    background: rgba(0,0,0,0.2);
+    background: rgba(255,255,255,1);
   }
   .circular {
     animation: rotate 2s linear infinite;

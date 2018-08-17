@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import LoaderInternal from './loader_internal';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -43,13 +44,17 @@ class GridView extends Component {
     //     </a>
     // </div>
     
+    // LoaderInternal is controlled by the action 'isLoading' 
+    // (set in global > index.js action)
     render() {
         return (
-            <div className="cards-container-wrapper">
-                <div className="cards-container">
-                  {this.renderItems()}
+            <LoaderInternal>
+                <div className="cards-container-wrapper">
+                    <div className="cards-container">
+                      {this.renderItems()}
+                    </div>
                 </div>
-            </div>
+            </LoaderInternal>
         );
     }
 }

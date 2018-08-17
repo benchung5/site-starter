@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ButtonComponent from './button_component';
-import { connect } from 'react-redux';
 
 class ButtonList extends Component {
 
@@ -55,10 +54,4 @@ class ButtonList extends Component {
 
 }
 
-function mapStateToProps(state) {
-	return {
-		lang: state.language.lang
-	}
-}
-
-export default connect(mapStateToProps)(ButtonList);
+export default ButtonList;
