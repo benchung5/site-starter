@@ -12,4 +12,5 @@ RewriteCond %{REQUEST_FILENAME} !-l
 # redirect to index.php, append the query string (QSA),  
 RewriteRule ^ index.php [QSA,L]
 
-#RewriteRule ^([^/]+)/? index.php?url=$1 [L,QSA]
+# disable directory browsing
+Options -Indexes

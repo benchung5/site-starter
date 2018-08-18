@@ -1,16 +1,20 @@
+<?php 
+use Config\Config as Config;
+?>
+
 <header id="header" class="hide-for-print">
   
   <div class="header-inner">
     <div class="row text-center">
       <div class="small-10 large-4 columns logo-container align-middle">
         <h1 class="logo-main">
-          <a href="/"><img alt="logo" src="assets/img/logo-main.png"></a>
+          <a href="/"><img alt="logo" src="<?=Config::paths('ROOT_URL')?>assets/img/logo-main.png"></a>
         </h1>
       </div>
       <nav class="large-6 columns menu-container show-for-large">
         <ul class="menu menu-left align-right">
           <li><a href="/">Home</a></li>
-          <li><a href="/filter">Shop</a></li>
+          <li><a href="/filter">3d</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -32,11 +36,11 @@
   <div class="mobile-menu-container hide-for-large" style="visibility: hidden; opacity: 0;"> 
     <div class="mobile-menu-inner">
       <div class="top">
-        <img class="mobile-top-logo" src="/assets/img/logo-main.png">
+        <img class="mobile-top-logo" src="<?=Config::paths('ROOT_URL')?>assets/img/logo-main.png">
       </div>   
       <ul class="menu menu-mobile vertical">
         <li><a href="/">Home</a></li>
-        <li><a href="/filter">Shop</a></li>
+        <li><a href="/filter">3d</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>

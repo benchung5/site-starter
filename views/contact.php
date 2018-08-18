@@ -4,7 +4,7 @@
 	<div class="content-wrapper">
 		<div class="row">
 			<div class="small-12 columns internal">
-				<h1>404 page not found</h1>						
+				<h1>Contact Us</h1>					
 			</div>
 		</div>
 	</div><!-- /content wrapper -->

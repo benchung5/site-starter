@@ -540,6 +540,9 @@ page layout
 .content-wrapper {
   flex: 1;
   background: $white;
+  .internal {
+    margin-top: 2em;
+  }
 }
 body:not([data-index]) .content-wrapper {
   //not index page
