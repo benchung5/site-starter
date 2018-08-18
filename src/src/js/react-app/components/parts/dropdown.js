@@ -9,12 +9,12 @@ const defaultBodyStyle = {
 		  visibility: 'hidden',
 		}
 const defaultArrowStyle = {
-		// transition: `transform ${duration}ms ease-in-out`,
+		transition: `transform ${duration}ms ease-in-out`,
 		transform: 'rotate(0deg)',
 }
 const arrowTransitionStyles = {
-		  entering: { transform: 'rotate(-180deg)' },
-		  entered:  { transform: 'rotate(-180deg)' },
+		  entering: { transform: 'rotate(-90deg)' },
+		  entered:  { transform: 'rotate(-90deg)' },
 		}
 
 class Dropdown extends Component {
@@ -22,8 +22,9 @@ class Dropdown extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			active: false,
-			//for transition 
+			// active means open
+			active: true,
+			// for transition 
 			bodyTransitionStyles: {
 			  entering: { height: '250px' },
 			  entered:  { height: '250px' },
@@ -53,7 +54,7 @@ class Dropdown extends Component {
 	}
 
 	render() {
-		const { name, isDisabled, classProp, id, img, children } = this.props;
+		const { name, isDisabled, classProp, id, children } = this.props;
 	    return (
 	    	<Transition in={this.state.active} timeout={duration}>
 	    	{(state) => (
@@ -67,18 +68,11 @@ class Dropdown extends Component {
 				       data-is-disabled={isDisabled}
 				       alt={name}
 				       >
-				       <div className="left">
-				       	<img src={`/assets/img/icons/${img}`} />
-				       </div>
-				       <div className="center">
-				        <span className="item-label">{name}</span>
-				       </div>
-				       <div className="right">
-				       	<img 
-				       	style={{...defaultArrowStyle, ...arrowTransitionStyles[state]}}
-				       	className="icon-arrow" src={`/assets/img/icons/arrow.svg`}
-				       	/>
-				       </div>
+				        <img 
+				        style={{...defaultArrowStyle, ...arrowTransitionStyles[state]}}
+				        className="icon-arrow" src={`/assets/img/icons/arrow.svg`}
+				        />
+				       	<span className="item-label">{name}</span>
 			       </a>
 			       <div ref="body" className="dropdown-body" style={{...defaultBodyStyle, ...this.state.bodyTransitionStyles[state]}}>
 			       	{children}

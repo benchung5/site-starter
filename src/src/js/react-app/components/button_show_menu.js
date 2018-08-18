@@ -15,29 +15,6 @@ class SideMenuButton extends Component {
 		}
 	}
 
-	// componentWillMount() {
-	// 	this.checkMenuOpen();
-	// }
-
-	// componentDidMount() {
-	// 	window.addEventListener('resize', () => {
-	// 		this.checkMenuOpen();
-	// 	});
-	// }
-
-	// checkMenuOpen() {
-	// 	//if on desktop, close open the side menu on load
-	// 	if(window.innerWidth > globals.HIDE_MENU_THRESHOLD ) {
-	// 		if ((this.props.showMenu === "close") || (this.props.showMenu === "")) {
-	// 			this.props.dispatch(showMenu('open'));
-	// 		}
-	// 	} else {
-	// 		if (this.props.showMenu === "open") {
-	// 			this.props.dispatch(showMenu('close'));
-	// 		}
-	// 	}
-	// }
-
 	onItemClick(event) {
 		event.preventDefault();
 		if(this.props.showMenu === 'open') {

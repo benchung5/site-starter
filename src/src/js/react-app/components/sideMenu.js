@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import Views from './buttons_views';
+import SideMenuHeader from './side_menu_header';
 import Types from './buttons_types';
 import Themes from './buttons_themes';
 // import Routes from './buttons_routes';
 // import NearMe from './button_near_me';
+// import OffLineMessage from './offline_message';
 import { searchArticles } from '../actions/global';
 import Socials from './parts/socials';
-import OffLineMessage from './offline_message';
 import Transition from 'react-transition-group/Transition';
 import prefix from 'react-prefixer';
 
@@ -45,15 +45,14 @@ class SideMenu extends Component {
   }
 
   // <NearMe className="right near-me"/>
+  // <OffLineMessage/>
 
   render() {
     return (
       <Transition in={(this.props.showMenu == 'open') ? true : false} timeout={duration}>
         {(state) => (
           <div className={`side-menu ${this.props.showMenu}`} style={{...defaultStyle, ...transitionStyles[state]}}>
-            <OffLineMessage/>
-            
-            <Views/>
+            <SideMenuHeader/>
             <Types/>
             <Themes/>
             <div className="bottom">

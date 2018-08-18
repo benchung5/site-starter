@@ -27,24 +27,23 @@ class SearchForm extends Component {
 		}
 	}
 
-	onSearchClick(e) {
-	}
+	// onCloseClick(e) {
+	// 	//set the list view to off and map view to on
+	// 	this.props.viewsToggle('close');
+	// }
 
-	onCloseClick(e) {
-		//set the list view to off and map view to on
-		this.props.viewsToggle('close');
-	}
+	// <div onClick={this.onCloseClick.bind(this)} className="search-clear"></div>
 
 	render() {
 		const { handleSubmit } = this.props;
 		return (
-				<form className="search-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-					<div className="search-button" onClick={this.onSearchClick.bind(this)}></div>
+				<form ref="form" className="search-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+					<button type="submit" className="search-button"/>
 					<Field
 						name="search"
 						component={renderSearch}
 					/>
-					<div onClick={this.onCloseClick.bind(this)} className="search-clear"></div>
+					
 				</form>
 			)
 	}

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Search from './search';
 import ShowMenuButton from './button_show_menu';
 
 class Filter extends Component {
@@ -9,7 +8,6 @@ class Filter extends Component {
 
 		return (
 			<div className="filter">
-				<Search/>
 				<ShowMenuButton/>
 			</div>
 		);

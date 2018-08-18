@@ -22,12 +22,11 @@ class RoutesButtons extends Component {
 		return (
 		        <Dropdown
 		          name={labels[this.props.lang].routesTitle}
-		          img='route.svg'
 		          height={148}
 		        >
 		         <ButtonList
-		         	wrapperClass="thirds"
-		         	classProp="routes circleStyle"
+		         	wrapperClass="three-col"
+		         	classProp="routes circle-style"
 		         	classPropButton="circle-button"
 		         	buttonData={this.props.filteredRoutes}
 		         	updateData={this.onUpdateData.bind(this)}

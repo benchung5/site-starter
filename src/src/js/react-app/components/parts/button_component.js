@@ -6,7 +6,6 @@ import React from 'react';
 const ButtonComponent = ({ name, isActive, isDisabled, onClickProp, classProp, id, children }) => {  
 	
     return (
-
        <a
 	       href="#"
 	       className={`${classProp ? classProp : ""} ${isActive ? "active" : ""} ${isDisabled ? "disabled" : ""}`}

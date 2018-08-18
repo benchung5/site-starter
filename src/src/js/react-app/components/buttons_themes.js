@@ -37,11 +37,10 @@ class ThemesButtons extends Component {
 		        <Dropdown
 		          classProp="themes-dropdown"
 		          name='Themes'
-		          img='theme.svg'
-		          height={360}
+		          height={52}
 		        >
 		         <ButtonList
-		         	wrapperClass="halves"
+		         	wrapperClass="single-col"
 		         	classProp="themes"
 		         	classPropButton="list-button"
 		         	buttonData={this.props.filteredThemes}
