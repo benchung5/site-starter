@@ -39,7 +39,6 @@ class ButtonList extends Component {
 				    	    <span onClick={this.onItemClick.bind(this)} data-id={item.id} className="name">{item.name}</span>
 				        </ButtonComponent>						
 					</div>
-
 				)
 		});
 	}

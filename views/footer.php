@@ -9,7 +9,7 @@
     <div class="row footer-bottom">
         <div class="small-12 columns">
             <div class="copywright padding-columns">© <a href="/" title="JavaScript Web Development">
-                benchung5.github.io&nbsp;2017</a>.
+                3d.benchung.com&nbsp;2018</a>.
             </div>
 <!--             <div class="socials">
                 <a href="https://twitter.com/AITONiagara" target="_blank" class="social twitter"></a>

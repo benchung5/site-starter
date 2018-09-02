@@ -21,9 +21,15 @@ class FileField extends Component {
        imgSrc: null
      }
      isSubmitting: false;
-     this.finalcropWidth = 600;
-     this.finalcropHeight = 600;
      this.maxDropCount = 10;
+     //the final full size image dimensions
+     this.finalcropWidth = 1140;
+     this.finalcropHeight = 700;
+     //the display size for the cropper box
+     this.aspectRatio = 200 / 123;
+     this.cropBoxWidth = 400;
+     this.cropBoxHeight = 246;
+
    }
 
   componentDidMount() {
@@ -242,9 +248,9 @@ class FileField extends Component {
             className="cropper"
             ref="cropper"
             src={this.state.imgSrc}
-            style={{width: 333, height: 333}}
+            style={{width: this.cropBoxWidth, height: this.cropBoxHeight}}
             // Cropper.js options
-            aspectRatio={1 / 1}
+            aspectRatio={this.aspectRatio}
             zoomable={false}
             guides={false}
             preview=".img-preview"

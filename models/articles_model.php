@@ -143,8 +143,9 @@ class Articles_model extends Model
 
 		// include images
 		$this->db
-			->select('CONCAT_WS(",", f.name) AS images')
-			->leftJoin('files f', 'f.ref_id', 'a.id');
+			->select('GROUP_CONCAT(f.name) AS images')
+			->leftJoin('files f', 'f.ref_id', 'a.id')
+			->groupBy('a.id');
 
 		$result = $this->db->getAll();
 

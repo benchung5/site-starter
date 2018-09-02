@@ -949,25 +949,25 @@ load foundation plugins - keep this
  // gallery
  ========================================================================== */
 
-	var galItems = document.querySelectorAll('.gal-item');
-	if (galItems && galItems.length !== 0) {
-		for (var i = 0; i < galItems.length; i++) {
-			//mouse enter events
-			galItems[i].addEventListener('mouseenter', function (e) {
-				(0, _jquery2.default)(e.currentTarget).removeClass('de-activate');
-				(0, _jquery2.default)(e.currentTarget).addClass('activate');
-			});
-			galItems[i].addEventListener('mouseleave', function (e) {
-				(0, _jquery2.default)(e.currentTarget).removeClass('activate');
-				(0, _jquery2.default)(e.currentTarget).addClass('de-activate');
-			});
-			//play button events
-			galItems[i].querySelector('.icon-play').addEventListener('click', function (e) {
-				e.preventDefault();
-				initModal(e.currentTarget);
-			});
-		}
-	}
+	// var galItems = document.querySelectorAll('.gal-item');
+	// if(galItems && galItems.length !== 0) {
+	// 	for(var i = 0; i < galItems.length; i++) {
+	// 		//mouse enter events
+	// 		galItems[i].addEventListener('mouseenter', (e) => {
+	// 			$(e.currentTarget).removeClass('de-activate');
+	// 			$(e.currentTarget).addClass('activate');
+	// 		});
+	// 		galItems[i].addEventListener('mouseleave', (e) => {
+	// 			$(e.currentTarget).removeClass('activate');
+	// 			$(e.currentTarget).addClass('de-activate');
+	// 		});
+	// 		//play button events
+	// 		galItems[i].querySelector('.icon-play').addEventListener('click', (e) => {
+	// 			e.preventDefault();
+	// 			initModal(e.currentTarget);
+	// 		});
+	// 	}
+	// }
 
 	//modal
 	function initModal(trigger) {

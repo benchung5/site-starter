@@ -125,8 +125,8 @@ class Upload
 	  }
 
 	  //create thumbs
-	  self::create_thumb($path, 'med', 400, 400);
-	  self::create_thumb($path, 'sml', 150, 150);
+	  self::create_thumb($path, 'med', 600, 368);
+	  self::create_thumb($path, 'sml', 200, 123);
 
 	  return true;
 	}

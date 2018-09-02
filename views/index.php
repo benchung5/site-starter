@@ -9,11 +9,9 @@ $this->insert('featured', $view_data );
             <div class="row hero-row">
                 <div class="small-12 large-7 columns">
                     <div class="left">
-                        <h1>
-                            3D Models
-                        </h1>
-                        <h2>Discover Niagara’s Outdoor Art</h2>
-                        <p>I'm a web developer and love what I do. My main squeeze right now is web sites and applications that run on JavaScript.</p>
+                        <h1>3D Modeler</h1>
+                        <h2>& CG artist - Ben Chung</h2>
+                        <p>Hello. I'm a freelance 3d modeller with a background in the game industry and the web.</p>
                         <a class="button-view-models transparent" href="filter">View Models</a>
                     </div>
                 </div>
@@ -96,7 +94,7 @@ $this->insert('featured', $view_data );
                 </div>
         </section> -->
 
-    <!--     <section id="explore">
+<!--         <section id="explore">
            <div class="row">
                 <div class="small-12 columns medium-media-padding">
                     <div class="center-info" data-scroll>
@@ -125,46 +123,33 @@ $this->insert('featured', $view_data );
                     <span class="circle-title">Hospitality</span>
                 </div>
             </div>
-            <div class="row explore-button">
-                <div class="small-12 columns align-center" data-scroll>
-                    <a class="button-view-models solid" href="explore">Explore The Map</a>
-                </div>
-            </div>
         </section> -->
 
-    <!--     <section id="gallery" data-scroll>
+        <section id="gallery" data-scroll>
                 <div class="gallery-wrapper">
                     <div class="gal-item img1">
                         <div class="heading-wrapper">
-                            <h3>Outdoor Art</h3>
-                            <h4>Welland</h4>
+                            <h3>Characters</h3>
                         </div>
-                        <a class="icon-play" data-modal='vid1'></a>
                     </div>
                     <div class="gal-item img2">
                         <div class="heading-wrapper">
-                            <h3>Nikola Tesla Monument</h3>
-                            <h4>Niagara Falls</h4>
+                            <h3>Concepts</h3>
                         </div>
-                        <a class="icon-play" data-modal='vid2'></a>
                     </div>
                     <div class="gal-item img3">
                         <div class="heading-wrapper">
-                            <h3>Graffiti Alley</h3>
-                            <h4>St. Catharines</h4>
+                            <h3>Environments</h3>
                         </div>
-                        <a class="icon-play" data-modal='vid3'></a>
                     </div>
                     <div class="gal-item img4">
                         <div class="heading-wrapper">
-                            <h3>Blades of Steel</h3>
-                            <h4>Niagara Falls</h4>
+                            <h3>Weapons</h3>
                         </div>
-                        <a class="icon-play" data-modal='vid4'></a>
                     </div>
                 </div>
                 <div class="clear"></div>
-        </section> -->
+        </section>
     </div><!-- /content wrapper -->
 
     <?php $this->insert('footer', $view_data ); ?>
