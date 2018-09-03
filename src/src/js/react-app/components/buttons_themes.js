@@ -33,23 +33,26 @@ class ThemesButtons extends Component {
 	}
 
 	render() {
-		return (
-		        <Dropdown
-		          classProp="themes-dropdown"
-		          name='Themes'
-		          height={52}
-		        >
-		         <ButtonList
-		         	wrapperClass="single-col"
-		         	classProp="themes"
-		         	classPropButton="list-button"
-		         	buttonData={this.props.filteredThemes}
-		         	updateData={this.onUpdateData.bind(this)}
-		         />
-		        </Dropdown>
-			)
+		if (this.props.filteredThemes.length) {
+			return (
+			        <Dropdown
+			          classProp="themes-dropdown"
+			          name='Themes'
+			          height={52 * this.props.filteredThemes.length}
+			        >
+			         <ButtonList
+			         	wrapperClass="single-col"
+			         	classProp="themes"
+			         	classPropButton="list-button"
+			         	buttonData={this.props.filteredThemes}
+			         	updateData={this.onUpdateData.bind(this)}
+			         />
+			        </Dropdown>
+				)
+		} else {
+			return null;
+		}
 	}
-
 }
 
 function mapStateToProps(state) {

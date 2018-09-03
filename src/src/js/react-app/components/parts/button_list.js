@@ -26,7 +26,7 @@ class ButtonList extends Component {
 		return this.props.buttonData.map((item, index) => {
 			//name to lowercase, replace slashes with dashes
 			return (
-					<div className={this.props.wrapperClass} key={item.id}>
+					<div  className={this.props.wrapperClass} key={item.id}>
 				        <ButtonComponent 
 				    	    classProp={`${this.props.classPropButton} ${item.name.toLowerCase().replace(/\//g, '-')}`}
 				    	    isActive={item.active} 

@@ -24,21 +24,26 @@ class TypesButtons extends Component {
 	}
 
 	render() {
-		return (
-		        <Dropdown
-		          classProp="types-dropdown"
-		          name='Type'
-		          height={156}
-		        >
-		         <ButtonList
-		         	wrapperClass="single-col"
-		         	classProp="types"
-		         	classPropButton="list-button"
-		         	buttonData={this.props.filterCats}
-		         	updateData={this.onUpdateData.bind(this)}
-		         />
-		        </Dropdown>
-			)
+		if (this.props.filterCats.length) {
+			return (
+			        <Dropdown
+			          classProp="types-dropdown"
+			          name='Type'
+			          height={52 * this.props.filterCats.length}
+			        >
+			         <ButtonList
+			         	wrapperClass="single-col"
+			         	classProp="types"
+			         	classPropButton="list-button"
+			         	buttonData={this.props.filterCats}
+			         	updateData={this.onUpdateData.bind(this)}
+			         />
+			        </Dropdown>
+				)	
+		} else {
+			return null;
+		}
+
 	}
 
 }

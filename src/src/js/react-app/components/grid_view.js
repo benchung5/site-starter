@@ -10,15 +10,14 @@ import { imgName } from '../lib/stringUtils';
 
 
 class GridView extends Component {
-    
+    // goes above picture element to add magnifine glass
+    // <div className="img-info"></div>
     renderItems() {
          return this.props.results.articles.map((item) => {
-            console.log(item);
              return (
                 <a href={`filter/view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
                     <div className="inner">
                         <div className="image">
-                            <div className="img-info"></div>
                             <picture>
                                 <source srcSet={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
                                 <source srcSet={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
