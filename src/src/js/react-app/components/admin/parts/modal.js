@@ -35,7 +35,7 @@ import ReactDOM from 'react-dom';
 //</div>
 
 
-class Portal extends Component {
+class Modal extends Component {
 
   constructor(props) {
     super(props);
@@ -57,8 +57,8 @@ class Portal extends Component {
     //crete portal
     this.portal = document.createElement('div');
     //add classes
-    this.portal.id = 'portal';
-    this.portal.className = 'portal';
+    this.portal.id = 'modal';
+    this.portal.className = 'modal';
     this.portal.className += ' transition-opac';
     this.portal.className += ' off';
     //create element in portal for elements in the new react render tree
@@ -99,13 +99,13 @@ class Portal extends Component {
 
     let that = this;
     setTimeout(() => {
-      that.portal.className = 'portal';
+      that.portal.className = 'modal';
       that.portal.className += ' on';
     }, 100);
   }
 
   close() {
-    this.portal.className = 'portal';
+    this.portal.className = 'modal';
     this.portal.className += ' off';
 
     let that = this;
@@ -127,4 +127,4 @@ class Portal extends Component {
 
 }
 
-export default Portal;
+export default Modal;

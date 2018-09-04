@@ -860,6 +860,31 @@ load foundation plugins - keep this
 	}
 
 	/* ==========================================================================
+ // is online event
+ ========================================================================== */
+
+	// tell users that they are offline/online
+	var that = this;
+	window.addEventListener('load', function () {
+		function updateOnlineStatus(event) {
+			var condition = navigator.onLine ? "online" : "offline";
+
+			if (condition == 'offline') {
+				(0, _jquery2.default)('body').addClass('offline');
+				(0, _jquery2.default)('.offline-modal').addClass('on');
+				console.log('offline');
+			} else {
+				(0, _jquery2.default)('body').removeClass('offline');
+				(0, _jquery2.default)('.offline-modal').removeClass('on');
+				console.log('online');
+			}
+		}
+
+		window.addEventListener('online', updateOnlineStatus);
+		window.addEventListener('offline', updateOnlineStatus);
+	});
+
+	/* ==========================================================================
  // populate categories
  ========================================================================== */
 

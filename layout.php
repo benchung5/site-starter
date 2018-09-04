@@ -167,6 +167,15 @@ use Lib\Uri;
   <div class="preload">
   </div>
 
+  <!-- going offline modal -->
+  <div id="modal" class="modal offline-modal">
+    <div class="in-react">
+      <div data-reactroot="">
+        <div class="modal-inner offline-message">You are currently offline</div>
+      </div>
+    </div>
+  </div>
+
   <!-- begin main content -->
   <?php
   include $main_content;

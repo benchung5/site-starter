@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SideMenu from './sideMenu';
 import Filter from './filter';
-import OffLineModal from './offline_modal';
 import GridView from './grid_view';
 import { isOnline } from '../actions/isOnline';
 import { showMenu } from '../actions/sideMenu';
@@ -27,10 +26,8 @@ class Main extends Component {
         var condition = navigator.onLine ? "online" : "offline";
 
         if(condition == 'offline') {
-         $('body').addClass('offline');
          that.props.isOnline(false);
         } else {
-         $('body').removeClass('offline');
          that.props.isOnline(true);
         }
       }
@@ -65,7 +62,6 @@ class Main extends Component {
         <Filter/>
         <SideMenu/>
         <GridView/>
-        <OffLineModal/>
       </div>
     );
   }

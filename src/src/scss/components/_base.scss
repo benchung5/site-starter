@@ -1379,44 +1379,6 @@ footer {
 }
 
 /* ==========================================================================
-modal
-========================================================================== */
-
-
-.modal {
-   width: 100vw;
-   height: 100vh;
-   background: rgba(0,0,0, 0.8);
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   position: fixed;
-   z-index: 100;
-   opacity: 0;
-   visibility: hidden;
-   transition: opacity 0.6s, visibility 0.6s;
-   &.on {
-     opacity: 1 !important;
-     visibility: visible !important;
-    }
-    .modal-inner {
-       @include modal-inner(80em, 2em, 4em);
-    }
-    .close {
-        position: absolute;
-        right: 2rem;
-        top: 1.5rem;
-        font-size: 2em;
-        line-height: 1;
-        color: rgba(255, 255, 255, 0.9);
-        cursor: pointer;
-        &:hover, &:focus {
-          color: rgba(255, 255, 255, 1);
-        }
-    }
-}
-
-/* ==========================================================================
 single view
 ========================================================================== */
 
@@ -1541,13 +1503,12 @@ $L:     1865px;
   }
 }
 
-
-
 /* ==========================================================================
-portal
+modal
 ========================================================================== */
 
-.portal {
+
+.modal {
    width: 100vw;
    height: 100vh;
    background: rgba(0,0,0, 0.8);
@@ -1563,8 +1524,20 @@ portal
      opacity: 1 !important;
      visibility: visible !important;
     }
-    .portal-inner {
-       @include modal-inner(20em, 2em, 4em);
+    .modal-inner {
+       @include modal-inner(80em, 2em, 4em);
+    }
+    .close {
+        position: absolute;
+        right: 2rem;
+        top: 1.5rem;
+        font-size: 2em;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.9);
+        cursor: pointer;
+        &:hover, &:focus {
+          color: rgba(255, 255, 255, 1);
+        }
     }
 }
 
@@ -1684,50 +1657,54 @@ preloader
   -webkit-justify-content: center;
 }
 
-//initial loader
-.preload {
-  &.initial-loader {
-    opacity: 1;
-    transition: opacity 0.6s;
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#faa627+0,faa627+16,ed1846+68,ee2e62+100 */
-    background: #faa627; /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #faa627 0%, #faa627 16%, #ed1846 68%, #ee2e62 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #faa627 0%,#faa627 16%,#ed1846 68%,#ee2e62 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #faa627 0%,#faa627 16%,#ed1846 68%,#ee2e62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faa627', endColorstr='#ee2e62',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-    &.loaded {
-      animation: fadeOut .7s ease both;
-    }
-  }
-  .preload-logo {
-      background: url(../img/icons/aito-logo-white.svg) no-repeat center center;
-      width: calc(10vw + 10vh + 5vmin);
-      height: calc(10vw + 10vh + 5vmin);
-      background-size: contain;
-  }
-}
+// //initial loader
+// .preload {
+//   &.initial-loader {
+//     opacity: 1;
+//     transition: opacity 0.6s;
+//     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#faa627+0,faa627+16,ed1846+68,ee2e62+100 */
+//     background: #faa627; /* Old browsers */
+//     background: -moz-linear-gradient(-45deg, #faa627 0%, #faa627 16%, #ed1846 68%, #ee2e62 100%); /* FF3.6-15 */
+//     background: -webkit-linear-gradient(-45deg, #faa627 0%,#faa627 16%,#ed1846 68%,#ee2e62 100%); /* Chrome10-25,Safari5.1-6 */
+//     background: linear-gradient(135deg, #faa627 0%,#faa627 16%,#ed1846 68%,#ee2e62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faa627', endColorstr='#ee2e62',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+//     &.loaded {
+//       animation: fadeOut .7s ease both;
+//     }
+//   }
+//   .preload-logo {
+//       background: url(../img/icons/aito-logo-white.svg) no-repeat center center;
+//       width: calc(10vw + 10vh + 5vmin);
+//       height: calc(10vw + 10vh + 5vmin);
+//       background-size: contain;
+//   }
+// }
 
 /* ==========================================================================
 internal loader
 ========================================================================== */
 
-.preload {
-  &.internal-loader {
-    background: rgba(255,255,255,1);
-  }
-  .circular {
-    animation: rotate 2s linear infinite;
-    width: 200px;
-    height: 200px;
-    transform-origin: center center;
-    .path {
-      stroke-dasharray: 1, 200;
-      stroke-dashoffset: 0;
-      animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-      stroke-linecap: round;
+.preload-wrapper {
+  position: relative;
+  .preload {
+    &.internal-loader {
+      background: rgba(255,255,255,1);
+    }
+    .circular {
+      animation: rotate 2s linear infinite;
+      width: 200px;
+      height: 200px;
+      transform-origin: center center;
+      .path {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+        animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+        stroke-linecap: round;
+      }
     }
   }
 }
+
 
 @keyframes rotate {
   100% {
@@ -2280,31 +2257,6 @@ french
       font-weight: 600;
     }
   }
-}
-
-
-/* ==========================================================================
-offline mode
-========================================================================== */
-
-.offline {
-  // what to do when offline
-
-}
-
-.offline-message {
-  font-size: 1.5em;
-  font-weight: 600;
-}
-
-.offline-message-side {
-  background: $black;
-  color: #fff;
-  height: 45px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 

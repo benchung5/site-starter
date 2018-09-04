@@ -26,7 +26,7 @@ class Main extends Component {
   render() {
     return (
       <Modal ref="modal" className="modal">
-        <div className="portal-inner offline-message">
+        <div className="modal-inner offline-message">
           You are currently offline
         </div>
       </Modal>

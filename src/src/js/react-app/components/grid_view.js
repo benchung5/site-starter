@@ -18,11 +18,20 @@ class GridView extends Component {
                 <a href={`view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
                     <div className="inner">
                         <div className="image">
+                            { item.images ?
                             <picture>
                                 <source srcSet={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
                                 <source srcSet={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
                                 <img src={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/> 
                             </picture>
+                            :
+                            <picture>
+                                <source srcSet='/assets/img/placeholder-images/placeholder-img-sml.jpg' media="(max-width: 1275px)"/>
+                                <source srcSet='/assets/img/placeholder-images/placeholder-img.jpg'/>
+                                <img src='/assets/img/placeholder-images/placeholder-img.jpg'/> 
+                            </picture>
+                            }
+
                         </div>
                         <div className="info">
                             <div className="info-detail">{item.name}</div>

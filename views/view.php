@@ -18,6 +18,7 @@ use Config\Config as Config;
 								<div class="item"><?= $theme->name ?></div>
 							<?php } ?>
 						</div> -->
+				<?php if ($view_data['article']->images) : ?>
 				<div class="images">
 					<?php 
 					foreach ($view_data['article']->images as $image) { 
@@ -27,7 +28,7 @@ use Config\Config as Config;
 					}
 					?>
 				</div>
-							
+				<?php endif ?>
 			</div>
 		</div>
 	</div><!-- /content wrapper -->
