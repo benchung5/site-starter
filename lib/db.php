@@ -7,7 +7,7 @@ class Db
     public static $db_config = [
         'host'      => '127.0.0.1',
         'driver'    => 'mysql',
-        'database'  => 'test_db',
+        'database'  => '1pixel_db',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',

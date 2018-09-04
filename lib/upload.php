@@ -17,8 +17,10 @@ class Upload
 		$files_data = self::upload_files($ref_type);
 		//save the file data to the db
 		if (! $files_data['error']) {
-			foreach ($files_data['files'] as $file_data) {
+			$count = 0;
+			foreach ($files_data['files'] as $index => $file_data) {
 				$file_data['ref_id'] = $ref_id;
+				$file_data['sort_order'] = $count;
 				$new_id = $files->add($file_data);
 				$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
 				//update filename with new file id
@@ -29,6 +31,7 @@ class Upload
 				rename($file_data['tmp_name'], $destination);
 				// resize and create thumbs
 				self::process_img($destination);
+				$count++;
 			}
 		}
 	}

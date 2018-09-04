@@ -30,6 +30,7 @@ class Articles_model extends Model
 			$result->images = $this->db->table('files')
 				->select('id, name')
 				->where('ref_id', $result->id)
+				// ->orderBy('sort_order, name')
 				->getAll();
 
 			// get themes
@@ -56,7 +57,6 @@ class Articles_model extends Model
 	public function add($data, $themes)
 	{
 		if (is_array($data)) {
-
 			$this->db->table('articles')->insert($data);
 			$new_article_id = $this->db->insertId();
 			$themes = (! is_array($themes)) ? explode(',', $themes) : $themes;
@@ -143,7 +143,7 @@ class Articles_model extends Model
 
 		// include images
 		$this->db
-			->select('GROUP_CONCAT(f.name) AS images')
+			->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
 			->leftJoin('files f', 'f.ref_id', 'a.id')
 			->groupBy('a.id');
 

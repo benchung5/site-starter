@@ -84,6 +84,8 @@ class EditArticle extends Component {
 
         // call action to submit edited
         this.props.updateArticle(createImgFormData('new_images', formpropsClone));
+        //clear deleted images
+        this.props.change('deleted_images', '');
     }
 
     formatToMultiselect(inArray) {

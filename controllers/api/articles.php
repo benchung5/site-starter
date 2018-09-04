@@ -111,7 +111,7 @@ class Articles extends Controller
 			Upload::upload('articles', $new_article->id);
 			// update original file uploads
 			if (isset($data['deleted_images'])) {
-				$files->update_associations($new_article->id, $data['deleted_images']);	
+				$files->update_associations('articles', $new_article->id, $data['deleted_images']);	
 			}
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
