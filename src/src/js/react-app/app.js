@@ -109,44 +109,49 @@ const myPrefixer = (styles) => {
   return prefixed
 }
 
-//Header needs to be a pathless Route so it updates when 
-//the route changes and use props.history
-//<Route history={customHistory} component={Header} />
+// only render on pages with an app-container element
+const appContainer = document.querySelector('.app-container');
+if ( appContainer ) {
+  //Header needs to be a pathless Route so it updates when 
+  //the route changes and use props.history
+  //<Route history={customHistory} component={Header} />
 
-//note the "exact" in the /articles-list route
-//for root app, swap /explore.html/ for /
-ReactDOM.render(
-  <PrefixerProvider prefixer={myPrefixer}>
-  <Provider store={store}>
-    <Router history={customHistory}>
-      <div>
-       <Switch history={customHistory}>
-          {/* website */}
-          <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
-          <Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
-          {/* admin */}
-          <Route history={customHistory} path="/admin/protected" component={protecetWarning} />
-          <Route history={customHistory} path="/admin/signin" component={signin} />
-          <Route history={customHistory} path="/admin/signout" component={signout} />
-          <Route history={customHistory} exact path="/admin" component={admin} />
-          <Route history={customHistory} path="/admin/signup" component={signup} /> 
-          <Route history={customHistory} exact path="/admin/articles-list" component={articlesList} />
-          <Route history={customHistory} path="/admin/articles-list/:articleId" component={articleEdit} />
-          <Route history={customHistory} path="/admin/article-add" component={articleAdd} />
-          <Route history={customHistory} path="/admin/users-list" component={usersList} />
-          <Route history={customHistory} path="/admin/category-add" component={categoryAdd} />
-          <Route history={customHistory} exact path="/admin/category-list" component={categoryList} />
-          <Route history={customHistory} path="/admin/category-list/:categoryId" component={categoryEdit} />
-          <Route history={customHistory} path="/admin/theme-add" component={themeAdd} />
-          <Route history={customHistory} exact path="/admin/theme-list" component={themeList} />
-          <Route history={customHistory} path="/admin/theme-list/:themeId" component={themeEdit} />
-          <Route history={customHistory} path="/admin/backup" component={backup} />
-        </Switch> 
-      </div>  
-    </Router>
-  </Provider>
-  </PrefixerProvider>
-  , document.querySelector('.app-container'));
+  //note the "exact" in the /articles-list route
+  //for root app, swap /explore.html/ for /
+    ReactDOM.render(
+      <PrefixerProvider prefixer={myPrefixer}>
+      <Provider store={store}>
+        <Router history={customHistory}>
+          <div>
+           <Switch history={customHistory}>
+              {/* website */}
+              <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
+              <Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
+              {/* admin */}
+              <Route history={customHistory} path="/admin/protected" component={protecetWarning} />
+              <Route history={customHistory} path="/admin/signin" component={signin} />
+              <Route history={customHistory} path="/admin/signout" component={signout} />
+              <Route history={customHistory} exact path="/admin" component={admin} />
+              <Route history={customHistory} path="/admin/signup" component={signup} /> 
+              <Route history={customHistory} exact path="/admin/articles-list" component={articlesList} />
+              <Route history={customHistory} path="/admin/articles-list/:articleId" component={articleEdit} />
+              <Route history={customHistory} path="/admin/article-add" component={articleAdd} />
+              <Route history={customHistory} path="/admin/users-list" component={usersList} />
+              <Route history={customHistory} path="/admin/category-add" component={categoryAdd} />
+              <Route history={customHistory} exact path="/admin/category-list" component={categoryList} />
+              <Route history={customHistory} path="/admin/category-list/:categoryId" component={categoryEdit} />
+              <Route history={customHistory} path="/admin/theme-add" component={themeAdd} />
+              <Route history={customHistory} exact path="/admin/theme-list" component={themeList} />
+              <Route history={customHistory} path="/admin/theme-list/:themeId" component={themeEdit} />
+              <Route history={customHistory} path="/admin/backup" component={backup} />
+            </Switch> 
+          </div>  
+        </Router>
+      </Provider>
+      </PrefixerProvider>
+    , appContainer);
+}
+
 
 //export store for use with redux-watch
 export { store };

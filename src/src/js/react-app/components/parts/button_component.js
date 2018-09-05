@@ -8,8 +8,6 @@ const ButtonComponent = ({ name, isActive, isDisabled, onClickProp, classProp, i
 		height: height
 	}
 
-	console.log(height);
-
     return (
        <a
 	       href="#"

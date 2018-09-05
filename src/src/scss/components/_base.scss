@@ -375,7 +375,7 @@ parts
   font-weight: 600;
   transition: all 0.3s ease;
   &:hover {
-    color: $pink;
+    color: $mauve;
     background: #fff !important;
     box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
   }
@@ -384,11 +384,11 @@ parts
     border: 2px solid #fff;
   }
   &.solid {
-    background: $pink;
+    background: $mauve;
     border: 0 none;
     &:hover {
       color: #fff;
-      background: $pink !important;
+      background: $mauve !important;
       box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
     }
   }
@@ -769,7 +769,7 @@ hero
   // background-image: url(../img/hero-image-sml.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: red;
+  background-color: #3A001D;
   // margin-bottom: 4em;
   padding: 9em 2em 0;
   .icon-lang {
@@ -1713,17 +1713,17 @@ internal loader
 @keyframes color {
   100%,
   0% {
-    stroke: $pink;
+    stroke: $mauve;
   }
   40% {
-    stroke: $orange;
+    stroke: $mauve;
   }
   66% {
-    stroke: $green;
+    stroke: $mauve;
   }
   80%,
   90% {
-    stroke: $turquoise;
+    stroke: $mauve;
   }
 }
 
