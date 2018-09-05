@@ -1,4 +1,7 @@
-<?php use Config\Config as Config; ?>
+<?php 
+use Config\Config as Config;
+use Lib\Uri;
+?>
 
 <!doctype html>
 <html class="no-js" lang="en" ng-app="onePix">
@@ -62,8 +65,8 @@
       justify-content: center;
     }
     .preload.loaded {
-      /*slight delay to ensure smooth*/
-      animation: fadeOut .7s ease .5s both;
+      /*slight delay (.1s) to ensure smooth*/
+      animation: fadeOut .15s ease .1s both;
     }
     @keyframes fadeOut {
       from { opacity: 1; visibility: visible; }
@@ -95,11 +98,12 @@
     });
 
     function showPage() {
-      var preload = document.querySelector('.preload'); 
-      addClass(preload, 'loaded');
+      var preload = document.querySelector('.preload');
+      if(preload) {
+        addClass(preload, 'loaded');
 
-      // console.log('showpage called');
-      window.dispatchEvent(ContentLoadedEvent);
+        window.dispatchEvent(ContentLoadedEvent);
+      }
     }
 
     //class add / remove
@@ -158,26 +162,24 @@
  
   </head>
   
-  <body>
+  <body data-<?= $view_data['current_page'] ?> >
 
-    <!-- preload screen (put above everything) -->
-    <div class="preload">
-    </div>
+  <!-- preload screen (put above everything) -->
+  <div class="preload">
+  </div>
 
-    <!-- begin main content -->
-    <?php
-    include $main_content;
-    ?>
-    <!-- end main content -->
+  <!-- begin main content -->
+  <?php
+  include $main_content;
+  ?>
+  <!-- end main content -->
 
-    <!-- react container -->
-    <div class="app-container" style="height: 100vh;"></div>
+  <!-- vendor libs -->
+  <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
+  <!-- app js -->
+  <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
 
-    <!-- vendor libs -->
-    <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
-    <!-- app js -->
-    <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
-    <!-- footer scripts are loaded belew here -->
+  <!-- *** react and footer scripts are loaded belew here *** -->
 
-  </body>
+</body>
 </html>

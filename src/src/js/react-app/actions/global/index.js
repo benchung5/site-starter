@@ -27,7 +27,7 @@ export function populateCatFilter() {
 			if (response.data) {
 				modifiedData = response.data.map((item, index) => {
 					//item.active = true;
-					return { id: item.id, name: item.name, active: true };
+					return { id: item.id, name: item.name, icon: item.icon, active: true };
 				});
 				dispatch({
 					type: CATEGORIES_FILTER,

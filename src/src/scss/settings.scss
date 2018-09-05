@@ -28,6 +28,7 @@ $header-height: 5em;
 $page-gutter: 3.5em;
 $large-input-padding: 1rem 2rem;
 $dashed: 1px dashed #4A4A4A;
+$card-box-shadow: 0 3px 6px rgba(14,30,38,0.15);
 
 
 
@@ -95,7 +96,7 @@ $medium-gray: #f1f1f2;
 $dark-gray: #8a8a8a;
 $black: #2F2F2F;
 $white: #fff;
-$body-background: $white;
+$body-background: #f4f6f7;
 $body-font-color: #535353;
 $body-font-family: $body-font;
 $body-antialiased: true;

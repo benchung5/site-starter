@@ -72,9 +72,9 @@ module.exports = {
        }
     }),
     new HtmlWebpackPlugin({
-      //the template file to use
-      template: './src/js/react-app/layout.php',
-      //two steps out of the bundle directory
+      //the template file to use (two steps out of the bundle directory)
+      template: './layout-template.php',
+      //the output file to write to
       filename: '../../layout.php',
       inject: 'dev-server-script',
       // environment: process.env.DEV_SERVER_SCRIPT

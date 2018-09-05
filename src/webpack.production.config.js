@@ -104,10 +104,10 @@ module.exports = {
       names: ['vendor2', 'manifest']
     }),
     new HtmlWebpackPlugin({
-      //the template file to use
-      template: './src/js/react-app/explore.html',
-      //two steps out of the bundle directory
-      filename: '../../explore.html'
+      //the template file to use (two steps out of the bundle directory)
+      template: './layout-template.php',
+      //the output file to write to
+      filename: '../../layout.php',
     }),
     new webpack.optimize.UglifyJsPlugin({
         compress: {

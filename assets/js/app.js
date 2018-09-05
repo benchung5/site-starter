@@ -753,6 +753,7 @@ var env = "development" || "development";
 var SERVER_URL = __webpack_require__(30)[env].SERVER_URL;
 
 window.$ = _jquery2.default;
+var isAdminPage = window.location.href.indexOf('admin') > -1;
 
 /* ==========================================================================
 load foundation plugins - keep this
@@ -764,8 +765,8 @@ load foundation plugins - keep this
 // import './lib/foundation-explicit-pieces';
 
 (function () {
-	//only register sw and manifest if on explore page...
-	if (window.location.pathname === '/filter') {
+	//only register sw and manifest if not on admin page...
+	if (!isAdminPage) {
 		/* ==========================================================================
   // register service worker
   ========================================================================== */
@@ -866,18 +867,25 @@ load foundation plugins - keep this
 	// tell users that they are offline/online
 	var that = this;
 	window.addEventListener('load', function () {
-		function updateOnlineStatus(event) {
-			var condition = navigator.onLine ? "online" : "offline";
 
-			if (condition == 'offline') {
-				(0, _jquery2.default)('body').addClass('offline');
-				(0, _jquery2.default)('.offline-modal').addClass('on');
-				console.log('offline');
-			} else {
-				(0, _jquery2.default)('body').removeClass('offline');
-				(0, _jquery2.default)('.offline-modal').removeClass('on');
-				console.log('online');
-			}
+		function updateOnlineStatus(event) {
+			// if (!isAdminPage) {
+			// 	var condition = navigator.onLine ? "online" : "offline";
+
+			// 	if(condition == 'offline') {
+			// 		$('body').addClass('offline');
+			// 		$('.offline-modal').addClass('on');
+			// 		console.log('offline');
+			// 		setTimeout(() => {
+			// 			$('.offline-modal').removeClass('on');
+			// 		}, 1500);
+
+			// 	} else {
+			// 		$('body').removeClass('offline');
+			// 		$('.offline-modal').removeClass('on');
+			// 		console.log('online');
+			// 	}
+			// }
 		}
 
 		window.addEventListener('online', updateOnlineStatus);

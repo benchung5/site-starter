@@ -11,6 +11,7 @@ class TypesButtons extends Component {
 		super(props);
 		this.state = {
 		}
+		this.buttonHeight = 40;
 	}
 
 	componentWillMount() {
@@ -29,12 +30,13 @@ class TypesButtons extends Component {
 			        <Dropdown
 			          classProp="types-dropdown"
 			          name='Type'
-			          height={52 * this.props.filterCats.length}
+			          height={this.buttonHeight * this.props.filterCats.length}
 			        >
 			         <ButtonList
 			         	wrapperClass="single-col"
 			         	classProp="types"
-			         	classPropButton="list-button"
+			         	classPropButton="list-button icon"
+			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filterCats}
 			         	updateData={this.onUpdateData.bind(this)}
 			         />

@@ -16,6 +16,7 @@ class EditCategory extends Component {
     handleInitialize() {
         const formData = {
             "name": this.props.categoryData.name,
+            "icon": this.props.categoryData.icon,
             //still must keep this for the id eventhough it isn't rendered
             "slug": this.props.categoryData.slug
         };
@@ -72,6 +73,13 @@ class EditCategory extends Component {
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
 
+                            />
+                            <Field
+                              label="icon:"
+                              name="icon"
+                              component={renderField}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
                             />
                             <button action="submit" className="btn btn-primary">Submit</button>
                         </form>

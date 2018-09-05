@@ -34,7 +34,7 @@ class Categories extends Controller
 		}
 
 		try {
-			$this->categories->add(['slug' => $data['slug'], 'name' => $data['name'], 'created_on' => date('Y-m-d')]);
+			$this->categories->add(['slug' => $data['slug'], 'name' => $data['name'], 'icon' => $data['icon'], 'created_on' => date('Y-m-d')]);
 
 			$id = $this->categories->db->insertId();
 
@@ -57,7 +57,7 @@ class Categories extends Controller
 
 	public function all() 
 	{
-		$categories = $this->categories->get_all(['id', 'slug', 'name']);
+		$categories = $this->categories->get_all(['id', 'slug', 'icon', 'name']);
 		if ($categories) {
 			Utils::json_respond(SUCCESS_RESPONSE, $categories);
 		} else {
@@ -80,7 +80,7 @@ class Categories extends Controller
 		$data = Utils::json_read();
 
 		try {
-			$this->categories->update(['where' => ['slug' => $data['slug']], 'update' => ['name' => $data['name']]]);
+			$this->categories->update(['where' => ['slug' => $data['slug']], 'update' => ['name' => $data['name'], 'icon' => $data['icon']]]);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
 		} catch (Exception $e) {

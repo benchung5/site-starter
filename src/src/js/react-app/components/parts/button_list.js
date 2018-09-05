@@ -16,7 +16,7 @@ class ButtonList extends Component {
 	    let modifiedData = this.props.buttonData.map((item, index) => {
 	    	//set current active to the opposite of what it was (toggle);
 	    	let isActive = (item.id === id) ? !item.active : item.active;
-	    	return { id: item.id, name: item.name, active: isActive };
+	    	return { id: item.id, name: item.name, icon: item.icon, active: isActive };
 	    });
 
 	    this.props.updateData(modifiedData);
@@ -29,11 +29,13 @@ class ButtonList extends Component {
 					<div  className={this.props.wrapperClass} key={item.id}>
 				        <ButtonComponent 
 				    	    classProp={`${this.props.classPropButton} ${item.name.toLowerCase().replace(/\//g, '-')}`}
+				    	    height={this.props.buttonHeight}
 				    	    isActive={item.active} 
-				    	    id={item.id} 
+				    	    id={item.id}
 				    	    name={item.name} 
 				    	    onClickProp={this.onItemClick.bind(this)}
-				        >	
+				        >
+				        	<i className={`fas fa-${item.icon}`}></i>
 				        	<div className='check' onClick={this.onItemClick.bind(this)}></div>
 				    	    <div className="icon" onClick={this.onItemClick.bind(this)} data-id={item.id}></div>
 				    	    <span onClick={this.onItemClick.bind(this)} data-id={item.id} className="name">{item.name}</span>

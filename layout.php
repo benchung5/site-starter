@@ -66,7 +66,7 @@ use Lib\Uri;
     }
     .preload.loaded {
       /*slight delay to ensure smooth*/
-      animation: fadeOut .7s ease .5s both;
+      animation: fadeOut .15s ease .1s both;
     }
     @keyframes fadeOut {
       from { opacity: 1; visibility: visible; }
@@ -98,11 +98,12 @@ use Lib\Uri;
     });
 
     function showPage() {
-      var preload = document.querySelector('.preload'); 
-      addClass(preload, 'loaded');
+      var preload = document.querySelector('.preload');
+      if(preload) {
+        addClass(preload, 'loaded');
 
-      // console.log('showpage called');
-      window.dispatchEvent(ContentLoadedEvent);
+        window.dispatchEvent(ContentLoadedEvent);
+      }
     }
 
     //class add / remove
@@ -145,6 +146,7 @@ use Lib\Uri;
 
   <!-- Fonts -->
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   
   <!-- Head scripts like Modernizr -->
   <script src="<?= Config::paths('ROOT_URL').'assets/js/head.js' ?>"></script>
@@ -167,15 +169,6 @@ use Lib\Uri;
   <div class="preload">
   </div>
 
-  <!-- going offline modal -->
-  <div id="modal" class="modal offline-modal">
-    <div class="in-react">
-      <div data-reactroot="">
-        <div class="modal-inner offline-message">You are currently offline</div>
-      </div>
-    </div>
-  </div>
-
   <!-- begin main content -->
   <?php
   include $main_content;
@@ -186,14 +179,8 @@ use Lib\Uri;
   <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
   <!-- app js -->
   <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
-  <!-- react js -->
-  <?php
-    $segments = Uri::get_parts();
-    $react_pages = ['admin', 'filter'];
-    if (isset($segments['controller']) && in_array($segments['controller'], $react_pages)) {
-      echo '<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script>';
-    }
-  ?>
-  <!-- footer scripts are loaded belew here -->
-</body>
+
+  <!-- *** react and footer scripts are loaded belew here *** -->
+
+<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script></body>
 </html>

@@ -38,7 +38,7 @@ mixins
   background: $white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   //padding: 2.5em 4em;
-  // padding: $pading-vertical $padding-horizontal;
+  padding: $pading-vertical $padding-horizontal;
   flex-basis: $max-width;
   margin: auto;
   width: 100%;
@@ -539,7 +539,6 @@ page layout
 
 .content-wrapper {
   flex: 1;
-  background: $white;
   .internal {
     margin-top: 2em;
   }
@@ -1431,6 +1430,7 @@ $L:     1865px;
 }
 
 .cards-container-wrapper {
+  min-height: 400px;
   max-width: 1800px;
   margin: 2em;
   .cards-container {
@@ -1457,8 +1457,9 @@ $L:     1865px;
       display: inline-block;
       width: 50%;
       .inner {
-        background-color: #1a1a1a;
         height: 100%;
+        background-color: #1a1a1a;
+        box-shadow: $card-box-shadow;
         .image {
           width: 100%;
           height: 0;
@@ -1481,10 +1482,12 @@ $L:     1865px;
           }
         }
         .info {
-          background: #1a1a1a;
+          background: #fff;
           padding: 1em 1.7em;
           font-size: .8em;
-          color: #fff;
+          .right {
+            color: #888;
+          }
         }
       }
       @include MQ(S) {
@@ -1520,12 +1523,13 @@ modal
    opacity: 0;
    visibility: hidden;
    transition: opacity 0.6s, visibility 0.6s;
-   &.on {
+    &.on {
      opacity: 1 !important;
      visibility: visible !important;
     }
     .modal-inner {
-       @include modal-inner(80em, 2em, 4em);
+       @include modal-inner(15em, 2em, 4em);
+       text-align: center;
     }
     .close {
         position: absolute;
@@ -1641,44 +1645,8 @@ animation
 preloader
 ========================================================================== */
 
-.preload {
-  pointer-events: none;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  right: 0;
-  left: 0;
-  z-index: 9;
-  display: flex;
-  display: -webkit-flex;
-  align-items: center;
-  -webkit-align-items: center;
-  justify-content: center;
-  -webkit-justify-content: center;
-}
 
-// //initial loader
-// .preload {
-//   &.initial-loader {
-//     opacity: 1;
-//     transition: opacity 0.6s;
-//     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#faa627+0,faa627+16,ed1846+68,ee2e62+100 */
-//     background: #faa627; /* Old browsers */
-//     background: -moz-linear-gradient(-45deg, #faa627 0%, #faa627 16%, #ed1846 68%, #ee2e62 100%); /* FF3.6-15 */
-//     background: -webkit-linear-gradient(-45deg, #faa627 0%,#faa627 16%,#ed1846 68%,#ee2e62 100%); /* Chrome10-25,Safari5.1-6 */
-//     background: linear-gradient(135deg, #faa627 0%,#faa627 16%,#ed1846 68%,#ee2e62 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-//     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faa627', endColorstr='#ee2e62',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-//     &.loaded {
-//       animation: fadeOut .7s ease both;
-//     }
-//   }
-//   .preload-logo {
-//       background: url(../img/icons/aito-logo-white.svg) no-repeat center center;
-//       width: calc(10vw + 10vh + 5vmin);
-//       height: calc(10vw + 10vh + 5vmin);
-//       background-size: contain;
-//   }
-// }
+
 
 /* ==========================================================================
 internal loader
@@ -1686,9 +1654,24 @@ internal loader
 
 .preload-wrapper {
   position: relative;
-  .preload {
-    &.internal-loader {
-      background: rgba(255,255,255,1);
+  .preload-internal {
+    pointer-events: none;
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    right: 0;
+    left: 0;
+    z-index: 9;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    background: rgba(255,255,255,0.5);
+    &.loaded {
+      /*slight delay to ensure smooth*/
+      animation: fadeOut .3s ease .3s both;
     }
     .circular {
       animation: rotate 2s linear infinite;
@@ -1956,6 +1939,21 @@ filter
 .filter {
   display: flex;
   height: 3em;
+  .show-menu-mobile {
+    flex: 1;
+    background-color: #fff;
+    width: 100%;
+    hieght: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $card-box-shadow;
+    .filter-icon {
+      width: 25px;
+      height: 14px;
+      margin-left: 0.5em;
+    }
+  }
 }
 
 .search-form {
@@ -1984,18 +1982,6 @@ filter
   //   right: 17px;
   //   @extend %close-button;
   // }
-}
-
-.side-menu-btn {
-  background-color: $pink;
-  background-image: url(../img/icons/menu.svg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 25px 14px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* ==========================================================================
@@ -2176,6 +2162,8 @@ menu
   paddng: 1em;
   border-bottom: 1px solid $border-color;
   padding: 1em;
+  text-transform: uppercase;
+  font-size: 0.85em;
   // &.near-me {
   //   min-height: 85px;
   //   &.disabled {
@@ -2365,28 +2353,21 @@ buttons
   }
 }
 
-
-
 //list button
 .list-button {
-  height: 52px;
   display: flex;
   align-items: center;
-  padding: 1em 1em 1em 3em;
   position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    background-image: url(../img/icons/theme.svg);
-    background-repeat: no-repeat;
-    background-size: 12px 12px;
-    background-position: 15px center;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  padding: 0 1em 0 1.2em;
+  &.icon {
+    padding: 0 1em 0 0.9em;
+    i {
+      margin-right: 1em;
+    }
   }
+
   &.active {
     background-color: #fff;
     background-image: url(../img/icons/check.svg); 
@@ -2416,106 +2397,11 @@ buttons
 
 
 //menu icons
-
 .icon-arrow {
   width: 10px;
 } 
 
-.icon-list-view {
-  width: 25px;
-  height: 20px;
-}
-.icon-map-view {
-  width: 31px;
-  height: 27px;
-}
-
-.icon-types {
-  width: 25px;
-  height: 25px;
-}
-
-.icon-near-me {
-  width: 39px;
-  height: 39px;
-}
-
-//types
-
-.mural {
-  &.active {
-    .icon {
-      background-color: $orange;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/art-mural.svg);
-    background-size: 26px 26px;
-  }
-}
-
-.monument {
-  &.active {
-    .icon {
-      background-color: $pink;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/art-monument.svg);
-    background-size: 26px 26px;
-  }
-}
-
-.totem {
-  &.active {
-    .icon {
-      background-color: $green;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/art-totem.svg);
-    background-size: 22px 26px;
-  }
-}
-
-.sculpture {
-  &.active {
-    .icon {
-      background-color: $turquoise;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/art-sculpture.svg);
-    background-size: 9px 27px;
-  }
-}
-
-.statue {
-  &.active {
-    .icon {
-      background-color: $navy;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/art-statue.svg);
-    background-size: 17px 26px;
-  }
-}
-
-.installation {
-  &.active {
-    .icon {
-      background-color: $purple;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/art-installation.svg);
-    background-size: 26px 26px;
-  }
-}
-
 //routes
-
 .cycling {
   &.active {
     .icon {

@@ -3,8 +3,13 @@ import React from 'react';
 // equivalent to:
 // props.name, props.isChecked
 //onClickProp takes the onClick event from the parent element
-const ButtonComponent = ({ name, isActive, isDisabled, onClickProp, classProp, id, children }) => {  
-	
+const ButtonComponent = ({ name, isActive, isDisabled, onClickProp, classProp, id, children, height }) => {  
+	let style = {
+		height: height
+	}
+
+	console.log(height);
+
     return (
        <a
 	       href="#"
@@ -15,6 +20,7 @@ const ButtonComponent = ({ name, isActive, isDisabled, onClickProp, classProp, i
 	       data-is-disabled={isDisabled}
 	       alt={name}
 	       disabled={isDisabled}
+	       style={style}
 	       >
 	       {children}
        </a>

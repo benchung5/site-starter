@@ -58,7 +58,7 @@ class LoaderInternal extends Component {
               {(state) => (
                 <div className={`preload-wrapper`}>
                   <div 
-                  className={`preload internal-loader ${this.state.isLoading ? 'loading' : 'loaded'}`}
+                  className={`preload-internal ${this.state.isLoading ? 'loading' : 'loaded'}`}
                   style={{...intLoaderStyle, ...transitionIntLoaderStyle[state]}}
                   >
                     <svg className="circular" viewBox="25 25 50 50">

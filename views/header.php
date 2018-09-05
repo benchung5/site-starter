@@ -2,6 +2,11 @@
 use Config\Config as Config;
 ?>
 
+<!-- going offline modal -->
+<!-- <div id="modal" class="modal offline-modal">
+  <div class="modal-inner offline-message">You are currently offline</div>
+</div> -->
+
 <header id="header" class="hide-for-print">
   
   <div class="header-inner">

@@ -6,6 +6,7 @@ var { SERVER_URL } = require('../react-app/config')[env];
 import axios from 'axios';
 import $ from 'jquery';
 window.$ = $;
+const isAdminPage = (window.location.href.indexOf('admin') > -1);
 
 /* ==========================================================================
 load foundation plugins - keep this
@@ -17,8 +18,8 @@ load foundation plugins - keep this
 // import './lib/foundation-explicit-pieces';
 
 (function() {
-	//only register sw and manifest if on explore page...
-	if(window.location.pathname === '/filter') {
+	//only register sw and manifest if not on admin page...
+	if(!isAdminPage) {
 		/* ==========================================================================
 		// register service worker
 		========================================================================== */
@@ -98,22 +99,29 @@ load foundation plugins - keep this
 	// tell users that they are offline/online
 	const that = this;
 	window.addEventListener('load', function() {
-	  function updateOnlineStatus(event) {
-	    var condition = navigator.onLine ? "online" : "offline";
 
-	    if(condition == 'offline') {
-	     $('body').addClass('offline');
-	     $('.offline-modal').addClass('on');
-	     console.log('offline');
-	    } else {
-	     $('body').removeClass('offline');
-	     $('.offline-modal').removeClass('on');
-	     console.log('online');
-	    }
-	  }
+		function updateOnlineStatus(event) {
+			// if (!isAdminPage) {
+			// 	var condition = navigator.onLine ? "online" : "offline";
 
-	  window.addEventListener('online',  updateOnlineStatus);
-	  window.addEventListener('offline', updateOnlineStatus);
+			// 	if(condition == 'offline') {
+			// 		$('body').addClass('offline');
+			// 		$('.offline-modal').addClass('on');
+			// 		console.log('offline');
+			// 		setTimeout(() => {
+			// 			$('.offline-modal').removeClass('on');
+			// 		}, 1500);
+
+			// 	} else {
+			// 		$('body').removeClass('offline');
+			// 		$('.offline-modal').removeClass('on');
+			// 		console.log('online');
+			// 	}
+			// }
+		}
+
+		window.addEventListener('online',  updateOnlineStatus);
+		window.addEventListener('offline', updateOnlineStatus);
 	});
 
 	/* ==========================================================================

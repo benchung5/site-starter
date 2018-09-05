@@ -13,7 +13,7 @@ class ThemesButtons extends Component {
 		super(props);
 		this.state = {
 		}
-
+		this.buttonHeight = 40;
 	}
 
 	componentWillMount() {
@@ -38,12 +38,13 @@ class ThemesButtons extends Component {
 			        <Dropdown
 			          classProp="themes-dropdown"
 			          name='Themes'
-			          height={52 * this.props.filteredThemes.length}
+			          height={this.buttonHeight  * this.props.filteredThemes.length}
 			        >
 			         <ButtonList
 			         	wrapperClass="single-col"
 			         	classProp="themes"
 			         	classPropButton="list-button"
+			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filteredThemes}
 			         	updateData={this.onUpdateData.bind(this)}
 			         />

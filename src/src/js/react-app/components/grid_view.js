@@ -15,7 +15,7 @@ class GridView extends Component {
     renderItems() {
          return this.props.results.articles.map((item) => {
              return (
-                <a href={`view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
+                <a href={`/filter/view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
                     <div className="inner">
                         <div className="image">
                             { item.images ?
@@ -26,12 +26,11 @@ class GridView extends Component {
                             </picture>
                             :
                             <picture>
-                                <source srcSet='/assets/img/placeholder-images/placeholder-img-sml.jpg' media="(max-width: 1275px)"/>
-                                <source srcSet='/assets/img/placeholder-images/placeholder-img.jpg'/>
-                                <img src='/assets/img/placeholder-images/placeholder-img.jpg'/> 
+                                <source srcSet="/assets/img/placeholder-images/placeholder-img-sml.jpg" media="(max-width: 1275px)"/>
+                                <source srcSet="/assets/img/placeholder-images/placeholder-img.jpg"/>
+                                <img src="/assets/img/placeholder-images/placeholder-img.jpg"/> 
                             </picture>
                             }
-
                         </div>
                         <div className="info">
                             <div className="info-detail">{item.name}</div>

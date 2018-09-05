@@ -84,6 +84,13 @@ class AddCategory extends Component {
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
+                <Field
+                  label="icon:"
+                  name="icon"
+                  component={renderField}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
                 <button action="submit" className="btn btn-primary">Submit</button>
               </form>
               {this.renderAdded()}

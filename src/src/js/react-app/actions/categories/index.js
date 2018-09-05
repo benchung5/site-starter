@@ -64,7 +64,6 @@ export function deleteCategory({ slug }) {
 
 export function getCategory(slug) {
 	return function(dispatch) {
-		console.log(slug);
 		axios.get(`${SERVER_URL}/categories/single/${slug}`)
 			.then((response) => {
 				dispatch({

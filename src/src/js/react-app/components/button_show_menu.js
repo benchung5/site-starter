@@ -27,12 +27,13 @@ class SideMenuButton extends Component {
 	render() {
 		return (
 			<ButtonComponent
-			  classProp={`side-menu-btn
+			  classProp={`hide-for-large show-menu-mobile
 			  	${this.props.showMenu}`}
 			  id={'side-menu-toggle'}
 			  name="Side Menu"
 			  onClickProp={this.onItemClick.bind(this)}
 			>
+			<img className="filter-icon" src="./assets/img/icons/menu.svg"/>
 			</ButtonComponent>
 			)
 	}

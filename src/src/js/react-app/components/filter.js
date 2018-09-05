@@ -8,6 +8,9 @@ class Filter extends Component {
 
 		return (
 			<div className="filter">
+				<div className="show-for-large">
+					filter...
+				</div>
 				<ShowMenuButton/>
 			</div>
 		);
