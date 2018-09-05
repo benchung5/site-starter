@@ -112,34 +112,45 @@ use Lib\Uri;
         else if (!hasClass(el, className)) el.className += ' ' + className;
     }
 
-    (function() {
-      var loadCSS = function(url, callback, location){
-          //url is URL of external file, callback is the code
-          //to be called from the file, location is the location to 
-          //insert the <link> element
+    // (function() {
+    //   var loadCSS = function(url, callback, location){
+    //       //url is URL of external file, callback is the code
+    //       //to be called from the file, location is the location to 
+    //       //insert the <link> element
       
-          var linkTag = document.createElement('link');
-          linkTag.rel  = 'stylesheet';
-          linkTag.type = 'text/css';
-          linkTag.media = 'all';
-          linkTag.href = url;
-          linkTag.onload = callback;
-          linkTag.onreadystatechange = callback;
-          location.appendChild(linkTag);
-      };
-      var onScriptLoaded = function(){
-        //callback code here
-      }
-      //if on an admin page
-      var regex = new RegExp(/((\badmin\b)|(\bsignin\b)|(\bsignout\b)|(\bprotected\b))/);
-      var isAdmin = regex.test(window.location.pathname);
-      if (isAdmin) {
-        loadCSS('/assets/css/admin.css', onScriptLoaded, document.head);
-      } else {
-        loadCSS('/assets/css/app.css', onScriptLoaded, document.head);
-      }
-    })()
+    //       var linkTag = document.createElement('link');
+    //       linkTag.rel  = 'stylesheet';
+    //       linkTag.type = 'text/css';
+    //       linkTag.media = 'all';
+    //       linkTag.href = url;
+    //       linkTag.onload = callback;
+    //       linkTag.onreadystatechange = callback;
+    //       location.appendChild(linkTag);
+    //   };
+    //   var onScriptLoaded = function(){
+    //     //callback code here
+    //   }
+    //   //if on an admin page
+    //   var regex = new RegExp(/((\badmin\b)|(\bsignin\b)|(\bsignout\b)|(\bprotected\b))/);
+    //   var isAdmin = regex.test(window.location.pathname);
+    //   if (isAdmin) {
+    //     loadCSS('/assets/css/admin.css', onScriptLoaded, document.head);
+    //   } else {
+    //     loadCSS('/assets/css/app.css', onScriptLoaded, document.head);
+    //   }
+    // })()
   </script>
+
+  <?php
+    $segments = Uri::get_parts();
+    if (isset($segments['controller']) && $segments['controller'] == 'admin') {
+      echo '<link href="'.Config::paths('ROOT_URL').'assets/css/admin.css'.'" rel="stylesheet" type="text/css">';
+    } else {
+      echo '<link href="'.Config::paths('ROOT_URL').'assets/css/app.css'.'" rel="stylesheet" type="text/css">';
+    }
+  ?>
+
+  
 
   <!-- CSS -->
 
@@ -166,8 +177,8 @@ use Lib\Uri;
   <body data-<?= $view_data['current_page'] ?> >
 
   <!-- preload screen (put above everything) -->
-  <div class="preload">
-  </div>
+<!--   <div class="preload">
+  </div> -->
 
   <!-- begin main content -->
   <?php

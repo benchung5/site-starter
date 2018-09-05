@@ -165,8 +165,8 @@ use Lib\Uri;
   <body data-<?= $view_data['current_page'] ?> >
 
   <!-- preload screen (put above everything) -->
-  <div class="preload">
-  </div>
+<!--   <div class="preload">
+  </div> -->
 
   <!-- begin main content -->
   <?php
