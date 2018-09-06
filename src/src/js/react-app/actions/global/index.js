@@ -77,7 +77,7 @@ export function populateThemeFilter(selectedThemes) {
                         }
                     }
 
-					return { id: item.id, name: item.name, slug: item.slug, active: true };
+					return { id: item.id, name: item.name, slug: item.slug, active: isActive };
 				});
 				dispatch({
 					type: THEMES_FILTER,
