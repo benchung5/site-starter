@@ -16,7 +16,7 @@ class ButtonList extends Component {
 	    let modifiedData = this.props.buttonData.map((item, index) => {
 	    	//set current active to the opposite of what it was (toggle);
 	    	let isActive = (item.id === id) ? !item.active : item.active;
-	    	return { id: item.id, name: item.name, icon: item.icon, active: isActive };
+	    	return { id: item.id, name: item.name, slug: item.slug, icon: item.icon, active: isActive };
 	    });
 
 	    this.props.updateData(modifiedData);

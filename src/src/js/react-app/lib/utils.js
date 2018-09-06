@@ -1,3 +1,5 @@
+import clone from 'lodash/clone';
+
 //toggle class (useful for css animations)
 //---------------------------
 
@@ -96,4 +98,75 @@ export function flattenObjArray(inArray, key) {
 export function round(x, n) {
   const tenN = Math.pow(10, n);
   return Math.round(x * tenN) / tenN;
+}
+
+export function setUrlParams(key, val) {
+  let hash = window.location.hash;
+  // replace valu on the part of the hash that has the current key
+  if(hash) {
+    hash = hash.replace('#', '')
+    // get the query parts
+    let parts = (/\?/.test(hash) ? hash.split('?') : [hash])
+    
+    let finalParts = [];
+    let containsKey = parts.length;
+    for(var i = 0; i < parts.length; i++) {
+      // get the part that has the key
+      var regexp = new RegExp('^' + key);
+      if (regexp.test(parts[i])) {
+        let params = parts[i].split('=');
+        if (params[0]) {
+          console.log(parts[i]);
+          finalParts[i] = key + '=' + val;
+        }
+      } else {
+        finalParts[i] = parts[i];
+        containsKey--;
+      }
+    }
+
+    // if key doesn't exist, just add it in with it's new values
+    if (!containsKey) {
+      finalParts = clone(parts);
+      finalParts.push(key + '=' + val)
+    }
+    
+    window.location.hash = finalParts.join('?');
+  } else {
+    // if no hash just put this key value on
+    window.location.hash = key + '=' + val;;
+  }
+  return false;
+}
+
+export function getUrlParams(key) {
+    //set the category if there's a query string
+    // let categories = (/^[?#]/.test(window.location.hash) ? window.location.hash.slice(1) : query)
+    // categories = categories.split('&')
+    // .reduce((params, param) => {
+     //      let [key, value] = param.split('=');
+     //      params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+     //      return params;
+    // });
+  let hash = window.location.hash;
+  if(hash) {
+    hash = hash.replace('#', '')
+
+    // get the query parts
+    let parts = (/\?/.test(hash) ? hash.split('?') : [hash])
+    
+    for(var i = 0; i < parts.length; i++) {
+      // get the part that has the key
+      var regexp = new RegExp('^' + key);
+      // get the indavidual parameters
+      if (regexp.test(parts[i])) {
+        let params = parts[i].split('=');
+        if (params && params[1]) {
+          params = params[1].split('+');
+          return params;
+        }
+      }
+    }
+  }
+  return false;
 }

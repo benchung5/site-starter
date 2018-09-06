@@ -4,6 +4,7 @@ import { populateCatFilter, filterCategories } from '../actions/global';
 import Dropdown from './parts/dropdown';
 import ButtonList from './parts/button_list';
 import labels from '../data/labels';
+import { setUrlParams, getUrlParams } from '../lib/utils';
 
 class TypesButtons extends Component {
 
@@ -15,12 +16,28 @@ class TypesButtons extends Component {
 	}
 
 	componentWillMount() {
+		let selectedCategories = getUrlParams('categories');
 		//populate the filter with initial data
-		this.props.dispatch(populateCatFilter());
+		this.props.dispatch(populateCatFilter(selectedCategories));
 	}
 
 	onUpdateData(modifiedData) {
-		//update
+		// store the selected categories in the hash
+		let categorySlugs = modifiedData.filter((item) => {
+			if(item.active == true) {
+				return true;
+			} else {
+				return false;
+			}
+		}).map((item) => {
+			return item.slug;
+		});
+		let categories = categorySlugs.join('+');
+
+		//update the has url with the selected categories
+		setUrlParams('categories', categories);
+
+		// dispatch action
 		this.props.dispatch(filterCategories(modifiedData));
 	}
 

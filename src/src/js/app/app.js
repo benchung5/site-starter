@@ -17,9 +17,12 @@ load foundation plugins - keep this
 // //include specific foundation elements
 // import './lib/foundation-explicit-pieces';
 
+// turn on/off register service worker
+var canRegister = false;
+
 (function() {
 	//only register sw and manifest if not on admin page...
-	if(!isAdminPage) {
+	if(!isAdminPage && canRegister) {
 		/* ==========================================================================
 		// register service worker
 		========================================================================== */
@@ -71,9 +74,7 @@ load foundation plugins - keep this
 		  // beforeinstallprompt Event fired
 
 		  // e.userChoice will return a Promise. 
-		  // For more details read: https://developers.google.com/web/fundamentals/getting-started/primers/promises
 		  e.userChoice.then(function(choiceResult) {
-
 		    console.log(choiceResult.outcome);
 
 		    if(choiceResult.outcome == 'dismissed') {

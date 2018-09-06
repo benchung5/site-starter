@@ -33,7 +33,7 @@ class SideMenuButton extends Component {
 			  name="Side Menu"
 			  onClickProp={this.onItemClick.bind(this)}
 			>
-			<img className="filter-icon" src="./assets/img/icons/menu.svg"/>
+			<img className="filter-icon" src="/assets/img/icons/menu.svg"/>
 			</ButtonComponent>
 			)
 	}

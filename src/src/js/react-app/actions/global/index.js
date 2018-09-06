@@ -18,7 +18,7 @@ export function filterCategories(filteredCats) {
 	}
 }
 
-export function populateCatFilter() {
+export function populateCatFilter(selectedCategories) {
 	return function(dispatch) {
 		axios.get(`${SERVER_URL}/categories/all`)
 		.then((response) => {
@@ -26,9 +26,19 @@ export function populateCatFilter() {
 			//add an active state to each returned object
 			if (response.data) {
 				modifiedData = response.data.map((item, index) => {
-					//item.active = true;
-					return { id: item.id, name: item.name, icon: item.icon, active: true };
+                    let isActive = true;
+
+                    // if url contains selected categories, just select those
+                    if (selectedCategories) {
+                        isActive = false;
+                        if (selectedCategories.indexOf(item.slug) > -1) {
+                            isActive = true;
+                        }
+                    }
+
+					return { id: item.id, name: item.name, slug: item.slug, icon: item.icon, active: isActive };
 				});
+
 				dispatch({
 					type: CATEGORIES_FILTER,
 					payload: modifiedData
@@ -49,7 +59,7 @@ export function filterThemes(filteredThemes) {
 	}
 }
 
-export function populateThemeFilter() {
+export function populateThemeFilter(selectedThemes) {
 	return function(dispatch) {
 		axios.get(`${SERVER_URL}/themes/all`)
 		.then((response) => {
@@ -57,8 +67,17 @@ export function populateThemeFilter() {
 			//add an active state to each returned object
 			if (response.data) {
 				modifiedData = response.data.map((item, index) => {
-					//item.active = true;
-					return { id: item.id, name: item.name, active: true };
+					let isActive = true;
+
+                    // if url contains selected themes, just select those
+                    if (selectedThemes) {
+                        isActive = false;
+                        if (selectedThemes.indexOf(item.slug) > -1) {
+                            isActive = true;
+                        }
+                    }
+
+					return { id: item.id, name: item.name, slug: item.slug, active: true };
 				});
 				dispatch({
 					type: THEMES_FILTER,
