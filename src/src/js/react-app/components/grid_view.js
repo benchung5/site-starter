@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoaderInternal from './loader_internal';
+import FilterTitle from './filter-title';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -13,32 +14,32 @@ class GridView extends Component {
     // goes above picture element to add magnifine glass
     // <div className="img-info"></div>
     renderItems() {
-         return this.props.results.articles.map((item) => {
-             return (
-                <a href={`/filter/view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
-                    <div className="inner">
-                        <div className="image">
-                            { item.images ?
-                            <picture>
-                                <source srcSet={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
-                                <source srcSet={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
-                                <img src={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/> 
-                            </picture>
-                            :
-                            <picture>
-                                <source srcSet="/assets/img/placeholder-images/placeholder-img-sml.jpg" media="(max-width: 1275px)"/>
-                                <source srcSet="/assets/img/placeholder-images/placeholder-img.jpg"/>
-                                <img src="/assets/img/placeholder-images/placeholder-img.jpg"/> 
-                            </picture>
-                            }
-                        </div>
-                        <div className="info">
-                            <div className="info-detail">{item.name}</div>
-                        </div>
+     return this.props.results.articles.map((item) => {
+         return (
+            <a href={`/filter/view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
+                <div className="inner">
+                    <div className="image">
+                        { item.images ?
+                        <picture>
+                            <source srcSet={ROOT_URL + UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
+                            <source srcSet={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/>
+                            <img src={ROOT_URL + UPLOADS_PATH + item.images.split(',')[0]}/> 
+                        </picture>
+                        :
+                        <picture>
+                            <source srcSet="/assets/img/placeholder-images/placeholder-img-sml.jpg" media="(max-width: 1275px)"/>
+                            <source srcSet="/assets/img/placeholder-images/placeholder-img.jpg"/>
+                            <img src="/assets/img/placeholder-images/placeholder-img.jpg"/> 
+                        </picture>
+                        }
                     </div>
-                </a>
-             );
-         });   
+                    <div className="info">
+                        <div className="info-detail">{item.name}</div>
+                    </div>
+                </div>
+            </a>
+         );
+     });   
     }
 
     // <div className="product-card boxed" key={item.id}>
@@ -57,9 +58,16 @@ class GridView extends Component {
     render() {
         return (
             <LoaderInternal>
-                <div className="cards-container-wrapper">
-                    <div className="cards-container">
-                      {this.renderItems()}
+                <div className="row">
+                    <div className="small-12 columns">
+                        <FilterTitle/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="small-12 columns">
+                        <div className="cards-container">
+                          {this.renderItems()}
+                        </div>
                     </div>
                 </div>
             </LoaderInternal>

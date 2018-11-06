@@ -1404,6 +1404,18 @@ start filter page
 =============================================================================
 ========================================================================== */
 
+.filter-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  h1 {
+    font-size: 1.2em;
+  }
+  h2 {
+    font-size: 0.8em;
+  }
+}
+
 /* ==========================================================================
 product grid
 ========================================================================== */
@@ -1429,80 +1441,67 @@ $L:     1865px;
   }
 }
 
-.cards-container-wrapper {
-  min-height: 400px;
-  max-width: 1800px;
-  margin: 2em;
-  .cards-container {
-    width: calc(100% + 1em);
-    // margin-top: -.5em;
-    // margin-left: -.5em;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: stretch;
-
-    // display: flex;
-    // flex-wrap: wrap;
-    // align-items: flex-start;
-    // //justify-content: space-around;
-    // justify-content: space-between;
-    // align-content: flex-start;
-    // @media (max-width: $S) {
-    //   justify-content: center;
-    // }
-    .product-card {
-      cursor: pointer;
-      padding: .5em;
-      display: inline-block;
-      width: 50%;
-      .inner {
-        height: 100%;
-        background-color: #1a1a1a;
-        box-shadow: $card-box-shadow;
-        .image {
-          width: 100%;
-          height: 0;
-          padding-bottom: 61.25%;
-          display: block;
-          position: relative;
-          overflow: hidden;
-          margin: 0 auto;
-          .img-info {
-            @include h-align-absolute(15px);
-            @include v-align-absolute(15px);
-            z-index: 1;
-            opacity: 0.4;
-            height: 30px;
-            width: 30px;
-            cursor: pointer;
-            background-image: url(../img/icons/search.svg);
-            background-size: 30px 30px;
-            background-repeat: no-repeat;
-          }
-        }
-        .info {
-          background: #fff;
-          padding: 1em 1.7em;
-          font-size: .8em;
-          .right {
-            color: #888;
-          }
+  
+.cards-container {
+  margin: 2em 0;
+  width: calc(100% + 1em);
+  margin-top: -.5em;
+  margin-left: -.5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  .product-card {
+    cursor: pointer;
+    padding: .5em;
+    display: inline-block;
+    width: 50%;
+    .inner {
+      height: 100%;
+      background-color: #1a1a1a;
+      box-shadow: $card-box-shadow;
+      .image {
+        width: 100%;
+        height: 0;
+        padding-bottom: 61.25%;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        margin: 0 auto;
+        .img-info {
+          @include h-align-absolute(15px);
+          @include v-align-absolute(15px);
+          z-index: 1;
+          opacity: 0.4;
+          height: 30px;
+          width: 30px;
+          cursor: pointer;
+          background-image: url(../img/icons/search.svg);
+          background-size: 30px 30px;
+          background-repeat: no-repeat;
         }
       }
-      @include MQ(S) {
-        width: 33.33333%;
+      .info {
+        background: #fff;
+        padding: 1em 1.7em;
+        font-size: .8em;
+        .right {
+          color: #888;
+        }
       }
-      @include MQ(M) {
-        width: 25%;
-      }
-      @include MQ(L) {
-        width: 25%;
-      }
-      // @media (max-width: $S) {
-      //   max-width: 400px;
-      // }
     }
+    @include MQ(S) {
+      width: 33.33333%;
+    }
+    @include MQ(M) {
+      width: 25%;
+    }
+    @include MQ(L) {
+      width: 25%;
+    }
+    // @media (max-width: $S) {
+    //   max-width: 400px;
+    // }
   }
 }
 
@@ -1939,6 +1938,8 @@ filter
 .filter {
   display: flex;
   height: 3em;
+  border-bottom: 1px solid #ccc;
+  margin-top: 0.5em;
   .show-menu-mobile {
     flex: 1;
     background-color: #fff;

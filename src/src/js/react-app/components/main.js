@@ -59,7 +59,11 @@ class Main extends Component {
   render() {
     return (
       <div className={`main-container ${this.props.lang}`}>
-        <Filter/>
+        <div className="row">
+          <div className="small-12 columns">
+            <Filter/>
+          </div>
+        </div>
         <SideMenu/>
         <GridView/>
       </div>

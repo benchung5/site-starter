@@ -65,7 +65,7 @@ use Lib\Uri;
       justify-content: center;
     }
     .preload.loaded {
-      /*slight delay to ensure smooth*/
+      /*slight delay (.1s) to ensure smooth*/
       animation: fadeOut .15s ease .1s both;
     }
     @keyframes fadeOut {
@@ -150,14 +150,11 @@ use Lib\Uri;
     }
   ?>
 
-  
-
   <!-- CSS -->
 
 
   <!-- Fonts -->
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
   
   <!-- Head scripts like Modernizr -->
   <script src="<?= Config::paths('ROOT_URL').'assets/js/head.js' ?>"></script>

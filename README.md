@@ -13,3 +13,6 @@ npm start
 ### Notes:
 -to adjust the layout template html use: src/layout-template.php
 (this is used by HtmlWebpackPlugin to create the layout file)
+
+-needs to run on Node version 6.9.1
+(use nvm for ease of use)

@@ -6,6 +6,7 @@ const gulp = require('gulp');
 const rimraf = require('rimraf');
 const yaml = require('js-yaml');
 const fs = require('fs');
+const watch = require('gulp-watch');
 
 const webpack = require('webpack');
 const gutil = require('gulp-util');
@@ -48,6 +49,48 @@ const staticFileGlobs = [
    "assets/img/placeholder-images/**.{svg,png,jpg,gif}",
 ]
 
+//watch
+//--------------------------------------
+
+//watch for html page changes
+// function watch() {
+//   gulp.watch(PATHS.media, media);
+//   gulp.watch(PATHS.favicons, favicons);
+//   gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, sassAdmin));
+//   gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript));
+//   gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript));
+//   gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
+//   gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript));
+//   gulp.watch('src/img/**/*').on('all', gulp.series(images));
+// }
+
+gulp.task('watch-img', function () {
+    return watch('src/img/**/*', images);
+});
+
+gulp.task('watch-media', function () {
+    return watch(PATHS.media, media);
+});
+
+gulp.task('watch-favicons', function () {
+    return watch(PATHS.favicons, favicons);
+});
+
+gulp.task('watch-scss', function () {
+    return watch('src/scss/**/*.scss', gulp.series(sass, sassAdmin));
+});
+
+gulp.task('watch-app-js', function () {
+    return watch('src/js/app/**/*.js', javascript);
+});
+
+gulp.task('watch-vendor-js', function () {
+    return watch('src/js/vendor/**/*.js', vendorJavascript);
+});
+
+gulp.task('watch-head-js', function () {
+    return watch('src/js/head/**/*.js', headJavascript);
+});
 
 //build
 //--------------------------------------
@@ -58,7 +101,7 @@ gulp.task('build',
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
-  gulp.series('build', gulp.parallel([watch, devServer])));
+  gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
 
 // Build the site, and watch for file (and ee file) changes then rsync
 gulp.task('rsync',
@@ -321,26 +364,14 @@ function rsyncTemplates(done) {
   // });
 }
 
-//watch for html page changes
-function watch() {
-  gulp.watch(PATHS.media, media);
-  gulp.watch(PATHS.favicons, favicons);
-  gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, sassAdmin));
-  gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript));
-  gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript));
-  gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
-  gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript));
-  gulp.watch('src/img/**/*').on('all', gulp.series(images));
-}
-
 // Watch for changes to static assets, and ee templates then rsync
 function watchProduction() {
-  //watch assets
-  gulp.watch(PATHS.media, media);
-  gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, rsyncAssets));
-  gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript, rsyncAssets));
-  gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript, rsyncAssets));
-  gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript, rsyncAssets));
-  gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript, rsyncAssets));
-  gulp.watch('src/img/**/*').on('all', gulp.series(images, rsyncAssets));
+  // //watch assets
+  // gulp.watch(PATHS.media, media);
+  // gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, rsyncAssets));
+  // gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript, rsyncAssets));
+  // gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript, rsyncAssets));
+  // gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript, rsyncAssets));
+  // gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript, rsyncAssets));
+  // gulp.watch('src/img/**/*').on('all', gulp.series(images, rsyncAssets));
 }
