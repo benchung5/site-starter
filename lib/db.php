@@ -5,9 +5,11 @@ use Lib\pdox\Pdox as Pdox;
 class Db 
 {
     public static $db_config = [
-        'host'      => '127.0.0.1',
+        'host'      => 'localhost',
+        //'host'      => '127.0.0.1',
         'driver'    => 'mysql',
-        'database'  => '1pixel_db',
+        //'database'  => '1pixel_db',
+        'database'  => 'test1_db',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',

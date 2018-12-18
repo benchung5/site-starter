@@ -38,9 +38,9 @@ Foundation.addToJquery($);
 // Add Foundation Utils to Foundation global namespace for backwards
 // compatibility.
 
-Foundation.rtl = rtl;
-Foundation.GetYoDigits = GetYoDigits;
-Foundation.transitionend = transitionend;
+//Foundation.rtl = rtl;
+// Foundation.GetYoDigits = GetYoDigits;
+// Foundation.transitionend = transitionend;
 
 Foundation.Box = Box;
 Foundation.onImagesLoaded = onImagesLoaded;

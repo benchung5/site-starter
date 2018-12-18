@@ -33,8 +33,6 @@ class Files_model extends Model
 
 			$this->db->table('files')->insert($data);
 
-			Utils::dbug($this->db->getQuery());
-
 			return $this->db->insertId();
 		}
 	}

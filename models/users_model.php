@@ -4,15 +4,8 @@ use Lib\Model;
 
 class Users_model extends Model
 {
-	public $options;
-
 	public function __construct() {
 		parent::__construct();
-
-		$this->options = [
-		    'cost' => 11,
-		    'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
-		];
 	}
 
 	public function get_user($opts = []) 
@@ -42,7 +35,8 @@ class Users_model extends Model
 	{
 		if (is_array($data) && isset($data['email'])) {
 
-			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT, $this->options);
+			// as of php7 salt is depreciated (just use default generated one)
+			$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
 
 			$this->db->table('users')->insert($data);
 

@@ -3,6 +3,7 @@ namespace Lib;
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManagerStatic as Image;
 use Lib\Utils;
+use Lib\Controller;
 
 class Upload
 {
@@ -12,7 +13,7 @@ class Upload
 
 	public function upload($ref_type, $ref_id) 
 	{
-		$files = $this->load_model('files_model');
+		$files = Controller::load_model('files_model');
 
 		$files_data = self::upload_files($ref_type);
 		//save the file data to the db
