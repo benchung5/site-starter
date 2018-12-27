@@ -68,6 +68,18 @@ const articleAdd = asyncComponent(() =>
   System.import('./components/admin/articles/article_add').then(module => module.default)
 )
 
+const treesList = asyncComponent(() => 
+  System.import('./components/admin/trees/trees_list').then(module => module.default)
+)
+
+const treeEdit = asyncComponent(() => 
+  System.import('./components/admin/trees/trees_edit').then(module => module.default)
+)
+
+const treeAdd = asyncComponent(() => 
+  System.import('./components/admin/trees/trees_add').then(module => module.default)
+)
+
 const usersList = asyncComponent(() => 
   System.import('./components/admin/users/users_list').then(module => module.default)
 )
@@ -136,6 +148,9 @@ if ( appContainer ) {
               <Route history={customHistory} exact path="/admin/articles-list" component={articlesList} />
               <Route history={customHistory} path="/admin/articles-list/:articleId" component={articleEdit} />
               <Route history={customHistory} path="/admin/article-add" component={articleAdd} />
+              <Route history={customHistory} exact path="/admin/trees-list" component={treesList} />
+              <Route history={customHistory} path="/admin/trees-list/:treeId" component={treeEdit} />
+              <Route history={customHistory} path="/admin/tree-add" component={treeAdd} />
               <Route history={customHistory} path="/admin/users-list" component={usersList} />
               <Route history={customHistory} path="/admin/category-add" component={categoryAdd} />
               <Route history={customHistory} exact path="/admin/category-list" component={categoryList} />

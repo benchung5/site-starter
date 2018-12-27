@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import * as actions from '../../../actions/trees';
 import RequireAuth from '../auth/require_auth';
 import SearchTrees from './search_trees';
-import Pagination from '../parts/pagination';
+import PaginationTrees from '../parts/paginationTrees';
 import settings from '../../../data/settings.js';
 //config
 const env = process.env.NODE_ENV || "development";
@@ -51,6 +51,7 @@ class TreesIndex extends Component {
     }
     
     renderTrees() {
+        console.log(this.props.trees);
         return this.props.trees.trees.map((tree) => {
             return (
                 <li className="list-group-item" key={tree.id}>
@@ -74,7 +75,7 @@ class TreesIndex extends Component {
                         <ul className="list-group item-list">
                             {this.renderTrees()}
                         </ul>
-                        <Pagination/>
+                        <PaginationTrees/>
                     </div>
                 </div>
             </div>

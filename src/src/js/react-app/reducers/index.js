@@ -2,6 +2,8 @@ import { combineReducers } from 'redux';
 import { reducer as form } from 'redux-form';
 import reducerArticle from './reducerArticle';
 import reducerArticles from './reducerArticles';
+import reducerTree from './reducerTree';
+import reducerTrees from './reducerTrees';
 import reducerAuth from './reducerAuth';
 import reducerUser from './reducerUser';
 import reducerUsers from './reducerUsers';
@@ -27,6 +29,8 @@ const rootReducer = combineReducers({
   form,
   article: reducerArticle,
   articles: reducerArticles,
+  tree: reducerTree,
+  trees: reducerTrees,
   auth: reducerAuth,
   user: reducerUser,
   users: reducerUsers,

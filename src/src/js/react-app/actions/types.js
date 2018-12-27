@@ -15,6 +15,17 @@ export const UPDATE_ARTICLE_ERROR = 'add_article_error;';
 export const SEARCH_ARTICLES = 'search_articles';
 export const SEARCH_ARTICLES_ADMIN = 'search_articles_admin';
 
+// trees
+export const FETCH_TREES = 'fetch_trees';
+export const GET_TREE = 'get_tree';
+export const ADD_TREE = 'add_tree';
+export const UPDATE_TREE = 'update_tree';
+export const DELETE_TREE = 'delete_tree';
+export const ADD_TREE_ERROR = 'add_tree_error;';
+export const UPDATE_TREE_ERROR = 'add_tree_error;';
+export const SEARCH_TREES = 'search_trees';
+export const SEARCH_TREES_ADMIN = 'search_trees_admin';
+
 // users
 export const FETCH_USERS = 'fetch_users';
 export const DELETE_USER = 'delete_user';
