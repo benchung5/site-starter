@@ -65,9 +65,10 @@ class EditTree extends Component {
         let originsArray = this.formatToMultiselect(this.props.treeData.origins);
 
         const formData = {
-            'name': this.props.treeData.name,
-            //still must keep this for the id eventhough it isn't rendered
+            'common_name': this.props.treeData.common_name,
             'slug': this.props.treeData.slug,
+            'body': this.props.treeData.body,
+            //still must keep this for the id eventhough it isn't rendered
             'category': this.props.treeData.category_id,
             'origins': originsArray,
         };
@@ -97,7 +98,7 @@ class EditTree extends Component {
         if(this.props.treeUpdated) {
             return (
                 <div className="submission-message">
-                    <span>Tree: {this.props.treeUpdated.name}<br/>successfully updated.</span>
+                    <span>Tree: {this.props.treeUpdated.common_name}<br/>successfully updated.</span>
                 </div>
             )
         }
@@ -114,15 +115,6 @@ class EditTree extends Component {
     onInputChange() {
         this.clearMessages();
     }
-
-    // <Field
-    //     type="textarea"
-    //     label="Body:"
-    //     name="body"
-    //     component={renderField}
-    //     onChange={this.onInputChange.bind(this)}
-    //     onFocus={this.onInputChange.bind(this)}
-    // />
     
     render() {
         const { handleSubmit } = this.props;
@@ -137,7 +129,7 @@ class EditTree extends Component {
                             <Field
                                 type="input"
                                 label="name:"
-                                name="name"
+                                name="common_name"
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
@@ -157,6 +149,14 @@ class EditTree extends Component {
                               selectItems={this.props.origins}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                                type="textarea"
+                                label="Body:"
+                                name="body"
+                                component={renderField}
+                                onChange={this.onInputChange.bind(this)}
+                                onFocus={this.onInputChange.bind(this)}
                             />
                             <UploadedImages
                                 ref="UploadedImages"
@@ -193,8 +193,8 @@ function validate(formProps) {
     const errors = {};
 
     //todo: use the map or foreach to shorten this code
-    if (!formProps.name) {
-        errors.name = 'Please enter a name';
+    if (!formProps.common_name) {
+        errors.common_name = 'Please enter a common name';
     }
 
     if (!formProps.slug) {
@@ -226,8 +226,7 @@ function mapStateToProps(state, ownProps) {
 export default RequireAuth(reduxForm({
     validate,
     form: 'tree-add',
-    //fields: ['name', 'slug', 'locationx', 'locationy', 'body'],
-    fields: ['name', 'slug'],
+    fields: ['common_name', 'slug', 'body'],
 })(
     connect(mapStateToProps, { getTree, fetchCategories, clearUpdateTree, updateTree, fetchOrigins })(EditTree)
     ));
