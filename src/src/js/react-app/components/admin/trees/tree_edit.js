@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, change } from 'redux-form';
 import { getTree, clearUpdateTree, updateTree } from '../../../actions/trees';
-import { fetchCategories } from '../../../actions/categories';
-import { fetchOrigins } from '../../../actions/origins';
+import { fetchTreeTables } from '../../../actions/treeTables';
 import Sidebar from '../sidebar';
 import { connect } from 'react-redux';
 import renderField from '../parts/form_fields';
@@ -29,8 +28,7 @@ class EditTree extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchCategories();
-        this.props.fetchOrigins();
+        this.props.fetchTreeTables();
         //get initial data to populate the form
         this.props.getTree(this.props.match.params.treeId);
     }
@@ -138,7 +136,7 @@ class EditTree extends Component {
                                 name="category"
                                 label="type"
                                 component={renderDropdownSelect}
-                                selectItems={this.props.categories}
+                                selectItems={this.props.treeTables.trees_category}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
                             />
@@ -146,7 +144,7 @@ class EditTree extends Component {
                               name="origins"
                               label="origins"
                               component={renderMultiSelect}
-                              selectItems={this.props.origins}
+                              selectItems={this.props.treeTables.origins}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />
@@ -218,8 +216,7 @@ function mapStateToProps(state, ownProps) {
     return { 
         treeUpdated: state.tree.treeUpdated,
         treeData: state.tree.treeSingle,
-        categories: state.categories.all,
-        origins: state.origins.all,
+        treeTables: state.treeTables.all,
     };
 }
 
@@ -228,7 +225,7 @@ export default RequireAuth(reduxForm({
     form: 'tree-add',
     fields: ['common_name', 'slug', 'body'],
 })(
-    connect(mapStateToProps, { getTree, fetchCategories, clearUpdateTree, updateTree, fetchOrigins })(EditTree)
+    connect(mapStateToProps, { getTree, clearUpdateTree, updateTree, fetchTreeTables })(EditTree)
     ));
 
 

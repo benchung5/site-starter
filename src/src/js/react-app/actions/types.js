@@ -50,6 +50,9 @@ export const GET_THEME = 'get_theme';
 //origins
 export const FETCH_ORIGINS = 'fetch_origins';
 
+//tree tables
+export const FETCH_TREE_TABLES = 'fetch_tree_tables';
+
 
 //location
 export const GET_LOCATION = 'get_location';

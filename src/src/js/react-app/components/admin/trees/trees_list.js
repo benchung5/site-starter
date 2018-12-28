@@ -51,7 +51,6 @@ class TreesIndex extends Component {
     }
     
     renderTrees() {
-        console.log(this.props.trees);
         return this.props.trees.trees.map((tree) => {
             return (
                 <li className="list-group-item" key={tree.id}>

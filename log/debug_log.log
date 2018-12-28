@@ -1,0 +1,57 @@
+Array
+(
+    [origins] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 1
+                    [slug] => eastern-redcedar
+                    [common_name] => Eastern Redcedar
+                    [trees_category_id] => 1
+                    [images] => 
+                )
+
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [origins] => Array
+        (
+            [0] => stdClass Object
+                (
+                    [id] => 1
+                    [name] => Canada
+                )
+
+            [1] => stdClass Object
+                (
+                    [id] => 2
+                    [name] => United States
+                )
+
+            [2] => stdClass Object
+                (
+                    [id] => 3
+                    [name] => Europe
+                )
+
+            [3] => stdClass Object
+                (
+                    [id] => 4
+                    [name] => Asia
+                )
+
+            [4] => stdClass Object
+                (
+                    [id] => 5
+                    [name] => Middle East
+                )
+
+        )
+
+)
+
+-----------------------------------------------
