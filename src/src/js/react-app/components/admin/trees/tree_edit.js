@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field, change } from 'redux-form';
 import { getTree, clearUpdateTree, updateTree } from '../../../actions/trees';
 import { fetchCategories } from '../../../actions/categories';
-import { fetchThemes } from '../../../actions/themes';
+import { fetchOrigins } from '../../../actions/origins';
 import Sidebar from '../sidebar';
 import { connect } from 'react-redux';
 import renderField from '../parts/form_fields';
@@ -30,7 +30,7 @@ class EditTree extends Component {
 
     componentWillMount() {
         this.props.fetchCategories();
-        this.props.fetchThemes();
+        this.props.fetchOrigins();
         //get initial data to populate the form
         this.props.getTree(this.props.match.params.treeId);
     }
@@ -62,14 +62,14 @@ class EditTree extends Component {
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images);
 
-        let themesArray = this.formatToMultiselect(this.props.treeData.themes);
+        let originsArray = this.formatToMultiselect(this.props.treeData.origins);
 
         const formData = {
             'name': this.props.treeData.name,
             //still must keep this for the id eventhough it isn't rendered
             'slug': this.props.treeData.slug,
             'category': this.props.treeData.category_id,
-            'themes': themesArray,
+            'origins': originsArray,
         };
 
         this.props.initialize(formData);
@@ -77,9 +77,9 @@ class EditTree extends Component {
 
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
-        //format themes data (must convert it to comma separated string over the network)
+        //format origins data (must convert it to comma separated string over the network)
         let formpropsClone = clone(formProps);
-        formpropsClone.themes = flattenObjArray(formpropsClone.themes, 'value').toString();
+        formpropsClone.origins = flattenObjArray(formpropsClone.origins, 'value').toString();
 
         // call action to submit edited
         this.props.updateTree(createImgFormData('new_images', formpropsClone));
@@ -151,10 +151,10 @@ class EditTree extends Component {
                                 onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
-                              name="themes"
-                              label="themes"
+                              name="origins"
+                              label="origins"
                               component={renderMultiSelect}
-                              selectItems={this.props.themes}
+                              selectItems={this.props.origins}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />
@@ -205,9 +205,9 @@ function validate(formProps) {
       errors.category = 'Please enter a type';
     }
 
-    if (formProps.themes) {
-        if (formProps.themes.length === 0) {
-            errors.themes = 'Please enter at least one theme';
+    if (formProps.origins) {
+        if (formProps.origins.length === 0) {
+            errors.origins = 'Please enter at least one origin';
         }
     }
     
@@ -219,7 +219,7 @@ function mapStateToProps(state, ownProps) {
         treeUpdated: state.tree.treeUpdated,
         treeData: state.tree.treeSingle,
         categories: state.categories.all,
-        themes: state.themes.all,
+        origins: state.origins.all,
     };
 }
 
@@ -229,7 +229,7 @@ export default RequireAuth(reduxForm({
     //fields: ['name', 'slug', 'locationx', 'locationy', 'body'],
     fields: ['name', 'slug'],
 })(
-    connect(mapStateToProps, { getTree, fetchCategories, clearUpdateTree, updateTree, fetchThemes })(EditTree)
+    connect(mapStateToProps, { getTree, fetchCategories, clearUpdateTree, updateTree, fetchOrigins })(EditTree)
     ));
 
 

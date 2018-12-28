@@ -33,12 +33,14 @@ class Trees_model extends Model
 				// ->orderBy('sort_order, name')
 				->getAll();
 
-			// get origins
-			$result->origins = $this->db->table('trees_origins to')
-				->select('t.id, t.common_name')
+			$result->origins = $this->db->table('trees_origins _to')
+				->select('o.id, o.name')
 				->where('tree_id', $result->id)
-				->innerJoin('origins t', 't.id', 'to.origin_id')
+				->innerJoin('origins o', 'o.id', '_to.origin_id')
 				->getAll();
+
+			//Utils::dbug($this->db->getQuery());
+			//Utils::json_respond(SUCCESS_RESPONSE, $this->db->getQuery());
 
 			// include categories
 			$trees_category = $this->db->table('trees_category')

@@ -73,11 +73,11 @@ const treesList = asyncComponent(() =>
 )
 
 const treeEdit = asyncComponent(() => 
-  System.import('./components/admin/trees/trees_edit').then(module => module.default)
+  System.import('./components/admin/trees/tree_edit').then(module => module.default)
 )
 
 const treeAdd = asyncComponent(() => 
-  System.import('./components/admin/trees/trees_add').then(module => module.default)
+  System.import('./components/admin/trees/tree_add').then(module => module.default)
 )
 
 const usersList = asyncComponent(() => 

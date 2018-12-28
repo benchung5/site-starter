@@ -1,2 +1,0 @@
-INSERT INTO files (ref_type,name,type,error,size,extension,hash,tmp_name,ref_id,sort_order) VALUES ('articles', '968361.jpg', 'application/octet-stream', '0', '246002', 'jpg', '393303fe4aa7501c9fb439d157653f3d', '/Applications/XAMPP/xamppfiles/htdocs/1pix_app/uploads/articles/temp/393303fe4aa7501c9fb439d157653f3d.jpg', '124', '0')
------------------------------------------------

@@ -11,6 +11,7 @@ import reducerCategory from './reducerCategory';
 import reducerCategories from './reducerCategories';
 import reducerTheme from './reducerTheme';
 import reducerThemes from './reducerThemes';
+import reducerOrigins from './reducerOrigins';
 import reducerLocation from './reducerLocation';
 import reducerGlobal from './reducerGlobal';
 import reducerViews from './reducerViews';
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   categories: reducerCategories,
   theme: reducerTheme,
   themes: reducerThemes,
+  origins: reducerOrigins,
   map: reducerLocation,
   global: reducerGlobal,
   views: reducerViews,

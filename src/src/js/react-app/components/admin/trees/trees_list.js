@@ -55,7 +55,7 @@ class TreesIndex extends Component {
         return this.props.trees.trees.map((tree) => {
             return (
                 <li className="list-group-item" key={tree.id}>
-                    <span>{tree.name}</span>
+                    <span>{tree.common_name}</span>
                     <a href="#" data-id={tree.id} data-slug={tree.slug} onClick={this.onDeleteTreeClick.bind(this)}>Delete</a>
                     <a href="#" data-id={tree.id} data-slug={tree.slug} onClick={this.onDuplicateTreeClick.bind(this)}>Duplicate</a>
                     <Link to={`/admin/trees-list/${tree.slug}`}>edit</Link>

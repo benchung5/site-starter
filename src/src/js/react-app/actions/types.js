@@ -47,6 +47,9 @@ export const DELETE_THEME = 'delete_theme';
 export const UPDATE_THEME = 'update_theme';
 export const GET_THEME = 'get_theme';
 
+//origins
+export const FETCH_ORIGINS = 'fetch_origins';
+
 
 //location
 export const GET_LOCATION = 'get_location';
