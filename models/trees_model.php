@@ -27,7 +27,7 @@ class Trees_model extends Model
 
 		if ($result) {
 			// get images
-			$result->images = $this->db->table('files')
+			$result->images = $this->db->table('files_trees')
 				->select('id, name')
 				->where('ref_id', $result->id)
 				// ->orderBy('sort_order, name')

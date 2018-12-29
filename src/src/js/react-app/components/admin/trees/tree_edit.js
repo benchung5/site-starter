@@ -58,7 +58,7 @@ class EditTree extends Component {
         //store initial images for comparison later
         this.setState({ images });
         //init images on UploadedImages component
-        this.refs.UploadedImages.initImages(images);
+        this.refs.UploadedImages.initImages(images, 'trees');
 
         let originsArray = this.formatToMultiselect(this.props.treeData.origins);
 

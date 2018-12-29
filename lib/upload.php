@@ -13,7 +13,12 @@ class Upload
 
 	public function upload($ref_type, $ref_id) 
 	{
-		$files = Controller::load_model('files_model');
+		if ($ref_type == 'articles') {
+			$files = Controller::load_model('files_model');
+		} elseif ($ref_type == 'trees') {
+			$files = Controller::load_model('files_trees_model');
+		}
+		
 
 		$files_data = self::upload_files($ref_type);
 		//save the file data to the db

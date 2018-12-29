@@ -85,7 +85,7 @@ class Trees extends Controller
 
 	public function update() 
 	{
-		$files = $this->load_model('files_model');
+		$files = $this->load_model('files_trees_model');
 
 		$data = Utils::read_post();
 
@@ -103,7 +103,8 @@ class Trees extends Controller
 				'where' => ['slug' => $data['slug']], 
 				'update' => [
 					'common_name' => $data['common_name'],
-					'trees_category_id' => $data['tree_category']
+					'trees_category_id' => $data['tree_category'],
+					'body' => $data['body']
 				],
 				'origins' => $data['origins']
 			]);

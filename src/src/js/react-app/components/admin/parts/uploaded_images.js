@@ -12,6 +12,7 @@ class UploadedImages extends Component {
 			images: [],
 			deletedImages: []
 		}
+		this.refType = '';
 	}
 
 	onDeleteClick(index) {
@@ -33,7 +34,8 @@ class UploadedImages extends Component {
 		this.props.updateImages(updatedImages, deletedImages);
 	}
 
-	initImages(images) {
+	initImages(images, ref_type) {
+		this.refType = ref_type;
 		this.setState({ images: images }, () => {
 			//sent initial state back to parent to avoid it 
 			//being empty if one doesn't delete
@@ -48,7 +50,7 @@ class UploadedImages extends Component {
 					return (
 						<div key={index} className="drop-preview">
 							<a href="#" className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
-							<img className="drop-img-preview" src={UPLOADS_PATH + imgName(item, 'small')} />
+							<img className="drop-img-preview" src={'/uploads/' + this.refType + '/' + imgName(item, 'small')} />
 						</div>
 						
 						)

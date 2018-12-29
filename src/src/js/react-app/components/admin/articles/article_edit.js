@@ -61,7 +61,7 @@ class EditArticle extends Component {
         //store initial images for comparison later
         this.setState({ images });
         //init images on UploadedImages component
-        this.refs.UploadedImages.initImages(images);
+        this.refs.UploadedImages.initImages(images, 'articles');
 
         let themesArray = this.formatToMultiselect(this.props.articleData.themes);
 
