@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { addTree, addTreeError, clearTree } from '../../../actions/trees';
-import { fetchCategories } from '../../../actions/categories';
-import { fetchThemes } from '../../../actions/themes';
+import { fetchTreeTables } from '../../../actions/treeTables';
 import Sidebar from '../sidebar';
 import renderField from '../parts/form_fields';
 import ImgFieldCrop from '../parts/image_field_crop';
@@ -26,8 +25,7 @@ class AddTree extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchCategories();
-    this.props.fetchThemes();
+    this.props.fetchTreeTables();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,9 +57,9 @@ class AddTree extends Component {
 
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
-    //format themes data (must convert it to comma separated string over the network)
+    //format origins data (must convert it to comma separated string over the network)
     let formpropsClone = clone(formProps);
-    formpropsClone.themes = flattenObjArray(formpropsClone.themes, 'value').toString();
+    formpropsClone.origins = flattenObjArray(formpropsClone.origins, 'value').toString();
 
     // call action to submit edited
     this.props.addTree(createImgFormData('images', formpropsClone));
@@ -112,33 +110,41 @@ class AddTree extends Component {
               <h3>Add Tree</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
-                  label="name:"
-                  name="name"
+                  label="common name"
+                  name="common_name"
                   component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  label="slug:"
+                  label="slug"
                   name="slug"
                   component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  name="category"
+                  name="tree_category"
                   label="category"
                   component={renderDropdownSelect}
-                  selectItems={this.props.categories}
+                  selectItems={this.props.treeTables.trees_category}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  name="themes"
-                  label="themes"
+                  name="origins"
+                  label="origins"
                   defaultSelect={true}
                   component={renderMultiSelect}
-                  selectItems={this.props.themes}
+                  selectItems={this.props.treeTables.origins}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  type="textarea"
+                  label="body"
+                  name="body"
+                  component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
@@ -172,12 +178,14 @@ function validate(formProps) {
     errors.slug = 'Please enter a slug';
   }
 
-  if (!formProps.category) {
+  if (!formProps.tree_category) {
     errors.category = 'Please enter a category';
   }
 
-  if (!formProps.themes) {
-    errors.themes = 'Please enter at least one theme';
+  if (formProps.origins) {
+      if (formProps.origins.length === 0) {
+          errors.origins = 'Please enter at least one origin';
+      }
   }
   
   return errors;
@@ -187,8 +195,7 @@ function mapStateToProps(state) {
   return { 
     treeAdded: state.tree.treeAdded,
     errorMessage: state.tree.addTreeError,
-    categories: state.categories.all,
-    themes: state.themes.all,
+    treeTables: state.treeTables.all,
   };
 }
 
@@ -199,7 +206,7 @@ export default RequireAuth(reduxForm({
   fields: ['name', 'slug', 'files'],
   //fields: ['name', 'slug', 'body', 'files'],
 })(
-connect(mapStateToProps, { addTree, clearTree, addTreeError, fetchCategories, fetchThemes, reset })(AddTree)
+connect(mapStateToProps, { addTree, clearTree, addTreeError, fetchTreeTables, reset })(AddTree)
 ));
 
 

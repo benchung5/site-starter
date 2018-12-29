@@ -126,7 +126,7 @@ class EditTree extends Component {
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             <Field
                                 type="input"
-                                label="name:"
+                                label="common name"
                                 name="common_name"
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
@@ -134,7 +134,7 @@ class EditTree extends Component {
                             />
                             <Field
                                 name="tree_category"
-                                label="type"
+                                label="category"
                                 component={renderDropdownSelect}
                                 selectItems={this.props.treeTables.trees_category}
                                 onChange={this.onInputChange.bind(this)}
@@ -150,7 +150,7 @@ class EditTree extends Component {
                             />
                             <Field
                                 type="textarea"
-                                label="Body:"
+                                label="body"
                                 name="body"
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
@@ -171,7 +171,7 @@ class EditTree extends Component {
                             />
                             <ImgFieldCrop
                                 name="new_images"
-                                label="New Images:"
+                                label="New Images"
                                 classNameLabel="file-input-label"
                                 onChange={this.onInputChange.bind(this)}
                             />
@@ -200,7 +200,7 @@ function validate(formProps) {
     }
 
     if (!formProps.tree_category) {
-      errors.tree_category = 'Please enter a type';
+      errors.tree_category = 'Please enter a category';
     }
 
     if (formProps.origins) {

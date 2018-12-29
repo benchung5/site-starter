@@ -144,7 +144,7 @@ export function updateTree(formData) {
 export function deleteTree(slug, search, offset, limit) {
         return function(dispatch) {
         // post to http://192.168.99.100/trees/delete
-        axios.post( `${SERVER_URL}/trees/delete`, { slug } )
+        axios.post(`${SERVER_URL}/trees/delete`, { slug })
         .then( response => {
             if(response.data.error) {
                 console.log('error: ', response.data.error);
@@ -156,25 +156,6 @@ export function deleteTree(slug, search, offset, limit) {
         })
         .catch((err) => {
             console.log('error deleting the tree: ', err);
-        });
-    }
-}
-
-export function duplicateTree(slug, search, offset, limit) {
-        return function(dispatch) {
-        // post to http://192.168.99.100/trees/delete
-        axios.post( `${SERVER_URL}/trees/duplicate`, { slug } )
-        .then( response => {
-            if(response.data.error) {
-                console.log('error: ', response.data.error);
-                //dispatch(duplicateTreeError(`there was an error duplicating the tree: ${response.data.error}`));
-            } else {
-                //get the new list of trees now that one is deleted
-                dispatch(searchTreesAdmin({ search: search, offset: offset, limit: limit }));
-            }
-        })
-        .catch((err) => {
-            console.log('error duplicating the tree: ', err);
         });
     }
 }

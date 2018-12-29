@@ -38,10 +38,10 @@ class Trees extends Controller
 		try {
 			$new_tree_id = $this->trees->add([
 				'slug' => $data['slug'], 
-				'name' => $data['name'], 
-				'category_id' => $data['category'],
-				'created_on' => date('Y-m-d'),
-			], $data['themes']);
+				'common_name' => $data['common_name'], 
+				'trees_category_id' => $data['tree_category'],
+				'body' => $data['body']
+			], $data['origins']);
 
 			$new_tree = $this->trees->get(['id' => $new_tree_id]);
 
@@ -128,7 +128,11 @@ class Trees extends Controller
 	{
 		$data = Utils::read_get();
 
-		$trees = $this->trees->get_all(['offset' => $data['offset'], 'limit' => $data['limit']]);
+		$trees = $this->trees->get_all([
+			'offset' => $data['offset'], 
+			'limit' => $data['limit'],
+			'like' => isset($data['search']) ? $data['search'] : null
+		]);
 
 		$result = ['trees' => $trees, 'count' => count($trees), 'offset' => $data['offset'], 'limit' => $data['limit']];
 

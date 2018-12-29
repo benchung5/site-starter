@@ -41,14 +41,6 @@ class TreesIndex extends Component {
         //todo: get [] to use real stored search if any
         this.props.deleteTree(slug, [], offset, limit);
     }
-
-    onDuplicateTreeClick(event) {
-        let slug = event.target.getAttribute("data-slug");
-        const { offset, limit } = this.props.trees;
-        //slug, search, offset, limit
-        //todo: get [] to use real stored search if any
-        this.props.duplicateTree(slug, [], offset, limit);
-    }
     
     renderTrees() {
         return this.props.trees.trees.map((tree) => {
@@ -56,7 +48,6 @@ class TreesIndex extends Component {
                 <li className="list-group-item" key={tree.id}>
                     <span>{tree.common_name}</span>
                     <a href="#" data-id={tree.id} data-slug={tree.slug} onClick={this.onDeleteTreeClick.bind(this)}>Delete</a>
-                    <a href="#" data-id={tree.id} data-slug={tree.slug} onClick={this.onDuplicateTreeClick.bind(this)}>Duplicate</a>
                     <Link to={`/admin/trees-list/${tree.slug}`}>edit</Link>
                 </li>
             );

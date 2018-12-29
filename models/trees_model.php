@@ -139,7 +139,8 @@ class Trees_model extends Model
 
 		if (isset($opts['like'])) {
 			$this->db->grouped(function($q, $opts) {
-				$q->like('t.common_name', '%'.$opts['like'].'%')->orLike('t.slug', '%'.$opts['like'].'%');
+				$q->like('t.common_name', '%'.$opts['like'].'%')
+				->orLike('t.slug', '%'.$opts['like'].'%');
 			}, $opts);
 		}
 
