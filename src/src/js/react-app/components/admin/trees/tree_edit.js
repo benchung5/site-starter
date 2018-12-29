@@ -67,7 +67,7 @@ class EditTree extends Component {
             'slug': this.props.treeData.slug,
             'body': this.props.treeData.body,
             //still must keep this for the id eventhough it isn't rendered
-            'category': this.props.treeData.category_id,
+            'tree_category': this.props.treeData.trees_category_id,
             'origins': originsArray,
         };
 
@@ -133,7 +133,7 @@ class EditTree extends Component {
                                 onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
-                                name="category"
+                                name="tree_category"
                                 label="type"
                                 component={renderDropdownSelect}
                                 selectItems={this.props.treeTables.trees_category}
@@ -199,8 +199,8 @@ function validate(formProps) {
         errors.slug = 'Please enter a slug';
     }
 
-    if (!formProps.category) {
-      errors.category = 'Please enter a type';
+    if (!formProps.tree_category) {
+      errors.tree_category = 'Please enter a type';
     }
 
     if (formProps.origins) {

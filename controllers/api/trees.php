@@ -101,8 +101,11 @@ class Trees extends Controller
 		try {
 			$this->trees->update([
 				'where' => ['slug' => $data['slug']], 
-				'update' => ['name' => $data['name']],
-				'themes' => $data['themes']
+				'update' => [
+					'common_name' => $data['common_name'],
+					'trees_category_id' => $data['tree_category']
+				],
+				'origins' => $data['origins']
 			]);
 
 			$new_tree = $this->trees->get(['slug' => $data['slug']]);
