@@ -147,7 +147,7 @@ class Trees_model extends Model
 			->leftJoin('files f', 'f.ref_id', 't.id')
 			->groupBy('t.id');
 
-		$result = $this->db->getAll();
+		$result = $this->db->orderBy('common_name')->getAll();
 
 		return $result;
 	}

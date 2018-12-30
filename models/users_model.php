@@ -70,7 +70,7 @@ class Users_model extends Model
 			$this->db->select('*');
 		}
 
-		$result = $this->db->getAll();
+		$result = $this->db->orderBy('name')->getAll();
 		return $result;
 	}
 }
