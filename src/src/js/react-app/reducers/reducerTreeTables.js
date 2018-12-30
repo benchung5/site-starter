@@ -2,6 +2,7 @@ import { FETCH_TREE_TABLES } from '../actions/types';
 
 const INITIAL_STATE = {
 	all: {
+		'genuses' : [],
 		'origins' : [],
 		'trees_category' : [],
 	}

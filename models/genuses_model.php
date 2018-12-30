@@ -2,18 +2,19 @@
 
 use Lib\Model;
 
-class Trees_Category_model extends Model
+class Genuses_model extends Model
 {
 	public $options;
 
-	public function __construct() {
+	public function __construct() 
+	{
 		parent::__construct();
 	}
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('trees_category');
-
+		$this->db->table('genuses');
+		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));
 		} else {

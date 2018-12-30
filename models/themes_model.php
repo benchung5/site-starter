@@ -58,7 +58,7 @@ class Themes_model extends Model
 	{
 		$this->db->table('themes');
 
-		if (isset($opts)) {
+		if ($opts) {
 			$this->db->select(implode(',', $opts));
 		} else {
 			$this->db->select('*');

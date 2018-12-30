@@ -6,7 +6,8 @@ class Categories_model extends Model
 {
 	public $options;
 
-	public function __construct() {
+	public function __construct() 
+	{
 		parent::__construct();
 	}
 
@@ -58,7 +59,7 @@ class Categories_model extends Model
 	{
 		$this->db->table('categories');
 
-		if (isset($opts)) {
+		if ($opts) {
 			$this->db->select(implode(',', $opts));
 		} else {
 			$this->db->select('*');

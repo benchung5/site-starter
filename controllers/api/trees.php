@@ -38,8 +38,9 @@ class Trees extends Controller
 		try {
 			$new_tree_id = $this->trees->add([
 				'slug' => $data['slug'], 
-				'common_name' => $data['common_name'], 
-				'trees_category_id' => $data['tree_category'],
+				'common_name' => $data['common_name'],
+				'genus_id' => $data['genus_id'],
+				'trees_category_id' => $data['trees_category_id'],
 				'body' => $data['body']
 			], $data['origins']);
 
@@ -103,7 +104,8 @@ class Trees extends Controller
 				'where' => ['slug' => $data['slug']], 
 				'update' => [
 					'common_name' => $data['common_name'],
-					'trees_category_id' => $data['tree_category'],
+					'genus_id' => $data['genus_id'],
+					'trees_category_id' => $data['trees_category_id'],
 					'body' => $data['body']
 				],
 				'origins' => $data['origins']

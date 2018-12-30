@@ -124,7 +124,15 @@ class AddTree extends Component {
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  name="tree_category"
+                  name="genus_id"
+                  label="genus"
+                  component={renderDropdownSelect}
+                  selectItems={this.props.treeTables.genuses}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  name="trees_category_id"
                   label="category"
                   component={renderDropdownSelect}
                   selectItems={this.props.treeTables.trees_category}
@@ -178,7 +186,7 @@ function validate(formProps) {
     errors.slug = 'Please enter a slug';
   }
 
-  if (!formProps.tree_category) {
+  if (!formProps.trees_category_id) {
     errors.category = 'Please enter a category';
   }
 

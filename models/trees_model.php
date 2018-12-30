@@ -39,9 +39,6 @@ class Trees_model extends Model
 				->innerJoin('origins o', 'o.id', '_to.origin_id')
 				->getAll();
 
-			//Utils::dbug($this->db->getQuery());
-			//Utils::json_respond(SUCCESS_RESPONSE, $this->db->getQuery());
-
 			// include categories
 			$trees_category = $this->db->table('trees_category')
 				->select('name')

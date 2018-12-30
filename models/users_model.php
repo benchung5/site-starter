@@ -64,7 +64,7 @@ class Users_model extends Model
 	public function get_all($opts = []) {
 		$this->db->table('users');
 
-		if (isset($opts)) {
+		if ($opts) {
 			$this->db->select(implode(',', $opts));
 		} else {
 			$this->db->select('*');
