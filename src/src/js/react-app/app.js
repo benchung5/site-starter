@@ -20,6 +20,7 @@ import reduxThunk from 'redux-thunk';
 import asyncComponent from './lib/async_component';
 
 import Main from './components/main';
+import MainTrees from './components/main_trees';
 import ArtPiece from './components/art_piece';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -130,6 +131,7 @@ if ( appContainer ) {
 
   //note the "exact" in the /articles-list route
   //for root app, swap /explore.html/ for /
+  //<Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
     ReactDOM.render(
       <PrefixerProvider prefixer={myPrefixer}>
       <Provider store={store}>
@@ -138,7 +140,7 @@ if ( appContainer ) {
            <Switch history={customHistory}>
               {/* website */}
               <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
-              <Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
+              <Route history={customHistory} exact path="/filter_trees" component={withPrefixer(MainTrees)} />
               {/* admin */}
               <Route history={customHistory} path="/admin/protected" component={protecetWarning} />
               <Route history={customHistory} path="/admin/signin" component={signin} />

@@ -91,6 +91,72 @@ export function populateThemeFilter(selectedThemes) {
 	}
 }
 
+export function populateFilter(selectedOrigins, selectedTreesCategories) {
+    return function(dispatch) {
+        axios.get(`${SERVER_URL}/tree_tables/all`)
+        .then((response) => {
+            var treesCategoryData = [];
+            var originsData = [];
+            //add an active state to each returned object
+            if (response.data) {
+                treesCategoryData = response.data.trees_category_id.map((item, index) => {
+                    let isActive = true;
+
+
+
+                    // if url contains selected categories, just select those
+                    if (selectedCategories) {
+                        isActive = false;
+                        if (selectedCategories.indexOf(item.slug) > -1) {
+                            isActive = true;
+                        }
+                    }
+
+                    // if url contains selected Origins, just select those
+                    if (selectedOrigins) {
+                        isActive = false;
+                        if (selectedOrigins.indexOf(item.slug) > -1) {
+                            isActive = true;
+                        }
+                    }
+
+                    return {id: item.id, name: item.name, slug: item.slug, active: isActive};
+                });
+                originsData = response.data.origins.map((item, index) => {
+                    let isActive = true;
+
+
+
+                    // if url contains selected categories, just select those
+                    if (selectedCategories) {
+                        isActive = false;
+                        if (selectedCategories.indexOf(item.slug) > -1) {
+                            isActive = true;
+                        }
+                    }
+
+                    // if url contains selected Origins, just select those
+                    if (selectedOrigins) {
+                        isActive = false;
+                        if (selectedOrigins.indexOf(item.slug) > -1) {
+                            isActive = true;
+                        }
+                    }
+
+                    return {id: item.id, name: item.name, slug: item.slug, active: isActive};
+                });
+                dispatch({
+                    type: THEMES_FILTER,
+                    payload: modifiedData
+                });
+            }
+        }).catch((err) => {
+            console.log('error fetching themes for filtering: ', err);
+        });
+
+    }
+}
+
 //perform the search
 export function searchArticles(searchObj) {
     return function(dispatch) {
@@ -146,112 +212,6 @@ export function searchArticles(searchObj) {
     	}
 
     	return query;
-    }
-
-
-    function formatMarkerCoords(data) {
-    	//version that only ransomizes duplicates but when markers change according to theme buttons, this no longer works
-
-    	let coordsClone = [];
-
-    	data.forEach((item, index) => {
-    		//clone and add an index to sort again later
-    		var coords = [item.geometry.coordinates[0], item.geometry.coordinates[1], index];
-    		coordsClone.push(coords);
-    	});
-
-    	//get array of just duplicate values
-    	let duplicates = removeUnique(coordsClone);
-    	//get array of just unique values
-    	let unique = removeDuplicates(coordsClone);
-
-
-    	//randomize the duplicates
-    	let duplicatesRandomized = duplicates.map(function (item, index) {
-    		//convert to random point within n meters of original point
-    		//params: center, radius
-    		return generateRandomPoint(item, 20);
-    	});
-
-    	//combine together again
-    	let combined = duplicatesRandomized.concat(unique);
-    	//sort by the index indicated int the third array value of each item
-    	let sorted = combined.sort((a,b) => {
-    		return a[2] - b[2];
-    	});
-    	//remove the third value for sorting as we no longer need it
-    	let formatted = sorted.map((item) => {
-    		return  [item[0], item[1]];
-    	});
-
-    	let output = data.map((item, index) => {
-    		item.geometry.coordinates = formatted[index];
-    		return item
-    	});
-
-    	//update theh state
-    	return output;
-
-
-    	//helper functions...
-
-    	function removeUnique(arr) {
-    		var newArr = [];
-    		for (var i = 0; i < arr.length; i++) {
-    			var count = 0;
-    			for (var j = 0; j < arr.length; j++) {
-    				if (arr[j][0] === arr[i][0]) {
-    					count++;
-    				}
-    			}
-    			if (count >= 2) {
-    				newArr.push(arr[i]);
-    			}
-    		}
-    	    return newArr;
-    	}
-
-    	function removeDuplicates(arr) {
-    		var newArr = [];
-    		for (var i = 0; i < arr.length; i++) {
-    			var count = 0;
-    			for (var j = 0; j < arr.length; j++) {
-    				if (arr[j][0] === arr[i][0]) {
-    					count++;
-    				}
-    			}
-    			if (count === 1) {
-    				newArr.push(arr[i]);
-    			}
-    		}
-    	    return newArr;
-    	}
-
-    	//center: long/lat
-    	function generateRandomPoint(center, radius) {
-    	  //lon
-    	  var y0 = center[0];
-    	  //lat
-    	  var x0 = center[1];
-
-    	  // Convert Radius from meters to degrees.
-    	  var rd = radius/111300;
-
-    	  var u = Math.random();
-    	  var v = Math.random();
-
-    	  var w = rd * Math.sqrt(u);
-    	  var t = 2 * Math.PI * v;
-    	  var x = w * Math.cos(t);
-    	  var y = w * Math.sin(t);
-
-    	  var xp = x/Math.cos(y0);
-
-    	  // Resulting point. [lon, lat]
-    	  //just have a third value because we need to pass in the index in this case
-    	  //return [y+y0, xp+x0];
-    	  return [y+y0, xp+x0, center[2]];
-    	}
     }
 
 }

@@ -151,11 +151,11 @@ class Trees extends Controller
 
 		$trees = $this->trees->get_all([
 			'offset' => $data['offset'], 
-			'limit' => $data['limit'], 
+			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
-			'category' => isset($data['category']) ? $data['category'] : [], 
-			'themes' => isset($data['themes']) ? $data['themes'] : [],
-			'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']
+			'trees_category' => isset($data['trees_category_id']) ? $data['trees_category_id'] : [], 
+			'origins' => isset($data['origins']) ? $data['origins'] : [],
+			'select' => ['t.id', 't.slug', 't.name', 't.trees_category_id']
 		]);
 
 		$result = ['trees' => $trees, 'count' => count($trees), 'offset' => $data['offset'], 'limit' => $data['limit']];

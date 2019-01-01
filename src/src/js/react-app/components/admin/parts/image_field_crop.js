@@ -236,7 +236,7 @@ class FileField extends Component {
           // maxSize={500000}
         >
         <div className="instructions">
-        Try dropping some files here, or click to select files to upload.<br/>
+        Drop files here, or click to select files to upload.<br/>
         (Only jpeg images will be accepted)
         </div>
         </Dropzone>

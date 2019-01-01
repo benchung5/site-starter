@@ -5,7 +5,7 @@ import FilterTitle from './filter-title';
 
 //config
 const env = process.env.NODE_ENV || "development";
-var { ROOT_URL, ARTICLES_UPLOADS_PATH } = require('../config')[env];
+var { ROOT_URL, TREES_UPLOADS_PATH } = require('../config')[env];
 
 import { imgName } from '../lib/stringUtils';
 
@@ -14,16 +14,16 @@ class GridView extends Component {
     // goes above picture element to add magnifine glass
     // <div className="img-info"></div>
     renderItems() {
-     return this.props.results.articles.map((item) => {
+     return this.props.results.trees.map((item) => {
          return (
             <a href={`/filter/view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
                 <div className="inner">
                     <div className="image">
                         { item.images ?
                         <picture>
-                            <source srcSet={ROOT_URL + ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
-                            <source srcSet={ROOT_URL + ARTICLES_UPLOADS_PATH + item.images.split(',')[0]}/>
-                            <img src={ROOT_URL + ARTICLES_UPLOADS_PATH + item.images.split(',')[0]}/> 
+                            <source srcSet={ROOT_URL + TREES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
+                            <source srcSet={ROOT_URL + TREES_UPLOADS_PATH + item.images.split(',')[0]}/>
+                            <img src={ROOT_URL + TREES_UPLOADS_PATH + item.images.split(',')[0]}/> 
                         </picture>
                         :
                         <picture>
@@ -78,7 +78,7 @@ class GridView extends Component {
 
 function mapStateToProps(state) {
     return {
-        results: state.articles.searchResults,
+        results: state.trees.searchResults,
     };
 }
 
