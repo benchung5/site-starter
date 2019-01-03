@@ -116,7 +116,6 @@ export function setUrlParams(key, val) {
       if (regexp.test(parts[i])) {
         let params = parts[i].split('=');
         if (params[0]) {
-          console.log(parts[i]);
           finalParts[i] = key + '=' + val;
         }
       } else {

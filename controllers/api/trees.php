@@ -153,9 +153,9 @@ class Trees extends Controller
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
-			'trees_category' => isset($data['trees_category_id']) ? $data['trees_category_id'] : [], 
+			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : [], 
 			'origins' => isset($data['origins']) ? $data['origins'] : [],
-			'select' => ['t.id', 't.slug', 't.name', 't.trees_category_id']
+			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id']
 		]);
 
 		$result = ['trees' => $trees, 'count' => count($trees), 'offset' => $data['offset'], 'limit' => $data['limit']];

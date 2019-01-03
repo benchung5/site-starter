@@ -125,9 +125,9 @@ class Trees_model extends Model
 		if (isset($opts['origins'])) {
 			if (count($opts['origins']) > 0) {
 				$this->db
-					->innerJoin('trees_origins to', 'to.tree_id', 't.id')
-					->innerJoin('origins o', 'o.id', 'to.origin_id')
-					->in('t.id', $opts['origins']);
+					->innerJoin('trees_origins _to', '_to.tree_id', 't.id')
+					->innerJoin('origins o', 'o.id', '_to.origin_id')
+					->in('o.id', $opts['origins']);
 			} else {
 				// force no results since origin is queried but no origin is selected
 				return [];

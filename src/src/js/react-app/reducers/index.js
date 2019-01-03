@@ -14,6 +14,7 @@ import reducerThemes from './reducerThemes';
 import reducerTreeTables from './reducerTreeTables';
 import reducerLocation from './reducerLocation';
 import reducerGlobal from './reducerGlobal';
+import reducerGlobalTrees from './reducerGlobalTrees';
 import reducerViews from './reducerViews';
 import reducerRoutes from './reducerRoutes';
 import reducerNearMe from './reducerNearMe';
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   treeTables: reducerTreeTables,
   map: reducerLocation,
   global: reducerGlobal,
+  globalTrees: reducerGlobalTrees,
   views: reducerViews,
   routes: reducerRoutes,
   nearMe: reducerNearMe,

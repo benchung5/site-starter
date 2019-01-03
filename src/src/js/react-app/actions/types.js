@@ -53,6 +53,14 @@ export const FETCH_ORIGINS = 'fetch_origins';
 //tree tables
 export const FETCH_TREE_TABLES = 'fetch_tree_tables';
 
+//global trees
+export const CATEGORIES_TREES_FILTER = 'categories_trees_filter';
+export const ORIGINS_FILTER = 'origins_filter';
+export const TREES_FILTER = 'trees_filter';
+
+//global
+export const CATEGORIES_FILTER = 'categories_filter';
+export const THEMES_FILTER = 'themes_filter';
 
 //location
 export const GET_LOCATION = 'get_location';
@@ -68,10 +76,6 @@ export const VIEWS_TOGGLE = 'views_toggle';
 
 //show side menu
 export const SHOW_MENU = 'show_menu';
-
-//global
-export const CATEGORIES_FILTER = 'categories_filter';
-export const THEMES_FILTER = 'themes_filter';
 
 //routes
 export const ROUTES_FILTER = 'routes_filter';

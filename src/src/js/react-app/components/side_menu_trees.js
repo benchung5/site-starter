@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import SideMenuHeader from './side_menu_header';
-import Types from './buttons_types';
-import Themes from './buttons_themes';
+import ButtonsCategoriesTrees from './buttons_categories_trees';
+import ButtonsOrigins from './buttons_origins';
 // import Routes from './buttons_routes';
 // import NearMe from './button_near_me';
 // import OffLineMessage from './offline_message';
-import { searchArticles } from '../actions/global';
+import { searchTrees } from '../actions/globalTrees';
 import Socials from './parts/socials';
 import Transition from 'react-transition-group/Transition';
 import prefix from 'react-prefixer';
@@ -36,13 +36,20 @@ class SideMenu extends Component {
     //fire the updated globalFilterData to the search action whenever the themes or categores get updated
     if(this.props.globalFilterData && (prevProps.globalFilterData !==  this.props.globalFilterData)) {
       //while filter initial populating, don't dispatch
-      if((this.props.globalFilterData.categories.length === 0) || (this.props.globalFilterData.themes.length === 0)) {
+      if((this.props.globalFilterData.categoriesTrees.length === 0) || (this.props.globalFilterData.origins.length === 0)) {
       } else {
-        this.props.dispatch(searchArticles(this.props.globalFilterData));
-      }
-      
+        this.props.dispatch(searchTrees(this.props.globalFilterData));
+      }  
     }
   }
+
+  // isEmpty(obj) {
+  //     for(var key in obj) {
+  //         if(obj.hasOwnProperty(key))
+  //             return false;
+  //     }
+  //     return true;
+  // }
 
   // <NearMe className="right near-me"/>
   // <OffLineMessage/>
@@ -53,8 +60,8 @@ class SideMenu extends Component {
         {(state) => (
           <div className={`side-menu ${this.props.showMenu}`} style={{...defaultStyle, ...transitionStyles[state]}}>
             <SideMenuHeader/>
-            <Types/>
-            <Themes/>
+            <ButtonsCategoriesTrees/>
+            <ButtonsOrigins/>
             <div className="bottom">
             </div>
           </div>
@@ -68,7 +75,7 @@ class SideMenu extends Component {
 
 function mapStateToProps(state) {
   return {
-    globalFilterData: state.global,
+    globalFilterData: state.globalTrees,
     showMenu: state.showMenu.showMenu
   }
 }
