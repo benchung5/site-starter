@@ -26,6 +26,6 @@ class Filter_trees extends Controller
 			$view_data['tree'] = $tree;
 		}
 
-		$this->render('view', $view_data );
+		$this->render('view_tree', $view_data );
 	}
 }

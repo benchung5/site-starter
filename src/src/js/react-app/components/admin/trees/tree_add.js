@@ -132,6 +132,13 @@ class AddTree extends Component {
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
+                  label="specific epithet"
+                  name="specific_epithet"
+                  component={renderField}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
                   name="trees_category_id"
                   label="category"
                   component={renderDropdownSelect}

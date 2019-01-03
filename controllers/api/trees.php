@@ -40,6 +40,7 @@ class Trees extends Controller
 				'slug' => $data['slug'], 
 				'common_name' => $data['common_name'],
 				'genus_id' => $data['genus_id'],
+				'specific_epithet' => $data['specific_epithet'],
 				'trees_category_id' => $data['trees_category_id'],
 				'body' => $data['body']
 			], $data['origins']);
@@ -105,6 +106,7 @@ class Trees extends Controller
 				'update' => [
 					'common_name' => $data['common_name'],
 					'genus_id' => $data['genus_id'],
+					'specific_epithet' => $data['specific_epithet'],
 					'trees_category_id' => $data['trees_category_id'],
 					'body' => $data['body']
 				],

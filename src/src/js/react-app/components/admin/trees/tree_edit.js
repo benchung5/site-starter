@@ -65,6 +65,7 @@ class EditTree extends Component {
         const formData = {
             'common_name': this.props.treeData.common_name,
             'slug': this.props.treeData.slug,
+            'specific_epithet': this.props.treeData.specific_epithet,
             'body': this.props.treeData.body,
             //still must keep this for the id eventhough it isn't rendered
             'genus_id': this.props.treeData.genus_id,
@@ -138,6 +139,13 @@ class EditTree extends Component {
                               label="genus"
                               component={renderDropdownSelect}
                               selectItems={this.props.treeTables.genuses}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              label="specific epithet"
+                              name="specific_epithet"
+                              component={renderField}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />

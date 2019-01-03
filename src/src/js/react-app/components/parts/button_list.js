@@ -37,7 +37,6 @@ class ButtonList extends Component {
 				        >
 				        	<i className={`fas fa-${item.icon}`}></i>
 				        	<div className='check' onClick={this.onItemClick.bind(this)}></div>
-				    	    <div className="icon" onClick={this.onItemClick.bind(this)} data-id={item.id}></div>
 				    	    <span onClick={this.onItemClick.bind(this)} data-id={item.id} className="name">{item.name}</span>
 				        </ButtonComponent>						
 					</div>

@@ -25,9 +25,13 @@ class SideMenuButton extends Component {
 	}
 
 	render() {
+
+		//re-enable this when done
+		//classProp={`hide-for-large show-menu-mobile
+
 		return (
 			<ButtonComponent
-			  classProp={`hide-for-large show-menu-mobile
+			  classProp={`show-menu-mobile
 			  	${this.props.showMenu}`}
 			  id={'side-menu-toggle'}
 			  name="Side Menu"

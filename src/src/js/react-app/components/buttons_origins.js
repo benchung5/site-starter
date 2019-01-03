@@ -14,7 +14,7 @@ class ButtonsOrigins extends Component {
 		super(props);
 		this.state = {
 		}
-		this.buttonHeight = 40;
+		this.buttonHeight = 27;
 	}
 
 	onUpdateData(modifiedData) {
