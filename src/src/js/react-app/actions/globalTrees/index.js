@@ -89,22 +89,39 @@ export function filterOrigins(filteredOrigins) {
 // 	}
 // }
 
-export function populateTreesFilter(selectedTreesCategories) {
+export function populateTreesFilter(selectionFromUrl) {
     return function(dispatch) {
         axios.get(`${SERVER_URL}/tree_tables/all`)
         .then((response) => {
             var categoryTreesData = [];
+            var originsData = [];
             // var originsData = [];
             var modifiedData = [];
             //add an active state to each returned object
             if (response.data) {
                 categoryTreesData = response.data.trees_category.map((item, index) => {
+                    //set all to active by default
                     let isActive = true;
 
                     // if url contains selected categories, just select those
-                    if (selectedTreesCategories) {
+                    if (selectionFromUrl.selectedTreesCategories) {
                         isActive = false;
-                        if (selectedTreesCategories.indexOf(item.slug) > -1) {
+                        if ((selectionFromUrl.selectedTreesCategories.length > 0) && (selectionFromUrl.selectedTreesCategories.indexOf(item.slug) > -1)) {
+                            isActive = true;
+                        }
+                    }
+
+                    return {id: item.id, name: item.name, slug: item.slug, active: isActive};
+                });
+
+                originsData = response.data.origins.map((item, index) => {
+                    //set all to active by default
+                    let isActive = true;
+
+                    // if url contains selected categories, just select those
+                    if (selectionFromUrl.selectedTreesOrigines) {
+                        isActive = false;
+                        if ((selectionFromUrl.selectedTreesOrigines.length > 0) && (selectionFromUrl.selectedTreesOrigines.indexOf(item.slug) > -1)) {
                             isActive = true;
                         }
                     }
@@ -114,7 +131,7 @@ export function populateTreesFilter(selectedTreesCategories) {
 
                 dispatch({
                     type: ORIGINS_FILTER,
-                    payload: response.data.origins
+                    payload: originsData
                 });
 
                 dispatch({

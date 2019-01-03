@@ -31,7 +31,7 @@ export function populateCatFilter(selectedCategories) {
                     // if url contains selected categories, just select those
                     if (selectedCategories) {
                         isActive = false;
-                        if (selectedCategories.indexOf(item.slug) > -1) {
+                        if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
                             isActive = true;
                         }
                     }
@@ -72,7 +72,7 @@ export function populateThemeFilter(selectedThemes) {
                     // if url contains selected themes, just select those
                     if (selectedThemes) {
                         isActive = false;
-                        if (selectedThemes.indexOf(item.slug) > -1) {
+                        if ((selectedThemes.length > 0) && (selectedThemes.indexOf(item.slug) > -1)) {
                             isActive = true;
                         }
                     }

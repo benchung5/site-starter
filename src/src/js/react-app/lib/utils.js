@@ -159,13 +159,22 @@ export function getUrlParams(key) {
       var regexp = new RegExp('^' + key);
       // get the indavidual parameters
       if (regexp.test(parts[i])) {
+
         let params = parts[i].split('=');
+
+        if (params && (!params[1])) {
+          //if a parameter but no value
+          return [];
+        }
+
         if (params && params[1]) {
+          //if value(s) (split by +) returns them in the form of an array
           params = params[1].split('+');
           return params;
         }
       }
     }
   }
+  //no parameter not found
   return false;
 }

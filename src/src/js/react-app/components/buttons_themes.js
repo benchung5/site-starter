@@ -53,13 +53,13 @@ class ThemesButtons extends Component {
 		if (this.props.filteredThemes.length) {
 			return (
 			        <Dropdown
-			          classProp="themes-dropdown"
+			          classProp=""
 			          name='Themes'
 			          height={this.buttonHeight  * this.props.filteredThemes.length}
 			        >
 			         <ButtonList
 			         	wrapperClass="single-col"
-			         	classProp="themes"
+			         	classProp=""
 			         	classPropButton="list-button"
 			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filteredThemes}

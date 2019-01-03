@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { viewsToggle } from '../actions/views';
 import ButtonComponent from './parts/button_component';
-import Search from './search';
 import { bindActionCreators } from 'redux';
 import { showMenu } from '../actions/sideMenu';
 import { globals } from '../config';
@@ -23,7 +22,7 @@ class SideMenuHeader extends Component {
 	render() {
 		return (
 			<div className="menu-header">
-				<Search/>
+				{this.props.children}
 				<div className="right">
 					<ButtonComponent classProp="menu-close" name="Close" onClickProp={this.onItemClick.bind(this)} />
 				</div>

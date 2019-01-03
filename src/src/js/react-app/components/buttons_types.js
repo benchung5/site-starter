@@ -45,13 +45,13 @@ class TypesButtons extends Component {
 		if (this.props.filterCats.length) {
 			return (
 			        <Dropdown
-			          classProp="types-dropdown"
+			          classProp=""
 			          name='Type'
 			          height={this.buttonHeight * this.props.filterCats.length}
 			        >
 			         <ButtonList
 			         	wrapperClass="single-col"
-			         	classProp="types"
+			         	classProp=""
 			         	classPropButton="list-button icon"
 			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filterCats}

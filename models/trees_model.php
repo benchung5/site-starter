@@ -122,6 +122,7 @@ class Trees_model extends Model
 			}
 		}
 
+		//include origins
 		if (isset($opts['origins'])) {
 			if (count($opts['origins']) > 0) {
 				$this->db
@@ -134,6 +135,7 @@ class Trees_model extends Model
 			}
 		}
 
+		// use search criteria
 		if (isset($opts['like'])) {
 			$this->db->grouped(function($q, $opts) {
 				$q->like('t.common_name', '%'.$opts['like'].'%')

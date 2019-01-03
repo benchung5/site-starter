@@ -16,7 +16,7 @@ class GridView extends Component {
     renderItems() {
      return this.props.results.trees.map((item) => {
          return (
-            <a href={`/filter/view/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
+            <a href={`/filter/view/${item.slug}`} className="product-card" alt={item.common_name} key={item.id} data-slug={item.slug}>
                 <div className="inner">
                     <div className="image">
                         { item.images ?
@@ -34,7 +34,7 @@ class GridView extends Component {
                         }
                     </div>
                     <div className="info">
-                        <div className="info-detail">{item.name}</div>
+                        <div className="info-detail">{item.common_name}</div>
                     </div>
                 </div>
             </a>

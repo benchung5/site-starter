@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import SideMenuHeader from './side_menu_header';
 import Types from './buttons_types';
 import Themes from './buttons_themes';
+import Search from './search';
 // import Routes from './buttons_routes';
 // import NearMe from './button_near_me';
 // import OffLineMessage from './offline_message';
@@ -52,7 +53,9 @@ class SideMenu extends Component {
       <Transition in={(this.props.showMenu == 'open') ? true : false} timeout={duration}>
         {(state) => (
           <div className={`side-menu ${this.props.showMenu}`} style={{...defaultStyle, ...transitionStyles[state]}}>
-            <SideMenuHeader/>
+            <SideMenuHeader>
+              <Search/>
+            </SideMenuHeader>
             <Types/>
             <Themes/>
             <div className="bottom">

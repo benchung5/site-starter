@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import SideMenuHeader from './side_menu_header';
 import ButtonsCategoriesTrees from './buttons_categories_trees';
 import ButtonsOrigins from './buttons_origins';
+import SearchTreesComponent from './search_trees';
 // import Routes from './buttons_routes';
 // import NearMe from './button_near_me';
 // import OffLineMessage from './offline_message';
@@ -10,6 +11,8 @@ import { searchTrees } from '../actions/globalTrees';
 import Socials from './parts/socials';
 import Transition from 'react-transition-group/Transition';
 import prefix from 'react-prefixer';
+import { getUrlParams } from '../lib/utils';
+import { populateTreesFilter } from '../actions/globalTrees';
 
 //for transition
 const duration = 600;
@@ -30,6 +33,17 @@ class SideMenu extends Component {
     super(props);
     this.state = {
     }
+  }
+
+  componentWillMount() {
+    let selectedOrigines = getUrlParams('origins');
+    let selectedCategories = getUrlParams('categories');
+    //console.log(selectedCategories);
+    //populate the filter with initial data
+    this.props.dispatch(populateTreesFilter({
+      selectedTreesOrigines: selectedOrigines,
+      selectedTreesCategories: selectedCategories
+    }));
   }
 
   componentDidUpdate(prevProps) {
@@ -59,7 +73,9 @@ class SideMenu extends Component {
       <Transition in={(this.props.showMenu == 'open') ? true : false} timeout={duration}>
         {(state) => (
           <div className={`side-menu ${this.props.showMenu}`} style={{...defaultStyle, ...transitionStyles[state]}}>
-            <SideMenuHeader/>
+            <SideMenuHeader>
+              <SearchTreesComponent/>
+            </SideMenuHeader>
             <ButtonsCategoriesTrees/>
             <ButtonsOrigins/>
             <div className="bottom">
