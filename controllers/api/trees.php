@@ -26,6 +26,32 @@ class Trees extends Controller
 		//handle posted input
 		$data = Utils::read_post();
 
+		try {
+			$new_tree = $this->update_tree($data, true);
+
+			Utils::json_respond(SUCCESS_RESPONSE, $new_tree);
+		} catch (Exception $e) {
+			Utils::json_respond_error('Could not create tree', $e->getMessage());
+		}
+	}
+
+	public function update() 
+	{
+		$data = Utils::read_post();
+
+		try {
+			$this->update_tree($data, false);
+
+			Utils::json_respond(SUCCESS_RESPONSE, $data);	
+		} catch (Exception $e) {
+			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+		}		
+	}
+
+	protected function update_tree($data, $is_add) 
+	{
+		$files = $this->load_model('files_trees_model');
+
 		$this->validator->addEntries(['slug' => $data['slug']]);
 		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
 		$this->validator->validate();
@@ -35,25 +61,38 @@ class Trees extends Controller
 		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 		}
 
-		try {
-			$new_tree_id = $this->trees->add([
-				'slug' => $data['slug'], 
-				'common_name' => $data['common_name'],
-				'genus_id' => $data['genus_id'],
-				'specific_epithet' => $data['specific_epithet'],
-				'trees_category_id' => $data['trees_category_id'],
-				'body' => $data['body']
-			], $data['origins']);
+		//'add' or 'update'
+		//use isset version for optional fields
+		$update_data = [
+			'common_name' => $data['common_name'],
+			'genus_id' => $data['genus_id'],
+			'specific_epithet' => $data['specific_epithet'],
+			'trees_category_id' => $data['trees_category_id'],
+			'body' => isset($data['body']) ? $data['body'] : ''
+		];
 
+		if ($is_add) {
+			$update_data['slug'] = $data['slug'];
+			$new_tree_id = $this->trees->add($update_data, $data['origins']);
 			$new_tree = $this->trees->get(['id' => $new_tree_id]);
+		} else {
+			$this->trees->update([
+				'where' => ['slug' => $data['slug']], 
+				'update' => $update_data,
+				'origins' => $data['origins']
+			]);
 
-			//handle file uploads
-			Upload::upload('trees', $new_tree_id);
-
-			Utils::json_respond(SUCCESS_RESPONSE, $new_tree);
-		} catch (Exception $e) {
-			Utils::json_respond_error('Could not create tree', $e->getMessage());
+			$new_tree = $this->trees->get(['slug' => $data['slug']]);
 		}
+
+		// new file uploads
+		Upload::upload('trees', $new_tree->id);
+		// update original file uploads
+		if (isset($data['deleted_images'])) {
+			$files->update_associations('trees', $new_tree->id, $data['deleted_images']);	
+		}
+		
+		return $new_tree;
 	}
 
 	public function delete()
@@ -83,49 +122,6 @@ class Trees extends Controller
 		} else {
 			Utils::json_respond(SUCCESS_RESPONSE, array());
 		}
-	}
-
-	public function update() 
-	{
-		$files = $this->load_model('files_trees_model');
-
-		$data = Utils::read_post();
-
-		$this->validator->addEntries(['slug' => $data['slug']]);
-		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
-		$this->validator->validate();
-
-		if ($this->validator->foundErrors()) {
-		    $errors = $this->validator->getErrors();
-		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
-		}
-
-		try {
-			$this->trees->update([
-				'where' => ['slug' => $data['slug']], 
-				'update' => [
-					'common_name' => $data['common_name'],
-					'genus_id' => $data['genus_id'],
-					'specific_epithet' => $data['specific_epithet'],
-					'trees_category_id' => $data['trees_category_id'],
-					'body' => $data['body']
-				],
-				'origins' => $data['origins']
-			]);
-
-			$new_tree = $this->trees->get(['slug' => $data['slug']]);
-
-			// new file uploads
-			Upload::upload('trees', $new_tree->id);
-			// update original file uploads
-			if (isset($data['deleted_images'])) {
-				$files->update_associations('trees', $new_tree->id, $data['deleted_images']);	
-			}
-
-			Utils::json_respond(SUCCESS_RESPONSE, $data);	
-		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
-		}		
 	}
 
 	public function search_admin() 

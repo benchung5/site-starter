@@ -59,8 +59,10 @@ class AddTree extends Component {
   handleFormSubmit(formProps) {
     //format origins data (must convert it to comma separated string over the network)
     let formpropsClone = clone(formProps);
-    formpropsClone.origins = flattenObjArray(formpropsClone.origins, 'value').toString();
-
+    let stringArray = flattenObjArray(formpropsClone.origins, 'value');
+    if (stringArray) {
+      formpropsClone.origins = stringArray.toString();
+    }
     // call action to submit edited
     this.props.addTree(createImgFormData('images', formpropsClone));
   }
@@ -71,7 +73,7 @@ class AddTree extends Component {
     if(this.props.treeAdded && !this.props.errorMessage) {
       return (
         <div className="submission-message">
-          <span>Tree: {this.props.treeAdded.name}<br/>successfully added. </span>
+          <span>Tree: {this.props.treeAdded.common_name}<br/>successfully added. </span>
         </div>
         )
     }
@@ -82,6 +84,13 @@ class AddTree extends Component {
       return (
         <div className="alert alert-danger">
           <strong>Oops!</strong> {this.props.errorMessage}
+        </div>
+        );
+    }
+    if (this.customError) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Oops!</strong> {this.customError}
         </div>
         );
     }
@@ -182,7 +191,7 @@ class AddTree extends Component {
 
 
 function validate(formProps) {
-  const errors = {};
+  let errors = {};
 
   //todo: use the map or foreach to shorten this code
   if (!formProps.name) {
@@ -193,14 +202,20 @@ function validate(formProps) {
     errors.slug = 'Please enter a slug';
   }
 
-  if (!formProps.trees_category_id) {
-    errors.category = 'Please enter a category';
+  if (!formProps.genus_id) {
+    errors.genus_id = 'Please enter a genus';
   }
 
-  if (formProps.origins) {
-      if (formProps.origins.length === 0) {
-          errors.origins = 'Please enter at least one origin';
-      }
+  if (!formProps.specific_epithet) {
+    errors.specific_epithet = 'Please enter a specific epithet';
+  }
+
+  if (!formProps.trees_category_id) {
+    errors.trees_category_id = 'Please enter a tree category';
+  }
+
+  if (!formProps.origins) {
+     errors.origins = 'Please enter at least one origin';
   }
   
   return errors;

@@ -77,6 +77,26 @@ class Trees_model extends Model
 		return false;
 	}
 
+	public function update($opts = [])
+	{
+		if (isset($opts['where']) && isset($opts['update'])) {
+			$this->db->table('trees');
+			$this->db->where($opts['where'])->update($opts['update']);
+		}
+		if (isset($opts['origins'])) {
+			$tree_id = $this->db->table('trees')->where($opts['where'])->get()->id;
+
+			// clear existing associations
+			$this->db->table('trees_origins')->where('tree_id', $tree_id)->delete();
+
+			// insert new associations
+			$origins = is_array($opts['origins']) ? $opts['origins'] : explode(',', $opts['origins']);
+			foreach ($origins as $origin_id) {
+				$this->db->table('trees_origins')->insert(['tree_id' => $tree_id, 'origin_id' => $origin_id]);
+			}
+		}
+	}
+
 	public function remove($opts = [])
 	{
 		if ($opts) {
@@ -158,25 +178,5 @@ class Trees_model extends Model
 		$result = $this->db->orderBy('common_name')->getAll();
 
 		return $result;
-	}
-
-	public function update($opts = [])
-	{
-		if (isset($opts['where']) && isset($opts['update'])) {
-			$this->db->table('trees');
-			$this->db->where($opts['where'])->update($opts['update']);
-		}
-		if (isset($opts['origins'])) {
-			$tree_id = $this->db->table('trees')->where($opts['where'])->get()->id;
-
-			// clear existing associations
-			$this->db->table('trees_origins')->where('tree_id', $tree_id)->delete();
-
-			// insert new associations
-			$origins = is_array($opts['origins']) ? $opts['origins'] : explode(',', $opts['origins']);
-			foreach ($origins as $origin_id) {
-				$this->db->table('trees_origins')->insert(['tree_id' => $tree_id, 'origin_id' => $origin_id]);
-			}
-		}
 	}
 }
