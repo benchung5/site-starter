@@ -11,7 +11,7 @@ class Upload
 		parent::__construct();
 	}
 
-	public function upload($ref_type, $ref_id) 
+	public function upload($ref_type, $ref_id, $imgInfoFields) 
 	{
 		if ($ref_type == 'articles') {
 			$files = Controller::load_model('files_model');
@@ -27,6 +27,9 @@ class Upload
 			foreach ($files_data['files'] as $index => $file_data) {
 				$file_data['ref_id'] = $ref_id;
 				$file_data['sort_order'] = $count;
+				$file_data['tag'] = $imgInfoFields[$count][0];
+				$file_data['description'] = $imgInfoFields[$count][1];
+				Utils::dbug($imgInfoFields[$count][1]);
 				$new_id = $files->add($file_data);
 				$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
 				//update filename with new file id

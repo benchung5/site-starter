@@ -9,12 +9,22 @@ export  function createImgFormData(imgFieldName, formProps) {
     	}
     });
 
-    // append image fields to formData last
+    // append image fields to formData
     Object.keys(formProps).forEach(( key ) => {
     	if(key === imgFieldName) {
             formProps[key].forEach((item, index) => {
               //multer just accepts a series of files with the same key name
-              formData.append('image'+'_'+index, item);
+              formData.append('image'+'_'+index, item.file);
+          });
+        }
+    });
+
+    // append image info to formData
+    Object.keys(formProps).forEach(( key ) => {
+        if(key === imgFieldName) {
+            formProps[key].forEach((item, index) => {
+              //multer just accepts a series of files with the same key name
+              formData.append('image'+'_'+index+'_info', [item.tag, item.description]);
           });
         }
     });

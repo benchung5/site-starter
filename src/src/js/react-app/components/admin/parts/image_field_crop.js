@@ -18,17 +18,20 @@ class FileField extends Component {
      previews: [],
        // usedFileNames: [],
        errors: [],
-       imgSrc: null
+       imgSrc: null,
+       tag: '',
+       description: ''
      }
      isSubmitting: false;
      this.maxDropCount = 10;
-     //the final full size image dimensions
-     this.finalcropWidth = 1140;
-     this.finalcropHeight = 700;
+     //the final full size image dimensions 
+     //(we're only applying the crop to the med image version)
+     this.finalcropWidth = 400;
+     this.finalcropHeight = 400;
      //the display size for the cropper box
-     this.aspectRatio = 200 / 123;
+     this.aspectRatio = 200 / 200;
      this.cropBoxWidth = 400;
-     this.cropBoxHeight = 246;
+     this.cropBoxHeight = 400;
 
    }
 
@@ -174,8 +177,14 @@ class FileField extends Component {
 
       //update the final input value
       let croppedOut = cloneDeep(this.state.croppedOut);
-      croppedOut.push(this.blobToFile(blob, this.state.accepted[0].name));
+      croppedOut.push({
+        file: this.blobToFile(blob, this.state.accepted[0].name), 
+        tag: this.state.tag,
+        description: this.state.description,
+      });
+      console.log(croppedOut);
       this.setState({ croppedOut: croppedOut }, () => {
+        //update the input value for this field
         this.props.input.onChange(this.state.croppedOut);
         //close the modal
         this.refs.modal.close();
@@ -194,15 +203,23 @@ class FileField extends Component {
     this.refs.modal.close();
   }
 
+  onTagChange(inputValue) {
+    this.setState({tag: inputValue});
+  }
+
+  onDescChange(inputValue) {
+    this.setState({description: inputValue});
+  }
+
   renderPreview() {
     return (
       <div className="drop-preview-wrapper">
-      {this.state.croppedOut.map((file, index) => {
+      {this.state.croppedOut.map((img, index) => {
         return (
-          <div key={file.name + index} className="drop-preview">
-          <a href="#" data-id={file.name} className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
+          <div key={img.file.name + index} className="drop-preview">
+          <a href="#" data-id={img.file.name} className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
           <img className="drop-img-preview" src={this.state.previews[index]} />
-        {/*{file.name} - {file.size} bytes - {file.dimensions}*/}
+        {/*{img.file.name} - {img.file.size} bytes - {img.file.dimensions}*/}
         </div>
         )
       })}
@@ -258,6 +275,10 @@ class FileField extends Component {
             //to force crop to image bounds:
             viewMode={2}
            />
+
+             <input type="text" onChange={(e) => this.onTagChange(e.target.value)} placeholder="tag" name="tag"/>
+             <input type="text" onChange={(e) => this.onDescChange(e.target.value)} placeholder="description" name="description"/>
+
             <div className="cropper-buttons">
               <button className="btn" onClick={this.onCropSubmit.bind(this)}>crop</button>
               <button className="btn" onClick={this.onCropCancel.bind(this)}>cancel</button>
