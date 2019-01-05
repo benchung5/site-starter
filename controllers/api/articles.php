@@ -46,7 +46,7 @@ class Articles extends Controller
 			$new_article = $this->articles->get(['id' => $new_article_id]);
 
 			//handle file uploads
-			Upload::upload('articles', $new_article_id);
+			Upload::upload('articles', $new_article_id, $data);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_article);
 		} catch (Exception $e) {
@@ -101,14 +101,17 @@ class Articles extends Controller
 		try {
 			$this->articles->update([
 				'where' => ['slug' => $data['slug']], 
-				'update' => ['name' => $data['name']],
+				'update' => [
+					'name' => $data['name'],
+					'category_id' => $data['category']
+				],
 				'themes' => $data['themes']
 			]);
 
 			$new_article = $this->articles->get(['slug' => $data['slug']]);
 
 			// new file uploads
-			Upload::upload('articles', $new_article->id);
+			Upload::upload('articles', $new_article->id, $data);
 			// update original file uploads
 			if (isset($data['deleted_images'])) {
 				$files->update_associations('articles', $new_article->id, $data['deleted_images']);	

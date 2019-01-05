@@ -83,6 +83,7 @@ class EditArticle extends Component {
         formpropsClone.themes = flattenObjArray(formpropsClone.themes, 'value').toString();
 
         // call action to submit edited
+        //console.log(formpropsClone);
         this.props.updateArticle(createImgFormData('new_images', formpropsClone));
         //clear deleted images
         this.props.change('deleted_images', '');

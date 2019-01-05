@@ -11,14 +11,23 @@ class Upload
 		parent::__construct();
 	}
 
-	public function upload($ref_type, $ref_id, $imgInfoFields) 
+	public function upload($ref_type, $ref_id, $data) 
 	{
 		if ($ref_type == 'articles') {
 			$files = Controller::load_model('files_model');
 		} elseif ($ref_type == 'trees') {
 			$files = Controller::load_model('files_trees_model');
 		}
-		
+
+		//image info fields
+		$imgInfoFields = [];
+		foreach ($data as $key => $value) {
+			$isImgInfoField = strpos($key, 'image_');
+			
+			if ($isImgInfoField !== false) {
+				$imgInfoFields[] = explode(',', $value);
+			}
+		}
 
 		$files_data = self::upload_files($ref_type);
 		//save the file data to the db
@@ -32,7 +41,7 @@ class Upload
 				if ($isOriginalField !== false) {
 					$file_data['ref_id'] = $ref_id;
 					$file_data['sort_order'] = $count;
-					$file_data['tag'] = $imgInfoFields[$count][0];
+					$file_data['tag'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
 					$file_data['description'] = $imgInfoFields[$count][1];
 					$new_id = $files->add($file_data);
 					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);

@@ -86,18 +86,7 @@ class Trees extends Controller
 		}
 
 		// new file uploads
-
-		//image info fields
-		$imgInfoFields = [];
-		foreach ($data as $key => $value) {
-			$isImgInfoField = strpos($key, 'image_');
-			
-			if ($isImgInfoField !== false) {
-				$imgInfoFields[] = explode(',', $value);
-			}
-		}
-
-		Upload::upload('trees', $new_tree->id, $imgInfoFields);
+		Upload::upload('trees', $new_tree->id, $data);
 		// update original file uploads
 		if (isset($data['deleted_images'])) {
 			$files->update_associations('trees', $new_tree->id, $data['deleted_images']);	
