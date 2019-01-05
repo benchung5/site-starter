@@ -23,24 +23,55 @@ class Upload
 		$files_data = self::upload_files($ref_type);
 		//save the file data to the db
 		if (! $files_data['error']) {
-			$count = 0;
-			foreach ($files_data['files'] as $index => $file_data) {
-				$file_data['ref_id'] = $ref_id;
-				$file_data['sort_order'] = $count;
-				$file_data['tag'] = $imgInfoFields[$count][0];
-				$file_data['description'] = $imgInfoFields[$count][1];
-				Utils::dbug($imgInfoFields[$count][1]);
-				$new_id = $files->add($file_data);
-				$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
-				//update filename with new file id
-				$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
 
-				// move file, append new id, delete temp file
-				$destination = './uploads/'.$ref_type.'/'.$new_name;
-				rename($file_data['tmp_name'], $destination);
-				// resize and create thumbs
-				self::process_img($destination);
-				$count++;
+			$count = 0;
+			//Utils::dbug($files_data['files']);
+			foreach ($files_data['files'] as $index => $file_data) {
+				//start at original image version
+				$isOriginalField = strpos($index, '_original');
+				if ($isOriginalField !== false) {
+					$file_data['ref_id'] = $ref_id;
+					$file_data['sort_order'] = $count;
+					$file_data['tag'] = $imgInfoFields[$count][0];
+					$file_data['description'] = $imgInfoFields[$count][1];
+					$new_id = $files->add($file_data);
+					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+					//update filename with new file id
+					$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
+
+					// move file, append new id, delete temp file
+					$destination_original = './uploads/'.$ref_type.'/'.$new_name;
+					rename($file_data['tmp_name'], $destination_original);
+					self::constrain_img($destination_original);
+
+					// do cropped version (med)
+					$croppedVersionKey = str_replace('_original', '_cropped', $index);
+					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'-med.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+					$destination_cropped = './uploads/'.$ref_type.'/'.$new_name;
+					rename($files_data['files'][$croppedVersionKey]['tmp_name'], $destination_cropped);
+					
+					// do small cropped version
+					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'-sml.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+					$destination_sml = './uploads/'.$ref_type.'/'.$new_name;
+					self::create_thumb($destination_cropped, $destination_sml, 150, 150);
+
+					$count++;
+				}
+				//if is cropped image version
+				$isOriginalField = strpos($index, '_cropped');
+				if ($isOriginalField !== false) {
+					
+				}
+			}
+
+
+
+			foreach ($files_data['files'] as $index => $file_data) {
+				//if is cropped image version
+				$isOriginalField = strpos($index, '_cropped');
+				if ($isOriginalField !== false) {
+					
+				}
 			}
 		}
 	}
@@ -118,8 +149,9 @@ class Upload
 		return $result;
 	}
 
-	public function process_img($path)
+	public function constrain_img($path)
 	{
+	  // constrain to max size
 	  // read image from file
 	  $img = Image::make($path);
 	  
@@ -136,18 +168,15 @@ class Upload
 	      });
 	  }
 
-	  //create thumbs
-	  self::create_thumb($path, 'med', 600, 368);
-	  self::create_thumb($path, 'sml', 200, 123);
-
 	  return true;
 	}
 
-	public function create_thumb($path, $size, $width, $height) {
-		$img = Image::make($path);
+	public function create_thumb($source, $destination, $width, $height) {
+		//create thumb version
+		$img = Image::make($source);
 		// crop the best fitting ratio and resize
 		$img->fit($width, $height, function ($constraint) {
 		    $constraint->upsize();
-		})->save(pathinfo($path, PATHINFO_DIRNAME).'/'.pathinfo($path, PATHINFO_FILENAME).'-'.$size.'.'.pathinfo($path, PATHINFO_EXTENSION));
+		})->save($destination);
 	}
 }

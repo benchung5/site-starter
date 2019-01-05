@@ -86,10 +86,10 @@ class Trees extends Controller
 		}
 
 		// new file uploads
+
+		//image info fields
 		$imgInfoFields = [];
 		foreach ($data as $key => $value) {
-
-
 			$isImgInfoField = strpos($key, 'image_');
 			
 			if ($isImgInfoField !== false) {

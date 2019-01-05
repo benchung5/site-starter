@@ -30,8 +30,8 @@ class FileField extends Component {
      this.finalcropHeight = 400;
      //the display size for the cropper box
      this.aspectRatio = 200 / 200;
-     this.cropBoxWidth = 400;
-     this.cropBoxHeight = 400;
+     this.cropBoxWidth = 200;
+     this.cropBoxHeight = 200;
 
    }
 
@@ -178,11 +178,11 @@ class FileField extends Component {
       //update the final input value
       let croppedOut = cloneDeep(this.state.croppedOut);
       croppedOut.push({
-        file: this.blobToFile(blob, this.state.accepted[0].name), 
+        croppedFile: this.blobToFile(blob, this.state.accepted[0].name),
+        originalFile: this.state.accepted[0],
         tag: this.state.tag,
         description: this.state.description,
       });
-      console.log(croppedOut);
       this.setState({ croppedOut: croppedOut }, () => {
         //update the input value for this field
         this.props.input.onChange(this.state.croppedOut);
@@ -216,10 +216,10 @@ class FileField extends Component {
       <div className="drop-preview-wrapper">
       {this.state.croppedOut.map((img, index) => {
         return (
-          <div key={img.file.name + index} className="drop-preview">
-          <a href="#" data-id={img.file.name} className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
+          <div key={img.croppedFile.name + index} className="drop-preview">
+          <a href="#" data-id={img.croppedFile.name} className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
           <img className="drop-img-preview" src={this.state.previews[index]} />
-        {/*{img.file.name} - {img.file.size} bytes - {img.file.dimensions}*/}
+        {/*{img.croppedFile.name} - {img.croppedFile.size} bytes - {img.croppedFile.dimensions}*/}
         </div>
         )
       })}

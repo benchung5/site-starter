@@ -64,7 +64,7 @@ class AddTree extends Component {
       formpropsClone.origins = stringArray.toString();
     }
     // call action to submit edited
-    //console.log(createImgFormData('images', formpropsClone));
+    //console.log(formpropsClone);
     this.props.addTree(createImgFormData('images', formpropsClone));
   }
 
