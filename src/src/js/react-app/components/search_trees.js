@@ -5,7 +5,7 @@ import * as actions from '../actions/globalTrees';
 import renderSearch from './parts/field_search';
 import { formatSearchString } from '../lib/stringUtils';
 import { viewsToggle } from '../actions/views';
-import settings from '../data/settings.js';
+import { globals } from '../config.js';
 
 
 class SearchForm extends Component {
@@ -22,7 +22,7 @@ class SearchForm extends Component {
 				categoriesTrees: this.props.globalFilterData.categoriesTrees,
 				origins: this.props.globalFilterData.origins,
 				offset: 0,
-				limit: settings.entriesPerPage
+				limit: globals.ADMIN_ENTRIES_PER_PAGE
 			}));
 		}
 	}

@@ -129,12 +129,14 @@ class Articles extends Controller
 
 		$articles = $this->articles->get_all(['offset' => $data['offset'], 'limit' => $data['limit']]);
 
-		$result = ['articles' => $articles, 'count' => count($articles), 'offset' => $data['offset'], 'limit' => $data['limit']];
+		$count = $this->articles->count();
+
+		$result = ['articles' => $articles, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 
 		if ($articles) {
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => $data['limit']]);
+			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
 		}		
 	}
 
@@ -151,12 +153,14 @@ class Articles extends Controller
 			'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']
 		]);
 
-		$result = ['articles' => $articles, 'count' => count($articles), 'offset' => $data['offset'], 'limit' => $data['limit']];
+		$count = $this->articles->count();
+
+		$result = ['articles' => $articles, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 
 		if ($articles) {
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => $data['limit']]);
+			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
 		}		
 	}
 }

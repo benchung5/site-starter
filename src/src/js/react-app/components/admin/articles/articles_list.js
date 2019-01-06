@@ -6,7 +6,7 @@ import * as actions from '../../../actions/articles';
 import RequireAuth from '../auth/require_auth';
 import SearchArticles from './search_articles';
 import Pagination from '../parts/pagination';
-import settings from '../../../data/settings.js';
+import { globals } from '../../../config.js';
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../../../config')[env];
@@ -31,7 +31,7 @@ class ArticlesIndex extends Component {
     }
 
     resetArticlesList() {
-        this.props.searchArticlesAdmin({ search: [], offset: 0, limit: settings.entriesPerPage });
+        this.props.searchArticlesAdmin({ search: [], offset: 0, limit: globals.ADMIN_ENTRIES_PER_PAGE });
     }
 
     onDeleteArticleClick(event) {
@@ -74,7 +74,10 @@ class ArticlesIndex extends Component {
                         <ul className="list-group item-list">
                             {this.renderArticles()}
                         </ul>
-                        <Pagination/>
+                        <Pagination 
+                            sourceData={this.props.articles} 
+                            searchAction={this.props.searchArticlesAdmin.bind(this)}
+                        />
                     </div>
                 </div>
             </div>

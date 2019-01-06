@@ -15,11 +15,12 @@ module.exports = {
       TREES_UPLOADS_PATH: '/uploads/trees/',
    },
    "globals": {
-         HIDE_MENU_THRESHOLD: 1150,
+      HIDE_MENU_THRESHOLD: 1150,
    		POST_CONFIG: {
            headers: {
              'CONTENT_TYPE': 'application/json',
            }
-         }
+         },
+      ADMIN_ENTRIES_PER_PAGE: 4,
    	}
 }

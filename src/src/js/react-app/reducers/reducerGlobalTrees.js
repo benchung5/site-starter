@@ -1,4 +1,4 @@
-import settings from '../data/settings.js';
+import { globals } from '../config.js';
 import {
     CATEGORIES_TREES_FILTER,
     ORIGINS_FILTER,
@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     origins: [],
     search: '',
     offset: 0,
-    limit: settings.entriesPerPage
+    limit: globals.ADMIN_ENTRIES_PER_PAGE
 }
 
 export default function(state = INITIAL_STATE, action) {

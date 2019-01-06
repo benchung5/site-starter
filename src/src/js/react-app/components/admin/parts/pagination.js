@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/articles';
-import settings from '../../../data/settings.js';
+import { globals } from '../../../config.js';
 
 class Paginator extends Component {
   back() {
-    const { offset, limit } = this.props.articlesResults;
+    const { offset, limit } = this.props.sourceData;
     if (offset === 0 ) { return; }
     //todo: get this.props.search to pull from stored search if any
-    this.props.searchArticlesAdmin({ search: this.props.search, offset: offset - settings.entriesPerPage, limit: limit });
+    this.props.searchAction({ search: this.props.search, offset: offset - globals.ADMIN_ENTRIES_PER_PAGE, limit: limit });
   }
 
   advance() {
-    const { offset, limit, count } = this.props.articlesResults;
+    const { offset, limit, count } = this.props.sourceData;
     if ((offset + limit) > count) { return; }
     //todo: get this.props.search to pull from stored search if any
-    this.props.searchArticlesAdmin({ search: this.props.search, offset: offset + settings.entriesPerPage, limit: limit });
+    this.props.searchAction({ search: this.props.search, offset: offset + globals.ADMIN_ENTRIES_PER_PAGE, limit: limit });
   }
 
   left() {
-    const { offset } = this.props.articlesResults;
+    const { offset } = this.props.sourceData;
     return (
       <li className={`pagination-previous ${offset === 0 ? 'disabled' : ''}`}>
         <a aria-label="Previous page" onClick={this.back.bind(this)}>
@@ -30,7 +30,7 @@ class Paginator extends Component {
   }
 
   right() {
-    const { offset, limit, count } = this.props.articlesResults;
+    const { offset, limit, count } = this.props.sourceData;
     const end = ((offset + limit) >= count) ? true : false;
     return (
       <li className={`pagination-next ${end ? 'disabled' : ''}`}>
@@ -42,12 +42,12 @@ class Paginator extends Component {
   }
 
   render() {
-    const { offset, count } = this.props.articlesResults;
+    const { offset, count } = this.props.sourceData;
     return (
       <div className="pagination-wrapper">
         <ul className="pagination" role="navigation" aria-label="Pagination">
           {this.left()}
-          <li>Page {offset / settings.entriesPerPage + 1}</li>
+          <li>Page {offset / globals.ADMIN_ENTRIES_PER_PAGE + 1}</li>
           {this.right()}
         </ul>
         <div className="records-count">({count} records total)</div>

@@ -134,12 +134,14 @@ class Trees extends Controller
 			'like' => isset($data['search']) ? $data['search'] : null
 		]);
 
-		$result = ['trees' => $trees, 'count' => count($trees), 'offset' => $data['offset'], 'limit' => $data['limit']];
+		$count = $this->trees->count();
+
+		$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 
 		if ($trees) {
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => $data['limit']]);
+			Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
 		}		
 	}
 
@@ -156,12 +158,14 @@ class Trees extends Controller
 			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id']
 		]);
 
-		$result = ['trees' => $trees, 'count' => count($trees), 'offset' => $data['offset'], 'limit' => $data['limit']];
+		$count = $this->trees->count();
+
+		$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 
 		if ($trees) {
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => $data['limit']]);
+			Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
 		}		
 	}
 }

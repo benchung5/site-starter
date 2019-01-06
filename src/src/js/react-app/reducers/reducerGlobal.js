@@ -1,4 +1,4 @@
-import settings from '../data/settings.js';
+import { globals } from '../config.js';
 import {
     CATEGORIES_FILTER,
     THEMES_FILTER
@@ -9,7 +9,7 @@ const INITIAL_STATE = {
 	themes: [],
     search: '',
     offset: 0,
-    limit: settings.entriesPerPage
+    limit: globals.ADMIN_ENTRIES_PER_PAGE
 }
 
 export default function(state = INITIAL_STATE, action) {

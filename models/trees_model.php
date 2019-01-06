@@ -59,6 +59,15 @@ class Trees_model extends Model
 		return false;
 	}
 
+	public function count()
+	{
+		$result = $this->db->table('trees')->count('id', 'total_rows')->get();
+		if ($result) {
+			return (int)$result->total_rows;
+		} 
+		return false;
+	}
+
 	public function add($data, $origins)
 	{
 		if (is_array($data)) {

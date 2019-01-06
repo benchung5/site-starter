@@ -1,4 +1,4 @@
-import settings from '../data/settings.js';
+import { globals } from '../config.js';
 import { 
 	FETCH_ARTICLES,
 	SEARCH_ARTICLES,
@@ -11,13 +11,13 @@ const INITIAL_STATE = {
         articles: [],
         count: null,
         offset: 0,
-        limit: settings.entriesPerPage 
+        limit: globals.ADMIN_ENTRIES_PER_PAGE 
     },
     searchResultsAdmin: {
         articles: [],
         count: null,
         offset: 0,
-        limit: settings.entriesPerPage 
+        limit: globals.ADMIN_ENTRIES_PER_PAGE 
     },
 };
 

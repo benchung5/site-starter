@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import * as actions from '../../../actions/trees';
 import RequireAuth from '../auth/require_auth';
 import SearchTrees from './search_trees';
-import PaginationTrees from '../parts/paginationTrees';
-import settings from '../../../data/settings.js';
+import Pagination from '../parts/pagination';
+import { globals } from '../../../config.js';
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../../../config')[env];
@@ -31,7 +31,7 @@ class TreesIndex extends Component {
     }
 
     resetTreesList() {
-        this.props.searchTreesAdmin({ search: [], offset: 0, limit: settings.entriesPerPage });
+        this.props.searchTreesAdmin({ search: [], offset: 0, limit: globals.ADMIN_ENTRIES_PER_PAGE });
     }
 
     onDeleteTreeClick(event) {
@@ -65,7 +65,10 @@ class TreesIndex extends Component {
                         <ul className="list-group item-list">
                             {this.renderTrees()}
                         </ul>
-                        <PaginationTrees/>
+                        <Pagination 
+                            sourceData={this.props.trees} 
+                            searchAction={this.props.searchTreesAdmin.bind(this)}
+                        />
                     </div>
                 </div>
             </div>

@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions/trees';
-import settings from '../../../data/settings.js';
+import { globals } from '../../../config.js';
 
 class Paginator extends Component {
   back() {
     const { offset, limit } = this.props.treesResults;
     if (offset === 0 ) { return; }
     //todo: get this.props.search to pull from stored search if any
-    this.props.searchTreesAdmin({ search: this.props.search, offset: offset - settings.entriesPerPage, limit: limit });
+    this.props.searchTreesAdmin({ search: this.props.search, offset: offset - globals.ADMIN_ENTRIES_PER_PAGE, limit: limit });
   }
 
   advance() {
     const { offset, limit, count } = this.props.treesResults;
     if ((offset + limit) > count) { return; }
     //todo: get this.props.search to pull from stored search if any
-    this.props.searchTreesAdmin({ search: this.props.search, offset: offset + settings.entriesPerPage, limit: limit });
+    this.props.searchTreesAdmin({ search: this.props.search, offset: offset + globals.ADMIN_ENTRIES_PER_PAGE, limit: limit });
   }
 
   left() {
@@ -47,7 +47,7 @@ class Paginator extends Component {
       <div className="pagination-wrapper">
         <ul className="pagination" role="navigation" aria-label="Pagination">
           {this.left()}
-          <li>Page {offset / settings.entriesPerPage + 1}</li>
+          <li>Page {offset / globals.ADMIN_ENTRIES_PER_PAGE + 1}</li>
           {this.right()}
         </ul>
         <div className="records-count">({count} records total)</div>

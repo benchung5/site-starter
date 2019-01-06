@@ -54,6 +54,15 @@ class Articles_model extends Model
 		return false;
 	}
 
+	public function count()
+	{
+		$result = $this->db->table('articles')->count('id', 'total_rows')->get();
+		if ($result) {
+			return (int)$result->total_rows;
+		} 
+		return false;
+	}
+
 	public function add($data, $themes)
 	{
 		if (is_array($data)) {
