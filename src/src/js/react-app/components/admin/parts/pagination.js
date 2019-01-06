@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../../actions/articles';
 import { globals } from '../../../config.js';
 
 class Paginator extends Component {
@@ -58,8 +57,8 @@ class Paginator extends Component {
 
 function mapStateToProps(state) {
     return {
-        articlesResults: state.articles.searchResultsAdmin
+        //articlesResults: state.articles.searchResultsAdmin
     };
 }
 
-export default connect(mapStateToProps, actions)(Paginator);
+export default connect(mapStateToProps)(Paginator);

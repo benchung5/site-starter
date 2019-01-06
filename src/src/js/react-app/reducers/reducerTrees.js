@@ -9,13 +9,13 @@ const INITIAL_STATE = {
     all:[],
     searchResults: {
         trees: [],
-        count: null,
+        count: 0,
         offset: 0,
         limit: globals.ADMIN_ENTRIES_PER_PAGE 
     },
     searchResultsAdmin: {
         trees: [],
-        count: null,
+        count: 0,
         offset: 0,
         limit: globals.ADMIN_ENTRIES_PER_PAGE 
     },

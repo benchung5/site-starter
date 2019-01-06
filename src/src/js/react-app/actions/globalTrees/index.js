@@ -151,6 +151,7 @@ export function searchTrees(searchObj) {
     return function(dispatch) {
         dispatch(isLoading(true));
     	let query = buildQuery(searchObj);
+        console.log(query);
     	//set the obj in the get request
         axios.get(`${SERVER_URL}/trees/search/`, { params: query })
         .then(response => {
