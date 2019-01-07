@@ -134,20 +134,11 @@ class Trees_model extends Model
 		return false;
 	}
 
-	public function get_all($opts = []) 
+	public function get_all($opts = [], $isCount = false) 
 	{
 		$this->db->table('trees t');
 
-		if (isset($opts['select'])) {
-			$this->db->select(implode(',', $opts['select']));
-		} else {
-			$this->db->select('t.id, t.slug, t.common_name, t.trees_category_id');
-		}
-
-		if (isset($opts['offset'])) {
-			$this->db->limit($opts['offset'], $opts['limit']);
-		}
-
+		// category
 		if (isset($opts['trees_category'])) {
 			if (count($opts['trees_category']) > 0) {
 				$this->db->in('t.trees_category_id', $opts['trees_category']);
@@ -157,7 +148,7 @@ class Trees_model extends Model
 			}
 		}
 
-		//include origins
+		// include origins
 		if (isset($opts['origins'])) {
 			if (count($opts['origins']) > 0) {
 				$this->db
@@ -178,14 +169,32 @@ class Trees_model extends Model
 			}, $opts);
 		}
 
-		// include images
-		$this->db
-			->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
-			->leftJoin('files f', 'f.ref_id', 't.id')
-			->groupBy('t.id');
+		if ($isCount) {
+			 $this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
 
-		$result = $this->db->orderBy('common_name')->getAll();
+			 $result = $this->db->getAll();
 
-		return $result;
+			return count($result);
+		} else {
+			if (isset($opts['select'])) {
+				$this->db->select(implode(',', $opts['select']));
+			} else {
+				$this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
+			}
+
+			if (isset($opts['offset'])) {
+				$this->db->limit($opts['offset'], $opts['limit']);
+			}
+
+			// include images
+			$this->db
+				->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
+				->leftJoin('files f', 'f.ref_id', 't.id')
+				->groupBy('t.id');
+
+			$result = $this->db->orderBy('common_name')->getAll();
+
+			return $result;
+		}
 	}
 }

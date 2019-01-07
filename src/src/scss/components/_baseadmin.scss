@@ -191,33 +191,6 @@ select.multiselect {
   }
 
 /* ==========================================================================
-pagination
-========================================================================== */
-
-/*override a pagination thing*/
-.pagination-previous.disabled::before, .pagination-next.disabled::after {
-  content: '';
-  display: none;
-}
-.pagination .disabled {
-  padding: 0;
-  pointer-events: none;
-}
-
-.pagination-wrapper {
-
-}
-
-.pagination {
-  float: left;
-}
-
-.records-count {
-  float: right;
-  font-size: 0.875em;
-}
-
-/* ==========================================================================
 img drop preview/drozone
 ========================================================================== */
 

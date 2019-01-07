@@ -31,6 +31,69 @@ $large-input-padding: 1rem 2rem;
 $dashed: 1px dashed #4A4A4A;
 $card-box-shadow: 0 3px 6px rgba(14,30,38,0.15);
 
+// Ben Global css
+//  -----------------------------
+
+/* ==========================================================================
+pagination
+========================================================================== */
+
+.paginate-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.875em;
+  margin-bottom: 1em;
+}
+
+.paginate {
+  display: flex;
+  align-items: center;
+  &.disabled {
+    padding: 0;
+    pointer-events: none;
+    padding: 0.1875rem 0.625rem;
+    color: #f1f1f2;
+    cursor: not-allowed;
+    a::before, a::after {
+      content: '';
+      display: none;
+    }
+  }
+  &::after {
+      clear: both;
+  }
+  a {
+    padding: 0 0.625rem;
+    border-radius: 0;
+    color: #2F2F2F;
+    line-height: 0;
+    display: block;
+  }
+  .paginate-previous {
+    &.disabled a::before{
+      content: '';
+      display: none;
+    }
+    a::before {
+      display: inline-block;
+      margin-right: 0.5rem;
+      content: '\00ab';
+    }
+  }
+  .paginate-next {
+    &.disabled a::after {
+      content: '';
+      display: none;
+    }
+    a::after {
+      display: inline-block;
+      margin-left: 0.5rem;
+      content: '\00bb';
+    }
+  }
+}
+
 
 
 

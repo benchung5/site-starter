@@ -12,11 +12,9 @@ class PaginationTrees extends Component {
   back() {
     const { offset, limit } = this.props.searchResults;
     if (offset === 0 ) { return; }
-    //todo: get this.props.search to pull from stored search if any
-    //this.props.searchAction({ search: this.props.search, offset: offset - globals.ADMIN_ENTRIES_PER_PAGE, limit: limit });
     this.props.dispatch(actions.searchTrees({ 
       //todo: get this.props.search to pull from stored search if any
-      search: this.props.search, 
+      search: this.props.globalFilterData.search,
       categoriesTrees: this.props.globalFilterData.categoriesTrees,
       origins: this.props.globalFilterData.origins,
       offset: offset - globals.ADMIN_ENTRIES_PER_PAGE,
@@ -27,11 +25,9 @@ class PaginationTrees extends Component {
   advance() {
     const { offset, limit, count } = this.props.searchResults;
     if ((offset + limit) > count) { return; }
-    //todo: get this.props.search to pull from stored search if any
-    //this.props.searchAction({ search: this.props.search, offset: offset + globals.ADMIN_ENTRIES_PER_PAGE, limit: limit });
     this.props.dispatch(actions.searchTrees({
       //todo: get this.props.search to pull from stored search if any
-      search: this.props.search, 
+      search: this.props.globalFilterData.search, 
       categoriesTrees: this.props.globalFilterData.categoriesTrees,
       origins: this.props.globalFilterData.origins,
       offset: offset + globals.ADMIN_ENTRIES_PER_PAGE,
@@ -42,11 +38,11 @@ class PaginationTrees extends Component {
   left() {
     const { offset } = this.props.searchResults;
     return (
-      <li className={`pagination-previous ${offset === 0 ? 'disabled' : ''}`}>
+      <div className={`paginate-previous ${offset === 0 ? 'disabled' : ''}`}>
         <a aria-label="Previous page" onClick={this.back.bind(this)}>
           Previous
         </a>
-      </li>
+      </div>
     );
   }
 
@@ -54,26 +50,23 @@ class PaginationTrees extends Component {
     const { offset, limit, count } = this.props.searchResults;
     const end = ((offset + limit) >= count) ? true : false;
     return (
-      <li className={`pagination-next ${end ? 'disabled' : ''}`}>
+      <div className={`paginate-next ${end ? 'disabled' : ''}`}>
         <a aria-label="Next page" onClick={this.advance.bind(this)}>
           Next
         </a>
-      </li>
+      </div>
     );
   }
 
   render() {
     const { offset, count } = this.props.searchResults;
-    // console.log('searchResults: ', this.props.searchResults);
-    // console.log('offset: ', offset);
-    // console.log('count: ', count);
     return (
-      <div className="pagination-wrapper">
-        <ul className="pagination" role="navigation" aria-label="Pagination">
+      <div className="paginate-wrapper">
+        <div className="paginate" role="navigation" aria-label="Pagination">
           {this.left()}
-          <li>Page {offset / globals.ADMIN_ENTRIES_PER_PAGE + 1}</li>
+          <div>Page {offset / globals.ADMIN_ENTRIES_PER_PAGE + 1}</div>
           {this.right()}
-        </ul>
+        </div>
         <div className="records-count">({count} records total)</div>
       </div>
     );

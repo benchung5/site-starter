@@ -6,3 +6,130 @@ stdClass Object
 -----------------------------------------------
 13
 -----------------------------------------------
+0
+-----------------------------------------------
+10
+-----------------------------------------------
+10
+-----------------------------------------------
+10
+-----------------------------------------------
+10
+-----------------------------------------------
+10
+-----------------------------------------------
+10
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 1
+            [slug] => eastern-redcedar
+            [common_name] => Eastern Redcedar
+            [trees_category_id] => 1
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 1
+            [slug] => eastern-redcedar
+            [common_name] => Eastern Redcedar
+            [trees_category_id] => 1
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 4
+            [slug] => eastern-white-pine
+            [common_name] => Eastern White Pine
+            [trees_category_id] => 1
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 4
+            [slug] => eastern-white-pine
+            [common_name] => Eastern White Pine
+            [trees_category_id] => 1
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 5
+            [slug] => boxelder-maple
+            [common_name] => Boxelder Maple
+            [trees_category_id] => 2
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 5
+            [slug] => boxelder-maple
+            [common_name] => Boxelder Maple
+            [trees_category_id] => 2
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 8
+            [slug] => easter-white-cedar
+            [common_name] => Eastern White Cedar
+            [trees_category_id] => 1
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 8
+            [slug] => easter-white-cedar
+            [common_name] => Eastern White Cedar
+            [trees_category_id] => 1
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 9
+            [slug] => alternate-leaf-dogwood
+            [common_name] => Alternate-Leaf Dogwood
+            [trees_category_id] => 2
+        )
+
+    [9] => stdClass Object
+        (
+            [id] => 9
+            [slug] => alternate-leaf-dogwood
+            [common_name] => Alternate-Leaf Dogwood
+            [trees_category_id] => 2
+        )
+
+)
+
+-----------------------------------------------
+SELECT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------
+SELECT DISTINCT t.id, t.slug, t.common_name, t.trees_category_id FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%')
+-----------------------------------------------

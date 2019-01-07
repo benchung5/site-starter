@@ -128,13 +128,16 @@ class Trees extends Controller
 	{
 		$data = Utils::read_get();
 
-		$trees = $this->trees->get_all([
+		$opts = [
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null
-		]);
+		];
 
-		$count = $this->trees->count();
+		$trees = $this->trees->get_all($opts);
+
+		//just to count the results without the offset and limit
+		$count = $this->trees->get_all($opts, true);
 
 		$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 
@@ -145,20 +148,23 @@ class Trees extends Controller
 		}		
 	}
 
-	public function search() 
+	public function search()
 	{
 		$data = Utils::read_get();
 
-		$trees = $this->trees->get_all([
+		$opts = [
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
 			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : [], 
 			'origins' => isset($data['origins']) ? $data['origins'] : [],
 			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id']
-		]);
+		];
 
-		$count = $this->trees->count();
+		$trees = $this->trees->get_all($opts);
+
+		//just to count the results without the offset and limit
+		$count = $this->trees->get_all($opts, true);
 
 		$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 

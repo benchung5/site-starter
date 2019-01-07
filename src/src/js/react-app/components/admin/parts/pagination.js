@@ -20,11 +20,11 @@ class Paginator extends Component {
   left() {
     const { offset } = this.props.sourceData;
     return (
-      <li className={`pagination-previous ${offset === 0 ? 'disabled' : ''}`}>
+      <div className={`paginate-previous ${offset === 0 ? 'disabled' : ''}`}>
         <a aria-label="Previous page" onClick={this.back.bind(this)}>
           Previous
         </a>
-      </li>
+      </div>
     );
   }
 
@@ -32,23 +32,23 @@ class Paginator extends Component {
     const { offset, limit, count } = this.props.sourceData;
     const end = ((offset + limit) >= count) ? true : false;
     return (
-      <li className={`pagination-next ${end ? 'disabled' : ''}`}>
+      <div className={`paginate-next ${end ? 'disabled' : ''}`}>
         <a aria-label="Next page" onClick={this.advance.bind(this)}>
           Next
         </a>
-      </li>
+      </div>
     );
   }
 
   render() {
     const { offset, count } = this.props.sourceData;
     return (
-      <div className="pagination-wrapper">
-        <ul className="pagination" role="navigation" aria-label="Pagination">
+      <div className="paginate-wrapper">
+        <div className="paginate" role="navigation" aria-label="Pagination">
           {this.left()}
-          <li>Page {offset / globals.ADMIN_ENTRIES_PER_PAGE + 1}</li>
+          <div>Page {offset / globals.ADMIN_ENTRIES_PER_PAGE + 1}</div>
           {this.right()}
-        </ul>
+        </div>
         <div className="records-count">({count} records total)</div>
       </div>
     );
