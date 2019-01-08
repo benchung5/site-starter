@@ -150,7 +150,7 @@ class Articles_model extends Model
 			}, $opts);
 		}
 
-		// include images
+		//include images
 		$this->db
 			->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
 			->leftJoin('files f', 'f.ref_id', 'a.id')

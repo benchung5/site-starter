@@ -25,6 +25,8 @@ export const ADD_TREE_ERROR = 'add_tree_error;';
 export const UPDATE_TREE_ERROR = 'add_tree_error;';
 export const SEARCH_TREES = 'search_trees';
 export const SEARCH_TREES_ADMIN = 'search_trees_admin';
+export const OFFSET_TREES_FILTER = 'offset_trees_filter';
+export const SEARCH_TREES_FILTER = 'search_trees_filter';
 
 // users
 export const FETCH_USERS = 'fetch_users';

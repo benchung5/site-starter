@@ -82,6 +82,7 @@ export function contains(needle) {
 };
 
 export function flattenObjArray(inArray, key) {
+//return an array of values given a key in an array of objects
     if(inArray) {
       //convert to regular array of strings
       let outArray = inArray.map((item) => {
@@ -95,12 +96,36 @@ export function flattenObjArray(inArray, key) {
     }
 }
 
+export function flattenActiveObjArray(inArrayObj, key) {
+  //return an array of values given a key in an array of objects (if 'active')
+  //used for button controls
+  let newArray = inArrayObj.filter((item) => {
+    if(item.active == true) {
+      return true;
+    } else {
+      return false;
+    }
+  }).map((item) => {
+    return item[key]
+  });
+
+  return newArray;
+}
+
 export function round(x, n) {
   const tenN = Math.pow(10, n);
   return Math.round(x * tenN) / tenN;
 }
 
 export function setUrlParams(key, val) {
+  if (!Array.isArray(val)) {
+    //if not an array, convert to it
+    //make it a string in an array
+    let str = String(val);
+    val = [];
+    val.push(str);
+  }
+  val = val.join('+');
   let hash = window.location.hash;
   // replace valu on the part of the hash that has the current key
   if(hash) {
@@ -135,7 +160,6 @@ export function setUrlParams(key, val) {
     // if no hash just put this key value on
     window.location.hash = key + '=' + val;;
   }
-  return false;
 }
 
 export function getUrlParams(key) {

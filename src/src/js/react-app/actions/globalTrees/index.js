@@ -7,7 +7,9 @@ import { isLoading } from '../internalLoad';
 import {
 	CATEGORIES_TREES_FILTER,
 	ORIGINS_FILTER,
-	SEARCH_TREES
+	SEARCH_TREES,
+    OFFSET_TREES_FILTER,
+    SEARCH_TREES_FILTER,
 } from '../types';
 
 export function filterCategoriesTrees(filteredCats) {
@@ -17,39 +19,6 @@ export function filterCategoriesTrees(filteredCats) {
 	}
 }
 
-// export function populateCatFilter(selectedCategoriesTrees) {
-// 	return function(dispatch) {
-// 		axios.get(`${SERVER_URL}/categories_trees/all`)
-// 		.then((response) => {
-// 			var modifiedData = [];
-// 			//add an active state to each returned object
-// 			if (response.data) {
-// 				modifiedData = response.data.map((item, index) => {
-//                     let isActive = true;
-
-//                     // if url contains selected categories, just select those
-//                     if (selectedCategoriesTrees) {
-//                         isActive = false;
-//                         if (selectedCategoriesTrees.indexOf(item.slug) > -1) {
-//                             isActive = true;
-//                         }
-//                     }
-
-// 					return { id: item.id, name: item.name, slug: item.slug, icon: item.icon, active: isActive };
-// 				});
-
-// 				dispatch({
-// 					type: CATEGORIES_TREES_FILTER,
-// 					payload: modifiedData
-// 				});
-// 			}
-// 		}).catch((err) => {
-// 			console.log('error fetching trees categories for filtering: ', err);
-// 		});
-
-// 	}
-// }
-
 export function filterOrigins(filteredOrigins) {
 	return {
 		type: ORIGINS_FILTER,
@@ -57,37 +26,19 @@ export function filterOrigins(filteredOrigins) {
 	}
 }
 
-// export function populateOriginsFilter(selectedOrigins) {
-// 	return function(dispatch) {
-// 		axios.get(`${SERVER_URL}/origins/all`)
-// 		.then((response) => {
-// 			var modifiedData = [];
-// 			//add an active state to each returned object
-// 			if (response.data) {
-// 				modifiedData = response.data.map((item, index) => {
-// 					let isActive = true;
+export function filterOffsetTrees(offset) {
+    return {
+        type: OFFSET_TREES_FILTER,
+        payload: offset
+    }
+}
 
-//                     // if url contains selected origins, just select those
-//                     if (selectedOrigins) {
-//                         isActive = false;
-//                         if (selectedOrigins.indexOf(item.slug) > -1) {
-//                             isActive = true;
-//                         }
-//                     }
-
-// 					return { id: item.id, name: item.name, slug: item.slug, active: isActive };
-// 				});
-// 				dispatch({
-// 					type: ORIGINS_FILTER,
-// 					payload: modifiedData
-// 				});
-// 			}
-// 		}).catch((err) => {
-// 			console.log('error fetching origins for filtering: ', err);
-// 		});
-
-// 	}
-// }
+export function filterSearchTrees(search) {
+    return {
+        type: SEARCH_TREES_FILTER,
+        payload: search
+    }
+}
 
 export function populateTreesFilter(selectionFromUrl) {
     return function(dispatch) {
@@ -151,7 +102,6 @@ export function searchTrees(searchObj) {
     return function(dispatch) {
         dispatch(isLoading(true));
     	let query = buildQuery(searchObj);
-        console.log(query);
     	//set the obj in the get request
         axios.get(`${SERVER_URL}/trees/search/`, { params: query })
         .then(response => {

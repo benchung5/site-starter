@@ -2,41 +2,58 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { globals } from '../../config.js';
 import * as actions from '../../actions/globalTrees';
+import { getUrlParams, setUrlParams, flattenActiveObjArray } from '../../lib/utils';
 
 class PaginationTrees extends Component {
-  updateSourceData() {
 
+  componentWillMount() {
+    let offset = getUrlParams('offset');
+    if (offset) {
+      // set offset from url
+      this.props.dispatch(actions.filterOffsetTrees(parseInt(offset[0])));
+    }
+
+    //perform the search
+    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
   }
 
 
   back() {
-    const { offset, limit } = this.props.searchResults;
+    const { offset } = this.props.globalFilterData;
+
     if (offset === 0 ) { return; }
-    this.props.dispatch(actions.searchTrees({ 
-      //todo: get this.props.search to pull from stored search if any
-      search: this.props.globalFilterData.search,
-      categoriesTrees: this.props.globalFilterData.categoriesTrees,
-      origins: this.props.globalFilterData.origins,
-      offset: offset - globals.ADMIN_ENTRIES_PER_PAGE,
-      limit: limit
-    }));
+
+    let newOffset = offset - globals.ADMIN_ENTRIES_PER_PAGE;
+    this.searchTrees(newOffset);
   }
 
   advance() {
-    const { offset, limit, count } = this.props.searchResults;
-    if ((offset + limit) > count) { return; }
-    this.props.dispatch(actions.searchTrees({
-      //todo: get this.props.search to pull from stored search if any
-      search: this.props.globalFilterData.search, 
-      categoriesTrees: this.props.globalFilterData.categoriesTrees,
-      origins: this.props.globalFilterData.origins,
-      offset: offset + globals.ADMIN_ENTRIES_PER_PAGE,
-      limit: limit
-    }));
+    const { count } = this.props.searchResults;
+    const { offset } = this.props.globalFilterData;
+    if ((offset + globals.ADMIN_ENTRIES_PER_PAGE) > count) { return; }
+
+    let newOffset = offset + globals.ADMIN_ENTRIES_PER_PAGE;
+    this.searchTrees(newOffset);
+
+  }
+
+  searchTrees(newOffset) {
+    const { count} = this.props.searchResults;
+    const { search, categoriesTrees, origins, offset} = this.props.globalFilterData;
+
+    // set the new offset in the global fields
+    this.props.dispatch(actions.filterOffsetTrees(newOffset));
+
+    this.forceUpdate();
+
+    //perform the search
+    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
+
+    setUrlParams('offset', newOffset);
   }
 
   left() {
-    const { offset } = this.props.searchResults;
+    const { offset } = this.props.globalFilterData;
     return (
       <div className={`paginate-previous ${offset === 0 ? 'disabled' : ''}`}>
         <a aria-label="Previous page" onClick={this.back.bind(this)}>
@@ -47,8 +64,9 @@ class PaginationTrees extends Component {
   }
 
   right() {
-    const { offset, limit, count } = this.props.searchResults;
-    const end = ((offset + limit) >= count) ? true : false;
+    const { count } = this.props.searchResults;
+    const { offset } = this.props.globalFilterData;
+    const end = ((offset + globals.ADMIN_ENTRIES_PER_PAGE) >= count) ? true : false;
     return (
       <div className={`paginate-next ${end ? 'disabled' : ''}`}>
         <a aria-label="Next page" onClick={this.advance.bind(this)}>
@@ -59,7 +77,8 @@ class PaginationTrees extends Component {
   }
 
   render() {
-    const { offset, count } = this.props.searchResults;
+    const { count } = this.props.searchResults;
+    const { offset } = this.props.globalFilterData;
     return (
       <div className="paginate-wrapper">
         <div className="paginate" role="navigation" aria-label="Pagination">

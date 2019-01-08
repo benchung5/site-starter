@@ -6,7 +6,7 @@ import ButtonComponent from './parts/button_component';
 import Dropdown from './parts/dropdown';
 import ButtonList from './parts/button_list';
 import labels from '../data/labels';
-import { setUrlParams, getUrlParams } from '../lib/utils';
+import { setUrlParams, getUrlParams, flattenActiveObjArray } from '../lib/utils';
 
 class ThemesButtons extends Component {
 
@@ -24,27 +24,9 @@ class ThemesButtons extends Component {
 	}
 
 	onUpdateData(modifiedData) {
-		//start the loader for just a second
-		//real timming cussion is handled in loader_internal
-		// this.props.dispatch(isLoading(true));
-		// setTimeout(() => {
-		// 	this.props.dispatch(isLoading(false));
-		// }, 200);
-
-		// store the selected themes in the hash
-		let themeSlugs = modifiedData.filter((item) => {
-			if(item.active == true) {
-				return true;
-			} else {
-				return false;
-			}
-		}).map((item) => {
-			return item.slug;
-		});
-		let themes = themeSlugs.join('+');
-
-		//update the has url with the selected themes
-		setUrlParams('themes', themes);
+		//update the hash url with the selected themes
+		let themeSlugs = flattenActiveObjArray(modifiedData, 'slug');
+		setUrlParams('themes', themeSlugs);
 
 		this.props.dispatch(filterThemes(modifiedData));
 	}

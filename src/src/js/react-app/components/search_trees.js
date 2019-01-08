@@ -1,38 +1,46 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { connect } from 'react-redux';
 import * as actions from '../actions/globalTrees';
 import renderSearch from './parts/field_search';
 import { formatSearchString } from '../lib/stringUtils';
+import { getUrlParams, setUrlParams } from '../lib/utils';
 import { viewsToggle } from '../actions/views';
 import { globals } from '../config.js';
 
 
 class SearchForm extends Component {
 
-	handleFormSubmit(formProps) {
-		//call action for data (send the text along with the global data)
-		// if empty search, just search with the existing global filter
-		if (Object.keys(formProps).length === 0 && formProps.constructor === Object) {
-			this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
-		} else {
-			//else, query it using keywords
-			this.props.dispatch(actions.searchTrees({ 
-				search: formatSearchString(formProps.search), 
-				categoriesTrees: this.props.globalFilterData.categoriesTrees,
-				origins: this.props.globalFilterData.origins,
-				offset: 0,
-				limit: globals.ADMIN_ENTRIES_PER_PAGE
-			}));
-		}
+	componentWillMount() {
+	  let search = getUrlParams('search');
+	  if (search) {
+	    //update the global filter and search
+	    this.props.dispatch(actions.filterSearchTrees(search[0]));
+	    this.forceUpdate();
+	    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
+	    
+	    //fill in the search box with the value
+	    this.props.dispatch(change('search-form', 'search', search[0]));
+	  }
 	}
 
-	// onCloseClick(e) {
-	// 	//set the list view to off and map view to on
-	// 	this.props.viewsToggle('close');
-	// }
+	handleFormSubmit(formProps) {
+		//call action for data (send the text along with the global data)
+		// if empty search, make it empty
+		if (Object.keys(formProps).length === 0 && formProps.constructor === Object) {
+			this.props.dispatch(actions.filterSearchTrees(null));
+			this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
+		} else {
+			//else, update the global filter and search
+			let search = formatSearchString(formProps.search);
+			this.props.dispatch(actions.filterSearchTrees(search));
+			this.forceUpdate();
+			this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
 
-	// <div onClick={this.onCloseClick.bind(this)} className="search-clear"></div>
+			//store in the url
+			setUrlParams('search', search);
+		}
+	}
 
 	render() {
 		const { handleSubmit } = this.props;

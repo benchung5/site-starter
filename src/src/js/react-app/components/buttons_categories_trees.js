@@ -4,7 +4,7 @@ import { filterCategoriesTrees } from '../actions/globalTrees';
 import Dropdown from './parts/dropdown';
 import ButtonList from './parts/button_list';
 import labels from '../data/labels';
-import { setUrlParams } from '../lib/utils';
+import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
 class CategoriesTreesButtons extends Component {
 
@@ -16,20 +16,9 @@ class CategoriesTreesButtons extends Component {
 	}
 
 	onUpdateData(modifiedData) {
-		// store the selected categories in the hash
-		let categorySlugs = modifiedData.filter((item) => {
-			if(item.active == true) {
-				return true;
-			} else {
-				return false;
-			}
-		}).map((item) => {
-			return item.slug;
-		});
-		let categories = categorySlugs.join('+');
-
-		//update the has url with the selected categories
-		setUrlParams('categories', categories);
+		//update the hash url with the selected categories
+		let categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
+		setUrlParams('categories', categorySlugs);
 
 		// dispatch action
 		this.props.dispatch(filterCategoriesTrees(modifiedData));

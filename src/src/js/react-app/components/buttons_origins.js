@@ -6,7 +6,7 @@ import ButtonComponent from './parts/button_component';
 import Dropdown from './parts/dropdown';
 import ButtonList from './parts/button_list';
 import labels from '../data/labels';
-import { setUrlParams } from '../lib/utils';
+import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
 class ButtonsOrigins extends Component {
 
@@ -18,27 +18,9 @@ class ButtonsOrigins extends Component {
 	}
 
 	onUpdateData(modifiedData) {
-		//start the loader for just a second
-		//real timming cussion is handled in loader_internal
-		// this.props.dispatch(isLoading(true));
-		// setTimeout(() => {
-		// 	this.props.dispatch(isLoading(false));
-		// }, 200);
-
-		// store the selected origins in the hash
-		let themeSlugs = modifiedData.filter((item) => {
-			if(item.active == true) {
-				return true;
-			} else {
-				return false;
-			}
-		}).map((item) => {
-			return item.slug;
-		});
-		let origins = themeSlugs.join('+');
-
 		//update the has url with the selected origins
-		setUrlParams('origins', origins);
+		let originSlugs = flattenActiveObjArray(modifiedData, 'slug');
+		setUrlParams('origins', originSlugs);
 
 		this.props.dispatch(filterOrigins(modifiedData));
 	}

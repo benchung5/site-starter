@@ -194,6 +194,8 @@ class Trees_model extends Model
 
 			$result = $this->db->orderBy('common_name')->getAll();
 
+			Utils::dbug($this->db->getQuery());
+
 			return $result;
 		}
 	}

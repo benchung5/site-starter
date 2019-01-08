@@ -140,7 +140,7 @@ class Articles extends Controller
 		}		
 	}
 
-	public function search() 
+	public function search()
 	{
 		$data = Utils::read_get();
 
@@ -148,8 +148,8 @@ class Articles extends Controller
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'], 
 			'like' => isset($data['search']) ? $data['search'] : null, 
-			'category' => isset($data['category']) ? $data['category'] : [], 
-			'themes' => isset($data['themes']) ? $data['themes'] : [],
+			'category' => isset($data['category']) ? $data['category'] : null, 
+			'themes' => isset($data['themes']) ? $data['themes'] : null,
 			'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']
 		]);
 
