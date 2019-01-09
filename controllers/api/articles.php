@@ -58,9 +58,12 @@ class Articles extends Controller
 	{
 		$data = Utils::json_read();
 
-		$this->articles->remove(['slug' => $data['slug']]);
+		// remove file uploads (need to do this before removing the files to get lookup)
+		Upload::remove('articles', $data['article']['id']);
 
-		Utils::json_respond(SUCCESS_RESPONSE, $data['slug']);
+		$this->articles->remove(['slug' => $data['article']['slug']]);
+
+		Utils::json_respond(SUCCESS_RESPONSE, $data['article']['slug']);
 	}
 
 	public function all() 

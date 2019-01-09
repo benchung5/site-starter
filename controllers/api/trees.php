@@ -99,9 +99,13 @@ class Trees extends Controller
 	{
 		$data = Utils::json_read();
 
-		$this->trees->remove(['slug' => $data['slug']]);
+		// remove file uploads (need to do this before removing the files to get lookup)
+		Upload::remove('trees', $data['tree']['id']);
 
-		Utils::json_respond(SUCCESS_RESPONSE, $data['slug']);
+		// remove tree, associations, and files
+		$this->trees->remove(['slug' => $data['tree']['slug']]);
+
+		Utils::json_respond(SUCCESS_RESPONSE, $data['tree']['slug']);
 	}
 
 	public function all() 
@@ -134,7 +138,7 @@ class Trees extends Controller
 			'like' => isset($data['search']) ? $data['search'] : null
 		];
 
-		$trees = $this->trees->get_all($opts);
+		$trees = $this->trees->get_all($opts, false);
 
 		//just to count the results without the offset and limit
 		$count = $this->trees->get_all($opts, true);
@@ -156,8 +160,8 @@ class Trees extends Controller
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
-			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : [], 
-			'origins' => isset($data['origins']) ? $data['origins'] : [],
+			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : null, 
+			'origins' => isset($data['origins']) ? $data['origins'] : null,
 			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id']
 		];
 

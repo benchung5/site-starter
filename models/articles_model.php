@@ -100,8 +100,11 @@ class Articles_model extends Model
 
 			$this->db->table('articles')->where('id', $deleted_article_id)->delete();
 
-			// remove associations
+			// remove themes
 			$this->db->table('article_themes')->where('article_id', $deleted_article_id)->delete();
+
+			// remove files
+			$this->db->table('files')->where('ref_id', $deleted_article_id)->delete();
 
 			return $deleted_article_id;
 		}

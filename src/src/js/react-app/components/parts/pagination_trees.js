@@ -12,11 +12,7 @@ class PaginationTrees extends Component {
       // set offset from url
       this.props.dispatch(actions.filterOffsetTrees(parseInt(offset[0])));
     }
-
-    //perform the search
-    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
   }
-
 
   back() {
     const { offset } = this.props.globalFilterData;
@@ -24,30 +20,24 @@ class PaginationTrees extends Component {
     if (offset === 0 ) { return; }
 
     let newOffset = offset - globals.ADMIN_ENTRIES_PER_PAGE;
-    this.searchTrees(newOffset);
+    this.updateOffset(newOffset);
   }
 
   advance() {
     const { count } = this.props.searchResults;
     const { offset } = this.props.globalFilterData;
-    if ((offset + globals.ADMIN_ENTRIES_PER_PAGE) > count) { return; }
+    if ((offset + globals.ADMIN_ENTRIES_PER_PAGE) >= count) { return; }
 
     let newOffset = offset + globals.ADMIN_ENTRIES_PER_PAGE;
-    this.searchTrees(newOffset);
-
+    this.updateOffset(newOffset);
   }
 
-  searchTrees(newOffset) {
+  updateOffset(newOffset) {
     const { count} = this.props.searchResults;
     const { search, categoriesTrees, origins, offset} = this.props.globalFilterData;
 
     // set the new offset in the global fields
     this.props.dispatch(actions.filterOffsetTrees(newOffset));
-
-    this.forceUpdate();
-
-    //perform the search
-    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
 
     setUrlParams('offset', newOffset);
   }

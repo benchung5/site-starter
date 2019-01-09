@@ -11,6 +11,36 @@ class Upload
 		parent::__construct();
 	}
 
+	public function remove($ref_type, $ref_id) 
+	{
+		if ($ref_type == 'articles') {
+			$files = Controller::load_model('files_model');
+		} elseif ($ref_type == 'trees') {
+			$files = Controller::load_model('files_trees_model');
+		}
+
+		$result = $files->get_all_by_ref_id($ref_id, [], false);
+
+		foreach ($result as $file) {
+			$path = './uploads/'.$ref_type.'/'.$file->name;
+
+			if (file_exists($path))
+			{
+				//delete the file
+				unlink($path);
+				unlink('./uploads/'.$ref_type.'/'.pathinfo($file->name, PATHINFO_FILENAME).'-med.'.pathinfo($file->name, PATHINFO_EXTENSION));
+				unlink('./uploads/'.$ref_type.'/'.pathinfo($file->name, PATHINFO_FILENAME).'-sml.'.pathinfo($file->name, PATHINFO_EXTENSION));
+
+				//to test unlink
+				// if (!unlink($path)) {
+				//   echo ("Error deleting $path or med/sml versions");
+				// }
+			} else {
+				//echo ('associated file: $path already deleted');
+			}
+		}
+	}
+
 	public function upload($ref_type, $ref_id, $data) 
 	{
 		if ($ref_type == 'articles') {

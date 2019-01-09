@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Sidebar from '../sidebar';
 import { Link } from 'react-router-dom';
-import * as actions from '../../../actions/trees';
+//import * as actions from '../../../actions/trees';
 import RequireAuth from '../auth/require_auth';
-import SearchTrees from './search_trees';
-import Pagination from '../parts/pagination';
+import SearchTrees from '../../search_trees';
+import PaginationTrees from '../../parts/pagination_trees';
 import { globals } from '../../../config.js';
+import { searchTrees } from '../../../actions/globalTrees';
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../../../config')[env];
@@ -20,30 +21,38 @@ class TreesIndex extends Component {
     }
 
     componentWillMount() {
-        this.resetTreesList();
+        this.searchTrees();
     }
 
-    componentWillReceiveProps(nextProps) {
-      // if newly navigated from the router link...
-      if((nextProps.location !== this.props.location) && nextProps.location.key) {
-        this.resetTreesList();
-      }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //   // if newly navigated from the router link...
+    //   if((nextProps.location !== this.props.location) && nextProps.location.key) {
+    //     this.searchTrees();
+    //   }
+    // }
 
-    resetTreesList() {
-        this.props.searchTreesAdmin({ search: [], offset: 0, limit: globals.ADMIN_ENTRIES_PER_PAGE });
+    searchTrees() {
+        this.props.dispatch(searchTrees(this.props.globalFilterData));
     }
 
     onDeleteTreeClick(event) {
         let slug = event.target.getAttribute("data-slug");
-        const { offset, limit } = this.props.trees;
+        let id = event.target.getAttribute("data-id");
+        const { offset, limit } = this.props.searchResults;
         //slug, search, offset, limit
         //todo: get [] to use real stored search if any
-        this.props.deleteTree(slug, [], offset, limit);
+        this.props.deleteTree({id: parseInt(id), slug: slug}, [], offset, limit);
+    }
+
+    componentDidUpdate(prevProps) {
+        //fire the updated globalFilterData to the search action whenever the themes or categores get updated
+        if(this.props.globalFilterData && (prevProps.globalFilterData !==  this.props.globalFilterData)) {
+            this.searchTrees();
+        }
     }
     
     renderTrees() {
-        return this.props.trees.trees.map((tree) => {
+        return this.props.searchResults.trees.map((tree) => {
             return (
                 <li className="list-group-item" key={tree.id}>
                     <span>{tree.common_name}</span>
@@ -65,10 +74,7 @@ class TreesIndex extends Component {
                         <ul className="list-group item-list">
                             {this.renderTrees()}
                         </ul>
-                        <Pagination 
-                            sourceData={this.props.trees} 
-                            searchAction={this.props.searchTreesAdmin.bind(this)}
-                        />
+                        <PaginationTrees />
                     </div>
                 </div>
             </div>
@@ -79,9 +85,10 @@ class TreesIndex extends Component {
 
 function mapStateToProps(state) {
     return {
-        trees: state.trees.searchResultsAdmin,
+        searchResults: state.trees.searchResults,
+        globalFilterData: state.globalTrees,
         treeDeleted: state.tree.treeDeleted,
     };
 }
 
-export default RequireAuth(connect(mapStateToProps, actions)(TreesIndex));
+export default RequireAuth(connect(mapStateToProps)(TreesIndex));

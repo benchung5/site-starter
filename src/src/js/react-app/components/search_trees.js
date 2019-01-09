@@ -16,8 +16,6 @@ class SearchForm extends Component {
 	  if (search) {
 	    //update the global filter and search
 	    this.props.dispatch(actions.filterSearchTrees(search[0]));
-	    this.forceUpdate();
-	    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
 	    
 	    //fill in the search box with the value
 	    this.props.dispatch(change('search-form', 'search', search[0]));
@@ -29,17 +27,22 @@ class SearchForm extends Component {
 		// if empty search, make it empty
 		if (Object.keys(formProps).length === 0 && formProps.constructor === Object) {
 			this.props.dispatch(actions.filterSearchTrees(null));
-			this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
+			//this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
 		} else {
 			//else, update the global filter and search
 			let search = formatSearchString(formProps.search);
 			this.props.dispatch(actions.filterSearchTrees(search));
-			this.forceUpdate();
-			this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
-
+			
 			//store in the url
 			setUrlParams('search', search);
 		}
+	}
+
+	componentDidUpdate(prevProps) {
+		//console.log('update');
+	  if(this.props.globalFilterData && (prevProps.globalFilterData.search !== this.props.globalFilterData.search)) {
+	    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
+	  }
 	}
 
 	render() {

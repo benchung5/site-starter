@@ -36,10 +36,11 @@ class ArticlesIndex extends Component {
 
     onDeleteArticleClick(event) {
         let slug = event.target.getAttribute("data-slug");
+        let id = event.target.getAttribute("data-id");
         const { offset, limit } = this.props.articles;
         //slug, search, offset, limit
         //todo: get [] to use real stored search if any
-        this.props.deleteArticle(slug, [], offset, limit);
+        this.props.deleteArticle({id: parseInt(id), slug: slug}, [], offset, limit);
     }
 
     onDuplicateArticleClick(event) {

@@ -141,10 +141,10 @@ export function updateTree(formData) {
     }
 }
 
-export function deleteTree(slug, search, offset, limit) {
+export function deleteTree(tree, search, offset, limit) {
         return function(dispatch) {
         // post to http://192.168.99.100/trees/delete
-        axios.post(`${SERVER_URL}/trees/delete`, { slug })
+        axios.post(`${SERVER_URL}/trees/delete`, { tree })
         .then( response => {
             if(response.data.error) {
                 console.log('error: ', response.data.error);

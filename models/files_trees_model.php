@@ -10,6 +10,31 @@ class Files_trees_model extends Model
 		parent::__construct();
 	}
 
+	public function get_all_by_ref_id($ref_id, $opts = [], $isCount = false) 
+	{
+		$this->db->table('files_trees ft');
+
+		if ($isCount) {
+			 $this->db->select('DISTINCT ft.id');
+
+			 $result = $this->db->getAll();
+
+			return count($result);
+		} else {
+			if (isset($opts['select'])) {
+				$this->db->select(implode(',', $opts['select']));
+			} else {
+				// $this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
+			}
+
+			$this->db->where('ref_id', $ref_id);
+
+			$result = $this->db->getAll();
+
+			return $result;
+		}
+	}
+
 	public function add($data)
 	{
 		if (is_array($data)) {

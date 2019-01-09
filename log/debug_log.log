@@ -1,84 +1,78 @@
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+Array
+(
+    [offset] => 0
+    [limit] => 4
+    [like] => 
+    [trees_category] => 
+    [origins] => 
+    [select] => Array
+        (
+            [0] => t.id
+            [1] => t.slug
+            [2] => t.common_name
+            [3] => t.trees_category_id
+        )
+
+)
+
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+Array
+(
+    [offset] => 0
+    [limit] => 4
+    [like] => 
+    [trees_category] => 
+    [origins] => 
+    [select] => Array
+        (
+            [0] => t.id
+            [1] => t.slug
+            [2] => t.common_name
+            [3] => t.trees_category_id
+        )
+
+)
+
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) GROUP BY t.id ORDER BY common_name ASC LIMIT 4, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) GROUP BY t.id ORDER BY common_name ASC LIMIT 4, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%black%' OR t.slug LIKE '%black%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t LEFT JOIN files f ON f.ref_id = t.id WHERE (t.common_name LIKE '%%' OR t.slug LIKE '%%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
 -----------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%black%' OR t.slug LIKE '%black%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%foo%' OR t.slug LIKE '%foo%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%foo%' OR t.slug LIKE '%foo%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%black%' OR t.slug LIKE '%black%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%black%' OR t.slug LIKE '%black%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%red%' OR t.slug LIKE '%red%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%red%' OR t.slug LIKE '%red%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%white%' OR t.slug LIKE '%white%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%cedar%' OR t.slug LIKE '%cedar%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%cedar%' OR t.slug LIKE '%cedar%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%maple%' OR t.slug LIKE '%maple%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%maple%' OR t.slug LIKE '%maple%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%boxelder%' OR t.slug LIKE '%boxelder%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%red%' OR t.slug LIKE '%red%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%boxelder%' OR t.slug LIKE '%boxelder%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%red%' OR t.slug LIKE '%red%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%boxelder%' OR t.slug LIKE '%boxelder%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%red%' OR t.slug LIKE '%red%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
------------------------------------------------
-SELECT t.id,t.slug,t.common_name,t.trees_category_id, GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images FROM trees t INNER JOIN trees_origins _to ON _to.tree_id = t.id INNER JOIN origins o ON o.id = _to.origin_id LEFT JOIN files f ON f.ref_id = t.id WHERE t.trees_category_id IN (2, 1) AND o.id IN (1, 2, 3, 4, 5) AND (t.common_name LIKE '%boxelder%' OR t.slug LIKE '%boxelder%') GROUP BY t.id ORDER BY common_name ASC LIMIT 0, 4
+like
 -----------------------------------------------

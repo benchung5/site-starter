@@ -125,8 +125,11 @@ class Trees_model extends Model
 
 			$this->db->table('trees')->where('id', $deleted_tree_id)->delete();
 
-			// remove associations
+			// remove origins
 			$this->db->table('trees_origins')->where('tree_id', $deleted_tree_id)->delete();
+			
+			// remove files
+			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();
 
 			return $deleted_tree_id;
 		}
@@ -170,7 +173,7 @@ class Trees_model extends Model
 		}
 
 		if ($isCount) {
-			 $this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
+			 $this->db->select('DISTINCT t.id');
 
 			 $result = $this->db->getAll();
 
@@ -194,7 +197,7 @@ class Trees_model extends Model
 
 			$result = $this->db->orderBy('common_name')->getAll();
 
-			Utils::dbug($this->db->getQuery());
+			//Utils::dbug($this->db->getQuery());
 
 			return $result;
 		}
