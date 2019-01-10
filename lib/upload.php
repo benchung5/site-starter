@@ -43,76 +43,80 @@ class Upload
 
 	public function upload($ref_type, $ref_id, $data) 
 	{
-		if ($ref_type == 'articles') {
-			$files = Controller::load_model('files_model');
-		} elseif ($ref_type == 'trees') {
-			$files = Controller::load_model('files_trees_model');
-		}
-
-		//image info fields
-		$imgInfoFields = [];
-		foreach ($data as $key => $value) {
-			$isImgInfoField = strpos($key, 'image_');
-			
-			if ($isImgInfoField !== false) {
-				$imgInfoFields[] = explode(',', $value);
+		if ($_FILES) {
+			if ($ref_type == 'articles') {
+				$files = Controller::load_model('files_model');
+			} elseif ($ref_type == 'trees') {
+				$files = Controller::load_model('files_trees_model');
 			}
-		}
 
-		$files_data = self::upload_files($ref_type);
-		//save the file data to the db
-		if (! $files_data['error']) {
-
-			$count = 0;
-			//Utils::dbug($files_data['files']);
-			foreach ($files_data['files'] as $index => $file_data) {
-				//start at original image version
-				$isOriginalField = strpos($index, '_original');
-				if ($isOriginalField !== false) {
-					$file_data['ref_id'] = $ref_id;
-					$file_data['sort_order'] = $count;
-					$file_data['tag'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
-					$file_data['description'] = $imgInfoFields[$count][1];
-					$new_id = $files->add($file_data);
-					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
-					//update filename with new file id
-					$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
-
-					// move file, append new id, delete temp file
-					$destination_original = './uploads/'.$ref_type.'/'.$new_name;
-					rename($file_data['tmp_name'], $destination_original);
-					self::constrain_img($destination_original);
-
-					// do cropped version (med)
-					$croppedVersionKey = str_replace('_original', '_cropped', $index);
-					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'-med.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
-					$destination_cropped = './uploads/'.$ref_type.'/'.$new_name;
-					rename($files_data['files'][$croppedVersionKey]['tmp_name'], $destination_cropped);
-					
-					// do small cropped version
-					$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'-sml.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
-					$destination_sml = './uploads/'.$ref_type.'/'.$new_name;
-					self::create_thumb($destination_cropped, $destination_sml, 150, 150);
-
-					$count++;
-				}
-				//if is cropped image version
-				$isOriginalField = strpos($index, '_cropped');
-				if ($isOriginalField !== false) {
-					
+			//image info fields
+			$imgInfoFields = [];
+			foreach ($data as $key => $value) {
+				$isImgInfoField = strpos($key, 'image_');
+				
+				if ($isImgInfoField !== false) {
+					$imgInfoFields[] = explode(',', $value);
 				}
 			}
 
+			$files_data = self::upload_files($ref_type);
+			//save the file data to the db
 
+			if (! $files_data['error']) {
 
-			foreach ($files_data['files'] as $index => $file_data) {
-				//if is cropped image version
-				$isOriginalField = strpos($index, '_cropped');
-				if ($isOriginalField !== false) {
-					
+				$count = 0;
+				foreach ($files_data['files'] as $index => $file_data) {
+					//start at original image version
+					$isOriginalField = strpos($index, '_original');
+					if ($isOriginalField !== false) {
+						$file_data['ref_id'] = $ref_id;
+						$file_data['sort_order'] = $count;
+						$file_data['tag'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
+						$file_data['description'] = $imgInfoFields[$count][1];
+						$new_id = $files->add($file_data);
+						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+						//update filename with new file id
+						$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
+
+						// move file, append new id, delete temp file
+						$destination_original = './uploads/'.$ref_type.'/'.$new_name;
+						rename($file_data['tmp_name'], $destination_original);
+						self::constrain_img($destination_original);
+
+						// do cropped version (med)
+						$croppedVersionKey = str_replace('_original', '_cropped', $index);
+						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'-med.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+						$destination_cropped = './uploads/'.$ref_type.'/'.$new_name;
+						rename($files_data['files'][$croppedVersionKey]['tmp_name'], $destination_cropped);
+						
+						// do small cropped version
+						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'-sml.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+						$destination_sml = './uploads/'.$ref_type.'/'.$new_name;
+						self::create_thumb($destination_cropped, $destination_sml, 150, 150);
+
+						$count++;
+					}
+					//if is cropped image version
+					$isOriginalField = strpos($index, '_cropped');
+					if ($isOriginalField !== false) {
+						
+					}
+				}
+
+				foreach ($files_data['files'] as $index => $file_data) {
+					//if is cropped image version
+					$isOriginalField = strpos($index, '_cropped');
+					if ($isOriginalField !== false) {
+						
+					}
 				}
 			}
+		} else {
+			// no files to upload
+			return false;
 		}
+
 	}
 
 	public static function upload_files($ref) 

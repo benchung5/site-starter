@@ -34,36 +34,6 @@ export function fetchTrees() {
     }
 }
 
-export function searchTreesAdmin(searchObj) {
-    return function(dispatch) {
-        // let query = buildQuery(searchObj);
-
-        //set the obj in the get request
-        //axios.get(`${SERVER_URL}/trees/search-admin/`, { params: query })
-        axios.get(`${SERVER_URL}/trees/search_admin/`, { params: searchObj })
-        .then(response => {
-            dispatch({
-                type: SEARCH_TREES_ADMIN,
-                payload: response.data
-             });
-        })
-        .catch((err) => {
-            console.log('error searching trees: ', err);
-        });
-    }
-}
-
-// function buildQuery(inObj) {
-//     const query = {};
-
-//     //just include the search as is
-//     if (inObj.search) {
-//         query.search = inObj.search;
-//     }
-
-//     return query;
-// }
-
 export function getTree(slug) {
     return function(dispatch) {
         axios.get(`${SERVER_URL}/trees/single/${slug}`)

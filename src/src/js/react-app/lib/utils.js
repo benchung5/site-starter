@@ -1,4 +1,5 @@
 import clone from 'lodash/clone';
+import { sanitizeInputString } from './stringUtils';
 
 //toggle class (useful for css animations)
 //---------------------------
@@ -192,7 +193,12 @@ export function getUrlParams(key) {
         }
 
         if (params && params[1]) {
-          //if value(s) (split by +) returns them in the form of an array
+          //if value(s) 
+          // sanitize
+          params[0] = sanitizeInputString(params[0]);
+          params[1] = sanitizeInputString(params[1]);
+
+          //(split by +) returns them in the form of an array
           params = params[1].split('+');
           return params;
         }

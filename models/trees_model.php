@@ -52,6 +52,8 @@ class Trees_model extends Model
 				->select('id, name')
 				->where('id', $result->trees_category_id)
 				->get();
+
+
 			
 			return $result;
 		}
@@ -196,8 +198,6 @@ class Trees_model extends Model
 				->groupBy('t.id');
 
 			$result = $this->db->orderBy('common_name')->getAll();
-
-			//Utils::dbug($this->db->getQuery());
 
 			return $result;
 		}

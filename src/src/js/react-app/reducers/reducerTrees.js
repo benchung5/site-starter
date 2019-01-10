@@ -12,13 +12,7 @@ const INITIAL_STATE = {
         count: 0,
         // offset: 0,
         // limit: globals.ADMIN_ENTRIES_PER_PAGE 
-    },
-    searchResultsAdmin: {
-        trees: [],
-        count: 0,
-        offset: 0,
-        limit: globals.ADMIN_ENTRIES_PER_PAGE 
-    },
+    }
 };
 
 export default function (state = INITIAL_STATE, action) {
@@ -27,8 +21,6 @@ export default function (state = INITIAL_STATE, action) {
             return {...state, all: action.payload};
         case SEARCH_TREES:
         	return {...state, searchResults: action.payload};
-        case SEARCH_TREES_ADMIN:
-            return {...state, searchResultsAdmin: action.payload};
         default:
             return state;
     }

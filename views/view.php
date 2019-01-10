@@ -1,6 +1,7 @@
 
 <?php 
 use Config\Config as Config;
+use Lib\Utils;
 ?>
 
 <?php $this->insert('header', $view_data ); ?>
@@ -10,8 +11,8 @@ use Config\Config as Config;
 		<div class="row">
 			<div class="small-12 columns internal">
 				<div class="title-area">
-					<h1><?= $view_data['article']->name ?></h1>
-					<span><?= $view_data['article']->category_name ?></span>
+					<h1><?= Utils::sanitize($view_data['article']->name) ?></h1>
+					<span><?= Utils::sanitize($view_data['article']->category_name) ?></span>
 				</div>
 <!-- 						<div class="item-list">
 							<?php foreach ($view_data['article']->themes as $theme) { ?>
@@ -23,7 +24,7 @@ use Config\Config as Config;
 					<?php 
 					foreach ($view_data['article']->images as $image) { 
 						if (strpos($image->name, 'thumb') == false) {
-							echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/articles/'.$image->name.'" />';
+							echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/articles/'.Utils::sanitize($image->name).'" />';
 						}
 					}
 					?>

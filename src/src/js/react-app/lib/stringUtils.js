@@ -16,10 +16,12 @@ export function formatSearchString(searchTxt) {
     if(searchTxt) {
         let outText = '';
 
-        //remove ._:;, make lowercase
-        let formatted = searchTxt.replace(/([\.\_\'\:\;])+/gi, ' ').toLowerCase();
+        // //remove ._:;, make lowercase
+        // let formatted = searchTxt.replace(/([\.\_\'\:\;])+/gi, ' ').toLowerCase();
 
-        let sanitized = escapeHtml(formatted);
+        // let sanitized = escapeHtml(formatted);
+
+        let sanitized = sanitizeInputString(searchTxt);
 
         //split separate words into array (filter out all blank strings)
         outText = sanitized.split(' ').filter(function(i){return i});
@@ -31,5 +33,13 @@ export function formatSearchString(searchTxt) {
     } else {
         return [];
     }
+}
 
+export function sanitizeInputString(str) {
+    console.log('hit');
+    //remove ._:;, make lowercase
+    let formatted = str.replace(/([\.\_\'\:\;])+/gi, ' ').toLowerCase();
+    let sanitized = escapeHtml(formatted);
+
+    return sanitized;
 }

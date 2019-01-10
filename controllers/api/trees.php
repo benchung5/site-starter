@@ -85,9 +85,9 @@ class Trees extends Controller
 			$new_tree = $this->trees->get(['slug' => $data['slug']]);
 		}
 
-		// new file uploads
+		// new file uploads if any
 		Upload::upload('trees', $new_tree->id, $data);
-		// update original file uploads
+		// delete original file uploads if applicable
 		if (isset($data['deleted_images'])) {
 			$files->update_associations('trees', $new_tree->id, $data['deleted_images']);	
 		}
@@ -128,29 +128,29 @@ class Trees extends Controller
 		}
 	}
 
-	public function search_admin() 
-	{
-		$data = Utils::read_get();
+	// public function search_admin() 
+	// {
+	// 	$data = Utils::read_get();
 
-		$opts = [
-			'offset' => $data['offset'], 
-			'limit' => $data['limit'],
-			'like' => isset($data['search']) ? $data['search'] : null
-		];
+	// 	$opts = [
+	// 		'offset' => $data['offset'], 
+	// 		'limit' => $data['limit'],
+	// 		'like' => isset($data['search']) ? $data['search'] : null
+	// 	];
 
-		$trees = $this->trees->get_all($opts, false);
+	// 	$trees = $this->trees->get_all($opts, false);
 
-		//just to count the results without the offset and limit
-		$count = $this->trees->get_all($opts, true);
+	// 	//just to count the results without the offset and limit
+	// 	$count = $this->trees->get_all($opts, true);
 
-		$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
+	// 	$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 
-		if ($trees) {
-			Utils::json_respond(SUCCESS_RESPONSE, $result);
-		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
-		}		
-	}
+	// 	if ($trees) {
+	// 		Utils::json_respond(SUCCESS_RESPONSE, $result);
+	// 	} else {
+	// 		Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
+	// 	}		
+	// }
 
 	public function search()
 	{

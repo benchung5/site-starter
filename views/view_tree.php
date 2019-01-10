@@ -1,6 +1,7 @@
 
 <?php 
 use Config\Config as Config;
+use Lib\Utils;
 ?>
 
 <?php $this->insert('header', $view_data ); ?>
@@ -15,8 +16,8 @@ use Config\Config as Config;
 
 				<?php //print_r($view_data['tree']);  ?>
 
-				<span><?= $view_data['tree']->family_genus->genus_name ?></span>&nbsp;<span><?= $view_data['tree']->specific_epithet ?></span><br>
-				<span>Family: <?= $view_data['tree']->family_genus->family_name ?></span><br>
+				<span><?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<span><?= Utils::sanitize($view_data['tree']->specific_epithet) ?></span><br>
+				<span>Family: <?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></span><br>
 
 				<?php
 				$origins = [];
@@ -27,16 +28,16 @@ use Config\Config as Config;
 				}
 				?>
 
-				<span>Category: <?= $view_data['tree']->trees_category->name ?></span><br>
-				<span>Native to: <?= $view_data['tree']->origins ? implode(', ', $origins) : ''; ?></span><br>
-				<p><?= $view_data['tree']->body ?></p>
+				<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br>
+				<span>Native to: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
+				<p><?= Utils::sanitize($view_data['tree']->body) ?></p>
 
 				<?php if ($view_data['tree']->images) : ?>
 				<div class="images">
 					<?php 
 					foreach ($view_data['tree']->images as $image) { 
 						if (strpos($image->name, 'thumb') == false) {
-							echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/trees/'.$image->name.'" />';
+							echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/trees/'.Utils::sanitize($image->name).'" />';
 						}
 					}
 					?>

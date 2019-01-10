@@ -49,10 +49,14 @@ class SearchForm extends Component {
 		const { handleSubmit } = this.props;
 		return (
 				<form ref="form" className="search-form" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-					<button type="submit" className="search-button"/>
+					{this.props.hasButton &&
+						<button type="submit" className="search-button"/>
+					}
+					
 					<Field
 						name="search"
 						component={renderSearch}
+						placeholder={this.props.placeholder}
 					/>
 					
 				</form>

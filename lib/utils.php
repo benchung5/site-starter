@@ -56,6 +56,13 @@ class Utils
 		echo $errorMsg; exit;
 	}
 
+	public static function sanitize($str) 
+	{
+		$str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+
+		return $str;
+	}
+
 	public static function dbug($data) 
 	{
 		//Something to write to txt log

@@ -57,6 +57,7 @@ class Files_trees_model extends Model
 				->delete();
 
 			//also remove the actual uploaded files
+			//todo: combine this with lib/uploads verion of this
 			$path = realpath('./uploads');
 			if (is_dir($path.'/'.$ref_type)) {
 				$deleted_image_sml = preg_replace('/(\.[\w\d_-]+)$/i', '-sml$1', $deleted_image);

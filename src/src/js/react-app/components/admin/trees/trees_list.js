@@ -70,7 +70,10 @@ class TreesIndex extends Component {
                     <Sidebar/>
                     <div className="columns small-12 large-9">
                         <h3>Trees</h3>
-                        <SearchTrees/>
+                        <SearchTrees
+                            placeholder="search"
+                            hasButton={false}
+                        />
                         <ul className="list-group item-list">
                             {this.renderTrees()}
                         </ul>

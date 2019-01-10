@@ -74,7 +74,10 @@ class SideMenu extends Component {
         {(state) => (
           <div className={`side-menu ${this.props.showMenu}`} style={{...defaultStyle, ...transitionStyles[state]}}>
             <SideMenuHeader>
-              <SearchTreesComponent/>
+              <SearchTreesComponent
+                placeholder="Search Tree Name"
+                hasButton={true}
+              />
             </SideMenuHeader>
             <ButtonsCategoriesTrees/>
             <ButtonsOrigins/>
