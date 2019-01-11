@@ -27,11 +27,13 @@ class Trees_model extends Model
 
 		if ($result) {
 			// get images
-			$result->images = $this->db->table('files_trees')
-				->select('id, name')
-				->where('ref_id', $result->id)
-				// ->orderBy('sort_order, name')
-				->getAll();
+			// $result->images = $this->db->table('files_trees')
+			// 	->select('id, name')
+			// 	->where('ref_id', $result->id)
+			// 	// ->orderBy('sort_order, name')
+			// 	->getAll();
+			$this->files_trees = $this->load_model('files_trees_model');
+			$result->images = $this->files_trees->get_all_by_ref_id($result->id);
 
 			// origins
 			$result->origins = $this->db->table('trees_origins _to')

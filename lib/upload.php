@@ -72,7 +72,7 @@ class Upload
 					if ($isOriginalField !== false) {
 						$file_data['ref_id'] = $ref_id;
 						$file_data['sort_order'] = $count;
-						$file_data['tag'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
+						$file_data['tag_id'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
 						$file_data['description'] = $imgInfoFields[$count][1];
 						$new_id = $files->add($file_data);
 						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);

@@ -19,7 +19,7 @@ class FileField extends Component {
        // usedFileNames: [],
        errors: [],
        imgSrc: null,
-       tag: '',
+       tag_id: '',
        description: ''
      }
      isSubmitting: false;
@@ -180,7 +180,7 @@ class FileField extends Component {
       croppedOut.push({
         croppedFile: this.blobToFile(blob, this.state.accepted[0].name),
         originalFile: this.state.accepted[0],
-        tag: this.state.tag,
+        tag_id: this.state.tag_id,
         description: this.state.description,
       });
       this.setState({ croppedOut: croppedOut }, () => {
@@ -204,7 +204,7 @@ class FileField extends Component {
   }
 
   onTagChange(inputValue) {
-    this.setState({tag: inputValue});
+    this.setState({tag_id: inputValue});
   }
 
   onDescChange(inputValue) {
@@ -212,6 +212,7 @@ class FileField extends Component {
   }
 
   renderPreview() {
+    console.log(this.state.croppedOut);
     return (
       <div className="drop-preview-wrapper">
       {this.state.croppedOut.map((img, index) => {
@@ -219,7 +220,10 @@ class FileField extends Component {
           <div key={img.croppedFile.name + index} className="drop-preview">
           <a href="#" data-id={img.croppedFile.name} className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
           <img className="drop-img-preview" src={this.state.previews[index]} />
-        {/*{img.croppedFile.name} - {img.croppedFile.size} bytes - {img.croppedFile.dimensions}*/}
+          <div className="desc">
+            {/*{img.croppedFile.name} - {img.croppedFile.size} bytes - {img.croppedFile.dimensions}*/}
+            {'tag_id: ' + img.tag_id}
+          </div>
         </div>
         )
       })}
@@ -235,6 +239,12 @@ class FileField extends Component {
         })
         )
     }
+  }
+
+  renderSelectOptions() {
+    return this.props.tags.map((item) => {
+      return <option key={item.id} value={ item.id }>{ item.name }</option>
+    });
   }
 
   render() {
@@ -276,8 +286,10 @@ class FileField extends Component {
             viewMode={2}
            />
 
-             <input type="text" onChange={(e) => this.onTagChange(e.target.value)} placeholder="tag" name="tag"/>
-             <input type="text" onChange={(e) => this.onDescChange(e.target.value)} placeholder="description" name="description"/>
+           <select className="dropdown-select" onChange={(e) => this.onTagChange(e.target.value)} name="tag_id">
+            {this.renderSelectOptions()}
+           </select>
+           <input type="text" onChange={(e) => this.onDescChange(e.target.value)} placeholder="description" name="description"/>
 
             <div className="cropper-buttons">
               <button className="btn" onClick={this.onCropSubmit.bind(this)}>crop</button>

@@ -24,9 +24,10 @@ class Files_trees_model extends Model
 			if (isset($opts['select'])) {
 				$this->db->select(implode(',', $opts['select']));
 			} else {
-				// $this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
+				$this->db->select('DISTINCT ft.id, ft.ref_id, ft.name, ft.sort_order, ft.extension, tft.name AS tag_name, ft.description');
 			}
 
+			$this->db->leftJoin('tags_files_trees tft','tft.id','ft.tag_id');
 			$this->db->where('ref_id', $ref_id);
 
 			$result = $this->db->getAll();

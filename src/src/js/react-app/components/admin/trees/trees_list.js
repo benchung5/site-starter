@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Sidebar from '../sidebar';
 import { Link } from 'react-router-dom';
-//import * as actions from '../../../actions/trees';
+import * as actions from '../../../actions/trees';
 import RequireAuth from '../auth/require_auth';
 import SearchTrees from '../../search_trees';
 import PaginationTrees from '../../parts/pagination_trees';
@@ -41,7 +41,7 @@ class TreesIndex extends Component {
         const { offset, limit } = this.props.searchResults;
         //slug, search, offset, limit
         //todo: get [] to use real stored search if any
-        this.props.deleteTree({id: parseInt(id), slug: slug}, [], offset, limit);
+        this.props.dispatch(actions.deleteTree({id: parseInt(id), slug: slug}, [], offset, limit));
     }
 
     componentDidUpdate(prevProps) {

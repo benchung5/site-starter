@@ -1,7 +1,6 @@
 <?php
 namespace Lib;
 use Config\Config;
-use Lib\Utils;
 use Lib\Validation\Validator;
 
 class Controller 

@@ -191,6 +191,7 @@ class EditTree extends Component {
                                 label="New Images"
                                 classNameLabel="file-input-label"
                                 onChange={this.onInputChange.bind(this)}
+                                tags={this.props.treeTables.tags}
                             />
                             <button action="submit" className="btn btn-primary">Submit</button>
                         </form>

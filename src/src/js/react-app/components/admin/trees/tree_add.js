@@ -177,6 +177,7 @@ class AddTree extends Component {
                   name="images"
                   classNameLabel="file-input-label"
                   onChange={this.onInputChange.bind(this)}
+                  tags={this.props.treeTables.tags}
                 />
                 <button action="submit" className="btn btn-primary">Submit</button>
               </form>

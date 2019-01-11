@@ -5,6 +5,7 @@ const INITIAL_STATE = {
 		'genuses' : [],
 		'origins' : [],
 		'trees_category' : [],
+		'tags' : [],
 	}
 };
 

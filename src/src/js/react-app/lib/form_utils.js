@@ -24,7 +24,7 @@ export  function createImgFormData(imgFieldName, formProps) {
     Object.keys(formProps).forEach(( key ) => {
         if(key === imgFieldName) {
             formProps[key].forEach((item, index) => {
-              formData.append('image'+'_'+index+'_info', [item.tag, item.description]);
+              formData.append('image'+'_'+index+'_info', [item.tag_id, item.description]);
           });
         }
     });

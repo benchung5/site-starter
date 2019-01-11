@@ -1,5 +1,6 @@
 <?php
 namespace Lib;
+use Config\Config;
 
 class Utils
 {
