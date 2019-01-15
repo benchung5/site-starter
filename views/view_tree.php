@@ -30,7 +30,8 @@ use Lib\Utils;
 
 				<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br>
 				<span>Native to: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
-				<p><?= Utils::sanitize($view_data['tree']->body) ?></p>
+				<!-- don't sanitize body since we need html -->
+				<p><?= $view_data['tree']->body ?></p>
 
 				<?php if ($view_data['tree']->images) : ?>
 				<div class="images">

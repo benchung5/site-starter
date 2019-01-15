@@ -212,7 +212,6 @@ class FileField extends Component {
   }
 
   renderPreview() {
-    console.log(this.state.croppedOut);
     return (
       <div className="drop-preview-wrapper">
       {this.state.croppedOut.map((img, index) => {

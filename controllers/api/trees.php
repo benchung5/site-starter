@@ -67,19 +67,32 @@ class Trees extends Controller
 			'common_name' => $data['common_name'],
 			'genus_id' => $data['genus_id'],
 			'specific_epithet' => $data['specific_epithet'],
-			'trees_category_id' => $data['trees_category_id'],
+			'other_species' => $data['other_species'],
+			'subspecies' => $data['subspecies'],
+			'zone_id' => $data['zone_id'],
+			'variety' => $data['variety'],
+			'cultivar' => $data['cultivar'],
 			'body' => isset($data['body']) ? $data['body'] : ''
 		];
 
+		$insert_data = [];
+
 		if ($is_add) {
+			// only update the slug upon add
 			$update_data['slug'] = $data['slug'];
-			$new_tree_id = $this->trees->add($update_data, $data['origins']);
+			$insert_data['insert'] = $update_data;
+			// the many to many data...
+			$insert_data['origins'] = $data['origins'];
+			$insert_data['regions'] = $data['regions'];
+
+			$new_tree_id = $this->trees->add($insert_data);
 			$new_tree = $this->trees->get(['id' => $new_tree_id]);
 		} else {
 			$this->trees->update([
 				'where' => ['slug' => $data['slug']], 
 				'update' => $update_data,
-				'origins' => $data['origins']
+				'origins' => $data['origins'],
+				'regions' => $data['regions']
 			]);
 
 			$new_tree = $this->trees->get(['slug' => $data['slug']]);

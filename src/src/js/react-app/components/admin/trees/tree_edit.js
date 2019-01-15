@@ -49,28 +49,38 @@ class EditTree extends Component {
     }
 
     handleInitialize() {
-
         //convert to an array
-        let images = [];
-        Object.keys(this.props.treeData.images).forEach((key) => {
-            images[key] = this.props.treeData.images[key].name;
-        })
+        // let images = [];
+        // Object.keys(this.props.treeData.images).forEach((key) => {
+        //     images[key] = this.props.treeData.images[key].name;
+        // })
+
+        let images = clone(this.props.treeData.images);
+
         //store initial images for comparison later
         this.setState({ images });
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'trees');
 
+        //format multiselects
         let originsArray = this.formatToMultiselect(this.props.treeData.origins);
+        let regionsArray = this.formatToMultiselect(this.props.treeData.regions);
 
         const formData = {
             'common_name': this.props.treeData.common_name,
             'slug': this.props.treeData.slug,
             'specific_epithet': this.props.treeData.specific_epithet,
+            'other_species': this.props.treeData.other_species,
+            'subspecies': this.props.treeData.subspecies,
+            'variety': this.props.treeData.variety,
+            'cultivar': this.props.treeData.cultivar,
             'body': this.props.treeData.body,
             //still must keep this for the id eventhough it isn't rendered
             'genus_id': this.props.treeData.genus_id,
             'trees_category_id': this.props.treeData.trees_category_id,
+            'zone_id': this.props.treeData.zone_id,
             'origins': originsArray,
+            'regions': regionsArray,
         };
 
         this.props.initialize(formData);
@@ -78,9 +88,10 @@ class EditTree extends Component {
 
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
-        //format origins data (must convert it to comma separated string over the network)
+        //format multiselect data (must convert it to comma separated string over the network)
         let formpropsClone = clone(formProps);
         formpropsClone.origins = flattenObjArray(formpropsClone.origins, 'value').toString();
+        formpropsClone.regions = flattenObjArray(formpropsClone.regions, 'value').toString();
 
         // call action to submit edited
         this.props.updateTree(createImgFormData('new_images', formpropsClone));
@@ -105,8 +116,11 @@ class EditTree extends Component {
     }
 
     updatedImages(images, deletedImages) {
-        // update deleted_images field with the deleted images in string form
-        this.props.change('deleted_images', deletedImages.toString());
+        let delImages = [];
+        Object.keys(deletedImages).forEach((key) => {
+            delImages[key] = deletedImages[key].name;
+        })
+        this.props.change('deleted_images', delImages.toString());
 
         // update updated_images field with the upated images in string form
         this.props.change('updated_images', images.toString());
@@ -150,6 +164,34 @@ class EditTree extends Component {
                               onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
+                              label="other species"
+                              name="other_species"
+                              component={renderField}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              label="subspecies"
+                              name="subspecies"
+                              component={renderField}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              label="variety"
+                              name="variety"
+                              component={renderField}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              label="cultivar"
+                              name="cultivar"
+                              component={renderField}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
                                 name="trees_category_id"
                                 label="category"
                                 component={renderDropdownSelect}
@@ -162,6 +204,22 @@ class EditTree extends Component {
                               label="origins"
                               component={renderMultiSelect}
                               selectItems={this.props.treeTables.origins}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              name="regions"
+                              label="origin regions"
+                              component={renderMultiSelect}
+                              selectItems={this.props.treeTables.regions}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              label="zone"
+                              name="zone_id"
+                              component={renderDropdownSelect}
+                              selectItems={this.props.treeTables.zones}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />

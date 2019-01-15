@@ -59,10 +59,17 @@ class AddTree extends Component {
   handleFormSubmit(formProps) {
     //format origins data (must convert it to comma separated string over the network)
     let formpropsClone = clone(formProps);
-    let stringArray = flattenObjArray(formpropsClone.origins, 'value');
-    if (stringArray) {
-      formpropsClone.origins = stringArray.toString();
+
+    let originsArray = flattenObjArray(formpropsClone.origins, 'value');
+    let regionsArray = flattenObjArray(formpropsClone.regions, 'value');
+
+    if (originsArray) {
+      formpropsClone.origins = originsArray.toString();
     }
+    if (regionsArray) {
+      formpropsClone.regions = regionsArray.toString();
+    }
+    
     // call action to submit edited
     //console.log(formpropsClone);
     this.props.addTree(createImgFormData('images', formpropsClone));
@@ -149,6 +156,34 @@ class AddTree extends Component {
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
+                  label="other species"
+                  name="other_species"
+                  component={renderField}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  label="subspecies"
+                  name="subspecies"
+                  component={renderField}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  label="variety"
+                  name="variety"
+                  component={renderField}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  label="cultivar"
+                  name="cultivar"
+                  component={renderField}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
                   name="trees_category_id"
                   label="category"
                   component={renderDropdownSelect}
@@ -162,6 +197,22 @@ class AddTree extends Component {
                   defaultSelect={true}
                   component={renderMultiSelect}
                   selectItems={this.props.treeTables.origins}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  name="regions"
+                  label="origin regions"
+                  component={renderMultiSelect}
+                  selectItems={this.props.treeTables.regions}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  label="zone"
+                  name="zone_id"
+                  component={renderDropdownSelect}
+                  selectItems={this.props.treeTables.zones}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />

@@ -11,6 +11,8 @@ class Tree_tables extends Controller
 	public function __construct() 
 	{
 		$this->origins = $this->load_model('origins_model');
+		$this->regions = $this->load_model('regions_model');
+		$this->zones = $this->load_model('zones_model');
 		$this->tree_categories = $this->load_model('trees_category_model');
 		$this->genuses = $this->load_model('genuses_model');
 		$this->tags = $this->load_model('tags_files_trees_model');
@@ -28,12 +30,16 @@ class Tree_tables extends Controller
 		$tree_tables = [];
 
 		$origins = $this->origins->get_all();
+		$regions = $this->regions->get_all();
+		$zones = $this->zones->get_all();
 		$trees_category = $this->tree_categories->get_all();
 		$genuses = $this->genuses->get_all();
 		$tags = $this->tags->get_all();
 
 		$tree_tables = [
 			'origins' => $origins ?: [],
+			'regions' => $regions ?: [],
+			'zones' => $zones ?: [],
 			'trees_category' => $trees_category ?: [],
 			'genuses' => $genuses ?: [],
 			'tags' => $tags ?: []

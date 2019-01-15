@@ -189,12 +189,14 @@ use Lib\Uri;
   <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
 
   <?php
+    // enable this in production. When this copies to layout.php, move react loaded in bottom to replce this one
+
     // only allow react to load on certain routes
-    $segments = Uri::get_parts();
-    $react_pages = ['admin', 'filter', 'filter_trees'];
-    if (isset($segments['controller']) && in_array($segments['controller'], $react_pages)) {
-      echo '<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script>';
-    }
+    // $segments = Uri::get_parts();
+    // $react_pages = ['admin', 'filter', 'filter_trees'];
+    // if (isset($segments['controller']) && in_array($segments['controller'], $react_pages)) {
+    //   echo '<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script>';
+    // }
   ?>
 
   <!-- *** react and footer scripts are loaded belew here *** -->

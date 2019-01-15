@@ -35,6 +35,7 @@ class UploadedImages extends Component {
 	}
 
 	initImages(images, ref_type) {
+		//console.log(images);
 		this.refType = ref_type;
 		this.setState({ images: images }, () => {
 			//sent initial state back to parent to avoid it 
@@ -50,7 +51,12 @@ class UploadedImages extends Component {
 					return (
 						<div key={index} className="drop-preview">
 							<a href="#" className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
-							<img className="drop-img-preview" src={'/uploads/' + this.refType + '/' + imgName(item, 'small')} />
+							<img className="drop-img-preview" src={'/uploads/' + this.refType + '/' + imgName(item.name, 'small')} />
+							<div className="desc">
+							  {item.name}
+							  <br/>
+							  {item.tag_name && 'tag: ' + item.tag_name}
+							</div>
 						</div>
 						
 						)

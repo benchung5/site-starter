@@ -4,6 +4,8 @@ const INITIAL_STATE = {
 	all: {
 		'genuses' : [],
 		'origins' : [],
+		'regions' : [],
+		'zones' : [],
 		'trees_category' : [],
 		'tags' : [],
 	}
