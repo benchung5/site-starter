@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, reset } from 'redux-form';
+import { reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { addTree, addTreeError, clearTree } from '../../../actions/trees';
 import { fetchTreeTables } from '../../../actions/treeTables';
 import Sidebar from '../sidebar';
-import renderField from '../parts/form_fields';
 import ImgFieldCrop from '../parts/image_field_crop';
 import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
-import renderDropdownSelect from '../parts/field_dropdownSelect';
-import renderMultiSelect from '../parts/field_multiSelect';
 import RequireAuth from '../auth/require_auth';
+import TreeFields from './tree_fields';
 
 class AddTree extends Component {
 
@@ -56,7 +54,7 @@ class AddTree extends Component {
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
     let formpropsClone = [];
-    formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark']);
+    formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark', 'natural_habitat']);
 
     // call action to submit edited
     //console.log(formpropsClone);
@@ -94,15 +92,6 @@ class AddTree extends Component {
   onInputChange() {
       this.clearMessages();
   }
-
-  // <Field
-  //   type="textarea"
-  //   label="body:"
-  //   name="body"
-  //   component={renderField}
-  //   onChange={this.onInputChange.bind(this)}
-  //   onFocus={this.onInputChange.bind(this)}
-  // />
     
   render() {
       const { handleSubmit } = this.props;
@@ -113,128 +102,11 @@ class AddTree extends Component {
             <div className="columns small-12 large-9">
               <h3>Add Tree</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-                <Field
-                  label="common name"
-                  name="common_name"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
+                <TreeFields
+                    onInputChange={this.onInputChange.bind(this)}
+                    treeTables={this.props.treeTables}
                 />
-                <Field
-                  label="slug"
-                  name="slug"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="genus_id"
-                  label="genus"
-                  component={renderDropdownSelect}
-                  selectItems={this.props.treeTables.genuses}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="specific epithet"
-                  name="specific_epithet"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="other species"
-                  name="other_species"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="subspecies"
-                  name="subspecies"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="variety"
-                  name="variety"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="cultivar"
-                  name="cultivar"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="trees_category_id"
-                  label="category"
-                  component={renderDropdownSelect}
-                  selectItems={this.props.treeTables.trees_category}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="origins"
-                  label="origins"
-                  defaultSelect={true}
-                  component={renderMultiSelect}
-                  selectItems={this.props.treeTables.origins}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="regions"
-                  label="origin regions"
-                  component={renderMultiSelect}
-                  selectItems={this.props.treeTables.regions}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="zone"
-                  name="zone_id"
-                  component={renderDropdownSelect}
-                  selectItems={this.props.treeTables.zones}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="shapes"
-                  label="shapes"
-                  component={renderMultiSelect}
-                  selectItems={this.props.treeTables.shapes}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="trunk_arrangements"
-                  label="trunk arrangements"
-                  component={renderMultiSelect}
-                  selectItems={this.props.treeTables.trunk_arrangements}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="bark"
-                  label="bark"
-                  component={renderMultiSelect}
-                  selectItems={this.props.treeTables.bark}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  type="textarea"
-                  label="body"
-                  name="body"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
+
                 <ImgFieldCrop
                   name="images"
                   classNameLabel="file-input-label"

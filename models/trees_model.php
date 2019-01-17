@@ -89,6 +89,13 @@ class Trees_model extends Model
 				->innerJoin('bark b', 'b.id', 'tb.bark_id')
 				->getAll();
 
+			// natural habitat
+			$result->natural_habitat = $this->db->table('trees_natural_habitat tnh')
+				->select('nh.id, nh.name')
+				->where('tnh.tree_id', $result->id)
+				->innerJoin('natural_habitat nh', 'nh.id', 'tnh.natural_habitat_id')
+				->getAll();
+
 			return $result;
 		}
 
@@ -119,6 +126,7 @@ class Trees_model extends Model
 				$this->insert_joins($new_tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
 				$this->insert_joins($new_tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
 				$this->insert_joins($new_tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
+				$this->insert_joins($new_tree_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
 
 			}
 
@@ -157,6 +165,7 @@ class Trees_model extends Model
 			$this->update_joins($tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
 			$this->update_joins($tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
 			$this->update_joins($tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
+			$this->update_joins($tree_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
 		}
 	}
 
@@ -198,6 +207,7 @@ class Trees_model extends Model
 			$this->db->table('trees_shapes')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_trunk_arrangements')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_bark')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_natural_habitat')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
 			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();

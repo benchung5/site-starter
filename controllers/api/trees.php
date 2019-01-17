@@ -65,15 +65,17 @@ class Trees extends Controller
 		//use isset version for optional fields
 		$update_data = [
 			'common_name' => $data['common_name'],
-			'genus_id' => $data['genus_id'],
-			'specific_epithet' => $data['specific_epithet'],
-			'other_species' => isset($data['other_species']) ? $data['other_species'] : null,
-			'subspecies' => isset($data['subspecies']) ? $data['subspecies'] : null,
-			'zone_id' => isset($data['zone_id']) ? $data['zone_id'] : null,
-			'variety' => isset($data['variety']) ? $data['variety'] : null,
-			'cultivar' => isset($data['cultivar']) ? $data['cultivar'] : null,
-			'body' => isset($data['body']) ? $data['body'] : null
+			'slug' => $data['slug']
 		];
+
+		if(isset($data['genus_id'])) { $update_data['genus_id'] = $data['genus_id']; };
+		if(isset($data['specific_epithet'])) { $update_data['specific_epithet'] = $data['specific_epithet']; };
+		if(isset($data['other_species'])) { $update_data['other_species'] = $data['other_species']; };
+		if(isset($data['subspecies'])) { $update_data['subspecies'] = $data['subspecies']; };
+		if(isset($data['zone_id'])) { $update_data['zone_id'] = $data['zone_id']; };
+		if(isset($data['variety'])) { $update_data['variety'] = $data['variety']; };
+		if(isset($data['cultivar'])) { $update_data['cultivar'] = $data['cultivar']; };
+		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 
 		// the many to many table data...
 		$joins_data = [
@@ -82,12 +84,10 @@ class Trees extends Controller
 			'shapes' => isset($data['shapes']) ? $data['shapes'] : null,
 			'trunk_arrangements' => isset($data['trunk_arrangements']) ? $data['trunk_arrangements'] : null,
 			'bark' => isset($data['bark']) ? $data['bark'] : null,
+			'natural_habitat' => isset($data['natural_habitat']) ? $data['natural_habitat'] : null,
 		];
 
 		if ($is_add) {
-			// only update the slug upon add
-			$update_data['slug'] = $data['slug'];
-
 			$insert_data = [
 				'insert' => $update_data,
 				'joins' => $joins_data
@@ -97,12 +97,12 @@ class Trees extends Controller
 			$new_tree = $this->trees->get(['id' => $new_tree_id]);
 		} else {
 			$this->trees->update([
-				'where' => ['slug' => $data['slug']], 
+				'where' => ['id' => $data['tree_id']], 
 				'update' => $update_data,
 				'joins' => $joins_data,
 			]);
 
-			$new_tree = $this->trees->get(['slug' => $data['slug']]);
+			$new_tree = $this->trees->get(['id' => $data['tree_id']]);
 		}
 
 		// new file uploads if any
@@ -148,34 +148,11 @@ class Trees extends Controller
 		}
 	}
 
-	// public function search_admin() 
-	// {
-	// 	$data = Utils::read_get();
-
-	// 	$opts = [
-	// 		'offset' => $data['offset'], 
-	// 		'limit' => $data['limit'],
-	// 		'like' => isset($data['search']) ? $data['search'] : null
-	// 	];
-
-	// 	$trees = $this->trees->get_all($opts, false);
-
-	// 	//just to count the results without the offset and limit
-	// 	$count = $this->trees->get_all($opts, true);
-
-	// 	$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
-
-	// 	if ($trees) {
-	// 		Utils::json_respond(SUCCESS_RESPONSE, $result);
-	// 	} else {
-	// 		Utils::json_respond(SUCCESS_RESPONSE, ['trees' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
-	// 	}		
-	// }
-
 	public function search()
 	{
 		$data = Utils::read_get();
 
+		// todo: make this like in update_tree
 		$opts = [
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'],

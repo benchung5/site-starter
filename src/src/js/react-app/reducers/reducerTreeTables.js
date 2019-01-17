@@ -11,6 +11,7 @@ const INITIAL_STATE = {
 		'shapes' : [],
 		'trunk_arrangements' : [],
 		'bark' : [],
+		'natural_habitat' : [],
 	}
 };
 

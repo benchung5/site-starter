@@ -19,6 +19,7 @@ class Tree_tables extends Controller
 		$this->shapes = $this->load_model('shapes_model');
 		$this->trunk_arrangements = $this->load_model('trunk_arrangements_model');
 		$this->bark = $this->load_model('bark_model');
+		$this->natural_habitat = $this->load_model('natural_habitat_model');
 
 		parent::__construct();
 	}
@@ -32,15 +33,6 @@ class Tree_tables extends Controller
 	{
 		$tree_tables = [];
 
-		// $origins = ;
-		// $regions = ;
-		// $zones = ;
-		// $trees_category =;
-		// $genuses = ;
-		// $tags = ;
-		// $shapes = ;
-		// $trunk_arrangements = ;
-
 		$tree_tables = [
 			'origins' => $this->origins->get_all() ?: [],
 			'regions' => $this->regions->get_all() ?: [],
@@ -50,7 +42,8 @@ class Tree_tables extends Controller
 			'tags' => $this->tags->get_all() ?: [],
 			'shapes' => $this->shapes->get_all() ?: [],
 			'trunk_arrangements' => $this->trunk_arrangements->get_all() ?: [],
-			'bark' => $this->bark->get_all() ?: []
+			'bark' => $this->bark->get_all() ?: [],
+			'natural_habitat' => $this->natural_habitat->get_all() ?: []
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);
