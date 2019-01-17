@@ -67,23 +67,31 @@ class Trees extends Controller
 			'common_name' => $data['common_name'],
 			'genus_id' => $data['genus_id'],
 			'specific_epithet' => $data['specific_epithet'],
-			'other_species' => $data['other_species'],
-			'subspecies' => $data['subspecies'],
-			'zone_id' => $data['zone_id'],
-			'variety' => $data['variety'],
-			'cultivar' => $data['cultivar'],
-			'body' => isset($data['body']) ? $data['body'] : ''
+			'other_species' => isset($data['other_species']) ? $data['other_species'] : null,
+			'subspecies' => isset($data['subspecies']) ? $data['subspecies'] : null,
+			'zone_id' => isset($data['zone_id']) ? $data['zone_id'] : null,
+			'variety' => isset($data['variety']) ? $data['variety'] : null,
+			'cultivar' => isset($data['cultivar']) ? $data['cultivar'] : null,
+			'body' => isset($data['body']) ? $data['body'] : null
 		];
 
-		$insert_data = [];
+		// the many to many table data...
+		$joins_data = [
+			'origins' => isset($data['origins']) ? $data['origins'] : null,
+			'regions' => isset($data['regions']) ? $data['regions'] : null,
+			'shapes' => isset($data['shapes']) ? $data['shapes'] : null,
+			'trunk_arrangements' => isset($data['trunk_arrangements']) ? $data['trunk_arrangements'] : null,
+			'bark' => isset($data['bark']) ? $data['bark'] : null,
+		];
 
 		if ($is_add) {
 			// only update the slug upon add
 			$update_data['slug'] = $data['slug'];
-			$insert_data['insert'] = $update_data;
-			// the many to many data...
-			$insert_data['origins'] = $data['origins'];
-			$insert_data['regions'] = $data['regions'];
+
+			$insert_data = [
+				'insert' => $update_data,
+				'joins' => $joins_data
+			];
 
 			$new_tree_id = $this->trees->add($insert_data);
 			$new_tree = $this->trees->get(['id' => $new_tree_id]);
@@ -91,8 +99,7 @@ class Trees extends Controller
 			$this->trees->update([
 				'where' => ['slug' => $data['slug']], 
 				'update' => $update_data,
-				'origins' => $data['origins'],
-				'regions' => $data['regions']
+				'joins' => $joins_data,
 			]);
 
 			$new_tree = $this->trees->get(['slug' => $data['slug']]);

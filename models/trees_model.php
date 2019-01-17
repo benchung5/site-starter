@@ -68,8 +68,27 @@ class Trees_model extends Model
 				->where('id', $result->trees_category_id)
 				->get();
 
+			// shapes
+			$result->shapes = $this->db->table('trees_shapes ts')
+				->select('s.id, s.name')
+				->where('ts.tree_id', $result->id)
+				->innerJoin('shapes s', 's.id', 'ts.shape_id')
+				->getAll();
 
-			
+			// trunk_arrangements
+			$result->trunk_arrangements = $this->db->table('trees_trunk_arrangements tta')
+				->select('ta.id, ta.name')
+				->where('tta.tree_id', $result->id)
+				->innerJoin('trunk_arrangements ta', 'ta.id', 'tta.trunk_arrangement_id')
+				->getAll();
+
+			// bark
+			$result->bark = $this->db->table('trees_bark tb')
+				->select('b.id, b.name')
+				->where('tb.tree_id', $result->id)
+				->innerJoin('bark b', 'b.id', 'tb.bark_id')
+				->getAll();
+
 			return $result;
 		}
 
@@ -92,27 +111,32 @@ class Trees_model extends Model
 			$new_tree_id = $this->db->insertId();
 
 			// many to many tables
-			if (isset($opts['origins'])) {
-				$origins = (! is_array($opts['origins'])) ? explode(',', $opts['origins']) : $val;
+			if (isset($opts['joins'])) {
+				$joins = $opts['joins'];
 
-				foreach ($origins as $origin) {
-					$ins = ['tree_id' => $new_tree_id, 'origin_id' => $origin];
-					$this->db->table('trees_origins')->insert($ins);
-				}
-			}
-			if (isset($opts['regions'])) {
-				$regions = (! is_array($opts['regions'])) ? explode(',', $opts['regions']) : $val;
+				$this->insert_joins($new_tree_id, $joins, 'origins', 'origin_id', 'trees_origins');
+				$this->insert_joins($new_tree_id, $joins, 'regions', 'region_id', 'trees_regions');
+				$this->insert_joins($new_tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
+				$this->insert_joins($new_tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
+				$this->insert_joins($new_tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
 
-				foreach ($regions as $region) {
-					$ins = ['tree_id' => $new_tree_id, 'region_id' => $region];
-					$this->db->table('trees_regions')->insert($ins);
-				}
 			}
 
 			return $new_tree_id;
 		}
 
 		return false;
+	}
+
+	protected function insert_joins($tree_id, $joins, $table_name, $table_id_name, $join_table_name) {
+		if (isset($joins[$table_name])) {
+			$ids = (! is_array($joins[$table_name])) ? explode(',', $joins[$table_name]) : $joins[$table_name];
+
+			foreach ($ids as $id) {
+				$ins = ['tree_id' => $tree_id, $table_id_name => $id];
+				$this->db->table($join_table_name)->insert($ins);
+			}
+		}
 	}
 
 	public function update($opts = [])
@@ -123,24 +147,28 @@ class Trees_model extends Model
 			$this->db->table('trees');
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
-		if (isset($opts['origins'])) {
-			// clear existing associations
-			$this->db->table('trees_origins')->where('tree_id', $tree_id)->delete();
 
-			// insert new associations
-			$origins = is_array($opts['origins']) ? $opts['origins'] : explode(',', $opts['origins']);
-			foreach ($origins as $origin_id) {
-				$this->db->table('trees_origins')->insert(['tree_id' => $tree_id, 'origin_id' => $origin_id]);
-			}
+		// many to many tables
+		if (isset($opts['joins'])) {
+			$joins = $opts['joins'];
+
+			$this->update_joins($tree_id, $joins, 'origins', 'origin_id', 'trees_origins');
+			$this->update_joins($tree_id, $joins, 'regions', 'region_id', 'trees_regions');
+			$this->update_joins($tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
+			$this->update_joins($tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
+			$this->update_joins($tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
 		}
-		if (isset($opts['regions'])) {
+	}
+
+	protected function update_joins($tree_id, $joins, $table_name, $table_id_name, $join_table_name) {
+		if (isset($joins[$table_name])) {
 			// clear existing associations
-			$this->db->table('trees_regions')->where('tree_id', $tree_id)->delete();
+			$this->db->table($join_table_name)->where('tree_id', $tree_id)->delete();
 
 			// insert new associations
-			$regions = is_array($opts['regions']) ? $opts['regions'] : explode(',', $opts['regions']);
-			foreach ($regions as $region_id) {
-				$this->db->table('trees_regions')->insert(['tree_id' => $tree_id, 'region_id' => $region_id]);
+			$trunk_arrangements = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
+			foreach ($trunk_arrangements as $trunk_arrangement_id) {
+				$this->db->table($join_table_name)->insert(['tree_id' => $tree_id, $table_id_name => $trunk_arrangement_id]);
 			}
 		}
 	}
@@ -167,6 +195,9 @@ class Trees_model extends Model
 			// remove joins
 			$this->db->table('trees_origins')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_regions')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_shapes')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_trunk_arrangements')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_bark')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
 			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();

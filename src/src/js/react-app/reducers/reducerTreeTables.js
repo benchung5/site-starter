@@ -8,6 +8,9 @@ const INITIAL_STATE = {
 		'zones' : [],
 		'trees_category' : [],
 		'tags' : [],
+		'shapes' : [],
+		'trunk_arrangements' : [],
+		'bark' : [],
 	}
 };
 

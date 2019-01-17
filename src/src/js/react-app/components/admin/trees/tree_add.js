@@ -6,12 +6,10 @@ import { fetchTreeTables } from '../../../actions/treeTables';
 import Sidebar from '../sidebar';
 import renderField from '../parts/form_fields';
 import ImgFieldCrop from '../parts/image_field_crop';
-import { createImgFormData } from '../../../lib/form_utils';
-import { flattenObjArray } from '../../../lib/utils';
+import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
 import renderDropdownSelect from '../parts/field_dropdownSelect';
 import renderMultiSelect from '../parts/field_multiSelect';
 import RequireAuth from '../auth/require_auth';
-import clone from 'lodash/clone';
 
 class AddTree extends Component {
 
@@ -57,24 +55,13 @@ class AddTree extends Component {
 
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
-    //format origins data (must convert it to comma separated string over the network)
-    let formpropsClone = clone(formProps);
+    let formpropsClone = [];
+    formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark']);
 
-    let originsArray = flattenObjArray(formpropsClone.origins, 'value');
-    let regionsArray = flattenObjArray(formpropsClone.regions, 'value');
-
-    if (originsArray) {
-      formpropsClone.origins = originsArray.toString();
-    }
-    if (regionsArray) {
-      formpropsClone.regions = regionsArray.toString();
-    }
-    
     // call action to submit edited
     //console.log(formpropsClone);
     this.props.addTree(createImgFormData('images', formpropsClone));
   }
-
 
   renderAdded() {
     //only render if there's no error message
@@ -217,6 +204,30 @@ class AddTree extends Component {
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
+                  name="shapes"
+                  label="shapes"
+                  component={renderMultiSelect}
+                  selectItems={this.props.treeTables.shapes}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  name="trunk_arrangements"
+                  label="trunk arrangements"
+                  component={renderMultiSelect}
+                  selectItems={this.props.treeTables.trunk_arrangements}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
+                  name="bark"
+                  label="bark"
+                  component={renderMultiSelect}
+                  selectItems={this.props.treeTables.bark}
+                  onChange={this.onInputChange.bind(this)}
+                  onFocus={this.onInputChange.bind(this)}
+                />
+                <Field
                   type="textarea"
                   label="body"
                   name="body"
@@ -255,21 +266,21 @@ function validate(formProps) {
     errors.slug = 'Please enter a slug';
   }
 
-  if (!formProps.genus_id) {
-    errors.genus_id = 'Please enter a genus';
-  }
+  // if (!formProps.genus_id) {
+  //   errors.genus_id = 'Please enter a genus';
+  // }
 
-  if (!formProps.specific_epithet) {
-    errors.specific_epithet = 'Please enter a specific epithet';
-  }
+  // if (!formProps.specific_epithet) {
+  //   errors.specific_epithet = 'Please enter a specific epithet';
+  // }
 
-  if (!formProps.trees_category_id) {
-    errors.trees_category_id = 'Please enter a tree category';
-  }
+  // if (!formProps.trees_category_id) {
+  //   errors.trees_category_id = 'Please enter a tree category';
+  // }
 
-  if (!formProps.origins) {
-     errors.origins = 'Please enter at least one origin';
-  }
+  // if (!formProps.origins) {
+  //    errors.origins = 'Please enter at least one origin';
+  // }
   
   return errors;
 }

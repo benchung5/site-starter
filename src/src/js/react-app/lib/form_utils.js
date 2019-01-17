@@ -1,3 +1,6 @@
+import clone from 'lodash/clone';
+import { flattenObjArray } from './utils';
+
 export  function createImgFormData(imgFieldName, formProps) {
     // convert to mulipart form data
     let formData = new FormData();
@@ -11,22 +14,22 @@ export  function createImgFormData(imgFieldName, formProps) {
 
     Object.keys(formProps).forEach(( key ) => {
     	if(key === imgFieldName) {
-            formProps[key].forEach((item, index) => {
+        formProps[key].forEach((item, index) => {
               // append original image fields to formData
               formData.append('image'+'_'+index+'_original', item.originalFile);
               // append cropped image fields to formData
               formData.append('image'+'_'+index+'_cropped', item.croppedFile);
-          });
-        }
+            });
+      }
     });
 
     // append image info to formData
     Object.keys(formProps).forEach(( key ) => {
-        if(key === imgFieldName) {
-            formProps[key].forEach((item, index) => {
-              formData.append('image'+'_'+index+'_info', [item.tag_id, item.description]);
-          });
-        }
+      if(key === imgFieldName) {
+        formProps[key].forEach((item, index) => {
+          formData.append('image'+'_'+index+'_info', [item.tag_id, item.description]);
+        });
+      }
     });
 
     // // Display the key/value pairs
@@ -35,4 +38,16 @@ export  function createImgFormData(imgFieldName, formProps) {
     // }
 
     return formData;
+}
+
+export function formatOutMultiselects(formProps, fields) {
+    //format multiselect data (must convert it to comma separated string over the network)
+    let formpropsClone = clone(formProps);
+    fields.map((field) => {
+      let arr = flattenObjArray(formpropsClone[field], 'value');
+      if (arr) {
+        formpropsClone[field] = arr.toString();
+      }
+    });
+    return formpropsClone;
 }

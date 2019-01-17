@@ -8,10 +8,9 @@ import renderField from '../parts/form_fields';
 import renderHiddenField from '../parts/field_hidden';
 import UploadedImages from '../parts/uploaded_images';
 import ImgFieldCrop from '../parts/image_field_crop';
-import { createImgFormData } from '../../../lib/form_utils';
+import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
 import renderDropdownSelect from '../parts/field_dropdownSelect';
 import renderMultiSelect from '../parts/field_multiSelect';
-import { flattenObjArray } from '../../../lib/utils';
 import RequireAuth from '../auth/require_auth';
 import clone from 'lodash/clone';
 
@@ -49,22 +48,12 @@ class EditTree extends Component {
     }
 
     handleInitialize() {
-        //convert to an array
-        // let images = [];
-        // Object.keys(this.props.treeData.images).forEach((key) => {
-        //     images[key] = this.props.treeData.images[key].name;
-        // })
-
         let images = clone(this.props.treeData.images);
 
         //store initial images for comparison later
         this.setState({ images });
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'trees');
-
-        //format multiselects
-        let originsArray = this.formatToMultiselect(this.props.treeData.origins);
-        let regionsArray = this.formatToMultiselect(this.props.treeData.regions);
 
         const formData = {
             'common_name': this.props.treeData.common_name,
@@ -79,8 +68,11 @@ class EditTree extends Component {
             'genus_id': this.props.treeData.genus_id,
             'trees_category_id': this.props.treeData.trees_category_id,
             'zone_id': this.props.treeData.zone_id,
-            'origins': originsArray,
-            'regions': regionsArray,
+            'origins': this.formatToMultiselect(this.props.treeData.origins),
+            'regions': this.formatToMultiselect(this.props.treeData.regions),
+            'shapes': this.formatToMultiselect(this.props.treeData.shapes),
+            'trunk_arrangements': this.formatToMultiselect(this.props.treeData.trunk_arrangements),
+            'bark': this.formatToMultiselect(this.props.treeData.bark),
         };
 
         this.props.initialize(formData);
@@ -88,10 +80,8 @@ class EditTree extends Component {
 
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
-        //format multiselect data (must convert it to comma separated string over the network)
-        let formpropsClone = clone(formProps);
-        formpropsClone.origins = flattenObjArray(formpropsClone.origins, 'value').toString();
-        formpropsClone.regions = flattenObjArray(formpropsClone.regions, 'value').toString();
+        let formpropsClone = [];
+        formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark']);
 
         // call action to submit edited
         this.props.updateTree(createImgFormData('new_images', formpropsClone));
@@ -224,6 +214,30 @@ class EditTree extends Component {
                               onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
+                              name="shapes"
+                              label="shapes"
+                              component={renderMultiSelect}
+                              selectItems={this.props.treeTables.shapes}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              name="trunk_arrangements"
+                              label="trunk arrangements"
+                              component={renderMultiSelect}
+                              selectItems={this.props.treeTables.trunk_arrangements}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                              name="bark"
+                              label="bark"
+                              component={renderMultiSelect}
+                              selectItems={this.props.treeTables.bark}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
                                 type="textarea"
                                 label="body"
                                 name="body"
@@ -275,15 +289,15 @@ function validate(formProps) {
         errors.slug = 'Please enter a slug';
     }
 
-    if (!formProps.trees_category_id) {
-      errors.trees_category_id = 'Please enter a category';
-    }
+    // if (!formProps.trees_category_id) {
+    //   errors.trees_category_id = 'Please enter a category';
+    // }
 
-    if (formProps.origins) {
-        if (formProps.origins.length === 0) {
-            errors.origins = 'Please enter at least one origin';
-        }
-    }
+    // if (formProps.origins) {
+    //     if (formProps.origins.length === 0) {
+    //         errors.origins = 'Please enter at least one origin';
+    //     }
+    // }
     
     return errors;
 }
