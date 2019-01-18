@@ -12,6 +12,9 @@ const INITIAL_STATE = {
 		'trunk_arrangements' : [],
 		'bark' : [],
 		'natural_habitat' : [],
+		'common_uses' : [],
+		'wood_uses' : [],
+		'unique_attractions' : []
 	}
 };
 

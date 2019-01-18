@@ -85,6 +85,9 @@ class Trees extends Controller
 			'trunk_arrangements' => isset($data['trunk_arrangements']) ? $data['trunk_arrangements'] : null,
 			'bark' => isset($data['bark']) ? $data['bark'] : null,
 			'natural_habitat' => isset($data['natural_habitat']) ? $data['natural_habitat'] : null,
+			'common_uses' => isset($data['common_uses']) ? $data['common_uses'] : null,
+			'wood_uses' => isset($data['wood_uses']) ? $data['wood_uses'] : null,
+			'unique_attractions' => isset($data['unique_attractions']) ? $data['unique_attractions'] : null,
 		];
 
 		if ($is_add) {

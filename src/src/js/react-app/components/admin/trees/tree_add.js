@@ -54,7 +54,7 @@ class AddTree extends Component {
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
     let formpropsClone = [];
-    formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark', 'natural_habitat']);
+    formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark', 'natural_habitat', 'common_uses', 'wood_uses', 'unique_attractions']);
 
     // call action to submit edited
     //console.log(formpropsClone);

@@ -73,6 +73,9 @@ class EditTree extends Component {
             'trunk_arrangements': this.formatToMultiselect(this.props.treeData.trunk_arrangements),
             'bark': this.formatToMultiselect(this.props.treeData.bark),
             'natural_habitat': this.formatToMultiselect(this.props.treeData.natural_habitat),
+            'common_uses': this.formatToMultiselect(this.props.treeData.common_uses),
+            'wood_uses': this.formatToMultiselect(this.props.treeData.wood_uses),
+            'unique_attractions': this.formatToMultiselect(this.props.treeData.unique_attractions),
         };
 
         this.props.initialize(formData);
@@ -80,9 +83,8 @@ class EditTree extends Component {
 
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
-        console.log(formProps);
         let formpropsClone = [];
-        formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark', 'natural_habitat']);
+        formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark', 'natural_habitat', 'common_uses', 'wood_uses', 'unique_attractions']);
 
         // call action to submit edited
         this.props.updateTree(createImgFormData('new_images', formpropsClone));

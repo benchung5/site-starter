@@ -141,6 +141,30 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
+          name="common_uses"
+          label="common uses"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.common_uses}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="wood_uses"
+          label="wood uses"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.wood_uses}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="unique_attractions"
+          label="unique attractions"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.unique_attractions}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
             type="textarea"
             label="body"
             name="body"

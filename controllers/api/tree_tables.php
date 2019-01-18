@@ -20,6 +20,9 @@ class Tree_tables extends Controller
 		$this->trunk_arrangements = $this->load_model('trunk_arrangements_model');
 		$this->bark = $this->load_model('bark_model');
 		$this->natural_habitat = $this->load_model('natural_habitat_model');
+		$this->common_uses = $this->load_model('common_uses_model');
+		$this->wood_uses = $this->load_model('wood_uses_model');
+		$this->unique_attractions = $this->load_model('unique_attractions_model');
 
 		parent::__construct();
 	}
@@ -43,7 +46,10 @@ class Tree_tables extends Controller
 			'shapes' => $this->shapes->get_all() ?: [],
 			'trunk_arrangements' => $this->trunk_arrangements->get_all() ?: [],
 			'bark' => $this->bark->get_all() ?: [],
-			'natural_habitat' => $this->natural_habitat->get_all() ?: []
+			'natural_habitat' => $this->natural_habitat->get_all() ?: [],
+			'common_uses' => $this->common_uses->get_all() ?: [],
+			'wood_uses' => $this->wood_uses->get_all() ?: [],
+			'unique_attractions' => $this->unique_attractions->get_all() ?: []
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);

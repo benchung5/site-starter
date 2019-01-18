@@ -96,6 +96,27 @@ class Trees_model extends Model
 				->innerJoin('natural_habitat nh', 'nh.id', 'tnh.natural_habitat_id')
 				->getAll();
 
+			// common uses
+			$result->common_uses = $this->db->table('trees_common_uses tcu')
+				->select('cu.id, cu.name')
+				->where('tcu.tree_id', $result->id)
+				->innerJoin('common_uses cu', 'cu.id', 'tcu.common_use_id')
+				->getAll();
+
+			// wood uses
+			$result->wood_uses = $this->db->table('trees_wood_uses twu')
+				->select('wu.id, wu.name')
+				->where('twu.tree_id', $result->id)
+				->innerJoin('wood_uses wu', 'wu.id', 'twu.wood_use_id')
+				->getAll();
+
+			// unique attractions
+			$result->unique_attractions = $this->db->table('trees_unique_attractions tua')
+				->select('ua.id, ua.name')
+				->where('tua.tree_id', $result->id)
+				->innerJoin('unique_attractions ua', 'ua.id', 'tua.unique_attraction_id')
+				->getAll();
+
 			return $result;
 		}
 
@@ -127,6 +148,9 @@ class Trees_model extends Model
 				$this->insert_joins($new_tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
 				$this->insert_joins($new_tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
 				$this->insert_joins($new_tree_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
+				$this->insert_joins($new_tree_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
+				$this->insert_joins($new_tree_id, $joins, 'wood_uses', 'wood_use_id', 'trees_wood_uses');
+				$this->insert_joins($new_tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 
 			}
 
@@ -166,6 +190,9 @@ class Trees_model extends Model
 			$this->update_joins($tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
 			$this->update_joins($tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
 			$this->update_joins($tree_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
+			$this->update_joins($tree_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
+			$this->update_joins($tree_id, $joins, 'wood_uses', 'wood_use_id', 'trees_wood_uses');
+			$this->update_joins($tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 		}
 	}
 
@@ -208,6 +235,8 @@ class Trees_model extends Model
 			$this->db->table('trees_trunk_arrangements')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_bark')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_natural_habitat')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_common_uses')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_wood_uses')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
 			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();
