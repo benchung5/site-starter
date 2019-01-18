@@ -53,7 +53,10 @@ class EditTree extends Component {
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'trees');
 
+        console.log(this.props.treeData);
+
         const formData = {
+            //still must keep this for the id eventhough it isn't rendered
             'tree_id': this.props.treeData.id,
             'common_name': this.props.treeData.common_name,
             'slug': this.props.treeData.slug,
@@ -63,10 +66,11 @@ class EditTree extends Component {
             'variety': this.props.treeData.variety,
             'cultivar': this.props.treeData.cultivar,
             'body': this.props.treeData.body,
-            //still must keep this for the id eventhough it isn't rendered
             'genus_id': this.props.treeData.genus_id,
             'trees_category_id': this.props.treeData.trees_category_id,
             'zone_id': this.props.treeData.zone_id,
+            'reproduction_type_id': this.props.treeData.reproduction_type_id,
+            //multiselects
             'origins': this.formatToMultiselect(this.props.treeData.origins),
             'regions': this.formatToMultiselect(this.props.treeData.regions),
             'shapes': this.formatToMultiselect(this.props.treeData.shapes),
@@ -76,6 +80,7 @@ class EditTree extends Component {
             'common_uses': this.formatToMultiselect(this.props.treeData.common_uses),
             'wood_uses': this.formatToMultiselect(this.props.treeData.wood_uses),
             'unique_attractions': this.formatToMultiselect(this.props.treeData.unique_attractions),
+            'tolerances': this.formatToMultiselect(this.props.treeData.tolerances),
         };
 
         this.props.initialize(formData);
@@ -84,7 +89,18 @@ class EditTree extends Component {
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
         let formpropsClone = [];
-        formpropsClone = formatOutMultiselects(formProps, ['origins', 'regions', 'shapes', 'trunk_arrangements', 'bark', 'natural_habitat', 'common_uses', 'wood_uses', 'unique_attractions']);
+        formpropsClone = formatOutMultiselects(formProps, [
+                'origins', 
+                'regions', 
+                'shapes', 
+                'trunk_arrangements', 
+                'bark', 
+                'natural_habitat', 
+                'common_uses', 
+                'wood_uses', 
+                'unique_attractions', 
+                'tolerances'
+            ]);
 
         // call action to submit edited
         this.props.updateTree(createImgFormData('new_images', formpropsClone));

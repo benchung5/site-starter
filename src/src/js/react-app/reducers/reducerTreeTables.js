@@ -14,7 +14,9 @@ const INITIAL_STATE = {
 		'natural_habitat' : [],
 		'common_uses' : [],
 		'wood_uses' : [],
-		'unique_attractions' : []
+		'unique_attractions' : [],
+		'tolerances' : [],
+		'reproduction_types' : []
 	}
 };
 

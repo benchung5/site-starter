@@ -75,6 +75,8 @@ class Trees extends Controller
 		if(isset($data['zone_id'])) { $update_data['zone_id'] = $data['zone_id']; };
 		if(isset($data['variety'])) { $update_data['variety'] = $data['variety']; };
 		if(isset($data['cultivar'])) { $update_data['cultivar'] = $data['cultivar']; };
+		if(isset($data['trees_category_id'])) { $update_data['trees_category_id'] = $data['trees_category_id']; };
+		if(isset($data['reproduction_type_id'])) { $update_data['reproduction_type_id'] = $data['reproduction_type_id']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 
 		// the many to many table data...
@@ -88,6 +90,7 @@ class Trees extends Controller
 			'common_uses' => isset($data['common_uses']) ? $data['common_uses'] : null,
 			'wood_uses' => isset($data['wood_uses']) ? $data['wood_uses'] : null,
 			'unique_attractions' => isset($data['unique_attractions']) ? $data['unique_attractions'] : null,
+			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null
 		];
 
 		if ($is_add) {

@@ -165,6 +165,22 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
+          name="tolerances"
+          label="tolerances"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.tolerances}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="reproduction_type_id"
+          label="reproduction types"
+          component={renderDropdownSelect}
+          selectItems={this.props.treeTables.reproduction_types}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
             type="textarea"
             label="body"
             name="body"

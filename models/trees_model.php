@@ -27,11 +27,6 @@ class Trees_model extends Model
 
 		if ($result) {
 			// get images
-			// $result->images = $this->db->table('files_trees')
-			// 	->select('id, name')
-			// 	->where('ref_id', $result->id)
-			// 	// ->orderBy('sort_order, name')
-			// 	->getAll();
 			$this->files_trees = $this->load_model('files_trees_model');
 			$result->images = $this->files_trees->get_all_by_ref_id($result->id);
 
@@ -117,6 +112,19 @@ class Trees_model extends Model
 				->innerJoin('unique_attractions ua', 'ua.id', 'tua.unique_attraction_id')
 				->getAll();
 
+			// tolerances
+			$result->tolerances = $this->db->table('trees_tolerances tt')
+				->select('tl.id, tl.name')
+				->where('tt.tree_id', $result->id)
+				->innerJoin('tolerances tl', 'tl.id', 'tt.tolerance_id')
+				->getAll();
+
+			// reproduction types
+			$result->reproduction_type = $this->db->table('reproduction_types')
+				->select('id, name')
+				->where('id', $result->reproduction_type_id)
+				->get();
+
 			return $result;
 		}
 
@@ -151,6 +159,7 @@ class Trees_model extends Model
 				$this->insert_joins($new_tree_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
 				$this->insert_joins($new_tree_id, $joins, 'wood_uses', 'wood_use_id', 'trees_wood_uses');
 				$this->insert_joins($new_tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
+				$this->insert_joins($new_tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
 
 			}
 
@@ -193,6 +202,7 @@ class Trees_model extends Model
 			$this->update_joins($tree_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
 			$this->update_joins($tree_id, $joins, 'wood_uses', 'wood_use_id', 'trees_wood_uses');
 			$this->update_joins($tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
+			$this->update_joins($tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
 		}
 	}
 
@@ -237,6 +247,7 @@ class Trees_model extends Model
 			$this->db->table('trees_natural_habitat')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_common_uses')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_wood_uses')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_tolerances')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
 			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();
