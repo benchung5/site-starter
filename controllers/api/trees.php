@@ -77,6 +77,15 @@ class Trees extends Controller
 		if(isset($data['cultivar'])) { $update_data['cultivar'] = $data['cultivar']; };
 		if(isset($data['trees_category_id'])) { $update_data['trees_category_id'] = $data['trees_category_id']; };
 		if(isset($data['reproduction_type_id'])) { $update_data['reproduction_type_id'] = $data['reproduction_type_id']; };
+		if(isset($data['height_min'])) { $update_data['height_min'] = $data['height_min']; };
+		if(isset($data['height_max'])) { $update_data['height_max'] = $data['height_max']; };
+		if(isset($data['width_min'])) { $update_data['width_min'] = $data['width_min']; };
+		if(isset($data['width_max'])) { $update_data['width_max'] = $data['width_max']; };
+		if(isset($data['trunk_diameter_min'])) { $update_data['trunk_diameter_min'] = $data['trunk_diameter_min']; };
+		if(isset($data['trunk_diameter_max'])) { $update_data['trunk_diameter_max'] = $data['trunk_diameter_max']; };
+		if(isset($data['growth_rate'])) { $update_data['growth_rate'] = $data['growth_rate']; };
+		if(isset($data['lifespan_min'])) { $update_data['lifespan_min'] = $data['lifespan_min']; };
+		if(isset($data['lifespan_max'])) { $update_data['lifespan_max'] = $data['lifespan_max']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 
 		// the many to many table data...
@@ -90,13 +99,19 @@ class Trees extends Controller
 			'common_uses' => isset($data['common_uses']) ? $data['common_uses'] : null,
 			'wood_uses' => isset($data['wood_uses']) ? $data['wood_uses'] : null,
 			'unique_attractions' => isset($data['unique_attractions']) ? $data['unique_attractions'] : null,
-			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null
+			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null,
+			'break_dormancy_by' => isset($data['break_dormancy_by']) ? $data['break_dormancy_by'] : null
 		];
+
+		//conifer data
+		$conifer_data = [];
+		if(isset($data['conifer_leaf_type_id'])) { $conifer_data['leaf_type_id'] = $data['conifer_leaf_type_id']; };
 
 		if ($is_add) {
 			$insert_data = [
 				'insert' => $update_data,
-				'joins' => $joins_data
+				'joins' => $joins_data,
+				'conifer_data' => $conifer_data
 			];
 
 			$new_tree_id = $this->trees->add($insert_data);
@@ -106,6 +121,7 @@ class Trees extends Controller
 				'where' => ['id' => $data['tree_id']], 
 				'update' => $update_data,
 				'joins' => $joins_data,
+				'conifer_data' => $conifer_data,
 			]);
 
 			$new_tree = $this->trees->get(['id' => $data['tree_id']]);

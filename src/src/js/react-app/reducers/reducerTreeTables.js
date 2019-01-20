@@ -16,7 +16,9 @@ const INITIAL_STATE = {
 		'wood_uses' : [],
 		'unique_attractions' : [],
 		'tolerances' : [],
-		'reproduction_types' : []
+		'reproduction_types' : [],
+		'break_dormancy_by' : [],
+		'conifer_leaf_types' : []
 	}
 };
 

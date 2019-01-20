@@ -55,6 +55,7 @@ class EditTree extends Component {
 
         console.log(this.props.treeData);
 
+        // set tree values for the fields
         const formData = {
             //still must keep this for the id eventhough it isn't rendered
             'tree_id': this.props.treeData.id,
@@ -70,6 +71,16 @@ class EditTree extends Component {
             'trees_category_id': this.props.treeData.trees_category_id,
             'zone_id': this.props.treeData.zone_id,
             'reproduction_type_id': this.props.treeData.reproduction_type_id,
+            'height_min': this.props.treeData.height_min,
+            'height_max': this.props.treeData.height_max,
+            'width_min': this.props.treeData.width_min,
+            'width_max': this.props.treeData.width_max,
+            'trunk_diameter_min': this.props.treeData.trunk_diameter_min,
+            'trunk_diameter_max': this.props.treeData.trunk_diameter_max,
+            'growth_rate': this.props.treeData.growth_rate,
+            'lifespan_min': this.props.treeData.lifespan_min,
+            'lifespan_max': this.props.treeData.lifespan_max,
+            'conifer_leaf_type_id': this.props.treeData.conifer_leaf_type_id,
             //multiselects
             'origins': this.formatToMultiselect(this.props.treeData.origins),
             'regions': this.formatToMultiselect(this.props.treeData.regions),
@@ -81,6 +92,7 @@ class EditTree extends Component {
             'wood_uses': this.formatToMultiselect(this.props.treeData.wood_uses),
             'unique_attractions': this.formatToMultiselect(this.props.treeData.unique_attractions),
             'tolerances': this.formatToMultiselect(this.props.treeData.tolerances),
+            'break_dormancy_by': this.formatToMultiselect(this.props.treeData.break_dormancy_by)
         };
 
         this.props.initialize(formData);
@@ -99,7 +111,8 @@ class EditTree extends Component {
                 'common_uses', 
                 'wood_uses', 
                 'unique_attractions', 
-                'tolerances'
+                'tolerances',
+                'break_dormancy_by'
             ]);
 
         // call action to submit edited

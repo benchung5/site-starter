@@ -64,7 +64,8 @@ class AddTree extends Component {
                 'common_uses', 
                 'wood_uses', 
                 'unique_attractions', 
-                'tolerances'
+                'tolerances',
+                'break_dormancy_by'
             ]);
 
     // call action to submit edited

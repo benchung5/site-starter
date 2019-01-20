@@ -1,2 +1,2 @@
-SELECT DISTINCT ft.id, ft.ref_id, ft.name, ft.sort_order, ft.extension, tft.name AS tag_name, ft.description FROM files_trees ft LEFT JOIN tags_files_trees tft ON tft.id = ft.tag_id WHERE ref_id = '34'
+INSERT INTO trees_conifer (leaf_type_id,tree_id) VALUES ('2', '70')
 -----------------------------------------------

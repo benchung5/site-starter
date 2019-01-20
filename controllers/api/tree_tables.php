@@ -25,6 +25,8 @@ class Tree_tables extends Controller
 		$this->unique_attractions = $this->load_model('unique_attractions_model');
 		$this->tolerances = $this->load_model('tolerances_model');
 		$this->reproduction_types = $this->load_model('reproduction_types_model');
+		$this->break_dormancy_by = $this->load_model('break_dormancy_by_model');
+		$this->conifer_leaf_types = $this->load_model('conifer_leaf_types_model');
 
 		parent::__construct();
 	}
@@ -52,8 +54,10 @@ class Tree_tables extends Controller
 			'common_uses' => $this->common_uses->get_all() ?: [],
 			'wood_uses' => $this->wood_uses->get_all() ?: [],
 			'unique_attractions' => $this->unique_attractions->get_all() ?: [],
-			'tolerances' => $this->unique_attractions->get_all() ?: [],
-			'reproduction_types' => $this->reproduction_types->get_all() ?: []
+			'tolerances' => $this->tolerances->get_all() ?: [],
+			'reproduction_types' => $this->reproduction_types->get_all() ?: [],
+			'break_dormancy_by' => $this->break_dormancy_by->get_all() ?: [],
+			'conifer_leaf_types' => $this->conifer_leaf_types->get_all() ?: []
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);

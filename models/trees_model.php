@@ -125,6 +125,22 @@ class Trees_model extends Model
 				->where('id', $result->reproduction_type_id)
 				->get();
 
+			// break dormancy by
+			$result->break_dormancy_by = $this->db->table('trees_break_dormancy_by tbdb')
+				->select('bdb.id, bdb.name')
+				->where('tbdb.tree_id', $result->id)
+				->innerJoin('break_dormancy_by bdb', 'bdb.id', 'tbdb.break_dormancy_by_id')
+				->getAll();
+
+			// conifer_leaf_type
+			$conifer_leaf_type = $this->db->table('trees_conifer tc')
+				->select('tc.leaf_type_id')
+				->where('tc.tree_id', $result->id)
+				->get();
+			if ($conifer_leaf_type) {
+				$result->conifer_leaf_type_id = $conifer_leaf_type->leaf_type_id;
+			}
+
 			return $result;
 		}
 
@@ -160,8 +176,17 @@ class Trees_model extends Model
 				$this->insert_joins($new_tree_id, $joins, 'wood_uses', 'wood_use_id', 'trees_wood_uses');
 				$this->insert_joins($new_tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 				$this->insert_joins($new_tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
+				$this->insert_joins($new_tree_id, $joins, 'break_dormancy_by', 'break_dormancy_by_id', 'trees_break_dormancy_by');
 
 			}
+
+			// conifer data
+			if (isset($opts['conifer_data'])) {
+				$opts['conifer_data']['tree_id'] = $new_tree_id;
+				$this->db->table('trees_conifer')->insert($opts['conifer_data']);
+			}
+
+			Utils::dbug($this->db->getQuery());
 
 			return $new_tree_id;
 		}
@@ -184,9 +209,18 @@ class Trees_model extends Model
 	{
 		$tree_id = $this->db->table('trees')->where($opts['where'])->get()->id;
 
+		// streight updates
 		if (isset($opts['where']) && isset($opts['update'])) {
 			$this->db->table('trees');
 			$this->db->where($opts['where'])->update($opts['update']);
+		}
+
+		// conifer data
+		if (isset($opts['conifer_data'])) {
+			$conifer_data = $opts['conifer_data'];
+			$this->db->table('trees_conifer tc');
+			$this->db->where('tree_id', $tree_id);
+			$this->db->update($conifer_data);
 		}
 
 		// many to many tables
@@ -203,6 +237,7 @@ class Trees_model extends Model
 			$this->update_joins($tree_id, $joins, 'wood_uses', 'wood_use_id', 'trees_wood_uses');
 			$this->update_joins($tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 			$this->update_joins($tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
+			$this->update_joins($tree_id, $joins, 'break_dormancy_by', 'break_dormancy_by_id', 'trees_break_dormancy_by');
 		}
 	}
 
@@ -248,6 +283,10 @@ class Trees_model extends Model
 			$this->db->table('trees_common_uses')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_wood_uses')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_tolerances')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_break_dormancy_by')->where('tree_id', $deleted_tree_id)->delete();
+
+			// remove conifer data
+			$this->db->table('trees_conifer')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
 			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();
