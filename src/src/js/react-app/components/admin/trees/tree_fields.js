@@ -260,6 +260,30 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
+          name="conifer_leaf_structures"
+          label="conifer leaf structures"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.conifer_leaf_structures}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="conifer_leaf_cross_section_id"
+          label="conifer leaf cross section"
+          component={renderDropdownSelect}
+          selectItems={this.props.treeTables.conifer_leaf_cross_sections}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="conifer_cone_features"
+          label="conifer cone features"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.conifer_cone_features}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
             type="textarea"
             label="body"
             name="body"

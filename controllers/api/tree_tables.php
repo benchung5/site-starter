@@ -27,6 +27,9 @@ class Tree_tables extends Controller
 		$this->reproduction_types = $this->load_model('reproduction_types_model');
 		$this->break_dormancy_by = $this->load_model('break_dormancy_by_model');
 		$this->conifer_leaf_types = $this->load_model('conifer_leaf_types_model');
+		$this->conifer_leaf_structures = $this->load_model('conifer_leaf_structures_model');
+		$this->conifer_leaf_cross_sections = $this->load_model('conifer_leaf_cross_sections_model');
+		$this->conifer_cone_features = $this->load_model('conifer_cone_features_model');
 
 		parent::__construct();
 	}
@@ -57,7 +60,10 @@ class Tree_tables extends Controller
 			'tolerances' => $this->tolerances->get_all() ?: [],
 			'reproduction_types' => $this->reproduction_types->get_all() ?: [],
 			'break_dormancy_by' => $this->break_dormancy_by->get_all() ?: [],
-			'conifer_leaf_types' => $this->conifer_leaf_types->get_all() ?: []
+			'conifer_leaf_types' => $this->conifer_leaf_types->get_all() ?: [],
+			'conifer_leaf_structures' => $this->conifer_leaf_structures->get_all() ?: [],
+			'conifer_leaf_cross_sections' => $this->conifer_leaf_cross_sections->get_all() ?: [],
+			'conifer_cone_features' => $this->conifer_cone_features->get_all() ?: []
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);

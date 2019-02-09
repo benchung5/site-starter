@@ -18,7 +18,10 @@ const INITIAL_STATE = {
 		'tolerances' : [],
 		'reproduction_types' : [],
 		'break_dormancy_by' : [],
-		'conifer_leaf_types' : []
+		'conifer_leaf_types' : [],
+		'conifer_leaf_structures' : [],
+		'conifer_leaf_cross_sections' : [],
+		'conifer_cone_features' : []
 	}
 };
 

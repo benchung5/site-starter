@@ -53,8 +53,6 @@ class EditTree extends Component {
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'trees');
 
-        console.log(this.props.treeData);
-
         // set tree values for the fields
         const formData = {
             //still must keep this for the id eventhough it isn't rendered
@@ -81,6 +79,7 @@ class EditTree extends Component {
             'lifespan_min': this.props.treeData.lifespan_min,
             'lifespan_max': this.props.treeData.lifespan_max,
             'conifer_leaf_type_id': this.props.treeData.conifer_leaf_type_id,
+            'conifer_leaf_cross_section_id': this.props.treeData.conifer_leaf_cross_section_id,
             //multiselects
             'origins': this.formatToMultiselect(this.props.treeData.origins),
             'regions': this.formatToMultiselect(this.props.treeData.regions),
@@ -92,7 +91,9 @@ class EditTree extends Component {
             'wood_uses': this.formatToMultiselect(this.props.treeData.wood_uses),
             'unique_attractions': this.formatToMultiselect(this.props.treeData.unique_attractions),
             'tolerances': this.formatToMultiselect(this.props.treeData.tolerances),
-            'break_dormancy_by': this.formatToMultiselect(this.props.treeData.break_dormancy_by)
+            'break_dormancy_by': this.formatToMultiselect(this.props.treeData.break_dormancy_by),
+            'conifer_leaf_structures': this.formatToMultiselect(this.props.treeData.conifer_leaf_structures),
+            'conifer_cone_features': this.formatToMultiselect(this.props.treeData.conifer_cone_features)
         };
 
         this.props.initialize(formData);
@@ -112,7 +113,9 @@ class EditTree extends Component {
                 'wood_uses', 
                 'unique_attractions', 
                 'tolerances',
-                'break_dormancy_by'
+                'break_dormancy_by',
+                'conifer_leaf_structures',
+                'conifer_cone_features'
             ]);
 
         // call action to submit edited

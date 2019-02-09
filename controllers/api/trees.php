@@ -100,12 +100,15 @@ class Trees extends Controller
 			'wood_uses' => isset($data['wood_uses']) ? $data['wood_uses'] : null,
 			'unique_attractions' => isset($data['unique_attractions']) ? $data['unique_attractions'] : null,
 			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null,
-			'break_dormancy_by' => isset($data['break_dormancy_by']) ? $data['break_dormancy_by'] : null
+			'break_dormancy_by' => isset($data['break_dormancy_by']) ? $data['break_dormancy_by'] : null,
+			'conifer_leaf_structures' => isset($data['conifer_leaf_structures']) ? $data['conifer_leaf_structures'] : null,
+			'conifer_cone_features' => isset($data['conifer_cone_features']) ? $data['conifer_cone_features'] : null
 		];
 
 		//conifer data
 		$conifer_data = [];
 		if(isset($data['conifer_leaf_type_id'])) { $conifer_data['leaf_type_id'] = $data['conifer_leaf_type_id']; };
+		if(isset($data['conifer_leaf_cross_section_id'])) { $conifer_data['leaf_cross_section_id'] = $data['conifer_leaf_cross_section_id']; };
 
 		if ($is_add) {
 			$insert_data = [

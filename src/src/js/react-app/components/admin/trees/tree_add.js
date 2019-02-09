@@ -65,7 +65,9 @@ class AddTree extends Component {
                 'wood_uses', 
                 'unique_attractions', 
                 'tolerances',
-                'break_dormancy_by'
+                'break_dormancy_by',
+                'conifer_leaf_structures',
+                'conifer_cone_features'
             ]);
 
     // call action to submit edited
