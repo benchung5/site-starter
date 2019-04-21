@@ -114,7 +114,7 @@ class AddTree extends Component {
           <div className="row">
             <Sidebar/>
             <div className="columns small-12 large-9">
-              <h3>Add Tree</h3>
+              <h3>Add Plant</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <TreeFields
                     onInputChange={this.onInputChange.bind(this)}

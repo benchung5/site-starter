@@ -162,7 +162,7 @@ class EditTree extends Component {
                 <div className="row">
                     <Sidebar/>
                     <div className="columns small-12 large-9">
-                        <h3>Edit Tree</h3>
+                        <h3>Edit Plant</h3>
 
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             <TreeFields

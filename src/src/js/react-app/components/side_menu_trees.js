@@ -36,7 +36,7 @@ class SideMenu extends Component {
   }
 
   componentWillMount() {
-    let selectedOrigines = getUrlParams('origins');
+    let selectedOrigines = getUrlParams('ecoregions');
     let selectedCategories = getUrlParams('categories');
     //console.log(selectedCategories);
     //populate the filter with initial data

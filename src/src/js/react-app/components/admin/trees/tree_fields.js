@@ -94,7 +94,7 @@ class TreeFields extends Component  {
         />
         <Field
           name="origins"
-          label="origins"
+          label="ecoregions"
           component={renderMultiSelect}
           selectItems={this.props.treeTables.origins}
           onChange={this.props.onInputChange}

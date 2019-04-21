@@ -12,7 +12,7 @@ $this->insert('featured', $view_data );
                         <h1>3D Modeler</h1>
                         <h2>& CG artist - Ben Chung</h2>
                         <p>Hello. I'm a freelance 3d modeller with a background in the game industry and the web.</p>
-                        <a class="button-view-models transparent" href="filter">View Models</a>
+                        <a class="button-view-models transparent" href="filter_plants">View Models</a>
                     </div>
                 </div>
 

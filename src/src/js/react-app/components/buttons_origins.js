@@ -20,7 +20,7 @@ class ButtonsOrigins extends Component {
 	onUpdateData(modifiedData) {
 		//update the has url with the selected origins
 		let originSlugs = flattenActiveObjArray(modifiedData, 'slug');
-		setUrlParams('origins', originSlugs);
+		setUrlParams('ecoregions', originSlugs);
 
 		this.props.dispatch(filterOrigins(modifiedData));
 	}
@@ -30,7 +30,7 @@ class ButtonsOrigins extends Component {
 			return (
 			        <Dropdown
 			          classProp=""
-			          name='Origins'
+			          name='Ecoregions'
 			          height={this.buttonHeight  * this.props.filteredOrigins.length}
 			        >
 			         <ButtonList

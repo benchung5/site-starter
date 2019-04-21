@@ -3,7 +3,7 @@ namespace Controllers;
 use Lib\Controller;
 use Lib\Utils;
 
-class Filter_trees extends Controller 
+class Filter_plants extends Controller 
 {
 	public function __construct() 
 	{
@@ -14,7 +14,7 @@ class Filter_trees extends Controller
 
 	public function index() 
 	{
-		$this->render('filter_trees');
+		$this->render('filter_plants');
 	}
 
 	public function view($slug = null)
@@ -22,10 +22,10 @@ class Filter_trees extends Controller
 		$view_data = [];
 
 		if ($slug) {
-			$tree = $this->trees->get(['slug' => $slug]);
-			$view_data['tree'] = $tree;
+			$plant = $this->trees->get(['slug' => $slug]);
+			$view_data['tree'] = $plant;
 		}
 
-		$this->render('view_tree', $view_data );
+		$this->render('view_plant', $view_data );
 	}
 }
