@@ -101,10 +101,10 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
-          name="regions"
-          label="origin regions"
+          name="eco_benefits"
+          label="eco benefits"
           component={renderMultiSelect}
-          selectItems={this.props.treeTables.regions}
+          selectItems={this.props.treeTables.eco_benefits}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />
@@ -125,10 +125,10 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
-          name="trunk_arrangements"
-          label="trunk arrangements"
+          name="light"
+          label="light"
           component={renderMultiSelect}
-          selectItems={this.props.treeTables.trunk_arrangements}
+          selectItems={this.props.treeTables.light}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />
@@ -156,20 +156,6 @@ class TreeFields extends Component  {
         <Field
           label="width max"
           name="width_max"
-          component={renderField}
-          onChange={this.props.onInputChange}
-          onFocus={this.props.onInputChange}
-        />
-        <Field
-          label="trunk diameter min"
-          name="trunk_diameter_min"
-          component={renderField}
-          onChange={this.props.onInputChange}
-          onFocus={this.props.onInputChange}
-        />
-        <Field
-          label="trunk diameter max"
-          name="trunk_diameter_max"
           component={renderField}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
@@ -248,38 +234,6 @@ class TreeFields extends Component  {
           label="break dormancy by"
           component={renderMultiSelect}
           selectItems={this.props.treeTables.break_dormancy_by}
-          onChange={this.props.onInputChange}
-          onFocus={this.props.onInputChange}
-        />
-        <Field
-          name="conifer_leaf_type_id"
-          label="conifer leaf type"
-          component={renderDropdownSelect}
-          selectItems={this.props.treeTables.conifer_leaf_types}
-          onChange={this.props.onInputChange}
-          onFocus={this.props.onInputChange}
-        />
-        <Field
-          name="conifer_leaf_structures"
-          label="conifer leaf structures"
-          component={renderMultiSelect}
-          selectItems={this.props.treeTables.conifer_leaf_structures}
-          onChange={this.props.onInputChange}
-          onFocus={this.props.onInputChange}
-        />
-        <Field
-          name="conifer_leaf_cross_section_id"
-          label="conifer leaf cross section"
-          component={renderDropdownSelect}
-          selectItems={this.props.treeTables.conifer_leaf_cross_sections}
-          onChange={this.props.onInputChange}
-          onFocus={this.props.onInputChange}
-        />
-        <Field
-          name="conifer_cone_features"
-          label="conifer cone features"
-          component={renderMultiSelect}
-          selectItems={this.props.treeTables.conifer_cone_features}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />

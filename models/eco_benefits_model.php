@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Trunk_arrangements_model extends Model
+class Eco_benefits_model extends Model
 {
 	public $options;
 
@@ -13,7 +13,7 @@ class Trunk_arrangements_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('trunk_arrangements');
+		$this->db->table('eco_benefits');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

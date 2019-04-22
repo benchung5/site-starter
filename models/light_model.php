@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Regions_model extends Model
+class Light_model extends Model
 {
 	public $options;
 
@@ -13,7 +13,7 @@ class Regions_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('regions');
+		$this->db->table('light');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

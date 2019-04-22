@@ -73,18 +73,14 @@ class EditTree extends Component {
             'height_max': this.props.treeData.height_max,
             'width_min': this.props.treeData.width_min,
             'width_max': this.props.treeData.width_max,
-            'trunk_diameter_min': this.props.treeData.trunk_diameter_min,
-            'trunk_diameter_max': this.props.treeData.trunk_diameter_max,
             'growth_rate': this.props.treeData.growth_rate,
             'lifespan_min': this.props.treeData.lifespan_min,
             'lifespan_max': this.props.treeData.lifespan_max,
-            'conifer_leaf_type_id': this.props.treeData.conifer_leaf_type_id,
-            'conifer_leaf_cross_section_id': this.props.treeData.conifer_leaf_cross_section_id,
             //multiselects
             'origins': this.formatToMultiselect(this.props.treeData.origins),
-            'regions': this.formatToMultiselect(this.props.treeData.regions),
+            'eco_benefits': this.formatToMultiselect(this.props.treeData.eco_benefits),
             'shapes': this.formatToMultiselect(this.props.treeData.shapes),
-            'trunk_arrangements': this.formatToMultiselect(this.props.treeData.trunk_arrangements),
+            'light': this.formatToMultiselect(this.props.treeData.light),
             'bark': this.formatToMultiselect(this.props.treeData.bark),
             'natural_habitat': this.formatToMultiselect(this.props.treeData.natural_habitat),
             'common_uses': this.formatToMultiselect(this.props.treeData.common_uses),
@@ -92,8 +88,6 @@ class EditTree extends Component {
             'unique_attractions': this.formatToMultiselect(this.props.treeData.unique_attractions),
             'tolerances': this.formatToMultiselect(this.props.treeData.tolerances),
             'break_dormancy_by': this.formatToMultiselect(this.props.treeData.break_dormancy_by),
-            'conifer_leaf_structures': this.formatToMultiselect(this.props.treeData.conifer_leaf_structures),
-            'conifer_cone_features': this.formatToMultiselect(this.props.treeData.conifer_cone_features)
         };
 
         this.props.initialize(formData);
@@ -104,9 +98,9 @@ class EditTree extends Component {
         let formpropsClone = [];
         formpropsClone = formatOutMultiselects(formProps, [
                 'origins', 
-                'regions', 
+                'eco_benefits', 
                 'shapes', 
-                'trunk_arrangements', 
+                'light', 
                 'bark', 
                 'natural_habitat', 
                 'common_uses', 
@@ -114,8 +108,6 @@ class EditTree extends Component {
                 'unique_attractions', 
                 'tolerances',
                 'break_dormancy_by',
-                'conifer_leaf_structures',
-                'conifer_cone_features'
             ]);
 
         // call action to submit edited

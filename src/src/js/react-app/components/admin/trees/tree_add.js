@@ -56,9 +56,9 @@ class AddTree extends Component {
     let formpropsClone = [];
     formpropsClone = formatOutMultiselects(formProps, [
                 'origins', 
-                'regions', 
+                'eco_benefits', 
                 'shapes', 
-                'trunk_arrangements', 
+                'light', 
                 'bark', 
                 'natural_habitat', 
                 'common_uses', 
@@ -66,8 +66,6 @@ class AddTree extends Component {
                 'unique_attractions', 
                 'tolerances',
                 'break_dormancy_by',
-                'conifer_leaf_structures',
-                'conifer_cone_features'
             ]);
 
     // call action to submit edited

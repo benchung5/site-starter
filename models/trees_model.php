@@ -37,11 +37,11 @@ class Trees_model extends Model
 				->innerJoin('origins o', 'o.id', '_to.origin_id')
 				->getAll();
 
-			// regions
-			$result->regions = $this->db->table('trees_regions tr')
-				->select('r.id, r.name')
-				->where('tr.tree_id', $result->id)
-				->innerJoin('regions r', 'r.id', 'tr.region_id')
+			// eco_benefits
+			$result->eco_benefits = $this->db->table('trees_eco_benefits te')
+				->select('e.id, e.name')
+				->where('te.tree_id', $result->id)
+				->innerJoin('eco_benefits e', 'e.id', 'te.eco_benefit_id')
 				->getAll();
 
 			// zone
@@ -70,11 +70,11 @@ class Trees_model extends Model
 				->innerJoin('shapes s', 's.id', 'ts.shape_id')
 				->getAll();
 
-			// trunk_arrangements
-			$result->trunk_arrangements = $this->db->table('trees_trunk_arrangements tta')
-				->select('ta.id, ta.name')
-				->where('tta.tree_id', $result->id)
-				->innerJoin('trunk_arrangements ta', 'ta.id', 'tta.trunk_arrangement_id')
+			// light
+			$result->light = $this->db->table('trees_light tl')
+				->select('l.id, l.name')
+				->where('tl.tree_id', $result->id)
+				->innerJoin('light l', 'l.id', 'tl.light_id')
 				->getAll();
 
 			// bark
@@ -132,37 +132,37 @@ class Trees_model extends Model
 				->innerJoin('break_dormancy_by bdb', 'bdb.id', 'tbdb.break_dormancy_by_id')
 				->getAll();
 
-			// conifer_leaf_type
-			$conifer_leaf_type = $this->db->table('trees_conifer tc')
-				->select('tc.leaf_type_id')
-				->where('tc.tree_id', $result->id)
-				->get();
-			if ($conifer_leaf_type) {
-				$result->conifer_leaf_type_id = $conifer_leaf_type->leaf_type_id;
-			}
+			// // conifer_leaf_type
+			// $conifer_leaf_type = $this->db->table('trees_conifer tc')
+			// 	->select('tc.leaf_type_id')
+			// 	->where('tc.tree_id', $result->id)
+			// 	->get();
+			// if ($conifer_leaf_type) {
+			// 	$result->conifer_leaf_type_id = $conifer_leaf_type->leaf_type_id;
+			// }
 
-			// conifer leaf structures
-			$result->conifer_leaf_structures = $this->db->table('trees_conifer_leaf_structures tcls')
-				->select('cls.id, cls.name')
-				->where('tcls.tree_id', $result->id)
-				->innerJoin('conifer_leaf_structures cls', 'cls.id', 'tcls.conifer_leaf_structure_id')
-				->getAll();
+			// // conifer leaf structures
+			// $result->conifer_leaf_structures = $this->db->table('trees_conifer_leaf_structures tcls')
+			// 	->select('cls.id, cls.name')
+			// 	->where('tcls.tree_id', $result->id)
+			// 	->innerJoin('conifer_leaf_structures cls', 'cls.id', 'tcls.conifer_leaf_structure_id')
+			// 	->getAll();
 
-			// conifer leaf cross section
-			$conifer_leaf_cross_section = $this->db->table('trees_conifer tc')
-				->select('tc.leaf_cross_section_id')
-				->where('tc.tree_id', $result->id)
-				->get();
-			if ($conifer_leaf_cross_section) {
-				$result->conifer_leaf_cross_section_id = $conifer_leaf_cross_section->leaf_cross_section_id;
-			}
+			// // conifer leaf cross section
+			// $conifer_leaf_cross_section = $this->db->table('trees_conifer tc')
+			// 	->select('tc.leaf_cross_section_id')
+			// 	->where('tc.tree_id', $result->id)
+			// 	->get();
+			// if ($conifer_leaf_cross_section) {
+			// 	$result->conifer_leaf_cross_section_id = $conifer_leaf_cross_section->leaf_cross_section_id;
+			// }
 
-			// conifer cone features
-			$result->conifer_cone_features = $this->db->table('trees_conifer_cone_features tccf')
-				->select('ccf.id, ccf.name')
-				->where('tccf.tree_id', $result->id)
-				->innerJoin('conifer_cone_features ccf', 'ccf.id', 'tccf.conifer_cone_feature_id')
-				->getAll();
+			// // conifer cone features
+			// $result->conifer_cone_features = $this->db->table('trees_conifer_cone_features tccf')
+			// 	->select('ccf.id, ccf.name')
+			// 	->where('tccf.tree_id', $result->id)
+			// 	->innerJoin('conifer_cone_features ccf', 'ccf.id', 'tccf.conifer_cone_feature_id')
+			// 	->getAll();
 
 
 			return $result;
@@ -191,9 +191,9 @@ class Trees_model extends Model
 				$joins = $opts['joins'];
 
 				$this->insert_joins($new_tree_id, $joins, 'origins', 'origin_id', 'trees_origins');
-				$this->insert_joins($new_tree_id, $joins, 'regions', 'region_id', 'trees_regions');
+				$this->insert_joins($new_tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
 				$this->insert_joins($new_tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
-				$this->insert_joins($new_tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
+				$this->insert_joins($new_tree_id, $joins, 'light', 'light_id', 'trees_light');
 				$this->insert_joins($new_tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
 				$this->insert_joins($new_tree_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
 				$this->insert_joins($new_tree_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
@@ -201,16 +201,16 @@ class Trees_model extends Model
 				$this->insert_joins($new_tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 				$this->insert_joins($new_tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
 				$this->insert_joins($new_tree_id, $joins, 'break_dormancy_by', 'break_dormancy_by_id', 'trees_break_dormancy_by');
-				$this->insert_joins($new_tree_id, $joins, 'conifer_leaf_structures', 'conifer_leaf_structure_id', 'trees_conifer_leaf_structures');
-				$this->insert_joins($new_tree_id, $joins, 'conifer_cone_features', 'conifer_cone_feature_id', 'trees_conifer_cone_features');
+				// $this->insert_joins($new_tree_id, $joins, 'conifer_leaf_structures', 'conifer_leaf_structure_id', 'trees_conifer_leaf_structures');
+				// $this->insert_joins($new_tree_id, $joins, 'conifer_cone_features', 'conifer_cone_feature_id', 'trees_conifer_cone_features');
 
 			}
 
-			// conifer data
-			if (isset($opts['conifer_data'])) {
-				$opts['conifer_data']['tree_id'] = $new_tree_id;
-				$this->db->table('trees_conifer')->insert($opts['conifer_data']);
-			}
+			// // conifer data
+			// if (isset($opts['conifer_data'])) {
+			// 	$opts['conifer_data']['tree_id'] = $new_tree_id;
+			// 	$this->db->table('trees_conifer')->insert($opts['conifer_data']);
+			// }
 
 			return $new_tree_id;
 		}
@@ -239,35 +239,35 @@ class Trees_model extends Model
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
 
-		// conifer data
-		if (isset($opts['conifer_data'])) {
-			$conifer_data = $opts['conifer_data'];
+		// // conifer data
+		// if (isset($opts['conifer_data'])) {
+		// 	$conifer_data = $opts['conifer_data'];
 
-			// if doesn't already exist, create new trees_confifer row
-			$result = $this->db->table('trees_conifer tc')
-				->where('tree_id', $tree_id)
-				->get();
+		// 	// if doesn't already exist, create new trees_confifer row
+		// 	$result = $this->db->table('trees_conifer tc')
+		// 		->where('tree_id', $tree_id)
+		// 		->get();
 
-			$conifer_data['tree_id'] = $tree_id;
+		// 	$conifer_data['tree_id'] = $tree_id;
 
-			$this->db->table('trees_conifer');
+		// 	$this->db->table('trees_conifer');
 
-			if ($result) {
-				$this->db->where('tree_id', $tree_id);
-				$this->db->update($conifer_data);
-			} else {
-				$this->db->insert($conifer_data);
-			}
-		}
+		// 	if ($result) {
+		// 		$this->db->where('tree_id', $tree_id);
+		// 		$this->db->update($conifer_data);
+		// 	} else {
+		// 		$this->db->insert($conifer_data);
+		// 	}
+		// }
 
 		// many to many tables
 		if (isset($opts['joins'])) {
 			$joins = $opts['joins'];
 
 			$this->update_joins($tree_id, $joins, 'origins', 'origin_id', 'trees_origins');
-			$this->update_joins($tree_id, $joins, 'regions', 'region_id', 'trees_regions');
+			$this->update_joins($tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
 			$this->update_joins($tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
-			$this->update_joins($tree_id, $joins, 'trunk_arrangements', 'trunk_arrangement_id', 'trees_trunk_arrangements');
+			$this->update_joins($tree_id, $joins, 'light', 'light_id', 'trees_light');
 			$this->update_joins($tree_id, $joins, 'bark', 'bark_id', 'trees_bark');
 			$this->update_joins($tree_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
 			$this->update_joins($tree_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
@@ -275,8 +275,8 @@ class Trees_model extends Model
 			$this->update_joins($tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 			$this->update_joins($tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
 			$this->update_joins($tree_id, $joins, 'break_dormancy_by', 'break_dormancy_by_id', 'trees_break_dormancy_by');
-			$this->update_joins($tree_id, $joins, 'conifer_leaf_structures', 'conifer_leaf_structure_id', 'trees_conifer_leaf_structures');
-			$this->update_joins($tree_id, $joins, 'conifer_cone_features', 'conifer_cone_feature_id', 'trees_conifer_cone_features');
+			// $this->update_joins($tree_id, $joins, 'conifer_leaf_structures', 'conifer_leaf_structure_id', 'trees_conifer_leaf_structures');
+			// $this->update_joins($tree_id, $joins, 'conifer_cone_features', 'conifer_cone_feature_id', 'trees_conifer_cone_features');
 		}
 	}
 
@@ -286,9 +286,9 @@ class Trees_model extends Model
 			$this->db->table($join_table_name)->where('tree_id', $tree_id)->delete();
 
 			// insert new associations
-			$trunk_arrangements = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
-			foreach ($trunk_arrangements as $trunk_arrangement_id) {
-				$this->db->table($join_table_name)->insert(['tree_id' => $tree_id, $table_id_name => $trunk_arrangement_id]);
+			$light = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
+			foreach ($light as $light_id) {
+				$this->db->table($join_table_name)->insert(['tree_id' => $tree_id, $table_id_name => $light_id]);
 			}
 		}
 	}
@@ -314,20 +314,20 @@ class Trees_model extends Model
 
 			// remove joins
 			$this->db->table('trees_origins')->where('tree_id', $deleted_tree_id)->delete();
-			$this->db->table('trees_regions')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_eco_benefits')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_shapes')->where('tree_id', $deleted_tree_id)->delete();
-			$this->db->table('trees_trunk_arrangements')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_light')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_bark')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_natural_habitat')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_common_uses')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_wood_uses')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_tolerances')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_break_dormancy_by')->where('tree_id', $deleted_tree_id)->delete();
-			$this->db->table('trees_conifer_leaf_structures')->where('tree_id', $deleted_tree_id)->delete();
-			$this->db->table('trees_conifer_cone_features')->where('tree_id', $deleted_tree_id)->delete();
+			// $this->db->table('trees_conifer_leaf_structures')->where('tree_id', $deleted_tree_id)->delete();
+			// $this->db->table('trees_conifer_cone_features')->where('tree_id', $deleted_tree_id)->delete();
 
 			// remove conifer data
-			$this->db->table('trees_conifer')->where('tree_id', $deleted_tree_id)->delete();
+			//$this->db->table('trees_conifer')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
 			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();

@@ -11,13 +11,13 @@ class Tree_tables extends Controller
 	public function __construct() 
 	{
 		$this->origins = $this->load_model('origins_model');
-		$this->regions = $this->load_model('regions_model');
+		$this->eco_benefits = $this->load_model('eco_benefits_model');
 		$this->zones = $this->load_model('zones_model');
 		$this->tree_categories = $this->load_model('trees_category_model');
 		$this->genuses = $this->load_model('genuses_model');
 		$this->tags = $this->load_model('tags_files_trees_model');
 		$this->shapes = $this->load_model('shapes_model');
-		$this->trunk_arrangements = $this->load_model('trunk_arrangements_model');
+		$this->light = $this->load_model('light_model');
 		$this->bark = $this->load_model('bark_model');
 		$this->natural_habitat = $this->load_model('natural_habitat_model');
 		$this->common_uses = $this->load_model('common_uses_model');
@@ -26,10 +26,6 @@ class Tree_tables extends Controller
 		$this->tolerances = $this->load_model('tolerances_model');
 		$this->reproduction_types = $this->load_model('reproduction_types_model');
 		$this->break_dormancy_by = $this->load_model('break_dormancy_by_model');
-		$this->conifer_leaf_types = $this->load_model('conifer_leaf_types_model');
-		$this->conifer_leaf_structures = $this->load_model('conifer_leaf_structures_model');
-		$this->conifer_leaf_cross_sections = $this->load_model('conifer_leaf_cross_sections_model');
-		$this->conifer_cone_features = $this->load_model('conifer_cone_features_model');
 
 		parent::__construct();
 	}
@@ -45,13 +41,13 @@ class Tree_tables extends Controller
 
 		$tree_tables = [
 			'origins' => $this->origins->get_all() ?: [],
-			'regions' => $this->regions->get_all() ?: [],
+			'eco_benefits' => $this->eco_benefits->get_all() ?: [],
 			'zones' => $this->zones->get_all() ?: [],
 			'trees_category' =>  $this->tree_categories->get_all() ?: [],
 			'genuses' => $this->genuses->get_all() ?: [],
 			'tags' => $this->tags->get_all() ?: [],
 			'shapes' => $this->shapes->get_all() ?: [],
-			'trunk_arrangements' => $this->trunk_arrangements->get_all() ?: [],
+			'light' => $this->light->get_all() ?: [],
 			'bark' => $this->bark->get_all() ?: [],
 			'natural_habitat' => $this->natural_habitat->get_all() ?: [],
 			'common_uses' => $this->common_uses->get_all() ?: [],
@@ -60,10 +56,6 @@ class Tree_tables extends Controller
 			'tolerances' => $this->tolerances->get_all() ?: [],
 			'reproduction_types' => $this->reproduction_types->get_all() ?: [],
 			'break_dormancy_by' => $this->break_dormancy_by->get_all() ?: [],
-			'conifer_leaf_types' => $this->conifer_leaf_types->get_all() ?: [],
-			'conifer_leaf_structures' => $this->conifer_leaf_structures->get_all() ?: [],
-			'conifer_leaf_cross_sections' => $this->conifer_leaf_cross_sections->get_all() ?: [],
-			'conifer_cone_features' => $this->conifer_cone_features->get_all() ?: []
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);
