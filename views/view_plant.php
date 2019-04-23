@@ -29,7 +29,7 @@ use Lib\Utils;
 				?>
 
 				<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br>
-				<span>Native to: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
+				<span>Ecozones: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
 				<!-- don't sanitize body since we need html -->
 				<p><?= $view_data['tree']->body ?></p>
 
