@@ -18,14 +18,15 @@ class Tree_tables extends Controller
 		$this->tags = $this->load_model('tags_files_trees_model');
 		$this->shapes = $this->load_model('shapes_model');
 		$this->light = $this->load_model('light_model');
-		$this->bark = $this->load_model('bark_model');
+		$this->soil = $this->load_model('soil_model');
 		$this->natural_habitat = $this->load_model('natural_habitat_model');
 		$this->common_uses = $this->load_model('common_uses_model');
-		$this->wood_uses = $this->load_model('wood_uses_model');
+		$this->transplanting = $this->load_model('transplanting_model');
 		$this->unique_attractions = $this->load_model('unique_attractions_model');
 		$this->tolerances = $this->load_model('tolerances_model');
 		$this->reproduction_types = $this->load_model('reproduction_types_model');
-		$this->break_dormancy_by = $this->load_model('break_dormancy_by_model');
+		$this->insects = $this->load_model('insects_model');
+		$this->diseases = $this->load_model('diseases_model');
 
 		parent::__construct();
 	}
@@ -48,14 +49,15 @@ class Tree_tables extends Controller
 			'tags' => $this->tags->get_all() ?: [],
 			'shapes' => $this->shapes->get_all() ?: [],
 			'light' => $this->light->get_all() ?: [],
-			'bark' => $this->bark->get_all() ?: [],
+			'soil' => $this->soil->get_all() ?: [],
 			'natural_habitat' => $this->natural_habitat->get_all() ?: [],
 			'common_uses' => $this->common_uses->get_all() ?: [],
-			'wood_uses' => $this->wood_uses->get_all() ?: [],
+			'transplanting' => $this->transplanting->get_all() ?: [],
 			'unique_attractions' => $this->unique_attractions->get_all() ?: [],
 			'tolerances' => $this->tolerances->get_all() ?: [],
 			'reproduction_types' => $this->reproduction_types->get_all() ?: [],
-			'break_dormancy_by' => $this->break_dormancy_by->get_all() ?: [],
+			'insects' => $this->insects->get_all() ?: [],
+			'diseases' => $this->diseases->get_all() ?: [],
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);

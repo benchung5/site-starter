@@ -92,13 +92,14 @@ class Trees extends Controller
 			'eco_benefits' => isset($data['eco_benefits']) ? $data['eco_benefits'] : null,
 			'shapes' => isset($data['shapes']) ? $data['shapes'] : null,
 			'light' => isset($data['light']) ? $data['light'] : null,
-			'bark' => isset($data['bark']) ? $data['bark'] : null,
+			'soil' => isset($data['soil']) ? $data['soil'] : null,
 			'natural_habitat' => isset($data['natural_habitat']) ? $data['natural_habitat'] : null,
 			'common_uses' => isset($data['common_uses']) ? $data['common_uses'] : null,
-			'wood_uses' => isset($data['wood_uses']) ? $data['wood_uses'] : null,
+			'transplanting' => isset($data['transplanting']) ? $data['transplanting'] : null,
 			'unique_attractions' => isset($data['unique_attractions']) ? $data['unique_attractions'] : null,
 			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null,
-			'break_dormancy_by' => isset($data['break_dormancy_by']) ? $data['break_dormancy_by'] : null,
+			'insects' => isset($data['insects']) ? $data['insects'] : null,
+			'diseases' => isset($data['diseases']) ? $data['diseases'] : null,
 			// 'conifer_leaf_structures' => isset($data['conifer_leaf_structures']) ? $data['conifer_leaf_structures'] : null,
 			// 'conifer_cone_features' => isset($data['conifer_cone_features']) ? $data['conifer_cone_features'] : null
 		];

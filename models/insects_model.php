@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Bark_model extends Model
+class Insects_model extends Model
 {
 	public $options;
 
@@ -11,9 +11,9 @@ class Bark_model extends Model
 		parent::__construct();
 	}
 
-	public function get_all($opts = []) 
+	public function get_all($opts = [])
 	{
-		$this->db->table('bark');
+		$this->db->table('insects');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Wood_uses_model extends Model
+class Soil_model extends Model
 {
 	public $options;
 
@@ -13,7 +13,7 @@ class Wood_uses_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('wood_uses');
+		$this->db->table('soil');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

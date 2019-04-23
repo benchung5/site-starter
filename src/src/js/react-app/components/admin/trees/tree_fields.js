@@ -163,7 +163,12 @@ class TreeFields extends Component  {
         <Field
           label="growth rate"
           name="growth_rate"
-          component={renderField}
+          component={renderDropdownSelect}
+          selectItems={[
+            {id: "slow", slug: "slow", name: "slow"},
+            {id: "medium", slug: "medium", name: "medium"},
+            {id: "fast", slug: "fast", name: "fast"},
+          ]}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />
@@ -182,10 +187,10 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
-          name="bark"
-          label="bark"
+          name="soil"
+          label="soil"
           component={renderMultiSelect}
-          selectItems={this.props.treeTables.bark}
+          selectItems={this.props.treeTables.soil}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />
@@ -198,10 +203,10 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
-          name="wood_uses"
-          label="wood uses"
+          name="transplanting"
+          label="transplanting"
           component={renderMultiSelect}
-          selectItems={this.props.treeTables.wood_uses}
+          selectItems={this.props.treeTables.transplanting}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />
@@ -230,10 +235,18 @@ class TreeFields extends Component  {
           onFocus={this.props.onInputChange}
         />
         <Field
-          name="break_dormancy_by"
-          label="break dormancy by"
+          name="insects"
+          label="insects"
           component={renderMultiSelect}
-          selectItems={this.props.treeTables.break_dormancy_by}
+          selectItems={this.props.treeTables.insects}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="diseases"
+          label="diseases"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.diseases}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />

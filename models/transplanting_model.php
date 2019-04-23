@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Break_dormancy_by_model extends Model
+class Transplanting_model extends Model
 {
 	public $options;
 
@@ -11,9 +11,9 @@ class Break_dormancy_by_model extends Model
 		parent::__construct();
 	}
 
-	public function get_all($opts = [])
+	public function get_all($opts = []) 
 	{
-		$this->db->table('break_dormancy_by');
+		$this->db->table('transplanting');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

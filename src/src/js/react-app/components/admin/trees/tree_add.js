@@ -59,13 +59,14 @@ class AddTree extends Component {
                 'eco_benefits', 
                 'shapes', 
                 'light', 
-                'bark', 
+                'soil', 
                 'natural_habitat', 
                 'common_uses', 
-                'wood_uses', 
+                'transplanting', 
                 'unique_attractions', 
                 'tolerances',
-                'break_dormancy_by',
+                'insects',
+                'diseases',
             ]);
 
     // call action to submit edited

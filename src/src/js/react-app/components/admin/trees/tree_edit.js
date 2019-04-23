@@ -81,13 +81,14 @@ class EditTree extends Component {
             'eco_benefits': this.formatToMultiselect(this.props.treeData.eco_benefits),
             'shapes': this.formatToMultiselect(this.props.treeData.shapes),
             'light': this.formatToMultiselect(this.props.treeData.light),
-            'bark': this.formatToMultiselect(this.props.treeData.bark),
+            'soil': this.formatToMultiselect(this.props.treeData.soil),
             'natural_habitat': this.formatToMultiselect(this.props.treeData.natural_habitat),
             'common_uses': this.formatToMultiselect(this.props.treeData.common_uses),
-            'wood_uses': this.formatToMultiselect(this.props.treeData.wood_uses),
+            'transplanting': this.formatToMultiselect(this.props.treeData.transplanting),
             'unique_attractions': this.formatToMultiselect(this.props.treeData.unique_attractions),
             'tolerances': this.formatToMultiselect(this.props.treeData.tolerances),
-            'break_dormancy_by': this.formatToMultiselect(this.props.treeData.break_dormancy_by),
+            'insects': this.formatToMultiselect(this.props.treeData.insects),
+            'diseases': this.formatToMultiselect(this.props.treeData.diseases),
         };
 
         this.props.initialize(formData);
@@ -101,13 +102,14 @@ class EditTree extends Component {
                 'eco_benefits', 
                 'shapes', 
                 'light', 
-                'bark', 
+                'soil', 
                 'natural_habitat', 
                 'common_uses', 
-                'wood_uses', 
+                'transplanting', 
                 'unique_attractions', 
                 'tolerances',
-                'break_dormancy_by',
+                'insects',
+                'diseases',
             ]);
 
         // call action to submit edited
