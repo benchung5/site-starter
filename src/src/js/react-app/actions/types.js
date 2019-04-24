@@ -34,20 +34,12 @@ export const DELETE_USER = 'delete_user';
 export const ADD_USER = 'add_user';
 
 //categories
-export const ADD_CATEGORY = 'add_category';
-export const ADD_CATEGORY_ERROR = 'add_category_error';
-export const FETCH_CATEGORIES = 'fetch_categories';
-export const DELETE_CATEGORY = 'delete_category';
-export const UPDATE_CATEGORY = 'update_category';
-export const GET_CATEGORY = 'get_category';
-
-//themes
-export const ADD_THEME = 'add_theme';
-export const ADD_THEME_ERROR = 'add_theme_error';
-export const FETCH_THEMES = 'fetch_themes';
-export const DELETE_THEME = 'delete_theme';
-export const UPDATE_THEME = 'update_theme';
-export const GET_THEME = 'get_theme';
+export const ADD_CATEGORY = 'add_categories';
+export const ADD_CATEGORY_ERROR = 'add_categories_error';
+export const FETCH_CATEGORYS = 'fetch_categories';
+export const DELETE_CATEGORY = 'delete_categories';
+export const UPDATE_CATEGORY = 'update_categories';
+export const GET_CATEGORY = 'get_categories';
 
 //origins
 export const FETCH_ORIGINS = 'fetch_origins';
@@ -62,7 +54,6 @@ export const TREES_FILTER = 'trees_filter';
 
 //global
 export const CATEGORIES_FILTER = 'categories_filter';
-export const THEMES_FILTER = 'themes_filter';
 
 //location
 export const GET_LOCATION = 'get_location';

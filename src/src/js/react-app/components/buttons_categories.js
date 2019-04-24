@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { populateThemeFilter, filterThemes } from '../actions/global';
+import { populateCategoriesFilter, filterCategories } from '../actions/global';
 // import { isLoading } from '../actions/internalLoad';
 import ButtonComponent from './parts/button_component';
 import Dropdown from './parts/dropdown';
@@ -8,7 +8,7 @@ import ButtonList from './parts/button_list';
 import labels from '../data/labels';
 import { setUrlParams, getUrlParams, flattenActiveObjArray } from '../lib/utils';
 
-class ThemesButtons extends Component {
+class CategoriesButtons extends Component {
 
 	constructor(props) {
 		super(props);
@@ -18,33 +18,33 @@ class ThemesButtons extends Component {
 	}
 
 	componentWillMount() {
-		let selectedThemes = getUrlParams('themes');
+		let selectedCategories = getUrlParams('categories');
 		//populate the filter with initial data
-		this.props.dispatch(populateThemeFilter(selectedThemes));
+		this.props.dispatch(populateCategoriesFilter(selectedCategories));
 	}
 
 	onUpdateData(modifiedData) {
-		//update the hash url with the selected themes
-		let themeSlugs = flattenActiveObjArray(modifiedData, 'slug');
-		setUrlParams('themes', themeSlugs);
+		//update the hash url with the selected categories
+		let categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
+		setUrlParams('categories', categorySlugs);
 
-		this.props.dispatch(filterThemes(modifiedData));
+		this.props.dispatch(filterCategories(modifiedData));
 	}
 
 	render() {
-		if (this.props.filteredThemes.length) {
+		if (this.props.filteredCategories.length) {
 			return (
 			        <Dropdown
 			          classProp=""
-			          name='Themes'
-			          height={this.buttonHeight  * this.props.filteredThemes.length}
+			          name='Categories'
+			          height={this.buttonHeight  * this.props.filteredCategories.length}
 			        >
 			         <ButtonList
 			         	wrapperClass="single-col"
 			         	classProp=""
 			         	classPropButton="list-button"
 			         	buttonHeight={this.buttonHeight}
-			         	buttonData={this.props.filteredThemes}
+			         	buttonData={this.props.filteredCategories}
 			         	updateData={this.onUpdateData.bind(this)}
 			         />
 			        </Dropdown>
@@ -57,9 +57,9 @@ class ThemesButtons extends Component {
 
 function mapStateToProps(state) {
 	return {
-		filteredThemes: state.global.themes,
+		filteredCategories: state.global.categories,
 	}
 }
 
-export default connect(mapStateToProps)(ThemesButtons);
+export default connect(mapStateToProps)(CategoriesButtons);
 

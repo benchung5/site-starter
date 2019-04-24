@@ -39,9 +39,9 @@ class Articles extends Controller
 			$new_article_id = $this->articles->add([
 				'slug' => $data['slug'], 
 				'name' => $data['name'], 
-				'category_id' => $data['category'],
+				'tags_id' => $data['tags'],
 				'created_on' => date('Y-m-d'),
-			], $data['themes']);
+			], $data['categories']);
 
 			$new_article = $this->articles->get(['id' => $new_article_id]);
 
@@ -106,9 +106,9 @@ class Articles extends Controller
 				'where' => ['slug' => $data['slug']], 
 				'update' => [
 					'name' => $data['name'],
-					'category_id' => $data['category']
+					'tags_id' => $data['tags']
 				],
-				'themes' => $data['themes']
+				'categories' => $data['categories']
 			]);
 
 			$new_article = $this->articles->get(['slug' => $data['slug']]);
@@ -151,9 +151,9 @@ class Articles extends Controller
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'], 
 			'like' => isset($data['search']) ? $data['search'] : null, 
-			'category' => isset($data['category']) ? $data['category'] : null, 
-			'themes' => isset($data['themes']) ? $data['themes'] : null,
-			'select' => ['a.id', 'a.slug', 'a.name', 'a.category_id']
+			'categories' => isset($data['categories']) ? $data['categories'] : null,
+			'tags' => isset($data['tags']) ? $data['tags'] : null, 
+			'select' => ['a.id', 'a.slug', 'a.name']
 		]);
 
 		$count = $this->articles->count();

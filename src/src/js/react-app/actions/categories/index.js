@@ -5,7 +5,7 @@ var { SERVER_URL } = require('../../config')[env];
 import {
 	ADD_CATEGORY,
 	ADD_CATEGORY_ERROR,
-	FETCH_CATEGORIES,
+	FETCH_CATEGORYS,
 	DELETE_CATEGORY,
 	GET_CATEGORY,
 	UPDATE_CATEGORY
@@ -32,12 +32,12 @@ export function addCategory(formData) {
 	}
 }
 
-export function fetchCategories() {
+export function fetchCategorys() {
 	return function(dispatch) {
 		axios.get(`${SERVER_URL}/categories/all`)
 		.then((response) => {
 			dispatch({
-				type: FETCH_CATEGORIES,
+				type: FETCH_CATEGORYS,
 				payload: response.data
 			});
 		}).catch((err) => {
@@ -54,7 +54,7 @@ export function deleteCategory({ slug }) {
 			if(response.data.error) {
 				console.log('error: ', response.data.error);
 			} else {
-				dispatch(fetchCategories());
+				dispatch(fetchCategorys());
 			}
 		}).catch((err) => {
 			console.log('error deleting the category: ', err);

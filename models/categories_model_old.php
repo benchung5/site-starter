@@ -2,17 +2,18 @@
 
 use Lib\Model;
 
-class Themes_model extends Model
+class Categories_model_old extends Model
 {
 	public $options;
 
-	public function __construct() {
+	public function __construct() 
+	{
 		parent::__construct();
 	}
 
 	public function get($opts = []) 
 	{
-		$this->db->table('themes')->select('*');
+		$this->db->table('categories')->select('*');
 
 		if (isset($opts['id'])) {
 			$this->db->where('id', '=', $opts['id']);
@@ -31,7 +32,7 @@ class Themes_model extends Model
 	{
 		if (is_array($data)) {
 
-			$this->db->table('themes')->insert($data);
+			$this->db->table('categories')->insert($data);
 
 			return $this->db->insertId();
 		}
@@ -39,7 +40,7 @@ class Themes_model extends Model
 
 	public function remove($opts = []) 
 	{
-		$this->db->table('themes');
+		$this->db->table('categories');
 
 		if (isset($opts['id'])) {
 			$this->db->where('id', '=', $opts['id']);
@@ -56,7 +57,7 @@ class Themes_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('themes');
+		$this->db->table('categories');
 
 		if ($opts) {
 			$this->db->select(implode(',', $opts));
@@ -71,7 +72,7 @@ class Themes_model extends Model
 	public function update($opts = []) 
 	{
 		if (isset($opts['where']) && isset($opts['update'])) {
-			$this->db->table('themes');
+			$this->db->table('categories');
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
 	}

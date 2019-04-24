@@ -97,18 +97,6 @@ const categoryEdit = asyncComponent(() =>
   System.import('./components/admin/categories/category_edit').then(module => module.default)
 )
 
-const themeAdd = asyncComponent(() => 
-  System.import('./components/admin/themes/theme_add').then(module => module.default)
-)
-
-const themeList = asyncComponent(() => 
-  System.import('./components/admin/themes/theme_list').then(module => module.default)
-)
-
-const themeEdit = asyncComponent(() => 
-  System.import('./components/admin/themes/theme_edit').then(module => module.default)
-)
-
 const backup = asyncComponent(() => 
   System.import('./components/admin/backup/backup').then(module => module.default)
 )
@@ -157,9 +145,6 @@ if ( appContainer ) {
               <Route history={customHistory} path="/admin/category-add" component={categoryAdd} />
               <Route history={customHistory} exact path="/admin/category-list" component={categoryList} />
               <Route history={customHistory} path="/admin/category-list/:categoryId" component={categoryEdit} />
-              <Route history={customHistory} path="/admin/theme-add" component={themeAdd} />
-              <Route history={customHistory} exact path="/admin/theme-list" component={themeList} />
-              <Route history={customHistory} path="/admin/theme-list/:themeId" component={themeEdit} />
               <Route history={customHistory} path="/admin/backup" component={backup} />
             </Switch> 
           </div>  

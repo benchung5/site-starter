@@ -10,15 +10,14 @@ class EditCategory extends Component {
 
     componentWillMount() {
         //get initial data to populate the form
-        this.props.getCategory(this.props.match.params.categoryId);
+        this.props.getCategory(this.props.match.params.themeId);
     }
 
     handleInitialize() {
         const formData = {
-            "name": this.props.categoryData.name,
-            "icon": this.props.categoryData.icon,
+            "name": this.props.themeData.name,
             //still must keep this for the id eventhough it isn't rendered
-            "slug": this.props.categoryData.slug
+            "slug": this.props.themeData.slug
         };
 
         this.props.initialize(formData);
@@ -31,17 +30,17 @@ class EditCategory extends Component {
     }
 
     renderUpdated() {
-        if(this.props.categoryUpdated) {
+        if(this.props.themeUpdated) {
             return (
-                <div className="submission-message">
-                    <span>Category: {this.props.categoryUpdated.name}<br/>successfully updated.</span>
+                <div>
+                    <span>Category: {this.props.themeUpdated.name}<br/>successfully updated.</span>
                 </div>
             )
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.categoryData && (prevProps.categoryData !== this.props.categoryData)) {
+        if (this.props.themeData && (prevProps.themeData !== this.props.themeData)) {
             this.handleInitialize();
         }
     }
@@ -72,14 +71,6 @@ class EditCategory extends Component {
                                 component={renderField}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
-
-                            />
-                            <Field
-                              label="icon:"
-                              name="icon"
-                              component={renderField}
-                              onChange={this.onInputChange.bind(this)}
-                              onFocus={this.onInputChange.bind(this)}
                             />
                             <button action="submit" className="btn btn-primary">Submit</button>
                         </form>
@@ -104,8 +95,8 @@ function validate(formProps) {
 
 function mapStateToProps(state, ownProps) {
     return { 
-        categoryUpdated: state.category.categoryUpdated,
-        categoryData: state.category.categorySingle
+        themeUpdated: state.category.themeUpdated,
+        themeData: state.category.themeSingle
     };
 }
 

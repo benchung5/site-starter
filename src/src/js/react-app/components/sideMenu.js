@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import SideMenuHeader from './side_menu_header';
-import Types from './buttons_types';
-import Themes from './buttons_themes';
+import Categories from './buttons_categories';
 import Search from './search';
 // import Routes from './buttons_routes';
 // import NearMe from './button_near_me';
@@ -34,10 +33,10 @@ class SideMenu extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    //fire the updated globalFilterData to the search action whenever the themes or categores get updated
+    //fire the updated globalFilterData to the search action whenever the categories or categores get updated
     if(this.props.globalFilterData && (prevProps.globalFilterData !==  this.props.globalFilterData)) {
       //while filter initial populating, don't dispatch
-      if((this.props.globalFilterData.categories.length === 0) || (this.props.globalFilterData.themes.length === 0)) {
+      if((this.props.globalFilterData.categories.length === 0) || (this.props.globalFilterData.categories.length === 0)) {
       } else {
         this.props.dispatch(searchArticles(this.props.globalFilterData));
       }
@@ -56,8 +55,7 @@ class SideMenu extends Component {
             <SideMenuHeader>
               <Search/>
             </SideMenuHeader>
-            <Types/>
-            <Themes/>
+            <Categories/>
             <div className="bottom">
             </div>
           </div>

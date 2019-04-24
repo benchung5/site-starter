@@ -11,11 +11,6 @@ class About extends Controller
 
 	public function index() 
 	{
-		//get data from db
-		$model = $this->load_model('model_sample');
-		
-		//pass view data to view
-		$view_data = ['vehicles' => $model->get_vehicles()];
-		$this->render('about', $view_data );
+		$this->render('about');
 	}
 }

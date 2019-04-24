@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Categories_model extends Model
+class Tags_model extends Model
 {
 	public $options;
 
@@ -12,7 +12,7 @@ class Categories_model extends Model
 
 	public function get($opts = []) 
 	{
-		$this->db->table('categories')->select('*');
+		$this->db->table('tags')->select('*');
 
 		if (isset($opts['id'])) {
 			$this->db->where('id', '=', $opts['id']);
@@ -31,7 +31,7 @@ class Categories_model extends Model
 	{
 		if (is_array($data)) {
 
-			$this->db->table('categories')->insert($data);
+			$this->db->table('tags')->insert($data);
 
 			return $this->db->insertId();
 		}
@@ -39,7 +39,7 @@ class Categories_model extends Model
 
 	public function remove($opts = []) 
 	{
-		$this->db->table('categories');
+		$this->db->table('tags');
 
 		if (isset($opts['id'])) {
 			$this->db->where('id', '=', $opts['id']);
@@ -56,7 +56,7 @@ class Categories_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('categories');
+		$this->db->table('tags');
 
 		if ($opts) {
 			$this->db->select(implode(',', $opts));
@@ -71,7 +71,7 @@ class Categories_model extends Model
 	public function update($opts = []) 
 	{
 		if (isset($opts['where']) && isset($opts['update'])) {
-			$this->db->table('categories');
+			$this->db->table('tags');
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
 	}

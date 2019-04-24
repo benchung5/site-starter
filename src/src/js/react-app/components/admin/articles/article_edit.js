@@ -145,18 +145,18 @@ class EditArticle extends Component {
                                 onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
-                                name="category"
-                                label="type"
-                                component={renderDropdownSelect}
+                                name="categories"
+                                label="categories"
+                                component={renderMultiSelect}
                                 selectItems={this.props.categories}
                                 onChange={this.onInputChange.bind(this)}
                                 onFocus={this.onInputChange.bind(this)}
                             />
                             <Field
-                              name="themes"
-                              label="themes"
+                              name="tags"
+                              label="tags"
                               component={renderMultiSelect}
-                              selectItems={this.props.themes}
+                              selectItems={this.props.tags}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />

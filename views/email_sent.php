@@ -4,8 +4,12 @@
 	<div class="content-wrapper">
 		<div class="row">
 			<div class="small-12 columns internal">
-				<h1>About Us</h1>					
+				<p>
+					Thank you for contacting us. We will be in touch with you very soon.
+				</p>
 			</div>
 		</div>
 	</div><!-- /content wrapper -->
 </div><!-- /site wrapper -->
+
+

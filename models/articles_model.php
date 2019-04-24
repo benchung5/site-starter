@@ -33,11 +33,11 @@ class Articles_model extends Model
 				// ->orderBy('sort_order, name')
 				->getAll();
 
-			// get themes
-			$result->themes = $this->db->table('article_themes at')
+			// get categories
+			$result->categories = $this->db->table('article_categories at')
 				->select('t.id, t.name')
 				->where('article_id', $result->id)
-				->innerJoin('themes t', 't.id', 'at.theme_id')
+				->innerJoin('categories t', 't.id', 'at.category_id')
 				->getAll();
 
 			// include categories
@@ -63,16 +63,16 @@ class Articles_model extends Model
 		return false;
 	}
 
-	public function add($data, $themes)
+	public function add($data, $categories)
 	{
 		if (is_array($data)) {
 			$this->db->table('articles')->insert($data);
 			$new_article_id = $this->db->insertId();
-			$themes = (! is_array($themes)) ? explode(',', $themes) : $themes;
+			$categories = (! is_array($categories)) ? explode(',', $categories) : $categories;
 
-			foreach ($themes as $theme) {
-				$ins = ['article_id' => $new_article_id, 'theme_id' => $theme];
-				$this->db->table('article_themes')->insert($ins);
+			foreach ($categories as $category) {
+				$ins = ['article_id' => $new_article_id, 'category_id' => $category];
+				$this->db->table('article_categories')->insert($ins);
 			}
 			
 			return $new_article_id;
@@ -100,8 +100,8 @@ class Articles_model extends Model
 
 			$this->db->table('articles')->where('id', $deleted_article_id)->delete();
 
-			// remove themes
-			$this->db->table('article_themes')->where('article_id', $deleted_article_id)->delete();
+			// remove categories
+			$this->db->table('article_categories')->where('article_id', $deleted_article_id)->delete();
 
 			// remove files
 			$this->db->table('files')->where('ref_id', $deleted_article_id)->delete();
@@ -135,14 +135,14 @@ class Articles_model extends Model
 			}
 		}
 
-		if (isset($opts['themes'])) {
-			if (count($opts['themes']) > 0) {
+		if (isset($opts['categories'])) {
+			if (count($opts['categories']) > 0) {
 				$this->db
-					->innerJoin('article_themes at', 'at.article_id', 'a.id')
-					->innerJoin('themes t', 't.id', 'at.theme_id')
-					->in('t.id', $opts['themes']);
+					->innerJoin('article_categories at', 'at.article_id', 'a.id')
+					->innerJoin('categories t', 't.id', 'at.category_id')
+					->in('t.id', $opts['categories']);
 			} else {
-				// force no results since theme is queried but no theme is selected
+				// force no results since category is queried but no category is selected
 				return [];
 			}
 		}
@@ -170,16 +170,16 @@ class Articles_model extends Model
 			$this->db->table('articles');
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
-		if (isset($opts['themes'])) {
+		if (isset($opts['categories'])) {
 			$article_id = $this->db->table('articles')->where($opts['where'])->get()->id;
 
 			// clear existing associations
-			$this->db->table('article_themes')->where('article_id', $article_id)->delete();
+			$this->db->table('article_categories')->where('article_id', $article_id)->delete();
 
 			// insert new associations
-			$themes = is_array($opts['themes']) ? $opts['themes'] : explode(',', $opts['themes']);
-			foreach ($themes as $theme_id) {
-				$this->db->table('article_themes')->insert(['article_id' => $article_id, 'theme_id' => $theme_id]);
+			$categories = is_array($opts['categories']) ? $opts['categories'] : explode(',', $opts['categories']);
+			foreach ($categories as $category_id) {
+				$this->db->table('article_categories')->insert(['article_id' => $article_id, 'category_id' => $category_id]);
 			}
 		}
 	}

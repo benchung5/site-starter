@@ -12,13 +12,13 @@ class AddCategory extends Component {
     // if newly navigated from the router link...
     if(nextProps.location !== this.props.location) {
       //clear the form fields
-      this.props.reset('category-add');
+      this.props.reset('theme-add');
     }
   }
 
   componentDidUpdate(prevProps) {
     //clear out error messsages if any
-    if (this.props.categoryAdded && (prevProps.categoryAdded !== this.props.categoryAdded)) {
+    if (this.props.themeAdded && (prevProps.themeAdded !== this.props.themeAdded)) {
       this.props.addCategoryError('');
     }
   }
@@ -38,10 +38,10 @@ class AddCategory extends Component {
 
   renderAdded() {
     //only render if there's no error message
-    if(this.props.categoryAdded && !this.props.errorMessage) {
+    if(this.props.themeAdded && !this.props.errorMessage) {
       return (
         <div className="submission-message">
-          <span>Category: {this.props.categoryAdded.name}<br/>successfully added.</span>
+          <span>theme: {this.props.themeAdded.name}<br/>successfully added.</span>
         </div>
         )
     }
@@ -68,7 +68,7 @@ class AddCategory extends Component {
           <div className="row">
             <Sidebar/>
             <div className="columns small-12 large-9">
-              <h3>Add Catetgory</h3>
+              <h3>Add Category</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                 <Field
                   label="name:"
@@ -80,13 +80,6 @@ class AddCategory extends Component {
                 <Field
                   label="slug:"
                   name="slug"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="icon:"
-                  name="icon"
                   component={renderField}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
@@ -121,15 +114,15 @@ function validate(formProps) {
 
 function mapStateToProps(state) {
   return { 
-    categoryAdded: state.category.categoryAdded,
-    errorMessage: state.category.addCategoryError
+    themeAdded: state.theme.themeAdded,
+    errorMessage: state.theme.addCategoryError
   };
 }
 
 
 export default RequireAuth(reduxForm({
   validate,
-  form: 'category-add',
+  form: 'theme-add',
   fields: ['name', 'slug'],
 })(
 connect(mapStateToProps, actions)(AddCategory)

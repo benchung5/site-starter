@@ -25,9 +25,9 @@ use Config\Config as Config;
         </ul>
       </nav>
       <div class="small-2 columns menu-container">
-        <ul class="menu align-right lesser-menu ">
+<!--         <ul class="menu align-right lesser-menu ">
           <li class="show-for-large"><a href="/account/login">Login</a></li>
-        </ul>
+        </ul> -->
       </div>
     </div>
   </div>
@@ -45,17 +45,17 @@ use Config\Config as Config;
       </div>   
       <ul class="menu menu-mobile vertical">
         <li><a href="/">Home</a></li>
-        <li><a href="/filter">3d</a></li>
+        <li><a href="/filter">Articles</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="mobile-menu-stretch"></div>
       <ul class="mobile-menu-buttons">
         <li><a href="/search">Search</a></li>
-        <li>
+<!--         <li>
           <a href="/admin">signup</a>
           <a href="/admin">login</a>
-        </li> 
+        </li>  -->
       </ul>
     </div>
   </div>

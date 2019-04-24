@@ -126,19 +126,19 @@ class AddArticle extends Component {
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  name="category"
-                  label="category"
-                  component={renderDropdownSelect}
+                  name="categories"
+                  label="categories"
+                  component={renderMultiSelect}
                   selectItems={this.props.categories}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
                 <Field
-                  name="themes"
-                  label="themes"
+                  name="tags"
+                  label="tags"
                   defaultSelect={true}
                   component={renderMultiSelect}
-                  selectItems={this.props.themes}
+                  selectItems={this.props.tags}
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />

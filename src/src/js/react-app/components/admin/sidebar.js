@@ -18,8 +18,6 @@ class SideMenu extends Component {
                 { title: 'Add User', link: '/admin/signup', active: false },
                 { title: 'View Categories', link: '/admin/category-list', active: false },
                 { title: 'Add Category', link: '/admin/category-add', active: false },
-                { title: 'Add Theme', link: '/admin/theme-add', active: false },
-                { title: 'View Themes', link: '/admin/theme-list', active: false },
                 { title: 'Backup', link: '/admin/backup', active: false },
             ]
         }
