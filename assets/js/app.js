@@ -768,302 +768,302 @@ load foundation plugins - keep this
 var canRegister = false;
 
 (function () {
-	//only register sw and manifest if not on admin page...
-	if (!isAdminPage && canRegister) {
+		//only register sw and manifest if not on admin page...
+		if (!isAdminPage && canRegister) {
+				/* ==========================================================================
+    // register service worker
+    ========================================================================== */
+
+				/* eslint-env browser */
+				'use strict';
+
+				if ('serviceWorker' in navigator) {
+						// Your service-worker.js *must* be located at the top-level directory relative to your site.
+						// It won't be able to control pages unless it's located at the same level or higher than them.
+						// *Don't* register service worker file in, e.g., a scripts/ sub-directory!
+						// See https://github.com/slightlyoff/ServiceWorker/issues/468
+						navigator.serviceWorker.register('/service-worker.js').then(function (reg) {
+								// updatefound is fired if service-worker.js changes.
+								reg.onupdatefound = function () {
+										// The updatefound event implies that reg.installing is set; see
+										// https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
+										var installingWorker = reg.installing;
+
+										installingWorker.onstatechange = function () {
+												switch (installingWorker.state) {
+														case 'installed':
+																if (navigator.serviceWorker.controller) {
+																		// At this point, the old content will have been purged and the fresh content will
+																		// have been added to the cache.
+																		// It's the perfect time to display a "New content is available; please refresh."
+																		// message in the page's interface.
+																		console.log('New or updated content is available.');
+																} else {
+																		// At this point, everything has been precached.
+																		// It's the perfect time to display a "Content is cached for offline use." message.
+																		console.log('Content is now available offline!');
+																}
+																break;
+
+														case 'redundant':
+																console.error('The installing service worker became redundant.');
+																break;
+												}
+										};
+								};
+						}).catch(function (e) {
+								console.error('Error during service worker registration:', e);
+						});
+				}
+
+				// manifest
+				window.addEventListener('beforeinstallprompt', function (e) {
+						// beforeinstallprompt Event fired
+
+						// e.userChoice will return a Promise. 
+						e.userChoice.then(function (choiceResult) {
+								console.log(choiceResult.outcome);
+
+								if (choiceResult.outcome == 'dismissed') {
+										console.log('User cancelled home screen install');
+								} else {
+										console.log('User added to home screen');
+								}
+						});
+				});
+		} else {
+				//force remove the service worker
+				navigator.serviceWorker.getRegistrations().then(function (registrations) {
+						var _iteratorNormalCompletion = true;
+						var _didIteratorError = false;
+						var _iteratorError = undefined;
+
+						try {
+								for (var _iterator = registrations[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+										var registration = _step.value;
+
+										registration.unregister();
+								}
+						} catch (err) {
+								_didIteratorError = true;
+								_iteratorError = err;
+						} finally {
+								try {
+										if (!_iteratorNormalCompletion && _iterator.return) {
+												_iterator.return();
+										}
+								} finally {
+										if (_didIteratorError) {
+												throw _iteratorError;
+										}
+								}
+						}
+				});
+		}
+
 		/* ==========================================================================
-  // register service worker
+  // is online event
   ========================================================================== */
 
-		/* eslint-env browser */
-		'use strict';
+		// tell users that they are offline/online
+		var that = this;
+		window.addEventListener('load', function () {
 
-		if ('serviceWorker' in navigator) {
-			// Your service-worker.js *must* be located at the top-level directory relative to your site.
-			// It won't be able to control pages unless it's located at the same level or higher than them.
-			// *Don't* register service worker file in, e.g., a scripts/ sub-directory!
-			// See https://github.com/slightlyoff/ServiceWorker/issues/468
-			navigator.serviceWorker.register('/service-worker.js').then(function (reg) {
-				// updatefound is fired if service-worker.js changes.
-				reg.onupdatefound = function () {
-					// The updatefound event implies that reg.installing is set; see
-					// https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
-					var installingWorker = reg.installing;
+				function updateOnlineStatus(event) {
+						// if (!isAdminPage) {
+						// 	var condition = navigator.onLine ? "online" : "offline";
 
-					installingWorker.onstatechange = function () {
-						switch (installingWorker.state) {
-							case 'installed':
-								if (navigator.serviceWorker.controller) {
-									// At this point, the old content will have been purged and the fresh content will
-									// have been added to the cache.
-									// It's the perfect time to display a "New content is available; please refresh."
-									// message in the page's interface.
-									console.log('New or updated content is available.');
-								} else {
-									// At this point, everything has been precached.
-									// It's the perfect time to display a "Content is cached for offline use." message.
-									console.log('Content is now available offline!');
-								}
-								break;
+						// 	if(condition == 'offline') {
+						// 		$('body').addClass('offline');
+						// 		$('.offline-modal').addClass('on');
+						// 		console.log('offline');
+						// 		setTimeout(() => {
+						// 			$('.offline-modal').removeClass('on');
+						// 		}, 1500);
 
-							case 'redundant':
-								console.error('The installing service worker became redundant.');
-								break;
+						// 	} else {
+						// 		$('body').removeClass('offline');
+						// 		$('.offline-modal').removeClass('on');
+						// 		console.log('online');
+						// 	}
+						// }
+				}
+
+				window.addEventListener('online', updateOnlineStatus);
+				window.addEventListener('offline', updateOnlineStatus);
+		});
+
+		/* ==========================================================================
+  // populate categories
+  ========================================================================== */
+
+		//get data from server
+		_axios2.default.get(SERVER_URL + '/articles/type-count').then(function (response) {
+				populateTypes(response.data);
+		}).catch(function (err) {
+				console.log('error fetching categories: ', err);
+		});
+
+		//populate numbers on page
+		function populateTypes(data) {
+				for (var i = 0; i < data.length; i++) {
+						var el = document.querySelector('[data-' + data[i].categorySlug + ']');
+						if (el) {
+								el.innerHTML = data[i].count;
 						}
-					};
-				};
-			}).catch(function (e) {
-				console.error('Error during service worker registration:', e);
-			});
-		}
-
-		// manifest
-		window.addEventListener('beforeinstallprompt', function (e) {
-			// beforeinstallprompt Event fired
-
-			// e.userChoice will return a Promise. 
-			e.userChoice.then(function (choiceResult) {
-				console.log(choiceResult.outcome);
-
-				if (choiceResult.outcome == 'dismissed') {
-					console.log('User cancelled home screen install');
-				} else {
-					console.log('User added to home screen');
 				}
-			});
-		});
-	} else {
-		//force remove the service worker
-		navigator.serviceWorker.getRegistrations().then(function (registrations) {
-			var _iteratorNormalCompletion = true;
-			var _didIteratorError = false;
-			var _iteratorError = undefined;
-
-			try {
-				for (var _iterator = registrations[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-					var registration = _step.value;
-
-					registration.unregister();
-				}
-			} catch (err) {
-				_didIteratorError = true;
-				_iteratorError = err;
-			} finally {
-				try {
-					if (!_iteratorNormalCompletion && _iterator.return) {
-						_iterator.return();
-					}
-				} finally {
-					if (_didIteratorError) {
-						throw _iteratorError;
-					}
-				}
-			}
-		});
-	}
-
-	/* ==========================================================================
- // is online event
- ========================================================================== */
-
-	// tell users that they are offline/online
-	var that = this;
-	window.addEventListener('load', function () {
-
-		function updateOnlineStatus(event) {
-			// if (!isAdminPage) {
-			// 	var condition = navigator.onLine ? "online" : "offline";
-
-			// 	if(condition == 'offline') {
-			// 		$('body').addClass('offline');
-			// 		$('.offline-modal').addClass('on');
-			// 		console.log('offline');
-			// 		setTimeout(() => {
-			// 			$('.offline-modal').removeClass('on');
-			// 		}, 1500);
-
-			// 	} else {
-			// 		$('body').removeClass('offline');
-			// 		$('.offline-modal').removeClass('on');
-			// 		console.log('online');
-			// 	}
-			// }
 		}
-
-		window.addEventListener('online', updateOnlineStatus);
-		window.addEventListener('offline', updateOnlineStatus);
-	});
-
-	/* ==========================================================================
- // populate categories
- ========================================================================== */
-
-	//get data from server
-	_axios2.default.get(SERVER_URL + '/articles/type-count').then(function (response) {
-		populateTypes(response.data);
-	}).catch(function (err) {
-		console.log('error fetching categories: ', err);
-	});
-
-	//populate numbers on page
-	function populateTypes(data) {
-		for (var i = 0; i < data.length; i++) {
-			var el = document.querySelector('[data-' + data[i].categorySlug + ']');
-			if (el) {
-				el.innerHTML = data[i].count;
-			}
-		}
-	}
 })();
 
 (0, _jquery2.default)(document).ready(function () {
-	/* ==========================================================================
- // body class(front-end, admin)
- ========================================================================== */
+		/* ==========================================================================
+  // body class(front-end, admin)
+  ========================================================================== */
 
-	(0, _jquery2.default)(document.documentElement).addClass(getClassFromUrl());
+		(0, _jquery2.default)(document.documentElement).addClass(getClassFromUrl());
 
-	function getClassFromUrl() {
-		var path = window.location.pathname;
+		function getClassFromUrl() {
+				var path = window.location.pathname;
 
-		switch (path) {
-			case '/':
-				return 'front-end';
-			case '/admin':
-				return 'admin';
-		}
-	}
-
-	/* ==========================================================================
- // bowser
- ========================================================================== */
-
-	//browsers:
-	// safari
-	// firefox
-	// chrome
-	// msedge
-	// msie
-	// mobile
-	// ios
-
-	if (bowser.msedge) {
-		//need this since modernizr doesn't add this one
-		(0, _jquery2.default)('body').addClass('msedge');
-	}
-	if (bowser.safari) {
-		(0, _jquery2.default)('body').addClass('safari');
-	}
-	if (bowser.iPhone) {
-		(0, _jquery2.default)('body').addClass('iphone');
-	}
-	if (bowser.mobile && bowser.safari && bowser.version <= 8) {
-		(0, _jquery2.default)('body').addClass('iphone-8-or-less');
-	}
-	if (bowser.tablet) {
-		(0, _jquery2.default)('body').addClass('tablet');
-	}
-	if (!bowser.tablet && !bowser.mobile) {
-		(0, _jquery2.default)('body').addClass('desktop');
-	}
-	if (bowser.mobile) {
-		(0, _jquery2.default)('body').addClass('mobile');
-	}
-
-	/* ==========================================================================
- testing
- ========================================================================== */
-
-	//media size
-	(0, _jquery2.default)(window).on('changed.zf.mediaquery', function (event, newSize, oldSize) {
-		// newSize is the name of the now-current breakpoint, oldSize is the previous breakpoint
-		// console.log(newSize);
-	});
-
-	/* ==========================================================================
- // gallery
- ========================================================================== */
-
-	// var galItems = document.querySelectorAll('.gal-item');
-	// if(galItems && galItems.length !== 0) {
-	// 	for(var i = 0; i < galItems.length; i++) {
-	// 		//mouse enter events
-	// 		galItems[i].addEventListener('mouseenter', (e) => {
-	// 			$(e.currentTarget).removeClass('de-activate');
-	// 			$(e.currentTarget).addClass('activate');
-	// 		});
-	// 		galItems[i].addEventListener('mouseleave', (e) => {
-	// 			$(e.currentTarget).removeClass('activate');
-	// 			$(e.currentTarget).addClass('de-activate');
-	// 		});
-	// 		//play button events
-	// 		galItems[i].querySelector('.icon-play').addEventListener('click', (e) => {
-	// 			e.preventDefault();
-	// 			initModal(e.currentTarget);
-	// 		});
-	// 	}
-	// }
-
-	//modal
-	function initModal(trigger) {
-		var id = trigger.dataset.modal;
-
-		//load the video
-		//(open modal after video load is done)
-		loadVideo('#' + id + '-video', openModal);
-
-		function openModal() {
-			//open the associated modal
-			var modal = document.querySelector('[data-modal]#' + id);
-			(0, _jquery2.default)(modal).addClass('on');
-			modal.querySelector('.close').addEventListener('click', function (e) {
-				e.preventDefault();
-				//close the modal
-				(0, _jquery2.default)(modal).removeClass('on');
-				//reset the video
-				var $vid = (0, _jquery2.default)(modal).find('video');
-				if ($vid[0]) {
-					$vid[0].pause();
-					$vid[0].currentTime = 0;
+				switch (path) {
+						case '/':
+								return 'front-end';
+						case '/admin':
+								return 'admin';
 				}
-			});
-		}
-	}
-
-	/* ==========================================================================
- // dynamic video loading
- ========================================================================== */
-
-	function loadVideo(selector, callback) {
-		if (document.querySelector(selector)) {
-			var $vid = (0, _jquery2.default)(selector);
-
-			if (!$vid[0].src) {
-				//if it doesn't already have a source...
-				//change source of actual video element
-				$vid.each(function () {
-					var pathTovidSrc = $vid.data('src') ? $vid.data('src') : $vid.attr('src');
-					//update the source
-					$vid.attr('src', pathTovidSrc);
-				});
-
-				//change source of the source elments within
-				(0, _jquery2.default)('source[data-src]:not([data-src=""])').each(function () {
-					var $vidSrc = (0, _jquery2.default)(this);
-
-					var pathTovidSrc = $vidSrc.data('src') ? $vidSrc.data('src') : $vidSrc.attr('src');
-					//update the source
-					$vidSrc.attr('src', pathTovidSrc);
-				});
-			}
-			//play the video
-			$vid[0].play();
 		}
 
-		//give a bit of time for src to async load
-		setTimeout(function () {
-			callback();
-		}, 100);
-	}
+		/* ==========================================================================
+  // bowser
+  ========================================================================== */
+
+		//browsers:
+		// safari
+		// firefox
+		// chrome
+		// msedge
+		// msie
+		// mobile
+		// ios
+
+		if (bowser.msedge) {
+				//need this since modernizr doesn't add this one
+				(0, _jquery2.default)('body').addClass('msedge');
+		}
+		if (bowser.safari) {
+				(0, _jquery2.default)('body').addClass('safari');
+		}
+		if (bowser.iPhone) {
+				(0, _jquery2.default)('body').addClass('iphone');
+		}
+		if (bowser.mobile && bowser.safari && bowser.version <= 8) {
+				(0, _jquery2.default)('body').addClass('iphone-8-or-less');
+		}
+		if (bowser.tablet) {
+				(0, _jquery2.default)('body').addClass('tablet');
+		}
+		if (!bowser.tablet && !bowser.mobile) {
+				(0, _jquery2.default)('body').addClass('desktop');
+		}
+		if (bowser.mobile) {
+				(0, _jquery2.default)('body').addClass('mobile');
+		}
+
+		/* ==========================================================================
+  testing
+  ========================================================================== */
+
+		//media size
+		(0, _jquery2.default)(window).on('changed.zf.mediaquery', function (event, newSize, oldSize) {
+				// newSize is the name of the now-current breakpoint, oldSize is the previous breakpoint
+				// console.log(newSize);
+		});
+
+		/* ==========================================================================
+  // gallery
+  ========================================================================== */
+
+		// var galItems = document.querySelectorAll('.gal-item');
+		// if(galItems && galItems.length !== 0) {
+		// 	for(var i = 0; i < galItems.length; i++) {
+		// 		//mouse enter events
+		// 		galItems[i].addEventListener('mouseenter', (e) => {
+		// 			$(e.currentTarget).removeClass('de-activate');
+		// 			$(e.currentTarget).addClass('activate');
+		// 		});
+		// 		galItems[i].addEventListener('mouseleave', (e) => {
+		// 			$(e.currentTarget).removeClass('activate');
+		// 			$(e.currentTarget).addClass('de-activate');
+		// 		});
+		// 		//play button events
+		// 		galItems[i].querySelector('.icon-play').addEventListener('click', (e) => {
+		// 			e.preventDefault();
+		// 			initModal(e.currentTarget);
+		// 		});
+		// 	}
+		// }
+
+		//modal
+		function initModal(trigger) {
+				var id = trigger.dataset.modal;
+
+				//load the video
+				//(open modal after video load is done)
+				loadVideo('#' + id + '-video', openModal);
+
+				function openModal() {
+						//open the associated modal
+						var modal = document.querySelector('[data-modal]#' + id);
+						(0, _jquery2.default)(modal).addClass('on');
+						modal.querySelector('.close').addEventListener('click', function (e) {
+								e.preventDefault();
+								//close the modal
+								(0, _jquery2.default)(modal).removeClass('on');
+								//reset the video
+								var $vid = (0, _jquery2.default)(modal).find('video');
+								if ($vid[0]) {
+										$vid[0].pause();
+										$vid[0].currentTime = 0;
+								}
+						});
+				}
+		}
+
+		/* ==========================================================================
+  // dynamic video loading
+  ========================================================================== */
+
+		function loadVideo(selector, callback) {
+				if (document.querySelector(selector)) {
+						var $vid = (0, _jquery2.default)(selector);
+
+						if (!$vid[0].src) {
+								//if it doesn't already have a source...
+								//change source of actual video element
+								$vid.each(function () {
+										var pathTovidSrc = $vid.data('src') ? $vid.data('src') : $vid.attr('src');
+										//update the source
+										$vid.attr('src', pathTovidSrc);
+								});
+
+								//change source of the source elments within
+								(0, _jquery2.default)('source[data-src]:not([data-src=""])').each(function () {
+										var $vidSrc = (0, _jquery2.default)(this);
+
+										var pathTovidSrc = $vidSrc.data('src') ? $vidSrc.data('src') : $vidSrc.attr('src');
+										//update the source
+										$vidSrc.attr('src', pathTovidSrc);
+								});
+						}
+						//play the video
+						$vid[0].play();
+				}
+
+				//give a bit of time for src to async load
+				setTimeout(function () {
+						callback();
+				}, 100);
+		}
 });
 
 /* ==========================================================================
@@ -1076,33 +1076,247 @@ var menuButtonHolder = document.querySelector(".mobile-menu-button");
 var menuHolder = document.querySelector(".mobile-menu-container");
 
 if (menuButtonHolder && menuHolder) {
-	var menuButton = menuButtonHolder.querySelector(".grid-button");
+		var menuButton = menuButtonHolder.querySelector(".grid-button");
 
-	menuButton.addEventListener('click', function () {
+		menuButton.addEventListener('click', function () {
 
-		if (!mobileMenuOpen) {
-			//open menu
-			TweenLite.to(menuHolder, 0.5, {
-				autoAlpha: 1,
-				onStart: function onStart() {
-					menuButtonHolder.style.position = 'fixed';
+				if (!mobileMenuOpen) {
+						//open menu
+						TweenLite.to(menuHolder, 0.5, {
+								autoAlpha: 1,
+								onStart: function onStart() {
+										menuButtonHolder.style.position = 'fixed';
+								}
+						});
+						mobileMenuOpen = true;
+				} else {
+						//close menu
+						TweenLite.to(menuHolder, 0.5, {
+								autoAlpha: 0,
+								onStart: function onStart() {
+										menuButtonHolder.style.position = 'absolute';
+								}
+						});
+						mobileMenuOpen = false;
 				}
-			});
-			mobileMenuOpen = true;
-		} else {
-			//close menu
-			TweenLite.to(menuHolder, 0.5, {
-				autoAlpha: 0,
-				onStart: function onStart() {
-					menuButtonHolder.style.position = 'absolute';
-				}
-			});
-			mobileMenuOpen = false;
-		}
 
-		(0, _jquery2.default)(menuButton).toggleClass('close');
-	});
+				(0, _jquery2.default)(menuButton).toggleClass('close');
+		});
 }
+
+/* ==========================================================================
+// fooslider
+========================================================================== */
+
+(function () {
+		var FooSlider = {
+				animations: {
+						carousel: {
+								from: {},
+								to: {
+										transform: "translate(0, 0px)",
+										autoAlpha: 1,
+										ease: Power2.easeInOut
+										// zIndex: 1,
+								}
+						},
+						fadeIn: {
+								from: {
+										transform: "translate(0, 0px)"
+								},
+								to: {
+										autoAlpha: 1,
+										ease: Power2.easeInOut
+										// zIndex: 1,
+								}
+						}
+				},
+
+				//check for non null values in array
+				otherThanNull: function otherThanNull(myArray) {
+						var isValid = myArray.some(function (item) {
+								return item !== null;
+						});
+						return isValid;
+				},
+
+				initPositions: function initPositions() {
+						//just set it to first one for now
+						//remember current is in an array to 2 = 3
+						this.current = 0;
+
+						//init with first slide at initial position
+						this.boxes[this.current].style.transform = "translate(0, 0px)";
+						(0, _jquery2.default)(this.boxes[this.current]).addClass('current');
+
+						//move boxes into correct position
+						for (var i = 0; i < this.boxes.length; i++) {
+								if (i < this.current) {
+										if (this.animStyle === 'carousel') {
+												//move prev boxes to above
+												this.boxes[i].style.transform = "translate(0, " + -this.moveAmount + "px)";
+										}
+										(0, _jquery2.default)(this.boxes[i]).removeClass('current');
+								}
+
+								if (i > this.current) {
+										if (this.animStyle === 'carousel') {
+												//move next boxs to below
+												this.boxes[i].style.transform = "translate(0, " + this.moveAmount + "px)";
+										};
+										(0, _jquery2.default)(this.boxes[i]).removeClass('current');
+								}
+						}
+				},
+
+				setPositions: function setPositions() {
+						for (var i = 0; i < this.boxes.length; i++) {
+								//move if it's the current one, move it to zero
+								if (i === this.current) {
+										//init with first slide at initial position
+										this.animateIn(this.boxes[i]);
+										(0, _jquery2.default)(this.boxes[this.current]).addClass('current');
+								}
+								//else move the prev/next boxes into correct position...
+								//if prev
+								if (i < this.current) {
+										//move prev boxes to above
+										//only move if its previously current
+										if ((0, _jquery2.default)(this.boxes[i]).hasClass('current')) {
+												this.animatePrev(this.boxes[i]);
+												(0, _jquery2.default)(this.boxes[i]).removeClass('current');
+										}
+								}
+								//if next
+								if (i > this.current) {
+										//move next boxes to below
+										//only move if its previousely current
+										if ((0, _jquery2.default)(this.boxes[i]).hasClass('current')) {
+												this.animateNext(this.boxes[i]);
+												(0, _jquery2.default)(this.boxes[i]).removeClass('current');
+										}
+								}
+						}
+				},
+
+				goTo: function goTo(position) {
+						if (this.otherThanNull(this.boxes)) {
+								if (position <= 0) {
+										//can't slide past beginning
+								} else if (position > this.boxes.length) {
+										//go back to first slide
+										this.current = 0;
+										this.setPositions();
+								} else {
+										//convert to array system
+										this.current = position - 1;
+										this.setPositions();
+								}
+						}
+				},
+
+				move: function move(direction) {
+						if (this.otherThanNull(this.boxes)) {
+								//increment current
+								if (direction === "prev" && this.current > 0) {
+										this.current--;
+								} else if (direction === "next" && this.current < this.boxes.length - 1) {
+										this.current++;
+								}
+								this.setPositions();
+						}
+				},
+
+				animatePrev: function animatePrev(el) {
+						TweenLite.to(el, this.slideSpeed, {
+								transform: "translate(0, " + -this.moveAmount + "px)",
+								autoAlpha: 0,
+								// zIndex: 0,
+								ease: Power2.easeInOut,
+								onComplete: this.onAnimInComplete.bind(this)
+						});
+				},
+
+				animateNext: function animateNext(el) {
+						TweenLite.to(el, this.slideSpeed, {
+								transform: "translate(0, " + this.moveAmount + "px)",
+								autoAlpha: 0,
+								// zIndex: 0,
+								ease: Power2.easeInOut,
+								onComplete: this.onAnimInComplete.bind(this)
+						});
+				},
+
+				animateIn: function animateIn(el) {
+						TweenLite.fromTo(el, this.slideSpeed, this.animations[this.animStyle].from, this.animations[this.animStyle].to, this.onAnimInComplete);
+				},
+
+				onAnimInComplete: function onAnimInComplete() {
+						//transition complete
+						if (this.onAnimComlete) {
+								this.onAnimComlete();
+						}
+				},
+
+				initControls: function initControls() {
+						var prevControls = [].slice.call(document.querySelectorAll('.fs-prev'));
+						if (this.otherThanNull(prevControls)) {
+								for (var i = 0; i < prevControls.length; i++) {
+										prevControls[i].addEventListener('click', function (e) {
+												this.move('prev');
+										}.bind(this));
+								}
+						}
+
+						var nextControls = [].slice.call(document.querySelectorAll('.fs-next'));
+						if (this.otherThanNull(nextControls)) {
+								for (var i = 0; i < nextControls.length; i++) {
+										nextControls[i].addEventListener('click', function (e) {
+												this.move('next');
+										}.bind(this));
+								}
+						}
+				},
+
+				init: function init(options) {
+						var inst = Object.create(this);
+						inst.slideSpeed = options.slideSpeed || 0.5;
+						inst.animStyle = options.animStyle || 'carousel';
+						inst.onAnimComlete = options.onAnimComplete;
+						inst.current = 0;
+						inst.boxes = [].slice.call(document.querySelectorAll(".fooslider .slide"));
+						inst.container = document.querySelector('.fooslider');
+
+						if (inst.otherThanNull(inst.boxes)) {
+								inst.moveAmount = 0;
+								if (inst.container) {
+										inst.moveAmount = inst.container.clientHeight;
+								}
+
+								inst.initPositions();
+								inst.initControls();
+						} //if bo
+						else {
+										//console.warn('there is no slimple slider');
+								}
+						return inst;
+				}
+		};
+
+		var mySlider = FooSlider.init({
+				slideSpeed: 1,
+				animStyle: 'fadeIn',
+				onAnimComplete: onSlideComplete
+				//animStyle: 'carousel',
+		});
+
+		function onSlideComplete() {}
+		//console.log('slide complete');
+
+
+		//set clider position through code
+		// mySlider.goTo(5);
+})();
 
 /* ==========================================================================
 // 1pixel code

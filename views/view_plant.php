@@ -10,41 +10,67 @@ use Lib\Utils;
 	<div class="content-wrapper view">
 		<div class="row">
 			<div class="small-12 columns internal">
-				<div class="title-area">
-					<h1><?= $view_data['tree']->common_name ?></h1>
-				</div>
 
-				<?php //print_r($view_data['tree']);  ?>
+				<div class="row">
+					<div class="small-12 large-8 columns">
+						<div class="title-area">
+							<h1><?= $view_data['tree']->common_name ?></h1>
+						</div>
 
-				<span><?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<span><?= Utils::sanitize($view_data['tree']->specific_epithet) ?></span><br>
-				<span>Family: <?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></span><br>
+						<?php //print_r($view_data['tree']);  ?>
 
-				<?php
-				$origins = [];
-				if ($view_data['tree']->origins) {
-					foreach ($view_data['tree']->origins as $origin) {
-						$origins[] = $origin->name;
-					}
-				}
-				?>
+						<?php if ($view_data['tree']->images) : ?>
+						<div class="images">
 
-				<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br>
-				<span>Ecozones: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
-				<!-- don't sanitize body since we need html -->
-				<p><?= $view_data['tree']->body ?></p>
+							<div class="fooslider-wrapper">
+								<div class="fooslider">
 
-				<?php if ($view_data['tree']->images) : ?>
-				<div class="images">
-					<?php 
-					foreach ($view_data['tree']->images as $image) { 
-						if (strpos($image->name, 'thumb') == false) {
-							echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/trees/'.Utils::sanitize($image->name).'" />';
+									<?php 
+									foreach ($view_data['tree']->images as $image) { 
+										if (strpos($image->name, 'thumb') == false) {
+											echo '<div class="slide"><div class="slide-inner">';
+											echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/trees/'.Utils::sanitize($image->name).'" />';
+											echo '</div></div>';
+										}
+									}
+									?>
+
+									<div class="fooslider-controls">
+									  <a class="fs-prev">prev</a>
+									  <a class="fs-next">next</a>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<?php endif ?>
+
+						<!-- don't sanitize body since we need html -->
+						<p><?= $view_data['tree']->body ?></p>
+					</div>
+					<div class="small-12 large-4 columns sidebar">
+						<span class="bold"><?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<span class="bold"><?= Utils::sanitize($view_data['tree']->specific_epithet) ?></span><br>
+						<span>Family: <?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></span><br>
+
+						<?php
+						$origins = [];
+						if ($view_data['tree']->origins) {
+							foreach ($view_data['tree']->origins as $origin) {
+								$origins[] = $origin->name;
+							}
 						}
-					}
-					?>
+						?>
+
+						<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br>
+						<span>Ecozones: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
+					</div>
 				</div>
-				<?php endif ?>
+
+
+
+
 			</div>
+
 		</div>
 	</div><!-- /content wrapper -->
 
