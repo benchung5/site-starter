@@ -3,7 +3,7 @@ import { reduxForm, Field, change } from 'redux-form';
 //import * as actions from '../../actions/articles';
 import { getArticle, clearUpdateArticle, updateArticle } from '../../../actions/articles';
 import { fetchCategories } from '../../../actions/categories';
-import { fetchThemes } from '../../../actions/themes';
+import { fetchTags } from '../../../actions/tags';
 import Sidebar from '../sidebar';
 import { connect } from 'react-redux';
 import renderField from '../parts/form_fields';
@@ -31,7 +31,7 @@ class EditArticle extends Component {
 
     componentWillMount() {
         this.props.fetchCategories();
-        this.props.fetchThemes();
+        this.props.fetchTags();
         //get initial data to populate the form
         this.props.getArticle(this.props.match.params.articleId);
     }
@@ -63,14 +63,14 @@ class EditArticle extends Component {
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'articles');
 
-        let themesArray = this.formatToMultiselect(this.props.articleData.themes);
+        let categoriesArray = this.formatToMultiselect(this.props.articleData.categories);
 
         const formData = {
             'name': this.props.articleData.name,
             //still must keep this for the id eventhough it isn't rendered
             'slug': this.props.articleData.slug,
             'category': this.props.articleData.category_id,
-            'themes': themesArray,
+            'categories': categoriesArray,
         };
 
         this.props.initialize(formData);
@@ -78,9 +78,9 @@ class EditArticle extends Component {
 
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
-        //format themes data (must convert it to comma separated string over the network)
+        //format categories data (must convert it to comma separated string over the network)
         let formpropsClone = clone(formProps);
-        formpropsClone.themes = flattenObjArray(formpropsClone.themes, 'value').toString();
+        formpropsClone.categories = flattenObjArray(formpropsClone.categories, 'value').toString();
 
         // call action to submit edited
         //console.log(formpropsClone);
@@ -178,6 +178,7 @@ class EditArticle extends Component {
                                 label="New Images:"
                                 classNameLabel="file-input-label"
                                 onChange={this.onInputChange.bind(this)}
+                                tags={[{id: "1", name: "test tag"}]}
                             />
                             <button action="submit" className="btn btn-primary">Submit</button>
                         </form>
@@ -207,9 +208,9 @@ function validate(formProps) {
       errors.category = 'Please enter a type';
     }
 
-    if (formProps.themes) {
-        if (formProps.themes.length === 0) {
-            errors.themes = 'Please enter at least one theme';
+    if (formProps.categories) {
+        if (formProps.categories.length === 0) {
+            errors.categories = 'Please enter at least one category';
         }
     }
     
@@ -221,7 +222,7 @@ function mapStateToProps(state, ownProps) {
         articleUpdated: state.article.articleUpdated,
         articleData: state.article.articleSingle,
         categories: state.categories.all,
-        themes: state.themes.all,
+        tags: state.tags.all,
     };
 }
 
@@ -231,7 +232,7 @@ export default RequireAuth(reduxForm({
     //fields: ['name', 'slug', 'locationx', 'locationy', 'body'],
     fields: ['name', 'slug'],
 })(
-    connect(mapStateToProps, { getArticle, fetchCategories, clearUpdateArticle, updateArticle, fetchThemes })(EditArticle)
+    connect(mapStateToProps, { getArticle, clearUpdateArticle, updateArticle, fetchTags, fetchCategories })(EditArticle)
     ));
 
 

@@ -3,7 +3,7 @@ import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { addArticle, addArticleError, clearArticle } from '../../../actions/articles';
 import { fetchCategories } from '../../../actions/categories';
-import { fetchThemes } from '../../../actions/themes';
+import { fetchTags } from '../../../actions/tags';
 import Sidebar from '../sidebar';
 import renderField from '../parts/form_fields';
 import ImgFieldCrop from '../parts/image_field_crop';
@@ -20,14 +20,14 @@ class AddArticle extends Component {
     super(props);
     this.state = {
       // store the most recent value 
-      // since theme turns to undefined after first form submit
+      // since category turns to undefined after first form submit
       recentValue: ''
     }
   }
 
   componentWillMount() {
     this.props.fetchCategories();
-    this.props.fetchThemes();
+    this.props.fetchTags();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,9 +59,9 @@ class AddArticle extends Component {
 
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
-    //format themes data (must convert it to comma separated string over the network)
+    //format categories data (must convert it to comma separated string over the network)
     let formpropsClone = clone(formProps);
-    formpropsClone.themes = flattenObjArray(formpropsClone.themes, 'value').toString();
+    formpropsClone.categories = flattenObjArray(formpropsClone.categories, 'value').toString();
 
     // call action to submit edited
     this.props.addArticle(createImgFormData('images', formpropsClone));
@@ -146,6 +146,7 @@ class AddArticle extends Component {
                   name="images"
                   classNameLabel="file-input-label"
                   onChange={this.onInputChange.bind(this)}
+                  tags={[{id: "1", name: "test tag"}]}
                 />
                 <button action="submit" className="btn btn-primary">Submit</button>
               </form>
@@ -176,8 +177,8 @@ function validate(formProps) {
     errors.category = 'Please enter a category';
   }
 
-  if (!formProps.themes) {
-    errors.themes = 'Please enter at least one theme';
+  if (!formProps.categories) {
+    errors.categories = 'Please enter at least one category';
   }
   
   return errors;
@@ -188,7 +189,7 @@ function mapStateToProps(state) {
     articleAdded: state.article.articleAdded,
     errorMessage: state.article.addArticleError,
     categories: state.categories.all,
-    themes: state.themes.all,
+    tags: state.tags.all,
   };
 }
 
@@ -199,7 +200,7 @@ export default RequireAuth(reduxForm({
   fields: ['name', 'slug', 'files'],
   //fields: ['name', 'slug', 'body', 'files'],
 })(
-connect(mapStateToProps, { addArticle, clearArticle, addArticleError, fetchCategories, fetchThemes, reset })(AddArticle)
+connect(mapStateToProps, { addArticle, clearArticle, addArticleError, fetchCategories, fetchTags, reset })(AddArticle)
 ));
 
 

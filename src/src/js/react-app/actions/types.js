@@ -36,10 +36,19 @@ export const ADD_USER = 'add_user';
 //categories
 export const ADD_CATEGORY = 'add_categories';
 export const ADD_CATEGORY_ERROR = 'add_categories_error';
-export const FETCH_CATEGORYS = 'fetch_categories';
+export const FETCH_CATEGORIES = 'fetch_categories';
 export const DELETE_CATEGORY = 'delete_categories';
 export const UPDATE_CATEGORY = 'update_categories';
 export const GET_CATEGORY = 'get_categories';
+
+//categories
+export const ADD_TAG = 'add_tag';
+export const ADD_TAG_ERROR = 'add_tag_error';
+export const FETCH_TAGS = 'fetch_tags';
+export const DELETE_TAG = 'delete_tag';
+export const UPDATE_TAG = 'update_tag';
+export const GET_TAG = 'get_tag';
+
 
 //origins
 export const FETCH_ORIGINS = 'fetch_origins';

@@ -9,8 +9,8 @@ import reducerUser from './reducerUser';
 import reducerUsers from './reducerUsers';
 import reducerCategory from './reducerCategory';
 import reducerCategories from './reducerCategories';
-import reducerTheme from './reducerTheme';
-import reducerThemes from './reducerThemes';
+import reducerTag from './reducerTag';
+import reducerTags from './reducerTags';
 import reducerTreeTables from './reducerTreeTables';
 import reducerLocation from './reducerLocation';
 import reducerGlobal from './reducerGlobal';
@@ -38,8 +38,8 @@ const rootReducer = combineReducers({
   users: reducerUsers,
   category: reducerCategory,
   categories: reducerCategories,
-  theme: reducerTheme,
-  themes: reducerThemes,
+  tag: reducerTag,
+  tags: reducerTags,
   treeTables: reducerTreeTables,
   map: reducerLocation,
   global: reducerGlobal,

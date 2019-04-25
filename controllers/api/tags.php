@@ -4,13 +4,13 @@ use Lib\Controller;
 use Lib\Utils;
 
 
-class Themes extends Controller 
+class Tags extends Controller 
 {
-	protected $themes = null;
+	protected $tags = null;
 
 	public function __construct() 
 	{
-		$this->themes = $this->load_model('Themes_model');
+		$this->tags = $this->load_model('Tags_model');
 
 		parent::__construct();
 	}
@@ -34,13 +34,13 @@ class Themes extends Controller
 		}
 
 		try {
-			$this->themes->add(['slug' => $data['slug'], 'name' => $data['name'], 'created_on' => date('Y-m-d')]);
+			$this->tags->add(['slug' => $data['slug'], 'name' => $data['name'], 'created_on' => date('Y-m-d')]);
 
-			$id = $this->themes->db->insertId();
+			$id = $this->tags->db->insertId();
 
-			$new_theme = $this->themes->get(['id' => $id]);
+			$new_tag = $this->tags->get(['id' => $id]);
 
-			Utils::json_respond(SUCCESS_RESPONSE, $new_theme);
+			Utils::json_respond(SUCCESS_RESPONSE, $new_tag);
 		} catch (Exception $e) {
 			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
 		}
@@ -50,16 +50,16 @@ class Themes extends Controller
 	{
 		$data = Utils::json_read();
 
-		$this->themes->remove(['slug' => $data['slug']]);
+		$this->tags->remove(['slug' => $data['slug']]);
 
 		Utils::json_respond(SUCCESS_RESPONSE, $data['name']);
 	}
 
 	public function all() 
 	{
-		$themes = $this->themes->get_all(['id', 'slug', 'name']);
-		if ($themes) {
-			Utils::json_respond(SUCCESS_RESPONSE, $themes);
+		$tags = $this->tags->get_all(['id', 'slug', 'name']);
+		if ($tags) {
+			Utils::json_respond(SUCCESS_RESPONSE, $tags);
 		} else {
 			Utils::json_respond(SUCCESS_RESPONSE, array());
 		}
@@ -67,9 +67,9 @@ class Themes extends Controller
 
 	public function single($slug) 
 	{
-		$themes = $this->themes->get(['slug' => $slug]);
-		if ($themes) {
-			Utils::json_respond(SUCCESS_RESPONSE, $themes);
+		$tags = $this->tags->get(['slug' => $slug]);
+		if ($tags) {
+			Utils::json_respond(SUCCESS_RESPONSE, $tags);
 		} else {
 			Utils::json_respond(SUCCESS_RESPONSE, array());
 		}
@@ -80,7 +80,7 @@ class Themes extends Controller
 		$data = Utils::json_read();
 
 		try {
-			$this->themes->update(['where' => ['slug' => $data['slug']], 'update' => ['name' => $data['name']]]);
+			$this->tags->update(['where' => ['slug' => $data['slug']], 'update' => ['name' => $data['name']]]);
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
 		} catch (Exception $e) {
