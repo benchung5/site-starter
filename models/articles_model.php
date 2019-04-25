@@ -34,19 +34,19 @@ class Articles_model extends Model
 				->getAll();
 
 			// get categories
-			$result->categories = $this->db->table('article_categories at')
-				->select('t.id, t.name')
+			$result->categories = $this->db->table('article_categories ac')
+				->select('c.id, c.name')
 				->where('article_id', $result->id)
-				->innerJoin('categories t', 't.id', 'at.category_id')
+				->innerJoin('categories c', 'c.id', 'ac.category_id')
 				->getAll();
 
-			// include categories
-			$category = $this->db->table('categories')
-				->select('name')
-				->where('id', $result->category_id)
-				->get();
+			// get tags
+			$result->tags = $this->db->table('article_tags at')
+				->select('t.id, t.name')
+				->where('article_id', $result->id)
+				->innerJoin('tags t', 't.id', 'at.tag_id')
+				->getAll();
 
-			$result->category_name = $category ? $category->name : '';
 			
 			return $result;
 		}
@@ -63,16 +63,26 @@ class Articles_model extends Model
 		return false;
 	}
 
-	public function add($data, $categories)
+	public function add($data, $categories, $tags)
 	{
 		if (is_array($data)) {
 			$this->db->table('articles')->insert($data);
 			$new_article_id = $this->db->insertId();
+
+			//categories
 			$categories = (! is_array($categories)) ? explode(',', $categories) : $categories;
 
 			foreach ($categories as $category) {
 				$ins = ['article_id' => $new_article_id, 'category_id' => $category];
 				$this->db->table('article_categories')->insert($ins);
+			}
+
+			//tags
+			$tags = (! is_array($tags)) ? explode(',', $tags) : $tags;
+
+			foreach ($tags as $tag) {
+				$ins = ['article_id' => $new_article_id, 'tag_id' => $tag];
+				$this->db->table('article_tags')->insert($ins);
 			}
 			
 			return $new_article_id;
@@ -102,6 +112,9 @@ class Articles_model extends Model
 
 			// remove categories
 			$this->db->table('article_categories')->where('article_id', $deleted_article_id)->delete();
+
+			// remove tags
+			$this->db->table('article_tags')->where('article_id', $deleted_article_id)->delete();
 
 			// remove files
 			$this->db->table('files')->where('ref_id', $deleted_article_id)->delete();
@@ -170,9 +183,10 @@ class Articles_model extends Model
 			$this->db->table('articles');
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
-		if (isset($opts['categories'])) {
-			$article_id = $this->db->table('articles')->where($opts['where'])->get()->id;
 
+		$article_id = $this->db->table('articles')->where($opts['where'])->get()->id;
+
+		if (isset($opts['categories'])) {
 			// clear existing associations
 			$this->db->table('article_categories')->where('article_id', $article_id)->delete();
 
@@ -180,6 +194,16 @@ class Articles_model extends Model
 			$categories = is_array($opts['categories']) ? $opts['categories'] : explode(',', $opts['categories']);
 			foreach ($categories as $category_id) {
 				$this->db->table('article_categories')->insert(['article_id' => $article_id, 'category_id' => $category_id]);
+			}
+		}
+		if (isset($opts['tags'])) {
+			// clear existing associations
+			$this->db->table('article_tags')->where('article_id', $article_id)->delete();
+
+			// insert new associations
+			$tags = is_array($opts['tags']) ? $opts['tags'] : explode(',', $opts['tags']);
+			foreach ($tags as $tag_id) {
+				$this->db->table('article_tags')->insert(['article_id' => $article_id, 'tag_id' => $tag_id]);
 			}
 		}
 	}

@@ -64,6 +64,7 @@ class EditArticle extends Component {
         this.refs.UploadedImages.initImages(images, 'articles');
 
         let categoriesArray = this.formatToMultiselect(this.props.articleData.categories);
+        let tagsArray = this.formatToMultiselect(this.props.articleData.tags);
 
         const formData = {
             'name': this.props.articleData.name,
@@ -71,6 +72,7 @@ class EditArticle extends Component {
             'slug': this.props.articleData.slug,
             'category': this.props.articleData.category_id,
             'categories': categoriesArray,
+            'tags': tagsArray,
         };
 
         this.props.initialize(formData);
@@ -81,6 +83,7 @@ class EditArticle extends Component {
         //format categories data (must convert it to comma separated string over the network)
         let formpropsClone = clone(formProps);
         formpropsClone.categories = flattenObjArray(formpropsClone.categories, 'value').toString();
+        formpropsClone.tags = flattenObjArray(formpropsClone.tags, 'value').toString();
 
         // call action to submit edited
         //console.log(formpropsClone);

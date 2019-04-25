@@ -39,9 +39,8 @@ class Articles extends Controller
 			$new_article_id = $this->articles->add([
 				'slug' => $data['slug'], 
 				'name' => $data['name'], 
-				'tags_id' => $data['tags'],
 				'created_on' => date('Y-m-d'),
-			], $data['categories']);
+			], $data['categories'], $data['tags']);
 
 			$new_article = $this->articles->get(['id' => $new_article_id]);
 
@@ -106,9 +105,9 @@ class Articles extends Controller
 				'where' => ['slug' => $data['slug']], 
 				'update' => [
 					'name' => $data['name'],
-					'tags_id' => $data['tags']
 				],
-				'categories' => $data['categories']
+				'categories' => $data['categories'],
+				'tags' => $data['tags']
 			]);
 
 			$new_article = $this->articles->get(['slug' => $data['slug']]);
