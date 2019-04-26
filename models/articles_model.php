@@ -132,21 +132,21 @@ class Articles_model extends Model
 		if (isset($opts['select'])) {
 			$this->db->select(implode(',', $opts['select']));
 		} else {
-			$this->db->select('a.id, a.slug, a.name, a.category_id');
+			$this->db->select('a.id, a.slug, a.name');
 		}
 
 		if (isset($opts['offset'])) {
 			$this->db->limit($opts['offset'], $opts['limit']);
 		}
 
-		if (isset($opts['category'])) {
-			if (count($opts['category']) > 0) {
-				$this->db->in('a.category_id', $opts['category']);
-			} else {
-				// force no results since category is queried but no category is selected
-				return [];
-			}
-		}
+		// if (isset($opts['category'])) {
+		// 	if (count($opts['category']) > 0) {
+		// 		$this->db->in('a.category_id', $opts['category']);
+		// 	} else {
+		// 		// force no results since category is queried but no category is selected
+		// 		return [];
+		// 	}
+		// }
 
 		if (isset($opts['categories'])) {
 			if (count($opts['categories']) > 0) {

@@ -40,7 +40,7 @@ class ArticlesIndex extends Component {
         const { offset, limit } = this.props.articles;
         //slug, search, offset, limit
         //todo: get [] to use real stored search if any
-        this.props.deleteArticle({id: parseInt(id), slug: slug}, [], offset, limit);
+        this.props.dispatch(this.props.deleteArticle({id: parseInt(id), slug: slug}, [], offset, limit));
     }
 
     onDuplicateArticleClick(event) {

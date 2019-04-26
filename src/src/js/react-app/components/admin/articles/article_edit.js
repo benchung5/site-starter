@@ -53,26 +53,27 @@ class EditArticle extends Component {
 
     handleInitialize() {
 
-        //convert to an array
-        let images = [];
-        Object.keys(this.props.articleData.images).forEach((key) => {
-            images[key] = this.props.articleData.images[key].name;
-        })
+        // //convert to an array
+        // let images = [];
+        // Object.keys(this.props.articleData.images).forEach((key) => {
+        //     images[key] = this.props.articleData.images[key].name;
+        // })
+
+        let images = clone(this.props.articleData.images);
+
         //store initial images for comparison later
         this.setState({ images });
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'articles');
-
-        let categoriesArray = this.formatToMultiselect(this.props.articleData.categories);
-        let tagsArray = this.formatToMultiselect(this.props.articleData.tags);
 
         const formData = {
             'name': this.props.articleData.name,
             //still must keep this for the id eventhough it isn't rendered
             'slug': this.props.articleData.slug,
             'category': this.props.articleData.category_id,
-            'categories': categoriesArray,
-            'tags': tagsArray,
+            'categories': this.formatToMultiselect(this.props.articleData.categories),
+            'tags': this.formatToMultiselect(this.props.articleData.tags),
+            'body': this.props.articleData.body,
         };
 
         this.props.initialize(formData);
@@ -109,8 +110,11 @@ class EditArticle extends Component {
     }
 
     updatedImages(images, deletedImages) {
-        // update deleted_images field with the deleted images in string form
-        this.props.change('deleted_images', deletedImages.toString());
+        let delImages = [];
+        Object.keys(deletedImages).forEach((key) => {
+            delImages[key] = deletedImages[key].name;
+        })
+        this.props.change('deleted_images', delImages.toString());
 
         // update updated_images field with the upated images in string form
         this.props.change('updated_images', images.toString());
@@ -119,15 +123,6 @@ class EditArticle extends Component {
     onInputChange() {
         this.clearMessages();
     }
-
-    // <Field
-    //     type="textarea"
-    //     label="Body:"
-    //     name="body"
-    //     component={renderField}
-    //     onChange={this.onInputChange.bind(this)}
-    //     onFocus={this.onInputChange.bind(this)}
-    // />
     
     render() {
         const { handleSubmit } = this.props;
@@ -159,9 +154,17 @@ class EditArticle extends Component {
                               name="tags"
                               label="tags"
                               component={renderMultiSelect}
-                              selectItems={this.props.tags}
+                              selectItems={this.props.articleData.tags}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
+                            />
+                            <Field
+                                type="textarea"
+                                label="Body:"
+                                name="body"
+                                component={renderField}
+                                onChange={this.onInputChange.bind(this)}
+                                onFocus={this.onInputChange.bind(this)}
                             />
                             <UploadedImages
                                 ref="UploadedImages"

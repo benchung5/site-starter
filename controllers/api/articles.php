@@ -105,6 +105,7 @@ class Articles extends Controller
 				'where' => ['slug' => $data['slug']], 
 				'update' => [
 					'name' => $data['name'],
+					'body' => $data['body'],
 				],
 				'categories' => $data['categories'],
 				'tags' => $data['tags']

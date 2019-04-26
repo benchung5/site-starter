@@ -142,11 +142,19 @@ class AddArticle extends Component {
                   onChange={this.onInputChange.bind(this)}
                   onFocus={this.onInputChange.bind(this)}
                 />
+                <Field
+                    type="textarea"
+                    label="body"
+                    name="body"
+                    component={renderField}
+                    onChange={this.onInputChange.bind(this)}
+                    onFocus={this.onInputChange.bind(this)}
+                />
                 <ImgFieldCrop
                   name="images"
                   classNameLabel="file-input-label"
                   onChange={this.onInputChange.bind(this)}
-                  tags={[{id: "1", name: "test tag"}]}
+                  tags={this.props.tags}
                 />
                 <button action="submit" className="btn btn-primary">Submit</button>
               </form>

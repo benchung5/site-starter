@@ -10,21 +10,30 @@ class Files_model extends Model
 		parent::__construct();
 	}
 
-	public function get($opts = []) 
+	public function get_all_by_ref_id($ref_id, $opts = [], $isCount = false) 
 	{
-		// $this->db->table('files')->select('*');
+		$this->db->table('files f');
 
-		// if (isset($opts['id'])) {
-		// 	$this->db->where('id', '=', $opts['id']);
-		// }
+		if ($isCount) {
+			 $this->db->select('DISTINCT f.id');
 
-		// if (isset($opts['slug'])) {
-		// 	$this->db->where('slug', '=', $opts['slug']);
-		// }
+			 $result = $this->db->getAll();
 
-		// $result = $this->db->get();
-		
-		// return $result;
+			return count($result);
+		} else {
+			if (isset($opts['select'])) {
+				$this->db->select(implode(',', $opts['select']));
+			} else {
+				$this->db->select('DISTINCT f.id, f.ref_id, f.name, f.sort_order, f.extension, tf.name AS tag_name, f.description');
+			}
+
+			$this->db->leftJoin('tags_files tf','tf.id','f.tag_id');
+			$this->db->where('ref_id', $ref_id);
+
+			$result = $this->db->getAll();
+
+			return $result;
+		}
 	}
 
 	public function add($data)
@@ -35,37 +44,6 @@ class Files_model extends Model
 
 			return $this->db->insertId();
 		}
-	}
-
-	public function remove($opts = []) 
-	{
-		// $this->db->table('files');
-
-		// if (isset($opts['id'])) {
-		// 	$this->db->where('id', '=', $opts['id']);
-		// }
-
-		// if (isset($opts['slug'])) {
-		// 	$this->db->where('slug', '=', $opts['slug']);
-		// }
-
-		// if ($opts) {
-		// 	$this->db->delete();
-		// }
-	}
-
-	public function get_all($opts = []) 
-	{
-		// $this->db->table('files');
-
-		// if ($opts) {
-		// 	$this->db->select(implode(',', $opts));
-		// } else {
-		// 	$this->db->select('*');
-		// }
-
-		// $result = $this->db->getAll();
-		// return $result;
 	}
 
 	public function update_associations($ref_type, $ref_id, $deleted_images) 
@@ -80,6 +58,7 @@ class Files_model extends Model
 				->delete();
 
 			//also remove the actual uploaded files
+			//todo: combine this with lib/uploads verion of this
 			$path = realpath('./uploads');
 			if (is_dir($path.'/'.$ref_type)) {
 				$deleted_image_sml = preg_replace('/(\.[\w\d_-]+)$/i', '-sml$1', $deleted_image);
