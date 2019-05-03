@@ -10,6 +10,12 @@ start
 ```
 npm start
 
+### To run production:
+start
+```
+npm run build
+
+
 ### Notes:
 -to adjust the layout template html use: src/layout-template.php
 (this is used by HtmlWebpackPlugin to create the layout file)
