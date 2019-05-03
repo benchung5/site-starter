@@ -182,6 +182,7 @@ class Trees extends Controller
 			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
 			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : null, 
+			'zones' => isset($data['zones']) ? $data['zones'] : null,
 			'origins' => isset($data['origins']) ? $data['origins'] : null,
 			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id']
 		];

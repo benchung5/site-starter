@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import Header from './header';
 import cloneDeep from 'lodash/cloneDeep';
+import { globals } from '../../config.js';
 
 class SideMenu extends Component {
 
@@ -9,16 +9,18 @@ class SideMenu extends Component {
         super(props);
         this.state = {
             linkList: [
-                { title: 'Dashboard', link: '/admin', active: false },
-                { title: 'View Articles', link: '/admin/articles-list', active: false },
-                { title: 'Add Articles', link: '/admin/article-add', active: false },
-                { title: 'View Plants', link: '/admin/trees-list', active: false },
-                { title: 'Add Plants', link: '/admin/tree-add', active: false },
-                { title: 'View Users', link: '/admin/users-list', active: false },
-                { title: 'Add User', link: '/admin/signup', active: false },
-                { title: 'View Categories', link: '/admin/category-list', active: false },
-                { title: 'Add Category', link: '/admin/category-add', active: false },
-                { title: 'Backup', link: '/admin/backup', active: false },
+                { title: 'Website', link: '/', active: false },
+                { title: 'Logout', link: '/'+globals.ADMIN_URL+'/signout', active: false },
+                { title: 'Dashboard', link: '/'+globals.ADMIN_URL+'', active: false },
+                { title: 'View Articles', link: '/'+globals.ADMIN_URL+'/articles-list', active: false },
+                { title: 'Add Articles', link: '/'+globals.ADMIN_URL+'/article-add', active: false },
+                { title: 'View Plants', link: '/'+globals.ADMIN_URL+'/trees-list', active: false },
+                { title: 'Add Plants', link: '/'+globals.ADMIN_URL+'/tree-add', active: false },
+                { title: 'View Users', link: '/'+globals.ADMIN_URL+'/users-list', active: false },
+                { title: 'Add User', link: '/'+globals.ADMIN_URL+'/signup', active: false },
+                { title: 'View Categories', link: '/'+globals.ADMIN_URL+'/category-list', active: false },
+                { title: 'Add Category', link: '/'+globals.ADMIN_URL+'/category-add', active: false },
+                { title: 'Backup', link: '/'+globals.ADMIN_URL+'/backup', active: false },
             ]
         }
     }
@@ -59,9 +61,6 @@ class SideMenu extends Component {
         return (
             <div className="columns small-12 large-3">
                 <ul className="vertical menu admin-side-menu">
-                    <li>
-                        <Header/>
-                    </li>
                     {this.renderButtons()}
                 </ul>
             </div>

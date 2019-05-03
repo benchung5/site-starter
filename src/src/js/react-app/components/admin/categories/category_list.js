@@ -4,16 +4,17 @@ import Sidebar from '../sidebar';
 import { Link } from 'react-router-dom';
 import * as actions from '../../../actions/categories';
 import RequireAuth from '../auth/require_auth';
+import { globals } from '../../../config.js';
 
 class ThemeIndex extends Component {
 
 	componentWillMount() {
-		this.props.fetchcategories();
+		this.props.fetchCategories();
 	}
 
-	onDeleteThemeClick(event) {
+	onDeleteCategoryClick(event) {
 		let slug = event.target.getAttribute('data-slug');
-		this.props.deleteTheme({ slug });
+		this.props.deleteCategory({ slug });
 	}
 
 	rendercategories() {
@@ -21,8 +22,8 @@ class ThemeIndex extends Component {
 			return (
 				<li className="list-group-item" key={item.slug}>
 				    <span>{item.name}</span>
-				    <a href="#" data-id={item._id} data-slug={item.slug} onClick={this.onDeleteThemeClick.bind(this)}>Delete</a>
-				    <Link to={`/admin/category-list/${item.slug}`}>edit</Link>
+				    <a href="#" data-id={item._id} data-slug={item.slug} onClick={this.onDeleteCategoryClick.bind(this)}>Delete</a>
+				    <Link to={`/${globals.ADMIN_URL}/category-list/${item.slug}`}>edit</Link>
 				</li>
 				)
 		});
@@ -49,7 +50,7 @@ class ThemeIndex extends Component {
 function mapStateToProps(state) {
 	return {
 		categories: state.categories.all,
-		categoriesDeleted: state.theme.themeDeleted
+		categoriesDeleted: state.category.categoryDeleted
 	}
 }
 

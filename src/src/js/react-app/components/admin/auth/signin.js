@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { signinUser } from '../../../actions/auth';
 import { connect } from 'react-redux';
 import renderField from '../parts/form_fields';
+import { globals } from '../../../config.js';
 
 
 class Signin extends Component {
@@ -10,14 +11,14 @@ class Signin extends Component {
     componentWillMount() {
         if (this.props.authenticated) {
           // if the user is already logged in, just forward them right to the dashboard
-          this.props.history.push('/admin');
+          this.props.history.push('/'+globals.ADMIN_URL);
         }
     }
 
     componentWillUpdate(nextProps) {
         if (nextProps.authenticated) {
           //if just authenticated, redirect to dashboard
-          this.props.history.push('/admin');
+          this.props.history.push('/'+globals.ADMIN_URL);
         }
     }
 

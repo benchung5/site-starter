@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import SideMenuHeader from './side_menu_header';
 import ButtonsCategoriesTrees from './buttons_categories_trees';
-import ButtonsOrigins from './buttons_origins';
+//import ButtonsOrigins from './buttons_origins';
+import ButtonsZones from './buttons_zones';
 import SearchTreesComponent from './search_trees';
 // import Routes from './buttons_routes';
 // import NearMe from './button_near_me';
@@ -38,11 +39,13 @@ class SideMenu extends Component {
   componentWillMount() {
     let selectedOrigines = getUrlParams('ecoregions');
     let selectedCategories = getUrlParams('categories');
+    let selectedZones = getUrlParams('zones');
     //console.log(selectedCategories);
     //populate the filter with initial data
     this.props.dispatch(populateTreesFilter({
       selectedTreesOrigines: selectedOrigines,
-      selectedTreesCategories: selectedCategories
+      selectedTreesCategories: selectedCategories,
+      selectedTreesZones: selectedZones
     }));
   }
 
@@ -80,7 +83,7 @@ class SideMenu extends Component {
               />
             </SideMenuHeader>
             <ButtonsCategoriesTrees/>
-            <ButtonsOrigins/>
+            <ButtonsZones/>
             <div className="bottom">
             </div>
           </div>
@@ -89,6 +92,7 @@ class SideMenu extends Component {
     );
   }
 }
+
 
 //<Routes/>
 

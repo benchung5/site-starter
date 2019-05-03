@@ -8,6 +8,7 @@ import SearchTrees from '../../search_trees';
 import PaginationTrees from '../../parts/pagination_trees';
 import { globals } from '../../../config.js';
 import { searchTrees } from '../../../actions/globalTrees';
+
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../../../config')[env];
@@ -57,7 +58,7 @@ class TreesIndex extends Component {
                 <li className="list-group-item" key={tree.id}>
                     <span>{tree.common_name}</span>
                     <a href="#" data-id={tree.id} data-slug={tree.slug} onClick={this.onDeleteTreeClick.bind(this)}>Delete</a>
-                    <Link to={`/admin/trees-list/${tree.slug}`}>edit</Link>
+                    <Link to={`/${globals.ADMIN_URL}/trees-list/${tree.slug}`}>edit</Link>
                 </li>
             );
         });

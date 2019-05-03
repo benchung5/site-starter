@@ -9,8 +9,8 @@ module.exports = {
    },
    "production": {
          //SERVER_URL: "https://artintheopen.ca/api",
-	   	SERVER_URL: "https://mylivedomain.com",
-	   	ROOT_URL: "https://mylivedomain.com",
+	   	SERVER_URL: "https://naturewithus.com",
+	   	ROOT_URL: "https://naturewithus.com",
 	   	ARTICLES_UPLOADS_PATH: '/uploads/articles/',
       TREES_UPLOADS_PATH: '/uploads/trees/',
    },
@@ -22,5 +22,6 @@ module.exports = {
            }
          },
       ADMIN_ENTRIES_PER_PAGE: 4,
+      ADMIN_URL: 'admin'
    	}
 }

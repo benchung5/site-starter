@@ -14,7 +14,7 @@ class Signout extends Component {
       	<div className="row">
       	        <Sidebar/>
       	        <div className="columns small-12 large-9">
-      	        	Sorry to see you go...
+      	        	You have been signed out
       	        </div>
       	</div>
       </div>

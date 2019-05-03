@@ -6,7 +6,8 @@ import { isLoading } from '../internalLoad';
 
 import {
 	CATEGORIES_TREES_FILTER,
-	ORIGINS_FILTER,
+    ORIGINS_FILTER,
+	ZONES_FILTER,
 	SEARCH_TREES,
     OFFSET_TREES_FILTER,
     SEARCH_TREES_FILTER,
@@ -24,6 +25,14 @@ export function filterOrigins(filteredOrigins) {
 		type: ORIGINS_FILTER,
 		payload: filteredOrigins
 	}
+}
+
+
+export function filterZones(filteredZones) {
+    return {
+        type: ZONES_FILTER,
+        payload: filteredZones
+    }
 }
 
 export function filterOffsetTrees(offset) {
@@ -46,6 +55,7 @@ export function populateTreesFilter(selectionFromUrl) {
         .then((response) => {
             var categoryTreesData = [];
             var originsData = [];
+            var zonesData = [];
             // var originsData = [];
             var modifiedData = [];
             //add an active state to each returned object
@@ -80,6 +90,23 @@ export function populateTreesFilter(selectionFromUrl) {
                     return {id: item.id, name: item.name, slug: item.slug, active: isActive};
                 });
 
+                zonesData = response.data.zones.map((item, index) => {
+                    //set all to active by default
+                    let isActive = true;
+
+                    // if url contains selected categories, just select those
+                    if (selectionFromUrl.selectedTreesZones) {
+                        isActive = false;
+                        if ((selectionFromUrl.selectedTreesZones.length > 0) && (selectionFromUrl.selectedTreesZones.indexOf(item.slug) > -1)) {
+                            isActive = true;
+                        }
+                    }
+
+                    return {id: item.id, name: item.name, slug: item.slug, active: isActive};
+                });
+
+
+
                 dispatch({
                     type: ORIGINS_FILTER,
                     payload: originsData
@@ -88,6 +115,11 @@ export function populateTreesFilter(selectionFromUrl) {
                 dispatch({
                     type: CATEGORIES_TREES_FILTER,
                     payload: categoryTreesData
+                });
+
+                dispatch({
+                    type: ZONES_FILTER,
+                    payload: zonesData
                 });
             }
         }).catch((err) => {
@@ -138,7 +170,7 @@ export function searchTrees(searchObj) {
     		query.categoriesTrees = catArray;
     	}
 
-    	//format categoriesTrees, query only active ones
+    	//format origins, query only active ones
     	if (inObj.origins) {
     		//return a new array without undefined
     		let originsArray = inObj.origins.reduce(function(result, item) {
@@ -150,6 +182,19 @@ export function searchTrees(searchObj) {
 
     		query.origins = originsArray;
     	}
+
+        //format origins, query only active ones
+        if (inObj.zones) {
+            //return a new array without undefined
+            let zonesArray = inObj.zones.reduce(function(result, item) {
+              if(item.active) {
+                result.push(item.id);
+              }
+              return result;
+            }, []);
+
+            query.zones = zonesArray;
+        }
 
     	return query;
     }

@@ -13,24 +13,45 @@ use Config\Config as Config;
     <div class="row text-center">
       <div class="small-10 large-4 columns logo-container align-middle">
         <h1 class="logo-main">
-          <a href="/"><img alt="logo" src="<?=Config::paths('ROOT_URL')?>assets/img/logo-main.png"></a>
+          <a href="/"><img alt="logo" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png"></a>
+        </h1>
+      </div>
+      <nav class="large-8 columns menu-container show-for-large">
+        <ul class="menu menu-left align-right">
+          <li><a href="/">Home</a></li>
+          <li><a href="/filter_plants">Native Plants</a></li>
+          <li><a href="/filter">Articles</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+<!-- version including search -->
+
+<!--   <div class="header-inner">
+    <div class="row text-center">
+      <div class="small-10 large-4 columns logo-container align-middle">
+        <h1 class="logo-main">
+          <a href="/"><img alt="logo" src="..."></a>
         </h1>
       </div>
       <nav class="large-6 columns menu-container show-for-large">
         <ul class="menu menu-left align-right">
           <li><a href="/">Home</a></li>
-          <li><a href="/filter">3d</a></li>
+          <li><a href="/filter">Articles</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>
       <div class="small-2 columns menu-container">
-<!--         <ul class="menu align-right lesser-menu ">
+        <ul class="menu align-right lesser-menu ">
           <li class="show-for-large"><a href="/account/login">Login</a></li>
-        </ul> -->
+        </ul>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="mobile-menu-button hide-for-large">
     <button class="grid-button rearrange" type="button" role="button" aria-label="Toggle Navigation">
@@ -41,7 +62,7 @@ use Config\Config as Config;
   <div class="mobile-menu-container hide-for-large" style="visibility: hidden; opacity: 0;"> 
     <div class="mobile-menu-inner">
       <div class="top">
-        <img class="mobile-top-logo" src="<?=Config::paths('ROOT_URL')?>assets/img/logo-main.png">
+        <img class="mobile-top-logo" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png">
       </div>   
       <ul class="menu menu-mobile vertical">
         <li><a href="/">Home</a></li>

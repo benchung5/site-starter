@@ -7,6 +7,7 @@ import RequireAuth from '../auth/require_auth';
 import SearchArticles from './search_articles';
 import Pagination from '../parts/pagination';
 import { globals } from '../../../config.js';
+
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../../../config')[env];
@@ -58,7 +59,7 @@ class ArticlesIndex extends Component {
                     <span>{article.name}</span>
                     <a href="#" data-id={article.id} data-slug={article.slug} onClick={this.onDeleteArticleClick.bind(this)}>Delete</a>
                     <a href="#" data-id={article.id} data-slug={article.slug} onClick={this.onDuplicateArticleClick.bind(this)}>Duplicate</a>
-                    <Link to={`/admin/articles-list/${article.slug}`}>edit</Link>
+                    <Link to={`/${globals.ADMIN_URL}/articles-list/${article.slug}`}>edit</Link>
                 </li>
             );
         });

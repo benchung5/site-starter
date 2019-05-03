@@ -213,7 +213,7 @@ html, body {
 p { 
   font-size:1.1em;
   margin-bottom: 3em;
-  line-height: 2.1em;
+  //line-height: 2.1em;
 }
 
 a, a:link, a:visited, a:hover, a:active {
@@ -398,115 +398,115 @@ parts
   }
 }
 
-.circle-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 17.5em;
-  .circle-wrapper {
-    height: 17.5em;
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      z-index: 2;
-      background-image: url(../img/dot-pattern.png);
-      padding: 4em;
-    }
-  }
+// .circle-group {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   width: 17.5em;
+//   .circle-wrapper {
+//     height: 17.5em;
+//     width: 100%;
+//     position: relative;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       left: 0;
+//       top: 0;
+//       width: 100%;
+//       height: 100%;
+//       border-radius: 50%;
+//       z-index: 2;
+//       background-image: url(../img/dot-pattern.png);
+//       padding: 4em;
+//     }
+//   }
 
-  .circle {
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    margin-bottom: 11em;
-    position: absolute;
-    z-index: 3;
-    left: 50%;
-    top: 50%;
-    margin-left: -40px;
-    margin-top: -40px;
-    .icon {
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    &.pink {
-      box-shadow: 0 0 0 20px rgba(236,46,98, 0.25), 0 0 0 40px rgba(236,46,98, 0.25), 0 0 0 60px rgba(236,46,98, 0.25); 
-      background-color: $pink;
-    }
-    &.yellow {
-      box-shadow: 0 0 0 20px rgba(250,166,39, 0.25), 0 0 0 40px rgba(250,166,39, 0.25), 0 0 0 60px rgba(250,166,39, 0.25); 
-      background-color: $orange;
-    }
-    &.green {
-      box-shadow: 0 0 0 20px rgba(128,195,66, 0.25), 0 0 0 40px rgba(128,195,66, 0.25), 0 0 0 60px rgba(128,195,66, 0.25); 
-      background-color: $green;
-    }
-    &.navy {
-      box-shadow: 0 0 0 20px rgba(17,60,100, 0.25), 0 0 0 40px rgba(17,60,100, 0.25), 0 0 0 60px rgba(17,60,100, 0.25); 
-      background-color: $navy;
-    }
-    &.teal {
-      box-shadow: 0 0 0 20px rgba(40,165,177, 0.25), 0 0 0 40px rgba(40,165,177, 0.25), 0 0 0 60px rgba(40,165,177, 0.25); 
-      background-color: $turquoise;
-    }
-    &.purple {
-      box-shadow: 0 0 0 20px rgba(47,41,84, 0.25), 0 0 0 40px rgba(47,41,84, 0.25), 0 0 0 60px rgba(47,41,84, 0.25); 
-      background-color: $purple;
-    }
-  }
-  .circle-title {
-    display: flex;
-    justify-content: center;
-    margin-top: 0.1em;
-  }
-  .icon-biking {
-    background-image: url(../img/icons/route-biking.svg);
-    width: 40px;
-    height: 40px;
-  }
-  .icon-hiking {
-    background-image: url(../img/icons/route-hiking.svg);
-    width: 40px;
-    height: 40px;
-  }
-  .icon-hospitality {
-    background-image: url(../img/icons/route-hospitality.svg);
-    width: 40px;
-    height: 40px;
-  }
-  .icon-device {
-    background-image: url(../img/icon-device.svg);
-    width: 40px;
-    height: 40px;
-  }
-  .icon-computer {
-    background-image: url(../img/icon-computer.svg);
-    width: 40px;
-    height: 40px;
-  }
-  .icon-marker {
-    background-image: url(../img/icon-marker.svg);
-    width: 28px;
-    height: 40px;
-  }
-}
+//   .circle {
+//     background-repeat: no-repeat;
+//     background-size: contain;
+//     width: 80px;
+//     height: 80px;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 50%;
+//     margin-bottom: 11em;
+//     position: absolute;
+//     z-index: 3;
+//     left: 50%;
+//     top: 50%;
+//     margin-left: -40px;
+//     margin-top: -40px;
+//     .icon {
+//       background-size: contain;
+//       background-position: center;
+//       background-repeat: no-repeat;
+//     }
+//     &.pink {
+//       box-shadow: 0 0 0 20px rgba(236,46,98, 0.25), 0 0 0 40px rgba(236,46,98, 0.25), 0 0 0 60px rgba(236,46,98, 0.25); 
+//       background-color: $pink;
+//     }
+//     &.yellow {
+//       box-shadow: 0 0 0 20px rgba(250,166,39, 0.25), 0 0 0 40px rgba(250,166,39, 0.25), 0 0 0 60px rgba(250,166,39, 0.25); 
+//       background-color: $orange;
+//     }
+//     &.green {
+//       box-shadow: 0 0 0 20px rgba(128,195,66, 0.25), 0 0 0 40px rgba(128,195,66, 0.25), 0 0 0 60px rgba(128,195,66, 0.25); 
+//       background-color: $green;
+//     }
+//     &.navy {
+//       box-shadow: 0 0 0 20px rgba(17,60,100, 0.25), 0 0 0 40px rgba(17,60,100, 0.25), 0 0 0 60px rgba(17,60,100, 0.25); 
+//       background-color: $navy;
+//     }
+//     &.teal {
+//       box-shadow: 0 0 0 20px rgba(40,165,177, 0.25), 0 0 0 40px rgba(40,165,177, 0.25), 0 0 0 60px rgba(40,165,177, 0.25); 
+//       background-color: $turquoise;
+//     }
+//     &.purple {
+//       box-shadow: 0 0 0 20px rgba(47,41,84, 0.25), 0 0 0 40px rgba(47,41,84, 0.25), 0 0 0 60px rgba(47,41,84, 0.25); 
+//       background-color: $purple;
+//     }
+//   }
+//   .circle-title {
+//     display: flex;
+//     justify-content: center;
+//     margin-top: 0.1em;
+//   }
+//   .icon-biking {
+//     background-image: url(../img/icons/route-biking.svg);
+//     width: 40px;
+//     height: 40px;
+//   }
+//   .icon-hiking {
+//     background-image: url(../img/icons/route-hiking.svg);
+//     width: 40px;
+//     height: 40px;
+//   }
+//   .icon-hospitality {
+//     background-image: url(../img/icons/route-hospitality.svg);
+//     width: 40px;
+//     height: 40px;
+//   }
+//   .icon-device {
+//     background-image: url(../img/icon-device.svg);
+//     width: 40px;
+//     height: 40px;
+//   }
+//   .icon-computer {
+//     background-image: url(../img/icon-computer.svg);
+//     width: 40px;
+//     height: 40px;
+//   }
+//   .icon-marker {
+//     background-image: url(../img/icon-marker.svg);
+//     width: 28px;
+//     height: 40px;
+//   }
+// }
 
 .close-btn {
   background: url(../img/icons/profile-close.svg) no-repeat;
@@ -776,7 +776,7 @@ hero
   // background-image: url(../img/hero-image-sml.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  background-color: #3A001D;
+  // background-color: #3A001D;
   // margin-bottom: 4em;
   padding: 9em 2em 0;
   .icon-lang {
@@ -804,21 +804,20 @@ hero
     h1 {
       font-weight: 400;
       font-family: $title-font;
-      font-size: 3em;
+      //font-size: 3em;
       text-transform: uppercase;
-      line-height: 0.9em;
-      text-shadow: 0 6px 10px rgba(0,0,0,0.10);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
       @media (min-width: $hero-small) {
-        font-size: 4em;
+        //font-size: 4em;
       }
       @media (min-width: $hero-medium) {
-        font-size: 5em;
+        //font-size: 5em;
       }
       @media (min-width: $hero-large) {
-        font-size: 6em;
+        //font-size: 6em;
       }
       @media (min-width: $hero-xlarge) {
-        font-size: 6em;
+        //font-size: 6em;
       }
     }
     h2 {
@@ -982,6 +981,7 @@ explore
 
 #explore {
   padding-top: 7em;
+  padding-bottom: 1em;
   background-image: url(../img/map-bg.jpg);
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -1239,16 +1239,16 @@ gallery
         }
       }
       &.img1 {
-        background-image: url(../img/characters.jpg);
+        background-image: url(../img/trees-shrubs.jpg);
       }
       &.img2 {
-        background-image: url(../img/concepts.jpg);
+        background-image: url(../img/vines-groundcover.jpg);
       }
       &.img3 {
-        background-image: url(../img/environments.jpg);
+        background-image: url(../img/grasses.jpg);
       }
       &.img4 {
-        background-image: url(../img/weapons.jpg);
+        background-image: url(../img/ferns-moss.jpg);
       }
       h3, h4 {
         color: $white;

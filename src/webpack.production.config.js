@@ -90,7 +90,7 @@ module.exports = {
   plugins: [
     //new webpack.EnvironmentPlugin(['MapboxAccessToken'])
     new webpack.EnvironmentPlugin({
-      MapboxAccessToken: 'pk.eyJ1IjoiZm9ybWFuZGFmZmVjdCIsImEiOiJjaXVqeTkxbXgwMTBrMnpvMDR2eWd3bXRsIn0.jQOrnZlTmd3kVfHIQVRr6A'
+      MapboxAccessToken: 'mapboxtokenhere...'
     }),
     new webpack.DefinePlugin({
       "process.env": { 

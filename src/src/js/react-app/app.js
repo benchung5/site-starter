@@ -18,6 +18,7 @@ import customHistory from './history';
 import { Router, Route, Switch } from 'react-router-dom';
 import reduxThunk from 'redux-thunk';
 import asyncComponent from './lib/async_component';
+import { globals } from './config.js';
 
 import Main from './components/main';
 import MainPlants from './components/main_plants';
@@ -130,22 +131,22 @@ if ( appContainer ) {
               <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
               <Route history={customHistory} exact path="/filter_plants" component={withPrefixer(MainPlants)} />
               {/* admin */}
-              <Route history={customHistory} path="/admin/protected" component={protecetWarning} />
-              <Route history={customHistory} path="/admin/signin" component={signin} />
-              <Route history={customHistory} path="/admin/signout" component={signout} />
-              <Route history={customHistory} exact path="/admin" component={admin} />
-              <Route history={customHistory} path="/admin/signup" component={signup} /> 
-              <Route history={customHistory} exact path="/admin/articles-list" component={articlesList} />
-              <Route history={customHistory} path="/admin/articles-list/:articleId" component={articleEdit} />
-              <Route history={customHistory} path="/admin/article-add" component={articleAdd} />
-              <Route history={customHistory} exact path="/admin/trees-list" component={treesList} />
-              <Route history={customHistory} path="/admin/trees-list/:treeId" component={treeEdit} />
-              <Route history={customHistory} path="/admin/tree-add" component={treeAdd} />
-              <Route history={customHistory} path="/admin/users-list" component={usersList} />
-              <Route history={customHistory} path="/admin/category-add" component={categoryAdd} />
-              <Route history={customHistory} exact path="/admin/category-list" component={categoryList} />
-              <Route history={customHistory} path="/admin/category-list/:categoryId" component={categoryEdit} />
-              <Route history={customHistory} path="/admin/backup" component={backup} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/protected`} component={protecetWarning} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/signin`} component={signin} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/signout`} component={signout} />
+              <Route history={customHistory} exact path={`/${globals.ADMIN_URL}`} component={admin} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/signup`} component={signup} /> 
+              <Route history={customHistory} exact path={`/${globals.ADMIN_URL}/articles-list`} component={articlesList} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/articles-list/:articleId`} component={articleEdit} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/article-add`} component={articleAdd} />
+              <Route history={customHistory} exact path={`/${globals.ADMIN_URL}/trees-list`} component={treesList} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/trees-list/:treeId`} component={treeEdit} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/tree-add`} component={treeAdd} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/users-list`} component={usersList} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/category-add`} component={categoryAdd} />
+              <Route history={customHistory} exact path={`/${globals.ADMIN_URL}/category-list`} component={categoryList} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/category-list/:categoryId`} component={categoryEdit} />
+              <Route history={customHistory} path={`/${globals.ADMIN_URL}/backup`} component={backup} />
             </Switch> 
           </div>  
         </Router>

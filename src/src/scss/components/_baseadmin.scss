@@ -104,6 +104,12 @@ side menu
     padding: 0.5em;
     &:hover, &.active {
       background: #FAFAFA;
+      a {
+        color: #535353;
+      }
+    }
+    a {
+      color: #535353;
     }
   }
 }

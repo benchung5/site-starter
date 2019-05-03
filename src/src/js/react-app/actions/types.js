@@ -59,6 +59,7 @@ export const FETCH_TREE_TABLES = 'fetch_tree_tables';
 //global trees
 export const CATEGORIES_TREES_FILTER = 'categories_trees_filter';
 export const ORIGINS_FILTER = 'origins_filter';
+export const ZONES_FILTER = 'zones_filter';
 export const TREES_FILTER = 'trees_filter';
 
 //global

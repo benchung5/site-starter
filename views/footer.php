@@ -8,8 +8,7 @@
     </div> -->
     <div class="row footer-bottom">
         <div class="small-12 columns">
-            <div class="copywright padding-columns">© <a href="/" title="JavaScript Web Development">
-                3d.benchung.com&nbsp;2018</a>.
+            <div class="copywright padding-columns">© naturewithus.com&nbsp;2019.
             </div>
 <!--             <div class="socials">
                 <a href="https://twitter.com/AITONiagara" target="_blank" class="social twitter"></a>

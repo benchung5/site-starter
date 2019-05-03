@@ -362,6 +362,16 @@ class Trees_model extends Model
 			}
 		}
 
+		//zone
+		if (isset($opts['zones'])) {
+			if (count($opts['zones']) > 0) {
+				$this->db->in('t.zone_id', $opts['zones']);
+			} else {
+				// force no results since zones is queried but no zones is selected
+				return [];
+			}
+		}
+
 		// include origins
 		if (isset($opts['origins'])) {
 			if (count($opts['origins']) > 0) {

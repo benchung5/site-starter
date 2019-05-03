@@ -50,4 +50,7 @@
 			</div>
 		</div>
 	</div><!-- /content wrapper -->
+
+	<?php $this->insert('footer', $view_data ); ?>
+	
 </div><!-- /site wrapper -->

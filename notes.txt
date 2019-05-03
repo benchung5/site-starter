@@ -1,6 +1,0 @@
-/* ==========================================================================
-build
-========================================================================== */
-
--htmwebpackplugin copies from src/src/layout-template.php and overrites layout.php
-inserting react and footer scripts in the bottom
