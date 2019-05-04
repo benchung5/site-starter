@@ -3,3 +3,6 @@ src/npm-debug.log
 vendor
 composer.phar
 log
+uploads
+.htaccess
+lib/db.php

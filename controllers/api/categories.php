@@ -10,7 +10,7 @@ class Categories extends Controller
 
 	public function __construct() 
 	{
-		$this->categories = $this->load_model('Categories_model');
+		$this->categories = $this->load_model('categories_model');
 
 		parent::__construct();
 	}

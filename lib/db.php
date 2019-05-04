@@ -8,7 +8,6 @@ class Db
         'host'      => 'localhost',
         //'host'      => '127.0.0.1',
         'driver'    => 'mysql',
-        //'database'  => '1pixel_db',
         'database'  => 'test1_db',
         'username'  => 'root',
         'password'  => '',

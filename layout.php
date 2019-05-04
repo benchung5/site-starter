@@ -153,7 +153,7 @@ use Lib\Uri;
   <!-- CSS -->
 
   <!-- Fonts -->
-  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
   
   <!-- Head scripts like Modernizr -->
   <script src="<?= Config::paths('ROOT_URL').'assets/js/head.js' ?>"></script>
@@ -200,5 +200,5 @@ use Lib\Uri;
 
   <!-- *** react and footer scripts are loaded belew here *** -->
 
-<script type="text/javascript" src="/assets/js/manifest.f6f75f03850f1300c1c2.js"></script><script type="text/javascript" src="/assets/js/vendor2.ff3c51f333f24203d2b3.js"></script><script type="text/javascript" src="/assets/js/react.e184c3f0e8193a289be3.js"></script></body>
+<script type="text/javascript" src="/assets/js/manifest.f6f75f03850f1300c1c2.js"></script><script type="text/javascript" src="/assets/js/vendor2.ff3c51f333f24203d2b3.js"></script><script type="text/javascript" src="/assets/js/react.cfb2b603f0c798ca867c.js"></script></body>
 </html>
