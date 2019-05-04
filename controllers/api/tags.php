@@ -10,7 +10,7 @@ class Tags extends Controller
 
 	public function __construct() 
 	{
-		$this->tags = $this->load_model('Tags_model');
+		$this->tags = $this->load_model('tags_model');
 
 		parent::__construct();
 	}

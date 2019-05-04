@@ -6,3 +6,4 @@ log
 uploads
 .htaccess
 lib/db.php
+secret.txt

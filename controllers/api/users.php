@@ -11,7 +11,7 @@ class Users extends Controller
 
 	public function __construct() 
 	{
-		$this->users = $this->load_model('Users_model');
+		$this->users = $this->load_model('users_model');
 
 		parent::__construct();
 	}

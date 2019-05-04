@@ -7,7 +7,7 @@ class Uri
 	public function __construct() {
 	}
 
-	private function _get_current_uri()
+	private static function _get_current_uri()
 	{
 	    $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';
 	    $uri = substr($_SERVER['REQUEST_URI'], strlen($basepath));
@@ -16,7 +16,7 @@ class Uri
 	    return $uri;
 	}
 
-	private function get_segments()
+	private static function get_segments()
 	{
 		$base_url = self::_get_current_uri();
 
