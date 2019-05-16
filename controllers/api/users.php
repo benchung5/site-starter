@@ -3,6 +3,7 @@ namespace Controllers\Api;
 use Lib\Controller;
 use Lib\Auth\Auth;
 use Lib\Utils;
+use Config\Config;
 
 
 class Users extends Controller 
@@ -46,34 +47,39 @@ class Users extends Controller
 	{
 		$data = Utils::json_read();
 
-		$this->validator->addEntries(['email' => $data['email']]);
-		$this->validator->addEntries(['password' => $data['password']]);
-		$this->validator->addRule('email', 'Must be a valid email address', 'email');
-		$this->validator->addRule('password', 'Must be a valid password', 'password');
-		$this->validator->validate();
+		if ($data['key'] == Config::paths('SIGNIN_KEY')) {
+			$this->validator->addEntries(['email' => $data['email']]);
+			$this->validator->addEntries(['password' => $data['password']]);
+			$this->validator->addRule('email', 'Must be a valid email address', 'email');
+			$this->validator->addRule('password', 'Must be a valid password', 'password');
+			$this->validator->validate();
 
-		if ($this->validator->foundErrors()) {
-		    $errors = $this->validator->getErrors();
-		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
-		}
-
-		try {
-			$user = $this->users->get_user(['email' => $data['email'], 'password' => $data['password']]);
-			
-			if (! $user) {
-				Utils::json_respond(INVALID_USER_PASS, "Email or Password is incorrect.");
-			} else if ($user->active == 0) {
-				Utils::json_respond(USER_NOT_ACTIVE, "User is not activated. Please contact to admin.");
+			if ($this->validator->foundErrors()) {
+			    $errors = $this->validator->getErrors();
+			    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 			}
 
-			$data = Auth::generateToken($user->id);
+			try {
+				$user = $this->users->get_user(['email' => $data['email'], 'password' => $data['password']]);
+				
+				if (! $user) {
+					Utils::json_respond(INVALID_USER_PASS, "Email or Password is incorrect.");
+				} else if ($user->active == 0) {
+					Utils::json_respond(USER_NOT_ACTIVE, "User is not activated. Please contact to admin.");
+				}
 
-			Utils::json_respond(SUCCESS_RESPONSE, $data);
-		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+				$data = Auth::generateToken($user->id);
+
+				Utils::json_respond(SUCCESS_RESPONSE, $data);
+			} catch (Exception $e) {
+				//Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+				Utils::json_respond_error(JWT_PROCESSING_ERROR, 'Bad login info');
+			}
+
+			Auth::generateToken();
+		} else {
+			Utils::json_respond_error(JWT_PROCESSING_ERROR, 'Bad login info');
 		}
-
-		Auth::generateToken();
 	}
 
 	public function create()

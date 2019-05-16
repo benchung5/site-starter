@@ -75,20 +75,20 @@ export function populateTreesFilter(selectionFromUrl) {
                     return {id: item.id, name: item.name, slug: item.slug, active: isActive};
                 });
 
-                originsData = response.data.origins.map((item, index) => {
-                    //set all to active by default
-                    let isActive = true;
+                // originsData = response.data.origins.map((item, index) => {
+                //     //set all to active by default
+                //     let isActive = true;
 
-                    // if url contains selected categories, just select those
-                    if (selectionFromUrl.selectedTreesOrigines) {
-                        isActive = false;
-                        if ((selectionFromUrl.selectedTreesOrigines.length > 0) && (selectionFromUrl.selectedTreesOrigines.indexOf(item.slug) > -1)) {
-                            isActive = true;
-                        }
-                    }
+                //     // if url contains selected categories, just select those
+                //     if (selectionFromUrl.selectedTreesOrigines) {
+                //         isActive = false;
+                //         if ((selectionFromUrl.selectedTreesOrigines.length > 0) && (selectionFromUrl.selectedTreesOrigines.indexOf(item.slug) > -1)) {
+                //             isActive = true;
+                //         }
+                //     }
 
-                    return {id: item.id, name: item.name, slug: item.slug, active: isActive};
-                });
+                //     return {id: item.id, name: item.name, slug: item.slug, active: isActive};
+                // });
 
                 zonesData = response.data.zones.map((item, index) => {
                     //set all to active by default
@@ -107,10 +107,10 @@ export function populateTreesFilter(selectionFromUrl) {
 
 
 
-                dispatch({
-                    type: ORIGINS_FILTER,
-                    payload: originsData
-                });
+                // dispatch({
+                //     type: ORIGINS_FILTER,
+                //     payload: originsData
+                // });
 
                 dispatch({
                     type: CATEGORIES_TREES_FILTER,

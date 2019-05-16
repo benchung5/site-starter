@@ -46,7 +46,7 @@ use Lib\Utils;
 						<?php endif ?>
 
 						<!-- don't sanitize body since we need html -->
-						<p><?= $view_data['tree']->body ?></p>
+						<div class="body-area"><?= $view_data['tree']->body ?></div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
 						<span class="bold"><?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<span class="bold"><?= Utils::sanitize($view_data['tree']->specific_epithet) ?></span><br>
@@ -62,7 +62,7 @@ use Lib\Utils;
 						?>
 
 						<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br>
-						<span>Ecozones: <?= $view_data['tree']->origins ? Utils::sanitize(implode(', ', $origins)) : ''; ?></span><br>
+						<span>Zone: <?= $view_data['tree']->zone ? Utils::sanitize($view_data['tree']->zone->name) : ''; ?></span><br>
 					</div>
 				</div>
 

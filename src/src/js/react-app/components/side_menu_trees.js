@@ -43,7 +43,7 @@ class SideMenu extends Component {
     //console.log(selectedCategories);
     //populate the filter with initial data
     this.props.dispatch(populateTreesFilter({
-      selectedTreesOrigines: selectedOrigines,
+      //selectedTreesOrigines: selectedOrigines,
       selectedTreesCategories: selectedCategories,
       selectedTreesZones: selectedZones
     }));
@@ -53,7 +53,7 @@ class SideMenu extends Component {
     //fire the updated globalFilterData to the search action whenever the themes or categores get updated
     if(this.props.globalFilterData && (prevProps.globalFilterData !==  this.props.globalFilterData)) {
       //while filter initial populating, don't dispatch
-      if((this.props.globalFilterData.categoriesTrees.length === 0) || (this.props.globalFilterData.origins.length === 0)) {
+      if((this.props.globalFilterData.categoriesTrees.length === 0) || (this.props.globalFilterData.zones.length === 0)) {
       } else {
         this.props.dispatch(searchTrees(this.props.globalFilterData));
       }  

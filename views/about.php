@@ -16,10 +16,10 @@ use Lib\Utils;
 						<div class="title-area">
 							<h1>About Us</h1>
 						</div>
-						<p>Body text...</p>
+						<p>Coming soon...</p>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
-						sidebar...
+						...
 					</div>
 				</div>
 			</div>

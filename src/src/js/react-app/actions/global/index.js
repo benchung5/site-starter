@@ -10,14 +10,14 @@ import {
 } from '../types';
 
 //categories
-export function filterCategoriess(filteredCategoriess) {
+export function filterCategories(filteredCategories) {
 	return {
 		type: CATEGORIES_FILTER,
-		payload: filteredCategoriess
+		payload: filteredCategories
 	}
 }
 
-export function populateCategoriesFilter(selectedCategoriess) {
+export function populateCategoriesFilter(selectedCategories) {
 	return function(dispatch) {
 		axios.get(`${SERVER_URL}/categories/all`)
 		.then((response) => {
@@ -28,9 +28,9 @@ export function populateCategoriesFilter(selectedCategoriess) {
 					let isActive = true;
 
                     // if url contains selected categories, just select those
-                    if (selectedCategoriess) {
+                    if (selectedCategories) {
                         isActive = false;
-                        if ((selectedCategoriess.length > 0) && (selectedCategoriess.indexOf(item.slug) > -1)) {
+                        if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
                             isActive = true;
                         }
                     }

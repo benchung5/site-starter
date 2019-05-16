@@ -12,10 +12,10 @@ import {
   ADD_USER
 } from '../types';
 
-export function signinUser({ email, password }) {
+export function signinUser({ email, password, key }) {
   return function(dispatch) {
     // Submit email/password to the server
-    axios.post(`${SERVER_URL}/users/sign_in`, { email, password }, POST_CONFIG)
+    axios.post(`${SERVER_URL}/users/sign_in`, { email, password, key }, POST_CONFIG)
       .then(response => {
         // If request is good...
         if(response.data.token) {

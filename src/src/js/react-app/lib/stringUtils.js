@@ -36,7 +36,6 @@ export function formatSearchString(searchTxt) {
 }
 
 export function sanitizeInputString(str) {
-    console.log('hit');
     //remove ._:;, make lowercase
     let formatted = str.replace(/([\.\_\'\:\;])+/gi, ' ').toLowerCase();
     let sanitized = escapeHtml(formatted);

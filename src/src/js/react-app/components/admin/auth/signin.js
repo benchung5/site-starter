@@ -22,9 +22,9 @@ class Signin extends Component {
         }
     }
 
-    handleFormSubmit({ email, password }) {
+    handleFormSubmit({ email, password, key }) {
         //need to do sometihing to log user in
-        this.props.signinUser({ email, password });
+        this.props.signinUser({ email, password, key });
     }
 
     renderAlert() {
@@ -39,7 +39,7 @@ class Signin extends Component {
 
     render() {
         //props that are pulled off of redux form
-        const { handleSubmit, fields: {email, password} } = this.props;
+        const { handleSubmit, fields: {email, password, key} } = this.props;
 
         return (
             <div className="admin-main">
@@ -57,6 +57,12 @@ class Signin extends Component {
                               name="password"
                               component={renderField}
                             />
+                            <Field
+                              label="Key:"
+                              name="key"
+                              component={renderField}
+                            />
+
                             { this.renderAlert() }
                             <button action="submit" className="btn btn-primary">Sign in</button>
                         </form>
@@ -65,6 +71,24 @@ class Signin extends Component {
             </div>
         );
     }
+}
+
+function validate(formProps) {
+  const errors = {};
+
+  if (!formProps.email) {
+    errors.email = 'Please enter an email';
+  }
+
+  if (!formProps.password) {
+    errors.password = 'Please enter a password';
+  }
+
+  if (!formProps.key) {
+    errors.key = 'Please enter a key';
+  }
+  
+  return errors;
 }
 
 function mapStateToProps(state) {
@@ -77,6 +101,7 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
+    validate,
     form: 'signin',
     fields: ['email', 'password']
 })(

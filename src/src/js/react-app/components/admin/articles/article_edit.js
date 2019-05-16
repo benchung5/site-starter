@@ -154,7 +154,7 @@ class EditArticle extends Component {
                               name="tags"
                               label="tags"
                               component={renderMultiSelect}
-                              selectItems={this.props.articleData.tags}
+                              selectItems={this.props.tags}
                               onChange={this.onInputChange.bind(this)}
                               onFocus={this.onInputChange.bind(this)}
                             />

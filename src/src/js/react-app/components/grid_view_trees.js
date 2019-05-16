@@ -24,8 +24,8 @@ class GridView extends Component {
                         { item.images ?
                         <picture>
                             <source srcSet={ROOT_URL + TREES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
-                            <source srcSet={ROOT_URL + TREES_UPLOADS_PATH + item.images.split(',')[0]}/>
-                            <img src={ROOT_URL + TREES_UPLOADS_PATH + item.images.split(',')[0]}/> 
+                            <source srcSet={ROOT_URL + TREES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}/>
+                            <img src={ROOT_URL + TREES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}/> 
                         </picture>
                         :
                         <picture>
