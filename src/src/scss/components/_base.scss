@@ -1454,6 +1454,24 @@ $L:     1150px;
   }
 }
 
+.grid-view-inner {
+  margin-top: 0.5em;
+  .left, .right {
+    flex: 1 1 0px;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    min-width: 0;
+  }
+  .left {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+    padding-right: 0;
+  }
+  .right {
+    flex: 0 0 66.66667%;
+    max-width: 66.66667%;
+  }
+}
   
 .cards-container {
   margin: 2em 0;
@@ -1471,7 +1489,7 @@ $L:     1150px;
     width: 50%;
     .inner {
       height: 100%;
-      background-color: #1a1a1a;
+      background-color: #fff;
       box-shadow: $card-box-shadow;
       .image {
         width: 100%;
@@ -1947,7 +1965,11 @@ map buttons
 /* ==========================================================================
 filter
 ========================================================================== */
-
+.filter-container {
+  flex: 1 1 0px;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+}
 .filter {
   display: flex;
   height: 3em;
@@ -2135,7 +2157,42 @@ search list
 menu
 ========================================================================== */
 
+// standard version
 .side-menu {
+  overflow-y: scroll;
+  background: #fff;
+  box-shadow: $light-shadow;
+  //animation in react component
+  box-shadow: none;
+  &.close {
+    box-shadow: none;
+  }
+  &.open {
+    box-shadow: $light-shadow;
+    //full screen on mobile while open
+    @include breakpoint(small down) {
+     width: 90%;
+    }
+  }
+  .menu-header {
+    display: flex;
+    .right {
+      border-left: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      position: relative;
+      width: 90px;
+      .menu-close {
+        position: absolute;
+        @include v-align-absolute(40px);
+        right: 17px;
+        @extend %close-button;
+      }
+    }
+  }
+}
+
+// mobile version
+.side-menu-mobile {
   @extend %side-panel;
   z-index: 10;
   width: 326px;

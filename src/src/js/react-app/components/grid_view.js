@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LoaderInternal from './loader_internal';
 import FilterTitle from './filter-title';
+import SideMenu from './sideMenu';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -63,8 +64,11 @@ class GridView extends Component {
                         {/*<FilterTitle/>*/}
                     </div>
                 </div>
-                <div className="row">
-                    <div className="small-12 columns">
+                <div className="row grid-view-inner">
+                    <div className="left show-for-large">
+                        <SideMenu />
+                    </div>
+                    <div className="right">
                         <div className="cards-container">
                           {this.renderItems()}
                         </div>

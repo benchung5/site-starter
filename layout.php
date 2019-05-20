@@ -200,5 +200,5 @@ use Lib\Uri;
 
   <!-- *** react and footer scripts are loaded belew here *** -->
 
-<script type="text/javascript" src="/assets/js/manifest.54b6dc1d06501321bfed.js"></script><script type="text/javascript" src="/assets/js/vendor2.ff3c51f333f24203d2b3.js"></script><script type="text/javascript" src="/assets/js/react.067907dfde48664912ad.js"></script></body>
+<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script></body>
 </html>

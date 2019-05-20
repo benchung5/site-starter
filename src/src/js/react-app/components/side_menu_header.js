@@ -23,9 +23,11 @@ class SideMenuHeader extends Component {
 		return (
 			<div className="menu-header">
 				{this.props.children}
-				<div className="right">
-					<ButtonComponent classProp="menu-close" name="Close" onClickProp={this.onItemClick.bind(this)} />
-				</div>
+				{this.props.isClose &&
+					<div className="right">
+						<ButtonComponent classProp="menu-close" name="Close" onClickProp={this.onItemClick.bind(this)} />
+					</div>
+				}
 			</div>
 			)
 	}

@@ -4,6 +4,7 @@ import * as actions from '../actions/globalTrees';
 import LoaderInternal from './loader_internal';
 import FilterTitle from './filter-title';
 import PaginationTrees from './parts/pagination_trees';
+import SideMenuTrees from './side_menu_trees';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -62,11 +63,14 @@ class GridView extends Component {
             <LoaderInternal>
                 <div className="row">
                     <div className="small-12 columns">
-                        <FilterTitle/>
+                        {/*<FilterTitle/>*/}
                     </div>
                 </div>
-                <div className="row">
-                    <div className="small-12 columns">
+                <div className="row grid-view-inner">
+                    <div className="left show-for-large">
+                        <SideMenuTrees />
+                    </div>
+                    <div className="right">
                         <div className="cards-container">
                           {this.renderItems()}
                         </div>

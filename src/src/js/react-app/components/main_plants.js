@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import SideMenuTrees from './side_menu_trees';
+import SideMenuTreesMobile from './side_menu_trees_mobile';
 import Filter from './filter';
 import GridViewTrees from './grid_view_trees';
 import { isOnline } from '../actions/isOnline';
 import { showMenu } from '../actions/sideMenu';
 import { isInitialLoading } from '../actions/initialLoad';
+import { searchTrees } from '../actions/globalTrees';
 // import OfflineMap from './offline_map';
 // import Loader from './loader';
 
@@ -50,21 +51,26 @@ class Main extends Component {
     }
   }
 
-  // <MapComponent
-  //   onMapClick={this.onMapClick.bind(this)}
-  // />
-  // <SearchButton/>
-  // <Loader/>
+  componentDidUpdate(prevProps) {
+    //fire the updated globalFilterData to the search action whenever the themes or categores get updated
+    if(this.props.globalFilterData && (prevProps.globalFilterData !==  this.props.globalFilterData)) {
+      //while filter initial populating, don't dispatch
+      if((this.props.globalFilterData.categoriesTrees.length === 0) || (this.props.globalFilterData.zones.length === 0)) {
+      } else {
+        this.props.searchTrees(this.props.globalFilterData);
+      }  
+    }
+  }
 
   render() {
     return (
       <div className={`main-container ${this.props.lang}`}>
         <div className="row">
-          <div className="small-12 columns">
+          <div className="filter-container hide-for-large">
             <Filter/>
           </div>
         </div>
-        <SideMenuTrees/>
+        <SideMenuTreesMobile/>
         <GridViewTrees/>
       </div>
     );
@@ -76,6 +82,7 @@ class Main extends Component {
 function mapStateToProps(state) {
   return {
     // location: state.map.location
+    globalFilterData: state.globalTrees,
     lang: state.language.lang,
     menuOpen: state.showMenu.showMenu,
   }
@@ -85,7 +92,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     isOnline: isOnline,
     showMenu: showMenu,
-    isInitialLoading: isInitialLoading
+    isInitialLoading: isInitialLoading,
+    searchTrees: searchTrees
   }, dispatch);
 }
 
