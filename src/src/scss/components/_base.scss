@@ -804,7 +804,7 @@ hero
     h1 {
       font-weight: 400;
       font-family: $title-font;
-      //font-size: 3em;
+      font-size: 3.5em;
       text-transform: uppercase;
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
       @media (min-width: $hero-small) {
@@ -833,8 +833,9 @@ hero
     p {
       font-family: $title-font;
       font-weight: 400;
+      font-size: 1.5em;
       text-shadow: 0 2px 2px rgba(0,0,0,0.4);
-      max-width: 400px;
+      max-width: 800px;
     }
     .button-view-models {
       float: right;
@@ -981,7 +982,7 @@ explore
 
 #explore {
   padding-top: 7em;
-  padding-bottom: 1em;
+  padding-bottom: 5em;
   background-image: url(../img/map-bg.jpg);
   background-repeat: no-repeat;
   background-size: 100% auto;
@@ -1456,20 +1457,37 @@ $L:     1150px;
 
 .grid-view-inner {
   margin-top: 0.5em;
+  margin-bottom: 0.5em;
   .left, .right {
     flex: 1 1 0px;
-    padding-right: 0.625rem;
     padding-left: 0.625rem;
     min-width: 0;
   }
   .left {
-    flex: 0 0 33.33333%;
-    max-width: 33.33333%;
-    padding-right: 0;
+    @include MQ(M) {
+      flex: 0 0 33.33333%;
+      max-width: 33.33333%;
+    }
+    @include MQ(L) {
+      flex: 0 0 33.33333%;
+      max-width: 33.33333%;
+    }
   }
   .right {
-    flex: 0 0 66.66667%;
-    max-width: 66.66667%;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    @include MQ(S) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    @include MQ(M) {
+      flex: 0 0 66.66667%;
+      max-width: 66.66667%;
+    }
+    @include MQ(L) {
+      flex: 0 0 66.66667%;
+      max-width: 66.66667%;
+    }
   }
 }
   
@@ -1975,7 +1993,6 @@ filter
   height: 3em;
   border-bottom: 1px solid #ccc;
   margin-top: 0.5em;
-  margin-bottom: 0.5em;
   .show-menu-mobile {
     flex: 1;
     background-color: #fff;
@@ -2159,11 +2176,13 @@ menu
 
 // standard version
 .side-menu {
-  overflow-y: scroll;
+  // overflow-y: scroll;
+  // height: 100%;
   background: #fff;
   box-shadow: $light-shadow;
   //animation in react component
   box-shadow: none;
+  margin-bottom: 0.5em;
   &.close {
     box-shadow: none;
   }
@@ -2324,6 +2343,7 @@ dropdown
 ========================================================================== */
 
 .dropdown-toggle {
+  background: #fff;
   &.open {
     .dropdown-body {
       // animation: dropdown .3s ease both;
@@ -2347,10 +2367,34 @@ dropdown
   .dropdown-body {
     //start hidden
     visibility: hidden;
-    overflow: hidden;
     height: 0;
     background: $light-gray;
     border-bottom: 1px solid $border-color;
+    position: relative;
+  }
+}
+
+.dropdown-select {
+  position: absolute;
+  margin: 0.5em;
+  z-index: 10;
+  overflow: visible;
+  .dropdown-body {
+    border: 1px solid $border-color;
+  }
+  .dropdownselect-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    paddng: 1em;
+    padding: 1em;
+    font-size: 0.85em;
+    .item-label {
+      display: block;
+      font-family: $title-font;
+      font-weight: 500;
+    }
   }
 }
 
@@ -2359,6 +2403,7 @@ dropdown
   flex-wrap: wrap;
   align-items: flex-start;
   align-content: flex-start;
+  border-bottom: 1px solid $border-color;
 }
 
 /* ==========================================================================
@@ -2434,10 +2479,6 @@ buttons
 
   &.active {
     background-color: #fff;
-    background-image: url(../img/icons/check.svg); 
-    background-position: 90% center;
-    background-size: 12px 12px;
-    background-repeat: no-repeat;
   }
   .title {
     margin-left: 3em;
@@ -2459,6 +2500,14 @@ buttons
   }
 }
 
+.list-button {
+  &.active.check {
+    background-image: url(../img/icons/check.svg); 
+    background-position: 90% center;
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+  }
+}
 
 //menu icons
 .icon-arrow {

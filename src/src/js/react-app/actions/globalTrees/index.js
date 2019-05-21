@@ -91,12 +91,11 @@ export function populateTreesFilter(selectionFromUrl) {
                 // });
 
                 zonesData = response.data.zones.map((item, index) => {
-                    //set all to active by default
-                    let isActive = true;
+                    //set all to inactive by default
+                    let isActive = false;
 
-                    // if url contains selected categories, just select those
+                    // if url contains selected zones, just select those
                     if (selectionFromUrl.selectedTreesZones) {
-                        isActive = false;
                         if ((selectionFromUrl.selectedTreesZones.length > 0) && (selectionFromUrl.selectedTreesZones.indexOf(item.slug) > -1)) {
                             isActive = true;
                         }
@@ -131,11 +130,9 @@ export function populateTreesFilter(selectionFromUrl) {
 
 //perform the search
 export function searchTrees(searchObj) {
-    console.log(searchObj);
     return function(dispatch) {
         dispatch(isLoading(true));
     	let query = buildQuery(searchObj);
-        console.log(query);
     	//set the obj in the get request
         axios.get(`${SERVER_URL}/trees/search/`, { params: query })
         .then(response => {

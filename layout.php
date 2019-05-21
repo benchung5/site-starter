@@ -200,5 +200,5 @@ use Lib\Uri;
 
   <!-- *** react and footer scripts are loaded belew here *** -->
 
-<script type="text/javascript" src="/assets/js/manifest.ed9000ca43ed4e053f2b.js"></script><script type="text/javascript" src="/assets/js/vendor2.509b97f7679ae81d0363.js"></script><script type="text/javascript" src="/assets/js/react.3c74ac17700e2bae5304.js"></script></body>
+<script type="text/javascript" src="/assets/js/manifest.f70f3ea178ec3bc2ae78.js"></script><script type="text/javascript" src="/assets/js/vendor2.5ba1dcd4cad46ee794e1.js"></script><script type="text/javascript" src="/assets/js/react.229188c8c3357d293ccb.js"></script></body>
 </html>

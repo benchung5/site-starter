@@ -365,7 +365,8 @@ class Trees_model extends Model
 		//zone
 		if (isset($opts['zones'])) {
 			if (count($opts['zones']) > 0) {
-				$this->db->in('t.zone_id', $opts['zones']);
+				//$this->db->in('t.zone_id', $opts['zones']);
+				$this->db->where('t.zone_id', '>=', $opts['zones'][0]);
 			} else {
 				// force no results since zones is queried but no zones is selected
 				return [];

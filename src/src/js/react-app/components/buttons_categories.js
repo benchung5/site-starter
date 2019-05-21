@@ -42,7 +42,7 @@ class CategoriesButtons extends Component {
 			         <ButtonList
 			         	wrapperClass="single-col"
 			         	classProp=""
-			         	classPropButton="list-button"
+			         	classPropButton="list-button check"
 			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filteredCategories}
 			         	updateData={this.onUpdateData.bind(this)}

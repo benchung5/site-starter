@@ -29,13 +29,13 @@ class CategoriesTreesButtons extends Component {
 			return (
 			        <Dropdown
 			          classProp=""
-			          name='Type'
+			          name='Plant Type'
 			          height={this.buttonHeight * this.props.filterCats.length}
 			        >
 			         <ButtonList
 			         	wrapperClass="single-col"
 			         	classProp=""
-			         	classPropButton="list-button icon"
+			         	classPropButton="list-button check icon"
 			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filterCats}
 			         	updateData={this.onUpdateData.bind(this)}

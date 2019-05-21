@@ -36,7 +36,7 @@ class ButtonsOrigins extends Component {
 			         <ButtonList
 			         	wrapperClass="single-col"
 			         	classProp=""
-			         	classPropButton="list-button"
+			         	classPropButton="list-button check"
 			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filteredOrigins}
 			         	updateData={this.onUpdateData.bind(this)}

@@ -30,9 +30,9 @@ class GridView extends Component {
                         </picture>
                         :
                         <picture>
-                            <source srcSet="/assets/img/placeholder-images/placeholder-img.jpg" media="(max-width: 1275px)"/>
-                            <source srcSet="/assets/img/placeholder-images/placeholder-img.jpg"/>
-                            <img src="/assets/img/placeholder-images/placeholder-img.jpg"/> 
+                            <source srcSet="/assets/img/placeholder-images/placeholder-img.png" media="(max-width: 1275px)"/>
+                            <source srcSet="/assets/img/placeholder-images/placeholder-img.png"/>
+                            <img src="/assets/img/placeholder-images/placeholder-img.png"/> 
                         </picture>
                         }
                     </div>

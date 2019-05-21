@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { filterZones } from '../actions/globalTrees';
 import ButtonComponent from './parts/button_component';
 import Dropdown from './parts/dropdown';
-import ButtonList from './parts/button_list';
+import DropdownSelect from './parts/dropdown_select';
 import labels from '../data/labels';
 import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
@@ -29,13 +29,16 @@ class ButtonsZones extends Component {
 			return (
 			        <Dropdown
 			          classProp=""
-			          name='Zones'
-			          height={this.buttonHeight  * this.props.filteredZones.length}
+			          name='Hardiness Zone'
+			          height={57}
 			        >
-			         <ButtonList
+			         <DropdownSelect
+			         	name='Hardiness zone'
+			         	height={this.buttonHeight  * this.props.filteredZones.length}
 			         	wrapperClass="single-col"
+			         	defaultSelect="0"
 			         	classProp=""
-			         	classPropButton="list-button"
+			         	classPropButton=""
 			         	buttonHeight={this.buttonHeight}
 			         	buttonData={this.props.filteredZones}
 			         	updateData={this.onUpdateData.bind(this)}
