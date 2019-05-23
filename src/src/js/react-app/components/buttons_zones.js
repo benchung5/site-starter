@@ -30,7 +30,7 @@ class ButtonsZones extends Component {
 			        <Dropdown
 			          classProp=""
 			          name='Hardiness Zone'
-			          height={57}
+			          height={40}
 			        >
 			         <DropdownSelect
 			         	name='Hardiness zone'

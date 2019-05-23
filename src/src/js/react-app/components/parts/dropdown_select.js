@@ -5,8 +5,6 @@ import Transition from 'react-transition-group/Transition';
 //for transition
 const duration = 0;
 const defaultBodyStyle = {
-		  transition: `height ${duration}ms ease-in-out`,
-		  height: 0,
 		  visibility: 'hidden',
 		}
 const defaultArrowStyle = {
@@ -27,10 +25,7 @@ class DropdownSelect extends Component {
 			// active means open
 			active: false,
 			// for transition 
-			bodyTransitionStyles: {
-			  entering: { height: '250px' },
-			  entered:  { height: '250px' },
-			},
+			bodyTransitionStyles: {},
 			selectedItem: ''
 		}
 	}
@@ -39,10 +34,10 @@ class DropdownSelect extends Component {
 		if(this.props.height) {
 			this.setState({
 				bodyTransitionStyles: {
-				  entering: { height: this.props.height + 'px', visibility: 'visible' },
-				  entered: { height: this.props.height + 'px', visibility: 'visible' },
-				  exiting: { height: 0, visibility: 'visible' },
-				  exited: { height: 0, visibility: 'hidden' },
+				  entering: { visibility: 'visible' },
+				  entered: { visibility: 'visible' },
+				  exiting: { visibility: 'visible' },
+				  exited: { visibility: 'hidden' },
 				}
 			});
 		}
@@ -57,7 +52,8 @@ class DropdownSelect extends Component {
 		});
 	}
 
-	onDropdownClick() {
+	onDropdownClick(event) {
+		event.preventDefault();
 		if(!this.state.active) {
 			this.setState({ active: true });
 		} else {

@@ -32,7 +32,8 @@ class Dropdown extends Component {
 		}
 	}
 
-	onDropdownClick() {
+	onDropdownClick(event) {
+		event.preventDefault();
 		if(!this.state.active) {
 			this.setState({ active: true });
 		} else {
@@ -43,11 +44,12 @@ class Dropdown extends Component {
 	componentDidMount() {
 		if(this.props.height) {
 			this.setState({
+				//must keep overflow y visible when open to allow for embedded dropdown select
 				bodyTransitionStyles: {
-				  entering: { height: this.props.height + 'px', visibility: 'visible' },
-				  entered: { height: this.props.height + 'px', visibility: 'visible' },
-				  exiting: { height: 0, visibility: 'visible' },
-				  exited: { height: 0, visibility: 'hidden' },
+				  entering: { height: this.props.height + 'px', visibility: 'visible', overflowY: 'hidden' },
+				  entered: { height: this.props.height + 'px', visibility: 'visible', overflowY: 'visible' },
+				  exiting: { height: 0, visibility: 'visible', overflowY: 'hidden' },
+				  exited: { height: 0, visibility: 'hidden', overflowY: 'hidden' },
 				}
 			});
 		}

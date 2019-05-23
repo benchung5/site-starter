@@ -1690,13 +1690,6 @@ animation
 }
 
 /* ==========================================================================
-preloader
-========================================================================== */
-
-
-
-
-/* ==========================================================================
 internal loader
 ========================================================================== */
 
@@ -2017,7 +2010,7 @@ filter
     height: 40px;
     padding: 10px 45px;
     border: 0 none;
-    border-bottom: 1px solid #E3E3E3 !important;
+    box-shadow: 0 -1px 0 $border-color inset;
   }
   .search-button {
     position: absolute;
@@ -2251,7 +2244,7 @@ menu
   cursor: pointer;
   height: 40px;
   paddng: 1em;
-  border-bottom: 1px solid $border-color;
+  box-shadow: 0 -1px 0 $border-color inset;
   padding: 1em;
   font-size: 0.85em;
   // &.near-me {
@@ -2367,21 +2360,16 @@ dropdown
   .dropdown-body {
     //start hidden
     visibility: hidden;
-    height: 0;
-    background: $light-gray;
-    border-bottom: 1px solid $border-color;
     position: relative;
+    background: $light-gray;
+    box-shadow: 0 -1px 0 $border-color inset;
+    .button-list {
+      background: $light-gray;
+    }
   }
 }
 
 .dropdown-select {
-  position: absolute;
-  margin: 0.5em;
-  z-index: 10;
-  overflow: visible;
-  .dropdown-body {
-    border: 1px solid $border-color;
-  }
   .dropdownselect-button {
     display: flex;
     align-items: center;
@@ -2396,6 +2384,13 @@ dropdown
       font-weight: 500;
     }
   }
+  .dropdown-select-body {
+    //start hidden
+    visibility: hidden;
+    position: absolute;
+    z-index: 10;
+    border: 1px solid $border-color;
+  }
 }
 
 .button-list {
@@ -2403,7 +2398,7 @@ dropdown
   flex-wrap: wrap;
   align-items: flex-start;
   align-content: flex-start;
-  border-bottom: 1px solid $border-color;
+  box-sizing: border-box;
 }
 
 /* ==========================================================================
@@ -2476,7 +2471,6 @@ buttons
   position: relative;
   font-size: 0.85em;
   padding: 0 1em 0 2.3em;
-
   &.active {
     background-color: #fff;
   }
