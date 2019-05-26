@@ -10,6 +10,6 @@ class Contact extends Controller
 	}
 
 	public function index($param = null) {
-		$this->render('contact');
+		$this->render('contact', null, 'Contact');
 	}
 }

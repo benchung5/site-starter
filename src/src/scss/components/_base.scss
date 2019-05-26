@@ -96,8 +96,12 @@ extends
   color: $white;
   @extend %kill-outline;
   text-transform: uppercase;
-  font-weight: 900;
   font-family: $title-font;
+  font-size: 0.9em !important;
+  padding: 1em 2em;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.8);
 }
 
 %bold-base {
@@ -379,7 +383,7 @@ parts
   font-weight: 600;
   transition: all 0.3s ease;
   &:hover {
-    color: $mauve;
+    color: $pink;
     background: #fff !important;
     box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
   }
@@ -388,11 +392,11 @@ parts
     border: 2px solid #fff;
   }
   &.solid {
-    background: $mauve;
+    background: $pink;
     border: 0 none;
     &:hover {
       color: #fff;
-      background: $mauve !important;
+      background: $pink !important;
       box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
     }
   }
@@ -765,6 +769,73 @@ $transition: .3s; // increase this to see the transformations in
 }
 
 /* ==========================================================================
+about
+========================================================================== */
+
+#about-hero {
+  width: 100%;
+  position: relative;
+  background-image: url(../img/about-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 7em 2em 0;
+  .left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3em;
+    h1, h2, p {
+      color: #fff;
+    }
+    h1 {
+      font-weight: 400;
+      font-family: $title-font;
+      font-size: 3.5em;
+      text-transform: uppercase;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      @media (min-width: $hero-small) {
+        //font-size: 4em;
+      }
+      @media (min-width: $hero-medium) {
+        //font-size: 5em;
+      }
+      @media (min-width: $hero-large) {
+        //font-size: 6em;
+      }
+      @media (min-width: $hero-xlarge) {
+        //font-size: 6em;
+      }
+    }
+    h2 {
+      font-size: 2em;
+      font-family: $secondary-title-font;
+      max-width: 250px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      @media (min-width: $hero-small) {
+        font-size: 2em;
+        max-width: none;
+      }
+    }
+    p {
+      font-family: $title-font;
+      font-weight: 400;
+      font-size: 1.5em;
+      text-shadow: 0 2px 2px rgba(0,0,0,0.4);
+      max-width: 800px;
+    }
+    .button-view-models {
+      float: right;
+      margin-top: 1em;
+    }
+    @include breakpoint(large up) {
+     text-align: left;
+     align-items: flex-start;
+    }
+  }
+}
+
+/* ==========================================================================
 hero
 ========================================================================== */
 
@@ -772,12 +843,8 @@ hero
   width: 100%;
   position: relative;
   background-image: url(../img/hero-image.jpg);
-  // background-image: url(../img/hero-image-sml.jpg);
-  // background-image: url(../img/hero-image-sml.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  // background-color: #3A001D;
-  // margin-bottom: 4em;
   padding: 9em 2em 0;
   .icon-lang {
     float: right;
@@ -842,8 +909,8 @@ hero
       margin-top: 1em;
     }
     @include breakpoint(large up) {
-     text-align: right;
-     align-items: flex-end;
+     text-align: left;
+     align-items: flex-start;
     }
   }
   .device-bg {
@@ -1020,6 +1087,18 @@ explore
 }
 
 /* ==========================================================================
+contact
+========================================================================== */
+
+.contact {
+
+}
+
+.contact-input {
+  margin-bottom: 0.5em;
+}
+
+/* ==========================================================================
 buttons
 ========================================================================== */
 
@@ -1062,61 +1141,61 @@ buttons
 
 //types
 
-.mural {
-  .icon {
-    background-image: url(../img/icons/art-mural.svg);
-    background-color: $orange;
-    background-size: 26px 26px;
-  }
-}
+// .mural {
+//   .icon {
+//     background-image: url(../img/icons/art-mural.svg);
+//     background-color: $orange;
+//     background-size: 26px 26px;
+//   }
+// }
 
-.monument {
-  .icon {
-    background-image: url(../img/icons/art-monument.svg);
-    background-size: 26px 26px;
-    background-color: $pink;
-  }
-}
+// .monument {
+//   .icon {
+//     background-image: url(../img/icons/art-monument.svg);
+//     background-size: 26px 26px;
+//     background-color: $pink;
+//   }
+// }
 
-.totem {
-  .icon {
-    background-image: url(../img/icons/art-totem.svg);
-    background-size: 22px 26px;
-    background-color: $green;
-  }
-}
+// .totem {
+//   .icon {
+//     background-image: url(../img/icons/art-totem.svg);
+//     background-size: 22px 26px;
+//     background-color: $green;
+//   }
+// }
 
-.sculpture {
-  .icon {
-    background-image: url(../img/icons/art-sculpture.svg);
-    background-size: 9px 27px;
-    background-color: $turquoise;
-  }
-}
+// .sculpture {
+//   .icon {
+//     background-image: url(../img/icons/art-sculpture.svg);
+//     background-size: 9px 27px;
+//     background-color: $turquoise;
+//   }
+// }
 
-.statue {
-  .icon {
-    background-image: url(../img/icons/art-statue.svg);
-    background-size: 17px 26px;
-    background-color: $navy;
-  }
-}
+// .statue {
+//   .icon {
+//     background-image: url(../img/icons/art-statue.svg);
+//     background-size: 17px 26px;
+//     background-color: $navy;
+//   }
+// }
 
-.installation {
-  .icon {
-    background-image: url(../img/icons/art-installation.svg);
-    background-size: 26px 26px;
-    background-color: $purple;
-  }
-}
+// .installation {
+//   .icon {
+//     background-image: url(../img/icons/art-installation.svg);
+//     background-size: 26px 26px;
+//     background-color: $purple;
+//   }
+// }
 
-.marker {
-  .icon {
-    background-image: url(../img/icon-marker.svg);
-    background-size: 28px 40px;
-    background-color: $pink;
-  }
-}
+// .marker {
+//   .icon {
+//     background-image: url(../img/icon-marker.svg);
+//     background-size: 28px 40px;
+//     background-color: $pink;
+//   }
+// }
 
 .type-icon {
   width: 60px;
@@ -1754,17 +1833,17 @@ internal loader
 @keyframes color {
   100%,
   0% {
-    stroke: $mauve;
+    stroke: $pink;
   }
   40% {
-    stroke: $mauve;
+    stroke: $pink;
   }
   66% {
-    stroke: $mauve;
+    stroke: $pink;
   }
   80%,
   90% {
-    stroke: $mauve;
+    stroke: $pink;
   }
 }
 
@@ -2508,42 +2587,42 @@ buttons
   width: 10px;
 } 
 
-//routes
-.cycling {
-  &.active {
-    .icon {
-      background-color: $pink;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/route-biking.svg);
-    background-size: 26px 26px;
-  }
-}
+// //routes
+// .cycling {
+//   &.active {
+//     .icon {
+//       background-color: $pink;
+//     }
+//   }
+//   .icon {
+//     background-image: url(../img/icons/route-biking.svg);
+//     background-size: 26px 26px;
+//   }
+// }
 
-.walking-hiking {
-  &.active {
-    .icon {
-      background-color: $orange;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/route-hiking.svg);
-    background-size: 26px 26px;
-  }
-}
+// .walking-hiking {
+//   &.active {
+//     .icon {
+//       background-color: $orange;
+//     }
+//   }
+//   .icon {
+//     background-image: url(../img/icons/route-hiking.svg);
+//     background-size: 26px 26px;
+//   }
+// }
 
-.hospitality {
-  &.active {
-    .icon {
-      background-color: $green;
-    }
-  }
-  .icon {
-    background-image: url(../img/icons/route-hospitality.svg);
-    background-size: 26px 26px;
-  }
-}
+// .hospitality {
+//   &.active {
+//     .icon {
+//       background-color: $green;
+//     }
+//   }
+//   .icon {
+//     background-image: url(../img/icons/route-hospitality.svg);
+//     background-size: 26px 26px;
+//   }
+// }
 
 
 /* ==========================================================================

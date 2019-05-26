@@ -8,22 +8,25 @@ use Lib\Utils;
 
 <div class="site-wrapper">
 	<div class="content-wrapper view">
+		<section id="about-hero">
+		    <div class="row about-row">
+		        <div class="small-12 large-7 columns">
+		            <div class="left">
+		                <h1>Our Goal</h1>
+		                <p>To raise awareness of the practical use, ecological benefits and natural beauty of the plants native to your area</p>
+		            </div>
+		        </div>
+
+		        <div class="small-12 large-5 columns">
+
+		        </div>
+		    </div>
+		</section>
+
 		<div class="row">
 			<div class="small-12 columns internal">
-
-				<div class="row">
-					<div class="small-12 large-8 columns">
-						<div class="title-area">
-							<h1>About Us</h1>
-						</div>
-						<p>Coming soon...</p>
-					</div>
-					<div class="small-12 large-4 columns sidebar">
-						...
-					</div>
-				</div>
+				<p>Coming soon...</p>
 			</div>
-
 		</div>
 	</div><!-- /content wrapper -->
 

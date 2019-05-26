@@ -1,56 +1,39 @@
 <?php $this->insert('header', $view_data ); ?>
 
 <div class="site-wrapper">
-	<div class="content-wrapper">
+	<div class="content-wrapper view">
 		<div class="row">
 			<div class="small-12 columns internal">
-				<h1>Contact Us</h1>	
 
-
-				<form name="htmlform" method="post" action="send_email">
-					<table width="450px">
-
-						<tr>
-							<td valign="top">
-								<label for="name">Name *</label>
-							</td>
-							<td valign="top">
-								<input  type="text" name="name" maxlength="50" size="30">
-							</td>
-						</tr>
-
-						<tr>
-							<td valign="top">
-								<label for="email">Email *</label>
-							</td>
-							<td valign="top">
-								<input  type="text" name="email" maxlength="80" size="30">
-							</td>
-
-						</tr>
-
-						<tr>
-							<td valign="top">
-								<label for="message">Message *</label>
-							</td>
-							<td valign="top">
-								<textarea  name="message" maxlength="1000" cols="25" rows="6"></textarea>
-							</td>
-
-						</tr>
-						<tr>
-							<td colspan="2" style="text-align:center">
-								<input type="submit" value="Submit">
-							</td>
-						</tr>
-
-					</table>
-				</form>
-
+				<div class="row">
+					<div class="small-12 large-8 columns">
+						<div class="title-area">
+							<h1>Contact Us</h1>	
+						</div>
+						<form class="contact" name="htmlform" method="post" action="send_email">
+							<div class="contact-input">
+								<input   type="text" name="name" maxlength="50" size="30" placeholder="name">
+							</div>
+							<div class="contact-input">
+								<input  class="contact-input" type="text" name="email" maxlength="80" size="30" placeholder="email">
+							</div>
+							<div class="contact-input">
+								<textarea  class="contact-input" name="message" maxlength="1000" cols="25" rows="6" placeholder="message"></textarea>
+							</div>
+							<div class="contact-input">
+								<input class="button contact-input" type="submit" value="Submit">								
+							</div>
+						</form>
+					</div>
+					<div class="small-12 large-4 columns sidebar">
+						...
+					</div>
+				</div>
 			</div>
+
 		</div>
 	</div><!-- /content wrapper -->
 
 	<?php $this->insert('footer', $view_data ); ?>
-	
+
 </div><!-- /site wrapper -->

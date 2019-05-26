@@ -2,6 +2,7 @@
 namespace Lib;
 use Config\Config;
 use Lib\Validation\Validator;
+use Lib\Meta;
 
 class Controller 
 {
@@ -15,10 +16,19 @@ class Controller
 		$this->validator = new Validator();
 	}
 
-	public function render($view_name, $data = [])
+	public function render($view_name, $data = [], $page_title = '', $page_description = '')
 	{
 		$this->view = new View();
 		$data['current_page'] = strtolower($this->get_class_name());
+
+		if ($page_title) {
+			Meta::set_page_title($page_title);
+		}
+
+		if ($page_description) {
+			Meta::set_page_description($page_description);
+		}
+
 		$this->view->render($view_name, $data);
 	}
 

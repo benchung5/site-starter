@@ -14,7 +14,7 @@ class Filter extends Controller
 
 	public function index() 
 	{
-		$this->render('filter');
+		$this->render('filter', null, 'Articles');
 	}
 
 	public function view($slug = null)
@@ -26,6 +26,6 @@ class Filter extends Controller
 			$view_data['article'] = $article;
 		}
 
-		$this->render('view', $view_data );
+		$this->render('view', $view_data, $view_data['article']->name);
 	}
 }

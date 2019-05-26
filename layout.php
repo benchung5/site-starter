@@ -1,6 +1,7 @@
 <?php 
 use Config\Config as Config;
 use Lib\Uri;
+use Lib\Meta;
 ?>
 
 <!doctype html>
@@ -11,7 +12,12 @@ use Lib\Uri;
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nature With Us</title>
+  <title>
+    <?php 
+    $page_title = Meta::get_page_title();
+    echo $page_title ?:  SITE_TITLE;
+    ?>
+  </title>
   <meta name="description" content="Ecological landscape design: combining art, horticulture and ecology to create sustainable landscapes">
   <meta name="author" content="Ben Chung">
    

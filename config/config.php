@@ -17,6 +17,9 @@ class Config
 
 	public static function define_constants()
 	{
+		/*site title*/
+		define('SITE_TITLE', 'Nature With Us');
+
 		/*Security*/
 		define('SECRETE_KEY', 'test123');
 

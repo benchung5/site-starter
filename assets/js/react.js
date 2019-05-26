@@ -13143,7 +13143,8 @@ var Dropdown = function (_Component) {
 
 	_createClass(Dropdown, [{
 		key: 'onDropdownClick',
-		value: function onDropdownClick() {
+		value: function onDropdownClick(event) {
+			event.preventDefault();
 			if (!this.state.active) {
 				this.setState({ active: true });
 			} else {
@@ -13155,11 +13156,12 @@ var Dropdown = function (_Component) {
 		value: function componentDidMount() {
 			if (this.props.height) {
 				this.setState({
+					//must keep overflow y visible when open to allow for embedded dropdown select
 					bodyTransitionStyles: {
-						entering: { height: this.props.height + 'px', visibility: 'visible' },
-						entered: { height: this.props.height + 'px', visibility: 'visible' },
-						exiting: { height: 0, visibility: 'visible' },
-						exited: { height: 0, visibility: 'hidden' }
+						entering: { height: this.props.height + 'px', visibility: 'visible', overflowY: 'hidden' },
+						entered: { height: this.props.height + 'px', visibility: 'visible', overflowY: 'visible' },
+						exiting: { height: 0, visibility: 'visible', overflowY: 'hidden' },
+						exited: { height: 0, visibility: 'hidden', overflowY: 'hidden' }
 					}
 				});
 			}
@@ -26764,7 +26766,7 @@ var ButtonsZones = function (_Component) {
 					{
 						classProp: '',
 						name: 'Hardiness Zone',
-						height: 57
+						height: 40
 					},
 					_react2.default.createElement(_dropdown_select2.default, {
 						name: 'Hardiness zone',
@@ -66331,8 +66333,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //for transition
 var duration = 0;
 var defaultBodyStyle = {
-	transition: 'height ' + duration + 'ms ease-in-out',
-	height: 0,
 	visibility: 'hidden'
 };
 var defaultArrowStyle = {
@@ -66356,10 +66356,7 @@ var DropdownSelect = function (_Component) {
 			// active means open
 			active: false,
 			// for transition 
-			bodyTransitionStyles: {
-				entering: { height: '250px' },
-				entered: { height: '250px' }
-			},
+			bodyTransitionStyles: {},
 			selectedItem: ''
 		};
 		return _this;
@@ -66371,10 +66368,10 @@ var DropdownSelect = function (_Component) {
 			if (this.props.height) {
 				this.setState({
 					bodyTransitionStyles: {
-						entering: { height: this.props.height + 'px', visibility: 'visible' },
-						entered: { height: this.props.height + 'px', visibility: 'visible' },
-						exiting: { height: 0, visibility: 'visible' },
-						exited: { height: 0, visibility: 'hidden' }
+						entering: { visibility: 'visible' },
+						entered: { visibility: 'visible' },
+						exiting: { visibility: 'visible' },
+						exited: { visibility: 'hidden' }
 					}
 				});
 			}
@@ -66390,7 +66387,8 @@ var DropdownSelect = function (_Component) {
 		}
 	}, {
 		key: 'onDropdownClick',
-		value: function onDropdownClick() {
+		value: function onDropdownClick(event) {
+			event.preventDefault();
 			if (!this.state.active) {
 				this.setState({ active: true });
 			} else {

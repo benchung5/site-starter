@@ -11,6 +11,6 @@ class Admin extends Controller
 
 	public function index($param = null) 
 	{
-		$this->render('admin');
+		$this->render('admin', null, 'Admin');
 	}
 }

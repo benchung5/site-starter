@@ -14,7 +14,7 @@ class Filter_plants extends Controller
 
 	public function index() 
 	{
-		$this->render('filter_plants');
+		$this->render('filter_plants', null, 'Native Plants');
 	}
 
 	public function view($slug = null)
@@ -26,6 +26,6 @@ class Filter_plants extends Controller
 			$view_data['tree'] = $plant;
 		}
 
-		$this->render('view_plant', $view_data );
+		$this->render('view_plant', $view_data, $view_data['tree']->common_name);
 	}
 }
