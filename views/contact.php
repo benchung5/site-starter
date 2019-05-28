@@ -10,20 +10,22 @@
 						<div class="title-area">
 							<h1>Contact Us</h1>	
 						</div>
-						<form class="contact" name="htmlform" method="post" action="send_email">
-							<div class="contact-input">
-								<input   type="text" name="name" maxlength="50" size="30" placeholder="name">
-							</div>
-							<div class="contact-input">
-								<input  class="contact-input" type="text" name="email" maxlength="80" size="30" placeholder="email">
-							</div>
-							<div class="contact-input">
-								<textarea  class="contact-input" name="message" maxlength="1000" cols="25" rows="6" placeholder="message"></textarea>
-							</div>
-							<div class="contact-input">
-								<input class="button contact-input" type="submit" value="Submit">								
-							</div>
-						</form>
+						<div class="body-area">
+							<form class="contact" name="htmlform" method="post" action="send_email">
+								<div class="contact-input">
+									<input   type="text" name="name" maxlength="50" size="30" placeholder="name">
+								</div>
+								<div class="contact-input">
+									<input  class="contact-input" type="text" name="email" maxlength="80" size="30" placeholder="email">
+								</div>
+								<div class="contact-input">
+									<textarea  class="contact-input" name="message" maxlength="1000" cols="25" rows="6" placeholder="message"></textarea>
+								</div>
+								<div class="contact-input">
+									<input class="button contact-input" type="submit" value="Submit">								
+								</div>
+							</form>
+						</div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
 						...

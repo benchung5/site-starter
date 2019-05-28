@@ -26,7 +26,6 @@ class SideMenu extends Component {
     let selectedOrigines = getUrlParams('ecoregions');
     let selectedCategories = getUrlParams('categories');
     let selectedZones = getUrlParams('zones');
-    console.log(selectedZones);
     //set default to zone zero if none selected
     if (!selectedZones) {
       selectedZones = ['0'];

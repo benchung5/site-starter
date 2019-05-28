@@ -413,8 +413,8 @@ class Trees_model extends Model
 
 			// include images
 			$this->db
-				->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
-				->leftJoin('files f', 'f.ref_id', 't.id')
+				->select('GROUP_CONCAT(ft.name ORDER BY ft.sort_order, ft.name) AS images')
+				->leftJoin('files_trees ft', 'ft.ref_id', 't.id')
 				->groupBy('t.id');
 
 			$result = $this->db->orderBy('common_name')->getAll();

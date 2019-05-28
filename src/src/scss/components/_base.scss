@@ -233,6 +233,7 @@ h1 {
 h2 {
   font-family: $title-font;
   font-size: 1.5em;
+  margin-bottom: 1rem;
 }
 
 h3, h4, h5 {
@@ -556,9 +557,10 @@ page layout
 .content-wrapper {
   flex: 1;
   .internal {
-    margin-top: 2em;
+    margin-top: 4em;
     .sidebar {
       margin-top: 4em;
+      margin-bottom: 4em;
     }
   }
 }
@@ -1489,7 +1491,7 @@ single view
     }
   }
   .body-area {
-    margin-bottom: 2em;
+    margin-bottom: 4em;
     img {
       margin-bottom: 2em;
     }
