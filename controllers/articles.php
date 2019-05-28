@@ -3,7 +3,7 @@ namespace Controllers;
 use Lib\Controller;
 use Lib\Utils;
 
-class Filter extends Controller 
+class Articles extends Controller 
 {
 	public function __construct() 
 	{
@@ -14,7 +14,7 @@ class Filter extends Controller
 
 	public function index() 
 	{
-		$this->render('filter', null, 'Articles');
+		$this->render('articles', null, 'Articles');
 	}
 
 	public function view($slug = null)

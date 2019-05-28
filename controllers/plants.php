@@ -3,7 +3,7 @@ namespace Controllers;
 use Lib\Controller;
 use Lib\Utils;
 
-class Filter_plants extends Controller 
+class Plants extends Controller 
 {
 	public function __construct() 
 	{
@@ -14,7 +14,7 @@ class Filter_plants extends Controller
 
 	public function index() 
 	{
-		$this->render('filter_plants', null, 'Native Plants');
+		$this->render('plants', null, 'Native Plants');
 	}
 
 	public function view($slug = null)

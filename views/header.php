@@ -19,8 +19,8 @@ use Config\Config as Config;
       <nav class="large-8 columns menu-container show-for-large">
         <ul class="menu menu-left align-right">
           <li><a href="/">Home</a></li>
-          <li><a href="/filter_plants">Native Plants</a></li>
-          <li><a href="/filter">Articles</a></li>
+          <li><a href="/plants">Native Plants</a></li>
+          <li><a href="/articles">Articles</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
@@ -66,7 +66,8 @@ use Config\Config as Config;
       </div>   
       <ul class="menu menu-mobile vertical">
         <li><a href="/">Home</a></li>
-        <li><a href="/filter">Articles</a></li>
+        <li><a href="/plants">Native Plants</a></li>
+        <li><a href="/articles">Articles</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>

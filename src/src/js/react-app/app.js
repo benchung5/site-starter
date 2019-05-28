@@ -120,7 +120,7 @@ if ( appContainer ) {
 
   //note the "exact" in the /articles-list route
   //for root app, swap /explore.html/ for /
-  //<Route history={customHistory} path="/filter/artwork/:artId" component={ArtPiece} />
+  //<Route history={customHistory} path="/articles/artwork/:artId" component={ArtPiece} />
     ReactDOM.render(
       <PrefixerProvider prefixer={myPrefixer}>
       <Provider store={store}>
@@ -128,8 +128,8 @@ if ( appContainer ) {
           <div>
            <Switch history={customHistory}>
               {/* website */}
-              <Route history={customHistory} exact path="/filter" component={withPrefixer(Main)} />
-              <Route history={customHistory} exact path="/filter_plants" component={withPrefixer(MainPlants)} />
+              <Route history={customHistory} exact path="/articles" component={withPrefixer(Main)} />
+              <Route history={customHistory} exact path="/plants" component={withPrefixer(MainPlants)} />
               {/* admin */}
               <Route history={customHistory} path={`/${globals.ADMIN_URL}/protected`} component={protecetWarning} />
               <Route history={customHistory} path={`/${globals.ADMIN_URL}/signin`} component={signin} />

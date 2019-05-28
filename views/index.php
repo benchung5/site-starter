@@ -11,7 +11,7 @@ $this->insert('featured', $view_data );
                     <div class="left">
                         <h1>Sustainable Landscapes</h1>
                         <p>Preserve Ontario's Biodiversity through native gardens, organic methods and landscape ecology. </p>
-                        <a class="button-view-models transparent" href="filter_plants">Search Native Plants</a>
+                        <a class="button-view-models transparent" href="plants">Search Native Plants</a>
                     </div>
                 </div>
 
@@ -34,22 +34,22 @@ $this->insert('featured', $view_data );
 
         <section id="gallery" data-scroll>
                 <div class="gallery-wrapper">
-                    <a href="/filter_plants#categories=trees-shrubs" class="gal-item img1">
+                    <a href="/plants#categories=trees-shrubs" class="gal-item img1">
                         <div class="heading-wrapper">
                             <h3>Trees & Shrubs</h3>
                         </div>
                     </a>
-                    <a href="/filter_plants#categories=vines-groundcover" class="gal-item img2">
+                    <a href="/plants#categories=vines-groundcover" class="gal-item img2">
                         <div class="heading-wrapper">
                             <h3>Vines & Groundcover</h3>
                         </div>
                     </a>
-                    <a href="/filter_plants#categories=grasses" class="gal-item img3">
+                    <a href="/plants#categories=grasses" class="gal-item img3">
                         <div class="heading-wrapper">
                             <h3>Grasses</h3>
                         </div>
                     </a>
-                    <a href="/filter_plants#categories=ferns-moss" class="gal-item img4">
+                    <a href="/plants#categories=ferns-moss" class="gal-item img4">
                         <div class="heading-wrapper">
                             <h3>Ferns & Moss</h3>
                         </div>
