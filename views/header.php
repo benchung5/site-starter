@@ -13,16 +13,16 @@ use Config\Config as Config;
     <div class="row text-center">
       <div class="small-10 large-4 columns logo-container align-middle">
         <h1 class="logo-main">
-          <a href="/"><img alt="logo" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png"></a>
+          <a href="/"><img alt="Nature With Us Logo" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png"></a>
         </h1>
       </div>
       <nav class="large-8 columns menu-container show-for-large">
         <ul class="menu menu-left align-right">
-          <li><a href="/">Home</a></li>
-          <li><a href="/plants">Native Plants</a></li>
-          <li><a href="/articles">Articles</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="/" title="Nature With Us Home">Home</a></li>
+          <li><a href="/plants" title="Niagara Trees">Niagara Trees</a></li>
+          <li><a href="/articles" title="Articles">Articles</a></li>
+          <li><a href="/about" title="About Nature With Us">About</a></li>
+          <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -65,11 +65,11 @@ use Config\Config as Config;
         <img class="mobile-top-logo" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png">
       </div>   
       <ul class="menu menu-mobile vertical">
-        <li><a href="/">Home</a></li>
-        <li><a href="/plants">Native Plants</a></li>
-        <li><a href="/articles">Articles</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
+          <li><a href="/" title="Nature With Us Home">Home</a></li>
+          <li><a href="/plants" title="Niagara Trees">Niagara Trees</a></li>
+          <li><a href="/articles" title="Articles">Articles</a></li>
+          <li><a href="/about" title="About Nature With Us">About</a></li>
+          <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>
       </ul>
       <div class="mobile-menu-stretch"></div>
       <ul class="mobile-menu-buttons">

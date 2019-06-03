@@ -1329,17 +1329,17 @@ gallery
         }
       }
       &.img1 {
-        background-image: url(../img/trees-shrubs.jpg);
+        background-image: url(../img/deciduous-trees.jpg);
       }
       &.img2 {
-        background-image: url(../img/vines-groundcover.jpg);
+        background-image: url(../img/coniferous-trees.jpg);
       }
       &.img3 {
-        background-image: url(../img/grass.jpg);
+        background-image: url(../img/shrubs-woody-plants.jpg);
       }
-      &.img4 {
-        background-image: url(../img/ferns.jpg);
-      }
+      // &.img4 {
+      //   background-image: url(../img/ferns.jpg);
+      // }
       h3, h4 {
         color: $white;
         margin-bottom: 0;
@@ -2925,7 +2925,7 @@ fooslider
   position: absolute;
   overflow: hidden;
   /*background transition color:*/
-  background-color: blue;
+  background-color: #000;
 }
 
 .fooslider .slide {
@@ -2958,6 +2958,12 @@ fooslider
   // overflow-y: scroll;
   display: flex;
   align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    max-height: 100%;
+  }
 }
 
 /*optional control styling*/

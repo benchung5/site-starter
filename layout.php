@@ -27,7 +27,7 @@ use Lib\Meta;
     echo $page_title ?:  SITE_TITLE;
     ?>
   </title>
-  <meta name="description" content="Ecological landscape design: combining art, horticulture and ecology to create sustainable landscapes">
+  <meta name="description" content="Providing sustainable tree care for the Niagara region. Services include consulting, organic nutrition, plating, hedging, pruning and removal.">
   <meta name="author" content="Ben Chung">
    
   <!-- Mobile app Tags -->

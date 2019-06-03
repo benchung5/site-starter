@@ -12,6 +12,6 @@ class Index extends Controller
 
 	public function index($param = null) {
 		// pass view data to view
-		$this->render('index', null, 'Ecological Landscape Design');
+		$this->render('index', null, 'Niagara Tree Care & Removal');
 	}
 }

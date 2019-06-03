@@ -14,7 +14,7 @@ class Plants extends Controller
 
 	public function index() 
 	{
-		$this->render('plants', null, 'Native Plants');
+		$this->render('plants', null, 'Niagara Tree Search');
 	}
 
 	public function view($slug = null)
