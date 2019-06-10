@@ -68,6 +68,7 @@ class Trees extends Controller
 			'slug' => $data['slug']
 		];
 
+		if(isset($data['other_common_names'])) { $update_data['other_common_names'] = $data['other_common_names']; };
 		if(isset($data['genus_id'])) { $update_data['genus_id'] = $data['genus_id']; };
 		if(isset($data['specific_epithet'])) { $update_data['specific_epithet'] = $data['specific_epithet']; };
 		if(isset($data['other_species'])) { $update_data['other_species'] = $data['other_species']; };
@@ -90,6 +91,7 @@ class Trees extends Controller
 		$joins_data = [
 			'origins' => isset($data['origins']) ? $data['origins'] : null,
 			'eco_benefits' => isset($data['eco_benefits']) ? $data['eco_benefits'] : null,
+			'native_to' => isset($data['native_to']) ? $data['native_to'] : null,
 			'shapes' => isset($data['shapes']) ? $data['shapes'] : null,
 			'light' => isset($data['light']) ? $data['light'] : null,
 			'soil' => isset($data['soil']) ? $data['soil'] : null,

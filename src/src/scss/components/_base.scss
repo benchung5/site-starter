@@ -238,8 +238,8 @@ h2 {
 
 h3, h4, h5 {
   font-family: $title-font;
-  font-size: 2em;
-  font-weight: 600;
+  font-size: 1.5em;
+  margin-bottom: 1rem;
 }
 
 label {
@@ -1481,13 +1481,15 @@ single view
 .view {
   .title-area {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
     h1 {
       margin-bottom: 0.7em;
     }
     h1, span {
       display: block;
+    }
+    h2 {
+      font-size: 1em;
     }
   }
   .body-area {

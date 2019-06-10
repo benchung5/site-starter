@@ -169,6 +169,7 @@ class Articles_model extends Model
 		//include images
 		$this->db
 			->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
+			->select('GROUP_CONCAT(f.description ORDER BY f.sort_order, f.name) AS image_descriptions')
 			->leftJoin('files f', 'f.ref_id', 'a.id')
 			->groupBy('a.id');
 

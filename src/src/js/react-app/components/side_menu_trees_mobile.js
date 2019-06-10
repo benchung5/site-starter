@@ -4,12 +4,8 @@ import SideMenuHeader from './side_menu_header';
 import Categories from './buttons_categories';
 import ButtonsCategoriesTrees from './buttons_categories_trees';
 //import ButtonsOrigins from './buttons_origins';
-import ButtonsZones from './buttons_zones';
 import SearchTreesComponent from './search_trees';
-// import Routes from './buttons_routes';
-// import NearMe from './button_near_me';
 // import OffLineMessage from './offline_message';
-//import { searchArticles } from '../actions/global';
 import Socials from './parts/socials';
 import Transition from 'react-transition-group/Transition';
 import prefix from 'react-prefixer';
@@ -47,7 +43,6 @@ class SideMenu extends Component {
               />
             </SideMenuHeader>
             <ButtonsCategoriesTrees/>
-            <ButtonsZones/>
             <div className="bottom">
             </div>
           </div>
@@ -57,7 +52,7 @@ class SideMenu extends Component {
   }
 }
 
-//<Routes/>
+//<ButtonsZones/>
 
 function mapStateToProps(state) {
   return {

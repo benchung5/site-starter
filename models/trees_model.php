@@ -44,6 +44,13 @@ class Trees_model extends Model
 				->innerJoin('eco_benefits e', 'e.id', 'te.eco_benefit_id')
 				->getAll();
 
+			// native_to
+			$result->native_to = $this->db->table('trees_native_to tnt')
+				->select('n.id, n.name')
+				->where('tnt.tree_id', $result->id)
+				->innerJoin('native_to n', 'n.id', 'tnt.native_to_id')
+				->getAll();
+
 			// zone
 			$result->zone = $this->db->table('zones')
 				->select('id, name')
@@ -199,6 +206,7 @@ class Trees_model extends Model
 
 				$this->insert_joins($new_tree_id, $joins, 'origins', 'origin_id', 'trees_origins');
 				$this->insert_joins($new_tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
+				$this->insert_joins($new_tree_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
 				$this->insert_joins($new_tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
 				$this->insert_joins($new_tree_id, $joins, 'light', 'light_id', 'trees_light');
 				$this->insert_joins($new_tree_id, $joins, 'soil', 'soil_id', 'trees_soil');
@@ -274,6 +282,7 @@ class Trees_model extends Model
 
 			$this->update_joins($tree_id, $joins, 'origins', 'origin_id', 'trees_origins');
 			$this->update_joins($tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
+			$this->update_joins($tree_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
 			$this->update_joins($tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
 			$this->update_joins($tree_id, $joins, 'light', 'light_id', 'trees_light');
 			$this->update_joins($tree_id, $joins, 'soil', 'soil_id', 'trees_soil');
@@ -324,6 +333,7 @@ class Trees_model extends Model
 			// remove joins
 			$this->db->table('trees_origins')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_eco_benefits')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('trees_native_to')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_shapes')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_light')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_soil')->where('tree_id', $deleted_tree_id)->delete();
@@ -388,9 +398,19 @@ class Trees_model extends Model
 
 		// use search criteria
 		if (isset($opts['like'])) {
+			//genus
+			$this->db			
+				->leftJoin('genuses g', 'g.id', 't.genus_id')
+				->groupBy('t.id');
+
 			$this->db->grouped(function($q, $opts) {
 				$q->like('t.common_name', '%'.$opts['like'].'%')
-				->orLike('t.slug', '%'.$opts['like'].'%');
+				->orLike('t.other_common_names', '%'.$opts['like'].'%')
+				->orLike('t.specific_epithet', '%'.$opts['like'].'%')
+				->orLike('t.other_species', '%'.$opts['like'].'%')
+				->orLike('t.genus_id', '%g.id%');
+
+
 			}, $opts);
 		}
 
@@ -414,6 +434,7 @@ class Trees_model extends Model
 			// include images
 			$this->db
 				->select('GROUP_CONCAT(ft.name ORDER BY ft.sort_order, ft.name) AS images')
+				->select('GROUP_CONCAT(ft.description ORDER BY ft.sort_order, ft.name) AS image_descriptions')
 				->leftJoin('files_trees ft', 'ft.ref_id', 't.id')
 				->groupBy('t.id');
 

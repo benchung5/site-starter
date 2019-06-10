@@ -57,6 +57,7 @@ class AddTree extends Component {
     formpropsClone = formatOutMultiselects(formProps, [
                 'origins', 
                 'eco_benefits', 
+                'native_to',
                 'shapes', 
                 'light', 
                 'soil', 

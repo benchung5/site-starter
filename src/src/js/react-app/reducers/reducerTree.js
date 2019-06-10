@@ -10,6 +10,20 @@ import {
 const INITIAL_STATE = {
     treeAdded: '',
     treeSingle: {
+        specific_epithet: '',
+        other_species: '',
+        subspecies: '',
+        variety: '',
+        cultivar: '',
+        // also in database this is an 
+        // int and default is set to 0
+        height_min: 0,
+        height_max: 0,
+        width_min: 0,
+        width_max: 0,
+        lifespan_min: 0,
+        lifespan_max: 0,
+        body: '',
         category: [],
         themes: [],
         // make images null so we know it's an intentional clear

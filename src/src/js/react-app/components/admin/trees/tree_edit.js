@@ -53,11 +53,14 @@ class EditTree extends Component {
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'trees');
 
+        console.log('se: ', this.props.treeData.specific_epithet);
+
         // set tree values for the fields
         const formData = {
             //still must keep this for the id eventhough it isn't rendered
             'tree_id': this.props.treeData.id,
             'common_name': this.props.treeData.common_name,
+            'other_common_names': this.props.treeData.other_common_names,
             'slug': this.props.treeData.slug,
             'specific_epithet': this.props.treeData.specific_epithet,
             'other_species': this.props.treeData.other_species,
@@ -79,6 +82,7 @@ class EditTree extends Component {
             //multiselects
             'origins': this.formatToMultiselect(this.props.treeData.origins),
             'eco_benefits': this.formatToMultiselect(this.props.treeData.eco_benefits),
+            'native_to': this.formatToMultiselect(this.props.treeData.native_to),
             'shapes': this.formatToMultiselect(this.props.treeData.shapes),
             'light': this.formatToMultiselect(this.props.treeData.light),
             'soil': this.formatToMultiselect(this.props.treeData.soil),
@@ -99,7 +103,8 @@ class EditTree extends Component {
         let formpropsClone = [];
         formpropsClone = formatOutMultiselects(formProps, [
                 'origins', 
-                'eco_benefits', 
+                'eco_benefits',
+                'native_to',
                 'shapes', 
                 'light', 
                 'soil', 

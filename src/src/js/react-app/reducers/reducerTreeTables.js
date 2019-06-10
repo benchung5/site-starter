@@ -5,6 +5,7 @@ const INITIAL_STATE = {
 		'genuses' : [],
 		'origins' : [],
 		'eco_benefits' : [],
+		'native_to' : [],
 		'zones' : [],
 		'trees_category' : [],
 		'tags' : [],

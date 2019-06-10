@@ -26,8 +26,8 @@ Services include consulting, organic nutrition, plating, hedging, pruning and re
            <div class="row">
                 <div class="small-12 columns medium-media-padding">
                     <div class="center-info" data-scroll>
-                        <h3>Niagara Region Tree Finder</h3>
-                        <p>Search trees and woody plants commonly found in Niagara</p>
+                        <h3>Niagara Native Tree Finder</h3>
+                        <p>Search trees and woody plants native to the Niagara region</p>
                     </div>
                 </div>
             </div>

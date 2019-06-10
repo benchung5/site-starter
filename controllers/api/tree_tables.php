@@ -12,6 +12,7 @@ class Tree_tables extends Controller
 	{
 		$this->origins = $this->load_model('origins_model');
 		$this->eco_benefits = $this->load_model('eco_benefits_model');
+		$this->native_to = $this->load_model('native_to_model');
 		$this->zones = $this->load_model('zones_model');
 		$this->tree_categories = $this->load_model('trees_category_model');
 		$this->genuses = $this->load_model('genuses_model');
@@ -43,6 +44,7 @@ class Tree_tables extends Controller
 		$tree_tables = [
 			'origins' => $this->origins->get_all() ?: [],
 			'eco_benefits' => $this->eco_benefits->get_all() ?: [],
+			'native_to' => $this->native_to->get_all() ?: [],
 			'zones' => $this->zones->get_all() ?: [],
 			'trees_category' =>  $this->tree_categories->get_all() ?: [],
 			'genuses' => $this->genuses->get_all() ?: [],

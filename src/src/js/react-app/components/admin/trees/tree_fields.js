@@ -27,6 +27,14 @@ class TreeFields extends Component  {
             onFocus={this.props.onInputChange}
         />
         <Field
+            type="input"
+            label="other common names"
+            name="other_common_names"
+            component={renderField}
+            onChange={this.props.onInputChange}
+            onFocus={this.props.onInputChange}
+        />
+        <Field
           label="slug"
           name="slug"
           component={renderField}
@@ -105,6 +113,14 @@ class TreeFields extends Component  {
           label="eco benefits"
           component={renderMultiSelect}
           selectItems={this.props.treeTables.eco_benefits}
+          onChange={this.props.onInputChange}
+          onFocus={this.props.onInputChange}
+        />
+        <Field
+          name="native_to"
+          label="native to"
+          component={renderMultiSelect}
+          selectItems={this.props.treeTables.native_to}
           onChange={this.props.onInputChange}
           onFocus={this.props.onInputChange}
         />

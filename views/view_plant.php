@@ -14,7 +14,8 @@ use Lib\Utils;
 				<div class="row">
 					<div class="small-12 large-8 columns">
 						<div class="title-area">
-							<h1><?= $view_data['tree']->common_name ?></h1>
+							<h1><?= Utils::sanitize($view_data['tree']->common_name) ?></h1>&nbsp;&nbsp;
+							<h2 class="italic">(<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<?= Utils::sanitize($view_data['tree']->specific_epithet) ?>)</h2>
 						</div>
 
 						<?php //print_r($view_data['tree']);  ?>
@@ -29,7 +30,7 @@ use Lib\Utils;
 									foreach ($view_data['tree']->images as $image) { 
 										if (strpos($image->name, 'thumb') == false) {
 											echo '<div class="slide"><div class="slide-inner">';
-											echo '<img class="view-img" src="'.Config::paths('ROOT_URL').'uploads/trees/'.Utils::sanitize($image->name).'" />';
+											echo '<img class="view-img" alt="' . Utils::sanitize($image->description) . '" src="'.Config::paths('ROOT_URL').'uploads/trees/'.Utils::sanitize($image->name).'" />';
 											echo '</div></div>';
 										}
 									}
@@ -49,15 +50,30 @@ use Lib\Utils;
 						<div class="body-area"><?= $view_data['tree']->body ?></div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
-						<span class="bold"><?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<span class="bold"><?= Utils::sanitize($view_data['tree']->specific_epithet) ?></span><br>
+						<span class="bold">Classification</span><br>
+
+						<?= $view_data['tree']->other_common_names ? '<span>Other Names: ' . Utils::sanitize($view_data['tree']->other_common_names) . '</span><br>' : ''; ?>
+
+						<?= $view_data['tree']->other_species ? '<span>Other Botanical Names: ' . Utils::sanitize($view_data['tree']->other_species) . '</span><br>' : ''; ?>
 						
 						<span>Family: <?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></span><br>
-						
-						<span>Category: <?= Utils::sanitize($view_data['tree']->trees_category->name) ?></span><br><br>
+						<br>
 
 						<span class="bold">Details</span><br>
 
-						<?= $view_data['tree']->zone ? '<span>Zone: ' . Utils::sanitize($view_data['tree']->zone->name) . '</span><br>' : ''; ?>
+						<?php
+						$native_to = [];
+						if ($view_data['tree']->native_to) {
+							foreach ($view_data['tree']->native_to as $_native_to) {
+								$native_to[] = $_native_to->name;
+							}
+							echo '<span>Native to: ';
+							echo Utils::sanitize(implode(', ', $native_to));
+							echo '</span><br>';
+						}
+						?>
+
+						<?= $view_data['tree']->zone ? '<span>Hardy to zone: ' . Utils::sanitize($view_data['tree']->zone->name) . '</span><br>' : ''; ?>
 
 						<?php
 						$eco_benefits = [];
@@ -95,10 +111,25 @@ use Lib\Utils;
 						}
 						?>
 
+						<?php 
 
-						<?= $view_data['tree']->height_min && $view_data['tree']->height_max ? '<span>Height: ' . Utils::sanitize($view_data['tree']->height_min) . '-' . Utils::sanitize($view_data['tree']->height_max) . 'ft</span><br>' : ''; ?>
+						if ($view_data['tree']->height_min && $view_data['tree']->height_max) {
+							if ($view_data['tree']->height_min == $view_data['tree']->height_max) {
+								echo '<span>Height: ' . Utils::sanitize($view_data['tree']->height_min) . 'ft</span><br>';
+							} else {
+								echo '<span>Height: ' . Utils::sanitize($view_data['tree']->height_min) . '-' . Utils::sanitize($view_data['tree']->height_max) . 'ft</span><br>';
+							}	
+						}
 
-						<?= $view_data['tree']->width_min && $view_data['tree']->width_max ? '<span>Width: ' . Utils::sanitize($view_data['tree']->width_min) . '-' . Utils::sanitize($view_data['tree']->width_max) . 'ft</span><br>' : ''; ?>
+						if ($view_data['tree']->width_min && $view_data['tree']->width_max) {
+							if ($view_data['tree']->width_min == $view_data['tree']->width_max) {
+								echo '<span>width: ' . Utils::sanitize($view_data['tree']->width_min) . 'ft</span><br>';
+							} else {
+								echo '<span>width: ' . Utils::sanitize($view_data['tree']->width_min) . '-' . Utils::sanitize($view_data['tree']->width_max) . 'ft</span><br>';
+							}	
+						}
+
+						?>
 
 						<?= $view_data['tree']->growth_rate ? '<span>Growth Rate: ' . Utils::sanitize($view_data['tree']->growth_rate) . '</span><br>' : ''; ?>
 
