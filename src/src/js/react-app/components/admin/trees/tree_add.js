@@ -71,7 +71,6 @@ class AddTree extends Component {
             ]);
 
     // call action to submit edited
-    //console.log(formpropsClone);
     this.props.addTree(createImgFormData('images', formpropsClone));
   }
 
@@ -184,7 +183,6 @@ export default RequireAuth(reduxForm({
   validate,
   form: 'tree-add',
   fields: ['name', 'slug', 'files'],
-  //fields: ['name', 'slug', 'body', 'files'],
 })(
 connect(mapStateToProps, { addTree, clearTree, addTreeError, fetchTreeTables, reset })(AddTree)
 ));

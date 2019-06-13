@@ -39,6 +39,7 @@ class Articles extends Controller
 			$new_article_id = $this->articles->add([
 				'slug' => $data['slug'], 
 				'name' => $data['name'], 
+				'body' => $data['body'], 
 				'created_on' => date('Y-m-d'),
 			], $data['categories'], $data['tags']);
 

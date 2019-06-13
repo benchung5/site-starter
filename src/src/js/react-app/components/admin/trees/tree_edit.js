@@ -167,7 +167,6 @@ class EditTree extends Component {
                                 treeId={this.props.treeData.id}
                                 onInputChange={this.onInputChange.bind(this)}
                                 treeTables={this.props.treeTables}
-                                bodyValue={this.props.bodyValue}
                             />
 
                             <UploadedImages
@@ -229,9 +228,7 @@ function validate(formProps) {
 
 function mapStateToProps(state, ownProps) {
     const selector = formValueSelector('tree-add');
-    const bodyValue = selector(state, 'body');
     return {
-        bodyValue,
         treeUpdated: state.tree.treeUpdated,
         treeData: state.tree.treeSingle,
         treeTables: state.treeTables.all,

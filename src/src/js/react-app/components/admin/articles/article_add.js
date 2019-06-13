@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, reset } from 'redux-form';
+import { reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import { addArticle, addArticleError, clearArticle } from '../../../actions/articles';
 import { fetchCategories } from '../../../actions/categories';
 import { fetchTags } from '../../../actions/tags';
 import Sidebar from '../sidebar';
-import renderField from '../parts/form_fields';
+import ArticleFields from './article_fields';
 import ImgFieldCrop from '../parts/image_field_crop';
-import { createImgFormData } from '../../../lib/form_utils';
 import { flattenObjArray } from '../../../lib/utils';
-import renderDropdownSelect from '../parts/field_dropdownSelect';
-import renderMultiSelect from '../parts/field_multiSelect';
+import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
 import RequireAuth from '../auth/require_auth';
 import clone from 'lodash/clone';
 
@@ -59,9 +57,11 @@ class AddArticle extends Component {
 
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
-    //format categories data (must convert it to comma separated string over the network)
-    let formpropsClone = clone(formProps);
-    formpropsClone.categories = flattenObjArray(formpropsClone.categories, 'value').toString();
+    let formpropsClone = [];
+    formpropsClone = formatOutMultiselects(formProps, [
+              'categories',
+              'tags'
+            ]);
 
     // call action to submit edited
     this.props.addArticle(createImgFormData('images', formpropsClone));
@@ -92,15 +92,6 @@ class AddArticle extends Component {
   onInputChange() {
       this.clearMessages();
   }
-
-  // <Field
-  //   type="textarea"
-  //   label="body:"
-  //   name="body"
-  //   component={renderField}
-  //   onChange={this.onInputChange.bind(this)}
-  //   onFocus={this.onInputChange.bind(this)}
-  // />
     
   render() {
       const { handleSubmit } = this.props;
@@ -111,44 +102,11 @@ class AddArticle extends Component {
             <div className="columns small-12 large-9">
               <h3>Add Article</h3>
               <form  onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-                <Field
-                  label="name:"
-                  name="name"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  label="slug:"
-                  name="slug"
-                  component={renderField}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="categories"
-                  label="categories"
-                  component={renderMultiSelect}
-                  selectItems={this.props.categories}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                  name="tags"
-                  label="tags"
-                  defaultSelect={true}
-                  component={renderMultiSelect}
-                  selectItems={this.props.tags}
-                  onChange={this.onInputChange.bind(this)}
-                  onFocus={this.onInputChange.bind(this)}
-                />
-                <Field
-                    type="textarea"
-                    label="body"
-                    name="body"
-                    component={renderField}
-                    onChange={this.onInputChange.bind(this)}
-                    onFocus={this.onInputChange.bind(this)}
+                <ArticleFields
+                    onInputChange={this.onInputChange.bind(this)}
+                    treeTables={this.props.treeTables}
+                    categories={this.props.categories}
+                    tags={this.props.tags}
                 />
                 <ImgFieldCrop
                   name="images"
@@ -206,7 +164,6 @@ export default RequireAuth(reduxForm({
   validate,
   form: 'article-add',
   fields: ['name', 'slug', 'files'],
-  //fields: ['name', 'slug', 'body', 'files'],
 })(
 connect(mapStateToProps, { addArticle, clearArticle, addArticleError, fetchCategories, fetchTags, reset })(AddArticle)
 ));

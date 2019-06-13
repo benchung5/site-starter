@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Field, change } from 'redux-form';
+import { Field } from 'redux-form';
 import renderField from '../parts/form_fields';
 import editBox from '../parts/edit_box';
 import renderDropdownSelect from '../parts/field_dropdownSelect';
 import renderMultiSelect from '../parts/field_multiSelect';
 import renderHiddenField from '../parts/field_hidden';
-import { copyStringToClipboard } from '../../../lib/stringUtils';
 
 class TreeFields extends Component  {
   constructor(props) {
