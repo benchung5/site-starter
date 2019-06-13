@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import clone from 'lodash/clone';
-import { imgName } from '../../../lib/stringUtils'
+import { imgName, copyStringToClipboard } from '../../../lib/stringUtils'
 //config
 const env = process.env.NODE_ENV || "development";
 var { UPLOADS_PATH } = require('../../../config')[env];
@@ -34,6 +34,11 @@ class UploadedImages extends Component {
 		this.props.updateImages(updatedImages, deletedImages);
 	}
 
+	onCopyClick(item) {
+		let imgStr = '<img alt="' + item.description + '" src="/uploads/' + this.refType + '/' + item.name + '" />';
+		copyStringToClipboard(imgStr);
+	}
+
 	initImages(images, ref_type) {
 		//console.log(images);
 		this.refType = ref_type;
@@ -51,6 +56,7 @@ class UploadedImages extends Component {
 					return (
 						<div key={index} className="drop-preview">
 							<a href="#" className="close-btn" onClick={this.onDeleteClick.bind(this, index)}></a>
+							<button className="copy-btn" onClick={this.onCopyClick.bind(this, item)}>copy</button>
 							<img className="drop-img-preview" src={'/uploads/' + this.refType + '/' + imgName(item.name, 'small')} />
 							<div className="desc">
 							  {item.name}

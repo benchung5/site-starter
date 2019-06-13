@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm, Field, change } from 'redux-form';
+import { reduxForm, Field, change, formValueSelector } from 'redux-form';
 import { getTree, clearUpdateTree, updateTree } from '../../../actions/trees';
 import { fetchTreeTables } from '../../../actions/treeTables';
 import Sidebar from '../sidebar';
@@ -11,6 +11,7 @@ import { createImgFormData, formatOutMultiselects } from '../../../lib/form_util
 import RequireAuth from '../auth/require_auth';
 import clone from 'lodash/clone';
 import TreeFields from './tree_fields';
+
 
 
 class EditTree extends Component {
@@ -52,8 +53,6 @@ class EditTree extends Component {
         this.setState({ images });
         //init images on UploadedImages component
         this.refs.UploadedImages.initImages(images, 'trees');
-
-        console.log('se: ', this.props.treeData.specific_epithet);
 
         // set tree values for the fields
         const formData = {
@@ -168,6 +167,7 @@ class EditTree extends Component {
                                 treeId={this.props.treeData.id}
                                 onInputChange={this.onInputChange.bind(this)}
                                 treeTables={this.props.treeTables}
+                                bodyValue={this.props.bodyValue}
                             />
 
                             <UploadedImages
@@ -228,7 +228,10 @@ function validate(formProps) {
 }
 
 function mapStateToProps(state, ownProps) {
-    return { 
+    const selector = formValueSelector('tree-add');
+    const bodyValue = selector(state, 'body');
+    return {
+        bodyValue,
         treeUpdated: state.tree.treeUpdated,
         treeData: state.tree.treeSingle,
         treeTables: state.treeTables.all,

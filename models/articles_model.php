@@ -28,7 +28,7 @@ class Articles_model extends Model
 		if ($result) {
 			// get images
 			$result->images = $this->db->table('files')
-				->select('id, name')
+				->select('id, name, description')
 				->where('ref_id', $result->id)
 				// ->orderBy('sort_order, name')
 				->getAll();

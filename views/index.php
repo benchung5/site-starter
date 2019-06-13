@@ -11,7 +11,7 @@ $this->insert('featured', $view_data );
                     <div class="left">
                         <h1>Niagara Trees</h1>
                         <p>Providing sustainable tree care for the Niagara region.
-Services include consulting, organic nutrition, plating, hedging, pruning and removal.</p>
+Services include consulting, organic nutrition, planting, hedging, pruning and removal.</p>
                         <a class="button-view-models transparent" href="plants">Search Niagara Trees</a>
                     </div>
                 </div>

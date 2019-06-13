@@ -242,6 +242,16 @@ img drop preview/drozone
   cursor: pointer;
 }
 
+button.copy-btn {
+  padding: 0.2em 0.5em;
+  top: 5px;
+  left: 5px;
+  position: absolute;
+  z-index: 10;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
 .cropper-buttons {
   margin: 1em 0.5em;
   padding: 0.5em;
