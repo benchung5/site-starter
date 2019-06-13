@@ -36,12 +36,24 @@ class Articles extends Controller
 		}
 
 		try {
-			$new_article_id = $this->articles->add([
+			//update data
+			$update_data = [
 				'slug' => $data['slug'], 
-				'name' => $data['name'], 
-				'body' => $data['body'], 
-				'created_on' => date('Y-m-d'),
-			], $data['categories'], $data['tags']);
+				'name' => $data['name'],
+				'created_on' => date('Y-m-d')
+			];
+			if(isset($data['body'])) { $update_data['body'] = $data['body']; };
+
+			//joins data
+			$joins_data = [
+				'categories' => isset($data['categories']) ? $data['categories'] : null,
+				'tags' => isset($data['tags']) ? $data['tags'] : null,
+			];
+
+			$new_article_id = $this->articles->add(
+				$update_data,
+				$joins_data
+			);
 
 			$new_article = $this->articles->get(['id' => $new_article_id]);
 
@@ -63,7 +75,7 @@ class Articles extends Controller
 
 		$this->articles->remove(['slug' => $data['article']['slug']]);
 
-		Utils::json_respond(SUCCESS_RESPONSE, $data['article']['slug']);
+		Utils::json_respond(SUCCESS_RESPONSE, $data['article']);
 	}
 
 	public function all() 
@@ -127,37 +139,23 @@ class Articles extends Controller
 		}		
 	}
 
-	public function search_admin() 
-	{
-		$data = Utils::read_get();
-
-		$articles = $this->articles->get_all(['offset' => $data['offset'], 'limit' => $data['limit']]);
-
-		$count = $this->articles->count();
-
-		$result = ['articles' => $articles, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
-
-		if ($articles) {
-			Utils::json_respond(SUCCESS_RESPONSE, $result);
-		} else {
-			Utils::json_respond(SUCCESS_RESPONSE, ['articles' => [], 'count' => 0, 'offset' => 0, 'limit' => (int)$data['limit']]);
-		}		
-	}
-
 	public function search()
 	{
 		$data = Utils::read_get();
 
-		$articles = $this->articles->get_all([
+		$opts = [
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'], 
 			'like' => isset($data['search']) ? $data['search'] : null, 
 			'categories' => isset($data['categories']) ? $data['categories'] : null,
 			'tags' => isset($data['tags']) ? $data['tags'] : null, 
 			'select' => ['a.id', 'a.slug', 'a.name']
-		]);
+		];
 
-		$count = $this->articles->count();
+		$articles = $this->articles->get_all($opts);
+
+		//just to count the results without the offset and limit
+		$count = $this->articles->get_all($opts, true);
 
 		$result = ['articles' => $articles, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 

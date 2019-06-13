@@ -6,7 +6,9 @@ import { isLoading } from '../internalLoad';
 
 import {
 	CATEGORIES_FILTER,
-	SEARCH_ARTICLES
+	SEARCH_ARTICLES,
+    OFFSET_FILTER,
+    SEARCH_FILTER,
 } from '../types';
 
 //categories
@@ -15,6 +17,20 @@ export function filterCategories(filteredCategories) {
 		type: CATEGORIES_FILTER,
 		payload: filteredCategories
 	}
+}
+
+export function filterOffset(offset) {
+    return {
+        type: OFFSET_FILTER,
+        payload: offset
+    }
+}
+
+export function filterSearchArticles(search) {
+    return {
+        type: SEARCH_FILTER,
+        payload: search
+    }
 }
 
 export function populateCategoriesFilter(selectedCategories) {

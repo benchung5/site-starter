@@ -63,32 +63,31 @@ class Articles_model extends Model
 		return false;
 	}
 
-	public function add($data, $categories, $tags)
+	public function add($data, $joins_data)
 	{
 		if (is_array($data)) {
 			$this->db->table('articles')->insert($data);
 			$new_article_id = $this->db->insertId();
 
-			//categories
-			$categories = (! is_array($categories)) ? explode(',', $categories) : $categories;
-
-			foreach ($categories as $category) {
-				$ins = ['article_id' => $new_article_id, 'category_id' => $category];
-				$this->db->table('article_categories')->insert($ins);
-			}
-
-			//tags
-			$tags = (! is_array($tags)) ? explode(',', $tags) : $tags;
-
-			foreach ($tags as $tag) {
-				$ins = ['article_id' => $new_article_id, 'tag_id' => $tag];
-				$this->db->table('article_tags')->insert($ins);
-			}
+			//insert joins
+			$this->insert_joins($new_article_id, $joins_data, 'categories', 'category_id', 'article_categories');
+			$this->insert_joins($new_article_id, $joins_data, 'tags', 'tag_id', 'article_tags');
 			
 			return $new_article_id;
 		}
 
 		return false;
+	}
+
+	protected function insert_joins($article_id, $joins, $table_name, $table_id_name, $join_table_name) {
+		if (isset($joins[$table_name])) {
+			$ids = (! is_array($joins[$table_name])) ? explode(',', $joins[$table_name]) : $joins[$table_name];
+
+			foreach ($ids as $id) {
+				$ins = ['article_id' => $article_id, $table_id_name => $id];
+				$this->db->table($join_table_name)->insert($ins);
+			}
+		}
 	}
 
 	public function remove($opts = [])
@@ -125,57 +124,58 @@ class Articles_model extends Model
 		return false;
 	}
 
-	public function get_all($opts = []) 
+	public function get_all($opts = [], $isCount = false) 
 	{
 		$this->db->table('articles a');
 
-		if (isset($opts['select'])) {
-			$this->db->select(implode(',', $opts['select']));
-		} else {
-			$this->db->select('a.id, a.slug, a.name');
-		}
-
-		if (isset($opts['offset'])) {
-			$this->db->limit($opts['offset'], $opts['limit']);
-		}
-
-		// if (isset($opts['category'])) {
-		// 	if (count($opts['category']) > 0) {
-		// 		$this->db->in('a.category_id', $opts['category']);
-		// 	} else {
-		// 		// force no results since category is queried but no category is selected
-		// 		return [];
-		// 	}
-		// }
-
-		if (isset($opts['categories'])) {
-			if (count($opts['categories']) > 0) {
-				$this->db
-					->innerJoin('article_categories at', 'at.article_id', 'a.id')
-					->innerJoin('categories t', 't.id', 'at.category_id')
-					->in('t.id', $opts['categories']);
-			} else {
-				// force no results since category is queried but no category is selected
-				return [];
-			}
-		}
-
+		// use search criteria
 		if (isset($opts['like'])) {
 			$this->db->grouped(function($q, $opts) {
 				$q->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
 			}, $opts);
 		}
 
-		//include images
-		$this->db
-			->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
-			->select('GROUP_CONCAT(f.description ORDER BY f.sort_order, f.name) AS image_descriptions')
-			->leftJoin('files f', 'f.ref_id', 'a.id')
-			->groupBy('a.id');
 
-		$result = $this->db->getAll();
+		if ($isCount) {
+			 $this->db->select('DISTINCT a.id');
 
-		return $result;
+			 $result = $this->db->getAll();
+
+			return count($result);
+		} else {
+			if (isset($opts['select'])) {
+				$this->db->select(implode(',', $opts['select']));
+			} else {
+				$this->db->select('a.id, a.slug, a.name');
+			}
+
+			if (isset($opts['offset'])) {
+				$this->db->limit($opts['offset'], $opts['limit']);
+			}
+
+			if (isset($opts['categories'])) {
+				if (count($opts['categories']) > 0) {
+					$this->db
+						->innerJoin('article_categories at', 'at.article_id', 'a.id')
+						->innerJoin('categories t', 't.id', 'at.category_id')
+						->in('t.id', $opts['categories']);
+				} else {
+					// force no results since category is queried but no category is selected
+					return [];
+				}
+			}
+
+			//include images
+			$this->db
+				->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
+				->select('GROUP_CONCAT(f.description ORDER BY f.sort_order, f.name) AS image_descriptions')
+				->leftJoin('files f', 'f.ref_id', 'a.id')
+				->groupBy('a.id');
+
+			$result = $this->db->getAll();
+
+			return $result;
+		}
 	}
 
 	public function update($opts = []) 

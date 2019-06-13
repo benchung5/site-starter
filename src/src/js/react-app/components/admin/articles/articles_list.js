@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Sidebar from '../sidebar';
 import { Link } from 'react-router-dom';
-import * as actions from '../../../actions/articles';
+import * as actions from '../../../actions/global';
+import { deleteArticle } from '../../../actions/articles';
 import RequireAuth from '../auth/require_auth';
-import SearchArticles from './search_articles';
-import Pagination from '../parts/pagination';
+import SearchArticles from '../../search_articles';
+import PaginationArticles from '../../parts/pagination_articles';
 import { globals } from '../../../config.js';
 
 //config
@@ -21,18 +22,22 @@ class ArticlesIndex extends Component {
     }
 
     componentWillMount() {
-        this.resetArticlesList();
+        this.searchArticles();
     }
 
-    componentWillReceiveProps(nextProps) {
-      // if newly navigated from the router link...
-      if((nextProps.location !== this.props.location) && nextProps.location.key) {
-        this.resetArticlesList();
-      }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //   // if newly navigated from the router link...
+    //   if((nextProps.location !== this.props.location) && nextProps.location.key) {
+    //     this.resetArticlesList();
+    //   }
+    // }
 
-    resetArticlesList() {
-        this.props.searchArticlesAdmin({ search: [], offset: 0, limit: globals.ADMIN_ENTRIES_PER_PAGE });
+    // resetArticlesList() {
+    //     this.props.searchArticles(this.props.globalFilterData);
+    // }
+
+    searchArticles() {
+        this.props.searchArticles(this.props.globalFilterData);
     }
 
     onDeleteArticleClick(event) {
@@ -41,7 +46,7 @@ class ArticlesIndex extends Component {
         const { offset, limit } = this.props.articles;
         //slug, search, offset, limit
         //todo: get [] to use real stored search if any
-        this.props.dispatch(this.props.deleteArticle({id: parseInt(id), slug: slug}, [], offset, limit));
+        this.props.dispatch(deleteArticle({id: parseInt(id), slug: slug}, [], offset, limit));
     }
 
     onDuplicateArticleClick(event) {
@@ -50,6 +55,13 @@ class ArticlesIndex extends Component {
         //slug, search, offset, limit
         //todo: get [] to use real stored search if any
         this.props.duplicateArticle(slug, [], offset, limit);
+    }
+
+    componentDidUpdate(prevProps) {
+        //fire the updated globalFilterData to the search action whenever the themes or categores get updated
+        if(this.props.globalFilterData && (prevProps.globalFilterData !==  this.props.globalFilterData)) {
+            this.searchArticles();
+        }
     }
     
     renderArticles() {
@@ -72,14 +84,14 @@ class ArticlesIndex extends Component {
                     <Sidebar/>
                     <div className="columns small-12 large-9">
                         <h3>Articles</h3>
-                        <SearchArticles/>
+                        <SearchArticles
+                            placeholder="search"
+                            hasButton={false}
+                        />
                         <ul className="list-group item-list">
                             {this.renderArticles()}
                         </ul>
-                        <Pagination 
-                            sourceData={this.props.articles} 
-                            searchAction={this.props.searchArticlesAdmin.bind(this)}
-                        />
+                        <PaginationArticles />
                     </div>
                 </div>
             </div>
@@ -90,8 +102,9 @@ class ArticlesIndex extends Component {
 
 function mapStateToProps(state) {
     return {
-        articles: state.articles.searchResultsAdmin,
+        articles: state.articles.searchResults,
         articleDeleted: state.article.articleDeleted,
+        globalFilterData: state.global,
     };
 }
 

@@ -13,7 +13,9 @@ export const DELETE_ARTICLE = 'delete_article';
 export const ADD_ARTICLE_ERROR = 'add_article_error;';
 export const UPDATE_ARTICLE_ERROR = 'add_article_error;';
 export const SEARCH_ARTICLES = 'search_articles';
-export const SEARCH_ARTICLES_ADMIN = 'search_articles_admin';
+// export const SEARCH_ARTICLES_ADMIN = 'search_articles_admin';
+export const OFFSET_FILTER = 'offset_filter';
+export const SEARCH_FILTER = 'search_filter';
 
 // trees
 export const FETCH_TREES = 'fetch_trees';

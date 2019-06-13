@@ -130,6 +130,7 @@ export function populateTreesFilter(selectionFromUrl) {
 
 //perform the search
 export function searchTrees(searchObj) {
+    console.log(searchObj);
     return function(dispatch) {
         dispatch(isLoading(true));
     	let query = buildQuery(searchObj);

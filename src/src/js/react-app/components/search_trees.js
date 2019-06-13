@@ -39,7 +39,6 @@ class SearchForm extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		//console.log('update');
 	  if(this.props.globalFilterData && (prevProps.globalFilterData.search !== this.props.globalFilterData.search)) {
 	    this.props.dispatch(actions.searchTrees(this.props.globalFilterData));
 	  }

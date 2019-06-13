@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { searchArticles } from '../global';
 //config
 const env = process.env.NODE_ENV || "development";
 var {SERVER_URL} = require('../../config')[env];
@@ -33,36 +34,6 @@ export function fetchArticles() {
         });
     }
 }
-
-export function searchArticlesAdmin(searchObj) {
-    return function(dispatch) {
-        // let query = buildQuery(searchObj);
-
-        //set the obj in the get request
-        //axios.get(`${SERVER_URL}/articles/search-admin/`, { params: query })
-        axios.get(`${SERVER_URL}/articles/search_admin/`, { params: searchObj })
-        .then(response => {
-            dispatch({
-                type: SEARCH_ARTICLES_ADMIN,
-                payload: response.data
-             });
-        })
-        .catch((err) => {
-            console.log('error searching articles: ', err);
-        });
-    }
-}
-
-// function buildQuery(inObj) {
-//     const query = {};
-
-//     //just include the search as is
-//     if (inObj.search) {
-//         query.search = inObj.search;
-//     }
-
-//     return query;
-// }
 
 export function getArticle(slug) {
     return function(dispatch) {
@@ -142,7 +113,7 @@ export function updateArticle(formData) {
 }
 
 export function deleteArticle(article, search, offset, limit) {
-        return function(dispatch) {
+        return function(dispatch, getState) {
         // post to http://192.168.99.100/articles/delete
         axios.post( `${SERVER_URL}/articles/delete`, { article } )
         .then( response => {
@@ -151,7 +122,7 @@ export function deleteArticle(article, search, offset, limit) {
                 //dispatch(deleteArticleError(`there was an error deleting the article: ${response.data.error}`));
             } else {
                 //get the new list of articles now that one is deleted
-                dispatch(searchArticlesAdmin({ search: search, offset: offset, limit: limit }));
+                dispatch(searchArticles(getState().global));
             }
         })
         .catch((err) => {
@@ -170,7 +141,7 @@ export function duplicateArticle(slug, search, offset, limit) {
                 //dispatch(duplicateArticleError(`there was an error duplicating the article: ${response.data.error}`));
             } else {
                 //get the new list of articles now that one is deleted
-                dispatch(searchArticlesAdmin({ search: search, offset: offset, limit: limit }));
+                dispatch(searchArticles(getState().global()));
             }
         })
         .catch((err) => {
