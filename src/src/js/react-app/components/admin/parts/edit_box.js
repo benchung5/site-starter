@@ -26,6 +26,38 @@ class EditBox extends Component {
     this.wrapTextInElement('p');
   }
 
+  onUlClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (this.props.input.value) {
+       //get the current highlighted text
+       let selObj = window.getSelection(); 
+       let selectedText = selObj.toString();
+
+       //insert <li> elements at beginning of lines
+       let wrappedText = ' <li>' + selectedText.replace(/(?:\n|\r)/g, '\n <li>');
+       //insert </li> elements at line breaks
+       wrappedText = wrappedText.replace(/(?:\n|\r)/g, '</li>\n') + '</li>\n';
+       //remove the last \n
+       wrappedText = wrappedText.replace(/(?:\n)$/g, '');
+       //wrap it all in a ul
+       wrappedText = '<ul>\n'+wrappedText+'\n</ul>';
+
+       //get the character index of the selected text
+       this.refs.textBox.selectionStart
+
+       String.prototype.replaceAt=function(index, replacement) {
+         return this.substr(0, index) + replacement + this.substr(index + selectedText.length);
+       }
+
+       let fieldValue = this.props.input.value.slice();
+       let replacedBodyText = fieldValue.replaceAt(this.refs.textBox.selectionStart, wrappedText);
+
+       this.updateRedux(replacedBodyText);
+    }
+  }
+
   wrapTextInElement(element) {
     if (this.props.input.value) {
        //get the current highlighted text
@@ -61,6 +93,7 @@ class EditBox extends Component {
        <label>{this.props.input.label}</label>
        <button onClick={this.onSecHeadingClick.bind(this)}>h3</button>
        <button onClick={this.onParagraphClick.bind(this)}>p</button>
+       <button onClick={this.onUlClick.bind(this)}>ul</button>
        <textarea
        ref="textBox"
        className="form-control"

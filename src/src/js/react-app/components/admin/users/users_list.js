@@ -31,7 +31,7 @@ class UsersIndex extends Component {
 				<div className="admin-main">
 					<div className="row">
 						<Sidebar/>
-						<div className="columns small-12 large-9">
+						<div className="main-window columns small-12 large-9">
 							<h3>Users</h3>
 							<ul className="list-group item-list">
 								{this.renderUsers()}

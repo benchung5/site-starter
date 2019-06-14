@@ -59,7 +59,7 @@ class SideMenu extends Component {
 
     render() {
         return (
-            <div className="columns small-12 large-3">
+            <div className="columns small-12 large-3 admin-sidebar">
                 <ul className="vertical menu admin-side-menu">
                     {this.renderButtons()}
                 </ul>

@@ -69,7 +69,7 @@ class TreesIndex extends Component {
             <div className="admin-main">
                 <div className="row">
                     <Sidebar/>
-                    <div className="columns small-12 large-9">
+                    <div className="main-window columns small-12 large-9">
                         <h3>Trees</h3>
                         <SearchTrees
                             placeholder="search"

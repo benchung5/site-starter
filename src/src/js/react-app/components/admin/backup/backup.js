@@ -52,7 +52,7 @@ class BackupDB extends Component {
         <div className="admin-main">
           <div className="row">
             <Sidebar/>
-            <div className="columns small-9">
+            <div className="main-window columns small-12 large-9">
               <h3>Backup database</h3>
               <button className="btn" onClick={this.onBackupSubmit.bind(this)}>backup</button>
               {this.renderSuccess()}

@@ -61,7 +61,7 @@ class EditCategory extends Component {
             <div className="admin-main">
                 <div className="row">
                     <Sidebar/>
-                    <div className="columns small-12 large-9">
+                    <div className="main-window columns small-12 large-9">
                         <h3>Edit Category</h3>
                         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
                             <Field

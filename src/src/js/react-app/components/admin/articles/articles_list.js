@@ -82,7 +82,7 @@ class ArticlesIndex extends Component {
             <div className="admin-main">
                 <div className="row">
                     <Sidebar/>
-                    <div className="columns small-12 large-9">
+                    <div className="main-window columns small-12 large-9">
                         <h3>Articles</h3>
                         <SearchArticles
                             placeholder="search"

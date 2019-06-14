@@ -23,11 +23,6 @@ admin Styles
   }
 }
 
-
-.admin-main {
-  padding-top: 2em;
-}
-
 .header-nav {
   list-style-type: none;
   padding: 0;
@@ -82,35 +77,37 @@ side menu
   padding: 0.2rem 1rem;
 }
 
-// .admin-main > .row {
-//   //sidebar
-//   & > .columns.small-3 {
-//     min-width: 13em;
-//   }
-//   //content area
-//   & > .columns.small-9 {
-
-//   }
-// }
-
-
-.admin-side-menu, .admin-header-nav {
-  list-style-type: none;
-}
-
-.admin-side-menu {
-  margin-bottom: 2em;
-  & > li {
-    padding: 0.5em;
-    &:hover, &.active {
-      background: #FAFAFA;
-      a {
-        color: #535353;
+.admin-main {
+  .admin-sidebar {
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-right: 0;
+    padding-left: 0;
+    background: #f7f6f4;
+    .admin-side-menu {
+      margin-bottom: 2em;
+      list-style-type: none;
+      & > li {
+        padding: 0;
+        &:hover, &.active {
+          background: #FAFAFA;
+          a {
+            color: #535353;
+          }
+        }
+        a {
+          color: #535353;
+          padding: 0.7rem 2rem;
+        }
+      }
+      .admin-header-nav {
+        list-style-type: none;
       }
     }
-    a {
-      color: #535353;
-    }
+  }
+  .main-window {
+    padding-top: 2em;
+    padding-bottom: 2em;
   }
 }
 
@@ -175,10 +172,6 @@ select.multiselect {
 
 .submission-message {
   margin-bottom: 2em;
-}
-
-.admin-main .small-9.columns {
-  padding-right: 1.9375em;
 }
 
 /*.search-form input[type="text"]::-webkit-input-placeholder, 
