@@ -171,8 +171,6 @@ use Lib\Utils;
 						}
 						?>
 
-
-
 						<?php
 						$insects = [];
 						if ($view_data['tree']->insects) {
@@ -249,11 +247,7 @@ use Lib\Utils;
 					</div>
 				</div>
 
-
-
-
 			</div>
-
 		</div>
 	</div><!-- /content wrapper -->
 
