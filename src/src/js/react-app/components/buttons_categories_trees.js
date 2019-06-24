@@ -12,7 +12,7 @@ class CategoriesTreesButtons extends Component {
 		super(props);
 		this.state = {
 		}
-		this.buttonHeight = 27;
+		this.buttonHeight = 40;
 	}
 
 	onUpdateData(modifiedData) {
