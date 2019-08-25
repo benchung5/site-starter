@@ -1089,8 +1089,8 @@ module.exports = {
       TREES_UPLOADS_PATH: '/uploads/trees/'
    },
    "production": {
-      SERVER_URL: "https://naturewithus.com/api",
-      ROOT_URL: "https://naturewithus.com",
+      SERVER_URL: "https:workshopelves.com/api",
+      ROOT_URL: "https:workshopelves.com/",
       ARTICLES_UPLOADS_PATH: '/uploads/articles/',
       TREES_UPLOADS_PATH: '/uploads/trees/'
    },
@@ -5192,7 +5192,6 @@ function populateTreesFilter(selectionFromUrl) {
 
 //perform the search
 function searchTrees(searchObj) {
-    console.log(searchObj);
     return function (dispatch) {
         dispatch((0, _internalLoad.isLoading)(true));
         var query = buildQuery(searchObj);

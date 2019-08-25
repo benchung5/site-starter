@@ -8,7 +8,7 @@ import Sidebar from '../sidebar';
 import ArticleFields from './article_fields';
 import ImgFieldCrop from '../parts/image_field_crop';
 import { flattenObjArray } from '../../../lib/utils';
-import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
+import { createImgFormData, formatOutFormFields } from '../../../lib/form_utils';
 import RequireAuth from '../auth/require_auth';
 import clone from 'lodash/clone';
 
@@ -58,7 +58,7 @@ class AddArticle extends Component {
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
     let formpropsClone = [];
-    formpropsClone = formatOutMultiselects(formProps, [
+    formpropsClone = formatOutFormFields(formProps, [
               'categories',
               'tags'
             ]);

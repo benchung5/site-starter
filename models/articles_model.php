@@ -13,14 +13,20 @@ class Articles_model extends Model
 
 	public function get($opts = [])
 	{
-		$this->db->table('articles')->select('*');
+		$this->db->table('articles a')->select('a.id, a.slug, a.name, a.body, a.created_on');
 
 		if (isset($opts['id'])) {
-			$this->db->where('id', '=', $opts['id']);
+			$this->db->where('a.id', '=', $opts['id']);
 		}
 
 		if (isset($opts['slug'])) {
-			$this->db->where('slug', '=', $opts['slug']);
+			$this->db->where('a.slug', '=', $opts['slug']);
+		}
+
+		if (isset($opts['category'])) {
+			$this->db->innerJoin('article_categories ac', 'a.id', 'ac.article_id');
+			$this->db->innerJoin('categories c', 'c.id', 'ac.category_id');
+			$this->db->where('c.slug', '=' , $opts['category']);
 		}
 
 		$result = $this->db->get();
@@ -35,7 +41,7 @@ class Articles_model extends Model
 
 			// get categories
 			$result->categories = $this->db->table('article_categories ac')
-				->select('c.id, c.name')
+				->select('c.id, c.slug, c.name')
 				->where('article_id', $result->id)
 				->innerJoin('categories c', 'c.id', 'ac.category_id')
 				->getAll();
@@ -46,7 +52,6 @@ class Articles_model extends Model
 				->where('article_id', $result->id)
 				->innerJoin('tags t', 't.id', 'at.tag_id')
 				->getAll();
-
 			
 			return $result;
 		}
@@ -165,11 +170,14 @@ class Articles_model extends Model
 				}
 			}
 
-			//include images
+			//include images and categories
 			$this->db
 				->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
 				->select('GROUP_CONCAT(f.description ORDER BY f.sort_order, f.name) AS image_descriptions')
+				->select('GROUP_CONCAT(DISTINCT c.slug) AS categories')
 				->leftJoin('files f', 'f.ref_id', 'a.id')
+				->leftJoin('article_categories ac', 'ac.article_id', 'a.id')
+				->leftJoin('categories c', 'c.id', 'ac.category_id')
 				->groupBy('a.id');
 
 			$result = $this->db->getAll();

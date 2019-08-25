@@ -5,7 +5,7 @@ import { addTree, addTreeError, clearTree } from '../../../actions/trees';
 import { fetchTreeTables } from '../../../actions/treeTables';
 import Sidebar from '../sidebar';
 import ImgFieldCrop from '../parts/image_field_crop';
-import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
+import { createImgFormData, formatOutFormFields } from '../../../lib/form_utils';
 import RequireAuth from '../auth/require_auth';
 import TreeFields from './tree_fields';
 
@@ -54,7 +54,7 @@ class AddTree extends Component {
   // if form isn't valit redux form will not call this function
   handleFormSubmit(formProps) {
     let formpropsClone = [];
-    formpropsClone = formatOutMultiselects(formProps, [
+    formpropsClone = formatOutFormFields(formProps, [
                 'origins', 
                 'eco_benefits', 
                 'native_to',

@@ -40,10 +40,19 @@ export  function createImgFormData(imgFieldName, formProps) {
     return formData;
 }
 
-export function formatOutMultiselects(formProps, fields) {
-    //format multiselect data (must convert it to comma separated string over the network)
+export function formatOutFormFields(formProps, multiselectFields) {
+    //prepare form data to be sent over the network prperly
     let formpropsClone = clone(formProps);
-    fields.map((field) => {
+
+    //convert null values to empty strings
+    Object.keys(formpropsClone).forEach((key) => {
+      if (formpropsClone[key] == null) {
+        formpropsClone[key]  = "";
+      }
+    });
+
+    //convert arrays to comma separated strings
+    multiselectFields.map((field) => {
       let arr = flattenObjArray(formpropsClone[field], 'value');
       if (arr) {
         formpropsClone[field] = arr.toString();

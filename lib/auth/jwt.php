@@ -1,5 +1,7 @@
 <?php
 namespace Lib\Auth;
+use Exception;
+use Lib\Utils;
 
 /**
  * JSON Web Token implementation, based on this spec:
@@ -112,7 +114,8 @@ class JWT
         }
         // Check if this token has expired.
         if (isset($payload->exp) && ($timestamp - static::$leeway) >= $payload->exp) {
-            throw new Exception('Expired token');   
+            //throw new Exception('Expired token');
+            Utils::json_respond_error(ACCESS_TOKEN_ERRORS, 'Expired token');  
         }
         return $payload;
     }

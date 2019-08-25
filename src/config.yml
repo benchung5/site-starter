@@ -29,19 +29,16 @@ PATHS:
     - "uploads/**/*"
   # Paths to JavaScript libraries, which are combined into one file
   vendor:
-    - "src/js/vendor/*.js"
+    - "src/js/vendor/**/*.js"
   # Paths to Sass libraries, which can then be loaded with @import
   javascript:
   # entry for external js file
     - "src/js/app/app.js"
-  angular:
-  # js app parts to load via script
-    - "src/js/angular/**/*.js"
   react:
   # js app parts to load via script
     - "src/js/react-app/app.js"
   # js files to insert into the head
   head:
-    - "src/js/head/*.js"
+    - "src/js/head/**/*.js"
   manifest:
     - "src/manifest/manifest.json"

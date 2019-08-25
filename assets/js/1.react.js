@@ -109,7 +109,7 @@ var AddTree = function (_Component) {
     key: 'handleFormSubmit',
     value: function handleFormSubmit(formProps) {
       var formpropsClone = [];
-      formpropsClone = (0, _form_utils.formatOutMultiselects)(formProps, ['origins', 'eco_benefits', 'native_to', 'shapes', 'light', 'soil', 'natural_habitat', 'common_uses', 'transplanting', 'unique_attractions', 'tolerances', 'insects', 'diseases']);
+      formpropsClone = (0, _form_utils.formatOutFormFields)(formProps, ['origins', 'eco_benefits', 'native_to', 'shapes', 'light', 'soil', 'natural_habitat', 'common_uses', 'transplanting', 'unique_attractions', 'tolerances', 'insects', 'diseases']);
 
       // call action to submit edited
       this.props.addTree((0, _form_utils.createImgFormData)('images', formpropsClone));
@@ -10098,7 +10098,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.createImgFormData = createImgFormData;
-exports.formatOutMultiselects = formatOutMultiselects;
+exports.formatOutFormFields = formatOutFormFields;
 
 var _clone = __webpack_require__(347);
 
@@ -10147,10 +10147,19 @@ function createImgFormData(imgFieldName, formProps) {
   return formData;
 }
 
-function formatOutMultiselects(formProps, fields) {
-  //format multiselect data (must convert it to comma separated string over the network)
+function formatOutFormFields(formProps, multiselectFields) {
+  //prepare form data to be sent over the network prperly
   var formpropsClone = (0, _clone2.default)(formProps);
-  fields.map(function (field) {
+
+  //convert null values to empty strings
+  Object.keys(formpropsClone).forEach(function (key) {
+    if (formpropsClone[key] == null) {
+      formpropsClone[key] = "";
+    }
+  });
+
+  //convert arrays to comma separated strings
+  multiselectFields.map(function (field) {
     var arr = (0, _utils.flattenObjArray)(formpropsClone[field], 'value');
     if (arr) {
       formpropsClone[field] = arr.toString();

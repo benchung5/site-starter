@@ -28,16 +28,14 @@ class Users extends Controller
 
 		try {
 			$payload = Auth::validateToken();
-
-			$user = $this->users->get_user(['id' => $data['id']]);
-
-			if (! $user) {
-				Utils::json_respond(INVALID_USER_PASS, "This user is not found in our database.");
-			} else if ( $user['active'] == 0 ) {
-				Utils::json_respond(USER_NOT_ACTIVE, "This user is decactived.");
+			if (isset($payload->userId)) {
+				$user = $this->users->get_user(['id' => $payload->userId]);
+				Utils::json_respond(SUCCESS_RESPONSE, ['id' => $user->id]);
+				Utils::dbug($user);
+			} else {
+				Utils::json_respond(INVALID_USER_PASS, "user not found.");
 			}
 			
-			Utils::json_respond(SUCCESS_RESPONSE, $user);
 		} catch (Exception $e) {
 			Utils::json_respond_error(ACCESS_TOKEN_ERRORS, $e->getMessage());
 		}

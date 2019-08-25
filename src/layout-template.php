@@ -7,15 +7,6 @@ use Lib\Meta;
 <!doctype html>
 <html class="no-js" lang="en" ng-app="onePix">
   <head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140991222-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-140991222-1');
-  </script>
 
   <!-- meta -->
   <meta charset="utf-8">
@@ -92,89 +83,25 @@ use Lib\Meta;
     }
   </style>
 
-  <script type="text/javascript">
-    //IE9/10 polyfill custom event
-    //use like this:
-    // let LoadSceneEvent = CustomEvent("sceneLoaded", { bubbles: false, cancelable: false, detail: 'my event detail' });
-    function CustomEvent ( event, params ) {
-      params = params || { bubbles: false, cancelable: false, detail: undefined };
-      var evt = document.createEvent( 'CustomEvent' );
-      evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-      return evt;
-    }
-    CustomEvent.prototype = window.Event.prototype;
-
-    //add window contentLoaded event
-    var ContentLoadedEvent = CustomEvent("contentLoaded", { bubbles: false, cancelable: false, detail: {}});
-
-    // combination of the DOMContentLoaded event and requestAnimationFrame. 
-    // DOMContentLoaded fires after the document has been completely loaded and parsed but before 
-    // all of the images and other assets on the page have completed downloading. 
-    //requestAnimationFrame will delay the removal of the class until after the page hasbeen painted so the element will properly transition.
-    document.addEventListener("DOMContentLoaded", function(event) {
-        window.requestAnimationFrame(showPage);
-    });
-
-    function showPage() {
-      var preload = document.querySelector('.preload');
-      if(preload) {
-        addClass(preload, 'loaded');
-
-        window.dispatchEvent(ContentLoadedEvent);
-      }
-    }
-
-    //class add / remove
-    function addClass(el, className) {
-        if (el.classList) el.classList.add(className);
-        else if (!hasClass(el, className)) el.className += ' ' + className;
-    }
-
-    // (function() {
-    //   var loadCSS = function(url, callback, location){
-    //       //url is URL of external file, callback is the code
-    //       //to be called from the file, location is the location to 
-    //       //insert the <link> element
-      
-    //       var linkTag = document.createElement('link');
-    //       linkTag.rel  = 'stylesheet';
-    //       linkTag.type = 'text/css';
-    //       linkTag.media = 'all';
-    //       linkTag.href = url;
-    //       linkTag.onload = callback;
-    //       linkTag.onreadystatechange = callback;
-    //       location.appendChild(linkTag);
-    //   };
-    //   var onScriptLoaded = function(){
-    //     //callback code here
-    //   }
-    //   //if on an admin page
-    //   var regex = new RegExp(/((\badmin\b)|(\bsignin\b)|(\bsignout\b)|(\bprotected\b))/);
-    //   var isAdmin = regex.test(window.location.pathname);
-    //   if (isAdmin) {
-    //     loadCSS('/assets/css/admin.css', onScriptLoaded, document.head);
-    //   } else {
-    //     loadCSS('/assets/css/app.css', onScriptLoaded, document.head);
-    //   }
-    // })()
-  </script>
+  <!-- Head scripts -->
+  <script src="<?= Config::paths('ROOT_URL').'assets/js/head.js' ?>"></script>
 
   <?php
     $segments = Uri::get_parts();
-    if (isset($segments['controller']) && $segments['controller'] == 'admin') {
-      echo '<link href="'.Config::paths('ROOT_URL').'assets/css/admin.css'.'" rel="stylesheet" type="text/css">';
-    } else {
-      echo '<link href="'.Config::paths('ROOT_URL').'assets/css/app.css'.'" rel="stylesheet" type="text/css">';
+    if (isset($segments['controller'])) {
+      if ($segments['controller'] == 'admin') {
+        echo '<link href="'.Config::paths('ROOT_URL').'assets/css/admin.css'.'" rel="stylesheet" type="text/css">';
+      } else {
+        echo '<link href="'.Config::paths('ROOT_URL').'assets/css/app.css'.'" rel="stylesheet" type="text/css">';
+      }
     }
+
   ?>
 
   <!-- CSS -->
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
-  
-  <!-- Head scripts like Modernizr -->
-  <script src="<?= Config::paths('ROOT_URL').'assets/js/head.js' ?>"></script>
 
   <!-- Analytics -->
   <script>
@@ -191,8 +118,11 @@ use Lib\Meta;
   <body data-<?= $view_data['current_page'] ?> >
 
   <!-- preload screen (put above everything) -->
-<!--   <div class="preload">
-  </div> -->
+  <?php 
+  if ($segments['controller'] == 'index') {
+    echo '<div class="preload"></div>';
+  }
+  ?>
 
   <!-- begin main content -->
   <?php

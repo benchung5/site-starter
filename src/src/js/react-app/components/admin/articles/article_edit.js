@@ -10,7 +10,7 @@ import ArticleFields from './article_fields';
 import renderHiddenField from '../parts/field_hidden';
 import UploadedImages from '../parts/uploaded_images';
 import ImgFieldCrop from '../parts/image_field_crop';
-import { createImgFormData, formatOutMultiselects } from '../../../lib/form_utils';
+import { createImgFormData, formatOutFormFields } from '../../../lib/form_utils';
 import { flattenObjArray } from '../../../lib/utils';
 import RequireAuth from '../auth/require_auth';
 import clone from 'lodash/clone';
@@ -80,7 +80,7 @@ class EditArticle extends Component {
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
         let formpropsClone = [];
-        formpropsClone = formatOutMultiselects(formProps, [
+        formpropsClone = formatOutFormFields(formProps, [
                   'categories',
                   'tags'
                 ]);

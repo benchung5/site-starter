@@ -52,18 +52,6 @@ const staticFileGlobs = [
 //watch
 //--------------------------------------
 
-//watch for html page changes
-// function watch() {
-//   gulp.watch(PATHS.media, media);
-//   gulp.watch(PATHS.favicons, favicons);
-//   gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, sassAdmin));
-//   gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript));
-//   gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript));
-//   gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript));
-//   gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript));
-//   gulp.watch('src/img/**/*').on('all', gulp.series(images));
-// }
-
 gulp.task('watch-img', function () {
     return watch('src/img/**/*', images);
 });
@@ -85,11 +73,11 @@ gulp.task('watch-app-js', function () {
 });
 
 gulp.task('watch-vendor-js', function () {
-    return watch('src/js/vendor/**/*.js', vendorJavascript);
+    return watch('src/js/vendor/**/*.js', vendorJavascript).on('change', reloadWebpackDevServer);
 });
 
 gulp.task('watch-head-js', function () {
-    return watch('src/js/head/**/*.js', headJavascript);
+    return watch('src/js/head/**/*.js', headJavascript).on('change', reloadWebpackDevServer);
 });
 
 //build
@@ -97,15 +85,11 @@ gulp.task('watch-head-js', function () {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, angularJavascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
   gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
-
-// Build the site, and watch for file (and ee file) changes then rsync
-gulp.task('rsync',
-  gulp.series('build', watchProduction));
 
 function devServer() {
   // Start a webpack-dev-server
@@ -140,6 +124,16 @@ function devServer() {
       gutil.log('starting webpack dev server');
       //proxy.run();
   });
+}
+
+function reloadWebpackDevServer() {
+  if (WebpackDevServer === null) {
+    return false;
+  }
+
+  //WebpackDevServer.sockWrite(WebpackDevServer.sockets, 'content-changed');
+
+  return true;
 }
 
 function webpackBuild() {
@@ -227,8 +221,25 @@ function copyUploads() {
     .pipe(gulp.dest(PATHS.dist + '/uploads'));
 }
 
+// Combine JavaScript into one file
+// In production, the file is minified
+function javascript() {
+  gutil.log('updating app js');
+  return gulp.src(PATHS.javascript)
+    //this makes sure the output js file isn't hashed
+    .pipe(named())
+    .pipe($.sourcemaps.init())
+    .pipe(webpackStream(simpleWebpackConfig, webpack))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+}
+
 // Combine vendor js into one file
 function vendorJavascript() {
+  gutil.log('updating vendor js');
   return gulp.src(PATHS.vendor)
     .pipe($.concat('vendor.js'))
     .pipe($.if(PRODUCTION, $.uglify()
@@ -237,19 +248,9 @@ function vendorJavascript() {
     .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'))
 }
 
-// Copy angular javascript
-function angularJavascript() {
-  return gulp.src(PATHS.angular)
-    //.pipe($.concat('vendor.js'))
-    .pipe($.if(PRODUCTION, $.uglify()
-      .on('error', e => { console.log(e); })
-    ))
-    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js/angular'))
-}
-
-
 // Combine head js into one file
 function headJavascript() {
+  gutil.log('updating head js');
   return gulp.src(PATHS.head)
     .pipe($.concat('head.js'))
     .pipe($.if(PRODUCTION, $.uglify()
@@ -261,6 +262,7 @@ function headJavascript() {
 // Compile Sass into CSS
 // In production, the CSS is compressed
 function sass() {
+  gutil.log('updating scss');
   return gulp.src('src/scss/app.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -309,6 +311,20 @@ let simpleWebpackConfig = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
+    alias: {
+      // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):
+      'mapbox-gl$': absPath.resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js'),
+      'TweenLite': absPath.resolve('./node_modules/gsap/src/minified/TweenLite.min.js'),
+      'TweenMax': absPath.resolve('./node_modules/gsap/src/minified/TweenMax.min.js'),
+      'TimelineLite': absPath.resolve('./node_modules/gsap/src/minified/TimelineLite.min.js'),
+      'TimelineMax': absPath.resolve('./node_modules/gsap/src/minified/TimelineMax.min.js'),
+      'ScrollMagic': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js'),
+      'animation.gsap': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js'),
+      'debug.addIndicators': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js')
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
       "process.env": { 
@@ -318,60 +334,13 @@ let simpleWebpackConfig = {
   ],
 }
 
-// Combine JavaScript into one file
-// In production, the file is minified
-function javascript() {
-  return gulp.src(PATHS.javascript)
-    //this makes sure the output js file isn't hashed
-    .pipe(named())
-    .pipe($.sourcemaps.init())
-    .pipe(webpackStream(simpleWebpackConfig, webpack))
-    .pipe($.if(PRODUCTION, $.uglify()
-      .on('error', e => { console.log(e); })
-    ))
-    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
-    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
-}
-
 // Copy images to the "dist" folder
 // In production, the images are compressed
 function images() {
+  gutil.log('updating images');
   return gulp.src('src/img/**/*')
     .pipe($.if(PRODUCTION, $.imagemin({
       progressive: true
     })))
     .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/img'));
-}
-
-function rsyncAssets(done) {
-  // gutil.log("rsync assets...");
-  // let cmd1 = '/usr/bin/rsync -arv --exclude "*.html"  -e "ssh -i $HOME/.ssh/id_rsa_myproj -p 1234" ' + 
-  // PATHS.dist + '/' + ' user@111.111.111.111:' + PATHS.distServer
-  // exec(cmd1, function(error, stdout, stderr) { 
-  //   console.log(stdout);
-  //   console.log(stderr);
-  //   done();
-  // });
-}
-
-function rsyncTemplates(done) {
-  // let cmd2 = '/usr/bin/rsync -arv  -e "ssh -i $HOME/.ssh/id_rsa_myproj -p 1234" ' + 
-  // PATHS.eeTemplates + '/' + ' user@111.111.111.111:' + PATHS.eeTemplatesServer;
-  // exec(cmd2, function(error, stdout, stderr) { 
-  //   console.log(stdout);
-  //   console.log(stderr);
-  //   done();
-  // });
-}
-
-// Watch for changes to static assets, and ee templates then rsync
-function watchProduction() {
-  // //watch assets
-  // gulp.watch(PATHS.media, media);
-  // gulp.watch('src/scss/**/*.scss').on('all', gulp.series(sass, rsyncAssets));
-  // gulp.watch('src/js/app/**/*.js').on('all', gulp.series(javascript, rsyncAssets));
-  // gulp.watch('src/js/angular/**/*.js').on('all', gulp.series(angularJavascript, rsyncAssets));
-  // gulp.watch('src/js/vendor/**/*.js').on('all', gulp.series(vendorJavascript, rsyncAssets));
-  // gulp.watch('src/js/head/**/*.js').on('all', gulp.series(headJavascript, rsyncAssets));
-  // gulp.watch('src/img/**/*').on('all', gulp.series(images, rsyncAssets));
 }
