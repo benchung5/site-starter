@@ -6,8 +6,8 @@ module.exports = {
 	   	TREES_UPLOADS_PATH: '/uploads/trees/',
    },
    "production": {
-	   	SERVER_URL: "https:naturewithus.com/api",
-	   	ROOT_URL: "https:naturewithus.com/",
+	   	SERVER_URL: "/api",
+	   	ROOT_URL: "/",
 	   	ARTICLES_UPLOADS_PATH: '/uploads/articles/',
       TREES_UPLOADS_PATH: '/uploads/trees/',
    },
