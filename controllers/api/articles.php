@@ -149,7 +149,7 @@ class Articles extends Controller
 			'like' => isset($data['search']) ? $data['search'] : null, 
 			'categories' => isset($data['categories']) ? $data['categories'] : null,
 			'tags' => isset($data['tags']) ? $data['tags'] : null, 
-			'select' => ['a.id', 'a.slug', 'a.name']
+			'select' => ['a.id', 'a.slug', 'a.name', 'a.body']
 		];
 
 		$articles = $this->articles->get_all($opts);

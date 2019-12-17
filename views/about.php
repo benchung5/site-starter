@@ -23,11 +23,11 @@ use Lib\Utils;
 		    </div>
 		</section>
 
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="small-12 columns internal">
 				<p>Coming soon...</p>
 			</div>
-		</div>
+		</div> -->
 	</div><!-- /content wrapper -->
 
 	<?php $this->insert('footer', $view_data ); ?>

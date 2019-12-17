@@ -7,7 +7,6 @@ use Lib\Meta;
 <!doctype html>
 <html class="no-js" lang="en" ng-app="onePix">
   <head>
-
   <!-- meta -->
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -104,13 +103,14 @@ use Lib\Meta;
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" type="text/css">
 
   <!-- Analytics -->
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-140991222-1"></script>
   <script>
-    //(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    //(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    //m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    //})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    //ga('create', 'UA-XXXXXXXX-X', 'auto');
-    //ga('send', 'pageview');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-140991222-1');
   </script>
  
   </head>
@@ -119,9 +119,9 @@ use Lib\Meta;
 
   <!-- preload screen (put above everything) -->
   <?php 
-  if ($segments['controller'] == 'index') {
-    echo '<div class="preload"></div>';
-  }
+  // if ($segments['controller'] == 'index') {
+  //   echo '<div class="preload"></div>';
+  // }
   ?>
 
   <!-- begin main content -->
@@ -148,5 +148,5 @@ use Lib\Meta;
 
   <!-- *** react and footer scripts are loaded belew here *** -->
 
-<script type="text/javascript" src="/assets/js/manifest.077301d06210e540e77b.js"></script><script type="text/javascript" src="/assets/js/vendor2.58bbc23f25cca7e6b68e.js"></script><script type="text/javascript" src="/assets/js/react.f42f6419ee6cac7e3c68.js"></script></body>
+<script type="text/javascript" src="/assets/js/manifest.077301d06210e540e77b.js"></script><script type="text/javascript" src="/assets/js/vendor2.58bbc23f25cca7e6b68e.js"></script><script type="text/javascript" src="/assets/js/react.55bb7a77869cd5c8134b.js"></script></body>
 </html>

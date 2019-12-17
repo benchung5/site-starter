@@ -1,48 +1,53 @@
-//IE9/10 polyfill custom event
-//use like this:
-// let LoadSceneEvent = CustomEvent("sceneLoaded", { bubbles: false, cancelable: false, detail: 'my event detail' });
-function CustomEvent ( event, params ) {
-  params = params || { bubbles: false, cancelable: false, detail: undefined };
-  var evt = document.createEvent( 'CustomEvent' );
-  evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-  return evt;
-}
-CustomEvent.prototype = window.Event.prototype;
+// for preload
+// uncomment: echo '<div class="preload"></div>';
+// in layout-template.php
+// ------------------
 
-//add window contentLoaded event
-var ContentLoadedEvent = CustomEvent("contentLoaded", { bubbles: false, cancelable: false, detail: {}});
+// //IE9/10 polyfill custom event
+// //use like this:
+// // let LoadSceneEvent = CustomEvent("sceneLoaded", { bubbles: false, cancelable: false, detail: 'my event detail' });
+// function CustomEvent ( event, params ) {
+//   params = params || { bubbles: false, cancelable: false, detail: undefined };
+//   var evt = document.createEvent( 'CustomEvent' );
+//   evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+//   return evt;
+// }
+// CustomEvent.prototype = window.Event.prototype;
 
-// combination of the DOMContentLoaded event and requestAnimationFrame. 
-// DOMContentLoaded fires after the document has been completely loaded and parsed but before 
-// all of the images and other assets on the page have completed downloading. 
-//requestAnimationFrame will delay the removal of the class until after the page hasbeen painted so the element will properly transition.
-document.addEventListener("DOMContentLoaded", function(event) {
-    window.requestAnimationFrame(showPage);
-});
+// //add window contentLoaded event
+// var ContentLoadedEvent = CustomEvent("contentLoaded", { bubbles: false, cancelable: false, detail: {}});
 
-var minimumWaitReached = false;
+// // combination of the DOMContentLoaded event and requestAnimationFrame. 
+// // DOMContentLoaded fires after the document has been completely loaded and parsed but before 
+// // all of the images and other assets on the page have completed downloading. 
+// //requestAnimationFrame will delay the removal of the class until after the page hasbeen painted so the element will properly transition.
+// document.addEventListener("DOMContentLoaded", function(event) {
+//     window.requestAnimationFrame(showPage);
+// });
 
-//wait a minimum of 3 seconds before removing the loading screen
-setTimeout(function() {
-	minimumWaitReached = true;
-	showPage();
-}, 3000);
+// var minimumWaitReached = false;
 
-function showPage() {
-	if(minimumWaitReached) {
-		var preload = document.querySelector('.preload');
-		if(preload) {
-		  addClass(preload, 'loaded');
-		  window.dispatchEvent(ContentLoadedEvent);
-		}
-	}
-}
+// //wait a minimum of 3 seconds before removing the loading screen
+// setTimeout(function() {
+// 	minimumWaitReached = true;
+// 	showPage();
+// }, 3000);
 
-//class add / remove
-function addClass(el, className) {
-    if (el.classList) el.classList.add(className);
-    else if (!hasClass(el, className)) el.className += ' ' + className;
-}
+// function showPage() {
+// 	if(minimumWaitReached) {
+// 		var preload = document.querySelector('.preload');
+// 		if(preload) {
+// 		  addClass(preload, 'loaded');
+// 		  window.dispatchEvent(ContentLoadedEvent);
+// 		}
+// 	}
+// }
+
+// //class add / remove
+// function addClass(el, className) {
+//     if (el.classList) el.classList.add(className);
+//     else if (!hasClass(el, className)) el.className += ' ' + className;
+// }
 
 // ------------------
 

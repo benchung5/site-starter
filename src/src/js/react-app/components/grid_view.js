@@ -16,9 +16,13 @@ class GridView extends Component {
     // <div className="img-info"></div>
     renderItems() {
      return this.props.results.articles.map((item) => {
-        console.log(item);
-         return (
-            <a href={`/articles/${item.categories.split(',')[0]}/${item.slug}`} className="product-card" alt={item.name} key={item.id} data-slug={item.slug}>
+
+        // remove html and trim
+        let body = item.body.replace(/<[^>]*>?/gm, '');
+        body = body.substring(0, 250) + '...';
+
+        return (
+            <a href={`/articles/${item.categories.split(',')[0]}/${item.slug}`} className="article-row" alt={item.name} key={item.id} data-slug={item.slug}>
                 <div className="inner">
                     <div className="image">
                         { item.images ?
@@ -36,11 +40,16 @@ class GridView extends Component {
                         }
                     </div>
                     <div className="info">
-                        <div className="info-detail">{item.name}</div>
+                        <div class="info-body">
+                            <h2 className="article-title">{item.name}</h2>
+                            <p className="article-body">{body}</p>
+                        </div>
+                        <div className="info-footer">read more&nbsp; &#8594;</div>
                     </div>
+
                 </div>
             </a>
-         );
+        );
      });   
     }
 
@@ -70,7 +79,7 @@ class GridView extends Component {
                         <SideMenu />
                     </div>
                     <div className="right">
-                        <div className="cards-container">
+                        <div className="articles-container">
                           {this.renderItems()}
                         </div>
                     </div>

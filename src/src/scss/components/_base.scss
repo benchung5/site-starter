@@ -797,6 +797,7 @@ about
 
 #about-hero {
   width: 100%;
+  min-height: 90vh;
   position: relative;
   background-image: url(../img/about-bg.jpg);
   background-size: cover;
@@ -864,6 +865,7 @@ hero
 
 #hero {
   width: 100%;
+  min-height: 100vh;
   position: relative;
   background-image: url(../img/hero-image.jpg);
   background-size: cover;
@@ -1655,6 +1657,90 @@ $L:     1150px;
     }
     @include MQ(L) {
       width: 20%;
+    }
+  }
+}
+
+/* ==========================================================================
+arcticles
+========================================================================== */
+
+.articles-container {
+  margin: 2em 0;
+  width: calc(100% + 1em);
+  margin-top: -.5em;
+  margin-left: -.5em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 0.25em;
+  .article-row {
+    cursor: pointer;
+    padding: .25em;
+    display: inline-block;
+    width: 100%;
+    .inner {
+      background-color: #fff;
+      box-shadow: $card-box-shadow;
+      .image {
+        flex-shrink: 0;
+        width: 100%;
+        .img-info {
+          @include h-align-absolute(15px);
+          @include v-align-absolute(15px);
+          z-index: 1;
+          opacity: 0.4;
+          height: 30px;
+          width: 30px;
+          cursor: pointer;
+          background-image: url(../img/icons/search.svg);
+          background-size: 30px 30px;
+          background-repeat: no-repeat;
+        }
+        img {
+          width: 100%;
+          @include MQ(S) {
+            width: auto;
+          }
+        }
+        @include MQ(S) {
+          width: auto;
+          max-width: 200px;
+        }
+        @include MQ(L) {
+         max-width: 300px;
+        }
+      }
+      .info {
+        background: #fff;
+        padding: 1em 1.7em;
+        font-size: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h2 {
+        }
+        p {
+          margin-bottom: 0.5em;
+        }
+        .right {
+          color: #888;
+        }
+        @include MQ(S) {
+          font-size: 75%;
+        }
+        @include MQ(L) {
+          font-size: 100%;
+        }
+      }
+      .info-footer {
+        text-transform: uppercase;
+        margin-top: 1em;
+      }
+      @include MQ(S) {
+        display: flex;
+      }
     }
   }
 }
