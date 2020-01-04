@@ -148,5 +148,5 @@ use Lib\Meta;
 
   <!-- *** react and footer scripts are loaded belew here *** -->
 
-<script type="text/javascript" src="/assets/js/manifest.077301d06210e540e77b.js"></script><script type="text/javascript" src="/assets/js/vendor2.58bbc23f25cca7e6b68e.js"></script><script type="text/javascript" src="/assets/js/react.55bb7a77869cd5c8134b.js"></script></body>
+<script type="text/javascript" src="http://localhost:8080/assets/js/react.js"></script></body>
 </html>

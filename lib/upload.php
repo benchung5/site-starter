@@ -43,6 +43,9 @@ class Upload
 
 	public function upload($ref_type, $ref_id, $data) 
 	{
+		//adjust memory limit to allow for large file sizes
+		ini_set('memory_limit', '256M');
+
 		if ($_FILES) {
 			if ($ref_type == 'articles') {
 				$files = Controller::load_model('files_model');
@@ -192,23 +195,25 @@ class Upload
 		return $result;
 	}
 
-	public function constrain_img($path)
+	public function constrain_img($destination)
 	{
 	  // constrain to max size
 	  // read image from file
-	  $img = Image::make($path);
+	  $img = Image::make($destination);
 	  
-	  $max_width = 600;
-	  $max_height = 600;
+	  $max_width = 875;
+	  $max_height = 875;
 
 	  if ($img->width() > $max_width || $img->height() > $max_height) {
+	    // prevent EXIF data from rotating the image
+	    $img->orientate();
 	    // resize to maximum width and maxium height
 	    $img->resize($max_width, $max_height, function ($constraint) {
 	        // constraining the aspect ratio
 	        $constraint->aspectRatio();
 	        // prevent possible upsizing
 	        $constraint->upsize();
-	      });
+	      })->save($destination, 95);
 	  }
 
 	  return true;
@@ -220,6 +225,6 @@ class Upload
 		// crop the best fitting ratio and resize
 		$img->fit($width, $height, function ($constraint) {
 		    $constraint->upsize();
-		})->save($destination);
+		})->save($destination, 95);
 	}
 }

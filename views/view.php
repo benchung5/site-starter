@@ -20,7 +20,7 @@ use Lib\Utils;
 						<div class="body-area"><?= $view_data['article']->body ?></div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
-						<span>Pubilished: <?= Utils::sanitize($view_data['article']->created_on) ?></span><br>
+						<span>Pubilished: <?= date('F jS, Y', strtotime(Utils::sanitize($view_data['article']->created_on))) ?></span><br>
 						<?php
 						$categories = [];
 						if ($view_data['article']->categories) {
