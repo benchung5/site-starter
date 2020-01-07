@@ -216,7 +216,7 @@ html, body {
 
 p { 
   font-size:1.1em;
-  margin-bottom: 2em;
+  // margin-bottom: 2em;
   //line-height: 2.1em;
 }
 
@@ -247,8 +247,16 @@ label {
   padding: 0 0 1.25rem;
 }
 
+iframe {
+  margin-bottom: 2em;
+}
+
 figure {
   margin-bottom: 2em;
+}
+
+figcaption {
+  font-size: 0.8rem;
 }
 
 figure img {
@@ -287,8 +295,36 @@ figure img {
   text-transform: none;
   list-style-type: none;
 }
+
 .errors {
   margin: 0;
+}
+
+.float-right {
+  float: right;
+  width: 40%;
+  margin-left: 20px;
+}
+
+.float-left {
+  float: left;
+  width: 40%;
+  margin-right: 20px;
+}
+
+.img-strip {
+  display: flex;
+  & > * {
+    padding-right: 1em;
+    padding-left: 1em;
+    //flex: 1 1 0px;
+    &:last-child {
+      padding-right: 0;
+    }
+    &:first-child {
+      padding-left: 0;
+    }
+  }
 }
 
 input.submit-button, button.submit-button {

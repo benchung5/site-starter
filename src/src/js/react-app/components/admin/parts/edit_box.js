@@ -44,17 +44,7 @@ class EditBox extends Component {
        //wrap it all in a ul
        wrappedText = '<ul>\n'+wrappedText+'\n</ul>';
 
-       //get the character index of the selected text
-       this.refs.textBox.selectionStart
-
-       String.prototype.replaceAt=function(index, replacement) {
-         return this.substr(0, index) + replacement + this.substr(index + selectedText.length);
-       }
-
-       let fieldValue = this.props.input.value.slice();
-       let replacedBodyText = fieldValue.replaceAt(this.refs.textBox.selectionStart, wrappedText);
-
-       this.updateRedux(replacedBodyText);
+       this.updateTextArea(wrappedText, selectedText);
     }
   }
 
@@ -65,22 +55,55 @@ class EditBox extends Component {
        let selectedText = selObj.toString();
        let wrappedText = '<'+element+'>'+selectedText+'</'+element+'>';
 
-       //get the character index of the selected text
-       this.refs.textBox.selectionStart
-
-       String.prototype.replaceAt=function(index, replacement) {
-         return this.substr(0, index) + replacement + this.substr(index + selectedText.length);
-       }
-
-       let fieldValue = this.props.input.value.slice();
-       let replacedBodyText = fieldValue.replaceAt(this.refs.textBox.selectionStart, wrappedText);
-
-       this.updateRedux(replacedBodyText);
+       this.updateTextArea(wrappedText, selectedText);
     }
   }
 
+  onFigureClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    //get the current highlighted text
+    let selObj = window.getSelection(); 
+    let selectedText = selObj.toString();
+
+    if (this.props.input.value) {
+       let wrappedText = '<figure>\n'+selectedText+'\n<figcaption></figcaption>\n</figure>';
+       this.updateTextArea(wrappedText, selectedText);
+    }
+  }
+
+  onClearClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    //get the current highlighted text
+    let selObj = window.getSelection(); 
+    let selectedText = selObj.toString();
+
+    if (this.props.input.value) {
+       let wrappedText = '<div class="clear"></div>';
+       this.updateTextArea(wrappedText, selectedText);
+    }
+  }
+
+  updateTextArea(newText, selectedText) {
+    //get the character index of the selected text
+    this.refs.textBox.selectionStart
+
+    String.prototype.replaceAt=function(index, replacement) {
+      return this.substr(0, index) + replacement + this.substr(index + selectedText.length);
+    }
+
+    let fieldValue = this.props.input.value.slice();
+    let replacedBodyText = fieldValue.replaceAt(this.refs.textBox.selectionStart, newText);
+
+    this.updateRedux(replacedBodyText);
+  }
+
+
   updateRedux(newValue) {
-    //must update the value this way for redux form to pick up on it when submitting
+    //must update the value this\n way for redux form to pick up on it when submitting
     //it will also then re-propogate the value through to this.props.input.value
     this.props.input.onChange(newValue);
   }
@@ -94,6 +117,8 @@ class EditBox extends Component {
        <button onClick={this.onSecHeadingClick.bind(this)}>h3</button>
        <button onClick={this.onParagraphClick.bind(this)}>p</button>
        <button onClick={this.onUlClick.bind(this)}>ul</button>
+       <button onClick={this.onFigureClick.bind(this)}>figure</button>
+       <button onClick={this.onClearClick.bind(this)}>clear</button>
        <textarea
        ref="textBox"
        className="form-control"
