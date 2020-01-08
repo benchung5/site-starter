@@ -55,7 +55,6 @@ class ArticleFields extends Component  {
         </div>
       );
   }
-
 }
 
 export default ArticleFields;

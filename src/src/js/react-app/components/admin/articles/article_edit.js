@@ -8,6 +8,7 @@ import Sidebar from '../sidebar';
 import { connect } from 'react-redux';
 import ArticleFields from './article_fields';
 import renderHiddenField from '../parts/field_hidden';
+import renderDropdownSelect from '../parts/field_dropdownSelect';
 import UploadedImages from '../parts/uploaded_images';
 import ImgFieldCrop from '../parts/image_field_crop';
 import { createImgFormData, formatOutFormFields } from '../../../lib/form_utils';
@@ -72,6 +73,7 @@ class EditArticle extends Component {
             'categories': this.formatToMultiselect(this.props.articleData.categories),
             'tags': this.formatToMultiselect(this.props.articleData.tags),
             'body': this.props.articleData.body,
+            'featured_image': this.props.articleData.featured_image
         };
 
         this.props.initialize(formData);
@@ -84,6 +86,8 @@ class EditArticle extends Component {
                   'categories',
                   'tags'
                 ]);
+
+        console.log(formpropsClone);
 
         // call action to submit edited
         this.props.updateArticle(createImgFormData('new_images', formpropsClone));
@@ -137,6 +141,14 @@ class EditArticle extends Component {
                                 treeTables={this.props.treeTables}
                                 categories={this.props.categories}
                                 tags={this.props.tags}
+                            />
+                            <Field
+                              name="featured_image"
+                              label="featured image"
+                              component={renderDropdownSelect}
+                              selectItems={this.state.images}
+                              onChange={this.onInputChange.bind(this)}
+                              onFocus={this.onInputChange.bind(this)}
                             />
                             <UploadedImages
                                 ref="UploadedImages"

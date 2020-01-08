@@ -21,15 +21,17 @@ class GridView extends Component {
         let body = item.body.replace(/<[^>]*>?/gm, '');
         body = body.substring(0, 250) + '...';
 
+        console.log(item);
+
         return (
             <a href={`/articles/${item.categories.split(',')[0]}/${item.slug}`} className="article-row" alt={item.name} key={item.id} data-slug={item.slug}>
                 <div className="inner">
                     <div className="image">
-                        { item.images ?
+                        { item.featured_image ?
                         <picture>
-                            <source srcSet={ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')} media="(max-width: 1275px)"/>
-                            <source srcSet={ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}/>
-                            <img alt={item.image_descriptions.split(',')[0]} src={ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}/> 
+                            <source srcSet={ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')} media="(max-width: 1275px)"/>
+                            <source srcSet={ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}/>
+                            <img alt={item.image_description} src={ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}/> 
                         </picture>
                         :
                         <picture>
@@ -40,7 +42,7 @@ class GridView extends Component {
                         }
                     </div>
                     <div className="info">
-                        <div class="info-body">
+                        <div className="info-body">
                             <h2 className="article-title">{item.name}</h2>
                             <p className="article-body">{body}</p>
                         </div>

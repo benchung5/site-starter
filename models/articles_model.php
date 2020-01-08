@@ -13,7 +13,7 @@ class Articles_model extends Model
 
 	public function get($opts = [])
 	{
-		$this->db->table('articles a')->select('a.id, a.slug, a.name, a.body, a.created_on');
+		$this->db->table('articles a')->select('a.id, a.slug, a.name, a.body, a.featured_image, a.created_on');
 
 		if (isset($opts['id'])) {
 			$this->db->where('a.id', '=', $opts['id']);
@@ -172,10 +172,10 @@ class Articles_model extends Model
 
 			//include images and categories
 			$this->db
-				->select('GROUP_CONCAT(f.name ORDER BY f.sort_order, f.name) AS images')
-				->select('GROUP_CONCAT(f.description ORDER BY f.sort_order, f.name) AS image_descriptions')
+				->select('GROUP_CONCAT(DISTINCT f.name) AS featured_image')
+				->select('GROUP_CONCAT(DISTINCT f.description) AS image_description')
 				->select('GROUP_CONCAT(DISTINCT c.slug) AS categories')
-				->leftJoin('files f', 'f.ref_id', 'a.id')
+				->leftJoin('files f', 'f.id', 'a.featured_image')
 				->leftJoin('article_categories ac', 'ac.article_id', 'a.id')
 				->leftJoin('categories c', 'c.id', 'ac.category_id')
 				->groupBy('a.id');

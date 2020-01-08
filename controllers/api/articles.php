@@ -119,6 +119,7 @@ class Articles extends Controller
 				'update' => [
 					'name' => $data['name'],
 					'body' => $data['body'],
+					'featured_image' => $data['featured_image'],
 				],
 				'categories' => $data['categories'],
 				'tags' => $data['tags']
