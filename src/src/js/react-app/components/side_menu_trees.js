@@ -6,7 +6,6 @@ import ButtonsCategoriesTrees from './buttons_categories_trees';
 // import ButtonsZones from './buttons_zones';
 import SearchTreesComponent from './search_trees';
 // import OffLineMessage from './offline_message';
-import Socials from './parts/socials';
 import Transition from 'react-transition-group/Transition';
 import prefix from 'react-prefixer';
 import { getUrlParams } from '../lib/utils';

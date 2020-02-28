@@ -6,7 +6,7 @@ const yaml = require('js-yaml')
 const absPath = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 
 //Load settings from settings.yml
@@ -19,37 +19,39 @@ function loadConfig() {
 
 //define packages, each string is name of package to include in vendor files
 //that don't update very often
-const VENDOR_LIBS = [ 
-"axios",
-"foundation-sites",
-"hammerjs",
-"html-escape",
-"lodash",
-"mapbox-gl",
-"react",
-// "react-cropper",
-"react-dom",
-"react-dropzone",
-"react-mapbox-gl",
-"react-redux",
-"react-router-dom",
-"react-router-redux",
-"react-select",
-"react-share",
-"react-transition-group",
-"redux",
-"redux-form",
-"redux-thunk",
-"sanitize-filename",
-"what-input"
- ]
+// const VENDOR_LIBS = [ 
+// "axios",
+// "foundation-sites",
+// "hammerjs",
+// "html-escape",
+// "lodash",
+// "mapbox-gl",
+// "react",
+// // "react-cropper",
+// "react-dom",
+// "react-dropzone",
+// "react-mapbox-gl",
+// "react-redux",
+// "react-router-dom",
+// "react-router-redux",
+// "react-select",
+// "react-share",
+// "react-transition-group",
+// "redux",
+// "redux-form",
+// "redux-thunk",
+// "sanitize-filename",
+// "what-input"
+//  ]
 
 module.exports = {
-  //split up the entries
-  entry: {
-    react: './src/js/react-app/app.js',
-    vendor2: VENDOR_LIBS
-  },
+  mode: 'production',
+  entry: './src/js/react-app/app.js',
+  // entry: {
+  //   //split up the entries
+  //   react: './src/js/react-app/app.js'
+  //   // vendor2: VENDOR_LIBS
+  // },
   output: {
     path: absPath.resolve(__dirname, PATHS.dist + '/assets/js'),
     //location of bundle in relation to index.html
@@ -87,6 +89,19 @@ module.exports = {
       'mapbox-gl$': absPath.resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js')
     }
   },
+  optimization: {
+    //look at the total output of imports and pull out any duplicates to only
+    //include in the 'vendor2' bundle. Create a manifest.js file to let browser know if vendor file actually got changed
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   names: ['vendor2', 'manifest']
+    // }),
+    splitChunks: {
+      // include all types of chunks
+      chunks: 'all'
+    },
+    // you can set this to fale in 'production' mode this equals to true
+    minimize: true
+  },
   plugins: [
     //new webpack.EnvironmentPlugin(['MapboxAccessToken'])
     new webpack.EnvironmentPlugin({
@@ -94,29 +109,25 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       "process.env": { 
-         NODE_ENV: JSON.stringify("production"),
+         //NODE_ENV: JSON.stringify("production"),   // this is now defined in modd: production
          TEST_VAR: JSON.stringify('http://yougotit')
        }
     }),
-    //look at the total output of imports and pull out any duplicates to only
-    //include in the 'vendor2' bundle. Create a manifest.js file to let browser know if vendor file actually got changed
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor2', 'manifest']
-    }),
+
     new HtmlWebpackPlugin({
       //the template file to use (two steps out of the bundle directory)
       template: './layout-template.php',
       //the output file to write to
       filename: '../../layout.php',
     }),
-    new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            warnings: false,
-            // don't optimize comparisons or 
-            //will cause error with mapbox
-            comparisons: false,  
-        },
-    }),
+    // new webpack.optimize.UglifyJsPlugin({  // replaced by optimization: minimize
+    //     compress: {
+    //         warnings: false,
+    //         // don't optimize comparisons or 
+    //         //will cause error with mapbox
+    //         comparisons: false,  
+    //     },
+    // }),
     new webpack.ProvidePlugin({
       //for promises to work for ie11
       Promise: 'es6-promise-promise', // works as expected

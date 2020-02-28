@@ -86,6 +86,7 @@ class Trees extends Controller
 		if(isset($data['lifespan_min'])) { $update_data['lifespan_min'] = $data['lifespan_min']; };
 		if(isset($data['lifespan_max'])) { $update_data['lifespan_max'] = $data['lifespan_max']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
+		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
 
 		// the many to many table data...
 		$joins_data = [
@@ -119,7 +120,7 @@ class Trees extends Controller
 			];
 
 			$new_tree_id = $this->trees->add($insert_data);
-			$new_tree = $this->trees->get(['id' => $new_tree_id]);
+			$updated_tree = $this->trees->get(['id' => $new_tree_id]);
 		} else {
 			$this->trees->update([
 				'where' => ['id' => $data['tree_id']], 
@@ -128,17 +129,45 @@ class Trees extends Controller
 				// 'conifer_data' => $conifer_data,
 			]);
 
-			$new_tree = $this->trees->get(['id' => $data['tree_id']]);
+			$updated_tree = $this->trees->get(['id' => $data['tree_id']]);
 		}
 
 		// new file uploads if any
-		Upload::upload('trees', $new_tree->id, $data);
-		// delete original file uploads if applicable
+		$new_images = Upload::upload('trees', $updated_tree->id, $data);
+
+		// update new image data into tree images
+		$updated_images = $updated_tree->images;
+
 		if (isset($data['deleted_images'])) {
-			$files->update_associations('trees', $new_tree->id, $data['deleted_images']);	
+			$deleted_images = is_array($data['deleted_images']) ?: explode(',', $data['deleted_images']);
+
+			// delete original file uploads if applicable
+			$files->update_associations('trees', $updated_tree->id, $data['deleted_images']);
+
+			// delete images recorded in tree
+			foreach ($updated_images as $key=>$value) {
+				foreach ($deleted_images as $di) {
+					if ($di == $value->name) {
+						unset($updated_images[$key]);
+					} 
+				}
+			}
+			//reset indexes
+			$updated_images = array_values($updated_images);
 		}
+
+		if ($new_images) {
+			foreach ($new_images as $ni) {
+				array_push($updated_images, $ni);
+			}
+		}
+
+		$this->trees->update([
+			'where' => ['id' => $updated_tree->id], 
+			'update' => ['images' => json_encode($updated_images, true)]
+		]);
 		
-		return $new_tree;
+		return $updated_tree;
 	}
 
 	public function delete()

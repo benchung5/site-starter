@@ -13,7 +13,7 @@ class Articles_model extends Model
 
 	public function get($opts = [])
 	{
-		$this->db->table('articles a')->select('a.id, a.slug, a.name, a.body, a.featured_image, a.created_on');
+		$this->db->table('articles a')->select('*');
 
 		if (isset($opts['id'])) {
 			$this->db->where('a.id', '=', $opts['id']);
@@ -24,26 +24,31 @@ class Articles_model extends Model
 		}
 
 		if (isset($opts['category'])) {
+			// _category_slug and _category_id are not to be used in the result
+			// they're only named so they don't overwrite the article id and slug in this same query
 			$this->db->innerJoin('article_categories ac', 'a.id', 'ac.article_id');
 			$this->db->innerJoin('categories c', 'c.id', 'ac.category_id');
+			$this->db->select('a.*, c.slug AS _category_slug, c.id AS _category_id');
 			$this->db->where('c.slug', '=' , $opts['category']);
 		}
 
 		$result = $this->db->get();
 
 		if ($result) {
-			// get images
-			$result->images = $this->db->table('files')
-				->select('id, name, description')
-				->where('ref_id', $result->id)
-				// ->orderBy('sort_order, name')
-				->getAll();
+			// // get images
+			// $result->images = $this->db->table('files')
+			// 	->select('id, name, description')
+			// 	->where('ref_id', $result->id)
+			// 	// ->orderBy('sort_order, name')
+			// 	->getAll();
+
+			$result->images = Json_decode($result->images) ?: [] ;
 
 			// get categories
-			$result->categories = $this->db->table('article_categories ac')
+			$result->categories = $this->db->table('categories c')
+				->innerJoin('article_categories ac', 'ac.category_id', 'c.id')
 				->select('c.id, c.slug, c.name')
-				->where('article_id', $result->id)
-				->innerJoin('categories c', 'c.id', 'ac.category_id')
+				->where('ac.article_id', $result->id)
 				->getAll();
 
 			// get tags
@@ -57,6 +62,63 @@ class Articles_model extends Model
 		}
 
 		return false;
+	}
+
+		public function get_all($opts = [], $isCount = false) 
+	{
+		$this->db->table('articles a');
+
+		// use search criteria
+		if (isset($opts['like'])) {
+			$this->db->grouped(function($q, $opts) {
+				$q->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
+			}, $opts);
+		}
+
+
+		if ($isCount) {
+			 $this->db->select('DISTINCT a.id');
+
+			 $result = $this->db->getAll();
+
+			return count($result);
+		} else {
+			if (isset($opts['select'])) {
+				$this->db->select(implode(',', $opts['select']));
+			} else {
+				$this->db->select('a.id, a.slug, a.name');
+			}
+
+			if (isset($opts['offset'])) {
+				$this->db->limit($opts['offset'], $opts['limit']);
+			}
+
+			if (isset($opts['categories'])) {
+				if (count($opts['categories']) > 0) {
+					$this->db
+						->innerJoin('article_categories at', 'at.article_id', 'a.id')
+						->innerJoin('categories t', 't.id', 'at.category_id')
+						->in('t.id', $opts['categories']);
+				} else {
+					// force no results since category is queried but no category is selected
+					return [];
+				}
+			}
+
+			//include images and categories
+			$this->db
+				->select('GROUP_CONCAT(DISTINCT f.name) AS featured_image')
+				->select('GROUP_CONCAT(DISTINCT f.description) AS image_description')
+				->select('GROUP_CONCAT(DISTINCT c.slug) AS categories')
+				->leftJoin('files f', 'f.id', 'a.featured_image')
+				->leftJoin('article_categories ac', 'ac.article_id', 'a.id')
+				->leftJoin('categories c', 'c.id', 'ac.category_id')
+				->groupBy('a.id');
+
+			$result = $this->db->getAll();
+
+			return $result;
+		}
 	}
 
 	public function count()
@@ -127,63 +189,6 @@ class Articles_model extends Model
 		}
 
 		return false;
-	}
-
-	public function get_all($opts = [], $isCount = false) 
-	{
-		$this->db->table('articles a');
-
-		// use search criteria
-		if (isset($opts['like'])) {
-			$this->db->grouped(function($q, $opts) {
-				$q->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
-			}, $opts);
-		}
-
-
-		if ($isCount) {
-			 $this->db->select('DISTINCT a.id');
-
-			 $result = $this->db->getAll();
-
-			return count($result);
-		} else {
-			if (isset($opts['select'])) {
-				$this->db->select(implode(',', $opts['select']));
-			} else {
-				$this->db->select('a.id, a.slug, a.name');
-			}
-
-			if (isset($opts['offset'])) {
-				$this->db->limit($opts['offset'], $opts['limit']);
-			}
-
-			if (isset($opts['categories'])) {
-				if (count($opts['categories']) > 0) {
-					$this->db
-						->innerJoin('article_categories at', 'at.article_id', 'a.id')
-						->innerJoin('categories t', 't.id', 'at.category_id')
-						->in('t.id', $opts['categories']);
-				} else {
-					// force no results since category is queried but no category is selected
-					return [];
-				}
-			}
-
-			//include images and categories
-			$this->db
-				->select('GROUP_CONCAT(DISTINCT f.name) AS featured_image')
-				->select('GROUP_CONCAT(DISTINCT f.description) AS image_description')
-				->select('GROUP_CONCAT(DISTINCT c.slug) AS categories')
-				->leftJoin('files f', 'f.id', 'a.featured_image')
-				->leftJoin('article_categories ac', 'ac.article_id', 'a.id')
-				->leftJoin('categories c', 'c.id', 'ac.category_id')
-				->groupBy('a.id');
-
-			$result = $this->db->getAll();
-
-			return $result;
-		}
 	}
 
 	public function update($opts = []) 

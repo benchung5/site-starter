@@ -26,6 +26,31 @@ class Articles extends Controller
 		//handle posted input
 		$data = Utils::read_post();
 
+		try {
+			$new_article = $this->update_article($data, true);
+
+			Utils::json_respond(SUCCESS_RESPONSE, $new_article);
+		} catch (Exception $e) {
+			Utils::json_respond_error('Could not create article', $e->getMessage());
+		}
+	}
+
+	public function update() 
+	{
+		$data = Utils::read_post();
+
+		try {
+			$this->update_article($data, false);
+
+			Utils::json_respond(SUCCESS_RESPONSE, $data);	
+		} catch (Exception $e) {
+			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+		}		
+	}
+
+	public function update_article($data, $is_add) {
+		$files = $this->load_model('files_model');
+
 		$this->validator->addEntries(['slug' => $data['slug']]);
 		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
 		$this->validator->validate();
@@ -35,8 +60,8 @@ class Articles extends Controller
 		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 		}
 
-		try {
-			//update data
+		if ($is_add) {
+			//the data for add or update
 			$update_data = [
 				'slug' => $data['slug'], 
 				'name' => $data['name'],
@@ -50,20 +75,66 @@ class Articles extends Controller
 				'tags' => isset($data['tags']) ? $data['tags'] : null,
 			];
 
-			$new_article_id = $this->articles->add(
+			$updated_article_id = $this->articles->add(
 				$update_data,
 				$joins_data
 			);
 
-			$new_article = $this->articles->get(['id' => $new_article_id]);
+			$updated_article = $this->articles->get(['id' => $updated_article_id]);
 
-			//handle file uploads
-			Upload::upload('articles', $new_article_id, $data);
-
-			Utils::json_respond(SUCCESS_RESPONSE, $new_article);
-		} catch (Exception $e) {
-			Utils::json_respond_error('Could not create article', $e->getMessage());
+		} else {
+			$this->articles->update([
+				'where' => ['slug' => $data['slug']], 
+				'update' => [
+					'name' => $data['name'],
+					'body' => $data['body'],
+					'images' => $data['images'],
+					'featured_image' => $data['featured_image'],
+				],
+				'categories' => $data['categories'],
+				'tags' => $data['tags']
+			]);
 		}
+
+		$updated_article = $this->articles->get(['slug' => $data['slug']]);
+
+		// new file uploads
+		$new_images = Upload::upload('articles', $updated_article->id, $data);
+
+		// update new image data into tree images
+		$updated_images = $updated_article->images;
+
+		if (isset($data['deleted_images'])) {
+			$deleted_images = is_array($data['deleted_images']) ?: explode(',', $data['deleted_images']);
+
+			// delete original file uploads if applicable
+			$files->update_associations('articles', $updated_article->id, $deleted_images);
+
+			// delete images recorded in tree
+			foreach ($updated_images as $key=>$value) {
+				foreach ($deleted_images as $di) {
+					if ($di == $value->name) {
+						unset($updated_images[$key]);
+					} 
+				}
+			}
+			//reset indexes
+			$updated_images = array_values($updated_images);
+		}
+
+		if ($new_images) {
+			foreach ($new_images as $ni) {
+				array_push($updated_images, $ni);
+			}
+		}
+
+		$this->articles->update([
+			'where' => ['id' => $updated_article->id], 
+			'update' => ['images' => json_encode($updated_images, true)]
+		]);
+		
+		return $updated_article;
+
 	}
 
 	public function delete()
@@ -98,47 +169,6 @@ class Articles extends Controller
 		}
 	}
 
-	public function update() 
-	{
-		$files = $this->load_model('files_model');
-
-		$data = Utils::read_post();
-
-		$this->validator->addEntries(['slug' => $data['slug']]);
-		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
-		$this->validator->validate();
-
-		if ($this->validator->foundErrors()) {
-		    $errors = $this->validator->getErrors();
-		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
-		}
-
-		try {
-			$this->articles->update([
-				'where' => ['slug' => $data['slug']], 
-				'update' => [
-					'name' => $data['name'],
-					'body' => $data['body'],
-					'featured_image' => $data['featured_image'],
-				],
-				'categories' => $data['categories'],
-				'tags' => $data['tags']
-			]);
-
-			$new_article = $this->articles->get(['slug' => $data['slug']]);
-
-			// new file uploads
-			Upload::upload('articles', $new_article->id, $data);
-			// update original file uploads
-			if (isset($data['deleted_images'])) {
-				$files->update_associations('articles', $new_article->id, $data['deleted_images']);	
-			}
-
-			Utils::json_respond(SUCCESS_RESPONSE, $data);	
-		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
-		}		
-	}
 
 	public function search()
 	{

@@ -40,7 +40,6 @@ class UploadedImages extends Component {
 	}
 
 	initImages(images, ref_type) {
-		//console.log(images);
 		this.refType = ref_type;
 		this.setState({ images: images }, () => {
 			//sent initial state back to parent to avoid it 

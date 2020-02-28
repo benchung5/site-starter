@@ -47,6 +47,9 @@ class Upload
 		ini_set('memory_limit', '256M');
 
 		if ($_FILES) {
+
+			$new_files = [];
+
 			if ($ref_type == 'articles') {
 				$files = Controller::load_model('files_model');
 			} elseif ($ref_type == 'trees') {
@@ -67,7 +70,6 @@ class Upload
 			//save the file data to the db
 
 			if (! $files_data['error']) {
-
 				$count = 0;
 				foreach ($files_data['files'] as $index => $file_data) {
 					//start at original image version
@@ -81,6 +83,9 @@ class Upload
 						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
 						//update filename with new file id
 						$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
+
+						// store the new image in new_files (to return from this function)
+						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'description' => $file_data['description']];
 
 						// move file, append new id, delete temp file
 						$destination_original = './uploads/'.$ref_type.'/'.$new_name;
@@ -115,6 +120,8 @@ class Upload
 					}
 				}
 			}
+
+			return $new_files;
 		} else {
 			// no files to upload
 			return false;

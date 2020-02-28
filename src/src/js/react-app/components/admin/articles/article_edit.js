@@ -8,7 +8,7 @@ import Sidebar from '../sidebar';
 import { connect } from 'react-redux';
 import ArticleFields from './article_fields';
 import renderHiddenField from '../parts/field_hidden';
-import renderDropdownSelect from '../parts/field_dropdownSelect';
+import renderDropdownSelect from '../parts/field_dropdownSelect_fi';
 import UploadedImages from '../parts/uploaded_images';
 import ImgFieldCrop from '../parts/image_field_crop';
 import { createImgFormData, formatOutFormFields } from '../../../lib/form_utils';
@@ -87,8 +87,6 @@ class EditArticle extends Component {
                   'tags'
                 ]);
 
-        console.log(formpropsClone);
-
         // call action to submit edited
         this.props.updateArticle(createImgFormData('new_images', formpropsClone));
         //clear deleted images
@@ -119,7 +117,11 @@ class EditArticle extends Component {
         this.props.change('deleted_images', delImages.toString());
 
         // update updated_images field with the upated images in string form
-        this.props.change('updated_images', images.toString());
+        this.props.change('images', JSON.stringify(images));
+    }
+
+    newImages(images) {
+        console.log(images);
     }
 
     onInputChange() {
@@ -160,7 +162,7 @@ class EditArticle extends Component {
                                 component={renderHiddenField}
                             />
                             <Field
-                                name="updated_images"
+                                name="images"
                                 component={renderHiddenField}
                             />
                             <ImgFieldCrop
@@ -169,6 +171,7 @@ class EditArticle extends Component {
                                 classNameLabel="file-input-label"
                                 onChange={this.onInputChange.bind(this)}
                                 tags={[{id: "1", name: "test tag"}]}
+                                newImages={this.newImages.bind(this)}
                             />
                             <button action="submit" className="btn btn-primary">Submit</button>
                         </form>

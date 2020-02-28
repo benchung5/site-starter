@@ -295,6 +295,7 @@ function sassAdmin() {
 
 //for compiling js
 let simpleWebpackConfig = {
+  mode: 'development',
   externals: {
       // enable jQuery as an external script to use in imports
       jquery: "jQuery"
@@ -314,15 +315,23 @@ let simpleWebpackConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
     alias: {
-      // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):
-      'mapbox-gl$': absPath.resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js'),
-      'TweenLite': absPath.resolve('./node_modules/gsap/src/minified/TweenLite.min.js'),
-      'TweenMax': absPath.resolve('./node_modules/gsap/src/minified/TweenMax.min.js'),
-      'TimelineLite': absPath.resolve('./node_modules/gsap/src/minified/TimelineLite.min.js'),
-      'TimelineMax': absPath.resolve('./node_modules/gsap/src/minified/TimelineMax.min.js'),
-      'ScrollMagic': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js'),
-      'animation.gsap': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js'),
-      'debug.addIndicators': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js')
+      // // From mapbox-gl-js README. Required for non-browserify bundlers (e.g. webpack):
+      // 'mapbox-gl$': absPath.resolve('./node_modules/mapbox-gl/dist/mapbox-gl.js'),
+      // 'TweenLite': absPath.resolve('./node_modules/gsap/src/minified/TweenLite.min.js'),
+      // 'TweenMax': absPath.resolve('./node_modules/gsap/src/minified/TweenMax.min.js'),
+      // 'TimelineLite': absPath.resolve('./node_modules/gsap/src/minified/TimelineLite.min.js'),
+      // 'TimelineMax': absPath.resolve('./node_modules/gsap/src/minified/TimelineMax.min.js'),
+      // 'ScrollMagic': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js'),
+      // 'animation.gsap': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js'),
+      // 'debug.addIndicators': absPath.resolve('./node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js')
+
+      // 'TweenLite': absPath.resolve(__dirname, './node_modules/gsap/dist/gsap.min.js'),
+      // 'TweenMax': absPath.resolve(__dirname, './node_modules/gsap/dist/gsap.min.js'),
+      // 'TimelineLite': absPath.resolve(__dirname, './node_modules/gsap/dist/gsap.min.j'),
+      // 'TimelineMax': absPath.resolve(__dirname, './node_modules/gsap/dist/gsap.min.j'),
+      // 'ScrollMagic': absPath.resolve(__dirname, './node_modules/scrollmagic/scrollmagic/minified/ScrollMagic.min.js'),
+      // 'animation.gsap': absPath.resolve(__dirname, './node_modules/scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js'),
+      'debug.addIndicators': absPath.resolve(__dirname, './node_modules/scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js')
     }
   },
   plugins: [

@@ -146,7 +146,8 @@ class EditTree extends Component {
         this.props.change('deleted_images', delImages.toString());
 
         // update updated_images field with the upated images in string form
-        this.props.change('updated_images', images.toString());
+        console.log(images);
+        this.props.change('images', JSON.stringify(images));
     }
 
     onInputChange() {
@@ -179,7 +180,7 @@ class EditTree extends Component {
                                 component={renderHiddenField}
                             />
                             <Field
-                                name="updated_images"
+                                name="images"
                                 component={renderHiddenField}
                             />
                             <ImgFieldCrop

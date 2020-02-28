@@ -1,6 +1,6 @@
-/* ==========================================================================
-// fooslider
-========================================================================== */
+import { TweenLite, EasePack, Power2 } from "gsap";
+//gsap.registerPlugin(EasePack);
+
 
 const fooSlider = function() {
   var FooSlider = {

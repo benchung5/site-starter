@@ -25,8 +25,7 @@ class Trees_model extends Model
 
 		if (isset($opts['category'])) {
 			// _category_slug and _category_id are not to be used in the result
-			// they're only named so they don't overwrite the tree id and slug
-			// since we want to select * for trees
+			// they're only named so they don't overwrite the tree id and slug in this same query
 			$this->db->innerJoin('trees_category tc', 'tc.id', 't.trees_category_id');
 			$this->db->select('t.*, tc.slug AS _category_slug, tc.id AS _category_id');
 			$this->db->where('tc.slug', '=' , $opts['category']);
@@ -36,9 +35,11 @@ class Trees_model extends Model
 
 		if ($result) {
 
-			// get images
-			$this->files_trees = $this->load_model('files_trees_model');
-			$result->images = $this->files_trees->get_all_by_ref_id($result->id);
+			// // get images directly from files table (changed to what's stroed in the tree)
+			// $this->files_trees = $this->load_model('files_trees_model');
+			// $result->images = $this->files_trees->get_all_by_ref_id($result->id);
+
+			$result->images = Json_decode($result->images) ?: [] ;
 
 			// origins
 			$result->origins = $this->db->table('trees_origins _to')

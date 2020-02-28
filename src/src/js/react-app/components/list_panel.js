@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Search from './search';
 import ItemList from './item_list';
-import ArtPiece from './art_piece';
 import Transition from 'react-transition-group/Transition';
 import prefix from 'react-prefixer';
 

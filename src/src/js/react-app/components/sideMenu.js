@@ -7,7 +7,6 @@ import Search from './search';
 // import NearMe from './button_near_me';
 // import OffLineMessage from './offline_message';
 import { searchArticles } from '../actions/global';
-import Socials from './parts/socials';
 
 class SideMenu extends Component {
 

@@ -261,10 +261,12 @@ class FileField extends Component {
           //500k allowable upload size
           // maxSize={500000}
         >
-        <div className="instructions">
-        Drop files here, or click to select files to upload.<br/>
-        (Only jpeg images will be accepted)
-        </div>
+          {({getRootProps}) => (
+            <div {...getRootProps()} className="instructions">
+              Drop files here, or click to select files to upload.<br/>
+              (Only jpeg images will be accepted)
+            </div>
+          )}
         </Dropzone>
 
         <Modal 

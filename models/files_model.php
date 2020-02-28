@@ -48,9 +48,7 @@ class Files_model extends Model
 
 	public function update_associations($ref_type, $ref_id, $deleted_images) 
 	{
-		$deleted_images = is_array($deleted_images) ?: explode(',', $deleted_images); 
-
-		// compare new image associations with existing ones and adjust
+		// delete images
 		foreach ($deleted_images as $deleted_image) {
 			$this->db->table('files')
 				->where('ref_id', (int)$ref_id)

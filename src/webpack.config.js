@@ -1,13 +1,12 @@
 // import fs from 'fs';
 // import yaml from 'js-yaml';
 const fs = require('fs');
-const yaml = require('js-yaml')
+const yaml = require('js-yaml');
 
 const absPath = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 //Load settings from settings.yml
 const { PATHS } = loadConfig();
@@ -18,17 +17,15 @@ function loadConfig() {
 }
 
 module.exports = {
-  //split up the entries
-  entry: {
-    react: './src/js/react-app/app.js'
-  },
+  mode: 'development',
+  entry: './src/js/react-app/app.js',
   output: {
-    path: absPath.resolve(__dirname, PATHS.dist + '/assets/js'),
+    // path: absPath.resolve(__dirname, PATHS.dist + '/assets/js'),
     filename: 'react.js',
     //location of bundle in relation to index.html
     //publicPath: '/assets/js/',
     //so we can use with xamp
-    publicPath: 'http://localhost:8080/assets/js/'
+    publicPath: 'http://localhost/assets/js/'
   },
   module: {
     // rules for modules (configure loaders, parser options, etc.)
@@ -86,19 +83,11 @@ module.exports = {
     // new BundleAnalyzerPlugin({
     //     analyzerMode: 'static'
     // }),
-    // new webpack.optimize.UglifyJsPlugin({
-    //     compress: {
-    //         warnings: false,
-    //         // don't optimize comparisons or 
-    //         //will cause error with mapbox
-    //         comparisons: false,  
-    //     },
-    // }),
   ],
   devServer: {
     //dev server is actually located in the gulpfile since we're
     //running it using gulp instead of through webpack
   },
-  devtool: "source-map",
+  devtool: "source-map"
   // devtool: "eval",
-};
+}
