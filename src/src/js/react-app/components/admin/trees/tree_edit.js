@@ -146,7 +146,6 @@ class EditTree extends Component {
         this.props.change('deleted_images', delImages.toString());
 
         // update updated_images field with the upated images in string form
-        console.log(images);
         this.props.change('images', JSON.stringify(images));
     }
 

@@ -920,7 +920,7 @@ hero
       margin: 2em 0;
     }
   }
-  .left {
+  .center {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -970,8 +970,8 @@ hero
       margin-top: 1em;
     }
     @include breakpoint(large up) {
-     text-align: left;
-     align-items: flex-start;
+     text-align: center;
+     // align-items: flex-start;
     }
   }
   .device-bg {

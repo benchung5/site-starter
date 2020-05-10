@@ -23,6 +23,8 @@ npm run build
 -needs to run on Node version 6.9.1
 (use nvm for ease of use)
 
+-GSAP and react cropper have been kept at an older version for compatability issues
+
 query builder:
 https://github.com/izniburak/pdox
 

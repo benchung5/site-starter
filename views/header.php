@@ -19,7 +19,7 @@ use Config\Config as Config;
       <nav class="large-8 columns menu-container show-for-large">
         <ul class="menu menu-left align-right">
           <li><a href="/" title="Nature With Us Home">Home</a></li>
-          <li><a href="/plants" title="Niagara Trees">Niagara Trees</a></li>
+          <li><a href="/plants" title="Native Plants">Native Plants</a></li>
           <li><a href="/articles" title="Articles">Articles</a></li>
           <li><a href="/about" title="About Nature With Us">About</a></li>
           <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>

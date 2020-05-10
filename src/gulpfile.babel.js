@@ -16,9 +16,9 @@ const named = require('vinyl-named');
 var swPrecache = require('sw-precache');
 const webpackConfig = require('./webpack.config.js');
 const webpackProdConfig = require('./webpack.production.config.js');
-const WebpackDevServer = require('webpack-dev-server');
+// const WebpackDevServer = require('webpack-dev-server');
 //grab existing webpack config file
-var configDevServer = Object.create(webpackConfig);
+// var configDevServer = Object.create(webpackConfig);
 
 // Check for --production flag
 const PRODUCTION = !!(yargs.argv.production);
@@ -68,16 +68,22 @@ gulp.task('watch-scss', function () {
     return watch('src/scss/**/*.scss', gulp.series(sass, sassAdmin));
 });
 
+gulp.task('watch-react-app-js', function () {
+    return watch('src/js/react-app/**/*.js', reactJavascript);
+});
+
 gulp.task('watch-app-js', function () {
     return watch('src/js/app/**/*.js', javascript);
 });
 
 gulp.task('watch-vendor-js', function () {
-    return watch('src/js/vendor/**/*.js', vendorJavascript).on('change', reloadWebpackDevServer);
+    //return watch('src/js/vendor/**/*.js', vendorJavascript).on('change', reloadWebpackDevServer);
+    return watch('src/js/vendor/**/*.js', vendorJavascript);
 });
 
 gulp.task('watch-head-js', function () {
-    return watch('src/js/head/**/*.js', headJavascript).on('change', reloadWebpackDevServer);
+    //return watch('src/js/head/**/*.js', headJavascript).on('change', reloadWebpackDevServer);
+    return watch('src/js/head/**/*.js', headJavascript);
 });
 
 //build
@@ -85,56 +91,57 @@ gulp.task('watch-head-js', function () {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, reactJavascript, javascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
-  gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
+  //gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
+  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-react-app-js', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
 
-function devServer() {
-  // Start a webpack-dev-server
-  // ** remember to include <script src="http://localhost:8080/webpack-dev-server.js"></script>
-  // in index.html file to get hot reloading working properly
-  const server = new WebpackDevServer(webpack(configDevServer), {
-      //location of bundle in relation to index.html (to enable serve from memory)
-      //publicPath: '/assets/js/',
-      publicPath: 'http://localhost:8080/assets/js/',
-      inline: true,
-      stats: {
-          colors: true
-      },
-      hot: true,
-      historyApiFallback: {
-      rewrites: [
-          // shows /index.html as the landing page
-          //{ from: /^\/$/, to: '/index.html' },
-          // goes to /index.php for all routes starting with /filter or /admin
-          // { from: /^\/filter/, to: '/index.php' },
-          // { from: /^\/admin/, to: '/index.php' },
+// function devServer() {
+//   // Start a webpack-dev-server
+//   // ** remember to include <script src="http://localhost:8080/webpack-dev-server.js"></script>
+//   // in index.html file to get hot reloading working properly
+//   const server = new WebpackDevServer(webpack(configDevServer), {
+//       //location of bundle in relation to index.html (to enable serve from memory)
+//       //publicPath: '/assets/js/',
+//       publicPath: 'http://localhost:8080/assets/js/',
+//       inline: true,
+//       stats: {
+//           colors: true
+//       },
+//       hot: true,
+//       historyApiFallback: {
+//       rewrites: [
+//           // shows /index.html as the landing page
+//           //{ from: /^\/$/, to: '/index.html' },
+//           // goes to /index.php for all routes starting with /filter or /admin
+//           // { from: /^\/filter/, to: '/index.php' },
+//           // { from: /^\/admin/, to: '/index.php' },
           
-          // shows /404.html on all other pages
-          // { from: /./, to: '/404.html' }
-        ]
-      },
-      contentBase: absPath.resolve(__dirname, PATHS.dist)
-  });
+//           // shows /404.html on all other pages
+//           // { from: /./, to: '/404.html' }
+//         ]
+//       },
+//       contentBase: absPath.resolve(__dirname, PATHS.dist)
+//   });
 
-  server.listen(8080, 'localhost', function(err) {
-      if(err) throw new gutil.PluginError('webpack-dev-server', err);
-      gutil.log('starting webpack dev server');
-      //proxy.run();
-  });
-}
+//   server.listen(8080, 'localhost', function(err) {
+//       if(err) throw new gutil.PluginError('webpack-dev-server', err);
+//       gutil.log('starting webpack dev server');
+//       //proxy.run();
+//   });
+// }
 
-function reloadWebpackDevServer() {
-  if (WebpackDevServer === null) {
-    return false;
-  }
+// function reloadWebpackDevServer() {
+//   if (WebpackDevServer === null) {
+//     return false;
+//   }
 
-  //WebpackDevServer.sockWrite(WebpackDevServer.sockets, 'content-changed');
+//   //WebpackDevServer.sockWrite(WebpackDevServer.sockets, 'content-changed');
 
-  return true;
-}
+//   return true;
+// }
 
 function webpackBuild() {
   //if production
@@ -221,6 +228,22 @@ function copyUploads() {
     .pipe(gulp.dest(PATHS.dist + '/uploads'));
 }
 
+// Combine reactJavaScript into one file
+// In production, the file is minified
+function reactJavascript() {
+  gutil.log('updating react app js');
+  return gulp.src(PATHS.react)
+    //this makes sure the output js file isn't hashed
+    .pipe(named())
+    .pipe($.sourcemaps.init())
+    .pipe(webpackStream(webpackConfig, webpack))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+}
+
 // Combine JavaScript into one file
 // In production, the file is minified
 function javascript() {
@@ -296,20 +319,16 @@ function sassAdmin() {
 //for compiling js
 let simpleWebpackConfig = {
   mode: 'development',
+  //don't specify an entry, entry is sin the gulp.src
+  //since this goes through webpack stream
   externals: {
       // enable jQuery as an external script to use in imports
       jquery: "jQuery"
   },
   module: {
     rules: [
-      {
-        test: /.js$/,
-        use: [
-          {
-            loader: 'babel-loader'
-          }
-        ]
-      }
+      { test: /\.js$/, use: 'babel-loader' },
+      { test: /\.css$/, use: 'style-loader'}
     ]
   },
   resolve: {

@@ -27,12 +27,26 @@ module.exports = {
     //so we can use with xamp
     publicPath: 'http://localhost/assets/js/'
   },
+    module: {
+    rules: [
+      { test: /\.js$/, use: 'babel-loader' },
+      { test: /\.css$/, use: 'style-loader'}
+    ]
+  },
   module: {
     // rules for modules (configure loaders, parser options, etc.)
     rules: [
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          }
+        ]
       },
       {
         test: /\.(js|jsx)$/,

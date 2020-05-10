@@ -2,6 +2,7 @@
 // import yaml from 'js-yaml';
 const fs = require('fs');
 const yaml = require('js-yaml')
+const path = require('path');
 
 const absPath = require('path');
 const webpack = require('webpack');

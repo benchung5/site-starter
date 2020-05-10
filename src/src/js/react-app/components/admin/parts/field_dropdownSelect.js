@@ -13,7 +13,6 @@ class DropdownSelect extends Component {
 	}
 
 	render() {
-		console.log(this.props.customProps);
 		const { meta: { touched, error }, input, label } = this.props;
 		return (
 			<div className="form-group">

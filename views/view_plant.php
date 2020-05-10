@@ -20,9 +20,6 @@ use Lib\Utils;
 
 						<?php if ($view_data['tree']->images) : ?>
 
-
-
-						<?php Utils::dbug($view_data['tree']->images); ?>
 						<div class="images">
 
 							<div class="fooslider-wrapper">
