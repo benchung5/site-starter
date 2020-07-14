@@ -195,7 +195,6 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -213,7 +212,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
  //import 'react-select/dist/react-select.css';
 
@@ -243,10 +241,10 @@ function (_Component) {
     key: "renderSelectOptions",
     value: function renderSelectOptions() {
       return this.props.selectItems.map(function (item) {
-        return {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           value: item.id,
-          label: item.name
-        };
+          key: item.id
+        }, item.name);
       });
     }
   }, {
@@ -263,17 +261,13 @@ function (_Component) {
         className: className
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: label
-      }, label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_select__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        name: "form-field-name",
+      }, label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        name: label,
+        id: label,
+        multiple: true,
         value: this.props.input.value,
-        options: this.renderSelectOptions(),
-        onChange: this.handleChange.bind(this),
-        onBlur: function onBlur() {
-          return input.onBlur(input.value);
-        },
-        multi: true,
-        joinValues: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onChange: this.handleChange.bind(this)
+      }, this.renderSelectOptions()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "error"
       }, touched ? error : ''));
     }
@@ -355,9 +349,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cropperjs_dist_cropper_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cropperjs_dist_cropper_css__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var sanitize_filename__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sanitize-filename */ "./node_modules/sanitize-filename/index.js");
 /* harmony import */ var sanitize_filename__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sanitize_filename__WEBPACK_IMPORTED_MODULE_7__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -718,12 +712,9 @@ function (_Component) {
         accept: "image/jpeg" //500k allowable upload size
         // maxSize={500000}
 
-      }, function (_ref) {
-        var getRootProps = _ref.getRootProps;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", _extends({}, getRootProps(), {
-          className: "instructions"
-        }), "Drop files here, or click to select files to upload.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "(Only jpeg images will be accepted)");
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "instructions"
+      }, "Drop files here, or click to select files to upload.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "(Only jpeg images will be accepted)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_4__["default"], {
         ref: "modal"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_cropper__WEBPACK_IMPORTED_MODULE_5___default.a, {
         className: "cropper",
@@ -954,10 +945,8 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createImgFormData", function() { return createImgFormData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatOutFormFields", function() { return formatOutFormFields; });
-/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/clone */ "./node_modules/lodash/clone.js");
-/* harmony import */ var lodash_clone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_clone__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./src/js/react-app/lib/utils.js");
-
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/js/react-app/lib/utils.js");
+// import clone from 'lodash/clone';
 
 function createImgFormData(imgFieldName, formProps) {
   // convert to mulipart form data
@@ -994,7 +983,17 @@ function createImgFormData(imgFieldName, formProps) {
 }
 function formatOutFormFields(formProps, multiselectFields) {
   //prepare form data to be sent over the network prperly
-  var formpropsClone = lodash_clone__WEBPACK_IMPORTED_MODULE_0___default()(formProps); //convert null values to empty strings
+  //let formpropsClone = clone(formProps);
+  var formpropsClone = parse(JSON.stringify(formProps)); //important to error handle when using JSON.parse...
+
+  function parse(str) {
+    try {
+      return JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+  } //convert null values to empty strings
+
 
   Object.keys(formpropsClone).forEach(function (key) {
     if (formpropsClone[key] == null) {
@@ -1003,10 +1002,14 @@ function formatOutFormFields(formProps, multiselectFields) {
   }); //convert arrays to comma separated strings
 
   multiselectFields.map(function (field) {
-    var arr = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["flattenObjArray"])(formpropsClone[field], 'value');
-
-    if (arr) {
-      formpropsClone[field] = arr.toString();
+    // let arr = flattenObjArray(formpropsClone[field], 'value');
+    // if (arr) {
+    //   formpropsClone[field] = arr.toString();
+    // }
+    if (formpropsClone[field]) {
+      if (Array.isArray(formpropsClone[field])) {
+        formpropsClone[field] = formpropsClone[field].toString();
+      }
     }
   });
   return formpropsClone;

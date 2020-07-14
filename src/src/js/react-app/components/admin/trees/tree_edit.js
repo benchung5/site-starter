@@ -100,6 +100,7 @@ class EditTree extends Component {
     // if form isn't valid redux form will not call this function
     handleFormSubmit(formProps) {
         let formpropsClone = [];
+
         formpropsClone = formatOutFormFields(formProps, [
                 'origins', 
                 'eco_benefits',
@@ -124,7 +125,8 @@ class EditTree extends Component {
 
     formatToMultiselect(inArray) {
         return inArray.map((item) => {
-            return { value: item.id, label: item.name }
+            //return { value: item.id, label: item.name }
+            return item.id;
         });
     }
 

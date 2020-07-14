@@ -306,10 +306,8 @@ function (_Component) {
     key: "formatToMultiselect",
     value: function formatToMultiselect(inArray) {
       return inArray.map(function (item) {
-        return {
-          value: item.id,
-          label: item.name
-        };
+        //return { value: item.id, label: item.name }
+        return item.id;
       });
     }
   }, {

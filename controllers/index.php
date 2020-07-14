@@ -10,8 +10,8 @@ class Index extends Controller
 		//$this->load_script('controllers/login.js');
 	}
 
-	public function index($param = null) {
-
+	public function index($param = null) 
+	{
 		// pass view data to view
 		$this->render('index', null, 'Niagara Tree Care & Removal');
 	}

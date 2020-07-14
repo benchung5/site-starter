@@ -18,6 +18,8 @@ use Lib\Utils;
 							<h2 class="italic">(<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<?= Utils::sanitize($view_data['tree']->specific_epithet) ?>)</h2>
 						</div>
 
+						<div id="example-component"></div>
+
 						<?php if ($view_data['tree']->images) : ?>
 
 						<div class="images">

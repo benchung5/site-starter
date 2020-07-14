@@ -13,6 +13,8 @@ import windowSize from './windowSize';
 import mobileMenu from './mobileMenu';
 import animation from './animation';
 import fooSlider from './fooSlider';
+// experimenting=========================================
+import List from './components/list';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -57,5 +59,9 @@ load foundation plugins - keep this
 	if (window.location.pathname === '/') {
 		animation();
 	}
-	
+
+	// experimenting=========================================
+
+	List.init();
+
 })();

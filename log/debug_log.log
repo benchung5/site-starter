@@ -1,80 +1,36 @@
-native-trees
+test hit
 -----------------------------------------------
-Array
-(
-    [0] => stdClass Object
-        (
-            [id] => 220
-            [ref_id] => 80
-            [name] => american-elm-220.JPG
-            [sort_order] => 0
-            [extension] => JPG
-            [tag_name] => 
-            [description] => American Elm
-        )
-
-    [1] => stdClass Object
-        (
-            [id] => 221
-            [ref_id] => 80
-            [name] => american-elm-leaves-221.JPG
-            [sort_order] => 1
-            [extension] => JPG
-            [tag_name] => leaves
-            [description] => American Elm leaves
-        )
-
-    [2] => stdClass Object
-        (
-            [id] => 222
-            [ref_id] => 80
-            [name] => american-elm-bark-222.JPG
-            [sort_order] => 2
-            [extension] => JPG
-            [tag_name] => bark
-            [description] => American Elm bark
-        )
-
-)
-
+controller exists
 -----------------------------------------------
-Array
-(
-    [0] => stdClass Object
-        (
-            [id] => 220
-            [ref_id] => 80
-            [name] => american-elm-220.JPG
-            [sort_order] => 0
-            [extension] => JPG
-            [tag_name] => 
-            [description] => American Elm
-        )
-
-    [1] => stdClass Object
-        (
-            [id] => 221
-            [ref_id] => 80
-            [name] => american-elm-leaves-221.JPG
-            [sort_order] => 1
-            [extension] => JPG
-            [tag_name] => leaves
-            [description] => American Elm leaves
-        )
-
-    [2] => stdClass Object
-        (
-            [id] => 222
-            [ref_id] => 80
-            [name] => american-elm-bark-222.JPG
-            [sort_order] => 2
-            [extension] => JPG
-            [tag_name] => bark
-            [description] => American Elm bark
-        )
-
-)
-
+test hit
 -----------------------------------------------
-tree-news
+controller doesn't exist
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller doesn't exist
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller exists
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller doesn't exist
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller exists
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller doesn't exist
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller doesn't exist
+-----------------------------------------------
+test hit
+-----------------------------------------------
+controller exists
 -----------------------------------------------

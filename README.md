@@ -20,8 +20,10 @@ npm run build
 -to adjust the layout template html use: src/layout-template.php
 (this is used by HtmlWebpackPlugin to create the layout file)
 
--needs to run on Node version 6.9.1
+-needs to run on Node version 11.1.0
 (use nvm for ease of use)
+
+-requires composer
 
 -GSAP and react cropper have been kept at an older version for compatability issues
 

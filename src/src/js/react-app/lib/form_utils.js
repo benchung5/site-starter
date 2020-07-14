@@ -1,4 +1,4 @@
-import clone from 'lodash/clone';
+// import clone from 'lodash/clone';
 import { flattenObjArray } from './utils';
 
 export  function createImgFormData(imgFieldName, formProps) {
@@ -42,8 +42,21 @@ export  function createImgFormData(imgFieldName, formProps) {
 
 export function formatOutFormFields(formProps, multiselectFields) {
     //prepare form data to be sent over the network prperly
-    let formpropsClone = clone(formProps);
+    //let formpropsClone = clone(formProps);
 
+    let formpropsClone = parse(JSON.stringify(formProps));
+
+    //important to error handle when using JSON.parse...
+    function parse(str) {
+      try {
+        return JSON.parse(str);
+      }
+      catch(e) {
+        return false;
+      }
+    }
+
+    
     //convert null values to empty strings
     Object.keys(formpropsClone).forEach((key) => {
       if (formpropsClone[key] == null) {
@@ -53,10 +66,18 @@ export function formatOutFormFields(formProps, multiselectFields) {
 
     //convert arrays to comma separated strings
     multiselectFields.map((field) => {
-      let arr = flattenObjArray(formpropsClone[field], 'value');
-      if (arr) {
-        formpropsClone[field] = arr.toString();
+      // let arr = flattenObjArray(formpropsClone[field], 'value');
+      // if (arr) {
+      //   formpropsClone[field] = arr.toString();
+      // }
+
+      if (formpropsClone[field]) {
+        if (Array.isArray(formpropsClone[field])) {
+          formpropsClone[field] = formpropsClone[field].toString();
+        }
       }
+
     });
+
     return formpropsClone;
 }
