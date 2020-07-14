@@ -49,12 +49,12 @@ class Controller
 
 	public function run_scripts()
 	{
-		// footer scripts
-		echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/app.js"></script>';
+		// // footer scripts
+		// echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/app.js"></script>';
 
-		foreach ($this->scripts as $script) {
-			echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/'.$script.'"></script>';
-		}
+		// foreach ($this->scripts as $script) {
+		// 	echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/'.$script.'"></script>';
+		// }
 		
 	}
 

@@ -1,12 +1,14 @@
 import Component from '../component';
 import Button from './button';
-import treesActions from ''
+import { getSingle } from '../actions/trees'
 
 var List = {
 	getData: function() {
-		apiData = treesActions.getSingle('http://localhost/api/trees/single/alternate-leaf-dogwood');
-		this.apiData = apiData;
-		this.build();
+		getSingle('http://localhost/api/trees/single/alternate-leaf-dogwood',
+		(apiData) => {
+			this.apiData = apiData;
+			this.build();
+		});
 	},
 	build: function() {
 		this.apiData.soil.map((item) => {

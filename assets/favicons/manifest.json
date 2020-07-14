@@ -6,7 +6,7 @@
   "display": "standalone",
   "theme_color": "#e1306c",
   "background_color": "#e1306c",
-  "optional_permissions": ["clipboardRead", "clipboardWrite"]
+  "optional_permissions": ["clipboardRead", "clipboardWrite"],
   "icons": [{
         "src": "apple-touch-icon.png",
         "sizes": "120x120",

@@ -9,7 +9,6 @@ let Store = {
 	},
 	setData: function(newOrUpdated) {
 		this.dataStore = Object.assign({}, this.dataStore, newOrUpdated);
-		console.log(this.dataStore);
 	}
 }
 

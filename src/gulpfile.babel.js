@@ -57,11 +57,11 @@ gulp.task('watch-img', function () {
 });
 
 gulp.task('watch-media', function () {
-    return watch(PATHS.media, media);
+    return watch('src/media/**/', media);
 });
 
 gulp.task('watch-favicons', function () {
-    return watch(PATHS.favicons, favicons);
+    return watch('src/favicons/**/*', favicons);
 });
 
 gulp.task('watch-scss', function () {
@@ -91,7 +91,7 @@ gulp.task('watch-head-js', function () {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassAdmin, reactJavascript, javascript, vendorJavascript, headJavascript, webpackBuild, images, media, copyUploads, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, reactJavascript, javascript, vendorJavascript, headJavascript, webpackBuild, images, media, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
@@ -209,24 +209,35 @@ function clean(done) {
   rimraf(PATHS.dist, done);
 }
 
+// Copy images to the "dist" folder
+// In production, the images are compressed
+function images() {
+  gutil.log('updating images');
+  return gulp.src('src/img/**/*')
+    .pipe($.if(PRODUCTION, $.imagemin({
+      progressive: true
+    })))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/img'));
+}
+
 // Copy files out of the assets/media folder
 function media() {
-  return gulp.src(PATHS.media)
+  return gulp.src('src/media/**/')
     .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/media'));
 }
 
 // Copy files out of the assets/favicons folder
 // * app manifest and browserconfig file is also included in there
 function favicons() {
-  return gulp.src(PATHS.favicons)
+  return gulp.src('src/favicons/**/*')
     .pipe(gulp.dest(PATHS.dist + '/favicons'));
 }
 
-//Copy the uploads folder for testing
-function copyUploads() {
-  return gulp.src(PATHS.uploads)
-    .pipe(gulp.dest(PATHS.dist + '/uploads'));
-}
+// //Copy the uploads folder for testing
+// function copyUploads() {
+//   return gulp.src(PATHS.uploads)
+//     .pipe(gulp.dest(PATHS.dist + '/uploads'));
+// }
 
 // Combine reactJavaScript into one file
 // In production, the file is minified
@@ -327,7 +338,7 @@ let simpleWebpackConfig = {
   },
   module: {
     rules: [
-      { test: /\.js$/, use: 'babel-loader' },
+      // { test: /\.js$/, use: 'babel-loader' },
       { test: /\.css$/, use: 'style-loader'}
     ]
   },
@@ -360,15 +371,4 @@ let simpleWebpackConfig = {
        }
     })
   ],
-}
-
-// Copy images to the "dist" folder
-// In production, the images are compressed
-function images() {
-  gutil.log('updating images');
-  return gulp.src('src/img/**/*')
-    .pipe($.if(PRODUCTION, $.imagemin({
-      progressive: true
-    })))
-    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/img'));
 }
