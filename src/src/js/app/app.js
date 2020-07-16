@@ -11,10 +11,11 @@ import loadVideo from './loadVideo';
 import bodyClasses from './bodyClasses';
 import windowSize from './windowSize';
 import mobileMenu from './mobileMenu';
-import animation from './animation';
+//import animation from './animation';
 import fooSlider from './fooSlider';
 // experimenting=========================================
 import List from './components/list';
+import Scroll from './scroll';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -55,10 +56,10 @@ load foundation plugins - keep this
 
 	fooSlider();
 
-	//if on the home page
-	if (window.location.pathname === '/') {
-		animation();
-	}
+	// //if on the home page
+	// if (window.location.pathname === '/') {
+	// 	animation();
+	// }
 
 	// experimenting=========================================
 
