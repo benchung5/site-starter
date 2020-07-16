@@ -1,49 +1,47 @@
-// alias's for these are defined in simpleWebpackConfig in gulpfile
-//import TweenLite from 'TweenLite';
-import { TweenLite, TimelineMax, EasePack, Power4 } from 'gsap/all';
-//gsap.registerPlugin(EasePack);
-//import ScrollMagic from 'scrollmagic';
-import ScrollMagic from 'scrollmagic/scrollmagic/minified/ScrollMagic.min.js';
-// import 'animation.gsap';
-import 'debug.addIndicators';
-// import 'animation.gsap' from 'scrollmagic/scrollmagic/minified/plugins/animation.gsap.min.js';
-// import 'debug.addIndicators' from 'scrollmagic/scrollmagic/minified/plugins/debug.addIndicators.min.js';
-
-const animation = function() {
-	// const controller = new ScrollMagic.Controller();
-
-	// // scroll powered
-	// var tl = new TimelineMax({onUpdate:updatePercentage});
-	// tl.from('blockquote', .5, {x:200, opacity: 0});
-	// tl.from('span', 1, { width: 0}, "=-.5");
-	// tl.from('#office', 1, {x:-200, opacity: 0,ease: Power4.easeInOut}, "=-1");
-	// tl.from('#building', 1, {x:200, opacity: 0, ease: Power4.easeInOut}, "=-.7");
-
-	// const scene = new ScrollMagic.Scene({
-	//   triggerElement: ".sticky",
-	//             triggerHook: "onLeave",
-	//             duration: "100%"
-	// })
-	// .setPin(".sticky")
-	// .setTween(tl)
-	// .addTo(controller);
-
-	// function updatePercentage() {
-	//   //percent.innerHTML = (tl.progress() *100 ).toFixed();
-	//   tl.progress();
-	//   //console.log(tl.progress());
-	// }
-
-	// // tween powered
-	// var tl2 = new TimelineMax();
-	// tl2.from("#box", 1, {opacity: 0, scale: 0});
-	// tl2.to("#box", .5, {left: "20%", scale: 1.3, borderColor: 'white', borderWidth: 12, boxShadow: '1px 1px 0px 0px rgba(0,0,0,0.09)'})
-
-	// const scene2 = new ScrollMagic.Scene({
-	//   triggerElement: "blockquote"
-	// })
-	// .setTween(tl2)
-	// .addTo(controller);
+var Animation = {
+	getTransitionEndEventName: function () {
+	  var transitions = {
+	      "transition"      : "transitionend",
+	      "OTransition"     : "oTransitionEnd",
+	      "MozTransition"   : "transitionend",
+	      "WebkitTransition": "webkitTransitionEnd"
+	   }
+	  let bodyStyle = document.body.style;
+	  for(let transition in transitions) {
+	      if(bodyStyle[transition] != undefined) {
+	          return transitions[transition];
+	      } 
+	  }
+	},
+	animate: function(el, options) {
+		let hideAtEnd = false;
+		if ('autoOpacity' in options) {
+			if (options.autoOpacity > 0) {
+				el.style.visibility = 'visible';
+			} else {
+				hideAtEnd = true;
+			}
+			el.style.transitionProperty = 'opacity';
+			el.style.opacity = options.autoOpacity;
+		} else {
+			el.style.transitionProperty = options.property;
+			el.style[options.property] = options.propertyTo;
+		}
+		//get the transition event name (for browser compantibility)
+		let transitionEndEventName = this.getTransitionEndEventName();
+		el.addEventListener(transitionEndEventName, () => {
+			if (hideAtEnd) {
+				el.style.visibility = 'hidden';
+				hideAtEnd = false;
+			}
+			if (options.onEnd) {
+				options.onEnd();
+			}
+		});
+		options.onStart();
+		el.style.transitionDuration = options.duration.toString() + 's';
+		el.style.transitionTimingFunction = options.ease;
+	}
 }
 
-export default animation;
+export default Animation;
