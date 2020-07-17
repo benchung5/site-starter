@@ -8,7 +8,8 @@ class Config
 	    'CONTROLLER_PATH' => './controllers/',
 	    'VIEW_PATH' => './views/',
 	    'MODEL_PATH' => './models/',
-	    'SIGNIN_KEY' => 'sQPMBNCVkgs"f?>$%^*fgbfgbdSfds###$%#$bdFp%upsfbdf'
+	    'SIGNIN_KEY' => 'sQPMBNCVkgs"f?>$%^*fgbfgbdSfds###$%#$bdFp%upsfbdf',
+	    'ADMIN_ID' => '752'
 	];
 
 	public static function paths($key = null) {

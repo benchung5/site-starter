@@ -88,7 +88,8 @@ use Lib\Meta;
   <?php
     $segments = Uri::get_parts();
     if (isset($segments['controller'])) {
-      if ($segments['controller'] == 'admin') {
+      // later remove the 'admin' part of this
+      if ($segments['controller'] == 'admin' || $segments['controller'] == ('admin_'.Config::paths('ADMIN_ID'))) {
         echo '<link href="'.Config::paths('ROOT_URL').'assets/css/admin.css'.'" rel="stylesheet" type="text/css">';
       } else {
         echo '<link href="'.Config::paths('ROOT_URL').'assets/css/app.css'.'" rel="stylesheet" type="text/css">';

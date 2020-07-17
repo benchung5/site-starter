@@ -14,8 +14,10 @@ import mobileMenu from './mobileMenu';
 //import animation from './animation';
 import fooSlider from './fooSlider';
 // experimenting=========================================
-import List from './components/list';
-import Scroll from './scroll';
+// import List from './components/list';
+// import Scroll from './scroll';
+// admin =========================================
+import Admin from './admin/admin';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -61,8 +63,8 @@ load foundation plugins - keep this
 	// 	animation();
 	// }
 
-	// experimenting=========================================
+	// admin=========================================
 
-	List.init();
+	Admin.init();
 
 })();

@@ -122,15 +122,39 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ }),
 
-/***/ "./src/js/app/actions/trees.js":
-/*!*************************************!*\
-  !*** ./src/js/app/actions/trees.js ***!
-  \*************************************/
-/*! exports provided: getSingle */
+/***/ "./src/js/app/admin/admin.js":
+/*!***********************************!*\
+  !*** ./src/js/app/admin/admin.js ***!
+  \***********************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getSingle\", function() { return getSingle; });\n/* harmony import */ var _xhr__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../xhr */ \"./src/js/app/xhr.js\");\n/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ \"./src/js/app/store.js\");\n\r\n\r\n\r\nfunction getSingle(endpoint, callback) {\r\n\t_xhr__WEBPACK_IMPORTED_MODULE_0__[\"default\"].send({\r\n\t\tendpoint: endpoint,\r\n\t\tmethod: 'GET'\r\n\t}, (apiData) => {\r\n\t\t_store__WEBPACK_IMPORTED_MODULE_1__[\"default\"].setData({'apiData': apiData});\r\n\t\tcallback(apiData);\r\n\t});\r\n}\n\n//# sourceURL=webpack:///./src/js/app/actions/trees.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component */ \"./src/js/app/component.js\");\n/* harmony import */ var _auth_signIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth/signIn */ \"./src/js/app/admin/auth/signIn.js\");\n\r\n\r\n\r\nvar Admin = {\r\n\tbuild: function() {\r\n\t\tlet signIn = _auth_signIn__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init();\r\n\t\tthis.el.appendChild(signIn.el);\r\n\r\n\t},\r\n\tinit: function() {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\tproto.constructor = inst;\r\n\r\n\t\t//call initialize on Component first\r\n\t\tinst.initialize({\r\n\t\t\tcontainer: document.querySelector('.js-app-container'),\r\n\t\t});\r\n\r\n\t\tinst.build();\r\n\r\n\t\tinst.render()\r\n\t\t\r\n\t\treturn inst;\r\n\t}\r\n} \r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Admin);\n\n//# sourceURL=webpack:///./src/js/app/admin/admin.js?");
+
+/***/ }),
+
+/***/ "./src/js/app/admin/auth/signIn.js":
+/*!*****************************************!*\
+  !*** ./src/js/app/admin/auth/signIn.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../component */ \"./src/js/app/component.js\");\n/* harmony import */ var _parts_fieldInput__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../parts/fieldInput */ \"./src/js/app/admin/parts/fieldInput.js\");\n\r\n\r\n\r\nvar Signin = {\r\n\tfields: [\r\n\t\t\t{name: 'email', label: 'Email'},\r\n\t\t\t{name: 'password', label: 'Password'},\r\n\t\t\t{name: 'key', label: 'Key'},\r\n\t\t],\r\n\terrors: [\r\n\t\t\t{error: 'Please enter an email', condition: 'required'},\r\n\t\t\t{error: 'Please enter an password', condition: 'required'},\r\n\t\t\t{error: 'Please enter a key', condition: 'required'},\r\n\t\t],\r\n\tbuild: function() {\r\n\t\tlet form = this.el.querySelector('form');\r\n\t\tthis.fields.map((item, key) => {\r\n\t\t\tlet input = _parts_fieldInput__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init({\r\n\t\t\t\tname: item.name,\r\n\t\t\t\tlabel: item.label,\r\n\t\t\t\terror: this.errors[key].error,\r\n\t\t\t\tcondition: this.errors[key].condition,\r\n\t\t\t});\r\n\t\t\tform.appendChild(input.el);\r\n\t\t});\r\n\t\tlet submit = this.createEl(`<button action=\"submit\" class=\"btn btn-primary\">Sign in</button>`);\r\n\t\tform.appendChild(submit);\r\n\t},\r\n\tinit: function() {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\t// assign the instance constructor to the prototype so 'this' refers to the instance\r\n\t\tproto.constructor = inst;\r\n\r\n\t\t//call initialize on Component first\r\n\t\tinst.initialize({ el: \r\n\t\t`<div class=\"admin-main\">\r\n\t         <div class=\"row\">\r\n\t            <div class=\"columns small-12\">\r\n\t               <h1 class=\"margin-bottom\">Login:</h1>\r\n\t               <form>\r\n\t               </form>\r\n\t            </div>\r\n\t         </div>\r\n\t      </div>`\r\n\t\t});\r\n\r\n\t\tinst.build();\r\n\r\n\t\treturn inst;\r\n\t}\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Signin);\n\n//# sourceURL=webpack:///./src/js/app/admin/auth/signIn.js?");
+
+/***/ }),
+
+/***/ "./src/js/app/admin/parts/fieldInput.js":
+/*!**********************************************!*\
+  !*** ./src/js/app/admin/parts/fieldInput.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../component */ \"./src/js/app/component.js\");\n\r\n\r\nvar FieldInput = {\r\n\tinit: function(options) {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\t// assign the instance constructor to the prototype so 'this' refers to the instance\r\n\t\tproto.constructor = inst;\r\n\r\n\t\tinst.name = options.name;\r\n\t\tinst.label = options.label;\r\n\t\tinst.value = options.value || '';\r\n\t\tinst.error = options.error || '';\r\n\r\n\t\t//call initialize on Component first \r\n\t\tinst.initialize({\r\n\t\t\tel: \r\n\t\t\t`<div class=\"form-group \">\r\n                <label>${options.label}:</label>\r\n                <input class=\"form-control\" type=\"text\" name=\"${options.name}\" value=\"${inst.value}\">\r\n                <div class=\"error\"></div>\r\n             </div>`\r\n\t\t});\r\n\r\n\t\tlet errorEl = inst.el.querySelector('.error');\r\n\t\tinst.el.querySelector('input').addEventListener('blur', (e) => {\r\n\t\t\tinst.input = inst.el.querySelector('input');\r\n\t\t\tif((options.condition === 'required') && (inst.input.value == '')) {\r\n\t\t\t\tconsole.log(inst.error);\r\n\t\t\t\terrorEl.innerHTML = inst.error;\r\n\t\t\t}\r\n\t\t\t\r\n\t\t}, false);\r\n\r\n\t\treturn inst;\r\n\t}\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (FieldInput);\n\n//# sourceURL=webpack:///./src/js/app/admin/parts/fieldInput.js?");
 
 /***/ }),
 
@@ -154,7 +178,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nvar Animation = {\r\n\tgetTra
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ \"jquery\");\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _onlineStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./onlineStatus */ \"./src/js/app/onlineStatus.js\");\n/* harmony import */ var _serviceWorker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serviceWorker */ \"./src/js/app/serviceWorker.js\");\n/* harmony import */ var _loadVideo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loadVideo */ \"./src/js/app/loadVideo.js\");\n/* harmony import */ var _bodyClasses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bodyClasses */ \"./src/js/app/bodyClasses.js\");\n/* harmony import */ var _windowSize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./windowSize */ \"./src/js/app/windowSize.js\");\n/* harmony import */ var _mobileMenu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mobileMenu */ \"./src/js/app/mobileMenu.js\");\n/* harmony import */ var _fooSlider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./fooSlider */ \"./src/js/app/fooSlider.js\");\n/* harmony import */ var _components_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/list */ \"./src/js/app/components/list.js\");\n/* harmony import */ var _scroll__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./scroll */ \"./src/js/app/scroll.js\");\n\r\n\r\n\r\nwindow.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;\r\n\r\n//------\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n//import animation from './animation';\r\n\r\n// experimenting=========================================\r\n\r\n\r\n\r\n//config\r\nconst env = \"development\" || false;\r\nvar { SERVER_URL } = __webpack_require__(/*! ../react-app/config */ \"./src/js/react-app/config.js\")[env];\r\nconst isAdminPage = (window.location.href.indexOf('admin') > -1);\r\n\r\n/* ==========================================================================\r\nload foundation plugins - keep this\r\n========================================================================== */\r\n// import whatInput from 'what-input';\r\n// //import all foundation plugins\r\n// // import Foundation from 'foundation-sites';\r\n// //include specific foundation elements\r\n// import './lib/foundation-explicit-pieces';\r\n\r\n\r\n(function() {\r\n\t// turn on/off service worker\r\n\tvar canRegister = false;\r\n\tif(!isAdminPage && canRegister) {\r\n\t\tObject(_serviceWorker__WEBPACK_IMPORTED_MODULE_2__[\"default\"])('register');\r\n\t} else {\r\n\t\tObject(_serviceWorker__WEBPACK_IMPORTED_MODULE_2__[\"default\"])('unregister');\r\n\t}\r\n\r\n\t//check if online/offline and handle it\r\n\tif(!isAdminPage) {\r\n\t\tObject(_onlineStatus__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\r\n\t}\r\n\r\n\t//setup body classes\r\n\tObject(_bodyClasses__WEBPACK_IMPORTED_MODULE_4__[\"default\"])();\r\n\r\n\t//window size utils\r\n\tObject(_windowSize__WEBPACK_IMPORTED_MODULE_5__[\"default\"])();\r\n\r\n\tObject(_mobileMenu__WEBPACK_IMPORTED_MODULE_6__[\"default\"])();\r\n\r\n\tObject(_fooSlider__WEBPACK_IMPORTED_MODULE_7__[\"default\"])();\r\n\r\n\t// //if on the home page\r\n\t// if (window.location.pathname === '/') {\r\n\t// \tanimation();\r\n\t// }\r\n\r\n\t// experimenting=========================================\r\n\r\n\t_components_list__WEBPACK_IMPORTED_MODULE_8__[\"default\"].init();\r\n\r\n})();\r\n\n\n//# sourceURL=webpack:///./src/js/app/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ \"jquery\");\n/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _onlineStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./onlineStatus */ \"./src/js/app/onlineStatus.js\");\n/* harmony import */ var _serviceWorker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./serviceWorker */ \"./src/js/app/serviceWorker.js\");\n/* harmony import */ var _loadVideo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./loadVideo */ \"./src/js/app/loadVideo.js\");\n/* harmony import */ var _bodyClasses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bodyClasses */ \"./src/js/app/bodyClasses.js\");\n/* harmony import */ var _windowSize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./windowSize */ \"./src/js/app/windowSize.js\");\n/* harmony import */ var _mobileMenu__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mobileMenu */ \"./src/js/app/mobileMenu.js\");\n/* harmony import */ var _fooSlider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./fooSlider */ \"./src/js/app/fooSlider.js\");\n/* harmony import */ var _admin_admin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./admin/admin */ \"./src/js/app/admin/admin.js\");\n\r\n\r\n\r\nwindow.$ = jquery__WEBPACK_IMPORTED_MODULE_0___default.a;\r\n\r\n//------\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n//import animation from './animation';\r\n\r\n// experimenting=========================================\r\n// import List from './components/list';\r\n// import Scroll from './scroll';\r\n// admin =========================================\r\n\r\n\r\n//config\r\nconst env = \"development\" || false;\r\nvar { SERVER_URL } = __webpack_require__(/*! ../react-app/config */ \"./src/js/react-app/config.js\")[env];\r\nconst isAdminPage = (window.location.href.indexOf('admin') > -1);\r\n\r\n/* ==========================================================================\r\nload foundation plugins - keep this\r\n========================================================================== */\r\n// import whatInput from 'what-input';\r\n// //import all foundation plugins\r\n// // import Foundation from 'foundation-sites';\r\n// //include specific foundation elements\r\n// import './lib/foundation-explicit-pieces';\r\n\r\n\r\n(function() {\r\n\t// turn on/off service worker\r\n\tvar canRegister = false;\r\n\tif(!isAdminPage && canRegister) {\r\n\t\tObject(_serviceWorker__WEBPACK_IMPORTED_MODULE_2__[\"default\"])('register');\r\n\t} else {\r\n\t\tObject(_serviceWorker__WEBPACK_IMPORTED_MODULE_2__[\"default\"])('unregister');\r\n\t}\r\n\r\n\t//check if online/offline and handle it\r\n\tif(!isAdminPage) {\r\n\t\tObject(_onlineStatus__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\r\n\t}\r\n\r\n\t//setup body classes\r\n\tObject(_bodyClasses__WEBPACK_IMPORTED_MODULE_4__[\"default\"])();\r\n\r\n\t//window size utils\r\n\tObject(_windowSize__WEBPACK_IMPORTED_MODULE_5__[\"default\"])();\r\n\r\n\tObject(_mobileMenu__WEBPACK_IMPORTED_MODULE_6__[\"default\"])();\r\n\r\n\tObject(_fooSlider__WEBPACK_IMPORTED_MODULE_7__[\"default\"])();\r\n\r\n\t// //if on the home page\r\n\t// if (window.location.pathname === '/') {\r\n\t// \tanimation();\r\n\t// }\r\n\r\n\t// admin=========================================\r\n\r\n\t_admin_admin__WEBPACK_IMPORTED_MODULE_8__[\"default\"].init();\r\n\r\n})();\r\n\n\n//# sourceURL=webpack:///./src/js/app/app.js?");
 
 /***/ }),
 
@@ -178,31 +202,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst bodyClasses = function(
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nvar Component = {\r\n\tstate: {},\r\n\tsetState: function(newState) {\r\n\t\t//overwrite old state, and copy into new object \r\n\t\tthis.state = Object.assign({}, this.state, newState);\r\n\t\tconsole.log(this.state);\r\n\t},\r\n    createEl: function(htmlString) {\r\n\t  var div = document.createElement('div');\r\n\t  div.innerHTML = htmlString.trim();\r\n\t  return div.firstChild; \r\n\t},\r\n\tinitialize: function(options) {\r\n\t\tthis.container = options.container || null;\r\n\r\n\t\t//or create a new element from scratch\r\n\t\tthis.el = this.createEl(options.el);\r\n\t},\r\n\trender() {\r\n\t\t//render to the page if container specified\r\n\t\tif(this.container) {\r\n\t\t\tthis.container.appendChild(this.el);\r\n\t\t}\r\n\t}\r\n}\r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Component);\n\n//# sourceURL=webpack:///./src/js/app/component.js?");
-
-/***/ }),
-
-/***/ "./src/js/app/components/button.js":
-/*!*****************************************!*\
-  !*** ./src/js/app/components/button.js ***!
-  \*****************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component */ \"./src/js/app/component.js\");\n\r\n\r\nvar Button = {\r\n\tinit: function() {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\t// assign the instance constructor to the prototype so 'this' refers to the instance\r\n\t\tproto.constructor = inst;\r\n\r\n\t\t//call initialize on Component first\r\n\t\tinst.initialize({\r\n\t\t\tel: `<button style=\"cursor: pointer; display: block;\"></button>`\r\n\t\t});\r\n\r\n\t\tinst.el.addEventListener('click', (e) => {\r\n\t\t\tinst.setState({currentButton: e.target.innerHTML});\r\n\t\t}, false);\r\n\r\n\t\treturn inst;\r\n\t}\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Button);\n\n//# sourceURL=webpack:///./src/js/app/components/button.js?");
-
-/***/ }),
-
-/***/ "./src/js/app/components/list.js":
-/*!***************************************!*\
-  !*** ./src/js/app/components/list.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component */ \"./src/js/app/component.js\");\n/* harmony import */ var _button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./button */ \"./src/js/app/components/button.js\");\n/* harmony import */ var _actions_trees__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/trees */ \"./src/js/app/actions/trees.js\");\n\r\n\r\n\r\n\r\nvar List = {\r\n\tgetData: function() {\r\n\t\tObject(_actions_trees__WEBPACK_IMPORTED_MODULE_2__[\"getSingle\"])('http://localhost/api/trees/single/alternate-leaf-dogwood',\r\n\t\t(apiData) => {\r\n\t\t\tthis.apiData = apiData;\r\n\t\t\tthis.build();\r\n\t\t});\r\n\t},\r\n\tbuild: function() {\r\n\t\tthis.apiData.soil.map((item) => {\r\n\t\t\tlet button = _button__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init();\r\n\t\t\tbutton.el.innerHTML = item.name;\r\n\t\t\tthis.el.appendChild(button.el);\r\n\t\t});\r\n\t},\r\n\tinit: function() {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\t// assign the instance constructor to the prototype so 'this' refers to the instance\r\n\t\tproto.constructor = inst;\r\n\r\n\t\t//call initialize on Component first\r\n\t\tinst.initialize({\r\n\t\t\tcontainer: document.getElementById('example-component'),\r\n\t\t\tel: `<ul></ul>`\r\n\t\t});\r\n\r\n\r\n\t\tinst.getData();\r\n\r\n\t\tinst.render()\r\n\t\treturn inst;\r\n\t}\r\n} \r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (List);\n\n//# sourceURL=webpack:///./src/js/app/components/list.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nvar Component = {\r\n\tstate: {},\r\n\tsetState: function(newState) {\r\n\t\t//overwrite old state, and copy into new object \r\n\t\tthis.state = Object.assign({}, this.state, newState);\r\n\t\tconsole.log(this.state);\r\n\t},\r\n    createEl: function(htmlString) {\r\n\t  var div = document.createElement('div');\r\n\t  div.innerHTML = htmlString.trim();\r\n\t  return div.firstChild; \r\n\t},\r\n\tinitialize: function(options) {\r\n\t\tthis.container = options.container || null;\r\n\r\n\t\t//or create a new element from scratch\r\n\t\tthis.el = (options.el) ? this.createEl(options.el) : this.createEl('<div></div>');\r\n\t},\r\n\trender() {\r\n\t\t//render to the page if container specified\r\n\t\tif(this.container) {\r\n\t\t\tthis.container.appendChild(this.el);\r\n\t\t}\r\n\t}\r\n}\r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Component);\n\n//# sourceURL=webpack:///./src/js/app/component.js?");
 
 /***/ }),
 
@@ -254,18 +254,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* ==========================
 
 /***/ }),
 
-/***/ "./src/js/app/scroll.js":
-/*!******************************!*\
-  !*** ./src/js/app/scroll.js ***!
-  \******************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// example usage: Scroll.init({el: '#example-component'});\r\nvar Scroll = {\r\n\tinit: function(options) {\r\n\t\twindow.addEventListener('scroll', () => {\r\n\t\t\tthis.el = document.querySelector(options.el);\r\n\t\t\t// getBoundingClientRect properties:\r\n\t\t\t// bottom: top of the viewport to the bottom of the el\r\n\t\t\t// height: height of the el\r\n\t\t\t// left: left of the viewport to left of the element\r\n\t\t\t// right: left of the viewport to the right of the element\r\n\t\t\t// top: top of the viewport to the top of the element\r\n\t\t\t// width: width\r\n\t\t\t// note: rect includes padding and borders, everythimg is calculated from\r\n\t\t\t// the top left corner of the viewport, also element must have a defined height to count as height\r\n\t\t\tthis.rect = this.el.getBoundingClientRect();\r\n\t\t\t// window.innerHeight is height of the viewport\r\n\t\t\t// if top of element is in view\r\n\t\t\tlet inOrAboveView = (this.rect.top < window.innerHeight) ? true : false;\r\n\t\t\tlet inOrBelowView = (this.rect.bottom > 0) ? true : false;\r\n\t\t\tlet inView = (inOrAboveView && inOrBelowView) ? true : false;\r\n\r\n\t\t\tconsole.log('element in viewport: ', inView);\r\n\t\t});\r\n\r\n\t}\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Scroll);\n\n//# sourceURL=webpack:///./src/js/app/scroll.js?");
-
-/***/ }),
-
 /***/ "./src/js/app/serviceWorker.js":
 /*!*************************************!*\
   !*** ./src/js/app/serviceWorker.js ***!
@@ -278,18 +266,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* ==========================
 
 /***/ }),
 
-/***/ "./src/js/app/store.js":
-/*!*****************************!*\
-  !*** ./src/js/app/store.js ***!
-  \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nlet Store = {\r\n\tdataStore: {},\r\n\tgetData: function(key) {\r\n\t\tif(this.dataStore[key]) {\r\n\t\t\treturn this.dataStore[key];\t\r\n\t\t} else {\r\n\t\t\tconsole.log('dataStore item does not exist');\r\n\t\t}\r\n\t},\r\n\tsetData: function(newOrUpdated) {\r\n\t\tthis.dataStore = Object.assign({}, this.dataStore, newOrUpdated);\r\n\t}\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Store);\n\n//# sourceURL=webpack:///./src/js/app/store.js?");
-
-/***/ }),
-
 /***/ "./src/js/app/windowSize.js":
 /*!**********************************!*\
   !*** ./src/js/app/windowSize.js ***!
@@ -299,18 +275,6 @@ eval("__webpack_require__.r(__webpack_exports__);\nlet Store = {\r\n\tdataStore:
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\nconst windowSize = function() {\r\n\t/* ==========================================================================\r\n\ttesting\r\n\t========================================================================== */\r\n\r\n\t//media size\r\n\t$(window).on('changed.zf.mediaquery', function(event, newSize, oldSize) {\r\n\t  // newSize is the name of the now-current breakpoint, oldSize is the previous breakpoint\r\n\t  // console.log(newSize);\r\n\t});\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (windowSize);\n\n//# sourceURL=webpack:///./src/js/app/windowSize.js?");
-
-/***/ }),
-
-/***/ "./src/js/app/xhr.js":
-/*!***************************!*\
-  !*** ./src/js/app/xhr.js ***!
-  \***************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nvar Xhr = {\r\n\tinit: function(options) {\r\n\t\tvar inst = Object.create(this);\r\n\t\treturn inst;\r\n\t},\r\n\tsend: function(options, callback) {\r\n\t\tvar parameters = {\r\n\t\t\tmethod: options.method || 'GET'\r\n\t\t}\r\n\r\n\t\tif (options.method == 'POST') {\r\n\t\t\tparameters.headers['Content-Type'] = 'application/json';\r\n\t\t\tparameters.body = JSON.stringify(options.content);\r\n\t\t}\r\n\r\n\t\tfetch(options.endpoint, parameters)\r\n\t\t.then(res => {\r\n\t\t\tif (res.ok) {\r\n\t\t\t\tconsole.log('fetch to '+ options.endpoint +' successful')\r\n\t\t\t\t\r\n\t\t\t} else {\r\n\t\t\t\tconsole.log('fetch to '+ options.endpoint +' not successful')\r\n\t\t\t}\r\n\t\t\t//convert to json gives another promise\r\n\t\t\treturn res.json() \r\n\t\t})\r\n\t\t.then(data => {\r\n\t\t\t//sent the data back\r\n\t\t\tcallback(data);\r\n\t\t})\r\n\t\t.catch(error => console.log(error))\r\n\t}\r\n}\r\n\r\n\r\nvar xhr = Xhr.init({});\r\n\r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (xhr);\n\n//# sourceURL=webpack:///./src/js/app/xhr.js?");
 
 /***/ }),
 

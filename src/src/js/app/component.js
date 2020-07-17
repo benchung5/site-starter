@@ -14,7 +14,7 @@ var Component = {
 		this.container = options.container || null;
 
 		//or create a new element from scratch
-		this.el = this.createEl(options.el);
+		this.el = (options.el) ? this.createEl(options.el) : this.createEl('<div></div>');
 	},
 	render() {
 		//render to the page if container specified
