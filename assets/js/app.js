@@ -130,7 +130,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component */ \"./src/js/app/component.js\");\n/* harmony import */ var _auth_signIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth/signIn */ \"./src/js/app/admin/auth/signIn.js\");\n\r\n\r\n\r\nvar Admin = {\r\n\tbuild: function() {\r\n\t\tlet signIn = _auth_signIn__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init();\r\n\t\tthis.el.appendChild(signIn.el);\r\n\r\n\t},\r\n\tinit: function() {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\tproto.constructor = inst;\r\n\r\n\t\t//call initialize on Component first\r\n\t\tinst.initialize({\r\n\t\t\tcontainer: document.querySelector('.js-app-container'),\r\n\t\t});\r\n\r\n\t\tinst.build();\r\n\r\n\t\tinst.render()\r\n\t\t\r\n\t\treturn inst;\r\n\t}\r\n} \r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Admin);\n\n//# sourceURL=webpack:///./src/js/app/admin/admin.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component */ \"./src/js/app/component.js\");\n/* harmony import */ var _auth_signIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./auth/signIn */ \"./src/js/app/admin/auth/signIn.js\");\n/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../router */ \"./src/js/app/router.js\");\n\r\n\r\n\r\n\r\nvar Admin = {\r\n\tbuild: function() {\r\n\t\tlet signIn = _auth_signIn__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init();\r\n\t\tlet router = _router__WEBPACK_IMPORTED_MODULE_2__[\"default\"].init('signin', (visible) => {\r\n\t\t\tif (visible) {\r\n\t\t\t\tthis.el.appendChild(signIn.el);\r\n\t\t\t}\r\n\t\t});\r\n\t},\r\n\tinit: function() {\r\n\t\tvar proto = Object.assign({}, this, _component__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\r\n\t\tvar inst = Object.create(proto);\r\n\t\tproto.constructor = inst;\r\n\r\n\t\t//call initialize on Component first\r\n\t\tinst.initialize({\r\n\t\t\tcontainer: document.querySelector('.js-app-container'),\r\n\t\t});\r\n\r\n\t\tinst.build();\r\n\r\n\t\tvar button = inst.createEl('<a href=\"#foo\">url</a>');\r\n\t\tinst.el.appendChild(button);\r\n\r\n\t\tinst.render()\r\n\r\n\t\treturn inst;\r\n\t}\r\n} \r\n\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Admin);\n\n//# sourceURL=webpack:///./src/js/app/admin/admin.js?");
 
 /***/ }),
 
@@ -251,6 +251,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ani
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* ==========================================================================\r\n// handle online/offline\r\n========================================================================== */\r\n\r\n const isOnline = function isOnline() {\r\n\t// tell users that they are offline/online\r\n\tconst that = this;\r\n\twindow.addEventListener('load', function() {\r\n\r\n\t\tfunction updateOnlineStatus(event) {\r\n\t\t\tvar condition = navigator.onLine ? \"online\" : \"offline\";\r\n\r\n\t\t\tif(condition == 'offline') {\r\n\t\t\t\t$('body').addClass('offline');\r\n\t\t\t\t$('.offline-modal').addClass('on');\r\n\t\t\t\tconsole.log('offline');\r\n\t\t\t\tsetTimeout(() => {\r\n\t\t\t\t\t$('.offline-modal').removeClass('on');\r\n\t\t\t\t}, 1500);\r\n\r\n\t\t\t} else {\r\n\t\t\t\t$('body').removeClass('offline');\r\n\t\t\t\t$('.offline-modal').removeClass('on');\r\n\t\t\t\tconsole.log('online');\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\twindow.addEventListener('online',  updateOnlineStatus);\r\n\t\twindow.addEventListener('offline', updateOnlineStatus);\r\n\t});\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (isOnline);\r\n\n\n//# sourceURL=webpack:///./src/js/app/onlineStatus.js?");
+
+/***/ }),
+
+/***/ "./src/js/app/router.js":
+/*!******************************!*\
+  !*** ./src/js/app/router.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nlet Router = {\r\n\tonRouteChange() {\r\n\t\tthis.uri = window.location.hash.split('#')[1];\r\n\t\tthis.show = (this.uri == this.route) ? true : false;\r\n\t\tthis.callback(this.show);\r\n\t},\r\n\tinit: function(route, callback) {\r\n\t\tlet inst = Object.create(this);\r\n\t\twindow.addEventListener('hashchange', (e) => { inst.onRouteChange() }, false);\r\n\t\tinst.callback = callback;\r\n\t\tinst.route = route;\r\n\t\tinst.onRouteChange();\r\n\t\treturn inst;\r\n\t}\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (Router);\n\n//# sourceURL=webpack:///./src/js/app/router.js?");
 
 /***/ }),
 

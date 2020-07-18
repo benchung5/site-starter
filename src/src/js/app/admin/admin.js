@@ -1,11 +1,15 @@
 import Component from '../component';
 import SignIn from './auth/signIn';
+import Router from '../router';
 
 var Admin = {
 	build: function() {
 		let signIn = SignIn.init();
-		this.el.appendChild(signIn.el);
-
+		let router = Router.init('signin', (visible) => {
+			if (visible) {
+				this.el.appendChild(signIn.el);
+			}
+		});
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component)
@@ -19,8 +23,11 @@ var Admin = {
 
 		inst.build();
 
+		var button = inst.createEl('<a href="#foo">url</a>');
+		inst.el.appendChild(button);
+
 		inst.render()
-		
+
 		return inst;
 	}
 } 
