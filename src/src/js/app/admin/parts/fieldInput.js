@@ -26,7 +26,6 @@ var FieldInput = {
 		inst.el.querySelector('input').addEventListener('blur', (e) => {
 			inst.input = inst.el.querySelector('input');
 			if((options.condition === 'required') && (inst.input.value == '')) {
-				console.log(inst.error);
 				errorEl.innerHTML = inst.error;
 			}
 			

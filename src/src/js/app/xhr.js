@@ -9,17 +9,17 @@ var Xhr = {
 		}
 
 		if (options.method == 'POST') {
-			parameters.headers['Content-Type'] = 'application/json';
+			parameters.headers = {'Content-Type': 'application/json'};
 			parameters.body = JSON.stringify(options.content);
 		}
 
 		fetch(options.endpoint, parameters)
 		.then(res => {
 			if (res.ok) {
-				console.log('fetch to '+ options.endpoint +' successful')
+				//console.log('fetch to '+ options.endpoint +' successful')
 				
 			} else {
-				console.log('fetch to '+ options.endpoint +' not successful')
+				//console.log('fetch to '+ options.endpoint +' not successful')
 			}
 			//convert to json gives another promise
 			return res.json() 

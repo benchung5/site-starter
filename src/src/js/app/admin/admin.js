@@ -1,15 +1,22 @@
 import Component from '../component';
-import SignIn from './auth/signIn';
 import Router from '../router';
+import SignIn from './auth/signIn';
+import Dashboard from './dashboard';
+import ProtectedWarning from './auth/protectedWarning';
+import PageNotFound from './404';
 
 var Admin = {
-	build: function() {
-		let signIn = SignIn.init();
-		let router = Router.init('signin', (visible) => {
-			if (visible) {
-				this.el.appendChild(signIn.el);
-			}
-		});
+	update: function(route) {
+		//clear el first
+		this.el.innerHTML = '';
+		if(route === 'signin') {
+			this.el.appendChild(this.signIn.el);
+		} else if(route === 'dashboard') {
+			this.el.appendChild(this.dashboard.el);
+		} else {
+			this.el.appendChild(this.pageNotFound.el);
+		}
+		this.render()
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component)
@@ -21,16 +28,15 @@ var Admin = {
 			container: document.querySelector('.js-app-container'),
 		});
 
-		inst.build();
+		//components to show
+		inst.signIn = SignIn.init();
+		inst.pageNotFound = PageNotFound.init();
+		inst.dashboard = Dashboard.init();
 
-		var button = inst.createEl('<a href="#foo">url</a>');
-		inst.el.appendChild(button);
-
-		inst.render()
+		Router.init(inst.update.bind(inst));
 
 		return inst;
 	}
 } 
-
 
 export default Admin;
