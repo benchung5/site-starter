@@ -9,14 +9,17 @@ var Dashboard = {
 
 		//call initialize on Component first
 		inst.initialize({
-			el: 
-			`<div class="admin-main">
-			   <div class="row">
-			      <div class="columns small-12">
-			         <p>Dashboard</p>
-			      </div>
-			   </div>
-			</div>`
+			el:
+			`<div className="admin-main">
+               <div className="row">
+                    <Sidebar/>
+                    <div className="main-window columns small-12 large-9">
+                        <h1 className="margin-bottom">Dashboard</h1>
+                        Admin Area. <br/>
+                        Welcome <span id="user"></span>
+                    </div>
+                </div>	
+            </div>`
 		});
 
 		return inst;

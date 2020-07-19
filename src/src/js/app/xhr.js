@@ -3,17 +3,12 @@ var Xhr = {
 		var inst = Object.create(this);
 		return inst;
 	},
-	send: function(options, callback) {
-		var parameters = {
-			method: options.method || 'GET'
+	send: function(endpoint, parameters, callback) {
+		if (parameters.body) {
+			parameters.body = JSON.stringify(parameters.body);
 		}
 
-		if (options.method == 'POST') {
-			parameters.headers = {'Content-Type': 'application/json'};
-			parameters.body = JSON.stringify(options.content);
-		}
-
-		fetch(options.endpoint, parameters)
+		fetch(endpoint, parameters)
 		.then(res => {
 			if (res.ok) {
 				//console.log('fetch to '+ options.endpoint +' successful')

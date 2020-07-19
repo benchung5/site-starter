@@ -24,13 +24,13 @@ class Users extends Controller
 
 	public function verify() 
 	{
-		$data = Utils::json_read();
-
+		
 		try {
 			$payload = Auth::validateToken();
+			
 			if (isset($payload->userId)) {
 				$user = $this->users->get_user(['id' => $payload->userId]);
-				Utils::json_respond(SUCCESS_RESPONSE, ['id' => $user->id]);
+				Utils::json_respond(SUCCESS_RESPONSE, ['id' => $user->id, 'email' => $user->email]);
 				Utils::dbug($user);
 			} else {
 				Utils::json_respond(INVALID_USER_PASS, "user not found.");

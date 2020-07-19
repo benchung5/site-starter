@@ -32,10 +32,12 @@ class Auth
     {
         $headers = self::getAuthorizationHeader();
         // HEADER: Get the access token from the header
-        if (! empty($headers)) {
-            if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
-                return $matches[1];
-            }
+        
+        if ((! empty($headers)) && (! is_null($headers))) {
+            // if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
+            //     return $matches[1];
+            // }
+            return $headers;
         }
         Utils::json_respond_error(ATHORIZATION_HEADER_NOT_FOUND, 'Access Token Not found');
     }

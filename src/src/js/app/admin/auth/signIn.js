@@ -35,10 +35,10 @@ var Signin = {
 				// clear error
 				document.querySelector('.alert').innerHTML = '';
 				// navigate to new page
-				Router.push('dashboard', `${ADMIN_URL}#dashboard`);
+				Router.push('dashboard');
 			} else {
 				const errorMessage = this.createEl(
-					`<div><strong>Oops!</strong> ${apiData.error}</div>`
+					`<div><strong>Oops!</strong> ${apiData.error || apiData}</div>`
 					);
 				document.querySelector('.alert').appendChild(errorMessage);
 			}

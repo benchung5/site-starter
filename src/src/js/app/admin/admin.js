@@ -4,6 +4,7 @@ import SignIn from './auth/signIn';
 import Dashboard from './dashboard';
 import ProtectedWarning from './auth/protectedWarning';
 import PageNotFound from './404';
+import Auth from './auth/auth';
 
 var Admin = {
 	update: function(route) {
@@ -11,9 +12,18 @@ var Admin = {
 		this.el.innerHTML = '';
 		if(route === 'signin') {
 			this.el.appendChild(this.signIn.el);
-		} else if(route === 'dashboard') {
-			this.el.appendChild(this.dashboard.el);
-		} else {
+		} else if((route === 'dashboard') || (route === '')) {
+			Auth.authenticate((authData) => {
+				console.log(authData);
+				if(authData.id) {
+					this.dashboard.el.querySelector('#user').innerHTML = authData.email;
+					this.el.appendChild(this.dashboard.el);
+				} else {
+					Router.push('signin');
+				}
+			});
+		}
+		else {
 			this.el.appendChild(this.pageNotFound.el);
 		}
 		this.render()

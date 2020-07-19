@@ -1,11 +1,18 @@
+var { ADMIN_URL } = require('./config')['globals'];
+
 let Router = {
-	push(name, uri) {
-		window.history.pushState({}, name, uri);
+	push(uri) {
+		window.history.pushState({}, uri, `${ADMIN_URL}#${uri}`);
 		this.onRouteChange();
 	},
 	onRouteChange() {
 		this.uri = window.location.hash.split('#')[1];
-		this.callback(this.uri);
+		if(this.uri) {
+			this.callback(this.uri);
+		} else {
+			this.callback('');
+		}
+		
 	},
 	init: function(callback) {
 		//let inst = Object.create(this);
