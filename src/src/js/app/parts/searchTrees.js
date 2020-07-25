@@ -1,16 +1,16 @@
 import Component from '../component';
 import { formatSearchString } from '../lib/stringUtils';
 import { searchTrees } from '../actions/trees';
-import treesFilter from '../storage/treesFilter';
+import treesFilterStore from '../storage/treesFilterStore';
 import { getUrlParams, setUrlParams } from '../lib/utils';
-import plantList from '../storage/plantList';
+import plantListStore from '../storage/plantListStore';
 
 var SearchTrees = {
 	search: function(search) {
 		//update the trees filter then search using the updated trees filter
-		treesFilter.setData({ search: search });
-		searchTrees(treesFilter.storageData, (apiData) => {
-			plantList.setData(apiData);
+		treesFilterStore.setData({ search: search });
+		searchTrees(treesFilterStore.storageData, (apiData) => {
+			plantListStore.setData(apiData);
 		});
 	},
 	submitForm: function(e) {

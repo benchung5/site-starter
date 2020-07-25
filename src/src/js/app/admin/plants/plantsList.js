@@ -2,7 +2,7 @@ import Component from '../../component';
 import { getSingle } from '../../actions/trees';
 import Sidebar from '../sidebar';
 import SearchTrees from '../../parts/searchTrees';
-import plantList from '../../storage/plantList';
+import plantListStore from '../../storage/plantListStore';
 import { globals } from '../../config.js';
 
 var PlantsList = {
@@ -14,10 +14,10 @@ var PlantsList = {
 	onDeleteTreeClick: function(e) {
 
 	},
-	renderList(plantList) {
+	renderList: function() {
 		this.itemList.innerHTML = '';
 
-		plantList.trees.map((tree) => {
+		plantListStore.storageData.trees.map((tree) => {
 			let el = this.createEl(
 			   `<li className="list-group-item">
 			        <span>${tree.common_name}</span>
@@ -53,14 +53,10 @@ var PlantsList = {
 		inst.sidebar = Sidebar.init();
 		inst.searchTrees = SearchTrees.init();
 
-		inst.getData();
-
 		inst.build();
 
-		//listen for updated plantlist
-		window.addEventListener('plantListUpdated', function(e) {
-		  inst.renderList(plantList.storageData);
-		});
+		//listen for updated plantlistStore
+		plantListStore.addListener(inst.renderList.bind(inst));
 
 		return inst;
 	}

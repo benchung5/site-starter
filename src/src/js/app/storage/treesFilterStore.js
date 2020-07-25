@@ -1,6 +1,8 @@
+import Store from '../store';
 import { globals } from '../config.js';
 
-var TreesFilter = {
+var TreesFilterStore = {
+	name: 'treesFilterStore',
 	storageData: {
 		categoriesTrees: [],
 	    origins: [],
@@ -9,9 +11,10 @@ var TreesFilter = {
 	    offset: 0,
 	    limit: globals.ADMIN_ENTRIES_PER_PAGE
 	},
-	setData: function(newOrUpdated) {
-		this.storageData = Object.assign({}, this.storageData, newOrUpdated);
+	init: function() {
+	    Object.assign(this, Store);
+	    this.initialze();
 	}
 }
 
-export default TreesFilter;
+export default TreesFilterStore;

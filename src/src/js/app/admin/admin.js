@@ -7,7 +7,8 @@ import SignedOut from './auth/signedOut';
 import PageNotFound from './404';
 import PlantsList from './plants/plantsList';
 import Auth from './auth/auth';
-import plantList from '../storage/plantList';
+import plantListStore from '../storage/plantListStore';
+import treesFilterStore from '../storage/treesFilterStore';
 
 var Admin = {
 	update: function(route) {
@@ -49,6 +50,10 @@ var Admin = {
 		inst.initialize({
 			container: document.querySelector('.js-app-container'),
 		});
+		
+		//init storage items
+		plantListStore.init();
+		treesFilterStore.init();
 
 		//components to show
 		inst.signIn = SignIn.init();
@@ -56,9 +61,6 @@ var Admin = {
 		inst.signedOut = SignedOut.init();
 		inst.dashboard = Dashboard.init();
 		inst.plantsList = PlantsList.init();
-
-		//init storage items
-		plantList.init();
 
 		Router.init(inst.update.bind(inst));
 
