@@ -123,6 +123,7 @@ function (_Component) {
   }, {
     key: "searchTrees",
     value: function searchTrees() {
+      console.log('searching trees');
       this.props.dispatch(Object(_actions_globalTrees__WEBPACK_IMPORTED_MODULE_9__["searchTrees"])(this.props.globalFilterData));
     }
   }, {

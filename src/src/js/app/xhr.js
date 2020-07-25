@@ -1,14 +1,25 @@
+//config
+const env = process.env.NODE_ENV || "development";
+var { SERVER_URL } = require('./config')[env];
+
 var Xhr = {
 	init: function(options) {
 		var inst = Object.create(this);
 		return inst;
 	},
-	send: function(endpoint, parameters, callback) {
+	send: function(endpoint, parameters, callback, query) {
 		if (parameters.body) {
 			parameters.body = JSON.stringify(parameters.body);
 		}
 
-		fetch(endpoint, parameters)
+		var url = new URL(window.location.origin + endpoint)
+
+		if (query) {
+			//from: https://fetch.spec.whatwg.org/#fetch-api
+			url.search = new URLSearchParams(query).toString();
+		} 
+
+		fetch(url, parameters)
 		.then(res => {
 			if (res.ok) {
 				//console.log('fetch to '+ options.endpoint +' successful')

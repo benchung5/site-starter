@@ -1,6 +1,10 @@
 import Component from '../component';
+import Sidebar from './sidebar';
 
 var Dashboard = {
+	build: function() {
+		this.el.querySelector('.main-window').before(this.sidebar.el);
+	},
 	init: function() {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
@@ -10,17 +14,20 @@ var Dashboard = {
 		//call initialize on Component first
 		inst.initialize({
 			el:
-			`<div className="admin-main">
-               <div className="row">
-                    <Sidebar/>
-                    <div className="main-window columns small-12 large-9">
-                        <h1 className="margin-bottom">Dashboard</h1>
+			`<div class="admin-main">
+               <div class="row">
+                    <div class="main-window columns small-12 large-9">
+                        <h1 class="margin-bottom">Dashboard</h1>
                         Admin Area. <br/>
                         Welcome <span id="user"></span>
                     </div>
                 </div>	
             </div>`
 		});
+
+		inst.sidebar = Sidebar.init();
+
+		inst.build()
 
 		return inst;
 	}

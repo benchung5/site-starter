@@ -43,6 +43,7 @@ export function filterOffsetTrees(offset) {
 }
 
 export function filterSearchTrees(search) {
+    console.log(search);
     return {
         type: SEARCH_TREES_FILTER,
         payload: search

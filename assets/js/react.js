@@ -63647,6 +63647,7 @@ function filterOffsetTrees(offset) {
   };
 }
 function filterSearchTrees(search) {
+  console.log(search);
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_2__["SEARCH_TREES_FILTER"],
     payload: search

@@ -3,8 +3,6 @@ import FieldInput from '../parts/fieldInput';
 import { signInUser } from '../../actions/users';
 import Router from '../../router';
 //config
-const env = process.env.NODE_ENV || "development";
-var { SERVER_URL } = require('../../config')[env];
 var { ADMIN_URL } = require('../../config')['globals'];
 
 var Signin = {
@@ -27,7 +25,7 @@ var Signin = {
 		const password = formData.get('password');
 		const key = formData.get('key');
 
-		signInUser(`${SERVER_URL}/users/sign_in`, {email, password, key},
+		signInUser({email, password, key},
 		(apiData) => {
 			if(apiData.token) {
 				// - Save the JWT token

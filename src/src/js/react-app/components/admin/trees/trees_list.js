@@ -33,6 +33,7 @@ class TreesIndex extends Component {
     // }
 
     searchTrees() {
+        console.log('searching trees');
         this.props.dispatch(searchTrees(this.props.globalFilterData));
     }
 

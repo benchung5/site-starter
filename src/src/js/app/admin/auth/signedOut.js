@@ -1,6 +1,7 @@
-import Component from '../component';
+import Component from '../../component';
 
-var MyComp = {
+
+var SignedOut = {
 	init: function() {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
@@ -10,11 +11,17 @@ var MyComp = {
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<button style="cursor: pointer; display: block;"></button>`
+			`<div class="admin-main">
+			   <div class="row">
+			      <div class="columns small-12">
+			         <p>You have been signed out. <a class="" href="#signin">Login</a>.</p>
+			      </div>
+			   </div>
+			</div>`
 		});
 
 		return inst;
 	}
 }
 
-export default MyComp;
+export default SignedOut;

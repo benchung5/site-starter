@@ -1,12 +1,11 @@
-import { authUser } from '../../actions/users';
-//config
-const env = process.env.NODE_ENV || "development";
-var { SERVER_URL } = require('../../config')[env];
+import { authUser, signOutUser } from '../../actions/users';
 
 var Auth = {
+	signOutUser: function() {
+		signOutUser();
+	},
 	authenticate: function(callback) {
-		authUser(`${SERVER_URL}/users/verify`,
-		(apiData) => {
+		authUser((apiData) => {
 			callback(apiData);
 		});
 	}

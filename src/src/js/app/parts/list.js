@@ -4,8 +4,7 @@ import { getSingle } from '../actions/trees'
 
 var List = {
 	getData: function() {
-		getSingle('http://localhost/api/trees/single/alternate-leaf-dogwood',
-		(apiData) => {
+		getSingle('alternate-leaf-dogwood', (apiData) => {
 			this.apiData = apiData;
 			this.build();
 		});
