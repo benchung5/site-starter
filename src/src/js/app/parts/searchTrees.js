@@ -44,9 +44,11 @@ var SearchTrees = {
 		//get the initial search value if in url query
 		let search = getUrlParams('search');
 		if(search) {
-			this.search(search[0]);
+			inst.search(search[0]);
 			//fill in the search box with the value
 			inst.el.querySelector('input[name="search"]').value = search[0];
+		} else {
+			inst.search('');
 		}
 
 		return inst;

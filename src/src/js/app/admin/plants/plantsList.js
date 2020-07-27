@@ -2,14 +2,18 @@ import Component from '../../component';
 import { getSingle } from '../../actions/trees';
 import Sidebar from '../sidebar';
 import SearchTrees from '../../parts/searchTrees';
+import PaginationTrees from '../../parts/paginationTrees';
 import plantListStore from '../../storage/plantListStore';
 import { globals } from '../../config.js';
 
 var PlantsList = {
 	build: function() {
-		this.el.querySelector('.main-window').before(this.sidebar.el);
+		const mainWindow = this.el.querySelector('.main-window');
+
+		mainWindow.before(this.sidebar.el);
 		this.itemList = this.el.querySelector('.item-list');
 		this.itemList.before(this.searchTrees.el);
+		mainWindow.appendChild(this.paginationTrees.el);
 	},
 	onDeleteTreeClick: function(e) {
 
@@ -42,9 +46,7 @@ var PlantsList = {
                     <div class="main-window columns small-12 large-9">
                         <h3>Trees</h3>
                         <ul class="list-group item-list">
-
                         </ul>
-
                     </div>
                 </div>
             </div>`
@@ -52,6 +54,7 @@ var PlantsList = {
 
 		inst.sidebar = Sidebar.init();
 		inst.searchTrees = SearchTrees.init();
+		inst.paginationTrees = PaginationTrees.init();
 
 		inst.build();
 
