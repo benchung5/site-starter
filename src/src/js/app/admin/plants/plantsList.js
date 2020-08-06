@@ -1,5 +1,5 @@
 import Component from '../../component';
-import { getSingle } from '../../actions/trees';
+import { getSingle } from '../../actions/plants';
 import Sidebar from '../sidebar';
 import SearchTrees from '../../parts/searchTrees';
 import PaginationTrees from '../../parts/paginationTrees';
@@ -9,7 +9,6 @@ import { globals } from '../../config.js';
 var PlantsList = {
 	build: function() {
 		const mainWindow = this.el.querySelector('.main-window');
-
 		mainWindow.before(this.sidebar.el);
 		this.itemList = this.el.querySelector('.item-list');
 		this.itemList.before(this.searchTrees.el);
@@ -25,9 +24,14 @@ var PlantsList = {
 			let el = this.createEl(
 			   `<li className="list-group-item">
 			        <span>${tree.common_name}</span>
-			        <a href="#" data-id=${tree.id} data-slug=${tree.slug}>Delete</a>
-			        <Link to="/${globals.ADMIN_URL}/trees-list/${tree.slug}">edit</Link>
+			        <a id="delete" href="" data-id=${tree.id} data-slug=${tree.slug}>Delete</a>
+			        <a href="/${globals.ADMIN_URL}#plant-edit?plant=${tree.slug}">edit</Link>
 			    </li>`);
+
+				el.querySelector('#delete').addEventListener('click', (e) => {
+					e.preventDefault();
+					console.log(e);
+				}, false)
 
 			    this.itemList.appendChild(el);
 		});

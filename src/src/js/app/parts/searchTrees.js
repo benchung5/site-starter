@@ -1,6 +1,6 @@
 import Component from '../component';
 import { formatSearchString } from '../lib/stringUtils';
-import { searchTrees } from '../actions/trees';
+import { searchTrees } from '../actions/plants';
 import treesFilterStore from '../storage/treesFilterStore';
 import { getUrlParams, setUrlParams } from '../lib/utils';
 import plantListStore from '../storage/plantListStore';

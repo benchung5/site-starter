@@ -7,8 +7,6 @@ let Router = {
 	},
 	onRouteChange() {
 		this.uri = window.location.hash.split('#')[1];
-
-
 		// remove the query part if present
 		this.uri = (/\?/.test(this.uri) ? this.uri.split('?') : [this.uri]);
 

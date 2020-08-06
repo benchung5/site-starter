@@ -2753,7 +2753,7 @@ ul.no-bullet, ol.no-bullet {
     -ms-flex-direction: column-reverse;
         flex-direction: column-reverse; } }
 
-[type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], [type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], [type='url'], [type='color'],
+[type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], [type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], [type='url'], [type='color']
 textarea {
   display: block;
   box-sizing: border-box;
@@ -3895,3 +3895,34 @@ html.is-reveal-open body {
 
 .long-delay {
   animation-delay: 700ms !important; }
+
+/* ==========================================================================
+custom multiselect
+========================================================================== */
+
+.multiselect {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 1rem;
+  padding: 0.5rem;
+  border: 1px solid #cacaca;
+  border-radius: 0;
+  background-color: #fefefe;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #0a0a0a;
+  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  .option {
+    cursor: pointer;
+  }
+  .selected {
+    background: #e8e6e6;
+  }
+}

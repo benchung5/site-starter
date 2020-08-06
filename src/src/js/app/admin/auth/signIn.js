@@ -7,14 +7,9 @@ var { ADMIN_URL } = require('../../config')['globals'];
 
 var Signin = {
 	fields: [
-			{name: 'email', label: 'Email'},
-			{name: 'password', label: 'Password'},
-			{name: 'key', label: 'Key'},
-		],
-	errors: [
-			{error: 'Please enter an email', condition: 'required'},
-			{error: 'Please enter an password', condition: 'required'},
-			{error: 'Please enter a key', condition: 'required'},
+			{name: 'email', label: 'Email', error: 'Please enter an email', condition: 'required'},
+			{name: 'password', label: 'Password', error: 'Please enter an password', condition: 'required'},
+			{name: 'key', label: 'Key', error: 'Please enter a key', condition: 'required'},
 		],
 	submitForm(e) {
 		//prevent form from refreshing the page
@@ -42,20 +37,6 @@ var Signin = {
 			}
 		});
 	},
-	build: function() {
-		this.fields.map((item, key) => {
-			let input = FieldInput.init({
-				name: item.name,
-				label: item.label,
-				error: this.errors[key].error,
-				condition: this.errors[key].condition,
-			});
-
-			this.form.appendChild(input.el);
-		});
-		let submit = this.createEl(`<button action="submit" class="btn btn-primary">Sign in</button>`);
-		this.form.appendChild(submit);
-	},
 	init: function() {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
@@ -69,6 +50,9 @@ var Signin = {
 	            <div class="columns small-12">
 	               <h1 class="margin-bottom">Login:</h1>
 	               <form>
+	               	<div id="form-fields">
+	               	</div>
+	               	<button action="submit" class="btn btn-primary">Sign in</button>
 	               </form>
 	               <div class="alert alert-danger"></div>
 	            </div>
@@ -76,10 +60,20 @@ var Signin = {
 	      </div>`
 		});
 
+		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 
-		inst.build();
+		inst.fields.map((item, key) => {
+			let input = FieldInput.init({
+				name: item.name,
+				label: item.label,
+				error: item.error,
+				condition: item.condition,
+			});
+
+			inst.formFields.appendChild(input.el);
+		});
 
 		return inst;
 	}

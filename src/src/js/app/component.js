@@ -3,7 +3,6 @@ var Component = {
 	setState: function(newState) {
 		//overwrite old state, and copy into new object 
 		this.state = Object.assign({}, this.state, newState);
-		console.log(this.state);
 	},
     createEl: function(htmlString) {
 	  var div = document.createElement('div');

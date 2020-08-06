@@ -1,6 +1,6 @@
 import Component from '../../component';
 
-var FieldInput = {
+var FieldDropdownSelect = {
 	init: function(options) {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
@@ -12,22 +12,33 @@ var FieldInput = {
 			el: 
 			`<div class="form-group ">
                 <label>${options.label}:</label>
-                <input class="form-control" type="text" name="${options.name}" value="${options.value || ''}">
+                <select class="form-control" type="text" name="${options.name}" value="${options.value || ''}>
+                </select>
                 <div class="error"></div>
              </div>`
 		});
 
 		let errorEl = inst.el.querySelector('.error');
-		inst.el.querySelector('input').addEventListener('blur', (e) => {
-			inst.input = inst.el.querySelector('input');
+		inst.select = inst.el.querySelector('select');
+		inst.select.addEventListener('blur', (e) => {
+			inst.select = inst.el.querySelector('select');
 			if((options.condition === 'required') && (inst.input.value == '')) {
 				errorEl.innerHTML = options.error;
 			}
 			
 		}, false);
 
+
+	    options.selectItems.map((item) => {
+	    	const option = inst.createEl(`<option value=${item.id}>${item.name}</option>`);
+	    	inst.select.appendChild(option);
+	    });
+
+	    //select the currently selected value
+	    inst.select.value = options.value;
+		
 		return inst;
 	}
 }
 
-export default FieldInput;
+export default FieldDropdownSelect;

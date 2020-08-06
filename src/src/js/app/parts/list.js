@@ -1,6 +1,6 @@
 import Component from '../component';
 import Button from './button';
-import { getSingle } from '../actions/trees'
+import { getSingle } from '../actions/plants'
 
 var List = {
 	getData: function() {

@@ -1,4 +1,4 @@
-import clone from 'lodash/clone';
+import lodashClone from 'lodash/clone';
 import { sanitizeInputString } from './stringUtils';
 
 //toggle class (useful for css animations)
@@ -152,7 +152,7 @@ export function setUrlParams(key, val) {
 
     // if key doesn't exist, just add it in with it's new values
     if (!containsKey) {
-      finalParts = clone(parts);
+      finalParts = lodashClone(parts);
       finalParts.push(key + '=' + val)
     }
     
@@ -177,22 +177,22 @@ export function getUrlParams(key) {
     hash = hash.replace('#', '')
 
     // get the query parts
-    let parts = (/\?/.test(hash) ? hash.split('?') : [hash])
+    let parts = (/\?/.test(hash) ? hash.split('?') : [hash]);
     
     for(var i = 0; i < parts.length; i++) {
       // get the part that has the key
-      var regexp = new RegExp('^' + key);
+      var regexp = new RegExp('^' + key + '=');
       // get the indavidual parameters
       if (regexp.test(parts[i])) {
-
         let params = parts[i].split('=');
 
         if (params && (!params[1])) {
           //if a parameter but no value
-          return [];
+          return null;
         }
 
         if (params && params[1]) {
+
           //if value(s) 
           // sanitize
           params[0] = sanitizeInputString(params[0]);
@@ -207,4 +207,14 @@ export function getUrlParams(key) {
   }
   //no parameter not found
   return false;
+}
+
+export function clone(objectToClone) {
+  let clonedObject = JSON.stringify(objectToClone);
+  try {
+    return JSON.parse(clonedObject);
+  }
+  catch(e) {
+    return false;
+  }
 }

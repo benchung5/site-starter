@@ -4,7 +4,7 @@ import treesFilterStore from '../storage/treesFilterStore';
 import plantListStore from '../storage/plantListStore';
 import { toggleClass } from '../lib/utils';
 import { getUrlParams, setUrlParams } from '../lib/utils';
-import { searchTrees } from '../actions/trees';
+import { searchTrees } from '../actions/plants';
 
 var MyComp = {
 	updateOffset: function(newOffset) {

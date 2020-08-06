@@ -6,9 +6,11 @@ import ProtectedWarning from './auth/protectedWarning';
 import SignedOut from './auth/signedOut';
 import PageNotFound from './404';
 import PlantsList from './plants/plantsList';
+import PlantEdit from './plants/plantEdit';
 import Auth from './auth/auth';
 import plantListStore from '../storage/plantListStore';
 import treesFilterStore from '../storage/treesFilterStore';
+import plantTablesStore from '../storage/plantTablesStore';
 
 var Admin = {
 	update: function(route) {
@@ -36,6 +38,15 @@ var Admin = {
 					Router.push('signin');
 				}
 			});
+		} else if(route === 'plant-edit') {
+			Auth.authenticate((authData) => {
+				if(authData.id) {
+					this.plantEdit.onLoad();
+					this.el.appendChild(this.plantEdit.el);
+				} else {
+					Router.push('signin');
+				}
+			});
 		} else {
 			this.el.appendChild(this.pageNotFound.el);
 		}
@@ -54,6 +65,7 @@ var Admin = {
 		//init storage items
 		plantListStore.init();
 		treesFilterStore.init();
+		plantTablesStore.init();
 
 		//components to show
 		inst.signIn = SignIn.init();
@@ -61,6 +73,8 @@ var Admin = {
 		inst.signedOut = SignedOut.init();
 		inst.dashboard = Dashboard.init();
 		inst.plantsList = PlantsList.init();
+		inst.plantEdit = PlantEdit.init();
+		
 
 		Router.init(inst.update.bind(inst));
 
