@@ -3,7 +3,7 @@ import FieldHidden from './fieldHidden';
 import { toggleClass } from '../../lib/utils';
 
 var FieldMultiselect = {
-	updateValue: function() {		
+	updateValue: function() {
 		this.fieldHidden.el.value = this.state.value.toString();
 	},
 	onOptionClick: function(e) {

@@ -3,6 +3,7 @@ import FieldInput from '../parts/fieldInput';
 import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
 import UploadedImages from '../parts/uploadedImages';
+import FieldAddImages from '../parts/fieldAddImages';
 import Sidebar from '../sidebar';
 import { signInUser } from '../../actions/users';
 import { fetchPlantTables, getPlant, updatePlant } from '../../actions/plants';
@@ -14,7 +15,7 @@ import plantFields from './plantFields';
 var { ADMIN_URL } = require('../../config')['globals'];
 
 var PlantEdit = {
-	submitForm(e) {
+	submitForm: function(e) {
 		//prevent form from refreshing the page
 		e.preventDefault();
 		let formData = new FormData(e.target);
@@ -102,13 +103,19 @@ var PlantEdit = {
 				}
 			});
 
-			//init images on UploadedImages component
+			//init UploadedImages
 			this.uploadedImages = UploadedImages.init({
 				onChange: this.onInputChange.bind(this),
 				images: apiData.images,
 				refType: 'trees'
 			});
 			this.formFields.appendChild(this.uploadedImages.el);
+
+			//init fieldAddImages
+			this.fieldAddImages = FieldAddImages.init({
+				tags: plantTablesStore.storageData['tags']
+			});
+			this.formFields.appendChild(this.fieldAddImages.el);
 		});
 	},
 	init: function() {

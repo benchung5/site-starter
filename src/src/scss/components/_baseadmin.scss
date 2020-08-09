@@ -245,6 +245,15 @@ button.copy-btn {
   cursor: pointer;
 }
 
+.crop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  #canvas {
+    margin-bottom: 20px;
+  }
+}
+
 .cropper-buttons {
   margin: 1em 0.5em;
   padding: 0.5em;
@@ -253,8 +262,6 @@ button.copy-btn {
   justify-content: center;
   align-items: center;
 }
-
-
 
 .cropper-buttons button {
   margin: 2em 1em;
@@ -678,7 +685,7 @@ menu {
      * Add the correct display in IE 9-.
      */
 canvas {
-  display: inline-block; }
+  display: block; }
 
 /**
      * Add the correct display in IE.
