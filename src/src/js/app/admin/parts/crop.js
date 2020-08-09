@@ -36,13 +36,51 @@ var Crop = {
 	  	let img = new Image();
 	    img.src = reader.result;
 	    img.onload = () => {
-    	    this.ctx.drawImage(img,
-    		    (img.naturalWidth - this.thumbWidth)/2, (img.naturalHeight - this.thumbHeight)/2, // x, y start from top left of image (crop),
-    		    this.thumbWidth, this.thumbHeight, // w, h of image (crop),
+	    	const widthAspect = img.naturalWidth / img.naturalHeight;
+	    	const heightAspect = img.naturalHeight / img.naturalWidth;
+	    	let height = 0;
+	    	let width = 0;
+
+	    	if(img.naturalWidth > img.naturalHeight) {
+	    		height = this.thumbHeight;
+	    		width = this.thumbWidth*widthAspect
+	    	}
+
+	    	if(img.naturalWidth < img.naturalHeight) {
+	    		width = this.thumbWidth;
+	    		height = this.thumbHeight*heightAspect
+	    	}
+
+	    	//create a temporary canvas to create the resized image
+	    	this.tempCanvas = document.createElement('canvas');
+	    	this.tempCanvas.width = width;
+	    	this.tempCanvas.height = height;
+	    	var tempCtx = this.tempCanvas.getContext('2d');
+
+    	    tempCtx.drawImage(img,
+    		    0, 0, // x, y start from top left of image (crop),
+    		    img.naturalWidth, img.naturalHeight, // w, h of image (crop),
     		    0, 0, // x, y start from top left of canvas for result image,
-    		    this.thumbWidth, this.thumbHeight); // w, h of result image (scale)
+    		    width, height // w, h of result image (scale)
+				);
+
+
+    	    //draw temp canvas to the main canvas (draw as an image)
+    	    this.canvas.width = width;
+    	    this.canvas.height = height;
+    	    this.ctx.drawImage(this.tempCanvas, 0, 0);
+
+    	    //draw a rectangle in the center of the image
+    	    this.rectXPos = (width - this.thumbWidth)/2;
+			this.rectYPos = (height - this.thumbHeight)/2;
+			this.drawRect();
 	    }
 	  }
+	},
+	drawRect: function() {
+		this.ctx.beginPath();
+		this.ctx.rect(this.rectXPos, this.rectYPos, this.thumbWidth, this.thumbHeight);
+		this.ctx.stroke();
 	},
 	submitCrop: function() {
 		// if(window.navigator.msSaveBlob) {
@@ -53,6 +91,20 @@ var Crop = {
 		// 	});
 		// }
 
+		//clear canvas and set it's width and height to finished crop dimensions
+		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.canvas.width = this.thumbWidth;
+		this.canvas.height = this.thumbHeight;
+
+		//crop the portion of the image inside the box and draw
+	    this.ctx.drawImage(this.tempCanvas,
+		    this.rectXPos, this.rectYPos, // x, y start from top left of image (crop),
+		    this.thumbWidth, this.thumbHeight, // w, h of image (crop),
+		    0, 0, // x, y start from top left of canvas for result image,
+		    this.thumbWidth, this.thumbHeight // w, h of result image (scale)
+			);
+
+	    //convert to blob and output file data and preview
 		this.canvas.toBlob((blob) => {
 			
 			const fileData = {
@@ -103,16 +155,16 @@ var Crop = {
 		  }
 		 });
 		}
+		//end polyfill
 
 		inst.onCropDone = options.onCropDone;
 		inst.updateFiles = options.onUpdateFiles;
-
 
 		//call initialize on Component first
 		inst.initialize({
 			el: 
 			`<div class="crop">
-				<canvas id="canvas" width="${inst.thumbWidth}" height="${inst.thumbHeight}"></canvas>
+				<canvas id="canvas"></canvas>
 
 				<div class="cropper-buttons">
 				  <button id="crop" class="btn"}>crop</button>
@@ -132,7 +184,8 @@ var Crop = {
 		inst.cropperButtons.before(inst.imageEditMeta.el);
 
 		inst.canvas = inst.el.querySelector('#canvas');
-		inst.canvas.style.width = this.thumbWidth;
+		// inst.canvas.style.maxWidth = '400px';
+		// inst.canvas.style.maxheight = '400px';
 		inst.canvas.style.height = this.thumbHeight;
 		inst.ctx = inst.canvas.getContext('2d');
 
