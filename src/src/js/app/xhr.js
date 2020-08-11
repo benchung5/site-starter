@@ -8,10 +8,6 @@ var Xhr = {
 		return inst;
 	},
 	send: function(endpoint, parameters, callback, query) {
-		if (parameters.body) {
-			parameters.body = JSON.stringify(parameters.body);
-		}
-
 		var url = new URL(window.location.origin + endpoint)
 
 		if (query) {

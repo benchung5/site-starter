@@ -4,6 +4,8 @@ import { toggleClass } from '../../lib/utils';
 
 var FieldMultiselect = {
 	updateValue: function() {
+
+		//update hidden input
 		this.fieldHidden.el.value = this.state.value.toString();
 	},
 	onOptionClick: function(e) {
@@ -31,7 +33,6 @@ var FieldMultiselect = {
 		//call initialize on Component first 
 		inst.initialize({
 			el:
-			// value="${options.value || ''}"
 			`<div class="form-group ">
                 <label>${options.label}:</label>
                 <div id="select" class="multiselect"></div>
@@ -53,27 +54,32 @@ var FieldMultiselect = {
 
 		inst.selectItems = options.selectItems;
 
-		let valueArray = options.value.map((item) => {
-			return item.id;
-		});
-		inst.setState({ value: valueArray });
-
-
-
 		inst.selectItems.map((item) => {
-			let selected = false;
-			inst.state.value.map((selectedItem) => {
-				if(item.id == selectedItem) {
-					selected = true;
-				}
-			});
-
-			const option = inst.createEl(`<div class="option ${selected ? 'selected' : ''}" data-value="${item.id}">${item.name}</div>`);
-
+			const option = inst.createEl(`<div class="option" data-value="${item.id}">${item.name}</div>`);
 			option.addEventListener('click', inst.onOptionClick.bind(inst), false);
-
 			inst.select.appendChild(option);
 		});
+
+		inst.setState({ value: [] });
+
+		//set initial selected if presnent
+		if(options.value) {
+			let valueArray = options.value.map((item) => {
+				return item.id;
+			});
+			inst.setState({ value: valueArray });
+
+			inst.selectItems.map((item) => {
+				//save this in state
+				inst.state.value.map((selectedItem) => {
+					if(item.id == selectedItem) {
+						//update the option element
+						toggleClass(inst.select.querySelector(`[data-value="${item.id}"]`), 'selected');
+					}
+				});
+			});
+		}
+
 		inst.updateValue();
 
 		return inst;

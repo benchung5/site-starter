@@ -28,7 +28,6 @@ var FieldDropdownSelect = {
 			
 		}, false);
 
-
 	    options.selectItems.map((item) => {
 	    	const option = inst.createEl(`<option value=${item.id}>${item.name}</option>`);
 	    	inst.select.appendChild(option);

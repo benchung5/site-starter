@@ -2,20 +2,23 @@ import Component from '../../component';
 import FieldInput from '../parts/fieldInput';
 import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
-import UploadedImages from '../parts/uploadedImages';
 import FieldAddImages from '../parts/fieldAddImages';
 import Sidebar from '../sidebar';
-import { fetchPlantTables, getPlant, updatePlant } from '../../actions/plants';
+import { fetchPlantTables, addPlant } from '../../actions/plants';
 import plantTablesStore from '../../storage/plantTablesStore';
-import { getUrlParams } from '../../lib/utils';
 import plantFields from './plantFields';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
 
-var PlantEdit = {
+var PlantAdd = {
 	submitForm: function(e) {
-		//prevent form from refreshing the page
+		// e.preventDefault();
+		// let formData = new FormData();
+		// formData.append('mykey', 'myvalue');
+
+
+		// prevent form from refreshing the page
 		e.preventDefault();
 		let formData = new FormData(e.target);
 
@@ -25,9 +28,6 @@ var PlantEdit = {
 			formData.append('image'+'_'+index+'_cropped', item.croppedFile);
 			formData.append('image'+'_'+index+'_info', [item.tag_id, item.description]);
 		});
-
-		//append the current plant id
-		formData.append('tree_id', this.plantId);
 
 		//delete any empty fields in formData
 		for (let pair of formData.entries()) {
@@ -40,10 +40,7 @@ var PlantEdit = {
 		// console.log(Array.from(formData));
 
 		// call action to submit edited
-		updatePlant(formData, this.renderUpdated.bind(this));
-
-		//clear deleted images
-		this.uploadedImages.reset();
+		addPlant(formData, this.renderUpdated.bind(this));
 	},
 	clearMessages: function() {
 	  this.submissionMessage.innerHTML = '';
@@ -53,67 +50,7 @@ var PlantEdit = {
 	},
 	renderUpdated: function(treeUpdated) {
 		this.submissionMessage.innerHTML = '';
-		this.submissionMessage.innerHTML = `<span>Tree: ${treeUpdated.common_name}<br/>successfully updated.</span>`;
-	},
-	onLoad: function() {
-		//first clear the form fields
-		this.formFields.innerHTML = '';
-
-		//get the plant data
-		const plant = getUrlParams('plant')[0];
-		getPlant(plant, (apiData) => {
-			//record the current plant id
-			this.plantId = apiData.id
-			//create the fields
-			plantFields.map((item) => {
-				if(item.type === 'input') {
-					let input = FieldInput.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name]
-					});
-					this.formFields.appendChild(input.el);
-				}
-				if(item.type === 'dropdownSelect') {
-					let dropdownSelect = FieldDropdownSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name],
-						selectItems: plantTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(dropdownSelect.el);
-				}
-				if(item.type === 'multiSelect') {
-					let multiSelect = FieldMultiSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name],
-						selectItems: plantTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(multiSelect.el);
-				}
-			});
-
-			//init UploadedImages
-			this.uploadedImages = UploadedImages.init({
-				onChange: this.onInputChange.bind(this),
-				images: apiData.images,
-				refType: 'trees'
-			});
-			this.formFields.appendChild(this.uploadedImages.el);
-
-			//init fieldAddImages
-			this.fieldAddImages = FieldAddImages.init({
-				tags: plantTablesStore.storageData['tags']
-			});
-			this.formFields.appendChild(this.fieldAddImages.el);
-		});
+		this.submissionMessage.innerHTML = `<span>Tree: ${treeUpdated.common_name}<br/>successfully added.</span>`;
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component)
@@ -126,7 +63,7 @@ var PlantEdit = {
 		`<div class="admin-main">
               <div class="row">
                   <div class="main-window columns small-12 large-9">
-                      <h3>Edit Plant</h3>
+                      <h3>Add Plant</h3>
                       <form>
 	                      <div id="form-fields">
 	                      </div>
@@ -150,12 +87,52 @@ var PlantEdit = {
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 
 		//get plant table data
-		fetchPlantTables((apiData) => {
-			plantTablesStore.setData(apiData);
+		fetchPlantTables((plantTables) => {
+			//use plantTablesStore because some values exist there statically and not in the plantTables
+			plantTablesStore.setData(plantTables);
+
+			//create the fields
+			plantFields.map((item) => {
+				if(item.type === 'input') {
+					let input = FieldInput.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition
+					});
+					inst.formFields.appendChild(input.el);
+				}
+				if(item.type === 'dropdownSelect') {
+					let dropdownSelect = FieldDropdownSelect.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+						selectItems: plantTablesStore.storageData[item.name]
+					});
+					inst.formFields.appendChild(dropdownSelect.el);
+				}
+				if(item.type === 'multiSelect') {
+					let multiSelect = FieldMultiSelect.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+						selectItems: plantTablesStore.storageData[item.name]
+					});
+					inst.formFields.appendChild(multiSelect.el);
+				}
+			});
+
+			//init fieldAddImages
+			inst.fieldAddImages = FieldAddImages.init({
+				tags: plantTablesStore.storageData['tags']
+			});
+			inst.formFields.appendChild(inst.fieldAddImages.el);
 		});
 
 		return inst;
 	}
 }
 
-export default PlantEdit;
+export default PlantAdd;

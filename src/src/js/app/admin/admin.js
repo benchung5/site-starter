@@ -6,6 +6,7 @@ import ProtectedWarning from './auth/protectedWarning';
 import SignedOut from './auth/signedOut';
 import PageNotFound from './404';
 import PlantsList from './plants/plantsList';
+import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
 import Auth from './auth/auth';
 import plantListStore from '../storage/plantListStore';
@@ -34,6 +35,14 @@ var Admin = {
 			Auth.authenticate((authData) => {
 				if(authData.id) {
 					this.el.appendChild(this.plantsList.el);
+				} else {
+					Router.push('signin');
+				}
+			});
+		} else if(route === 'plant-add') {
+			Auth.authenticate((authData) => {
+				if(authData.id) {
+					this.el.appendChild(this.plantAdd.el);
 				} else {
 					Router.push('signin');
 				}
@@ -73,6 +82,7 @@ var Admin = {
 		inst.signedOut = SignedOut.init();
 		inst.dashboard = Dashboard.init();
 		inst.plantsList = PlantsList.init();
+		inst.plantAdd = PlantAdd.init();
 		inst.plantEdit = PlantEdit.init();
 		
 

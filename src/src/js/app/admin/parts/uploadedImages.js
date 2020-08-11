@@ -18,9 +18,6 @@ var UploadedImages = {
 		//update local state
 		this.setState({ images: updatedImages });
 		this.setState({ deletedImages });
-
-		console.log(this.state.images);
-		console.log(this.state.deletedImages);
 		this.updateImages();
 
 		//update parent

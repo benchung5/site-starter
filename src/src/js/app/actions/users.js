@@ -8,7 +8,7 @@ export function signInUser(data, callback) {
 	xhr.send(`${SERVER_URL}/users/sign_in`,
 	{
 		method: 'POST',
-		body: data,
+		body: JSON.stringify(data),
 		headers: {'Content-Type': 'application/json'},
 	}, (apiData) => {
 		callback(apiData);

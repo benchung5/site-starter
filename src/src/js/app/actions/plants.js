@@ -113,41 +113,26 @@ export function fetchPlantTables(callback) {
 }
 
 
-export function updatePlant(formData) {
+export function updatePlant(formData, callback) {
+    console.log(Array.from(formData));
     xhr.send(`${SERVER_URL}/trees/update`,
     {
         method: 'POST',
-        headers: { 
-            'Content-Type': 'multipart/form-data',
-        },
-        body: { formData }
+        body: formData
     }, (apiData) => {
         callback(apiData);
     });
 }
 
-// export function updateTree(formData) {
-//     //needed for image file submission
-//     const config = {
-//         headers: { 'content-type': 'multipart/form-data' }
-//     }
-//     return function(dispatch) {
-//         // post to http://192.168.99.100/api/trees/update
-//         axios.post( `${SERVER_URL}/trees/update`, formData, config )
-//         .then( response => {
-//             if(response.data.error) {
-//                 dispatch(updateTreeError(`there was an error updating the tree: ${response.data.error}`));
-//             } else {
-//                 dispatch({
-//                     type: UPDATE_TREE,
-//                     payload: response.data
-//                 });
-//             }
-//         })
-//         .catch((err) => {
-//             console.log('there was an error updating the tree: ', err);
-//             //dispatch(updateTreeError(`there was an error updating the tree: ${err}`));
-//         });
-//     }
-// }
+export function addPlant(formData, callback) {
+    console.log(Array.from(formData));
+    xhr.send(`${SERVER_URL}/trees/create`,
+    {
+        method: 'POST',
+        body: formData,
+    }, (apiData) => {
+        callback(apiData);
+    });
+}
+
 
