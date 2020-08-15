@@ -3,6 +3,7 @@ import FieldInput from '../parts/fieldInput';
 import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
 import FieldAddImages from '../parts/fieldAddImages';
+import FieldTextarea from '../parts/fieldTextarea';
 import Sidebar from '../sidebar';
 import { fetchPlantTables, addPlant } from '../../actions/plants';
 import plantTablesStore from '../../storage/plantTablesStore';
@@ -29,12 +30,19 @@ var PlantAdd = {
 			formData.append('image'+'_'+index+'_info', [item.tag_id, item.description]);
 		});
 
+		// //delete any empty fields in formData
+		// for (let pair of formData.entries()) {
+		// 	if (pair[1] == "") {
+		// 		formData.delete(pair[0]);
+		// 	}
+		// }
+
 		//delete any empty fields in formData
-		for (let pair of formData.entries()) {
-			if (pair[1] == "") {
-				formData.delete(pair[0]);
+		Array.from(formData).map((item) => {
+			if (item[1] == '') {
+				formData.delete(item[0]);
 			}
-		}
+		});
 
 		// //use this to log out formdata values
 		// console.log(Array.from(formData));
@@ -121,6 +129,15 @@ var PlantAdd = {
 						selectItems: plantTablesStore.storageData[item.name]
 					});
 					inst.formFields.appendChild(multiSelect.el);
+				}
+				if(item.type === 'textarea') {
+					let textarea = FieldTextarea.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+					});
+					inst.formFields.appendChild(textarea.el);
 				}
 			});
 

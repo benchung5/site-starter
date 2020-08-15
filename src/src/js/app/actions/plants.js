@@ -114,7 +114,6 @@ export function fetchPlantTables(callback) {
 
 
 export function updatePlant(formData, callback) {
-    console.log(Array.from(formData));
     xhr.send(`${SERVER_URL}/trees/update`,
     {
         method: 'POST',
@@ -125,7 +124,6 @@ export function updatePlant(formData, callback) {
 }
 
 export function addPlant(formData, callback) {
-    console.log(Array.from(formData));
     xhr.send(`${SERVER_URL}/trees/create`,
     {
         method: 'POST',
@@ -134,5 +132,17 @@ export function addPlant(formData, callback) {
         callback(apiData);
     });
 }
+
+export function deletePlant(tree, callback) {
+    xhr.send(`${SERVER_URL}/trees/delete`, 
+    {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(tree)
+    }, (apiData) => {
+        callback(apiData);
+    });
+}
+
 
 

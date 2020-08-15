@@ -1,8 +1,9 @@
 import Component from '../../component';
 
 var ImageEditMeta = {
-	onTagChange: function(value) {
-		this.setState({tag_id: value});
+	onTagChange: function(e) {
+		this.setState({tag_id: e.target.value});
+		this.setState({tag_name: e.target.options[e.target.selectedIndex].text});
 		this.update();
 	},
 	onDescChange(inputValue) {
@@ -11,7 +12,8 @@ var ImageEditMeta = {
 	},
 	update() {
 		this.onUpdate({ 
-			tag: this.state.tag_id, 
+			tag: this.state.tag_id,
+			tagName: this.state.tag_name,
 			description: this.state.description 
 		});
 	},
@@ -40,7 +42,7 @@ var ImageEditMeta = {
 		  const option = inst.createEl(`<option key=${item.id} value=${item.id}>${item.name}</option>`);
 		  inst.select.appendChild(option);
 		});
-		inst.select.addEventListener('change', (e) => inst.onTagChange(e.target.value), false);
+		inst.select.addEventListener('change', inst.onTagChange.bind(inst), false);
 		inst.input = inst.el.querySelector('input');
 		inst.input.addEventListener('input', (e) => inst.onDescChange(e.target.value), false);
 		//set an initial value

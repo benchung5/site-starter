@@ -45,9 +45,13 @@ var FieldAddImages = {
 			const dropPreviewImage = this.createEl(`
 				<div class="drop-preview">
 					<div data-id="${item.croppedFile.name}" class="close-btn"></div>
-					<img class="drop-img-preview" src=${this.state.previews[index]} />
+					<img class="drop-img-preview" src=${this.state.previews[index].dataUrl} />
 					<div class="desc">
-		            ${'tag_id: ' + item.tag_id}
+					  ${this.state.previews[index].name}
+					  <br/>
+					  ${this.state.previews[index].tagName && 'tag: ' + this.state.previews[index].tagName}
+					  <br/>
+					  ${item.description && 'description: ' + item.description} 
 					</div>
 				</div>
 				`);

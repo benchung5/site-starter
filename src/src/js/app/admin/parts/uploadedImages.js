@@ -51,7 +51,9 @@ var UploadedImages = {
 					<div class="desc">
 					  ${item.name}
 					  <br/>
-					  ${item.tag_name && 'tag: ' + item.tag_name}
+					  ${item.tag_name && 'tag name: ' + item.tag_name}
+					  <br/>
+					  ${item.description && 'description: ' + item.description}
 					</div>
 				</div>
 				`);
@@ -91,9 +93,6 @@ var UploadedImages = {
 		inst.el.appendChild(inst.hiddenFieldDeletedImages.el);
 
 		inst.updateImages();
-
-		//pupulate hidden fields with inital values
-		inst.updateHiddenFields(options.images, []);
 
 		return inst;
 	}

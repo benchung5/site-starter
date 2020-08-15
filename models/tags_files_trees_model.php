@@ -24,4 +24,17 @@ class Tags_files_trees_model extends Model
 		$result = $this->db->getAll();
 		return $result;
 	}
+
+	public function get($id) 
+	{
+		$this->db->table('tags_files_trees')->select('*');
+
+		if ($id) {
+			$this->db->where('id', '=', $id);
+		}
+
+		$result = $this->db->get();
+		
+		return $result;
+	}
 }

@@ -6,10 +6,26 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
 {
+    public static $files = array (
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'Psr\\Http\\Message\\' => 17,
+        ),
         'L' => 
         array (
             'Lib\\' => 4,
+        ),
+        'I' => 
+        array (
+            'Intervention\\Image\\' => 19,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
         ),
         'C' => 
         array (
@@ -19,9 +35,21 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
     );
 
     public static $prefixDirsPsr4 = array (
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'Lib\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib',
+        ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
         'Controllers\\' => 
         array (
@@ -33,45 +61,11 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
         ),
     );
 
-    public static $classMap = array (
-        'Config\\Config' => __DIR__ . '/../..' . '/config/config.php',
-        'Controllers\\About' => __DIR__ . '/../..' . '/controllers/about.php',
-        'Controllers\\Access_denied' => __DIR__ . '/../..' . '/controllers/access_denied.php',
-        'Controllers\\Admin' => __DIR__ . '/../..' . '/controllers/admin.php',
-        'Controllers\\Api\\Articles' => __DIR__ . '/../..' . '/controllers/api/articles.php',
-        'Controllers\\Api\\Categories' => __DIR__ . '/../..' . '/controllers/api/categories.php',
-        'Controllers\\Api\\Tags' => __DIR__ . '/../..' . '/controllers/api/tags.php',
-        'Controllers\\Api\\Tree_tables' => __DIR__ . '/../..' . '/controllers/api/tree_tables.php',
-        'Controllers\\Api\\Trees' => __DIR__ . '/../..' . '/controllers/api/trees.php',
-        'Controllers\\Api\\Users' => __DIR__ . '/../..' . '/controllers/api/users.php',
-        'Controllers\\Articles' => __DIR__ . '/../..' . '/controllers/articles.php',
-        'Controllers\\Contact' => __DIR__ . '/../..' . '/controllers/contact.php',
-        'Controllers\\Four_o_four' => __DIR__ . '/../..' . '/controllers/four_o_four.php',
-        'Controllers\\Index' => __DIR__ . '/../..' . '/controllers/index.php',
-        'Controllers\\Login' => __DIR__ . '/../..' . '/controllers/login.php',
-        'Controllers\\Plants' => __DIR__ . '/../..' . '/controllers/plants.php',
-        'Controllers\\Send_email' => __DIR__ . '/../..' . '/controllers/send_email.php',
-        'Lib\\Auth\\Auth' => __DIR__ . '/../..' . '/lib/auth/auth.php',
-        'Lib\\Auth\\JWT' => __DIR__ . '/../..' . '/lib/auth/jwt.php',
-        'Lib\\Controller' => __DIR__ . '/../..' . '/lib/controller.php',
-        'Lib\\Meta' => __DIR__ . '/../..' . '/lib/meta.php',
-        'Lib\\Model' => __DIR__ . '/../..' . '/lib/model.php',
-        'Lib\\Pdox\\Cache' => __DIR__ . '/../..' . '/lib/pdox/Cache.php',
-        'Lib\\Pdox\\Pdox' => __DIR__ . '/../..' . '/lib/pdox/Pdox.php',
-        'Lib\\Upload' => __DIR__ . '/../..' . '/lib/upload.php',
-        'Lib\\Uri' => __DIR__ . '/../..' . '/lib/uri.php',
-        'Lib\\Utils' => __DIR__ . '/../..' . '/lib/utils.php',
-        'Lib\\Validation\\Validation_rule' => __DIR__ . '/../..' . '/lib/validation/validation_rule.php',
-        'Lib\\Validation\\Validator' => __DIR__ . '/../..' . '/lib/validation/validator.php',
-        'Lib\\View' => __DIR__ . '/../..' . '/lib/view.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7::$classMap;
 
         }, null, ClassLoader::class);
     }

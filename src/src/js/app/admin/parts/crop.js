@@ -106,7 +106,6 @@ var Crop = {
 
 	    //convert to blob and output file data and preview
 		this.canvas.toBlob((blob) => {
-			
 			const fileData = {
 			  croppedFile: this.blobToFile(blob, this.file.name),
 			  originalFile: this.file,
@@ -114,15 +113,17 @@ var Crop = {
 			  description: this.state.meta.description,
 			}
 
-			const previewData = this.canvas.toDataURL('image/jpeg')
+			const previewData = {
+				dataUrl: this.canvas.toDataURL('image/jpeg'),
+				name: this.file.name,
+				tagName: this.state.meta.tagName,
+			}
 
 			this.updateFiles(fileData, previewData);
 
 			this.doneCrop();
 			this.onUnmount();
 		}, 'image/jpeg', 0.95);
-
-
 	},
 	doneCrop: function() {
 		this.onUnmount();

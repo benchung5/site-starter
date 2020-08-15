@@ -9,14 +9,8 @@ import { searchTrees } from '../actions/plants';
 var MyComp = {
 	updateOffset: function(newOffset) {
 		treesFilterStore.setData({ offset: newOffset });
-
-		//search trees
-		searchTrees(treesFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
-
-			this.update();
-			setUrlParams('offset', newOffset);
-		});
+		setUrlParams('offset', newOffset);
+		this.update();
 	},
 	back: function() {
 		if(treesFilterStore.storageData.offset === 0 ) { 
@@ -34,20 +28,24 @@ var MyComp = {
 		this.updateOffset(newOffset);
 	},
 	update: function() {
-		//prev
-		if(treesFilterStore.storageData.offset === 0) {
-			toggleClass(this.prev, 'disabled');
-		}
-		//next
-		const end = ((treesFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= plantListStore.storageData.count) ? true : false;
-		if(end) {
-			toggleClass(this.next, 'disabled');
-		}
-		//page
-		this.page.innerHTML = treesFilterStore.storageData.offset / globals.ADMIN_ENTRIES_PER_PAGE + 1;
-		//count
-		
-		this.count.innerHTML = plantListStore.storageData.count;
+		//search trees
+		searchTrees(treesFilterStore.storageData, (apiData) => {
+			plantListStore.setData(apiData);
+
+			//prev
+			if(treesFilterStore.storageData.offset === 0) {
+				toggleClass(this.prev, 'disabled');
+			}
+			//next
+			const end = ((treesFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= plantListStore.storageData.count) ? true : false;
+			if(end) {
+				toggleClass(this.next, 'disabled');
+			}
+			//page
+			this.page.innerHTML = treesFilterStore.storageData.offset / globals.ADMIN_ENTRIES_PER_PAGE + 1;
+			//count
+			this.count.innerHTML = plantListStore.storageData.count;
+		});
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component);

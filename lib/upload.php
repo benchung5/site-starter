@@ -54,6 +54,7 @@ class Upload
 				$files = Controller::load_model('files_model');
 			} elseif ($ref_type == 'trees') {
 				$files = Controller::load_model('files_trees_model');
+				$tags = Controller::load_model('tags_files_trees_model');
 			}
 
 			//image info fields
@@ -81,11 +82,15 @@ class Upload
 						$file_data['description'] = $imgInfoFields[$count][1];
 						$new_id = $files->add($file_data);
 						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
+						$tag_name = '';
+						if ($file_data['tag_id']) {
+							$tag_name = $tags->get($file_data['tag_id'])->name;
+						}
 						//update filename with new file id
 						$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
 
 						// store the new image in new_files (to return from this function)
-						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'description' => $file_data['description']];
+						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'tag_name' => $tag_name, 'description' => $file_data['description']];
 
 						// move file, append new id, delete temp file
 						$destination_original = './uploads/'.$ref_type.'/'.$new_name;

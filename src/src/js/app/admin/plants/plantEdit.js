@@ -4,6 +4,7 @@ import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
 import UploadedImages from '../parts/uploadedImages';
 import FieldAddImages from '../parts/fieldAddImages';
+import FieldTextarea from '../parts/fieldTextarea';
 import Sidebar from '../sidebar';
 import { fetchPlantTables, getPlant, updatePlant } from '../../actions/plants';
 import plantTablesStore from '../../storage/plantTablesStore';
@@ -29,15 +30,19 @@ var PlantEdit = {
 		//append the current plant id
 		formData.append('tree_id', this.plantId);
 
-		//delete any empty fields in formData
-		for (let pair of formData.entries()) {
-			if (pair[1] == "") {
-				formData.delete(pair[0]);
-			}
-		}
+		// //delete any empty fields in formData
+		// for (let pair of formData.entries()) {
+		// 	if (pair[1] == "") {
+		// 		formData.delete(pair[0]);
+		// 	}
+		// }
 
-		// //use this to log out formdata values
-		// console.log(Array.from(formData));
+		//delete any empty fields in formData
+		Array.from(formData).map((item) => {
+			if (item[1] == '') {
+				formData.delete(item[0]);
+			}
+		});
 
 		// call action to submit edited
 		updatePlant(formData, this.renderUpdated.bind(this));
@@ -97,6 +102,16 @@ var PlantEdit = {
 						selectItems: plantTablesStore.storageData[item.name]
 					});
 					this.formFields.appendChild(multiSelect.el);
+				}
+				if(item.type === 'textarea') {
+					let input = FieldTextarea.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+						value: apiData[item.name]
+					});
+					this.formFields.appendChild(input.el);
 				}
 			});
 

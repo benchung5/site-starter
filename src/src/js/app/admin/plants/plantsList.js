@@ -1,9 +1,11 @@
 import Component from '../../component';
-import { getSingle } from '../../actions/plants';
+import { getSingle, deletePlant } from '../../actions/plants';
 import Sidebar from '../sidebar';
 import SearchTrees from '../../parts/searchTrees';
 import PaginationTrees from '../../parts/paginationTrees';
 import plantListStore from '../../storage/plantListStore';
+import { searchTrees } from '../../actions/plants';
+import treesFilterStore from '../../storage/treesFilterStore';
 import { globals } from '../../config.js';
 
 var PlantsList = {
@@ -15,7 +17,15 @@ var PlantsList = {
 		mainWindow.appendChild(this.paginationTrees.el);
 	},
 	onDeleteTreeClick: function(e) {
-
+		e.preventDefault();
+		let slug = e.target.getAttribute("data-slug");
+		let id = e.target.getAttribute("data-id");
+		deletePlant({'tree': { id: parseInt(id), slug: slug}}, (apiData) => {
+			//perform the tree search again
+			searchTrees(treesFilterStore.storageData, (apiData) => {
+				plantListStore.setData(apiData);
+			});
+		});
 	},
 	renderList: function() {
 		this.itemList.innerHTML = '';
@@ -28,10 +38,7 @@ var PlantsList = {
 			        <a href="/${globals.ADMIN_URL}#plant-edit?plant=${tree.slug}">edit</Link>
 			    </li>`);
 
-				el.querySelector('#delete').addEventListener('click', (e) => {
-					e.preventDefault();
-					console.log(e);
-				}, false)
+				el.querySelector('#delete').addEventListener('click', this.onDeleteTreeClick.bind(this), false);
 
 			    this.itemList.appendChild(el);
 		});
