@@ -3,8 +3,8 @@
 <div class="site-wrapper">
 	<div class="content-wrapper">
 
-		<!-- react container -->
-		<div class="app-container"></div>	
+		<!-- container for js -->
+		<div class="plant-search-container"></div>	
 
 	</div><!-- /content wrapper -->
 

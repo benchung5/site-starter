@@ -18,6 +18,7 @@ import fooSlider from './fooSlider';
 // import Scroll from './scroll';
 // admin =========================================
 import Admin from './admin/admin';
+import PlantSearch from './plantSearch/main';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -63,8 +64,12 @@ load foundation plugins - keep this
 	// 	animation();
 	// }
 
-	// admin=========================================
+	// admin =========================================
 
 	Admin.init();
+
+	// plant search =========================================
+
+	PlantSearch.init();
 
 })();

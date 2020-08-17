@@ -64,7 +64,7 @@ var PlantsList = {
 		});
 
 		inst.sidebar = Sidebar.init();
-		inst.searchTrees = SearchTrees.init();
+		inst.searchTrees = SearchTrees.init({});
 		inst.paginationTrees = PaginationTrees.init();
 
 		inst.build();

@@ -1,4 +1,3 @@
-//import { TweenLite } from "gsap/all";
 import animation from './animation';
 
 const mobileMenu = function() {

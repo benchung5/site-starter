@@ -25,7 +25,7 @@ var SearchTrees = {
 		//store in the url
 		setUrlParams('search', search);
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -35,7 +35,7 @@ var SearchTrees = {
 		inst.initialize({
 			el: 
 			`<form class="search-form">
-				<input class="form-control" type="text" placeholder="search" name="search" value="">
+				<input class="form-control" type="text" placeholder="${options.placeholder || ''}" name="search" value="">
 			</form>`
 		});
 
@@ -43,12 +43,18 @@ var SearchTrees = {
 
 		//get the initial search value if in url query
 		let search = getUrlParams('search');
+		const input = inst.el.querySelector('input[name="search"]');
 		if(search) {
 			inst.search(search[0]);
 			//fill in the search box with the value
-			inst.el.querySelector('input[name="search"]').value = search[0];
+			input.value = search[0];
 		} else {
 			inst.search('');
+		}
+
+		if(options.hasButton) {
+			const searchButton = inst.createEl('<button type="submit" class="search-button"/>');
+			input.before(searchButton);
 		}
 
 		return inst;
