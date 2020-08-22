@@ -25,7 +25,7 @@ var SideMenuHeader = {
 
 		if(options.isClose) {
 			const closeButton = Button.init({
-				class: 'menu-close',
+				className: 'menu-close',
 				name: 'Close',
 				onClick: inst.onItemClick.bind(inst)
 			});

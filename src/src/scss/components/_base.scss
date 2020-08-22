@@ -2427,6 +2427,7 @@ menu
 // mobile version
 .side-menu-mobile {
   @extend %side-panel;
+  transform: translateX(-100%);
   z-index: 10;
   width: 326px;
   left: 0;
@@ -2579,8 +2580,8 @@ dropdown
     }
   }
   .dropdown-body {
-    //start hidden
-    visibility: hidden;
+    visibility: visible;
+    overflow-y: hidden;
     position: relative;
     background: $light-gray;
     box-shadow: 0 -1px 0 $border-color inset;
@@ -2692,7 +2693,7 @@ buttons
   position: relative;
   font-size: 0.85em;
   padding: 0 1em 0 2.3em;
-  &.active {
+  &[data-is-active="true"] {
     background-color: #fff;
   }
   .title {
@@ -2716,7 +2717,7 @@ buttons
 }
 
 .list-button {
-  &.active.check {
+  &[data-is-active="true"] {
     background-image: url(../img/icons/check.svg); 
     background-position: 90% center;
     background-size: 12px 12px;

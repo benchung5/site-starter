@@ -13,27 +13,29 @@ const mobileMenu = function() {
 	if (menuButtonHolder && menuHolder) {
 		var menuButton = menuButtonHolder.querySelector(".grid-button");
 
-		menuButton.addEventListener('click', function() {
+		const fadeInAnimation = animation.init(menuHolder, {
+			autoOpacity: 1,
+			duration: 0.3,
+			ease: 'linear',
+			onStart: function() {
+				menuButtonHolder.style.position = 'fixed';
+			},
+		});
+		const fadeOutAnimation = animation.init(menuHolder, {
+			autoOpacity: 0,
+			duration: 0.3,
+			ease: 'linear',
+			onStart: function() {
+				menuButtonHolder.style.position = 'absolute';
+			}
+		})
 
+		menuButton.addEventListener('click', function() {
 			if(!mobileMenuOpen) {
-				animation.animate(menuHolder, {
-					autoOpacity: 1,
-					duration: 0.3,
-					ease: 'linear',
-					onStart: function() {
-						menuButtonHolder.style.position = 'fixed';
-					},
-				})
+				fadeInAnimation.animate();
 				mobileMenuOpen = true;
 			} else {
-				animation.animate(menuHolder, {
-					autoOpacity: 0,
-					duration: 0.3,
-					ease: 'linear',
-					onStart: function() {
-						menuButtonHolder.style.position = 'absolute';
-					}
-				})
+				fadeOutAnimation.animate();
 				mobileMenuOpen = false;
 			}
 

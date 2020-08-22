@@ -1,5 +1,5 @@
 import Component from '../component';
-import SideMenuTrees from './SideMenuTrees';
+import SideMenuPlants from './SideMenuPlants';
 import showMenuStore from '../storage/showMenuStore';
 import ButtonShowMenu from '../parts/buttonShowMenu';
 
@@ -39,7 +39,7 @@ var Main = {
 	        </div>`
 		});
 
-		const sideMenuTrees = SideMenuTrees.init({});
+		const sideMenuTrees = SideMenuPlants.init({});
 		inst.el.appendChild(sideMenuTrees.el);
 
 		const buttonShowMenu = ButtonShowMenu.init();

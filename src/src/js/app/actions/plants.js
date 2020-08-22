@@ -112,7 +112,6 @@ export function fetchPlantTables(callback) {
     });
 }
 
-
 export function updatePlant(formData, callback) {
     xhr.send(`${SERVER_URL}/trees/update`,
     {

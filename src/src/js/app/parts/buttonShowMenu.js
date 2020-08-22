@@ -4,16 +4,7 @@ import showMenuStore from '../storage/showMenuStore';
 var ButtonShowMenu = {
 	onButtonClick: function(e) {
 		e.preventDefault();
-
-		// if(showMenuStore.storageData.showMenu === 'open') {
-		// 	showMenuStore.setData({ showMenu: 'close' });
-		// } else {
-			
-		// }
-
 		showMenuStore.setData({ showMenu: 'open' });
-
-		console.log(showMenuStore.storageData.showMenu);
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component);
@@ -24,16 +15,16 @@ var ButtonShowMenu = {
 
 		//call initialize on Component first
 		inst.initialize({
-			el: `<div className="filter">
+			el: `<div class="filter">
 					<a
 					href="#"
 					id="side-menu-toggle"
 					class="show-menu-mobile ${showMenuStore.storageData.showMenu}" 
-					style="cursor: pointer; display: block;"
+					style="cursor: pointer;"
 					data-id="side-menu-toggle"
 					alt="Side Menu"
 					>
-						<img className="filter-icon" src="/assets/img/icons/menu.svg"/>
+						<img class="filter-icon" src="/assets/img/icons/menu.svg"/>
 					</a>
 				</div>`
 		});
