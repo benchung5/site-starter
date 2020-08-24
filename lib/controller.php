@@ -41,20 +41,18 @@ class Controller
 		}
 	}
 
-	public function load_script($path)
+	public function load_script($script)
 	{
 		//store script paths
-		$this->scripts[] = $path;
+		$this->scripts[] = $script;
 	}
 
 	public function run_scripts()
 	{
-		// // footer scripts
-		// echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/app.js"></script>';
-
-		// foreach ($this->scripts as $script) {
-		// 	echo '<script src="'.Config::paths('ROOT_URL').'assets/js/angular/'.$script.'"></script>';
-		// }
+		// footer scripts
+		foreach ($this->scripts as $script) {
+			echo '<script src="'.Config::paths('ROOT_URL').'assets/js/'.$script.'"></script>';
+		}
 		
 	}
 

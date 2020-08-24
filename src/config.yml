@@ -34,9 +34,12 @@ PATHS:
   javascript:
   # entry for external js file
     - "src/js/app/app.js"
-  react:
-  # js app parts to load via script
-    - "src/js/react-app/app.js"
+  plantSearch:
+  # entry for external js file
+    - "src/js/app/plantSearch/mainPlants.js"
+  admin:
+  # entry for external js file
+    - "src/js/app/admin/mainAdmin.js"
   # js files to insert into the head
   head:
     - "src/js/head/**/*.js"

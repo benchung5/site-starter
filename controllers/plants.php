@@ -15,6 +15,8 @@ class Plants extends Controller
 	public function index() 
 	{
 		$this->render('plants', null, 'Niagara Tree Search', 'Search trees, shrubs and woody plants commonly found in the Niagara region');
+
+		$this->load_script('mainPlants.js');
 	}
 
 	public function view($category, $title)

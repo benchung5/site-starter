@@ -13,5 +13,7 @@ class Admin_752 extends Controller
 	public function index($param = null) 
 	{
 		$this->render(('admin_'.Config::paths('ADMIN_ID')), null, 'Admin');
+
+		$this->load_script('mainAdmin.js');
 	}
 }

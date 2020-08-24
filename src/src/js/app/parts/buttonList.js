@@ -26,7 +26,7 @@ var ButtonList = {
 	    this.updateData(modifiedData);
 	},
 	buildButtons: function() {
-		this.buttonData.map((item, index) => {
+		let modifiedData = this.buttonData.map((item, index) => {
 			const children = this.createEl(`
 					<div>
 				    	<i class="fas fa-${item.icon}"></i>
@@ -38,7 +38,7 @@ var ButtonList = {
 			const button = Button.init({
 				className: `${this.classPropButton} ${item.slug}`,
 				style: `height: ${this.buttonHeight}px`,
-				isActive: item.active,
+				isActive: this.allActive,
 				id: item.id,
 				name: item.name,
 				onClick: this.onItemClick.bind(this),
@@ -51,7 +51,13 @@ var ButtonList = {
 
 			wrapper.appendChild(button.el);
 			this.el.appendChild(wrapper);
+
+			//replace with object.assign
+			return Object.assign(item, { active: true });
 		});
+
+		//send initial callback
+		this.updateData(modifiedData);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -64,6 +70,7 @@ var ButtonList = {
 		inst.classPropButton = options.classPropButton;
 		inst.buttonHeight = options.buttonHeight;
 		inst.updateData = options.updateData;
+		inst.allActive = options.allActive;
 
 		//call initialize on Component first
 		inst.initialize({

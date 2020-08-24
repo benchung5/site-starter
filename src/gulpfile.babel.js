@@ -76,6 +76,14 @@ gulp.task('watch-app-js', function () {
     return watch('src/js/app/**/*.js', javascript);
 });
 
+gulp.task('watch-plantSearch-js', function () {
+    return watch('src/js/app/**/*.js', plantSearch);
+});
+
+gulp.task('watch-admin-js', function () {
+    return watch('src/js/app/**/*.js', admin);
+});
+
 gulp.task('watch-vendor-js', function () {
     //return watch('src/js/vendor/**/*.js', vendorJavascript).on('change', reloadWebpackDevServer);
     return watch('src/js/vendor/**/*.js', vendorJavascript);
@@ -91,12 +99,12 @@ gulp.task('watch-head-js', function () {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, plantSearch, admin, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
   //gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
-  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
+  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-plantSearch-js', 'watch-admin-js', 'watch-vendor-js', 'watch-head-js'])));
 
 // function devServer() {
 //   // Start a webpack-dev-server
@@ -260,6 +268,34 @@ function favicons() {
 function javascript() {
   gutil.log('updating app js');
   return gulp.src(PATHS.javascript)
+    //this makes sure the output js file isn't hashed
+    .pipe(named())
+    .pipe($.sourcemaps.init())
+    .pipe(webpackStream(simpleWebpackConfig, webpack))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+}
+
+function plantSearch() {
+  gutil.log('updating plantSearch js');
+  return gulp.src(PATHS.plantSearch)
+    //this makes sure the output js file isn't hashed
+    .pipe(named())
+    .pipe($.sourcemaps.init())
+    .pipe(webpackStream(simpleWebpackConfig, webpack))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+}
+
+function admin() {
+  gutil.log('updating admin js');
+  return gulp.src(PATHS.admin)
     //this makes sure the output js file isn't hashed
     .pipe(named())
     .pipe($.sourcemaps.init())

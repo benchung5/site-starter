@@ -4,7 +4,7 @@ import ButtonList from '../parts/buttonList';
 import plantTablesStore from '../storage/plantTablesStore';
 import treesFilterStore from '../storage/treesFilterStore';
 import plantListStore from '../storage/plantListStore';
-import isLoadingStore from '../storage/isLoadingStore';
+
 import { fetchPlantTables, searchTrees } from '../actions/plants';
 import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
@@ -13,13 +13,9 @@ var PlantFilter = {
 		//update the hash url with the selected categories
 		const categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
 		setUrlParams('categories', categorySlugs);
-
 		treesFilterStore.setData({ categoriesTrees: modifiedData });
-		//console.log(treesFilterStore.storageData);
-		isLoadingStore.setData({ isLoading: true });
 		searchTrees(treesFilterStore.storageData, (apiData) => {
 			plantListStore.setData(apiData);
-			isLoadingStore.setData({ isLoading: false });
 		});
 
 	},
@@ -46,7 +42,8 @@ var PlantFilter = {
 				classPropButton: 'list-button check icon',
 				buttonHeight: options.buttonHeight,
 				buttonData: plantTablesStore.storageData.trees_category_id,
-				updateData: inst.onUpdateCategories.bind(inst)
+				updateData: inst.onUpdateCategories.bind(inst),
+				allActive: true
 			});
 
 			inst.dropdown = Dropdown.init({

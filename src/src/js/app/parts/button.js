@@ -11,7 +11,7 @@ var Button = {
 		inst.initialize({
 			el: `<a
 				href="#"
-				class="${options.className ? options.className : ''} ${options.isActive ? "active" : ''} ${options.isDisabled ? "disabled" : ''}" 
+				class="${options.className ? options.className : ''} ${options.isDisabled ? "disabled" : ''}" 
 				style="cursor: pointer; ${options.style ? options.style : ''}"
 				data-id="${options.id ? options.id : ''}"
 				data-is-active="${options.isActive ? options.isActive : true}"

@@ -4,8 +4,15 @@ import { searchTrees } from '../actions/plants';
 import treesFilterStore from '../storage/treesFilterStore';
 import { getUrlParams, setUrlParams } from '../lib/utils';
 import plantListStore from '../storage/plantListStore';
+import appStateStore from '../storage/appStateStore';
 
 var SearchTrees = {
+	isClearSearch: function() {
+		if (appStateStore.storageData.clearSearch) {
+			//clear search
+			this.input.value = '';
+		}
+	},
 	search: function(search) {
 		//update the trees filter then search using the updated trees filter
 		treesFilterStore.setData({ search: search });
@@ -43,19 +50,21 @@ var SearchTrees = {
 
 		//get the initial search value if in url query
 		let search = getUrlParams('search');
-		const input = inst.el.querySelector('input[name="search"]');
+		inst.input = inst.el.querySelector('input[name="search"]');
 		if(search) {
 			inst.search(search[0]);
 			//fill in the search box with the value
-			input.value = search[0];
+			inst.input.value = search[0];
 		} else {
 			inst.search('');
 		}
 
 		if(options.hasButton) {
 			const searchButton = inst.createEl('<button type="submit" class="search-button"/>');
-			input.before(searchButton);
+			inst.input.before(searchButton);
 		}
+
+		appStateStore.addListener(inst.isClearSearch.bind(inst));
 
 		return inst;
 	}

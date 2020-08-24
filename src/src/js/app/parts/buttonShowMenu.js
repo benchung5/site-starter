@@ -1,13 +1,13 @@
 import Component from '../component';
-import showMenuStore from '../storage/showMenuStore';
+import appStateStore from '../storage/appStateStore';
 
 var ButtonShowMenu = {
 	onButtonClick: function(e) {
 		e.preventDefault();
-		if (showMenuStore.storageData.showMenu == 'open') {
-			showMenuStore.setData({ showMenu: 'close' });
+		if (appStateStore.storageData.showMenu == 'open') {
+			appStateStore.setData({ showMenu: 'close' });
 		} else {
-			showMenuStore.setData({ showMenu: 'open' });
+			appStateStore.setData({ showMenu: 'open' });
 		}
 	},
 	init: function() {
@@ -23,7 +23,7 @@ var ButtonShowMenu = {
 					<a
 					href="#"
 					id="side-menu-toggle"
-					class="show-menu-mobile ${showMenuStore.storageData.showMenu}" 
+					class="show-menu-mobile ${appStateStore.storageData.showMenu}" 
 					style="cursor: pointer;"
 					data-id="side-menu-toggle"
 					alt="Side Menu"

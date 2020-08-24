@@ -1,9 +1,12 @@
 import Store from '../store';
 
-var IsLoadingStore = {
-    name: 'isLoadingStore',
+var AppStateStore = {
+    name: 'appStateStore',
 	storageData: {
         isLoading: false,
+        showMenu: 'close',
+        isOnline: true,
+        clearSearch: false,
     },
     init: function() {
         Object.assign(this, Store);
@@ -11,4 +14,4 @@ var IsLoadingStore = {
     }
 }
 
-export default IsLoadingStore;
+export default AppStateStore;

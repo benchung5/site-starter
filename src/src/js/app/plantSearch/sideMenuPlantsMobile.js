@@ -1,14 +1,14 @@
 import Component from '../component';
-import showMenuStore from '../storage/showMenuStore';
+import appStateStore from '../storage/appStateStore';
 import { addClass, removeClass } from '../lib/utils';
 import animation from '../animation';
 import SideMenuPlantsContent from './sideMenuPlantsContent';
 
 var SideMenuPlantsMobile = {
 	hideShowMenu() {
-		if(showMenuStore.storageData.showMenu == 'close') {
+		if(appStateStore.storageData.showMenu == 'close') {
 			this.closeMenuAnimation.animate();
-		} else if(showMenuStore.storageData.showMenu == 'open') {
+		} else if(appStateStore.storageData.showMenu == 'open') {
 			this.openMenuAnimation.animate();
 			addClass(this.el, 'open');
 			removeClass(this.el, 'close');
@@ -23,14 +23,14 @@ var SideMenuPlantsMobile = {
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<div class="side-menu-mobile ${showMenuStore.storageData.showMenu}">
+			`<div class="side-menu-mobile ${appStateStore.storageData.showMenu}">
             </div>`
 		});
 
 		inst.sideMenuPlantsContent = SideMenuPlantsContent.init({});
 		inst.el.appendChild(inst.sideMenuPlantsContent.el);
 
-		showMenuStore.addListener(inst.hideShowMenu.bind(inst));
+		appStateStore.addListener(inst.hideShowMenu.bind(inst));
 
 		//setup animation
 		inst.closeMenuAnimation = animation.init(inst.el, {

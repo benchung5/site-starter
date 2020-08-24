@@ -1,10 +1,18 @@
 import Component from '../component';
 import Button from './button';
-import showMenuStore from '../storage/showMenuStore';
+import appStateStore from '../storage/appStateStore';
+import { searchTrees } from '../actions/plants';
+import treesFilterStore from '../storage/treesFilterStore';
+import plantListStore from '../storage/plantListStore';
 
 var SideMenuHeader = {
 	onItemClick: function() {
-	    showMenuStore.setData({ showMenu: 'close' });
+	    appStateStore.setData({ showMenu: 'close' });
+	    appStateStore.setData({ clearSearch: true }, { clearSearch: false });
+	    treesFilterStore.setData({ search: '' });
+	    searchTrees(treesFilterStore.storageData, (apiData) => {
+	    	plantListStore.setData(apiData);
+	    });
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);

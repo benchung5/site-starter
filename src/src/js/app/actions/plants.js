@@ -1,5 +1,5 @@
 import xhr from '../xhr';
-
+import appStateStore from '../storage/appStateStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -39,16 +39,17 @@ export function getPlant(slug, callback) {
 }
 
 export function searchTrees(searchObj, callback) {
-	let query = buildQuery(searchObj);
+    appStateStore.setData({ isLoading: true });
+	
+    let query = buildQuery(searchObj);
 
-	//set the obj in the get request
-    //?search=&offset=0&limit=25&categoriesTrees[]=3&categoriesTrees[]=6&zones[]=1
     xhr.send(`${SERVER_URL}/trees/search/`, 
     { 
     	method: 'GET',
     	headers: {'Content-Type': 'application/json'},
     }, (apiData) => {
 		callback(apiData);
+        appStateStore.setData({ isLoading: false });
 	}, query);
 
     function buildQuery(inObj) {
@@ -100,7 +101,6 @@ export function searchTrees(searchObj, callback) {
 
     	return query;
     }
-
 }
 
 export function fetchPlantTables(callback) {

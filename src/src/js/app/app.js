@@ -16,9 +16,6 @@ import fooSlider from './fooSlider';
 // experimenting=========================================
 // import List from './components/list';
 // import Scroll from './scroll';
-// admin =========================================
-import Admin from './admin/admin';
-import PlantSearch from './plantSearch/mainPlants';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -58,18 +55,4 @@ load foundation plugins - keep this
 	mobileMenu();
 
 	fooSlider();
-
-	// //if on the home page
-	// if (window.location.pathname === '/') {
-	// 	animation();
-	// }
-
-	// admin =========================================
-
-	// Admin.init();
-
-	// plant search =========================================
-
-	PlantSearch.init();
-
 })();

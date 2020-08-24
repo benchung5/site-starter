@@ -1,14 +1,14 @@
 import Component from '../component';
-import isLoadingStore from '../storage/isLoadingStore';
+import appStateStore from '../storage/appStateStore';
 import animation from '../animation';
 import { addClass, removeClass } from '../lib/utils';
 
 var Loader = {
 	onLoadingChange: function() {
-		if(isLoadingStore.storageData.isLoading) {
+		if(appStateStore.storageData.isLoading) {
 			this.setLoading();
 		}
-		if(! isLoadingStore.storageData.isLoading) {
+		if(! appStateStore.storageData.isLoading) {
 			//if not currently doing minimum load
 			if(!this.state.lockLoad) {
 			  //this.setState({ isLoading: false });
@@ -23,7 +23,7 @@ var Loader = {
 	  this.showLoadingAnimation.animate();
 	  this.setState({ lockLoad: true });
 	  setTimeout(() => {
-	    if(!isLoadingStore.storageData.isLoading) {
+	    if(!appStateStore.storageData.isLoading) {
 	      //this.setState({ isLoading: false });
 	      this.hideLoadingAnimation.animate();
 	    }
@@ -74,7 +74,7 @@ var Loader = {
 			}
 		});
 
-		isLoadingStore.addListener(inst.onLoadingChange.bind(inst));
+		appStateStore.addListener(inst.onLoadingChange.bind(inst));
 		inst.onLoadingChange();
 
 		return inst;
