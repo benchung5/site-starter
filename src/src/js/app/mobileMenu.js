@@ -14,19 +14,25 @@ const mobileMenu = function() {
 		var menuButton = menuButtonHolder.querySelector(".grid-button");
 
 		const fadeInAnimation = animation.init(menuHolder, {
-			autoOpacity: 1,
+			property: 'opacity',
+			propertyTo: 1,
 			duration: 0.3,
 			ease: 'linear',
 			onStart: function() {
 				menuButtonHolder.style.position = 'fixed';
+				menuHolder.style.visibility = 'visible';
 			},
 		});
 		const fadeOutAnimation = animation.init(menuHolder, {
-			autoOpacity: 0,
+			property: 'opacity',
+			propertyTo: 0,
 			duration: 0.3,
 			ease: 'linear',
 			onStart: function() {
 				menuButtonHolder.style.position = 'absolute';
+			},
+			onEnd: function() {
+				menuHolder.style.visibility = 'hidden';
 			}
 		})
 

@@ -3,13 +3,13 @@ module.exports = {
       SERVER_URL: "/api",
       ROOT_URL: "/",
       ARTICLES_UPLOADS_PATH: '/uploads/articles/',
-      TREES_UPLOADS_PATH: '/uploads/trees/',
+      PLANTS_UPLOADS_PATH: '/uploads/trees/',
    },
    "production": {
       SERVER_URL: "/api",
       ROOT_URL: "/",
       ARTICLES_UPLOADS_PATH: '/uploads/articles/',
-      TREES_UPLOADS_PATH: '/uploads/trees/',
+      PLANTS_UPLOADS_PATH: '/uploads/trees/',
    },
    "globals": {
       HIDE_MENU_THRESHOLD: 1150,

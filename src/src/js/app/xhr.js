@@ -7,12 +7,35 @@ var Xhr = {
 		var inst = Object.create(this);
 		return inst;
 	},
+	createQueryString: function(params) {
+		// params:
+		// {key: 'value', key: [1,2]}
+		let queryArray = [];
+		for (var key in params) {
+		 if (params.hasOwnProperty(key)) {
+		 	if (Array.isArray(params[key])) {
+		 		params[key].map((item) => {
+		 			queryArray.push(key + '[]=' + item);
+		 		});
+		 			
+		 	} else {
+		 		queryArray.push(key + '=' + params[key]);	
+		 	}
+		 }
+		}
+
+		let queryString = queryArray.join('&');
+
+		return queryString;
+	},
 	send: function(endpoint, parameters, callback, query) {
 		var url = new URL(window.location.origin + endpoint)
 
 		if (query) {
 			//from: https://fetch.spec.whatwg.org/#fetch-api
-			url.search = new URLSearchParams(query).toString();
+			//?search=&offset=0&limit=25&categoriesTrees[]=3&categoriesTrees[]=6&zones[]=1
+			//url.search = new URLSearchParams(query).toString();
+			url.search = this.createQueryString(query);
 		} 
 
 		fetch(url, parameters)

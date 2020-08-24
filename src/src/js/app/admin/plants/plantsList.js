@@ -2,7 +2,7 @@ import Component from '../../component';
 import { getSingle, deletePlant } from '../../actions/plants';
 import Sidebar from '../sidebar';
 import SearchTrees from '../../parts/searchTrees';
-import PaginationTrees from '../../parts/paginationTrees';
+import PaginationPlants from '../../parts/paginationPlants';
 import plantListStore from '../../storage/plantListStore';
 import { searchTrees } from '../../actions/plants';
 import treesFilterStore from '../../storage/treesFilterStore';
@@ -65,7 +65,7 @@ var PlantsList = {
 
 		inst.sidebar = Sidebar.init();
 		inst.searchTrees = SearchTrees.init({});
-		inst.paginationTrees = PaginationTrees.init();
+		inst.paginationTrees = PaginationPlants.init();
 
 		inst.build();
 

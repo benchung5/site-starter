@@ -1,5 +1,6 @@
 import xhr from '../xhr';
 
+
 //config
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../config')[env];
@@ -37,11 +38,11 @@ export function getPlant(slug, callback) {
     });
 }
 
-//perform the search
 export function searchTrees(searchObj, callback) {
-
 	let query = buildQuery(searchObj);
+
 	//set the obj in the get request
+    //?search=&offset=0&limit=25&categoriesTrees[]=3&categoriesTrees[]=6&zones[]=1
     xhr.send(`${SERVER_URL}/trees/search/`, 
     { 
     	method: 'GET',

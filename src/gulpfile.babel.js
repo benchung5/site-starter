@@ -68,9 +68,9 @@ gulp.task('watch-scss', function () {
     return watch('src/scss/**/*.scss', gulp.series(sass, sassAdmin));
 });
 
-gulp.task('watch-react-app-js', function () {
-    return watch('src/js/react-app/**/*.js', reactJavascript);
-});
+// gulp.task('watch-react-app-js', function () {
+//     return watch('src/js/react-app/**/*.js', reactJavascript);
+// });
 
 gulp.task('watch-app-js', function () {
     return watch('src/js/app/**/*.js', javascript);
@@ -91,12 +91,12 @@ gulp.task('watch-head-js', function () {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassAdmin, reactJavascript, javascript, vendorJavascript, headJavascript, webpackBuild, images, media, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
   //gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
-  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-react-app-js', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
+  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
 
 // function devServer() {
 //   // Start a webpack-dev-server
@@ -143,20 +143,20 @@ gulp.task('default',
 //   return true;
 // }
 
-function webpackBuild() {
-  //if production
-  if(PRODUCTION) {
-    return gulp.src(PATHS.react)
-      .pipe(named())
-      .pipe(webpackStream(webpackProdConfig, webpack))
-      .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
-  } else {
-      return gulp.src(PATHS.react)
-       .pipe(named())
-       .pipe(webpackStream(webpackConfig, webpack))
-       .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
-  }
-}
+// function webpackBuild() {
+//   //if production
+//   if(PRODUCTION) {
+//     return gulp.src(PATHS.react)
+//       .pipe(named())
+//       .pipe(webpackStream(webpackProdConfig, webpack))
+//       .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+//   } else {
+//       return gulp.src(PATHS.react)
+//        .pipe(named())
+//        .pipe(webpackStream(webpackConfig, webpack))
+//        .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+//   }
+// }
 
 function generateServiceWorker(done) {
   swPrecache.write(PATHS.dist + PATHS.distAssets + '/js/service-worker.js', {
@@ -239,21 +239,21 @@ function favicons() {
 //     .pipe(gulp.dest(PATHS.dist + '/uploads'));
 // }
 
-// Combine reactJavaScript into one file
-// In production, the file is minified
-function reactJavascript() {
-  gutil.log('updating react app js');
-  return gulp.src(PATHS.react)
-    //this makes sure the output js file isn't hashed
-    .pipe(named())
-    .pipe($.sourcemaps.init())
-    .pipe(webpackStream(webpackConfig, webpack))
-    .pipe($.if(PRODUCTION, $.uglify()
-      .on('error', e => { console.log(e); })
-    ))
-    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
-    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
-}
+// // Combine reactJavaScript into one file
+// // In production, the file is minified
+// function reactJavascript() {
+//   gutil.log('updating react app js');
+//   return gulp.src(PATHS.react)
+//     //this makes sure the output js file isn't hashed
+//     .pipe(named())
+//     .pipe($.sourcemaps.init())
+//     .pipe(webpackStream(webpackConfig, webpack))
+//     .pipe($.if(PRODUCTION, $.uglify()
+//       .on('error', e => { console.log(e); })
+//     ))
+//     .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+//     .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+// }
 
 // Combine JavaScript into one file
 // In production, the file is minified

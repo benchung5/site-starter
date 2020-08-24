@@ -1,6 +1,11 @@
 import Component from '../component';
-import SideMenuPlants from './SideMenuPlants';
+import SideMenuPlantsMobile from './sideMenuPlantsMobile';
+import GridViewPlants from './gridViewPlants';
 import showMenuStore from '../storage/showMenuStore';
+import plantTablesStore from '../storage/plantTablesStore';
+import plantListStore from '../storage/plantListStore';
+import treesFilterStore from '../storage/treesFilterStore';
+import isLoadingStore from '../storage/isLoadingStore';
 import ButtonShowMenu from '../parts/buttonShowMenu';
 
 var Main = {
@@ -26,6 +31,10 @@ var Main = {
 
       	//init storage
       	showMenuStore.init();
+      	plantListStore.init();
+      	plantTablesStore.init();
+      	treesFilterStore.init();
+      	isLoadingStore.init();
 
 		//call initialize on Component first
 		inst.initialize({
@@ -39,8 +48,11 @@ var Main = {
 	        </div>`
 		});
 
-		const sideMenuTrees = SideMenuPlants.init({});
+		const sideMenuTrees = SideMenuPlantsMobile.init();
 		inst.el.appendChild(sideMenuTrees.el);
+
+		const gridViewPlants = GridViewPlants.init();
+		inst.el.appendChild(gridViewPlants.el);
 
 		const buttonShowMenu = ButtonShowMenu.init();
 		inst.el.querySelector('.filter-container').appendChild(buttonShowMenu.el);

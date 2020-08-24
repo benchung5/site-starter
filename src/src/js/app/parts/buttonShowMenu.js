@@ -4,7 +4,11 @@ import showMenuStore from '../storage/showMenuStore';
 var ButtonShowMenu = {
 	onButtonClick: function(e) {
 		e.preventDefault();
-		showMenuStore.setData({ showMenu: 'open' });
+		if (showMenuStore.storageData.showMenu == 'open') {
+			showMenuStore.setData({ showMenu: 'close' });
+		} else {
+			showMenuStore.setData({ showMenu: 'open' });
+		}
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component);

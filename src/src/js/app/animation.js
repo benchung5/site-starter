@@ -23,56 +23,35 @@ var Animation = {
 		if(this.onStart) {
 			this.onStart();
 		}
-		if (this.isAutoOpacity) {
-			if (this.autoOpacity > 0) {
-				this.el.style.visibility = 'visible';
-			} else {
-				this.hideAtEnd = true;
-			}
-			this.el.style.opacity = this.autoOpacity;
-		} else {
-			this.el.style[this.property] = this.propertyTo;
-		}
+
+		this.el.style[this.property] = this.propertyTo;
 	},
 	init: function(el, options) {
 		var inst = Object.create(this);
 
-		inst.hideAtEnd = false;
 		inst.onStart = options.onStart || null;
 		inst.el = el;
-		inst.isAutoOpacity = options.hasOwnProperty('autoOpacity');
+		inst.propertyTo = options.propertyTo;
+		inst.property = options.property;
 
-		if (inst.isAutoOpacity) {
-			inst.autoOpacity = options.autoOpacity;
-			if (inst.autoOpacity == 0) {
-				inst.hideAtEnd = true;
-			} 
-			el.style.transitionProperty = 'opacity';
-		} else {
-			inst.propertyTo = options.propertyTo;
-			inst.property = options.property;
-			el.style.transitionProperty = options.property;
-		}
+		el.style.transitionProperty = options.property;
+		el.style.transitionDuration = options.duration.toString() + 's';
+		el.style.transitionTimingFunction = options.ease;
 
 		//get the transition event name (for browser compantibility)
 		let transitionEndEventName = inst.getTransitionEndEventName();
 		el.addEventListener(transitionEndEventName, (e) => {
 			if (hasClass(e.target, inst.hash)) {
-				console.log(inst);
-				if (inst.hideAtEnd) {
-					e.target.style.visibility = 'hidden';
-					inst.hideAtEnd = false;
-				}
+
 				if (options.onEnd) {
 					options.onEnd();
 				}
-				//remove the custum class
+				//remove the custom class
 				removeClass(e.target, inst.hash);
 			}
 		});
 
-		el.style.transitionDuration = options.duration.toString() + 's';
-		el.style.transitionTimingFunction = options.ease;
+
 
 		return inst;
 	}

@@ -29,7 +29,7 @@ var SideMenuHeader = {
 				name: 'Close',
 				onClick: inst.onItemClick.bind(inst)
 			});
-			const right = inst.createEl(`<div class="right"></div>`);
+			const right = inst.createEl(`<div class="menu-header-right"></div>`);
 			right.appendChild(closeButton.el)
 			inst.el.appendChild(right);
 		}
