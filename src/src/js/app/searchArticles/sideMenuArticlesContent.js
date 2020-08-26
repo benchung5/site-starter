@@ -1,9 +1,9 @@
 import Component from '../component';
-import SearchTrees from '../parts/searchTrees';
-import SideMenuHeader from '../parts/sideMenuHeader';
-import FilterPlants from './filterPlants';
+import SearchArticles from '../parts/searchArticles';
+import SideMenuHeader from './sideMenuHeader';
+import FilterArticles from './filterArticles';
 
-var SideMenuPlantsContent = {
+var SideMenuArticlesContent = {
 	init: function() {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -23,25 +23,25 @@ var SideMenuPlantsContent = {
 		});
 
 		//side menu header
-		const searchTrees = SearchTrees.init({
-			placeholder: 'Search Tree Name',
+		const searchArticles = SearchArticles.init({
+			placeholder: 'Search Articles',
 			hasButton: true
 		});
 		const sideMenuHeader = SideMenuHeader.init({
 			isClose: true,
-			children: searchTrees.el
+			children: searchArticles.el
 		});
 		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 
-		//plant filter
-		const filterPlants = FilterPlants.init({
+		//article filter
+		const filterArticles = FilterArticles.init({
 			buttonHeight: 40
 		});
 		const filter = inst.el.querySelector('#filter');
-		filter.appendChild(filterPlants.el);
+		filter.appendChild(filterArticles.el);
 
 		return inst;
 	}
 }
 
-export default SideMenuPlantsContent;
+export default SideMenuArticlesContent;

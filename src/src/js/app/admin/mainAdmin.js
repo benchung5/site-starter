@@ -10,7 +10,7 @@ import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
 import Auth from './auth/auth';
 import plantListStore from '../storage/plantListStore';
-import treesFilterStore from '../storage/treesFilterStore';
+import plantFilterStore from '../storage/plantFilterStore';
 import plantTablesStore from '../storage/plantTablesStore';
 import appStateStore from '../storage/appStateStore';
 
@@ -75,7 +75,7 @@ import appStateStore from '../storage/appStateStore';
 			
 			//init storage items
 			plantListStore.init();
-			treesFilterStore.init();
+			plantFilterStore.init();
 			plantTablesStore.init();
 			appStateStore.init();
 

@@ -1,14 +1,14 @@
 import Component from '../component';
-import SideMenuPlantsMobile from './sideMenuPlantsMobile';
-import GridViewPlants from './gridViewPlants';
+import SideMenuArticlesMobile from './sideMenuArticlesMobile';
+import GridViewArticles from './gridViewArticles';
 import appStateStore from '../storage/appStateStore';
-import plantTablesStore from '../storage/plantTablesStore';
-import plantListStore from '../storage/plantListStore';
-import treesFilterStore from '../storage/treesFilterStore';
+import articleTablesStore from '../storage/articleTablesStore';
+import articleListStore from '../storage/articleListStore';
+import articleFilterStore from '../storage/articleFilterStore';
 import ButtonShowMenu from '../parts/buttonShowMenu';
 
 (function() {
-	var Main = {
+	var MainArticles = {
 		init: function() {
 			var proto = Object.assign({}, this, Component);
 			var inst = Object.create(proto);
@@ -17,13 +17,13 @@ import ButtonShowMenu from '../parts/buttonShowMenu';
 
 	      	//init storage
 	      	appStateStore.init();
-	      	plantListStore.init();
-	      	plantTablesStore.init();
-	      	treesFilterStore.init();
+	      	articleListStore.init();
+	      	articleTablesStore.init();
+	      	articleFilterStore.init();
 
 			//call initialize on Component first
 			inst.initialize({
-				container: document.querySelector('.plant-search-container'),
+				container: document.querySelector('.articles-container'),
 				el: 
 				`<div class="main-container"}>
 		          <div class="row">
@@ -33,11 +33,11 @@ import ButtonShowMenu from '../parts/buttonShowMenu';
 		        </div>`
 			});
 
-			const sideMenuTrees = SideMenuPlantsMobile.init();
+			const sideMenuTrees = SideMenuArticlesMobile.init();
 			inst.el.appendChild(sideMenuTrees.el);
 
-			const gridViewPlants = GridViewPlants.init();
-			inst.el.appendChild(gridViewPlants.el);
+			const gridViewArticles = GridViewArticles.init();
+			inst.el.appendChild(gridViewArticles.el);
 
 			const buttonShowMenu = ButtonShowMenu.init();
 			inst.el.querySelector('.filter-container').appendChild(buttonShowMenu.el);
@@ -46,5 +46,5 @@ import ButtonShowMenu from '../parts/buttonShowMenu';
 		}
 	}
 
-	Main.init();
+	MainArticles.init();
 })();

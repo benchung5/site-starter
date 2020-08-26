@@ -1,12 +1,12 @@
 import Component from '../component';
 import { formatSearchString } from '../lib/stringUtils';
-import { searchTrees } from '../actions/plants';
-import plantFilterStore from '../storage/plantFilterStore';
+import { searchArticles } from '../actions/articles';
+import articleFilterStore from '../storage/articleFilterStore';
 import { getUrlParams, setUrlParams } from '../lib/utils';
-import plantListStore from '../storage/plantListStore';
+import articleListStore from '../storage/articleListStore';
 import appStateStore from '../storage/appStateStore';
 
-var SearchTrees = {
+var SearchArticles = {
 	isClearSearch: function() {
 		if (appStateStore.storageData.clearSearch) {
 			//clear search
@@ -14,10 +14,10 @@ var SearchTrees = {
 		}
 	},
 	search: function(search) {
-		//update the trees filter then search using the updated trees filter
-		plantFilterStore.setData({ search: search });
-		searchTrees(plantFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
+		//update the article filter then search using the updated article filter
+		articleFilterStore.setData({ search: search });
+		searchArticles(articleFilterStore.storageData, (apiData) => {
+			articleListStore.setData(apiData);
 		});
 	},
 	submitForm: function(e) {
@@ -70,6 +70,6 @@ var SearchTrees = {
 	}
 }
 
-export default SearchTrees;
+export default SearchArticles;
 
 

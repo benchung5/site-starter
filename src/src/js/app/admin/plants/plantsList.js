@@ -5,7 +5,7 @@ import SearchTrees from '../../parts/searchTrees';
 import PaginationPlants from '../../parts/paginationPlants';
 import plantListStore from '../../storage/plantListStore';
 import { searchTrees } from '../../actions/plants';
-import treesFilterStore from '../../storage/treesFilterStore';
+import plantFilterStore from '../../storage/plantFilterStore';
 import { globals } from '../../config.js';
 
 var PlantsList = {
@@ -22,7 +22,7 @@ var PlantsList = {
 		let id = e.target.getAttribute("data-id");
 		deletePlant({'tree': { id: parseInt(id), slug: slug}}, (apiData) => {
 			//perform the tree search again
-			searchTrees(treesFilterStore.storageData, (apiData) => {
+			searchTrees(plantFilterStore.storageData, (apiData) => {
 				plantListStore.setData(apiData);
 			});
 		});

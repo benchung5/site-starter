@@ -1,50 +1,50 @@
 import Component from '../component';
 import { globals } from '../config';
-import plantFilterStore from '../storage/plantFilterStore';
-import plantListStore from '../storage/plantListStore';
+import articleFilterStore from '../storage/articleFilterStore';
+import articleListStore from '../storage/articleListStore';
 import { toggleClass } from '../lib/utils';
 import { getUrlParams, setUrlParams } from '../lib/utils';
-import { searchTrees } from '../actions/plants';
+import { searchArticles } from '../actions/articles';
 
-var MyComp = {
+var PaginationArticles = {
 	updateOffset: function(newOffset) {
-		plantFilterStore.setData({ offset: newOffset });
+		articleFilterStore.setData({ offset: newOffset });
 		setUrlParams('offset', newOffset);
 		this.update();
 	},
 	back: function() {
-		if(plantFilterStore.storageData.offset === 0 ) { 
+		if(articleFilterStore.storageData.offset === 0 ) { 
 			return; 
 		}
-		let newOffset = plantFilterStore.storageData.offset - globals.ADMIN_ENTRIES_PER_PAGE;
+		let newOffset = articleFilterStore.storageData.offset - globals.ADMIN_ENTRIES_PER_PAGE;
 		this.updateOffset(newOffset);
 	},
 	advance: function() {
 
-		if ((plantFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= plantListStore.storageData.count) { 
+		if ((articleFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= articleListStore.storageData.count) { 
 			return; 
 		}
-		let newOffset = plantFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE;
+		let newOffset = articleFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE;
 		this.updateOffset(newOffset);
 	},
 	update: function() {
-		//search trees
-		searchTrees(plantFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
+		//search articles
+		searchArticles(articleFilterStore.storageData, (apiData) => {
+			articleListStore.setData(apiData);
 
 			//prev
-			if(plantFilterStore.storageData.offset === 0) {
+			if(articleFilterStore.storageData.offset === 0) {
 				toggleClass(this.prev, 'disabled');
 			}
 			//next
-			const end = ((plantFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= plantListStore.storageData.count) ? true : false;
+			const end = ((articleFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= articleListStore.storageData.count) ? true : false;
 			if(end) {
 				toggleClass(this.next, 'disabled');
 			}
 			//page
-			this.page.innerHTML = plantFilterStore.storageData.offset / globals.ADMIN_ENTRIES_PER_PAGE + 1;
+			this.page.innerHTML = articleFilterStore.storageData.offset / globals.ADMIN_ENTRIES_PER_PAGE + 1;
 			//count
-			this.count.innerHTML = plantListStore.storageData.count;
+			this.count.innerHTML = articleListStore.storageData.count;
 		});
 	},
 	init: function() {
@@ -95,4 +95,4 @@ var MyComp = {
 	}
 }
 
-export default MyComp;
+export default PaginationArticles;

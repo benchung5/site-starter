@@ -4,7 +4,7 @@
 	<div class="content-wrapper">
 
 		<!-- react container -->
-		<div class="app-container"></div>	
+		<div class="articles-container"></div>	
 
 	</div><!-- /content wrapper -->
 

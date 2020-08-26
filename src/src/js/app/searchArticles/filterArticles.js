@@ -1,21 +1,21 @@
 import Component from '../component';
 import Dropdown from '../parts/dropdown';
 import ButtonList from '../parts/buttonList';
-import plantTablesStore from '../storage/plantTablesStore';
-import treesFilterStore from '../storage/treesFilterStore';
-import plantListStore from '../storage/plantListStore';
+import articleTablesStore from '../storage/articleTablesStore';
+import articleFilterStore from '../storage/articleFilterStore';
+import articleListStore from '../storage/articleListStore';
 
-import { fetchPlantTables, searchTrees } from '../actions/plants';
+import { fetchArticleTables, searchArticles } from '../actions/articles';
 import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
-var PlantFilter = {
+var ArticleFilter = {
 	onUpdateCategories: function(modifiedData) {
 		//update the hash url with the selected categories
 		const categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
 		setUrlParams('categories', categorySlugs);
-		treesFilterStore.setData({ categoriesTrees: modifiedData });
-		searchTrees(treesFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
+		articleFilterStore.setData({ categoriesTrees: modifiedData });
+		searchArticles(articleFilterStore.storageData, (apiData) => {
+			articleListStore.setData(apiData);
 		});
 
 	},
@@ -31,8 +31,8 @@ var PlantFilter = {
 			`<div></div>`
 		});
 
-		fetchPlantTables((apiData) => {
-			plantTablesStore.setData(apiData);
+		fetchArticleTables((apiData) => {
+			articleTablesStore.setData(apiData);
 
 			inst.buttonHeight = options.buttonHeight;
 
@@ -41,15 +41,15 @@ var PlantFilter = {
 				className: '',
 				classPropButton: 'list-button check icon',
 				buttonHeight: options.buttonHeight,
-				buttonData: plantTablesStore.storageData.trees_category_id,
+				buttonData: articleTablesStore.storageData.articles_category_id,
 				updateData: inst.onUpdateCategories.bind(inst),
 				allActive: true
 			});
 
 			inst.dropdown = Dropdown.init({
 				className: '',
-				name: 'Plant Type',
-				height: (options.buttonHeight * plantTablesStore.storageData.trees_category_id.length),
+				name: 'Category',
+				height: (options.buttonHeight * articleTablesStore.storageData.articles_category_id.length),
 				children: inst.buttonList.el,
 				active: true
 			});
@@ -61,4 +61,4 @@ var PlantFilter = {
 	}
 }
 
-export default PlantFilter;
+export default ArticleFilter;

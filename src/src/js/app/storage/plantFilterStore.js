@@ -1,8 +1,8 @@
 import Store from '../store';
 import { globals } from '../config.js';
 
-var TreesFilterStore = {
-	name: 'treesFilterStore',
+var PlantFilterStore = {
+	name: 'plantFilterStore',
 	storageData: {
 		categoriesTrees: [],
 	    origins: [],
@@ -17,4 +17,4 @@ var TreesFilterStore = {
 	}
 }
 
-export default TreesFilterStore;
+export default PlantFilterStore;

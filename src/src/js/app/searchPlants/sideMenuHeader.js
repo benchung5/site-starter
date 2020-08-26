@@ -1,16 +1,16 @@
 import Component from '../component';
-import Button from './button';
+import Button from '../parts/button';
 import appStateStore from '../storage/appStateStore';
 import { searchTrees } from '../actions/plants';
-import treesFilterStore from '../storage/treesFilterStore';
+import plantFilterStore from '../storage/plantFilterStore';
 import plantListStore from '../storage/plantListStore';
 
 var SideMenuHeader = {
 	onItemClick: function() {
 	    appStateStore.setData({ showMenu: 'close' });
 	    appStateStore.setData({ clearSearch: true }, { clearSearch: false });
-	    treesFilterStore.setData({ search: '' });
-	    searchTrees(treesFilterStore.storageData, (apiData) => {
+	    plantFilterStore.setData({ search: '' });
+	    searchTrees(plantFilterStore.storageData, (apiData) => {
 	    	plantListStore.setData(apiData);
 	    });
 	},

@@ -34,9 +34,12 @@ PATHS:
   javascript:
   # entry for external js file
     - "src/js/app/app.js"
-  plantSearch:
+  searchPlants:
   # entry for external js file
-    - "src/js/app/plantSearch/mainPlants.js"
+    - "src/js/app/searchPlants/mainPlants.js"
+  searchArticles:
+  # entry for external js file
+    - "src/js/app/searchArticles/mainArticles.js"
   admin:
   # entry for external js file
     - "src/js/app/admin/mainAdmin.js"
