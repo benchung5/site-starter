@@ -32,7 +32,7 @@ var ArticleFilter = {
 		});
 
 		fetchArticleTables((apiData) => {
-			articleTablesStore.setData(apiData);
+			articleTablesStore.setData({ articles_category_id: apiData });
 
 			inst.buttonHeight = options.buttonHeight;
 

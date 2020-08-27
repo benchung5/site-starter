@@ -12,14 +12,22 @@ var GridViewArticles = {
 	buildItems: function() {
 		this.cardsContainer.innerHTML = '';
 		articleListStore.storageData.articles.map((item) => {
+			// remove html and trim
+			let body = item.body.replace(/<[^>]*>?/gm, '');
+			body = body.substring(0, 250) + '...';
+
 			let card = this.createEl(`
-				<a href="/articles/${item.category}/${item.slug}" class="product-card" alt="${item.common_name}" data-slug="${item.slug}">
+				<a href="/articles/${item.categories.split(',')[0]}/${item.slug}" class="article-row" alt="${item.name}" data-slug="${item.slug}">
 				    <div class="inner">
 				        <div class="image">
 				        	${/* image here */''}
 				        </div>
 				        <div class="info">
-				            <div class="info-detail">${item.common_name}</div>
+				            <div class="info-body">
+				            	<h2 class="article-title">${item.name}</h2>
+				            	<p class="article-body">${body}</p>
+				            </div>
+				            <div class="info-footer">read more&nbsp; &#8594;</div>
 				        </div>
 				    </div>
 				</a>
@@ -27,12 +35,12 @@ var GridViewArticles = {
 
 			let image = null;
 
-			if (item.images) {
+			if (item.featured_image) {
 				image = this.createEl(`
 					<picture>
-					    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}" media="(max-width: 1275px)"/>
-					    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}"/>
-					    <img alt="${item.image_descriptions.split(',')[0]}" src="${ARTICLES_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}"/> 
+					    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}" media="(max-width: 1275px)"/>
+					    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/>
+					    <img alt="${item.image_description}" src="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/> 
 					</picture>
 				`);
 			} else {
@@ -67,7 +75,7 @@ var GridViewArticles = {
                     	${/* sideMenuArticles */''}
                     </div>
                     <div class="right">
-                        <div class="cards-container">
+                        <div class="articles-container">
                         	${/* cards render here */''}
                         </div>
                         ${/* paginationArticles */''}
@@ -79,7 +87,7 @@ var GridViewArticles = {
 		//build components
 		inst.sideMenuArticles = SideMenuArticles.init();
 		inst.gridView.querySelector('.left').appendChild(inst.sideMenuArticles.el);
-		inst.cardsContainer = inst.gridView.querySelector('.cards-container');
+		inst.cardsContainer = inst.gridView.querySelector('.articles-container');
 		inst.paginationArticles = PaginationArticles.init();
 		inst.gridView.querySelector('.right').appendChild(inst.paginationArticles.el);
 

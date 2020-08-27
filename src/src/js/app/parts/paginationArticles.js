@@ -86,7 +86,7 @@ var PaginationArticles = {
 		// get offset from url
 		const offset = getUrlParams('offset');
 		if (offset) {
-		  inst.updateOffset(offset);
+		  inst.updateOffset(offset[0]);
 		} else {
 			inst.update();
 		}

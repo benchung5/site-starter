@@ -104,7 +104,7 @@ export function searchArticles(searchObj, callback) {
 }
 
 export function fetchArticleTables(callback) {
-    xhr.send(`${SERVER_URL}/article_tables/all`, 
+    xhr.send(`${SERVER_URL}/categories/all`, 
     {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
