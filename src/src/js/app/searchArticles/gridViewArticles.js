@@ -11,51 +11,61 @@ var { ARTICLES_UPLOADS_PATH } = require('../config')[env];
 var GridViewArticles = {
 	buildItems: function() {
 		this.cardsContainer.innerHTML = '';
-		articleListStore.storageData.articles.map((item) => {
-			// remove html and trim
-			let body = item.body.replace(/<[^>]*>?/gm, '');
-			body = body.substring(0, 250) + '...';
-
-			let card = this.createEl(`
-				<a href="/articles/${item.categories.split(',')[0]}/${item.slug}" class="article-row" alt="${item.name}" data-slug="${item.slug}">
+		let card = null;
+		if(articleListStore.storageData.articles.length == 0) {
+			card = this.createEl(`
+				<div class="article-row">
 				    <div class="inner">
-				        <div class="image">
-				        	${/* image here */''}
-				        </div>
-				        <div class="info">
-				            <div class="info-body">
-				            	<h2 class="article-title">${item.name}</h2>
-				            	<p class="article-body">${body}</p>
-				            </div>
-				            <div class="info-footer">read more&nbsp; &#8594;</div>
-				        </div>
+				    	<div class="info">Sorry, not items found.</info>
 				    </div>
-				</a>
+				</div>
 			`);
+		} else {
+			articleListStore.storageData.articles.map((item) => {
+				// remove html and trim
+				let body = item.body.replace(/<[^>]*>?/gm, '');
+				body = body.substring(0, 250) + '...';
 
-			let image = null;
-
-			if (item.featured_image) {
-				image = this.createEl(`
-					<picture>
-					    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}" media="(max-width: 1275px)"/>
-					    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/>
-					    <img alt="${item.image_description}" src="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/> 
-					</picture>
+				card = this.createEl(`
+					<a href="/articles/${item.categories.split(',')[0]}/${item.slug}" class="article-row" alt="${item.name}" data-slug="${item.slug}">
+					    <div class="inner">
+					        <div class="image">
+					        	${/* image here */''}
+					        </div>
+					        <div class="info">
+					            <div class="info-body">
+					            	<h2 class="article-title">${item.name}</h2>
+					            	<p class="article-body">${body}</p>
+					            </div>
+					            <div class="info-footer">read more&nbsp; &#8594;</div>
+					        </div>
+					    </div>
+					</a>
 				`);
-			} else {
-				image = this.createEl(`
-					<picture>
-					    <source srcSet="/assets/img/placeholder-images/placeholder-img.png" media="(max-width: 1275px)"/>
-					    <source srcSet="/assets/img/placeholder-images/placeholder-img.png"/>
-					    <img src="/assets/img/placeholder-images/placeholder-img.png"/> 
-					</picture>
-				`)
-			}
 
-			card.querySelector('.image').appendChild(image);
-			this.cardsContainer.appendChild(card);
-		});
+				let image = null;
+
+				if (item.featured_image) {
+					image = this.createEl(`
+						<picture>
+						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}" media="(max-width: 1275px)"/>
+						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/>
+						    <img alt="${item.image_description}" src="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/> 
+						</picture>
+					`);
+				} else {
+					image = this.createEl(`
+						<picture>
+						    <source srcSet="/assets/img/placeholder-images/placeholder-img.png" media="(max-width: 1275px)"/>
+						    <source srcSet="/assets/img/placeholder-images/placeholder-img.png"/>
+						    <img src="/assets/img/placeholder-images/placeholder-img.png"/> 
+						</picture>
+					`)
+				}
+				card.querySelector('.image').appendChild(image);
+			});
+		}
+		this.cardsContainer.appendChild(card);
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component);

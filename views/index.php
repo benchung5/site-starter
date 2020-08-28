@@ -10,8 +10,10 @@ $this->insert('featured', $view_data );
                 <div class="small-12 large-12 columns">
                     <div class="center">
                         <h1>Create Natural Surroundings</h1>
-                        <p>Nature has always provided us with plants for human health and wellbeing. By using the patterns found in nature, we can working with our surroundings, not against them. Learn how to take advantage of these free services through edible gardens, food forests and permaculture.</p>
-                        <a class="button-view-models transparent" href="plants">Permiculture Plant List</a>
+                        <p>The Niagara Region is home to some of the most unique and diverse fauna in Canada.
+                            Help preserve local ecosystems by learning how to identify and grow native trees.
+                        </p>
+                        <a class="button-view-models transparent" href="plants">Search Native Trees</a>
                     </div>
                 </div>
             </div>
@@ -21,8 +23,8 @@ $this->insert('featured', $view_data );
            <div class="row">
                 <div class="small-12 columns medium-media-padding">
                     <div class="center-info" data-scroll>
-                        <h3>Permiculture Gulds</h3>
-                        <p>Search favourite permiculture guild plants. Filter by ecological services, attractions, tolerances, and planting needs</p>
+                        <h3>Niagara Native Tree Finder</h3>
+                        <p>Search trees and woody plants native to the Niagara region</p>
                     </div>
                 </div>
             </div>

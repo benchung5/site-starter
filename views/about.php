@@ -13,7 +13,7 @@ use Lib\Utils;
 		        <div class="small-12 large-7 columns">
 		            <div class="left">
 		                <h1>Our Goal</h1>
-		                <p>To raise awareness of the practical use of plants. Specifically, to provide knowledge about designing and growing beneficial native, and naturallized landscapes.</p>
+		                <p>To raise awareness of the biology and ecological benefits of trees in the Niagara Region. Specifically, to provide knowledge about identifying and growing beneficial native, and naturallized landscapes.</p>
 		            </div>
 		        </div>
 

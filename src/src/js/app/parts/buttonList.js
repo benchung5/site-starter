@@ -1,29 +1,30 @@
 import Component from '../component';
 import Button from './button';
+import { getUrlParams } from '../lib/utils';
 
 var ButtonList = {
 	onItemClick: function(e) {
 		e.preventDefault();
 		let id = e.target.getAttribute('data-id');
-
+		
 	    let modifiedData = this.buttonData.map((item, index) => {
+
 	    	//set current active to the opposite of what it was (toggle);
-	    	let isActive = (item.id === id) ? !item.active : item.active;
-
-	    	//replace with object.assign
-	    	return Object.assign(item, { active: isActive });
+	    	if (item.id === id) {
+	    		this.updateButtonState(id, (!item.active));
+	    		return Object.assign(item, { active: !item.active });
+	    	} else {
+	    		return item;
+	    	}
 	    });
-
-	    // update the button state
-	    const el = this.el.querySelector(`[data-id="${id}"]`);
-	    if (el.dataset.isActive == 'true') {
-	    	el.dataset.isActive = false;
-	    } else {
-	    	el.dataset.isActive = true;
-	    }
-
 	    //send callback
 	    this.updateData(modifiedData);
+	},
+	updateButtonState: function(id, isActive) {
+		
+		// update the button state
+		const el = this.el.querySelector(`[data-id="${id}"]`);
+		el.dataset.isActive = isActive;
 	},
 	buildButtons: function() {
 		let modifiedData = this.buttonData.map((item, index) => {
@@ -52,8 +53,17 @@ var ButtonList = {
 			wrapper.appendChild(button.el);
 			this.el.appendChild(wrapper);
 
-			//replace with object.assign
-			return Object.assign(item, { active: true });
+			// if url contains selected categories, just select those
+			let selectedCategories = getUrlParams('categories');
+			let isActive = true;
+            if (selectedCategories) {
+                isActive = false;
+                if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
+                    isActive = true;
+                }
+                this.updateButtonState(item.id, isActive);
+            }
+			return Object.assign(item, { active: isActive });
 		});
 
 		//send initial callback

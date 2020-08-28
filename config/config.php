@@ -20,7 +20,7 @@ class Config
 	{
 		/*site title*/
 		define('SITE_TITLE', 'Nature With Us');
-		define('SITE_DESCRIPTION', 'Providing sustainable tree care for the Niagara region. Services include consulting, organic nutrition, plating, hedging, pruning and removal.');
+		define('SITE_DESCRIPTION', 'Providing articles and resources on trees native to the Niagara Region');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

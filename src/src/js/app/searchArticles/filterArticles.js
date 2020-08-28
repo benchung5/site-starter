@@ -13,7 +13,7 @@ var ArticleFilter = {
 		//update the hash url with the selected categories
 		const categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
 		setUrlParams('categories', categorySlugs);
-		articleFilterStore.setData({ categoriesTrees: modifiedData });
+		articleFilterStore.setData({ categories: modifiedData });
 		searchArticles(articleFilterStore.storageData, (apiData) => {
 			articleListStore.setData(apiData);
 		});
