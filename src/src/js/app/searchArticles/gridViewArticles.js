@@ -10,6 +10,7 @@ var { ARTICLES_UPLOADS_PATH } = require('../config')[env];
 
 var GridViewArticles = {
 	buildItems: function() {
+		console.log(articleListStore.storageData.articles);
 		this.cardsContainer.innerHTML = '';
 		let card = null;
 		if(articleListStore.storageData.articles.length == 0) {
@@ -20,6 +21,7 @@ var GridViewArticles = {
 				    </div>
 				</div>
 			`);
+			this.cardsContainer.appendChild(card);
 		} else {
 			articleListStore.storageData.articles.map((item) => {
 				// remove html and trim
@@ -63,9 +65,11 @@ var GridViewArticles = {
 					`)
 				}
 				card.querySelector('.image').appendChild(image);
+				this.cardsContainer.appendChild(card);
 			});
+
 		}
-		this.cardsContainer.appendChild(card);
+		
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component);
