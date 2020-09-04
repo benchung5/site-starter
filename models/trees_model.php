@@ -35,15 +35,11 @@ class Trees_model extends Model
 
 		if ($result) {
 
-			Utils::dbug($result);
-
 			// // get images directly from files table (changed to what's stroed in the tree)
 			// $this->files_trees = $this->load_model('files_trees_model');
 			// $result->images = $this->files_trees->get_all_by_ref_id($result->id);
 
 			$result->images = Json_decode($result->images) ?: [] ;
-
-
 
 			// origins
 			$result->origins = $this->db->table('trees_origins _to')
