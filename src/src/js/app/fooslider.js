@@ -103,15 +103,17 @@ const fooSlider = function() {
         if(this.current == 0) {
           for(var i = 0; i < this.prevControls.length; i++) {
             this.prevControls[i].style.visibility = 'hidden';
+            this.nextControls[i].style.visibility = 'visible';
           }
         } else if(this.current == (this.boxes.length - 1)) {
           for(var i = 0; i < this.prevControls.length; i++) {
             this.nextControls[i].style.visibility = 'hidden';
+            this.prevControls[i].style.visibility = 'visible';
           }
         } else {
           for(var i = 0; i < this.prevControls.length; i++) {
-            this.prevControls[i].style.visibility = 'inherit';
-            this.nextControls[i].style.visibility = 'inherit';
+            this.nextControls[i].style.visibility = 'visible';
+            this.prevControls[i].style.visibility = 'visible';
           }
         }
       }

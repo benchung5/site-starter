@@ -3,8 +3,8 @@ import ImageEditMeta from './imageEditMeta';
 import sanitizeFilename from 'sanitize-filename';
 
 var Crop = {
-	thumbWidth: 150,
-	thumbHeight: 150,
+	thumbWidth: 200,
+	thumbHeight: 200,
 	onUnmount: function() {
 	  //do this to avoid memory leaks
 	  window.URL.revokeObjectURL(this.file.preview);
@@ -104,6 +104,8 @@ var Crop = {
 		    this.thumbWidth, this.thumbHeight // w, h of result image (scale)
 			);
 
+	    console.log(this.state.meta.tag);
+
 	    //convert to blob and output file data and preview
 		this.canvas.toBlob((blob) => {
 			const fileData = {
@@ -111,6 +113,7 @@ var Crop = {
 			  originalFile: this.file,
 			  tag_id: this.state.meta.tag,
 			  description: this.state.meta.description,
+			  caption: this.state.meta.caption
 			}
 
 			const previewData = {
@@ -166,16 +169,17 @@ var Crop = {
 			el: 
 			`<div class="crop">
 				<canvas id="canvas"></canvas>
-
-				<div class="cropper-buttons">
-				  <button id="crop" class="btn"}>crop</button>
-				  <button id="cancel" class="btn">cancel</button>
+				<div class="verify-action">
+				  <div class="buttons">
+				   <button id="crop" class="btn"}>crop</button>
+				   <button id="cancel" class="btn">cancel</button>
+				  </div>
 				</div>
 			</div>`
 		});
 
 		//get elements
-		inst.cropperButtons = inst.el.querySelector('.cropper-buttons');
+		inst.cropperButtons = inst.el.querySelector('.verify-action');
 		inst.cropperButtons.querySelector('#crop').addEventListener('click', inst.submitCrop.bind(inst), false);
 		inst.cropperButtons.querySelector('#cancel').addEventListener('click', inst.doneCrop.bind(inst), false);
 		inst.imageEditMeta = ImageEditMeta.init({

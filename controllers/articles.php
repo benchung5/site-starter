@@ -20,7 +20,6 @@ class Articles extends Controller
 
 	public function view($category, $title)
 	{
-		Utils::dbug($category);
 		$article = $this->articles->get(['category' => $category, 'slug' => $title]);
 
 		if ($article) {

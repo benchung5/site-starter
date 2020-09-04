@@ -254,17 +254,21 @@ button.copy-btn {
   }
 }
 
-.cropper-buttons {
-  margin: 1em 0.5em;
-  padding: 0.5em;
-  font-size: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+.verify-action {
+  color: #fff;
+  text-align: center;
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em 0.5em;
+    padding: 0.5em;
+    font-size: 90%;
+    button {
+      margin: 2em 1em;
+    }
+  }
 
-.cropper-buttons button {
-  margin: 2em 1em;
 }
 
 /* ==========================================================================

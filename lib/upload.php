@@ -63,7 +63,7 @@ class Upload
 				$isImgInfoField = strpos($key, 'image_');
 				
 				if ($isImgInfoField !== false) {
-					$imgInfoFields[] = explode(',', $value);
+					$imgInfoFields[] = explode('|||', $value);
 				}
 			}
 
@@ -80,6 +80,7 @@ class Upload
 						$file_data['sort_order'] = $count;
 						$file_data['tag_id'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
 						$file_data['description'] = $imgInfoFields[$count][1];
+						$file_data['caption'] = $imgInfoFields[$count][2];
 						$new_id = $files->add($file_data);
 						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
 						$tag_name = '';
@@ -90,7 +91,7 @@ class Upload
 						$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
 
 						// store the new image in new_files (to return from this function)
-						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'tag_name' => $tag_name, 'description' => $file_data['description']];
+						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'tag_name' => $tag_name, 'description' => $file_data['description'], 'caption' => $file_data['caption']];
 
 						// move file, append new id, delete temp file
 						$destination_original = './uploads/'.$ref_type.'/'.$new_name;

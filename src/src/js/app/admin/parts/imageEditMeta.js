@@ -7,14 +7,19 @@ var ImageEditMeta = {
 		this.update();
 	},
 	onDescChange(inputValue) {
-	  this.setState({description: inputValue});
-	  this.update();
+	    this.setState({description: inputValue});
+	    this.update();
+	},
+	onCaptionChange(inputValue) {
+	    this.setState({caption: inputValue});
+	    this.update();
 	},
 	update() {
 		this.onUpdate({ 
 			tag: this.state.tag_id,
 			tagName: this.state.tag_name,
-			description: this.state.description 
+			description: this.state.description,
+			caption: this.state.caption
 		});
 	},
 	init: function(options) {
@@ -28,11 +33,10 @@ var ImageEditMeta = {
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<div>
-				<select className="dropdown-select" name="tag_id">
-				 </select>
-
-				<input type="text" placeholder="description" name="description"/>
+			`<div>:
+				<select class="dropdown-select" name="tag_id">
+				<input id="description" type="text" placeholder="description" name="description"/>
+				<input id="caption" type="text" placeholder="caption" name="caption"/>
 			</div>`
 		});
 
@@ -43,11 +47,17 @@ var ImageEditMeta = {
 		  inst.select.appendChild(option);
 		});
 		inst.select.addEventListener('change', inst.onTagChange.bind(inst), false);
-		inst.input = inst.el.querySelector('input');
-		inst.input.addEventListener('input', (e) => inst.onDescChange(e.target.value), false);
+
+		inst.description = inst.el.querySelector('#description');
+		inst.description.addEventListener('input', (e) => inst.onDescChange(e.target.value), false);
+
+		inst.caption = inst.el.querySelector('#caption');
+		inst.caption.addEventListener('input', (e) => inst.onCaptionChange(e.target.value), false);
 		//set an initial value
 		inst.setState({ tag_id: options.tags[0].id });
+		inst.setState({tag_name: inst.select.options[0].text});
 		inst.setState({ description: '' });
+		inst.setState({ caption: '' });
 		inst.update();
 		
 		return inst;

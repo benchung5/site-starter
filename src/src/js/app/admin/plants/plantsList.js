@@ -6,7 +6,8 @@ import PaginationPlants from '../../parts/paginationPlants';
 import plantListStore from '../../storage/plantListStore';
 import { searchTrees } from '../../actions/plants';
 import plantFilterStore from '../../storage/plantFilterStore';
-import { globals } from '../../config.js';
+import { globals } from '../../config';
+import verifyAction from '../parts/verifyAction';
 
 var PlantsList = {
 	build: function() {
@@ -18,13 +19,17 @@ var PlantsList = {
 	},
 	onDeleteTreeClick: function(e) {
 		e.preventDefault();
-		let slug = e.target.getAttribute("data-slug");
-		let id = e.target.getAttribute("data-id");
-		deletePlant({'tree': { id: parseInt(id), slug: slug}}, (apiData) => {
-			//perform the tree search again
-			searchTrees(plantFilterStore.storageData, (apiData) => {
-				plantListStore.setData(apiData);
-			});
+		this.verifyAction.open((verified) => {
+			if(verified) {
+				let slug = e.target.getAttribute("data-slug");
+				let id = e.target.getAttribute("data-id");
+				deletePlant({'tree': { id: parseInt(id), slug: slug}}, (apiData) => {
+					//perform the tree search again
+					searchTrees(plantFilterStore.storageData, (apiData) => {
+						plantListStore.setData(apiData);
+					});
+				});
+			}
 		});
 	},
 	renderList: function() {
@@ -66,6 +71,9 @@ var PlantsList = {
 		inst.sidebar = Sidebar.init();
 		inst.searchTrees = SearchTrees.init({});
 		inst.paginationTrees = PaginationPlants.init();
+		inst.verifyAction = verifyAction.init({
+			message: 'delete item?'
+		});
 
 		inst.build();
 

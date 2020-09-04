@@ -260,7 +260,7 @@ figcaption {
 }
 
 figure img {
-  margin-bottom: 0.5em !important;
+  margin-bottom: 0.5em;
 }
 
 [type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], 
@@ -591,6 +591,9 @@ page layout
     .sidebar {
       margin-top: 4em;
       margin-bottom: 4em;
+      @include breakpoint(medium down) {
+       margin-top: 0;
+      }
     }
   }
 }
@@ -929,8 +932,8 @@ hero
       font-size: 3.5em;
       text-transform: uppercase;
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-      @media (min-width: $hero-small) {
-        //font-size: 4em;
+      @media (max-width: $hero-small) {
+        font-size: 2.2em;
       }
       @media (min-width: $hero-medium) {
         //font-size: 5em;
@@ -3092,11 +3095,36 @@ fooslider
   // overflow-y: scroll;
   display: flex;
   align-items: center;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  img {
-    max-height: 100%;
+  
+  figure {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0;
+    .caption-holder {
+      position: absolute;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      figcaption {
+          padding: 0.5em;
+          background: rgba(0,0,0,0.5);
+          width: 100%;
+          text-align: center;
+          font-size: 0.7em;
+      }
+    }
+    img {
+        max-height: 100%;
+        margin: 0;
+    }
   }
 }
 

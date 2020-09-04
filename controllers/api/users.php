@@ -31,7 +31,6 @@ class Users extends Controller
 			if (isset($payload->userId)) {
 				$user = $this->users->get_user(['id' => $payload->userId]);
 				Utils::json_respond(SUCCESS_RESPONSE, ['id' => $user->id, 'email' => $user->email]);
-				Utils::dbug($user);
 			} else {
 				Utils::json_respond(INVALID_USER_PASS, "user not found.");
 			}
