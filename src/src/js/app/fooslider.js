@@ -100,17 +100,27 @@ const fooSlider = function() {
     updateControls: function() {
       //hide irrelevant controls
       if(!this.isLoopBack) {
-        if(this.current == 0) {
+        console.log(this.boxes.length - 1);
+        if(this.current == 0 && ((this.boxes.length) == 1)) {
+          //if only one
+          for(var i = 0; i < this.prevControls.length; i++) {
+            this.prevControls[i].style.visibility = 'hidden';
+            this.nextControls[i].style.visibility = 'hidden';
+          }
+        } else if(this.current == 0 && ((this.boxes.length) !== 1)) {
+          //if at the beginning
           for(var i = 0; i < this.prevControls.length; i++) {
             this.prevControls[i].style.visibility = 'hidden';
             this.nextControls[i].style.visibility = 'visible';
           }
         } else if(this.current == (this.boxes.length - 1)) {
+          //if at the end
           for(var i = 0; i < this.prevControls.length; i++) {
             this.nextControls[i].style.visibility = 'hidden';
             this.prevControls[i].style.visibility = 'visible';
           }
         } else {
+          //if in the middle
           for(var i = 0; i < this.prevControls.length; i++) {
             this.nextControls[i].style.visibility = 'visible';
             this.prevControls[i].style.visibility = 'visible';

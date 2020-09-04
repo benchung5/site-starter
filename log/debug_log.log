@@ -1,0 +1,324 @@
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 277
+            [name] => Carya_glabra_Pignut_Hickory-277.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => 
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 277
+            [name] => Carya_glabra_Pignut_Hickory-277.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => 
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 141
+            [ref_id] => 84
+            [name] => bur-oak-leaves-141.jpg
+            [sort_order] => 0
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => Bur Oak Leaves
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 142
+            [ref_id] => 84
+            [name] => bur-oak-branches-142.jpg
+            [sort_order] => 1
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => Bur Oak Leaves
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 143
+            [ref_id] => 84
+            [name] => bur-oak-branching2-143.jpg
+            [sort_order] => 2
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => Bur Oak Leaves
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 144
+            [ref_id] => 84
+            [name] => bur-oak-branching-144.jpg
+            [sort_order] => 3
+            [extension] => jpg
+            [tag_name] => twigs/buds
+            [description] => Bur Oak Branching
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 145
+            [ref_id] => 84
+            [name] => bur-oak-buds-145.jpg
+            [sort_order] => 4
+            [extension] => jpg
+            [tag_name] => twigs/buds
+            [description] => Bur Oak Buds
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 146
+            [ref_id] => 84
+            [name] => bur-oak-winter-twigs-146.jpg
+            [sort_order] => 5
+            [extension] => jpg
+            [tag_name] => twigs/buds
+            [description] => Bur Oak Winter Twigs
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 147
+            [ref_id] => 84
+            [name] => bur-oak-acorns-147.jpg
+            [sort_order] => 6
+            [extension] => jpg
+            [tag_name] => fruit
+            [description] => Bur Oak Acorns
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 223
+            [ref_id] => 84
+            [name] => bur_oak-223.JPG
+            [sort_order] => 0
+            [extension] => JPG
+            [tag_name] => 
+            [description] => Bur Oak
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 278
+            [name] => Carya_glabra_Pignut_Hickory-278.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => <span>my caption</span>
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 201
+            [ref_id] => 78
+            [name] => american-basswood-leaves7-201.jpg
+            [sort_order] => 0
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => American Linden leaves
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 202
+            [ref_id] => 78
+            [name] => american-basswood1-202.jpg
+            [sort_order] => 1
+            [extension] => jpg
+            [tag_name] => habit
+            [description] => American Linden
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 203
+            [ref_id] => 78
+            [name] => american-basswood-203.jpg
+            [sort_order] => 2
+            [extension] => jpg
+            [tag_name] => habit
+            [description] => American Linden
+        )
+
+    [3] => stdClass Object
+        (
+            [id] => 204
+            [ref_id] => 78
+            [name] => american-basswood-leaves4-204.jpg
+            [sort_order] => 3
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => American Linden leaves and bark
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 205
+            [ref_id] => 78
+            [name] => american-basswood-leaves3-205.jpg
+            [sort_order] => 4
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => American Linden leaves
+        )
+
+    [5] => stdClass Object
+        (
+            [id] => 206
+            [ref_id] => 78
+            [name] => american-basswood-leaves1-206.jpg
+            [sort_order] => 5
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => American Linden leaves
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 207
+            [ref_id] => 78
+            [name] => american-basswood-leaves6-207.jpg
+            [sort_order] => 6
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => American Linden leaves
+        )
+
+    [7] => stdClass Object
+        (
+            [id] => 208
+            [ref_id] => 78
+            [name] => american-basswood-bark-208.jpg
+            [sort_order] => 7
+            [extension] => jpg
+            [tag_name] => leaves
+            [description] => American Linden bark
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 278
+            [name] => Carya_glabra_Pignut_Hickory-278.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => <span>my caption</span>
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 278
+            [name] => Carya_glabra_Pignut_Hickory-278.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => <span>my caption</span>
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 278
+            [name] => Carya_glabra_Pignut_Hickory-278.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => <span>my caption</span>
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 278
+            [name] => Carya_glabra_Pignut_Hickory-278.jpg
+            [tag_name] => habit
+            [description] => 
+            [caption] => <span>my caption</span>
+        )
+
+)
+
+-----------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [id] => 220
+            [ref_id] => 80
+            [name] => american-elm-220.JPG
+            [sort_order] => 0
+            [extension] => JPG
+            [tag_name] => 
+            [description] => American Elm
+        )
+
+    [1] => stdClass Object
+        (
+            [id] => 221
+            [ref_id] => 80
+            [name] => american-elm-leaves-221.JPG
+            [sort_order] => 1
+            [extension] => JPG
+            [tag_name] => leaves
+            [description] => American Elm leaves
+        )
+
+    [2] => stdClass Object
+        (
+            [id] => 222
+            [ref_id] => 80
+            [name] => american-elm-bark-222.JPG
+            [sort_order] => 2
+            [extension] => JPG
+            [tag_name] => bark
+            [description] => American Elm bark
+        )
+
+)
+
+-----------------------------------------------

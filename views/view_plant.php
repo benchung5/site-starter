@@ -28,13 +28,14 @@ use Lib\Utils;
 								<div class="fooslider">
 
 									<?php
+									Utils::dbug($view_data['tree']->images);
 									foreach ($view_data['tree']->images as $image) { 
 										if (strpos($image->name, 'thumb') == false) {
-											$caption = isset($image->caption) ? Utils::sanitize($image->caption) : '';
+											$caption = isset($image->caption) && ($image->caption) ? '<div class="caption-holder"><figcaption>' . $image->caption . '</figcaption></div>' : '';
 											echo '<div class="slide"><div class="slide-inner">';
 											echo  '<figure>';
 		  									echo	'<img class="view-img" alt="' . Utils::sanitize($image->description) . '" src="'.Config::paths('ROOT_URL').'uploads/trees/'.Utils::sanitize($image->name).'" />';
-		  									echo	'<div class="caption-holder"><figcaption>' . $caption . '</figcaption></div>';
+		  									echo   $caption;
 											echo  '</figure>';
 											echo '</div></div>';
 										}
