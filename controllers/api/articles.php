@@ -68,6 +68,7 @@ class Articles extends Controller
 				'created_on' => date('Y-m-d')
 			];
 			if(isset($data['body'])) { $update_data['body'] = $data['body']; };
+			if(isset($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 
 			//joins data
 			$joins_data = [
@@ -90,6 +91,7 @@ class Articles extends Controller
 					'body' => $data['body'],
 					'images' => $data['images'],
 					'featured_image' => $data['featured_image'],
+					'mode_id' => $data['mode_id'],
 				],
 				'categories' => $data['categories'],
 				'tags' => $data['tags']

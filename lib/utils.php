@@ -66,8 +66,12 @@ class Utils
 
 	public static function dbug($data) 
 	{
+		$dir = 'from: '.debug_backtrace()[0]['file'];
+
 		//Something to write to txt log
 		$log  = print_r($data, true).PHP_EOL.
+		        '-----------------------------------------------'.PHP_EOL.
+		        print_r($dir, true).PHP_EOL.
 		        '-----------------------------------------------'.PHP_EOL;
 		//Save string to log, use FILE_APPEND to append.
 		file_put_contents('./log/debug_log.log', $log, FILE_APPEND);	

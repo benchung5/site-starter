@@ -55,11 +55,14 @@ export function searchTrees(searchObj, callback) {
     function buildQuery(inObj) {
     	const query = {};
 
-        // just include search, offset and limit as is
+        // just include search, offset, mode and limit as is
         query.search = inObj.search;
         query.offset = inObj.offset;
         query.limit = inObj.limit;
-
+        if (inObj.mode) {
+            query.mode = inObj.mode;
+        }
+        
     	//format categoriesTrees, query only active ones
     	if (inObj.categoriesTrees && (inObj.categoriesTrees.length !== 0)) {
     		//return a new array without undefined

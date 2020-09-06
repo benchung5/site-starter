@@ -100,7 +100,6 @@ const fooSlider = function() {
     updateControls: function() {
       //hide irrelevant controls
       if(!this.isLoopBack) {
-        console.log(this.boxes.length - 1);
         if(this.current == 0 && ((this.boxes.length) == 1)) {
           //if only one
           for(var i = 0; i < this.prevControls.length; i++) {

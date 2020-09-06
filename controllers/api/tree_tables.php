@@ -29,6 +29,7 @@ class Tree_tables extends Controller
 		$this->insects = $this->load_model('insects_model');
 		$this->diseases = $this->load_model('diseases_model');
 		$this->growth_rate = $this->load_model('growth_rate_model');
+		$this->mode = $this->load_model('mode_model');
 
 		parent::__construct();
 	}
@@ -61,7 +62,8 @@ class Tree_tables extends Controller
 			'reproduction_type_id' => $this->reproduction_types->get_all() ?: [],
 			'insects' => $this->insects->get_all() ?: [],
 			'diseases' => $this->diseases->get_all() ?: [],
-			'growth_rate' => $this->growth_rate->get_all() ?: []
+			'growth_rate' => $this->growth_rate->get_all() ?: [],
+			'mode_id' => $this->mode->get_all() ?: [],
 		];
 
 		Utils::json_respond(SUCCESS_RESPONSE, $tree_tables);

@@ -36,7 +36,8 @@ const plantFields = [
     {name: 'reproduction_type_id', label: 'reproduction types', type: 'dropdownSelect', error: null, condition: null},
     {name: 'insects', label: 'insects', type: 'multiSelect', error: null, condition: null},
     {name: 'diseases', label: 'diseases', type: 'multiSelect', error: null, condition: null},
-    {name: 'body', label: 'body', type: 'textarea', error: null, condition: null}
+    {name: 'body', label: 'body', type: 'textarea', error: null, condition: null},
+    {name: 'mode_id', label: 'mode', type: 'dropdownSelect', error: null, condition: null},
 ];
 
 export default plantFields;

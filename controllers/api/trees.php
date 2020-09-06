@@ -86,6 +86,7 @@ class Trees extends Controller
 		if(isset($data['lifespan_min'])) { $update_data['lifespan_min'] = $data['lifespan_min']; };
 		if(isset($data['lifespan_max'])) { $update_data['lifespan_max'] = $data['lifespan_max']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
+		if(isset($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
 
 		// the many to many table data...
@@ -215,7 +216,8 @@ class Trees extends Controller
 			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : null, 
 			'zones' => isset($data['zones']) ? $data['zones'] : null,
 			'origins' => isset($data['origins']) ? $data['origins'] : null,
-			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id']
+			'mode' => isset($data['mode']) ? $data['mode'] : null,
+			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id'],
 		];
 
 		$trees = $this->trees->get_all($opts);

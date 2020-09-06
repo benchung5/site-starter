@@ -20,6 +20,8 @@ import ButtonShowMenu from '../parts/buttonShowMenu';
 	      	plantListStore.init();
 	      	plantTablesStore.init();
 	      	plantFilterStore.init();
+	      	//only return plants in production mode for searchPlants
+	      	plantFilterStore.setData({ mode: 2 });
 
 			//call initialize on Component first
 			inst.initialize({

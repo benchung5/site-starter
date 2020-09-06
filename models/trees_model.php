@@ -372,6 +372,16 @@ class Trees_model extends Model
 	{
 		$this->db->table('trees t');
 
+		// only return ones in a certain mode
+		Utils::dbug($opts['mode']);
+		if (isset($opts['mode'])) {
+			if ($opts['mode']) {
+				$this->db->where('t.mode_id', '=', $opts['mode']);
+			} else {
+				return [];
+			}
+		}
+
 		// only in category
 		if (isset($opts['trees_category'])) {
 			if (count($opts['trees_category']) > 0) {

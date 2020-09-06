@@ -22,6 +22,7 @@ var PlantTablesStore = {
 		'reproduction_type_id' : [],
 		'insects' : [],
 		'diseases' : [],
+		'mode_id' : [],
 	},
 	init: function() {
 	    Object.assign(this, Store);

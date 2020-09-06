@@ -28,7 +28,6 @@ use Lib\Utils;
 								<div class="fooslider">
 
 									<?php
-									Utils::dbug($view_data['tree']->images);
 									foreach ($view_data['tree']->images as $image) { 
 										if (strpos($image->name, 'thumb') == false) {
 											$caption = isset($image->caption) && ($image->caption) ? '<div class="caption-holder"><figcaption>' . $image->caption . '</figcaption></div>' : '';
