@@ -55,16 +55,15 @@ use Lib\Utils;
 						<div class="body-area"><?= $view_data['tree']->body ?></div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
-						<span class="bold">Classification</span><br>
+						<?= '<span class="bold">Botanical Name</span>: ' . Utils::sanitize($view_data['tree']->family_genus->genus_name) .'&nbsp;'. Utils::sanitize($view_data['tree']->specific_epithet) . '<br>'; ?>
 
-						<?= $view_data['tree']->other_common_names ? '<span>Other Names: ' . Utils::sanitize($view_data['tree']->other_common_names) . '</span><br>' : ''; ?>
+						<?= $view_data['tree']->other_common_names ? '<span class="bold">Other Names</span>: ' . Utils::sanitize($view_data['tree']->other_common_names) . '<br>' : ''; ?>
 
-						<?= $view_data['tree']->other_species ? '<span>Other Botanical Names: ' . Utils::sanitize($view_data['tree']->other_species) . '</span><br>' : ''; ?>
+						<?= $view_data['tree']->other_species ? '<span class="bold">Other Botanical Names</span>: ' . Utils::sanitize($view_data['tree']->other_species) . '<br>' : ''; ?>
 						
-						<span>Family: <?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></span><br>
-						<br>
-
-						<span class="bold">Details</span><br>
+						<span><span class="bold">Family</span>: <?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></span>
+						
+						<hr/>
 
 						<?php
 						$native_to = [];
@@ -72,13 +71,13 @@ use Lib\Utils;
 							foreach ($view_data['tree']->native_to as $_native_to) {
 								$native_to[] = $_native_to->name;
 							}
-							echo '<span>Native to: ';
+							echo '<span class="bold">Native to</span>: ';
 							echo Utils::sanitize(implode(', ', $native_to));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
-						<?= $view_data['tree']->zone ? '<span>Hardy to zone: ' . Utils::sanitize($view_data['tree']->zone->name) . '</span><br>' : ''; ?>
+						<?= $view_data['tree']->zone ? '<span class="bold">Hardy to zone</span>: ' . Utils::sanitize($view_data['tree']->zone->name) . '<br>' : ''; ?>
 
 						<?php
 						$eco_benefits = [];
@@ -86,9 +85,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->eco_benefits as $_eco_benefit) {
 								$eco_benefits[] = $_eco_benefit->name;
 							}
-							echo '<span>Eco Benefits: ';
+							echo '<span class="bold">Eco benefits</span>: ';
 							echo Utils::sanitize(implode(', ', $eco_benefits));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -98,9 +97,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->natural_habitat as $natural_habitat) {
 								$natural_habitats[] = $natural_habitat->name;
 							}
-							echo '<span>Natural Habitat: ';
+							echo '<span class="bold">Natural habitat</span>: ';
 							echo Utils::sanitize(implode(', ', $natural_habitats));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -110,9 +109,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->shapes as $shape) {
 								$shapes[] = $shape->name;
 							}
-							echo '<span>Shapes: ';
+							echo '<span class="bold">Shapes</span>: ';
 							echo Utils::sanitize(implode(', ', $shapes));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -120,25 +119,25 @@ use Lib\Utils;
 
 						if ($view_data['tree']->height_min && $view_data['tree']->height_max) {
 							if ($view_data['tree']->height_min == $view_data['tree']->height_max) {
-								echo '<span>Height: ' . Utils::sanitize($view_data['tree']->height_min) . 'ft</span><br>';
+								echo '<span class="bold">Height</span>: ' . Utils::sanitize($view_data['tree']->height_min) . 'ft<br>';
 							} else {
-								echo '<span>Height: ' . Utils::sanitize($view_data['tree']->height_min) . '-' . Utils::sanitize($view_data['tree']->height_max) . 'ft</span><br>';
+								echo '<span class="bold">Height</span>: ' . Utils::sanitize($view_data['tree']->height_min) . '-' . Utils::sanitize($view_data['tree']->height_max) . 'ft<br>';
 							}	
 						}
 
 						if ($view_data['tree']->width_min && $view_data['tree']->width_max) {
 							if ($view_data['tree']->width_min == $view_data['tree']->width_max) {
-								echo '<span>width: ' . Utils::sanitize($view_data['tree']->width_min) . 'ft</span><br>';
+								echo '<span class="bold">width</span>: ' . Utils::sanitize($view_data['tree']->width_min) . 'ft<br>';
 							} else {
-								echo '<span>width: ' . Utils::sanitize($view_data['tree']->width_min) . '-' . Utils::sanitize($view_data['tree']->width_max) . 'ft</span><br>';
+								echo '<span class="bold">width</span>: ' . Utils::sanitize($view_data['tree']->width_min) . '-' . Utils::sanitize($view_data['tree']->width_max) . 'ft<br>';
 							}	
 						}
 
 						?>
 
-						<?= $view_data['tree']->growth_rate ? '<span>Growth Rate: ' . Utils::sanitize($view_data['tree']->growth_rate) . '</span><br>' : ''; ?>
+						<?= $view_data['tree']->growth_rate ? '<span class="bold">Growth rate</span>: ' . Utils::sanitize($view_data['tree']->growth_rate) . '</span><br>' : ''; ?>
 
-						<?= $view_data['tree']->lifespan_min && $view_data['tree']->lifespan_max ? '<span>Lifespan: ' . Utils::sanitize($view_data['tree']->lifespan_min) . '-' . Utils::sanitize($view_data['tree']->lifespan_max) . ' years</span><br>' : ''; ?>
+						<?= $view_data['tree']->lifespan_min && $view_data['tree']->lifespan_max ? '<span class="bold">Lifespan</span>: ' . Utils::sanitize($view_data['tree']->lifespan_min) . '-' . Utils::sanitize($view_data['tree']->lifespan_max) . ' years<br>' : ''; ?>
 
 						<?php
 						$unique_attractions = [];
@@ -146,9 +145,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->unique_attractions as $unique_attraction) {
 								$unique_attractions[] = $unique_attraction->name;
 							}
-							echo '<span>Unique Attractions: ';
+							echo '<span class="bold">Unique attractions</span>: ';
 							echo Utils::sanitize(implode(', ', $unique_attractions));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -158,9 +157,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->tolerances as $tolerance) {
 								$tolerances[] = $tolerance->name;
 							}
-							echo '<span>Tolerances: ';
+							echo '<span class="bold">Tolerances</span>: ';
 							echo Utils::sanitize(implode(', ', $tolerances));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -170,9 +169,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->common_uses as $common_use) {
 								$common_uses[] = $common_use->name;
 							}
-							echo '<span>Common Uses: ';
+							echo '<span class="bold">Common uses</span>: ';
 							echo Utils::sanitize(implode(', ', $common_uses));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -182,9 +181,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->insects as $insect) {
 								$insects[] = $insect->name;
 							}
-							echo '<span>Insects: ';
+							echo '<span class="bold">Insects</span>: ';
 							echo Utils::sanitize(implode(', ', $insects));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -194,13 +193,12 @@ use Lib\Utils;
 							foreach ($view_data['tree']->diseases as $disease) {
 								$diseases[] = $disease->name;
 							}
-							echo '<span>Diseases: ';
+							echo '<span class="bold">Diseases</span>: ';
 							echo Utils::sanitize(implode(', ', $diseases));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
-						<br><span class="bold">Cultivation</span><br>
 
 						<?php
 						$light = [];
@@ -208,9 +206,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->light as $_light) {
 								$light[] = $_light->name;
 							}
-							echo '<span>Light: ';
+							echo '<span class="bold">Light</span>: ';
 							echo Utils::sanitize(implode(', ', $light));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -220,9 +218,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->transplanting as $_transplanting) {
 								$transplanting[] = $_transplanting->name;
 							}
-							echo '<span>transplanting: ';
+							echo '<span class="bold">Transplanting</span>: ';
 							echo Utils::sanitize(implode(', ', $transplanting));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
@@ -232,9 +230,9 @@ use Lib\Utils;
 							foreach ($view_data['tree']->soil as $_soil) {
 								$soil[] = $_soil->name;
 							}
-							echo '<span>Soil: ';
+							echo '<span class="bold">Soil</span>: ';
 							echo Utils::sanitize(implode(', ', $soil));
-							echo '</span><br>';
+							echo '<br>';
 						}
 						?>
 
