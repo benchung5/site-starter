@@ -32,7 +32,7 @@ var ArticleFilter = {
 		});
 
 		fetchArticleTables((apiData) => {
-			articleTablesStore.setData({ articles_category_id: apiData });
+			articleTablesStore.setData(apiData);
 
 			inst.buttonHeight = options.buttonHeight;
 
@@ -41,7 +41,7 @@ var ArticleFilter = {
 				className: '',
 				classPropButton: 'list-button check icon',
 				buttonHeight: options.buttonHeight,
-				buttonData: articleTablesStore.storageData.articles_category_id,
+				buttonData: articleTablesStore.storageData.categories,
 				updateData: inst.onUpdateCategories.bind(inst),
 				allActive: true
 			});
@@ -49,7 +49,7 @@ var ArticleFilter = {
 			inst.dropdown = Dropdown.init({
 				className: '',
 				name: 'Category',
-				height: (options.buttonHeight * articleTablesStore.storageData.articles_category_id.length),
+				height: (options.buttonHeight * articleTablesStore.storageData.categories.length),
 				children: inst.buttonList.el,
 				active: true
 			});

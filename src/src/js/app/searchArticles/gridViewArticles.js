@@ -10,7 +10,6 @@ var { ARTICLES_UPLOADS_PATH } = require('../config')[env];
 
 var GridViewArticles = {
 	buildItems: function() {
-		console.log(articleListStore.storageData.articles);
 		this.cardsContainer.innerHTML = '';
 		let card = null;
 		if(articleListStore.storageData.articles.length == 0) {

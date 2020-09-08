@@ -8,10 +8,16 @@ import PageNotFound from './404';
 import PlantsList from './plants/plantsList';
 import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
+import ArticleList from './articles/articleList';
+import ArticleAdd from './articles/articleAdd';
+import ArticleEdit from './articles/articleEdit';
 import Auth from './auth/auth';
 import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
 import plantTablesStore from '../storage/plantTablesStore';
+import articleListStore from '../storage/articleListStore';
+import articleFilterStore from '../storage/articleFilterStore';
+import articleTablesStore from '../storage/articleTablesStore';
 import appStateStore from '../storage/appStateStore';
 
 (function() {
@@ -58,6 +64,31 @@ import appStateStore from '../storage/appStateStore';
 						Router.push('signin');
 					}
 				});
+			} else if(route === 'article-list') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.el.appendChild(this.articleList.el);
+					} else {
+						Router.push('signin');
+					}
+				});
+			} else if(route === 'article-add') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.el.appendChild(this.articleAdd.el);
+					} else {
+						Router.push('signin');
+					}
+				});
+			} else if(route === 'article-edit') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.articleEdit.onLoad();
+						this.el.appendChild(this.articleEdit.el);
+					} else {
+						Router.push('signin');
+					}
+				});
 			} else {
 				this.el.appendChild(this.pageNotFound.el);
 			}
@@ -78,6 +109,9 @@ import appStateStore from '../storage/appStateStore';
 			plantFilterStore.init();
 			plantTablesStore.init();
 			appStateStore.init();
+			articleListStore.init();
+			articleFilterStore.init();
+			articleTablesStore.init();
 
 			//components to show
 			inst.signIn = SignIn.init();
@@ -87,6 +121,10 @@ import appStateStore from '../storage/appStateStore';
 			inst.plantsList = PlantsList.init();
 			inst.plantAdd = PlantAdd.init();
 			inst.plantEdit = PlantEdit.init();
+			inst.articleList = ArticleList.init();
+			inst.articleAdd = ArticleAdd.init();
+			inst.articleEdit = ArticleEdit.init();
+
 			
 
 			Router.init(inst.update.bind(inst));

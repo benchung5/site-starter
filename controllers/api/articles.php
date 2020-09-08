@@ -60,21 +60,24 @@ class Articles extends Controller
 		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 		}
 
-		if ($is_add) {
-			//the data for add or update
-			$update_data = [
-				'slug' => $data['slug'], 
-				'name' => $data['name'],
-				'created_on' => date('Y-m-d')
-			];
-			if(isset($data['body'])) { $update_data['body'] = $data['body']; };
-			if(isset($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 
-			//joins data
-			$joins_data = [
-				'categories' => isset($data['categories']) ? $data['categories'] : null,
-				'tags' => isset($data['tags']) ? $data['tags'] : null,
-			];
+		//the data for add or update
+		$update_data = [
+			'slug' => $data['slug'], 
+			'name' => $data['name'],
+		];
+		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
+		if(isset($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
+
+		//joins data
+		$joins_data = [
+			'categories' => isset($data['categories']) ? $data['categories'] : null,
+			'tags' => isset($data['tags']) ? $data['tags'] : null,
+		];
+
+		if ($is_add) {
+			//add created on date
+			$update_data['created_on'] = date('Y-m-d');
 
 			$updated_article_id = $this->articles->add(
 				$update_data,
@@ -86,15 +89,8 @@ class Articles extends Controller
 		} else {
 			$this->articles->update([
 				'where' => ['slug' => $data['slug']], 
-				'update' => [
-					'name' => $data['name'],
-					'body' => $data['body'],
-					'images' => $data['images'],
-					'featured_image' => $data['featured_image'],
-					'mode_id' => $data['mode_id'],
-				],
-				'categories' => $data['categories'],
-				'tags' => $data['tags']
+				'update' => $update_data,
+				'joins' => $joins_data,
 			]);
 		}
 

@@ -6,7 +6,7 @@ var Sidebar = {
 		{ title: 'Website', link: '/', active: false },
 		{ title: 'Logout', link: '/'+globals.ADMIN_URL+'#signed-out', active: false },
 		{ title: 'Dashboard', link: '/'+globals.ADMIN_URL+'', active: false },
-		{ title: 'View Articles', link: '/'+globals.ADMIN_URL+'#articles-list', active: false },
+		{ title: 'View Articles', link: '/'+globals.ADMIN_URL+'#article-list', active: false },
 		{ title: 'Add Articles', link: '/'+globals.ADMIN_URL+'#article-add', active: false },
 		{ title: 'View Plants', link: '/'+globals.ADMIN_URL+'#plants-list', active: false },
 		{ title: 'Add Plants', link: '/'+globals.ADMIN_URL+'#plant-add', active: false },

@@ -3,7 +3,9 @@ import Store from '../store';
 var ArticleTablesStore = {
 	name: 'articleTablesStore',
 	storageData: {
-		'articles_category_id' : [],
+		'categories' : [],
+		'mode_id' : [],
+		'tags' : [],
 	},
 	init: function() {
 	    Object.assign(this, Store);

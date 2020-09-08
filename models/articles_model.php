@@ -193,31 +193,33 @@ class Articles_model extends Model
 
 	public function update($opts = []) 
 	{
+
+		$article_id = $this->db->table('articles')->where($opts['where'])->get()->id;
+
 		if (isset($opts['where']) && isset($opts['update'])) {
 			$this->db->table('articles');
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
 
-		$article_id = $this->db->table('articles')->where($opts['where'])->get()->id;
+		// many to many tables
+		if (isset($opts['joins'])) {
+			$joins = $opts['joins'];
 
-		if (isset($opts['categories'])) {
-			// clear existing associations
-			$this->db->table('article_categories')->where('article_id', $article_id)->delete();
+			$this->update_joins($article_id, $joins, 'categories', 'category_id', 'article_categories');
+			$this->update_joins($article_id, $joins, 'tags', 'tag_id', 'article_tags');
 
-			// insert new associations
-			$categories = is_array($opts['categories']) ? $opts['categories'] : explode(',', $opts['categories']);
-			foreach ($categories as $category_id) {
-				$this->db->table('article_categories')->insert(['article_id' => $article_id, 'category_id' => $category_id]);
-			}
 		}
-		if (isset($opts['tags'])) {
+	}
+
+	protected function update_joins($id, $joins, $table_name, $table_id_name, $join_table_name) {
+		if (isset($joins[$table_name])) {
 			// clear existing associations
-			$this->db->table('article_tags')->where('article_id', $article_id)->delete();
+			$this->db->table($join_table_name)->where('article_id', $id)->delete();
 
 			// insert new associations
-			$tags = is_array($opts['tags']) ? $opts['tags'] : explode(',', $opts['tags']);
-			foreach ($tags as $tag_id) {
-				$this->db->table('article_tags')->insert(['article_id' => $article_id, 'tag_id' => $tag_id]);
+			$associatons = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
+			foreach ($associatons as $associaton_id) {
+				$this->db->table($join_table_name)->insert(['article_id' => $id, $table_id_name => $associaton_id]);
 			}
 		}
 	}

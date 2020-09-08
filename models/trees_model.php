@@ -308,15 +308,15 @@ class Trees_model extends Model
 		}
 	}
 
-	protected function update_joins($tree_id, $joins, $table_name, $table_id_name, $join_table_name) {
+	protected function update_joins($id, $joins, $table_name, $table_id_name, $join_table_name) {
 		if (isset($joins[$table_name])) {
 			// clear existing associations
-			$this->db->table($join_table_name)->where('tree_id', $tree_id)->delete();
+			$this->db->table($join_table_name)->where('tree_id', $id)->delete();
 
 			// insert new associations
-			$light = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
-			foreach ($light as $light_id) {
-				$this->db->table($join_table_name)->insert(['tree_id' => $tree_id, $table_id_name => $light_id]);
+			$associatons = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
+			foreach ($associatons as $associaton_id) {
+				$this->db->table($join_table_name)->insert(['tree_id' => $id, $table_id_name => $associaton_id]);
 			}
 		}
 	}
@@ -373,7 +373,6 @@ class Trees_model extends Model
 		$this->db->table('trees t');
 
 		// only return ones in a certain mode
-		Utils::dbug($opts['mode']);
 		if (isset($opts['mode'])) {
 			if ($opts['mode']) {
 				$this->db->where('t.mode_id', '=', $opts['mode']);
