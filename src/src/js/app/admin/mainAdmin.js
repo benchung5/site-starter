@@ -35,7 +35,8 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.dashboard.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('dashboard');
+							this.dashboard.el.querySelector('#user').innerHTML = authData.email;
+							this.el.appendChild(this.dashboard.el);
 						});
 					}
 				});
@@ -48,7 +49,7 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.plantsList.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('plants-list');
+							this.el.appendChild(this.plantsList.el);
 						});
 					}
 				});
@@ -58,7 +59,7 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.plantAdd.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('plant-add');
+							this.el.appendChild(this.plantAdd.el);
 						});
 					}
 				});
@@ -69,7 +70,8 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.plantEdit.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('plant-edit');
+							this.plantEdit.onLoad();
+							this.el.appendChild(this.plantEdit.el);
 						});
 					}
 				});
@@ -79,7 +81,7 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.articleList.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('article-list');
+							this.el.appendChild(this.articleList.el);
 						});
 					}
 				});
@@ -89,7 +91,7 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.articleAdd.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('article-add');
+							this.el.appendChild(this.articleAdd.el);
 						});
 					}
 				});
@@ -100,7 +102,8 @@ import SignInPopup from './auth/signInPopup';
 						this.el.appendChild(this.articleEdit.el);
 					} else {
 						this.signInPopup.open(() => {
-							Router.push('article-edit');
+							this.articleEdit.onLoad();
+							this.el.appendChild(this.articleEdit.el);
 						});
 					}
 				});

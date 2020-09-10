@@ -33,7 +33,7 @@ var ImageEditMeta = {
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<div>:
+			`<div class="img-edit-meta">:
 				<select class="dropdown-select" name="tag_id">
 				<input id="description" type="text" placeholder="description" name="description"/>
 				<input id="caption" type="text" placeholder="caption" name="caption"/>

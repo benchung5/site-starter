@@ -7,6 +7,7 @@ var AppStateStore = {
         showMenu: 'close',
         isOnline: true,
         clearSearch: false,
+        formTouched: false,
     },
     init: function() {
         Object.assign(this, Store);

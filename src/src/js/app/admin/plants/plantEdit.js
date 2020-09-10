@@ -8,6 +8,7 @@ import FieldTextarea from '../parts/fieldTextarea';
 import Sidebar from '../sidebar';
 import { fetchPlantTables, getPlant, updatePlant } from '../../actions/plants';
 import plantTablesStore from '../../storage/plantTablesStore';
+import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import plantFields from './plantFields';
 
@@ -46,6 +47,9 @@ var PlantEdit = {
 
 		// call action to submit edited
 		updatePlant(formData, this.renderUpdated.bind(this));
+
+		//form no longer touched
+		appStateStore.setData({ formTouched: false })
 
 		//clear deleted images
 		this.uploadedImages.reset();
@@ -163,6 +167,7 @@ var PlantEdit = {
 		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
+		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 
 		//get plant table data
 		fetchPlantTables((apiData) => {

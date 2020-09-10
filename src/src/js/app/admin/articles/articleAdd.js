@@ -7,6 +7,7 @@ import FieldTextarea from '../parts/fieldTextarea';
 import Sidebar from '../sidebar';
 import { fetchArticleTables, addArticle } from '../../actions/articles';
 import articleTablesStore from '../../storage/articleTablesStore';
+import appStateStore from '../../storage/appStateStore';
 import articleFields from './articleFields';
 
 //config
@@ -46,6 +47,9 @@ var ArticleAdd = {
 
 		// //use this to log out formdata values
 		// console.log(Array.from(formData));
+
+		//form no longer touched
+		appStateStore.setData({ formTouched: false })
 
 		// call action to submit edited
 		addArticle(formData, this.renderUpdated.bind(this));
@@ -146,6 +150,7 @@ var ArticleAdd = {
 				tags: articleTablesStore.storageData['tags']
 			});
 			inst.formFields.appendChild(inst.fieldAddImages.el);
+			inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 		});
 
 		return inst;

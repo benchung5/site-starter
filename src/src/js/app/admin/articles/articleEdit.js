@@ -8,6 +8,7 @@ import FieldTextarea from '../parts/fieldTextarea';
 import Sidebar from '../sidebar';
 import { fetchArticleTables, getArticle, updateArticle } from '../../actions/articles';
 import articleTablesStore from '../../storage/articleTablesStore';
+import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import articleFields from './articleFields';
 
@@ -46,6 +47,9 @@ var ArticleEdit = {
 
 		// call action to submit edited
 		updateArticle(formData, this.renderUpdated.bind(this));
+
+		//form no longer touched
+		appStateStore.setData({ formTouched: false })
 
 		//clear deleted images
 		this.uploadedImages.reset();
@@ -163,6 +167,7 @@ var ArticleEdit = {
 		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
+		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 
 		//get article table data
 		fetchArticleTables((apiData) => {

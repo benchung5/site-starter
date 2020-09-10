@@ -7,6 +7,7 @@ import FieldTextarea from '../parts/fieldTextarea';
 import Sidebar from '../sidebar';
 import { fetchPlantTables, addPlant } from '../../actions/plants';
 import plantTablesStore from '../../storage/plantTablesStore';
+import appStateStore from '../../storage/appStateStore';
 import plantFields from './plantFields';
 
 //config
@@ -46,6 +47,9 @@ var PlantAdd = {
 
 		// //use this to log out formdata values
 		// console.log(Array.from(formData));
+
+		//form no longer touched
+		appStateStore.setData({ formTouched: false })
 
 		// call action to submit edited
 		addPlant(formData, this.renderUpdated.bind(this));
@@ -146,6 +150,8 @@ var PlantAdd = {
 				tags: plantTablesStore.storageData['tags']
 			});
 			inst.formFields.appendChild(inst.fieldAddImages.el);
+
+			inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 		});
 
 		return inst;

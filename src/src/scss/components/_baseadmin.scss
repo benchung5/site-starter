@@ -249,8 +249,14 @@ button.copy-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-grow: 1;
+  max-width: 400px;
+  padding: 2em;
   #canvas {
     margin-bottom: 20px;
+  }
+  .img-edit-meta {
+    width: 100%
   }
 }
 
@@ -261,8 +267,6 @@ button.copy-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1em 0.5em;
-    padding: 0.5em;
     font-size: 90%;
     button {
       margin: 2em 1em;
@@ -278,6 +282,15 @@ login/signin
 .sign-in-popup, .sign-in-popup label {
   color: #fff;
 }
+
+.sign-in-popup {
+  flex-grow: 1;
+  max-width: 400px;
+  .main-window {
+    padding: 3em;
+  }
+}
+
 
 /* ==========================================================================
 foundation Styles

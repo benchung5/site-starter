@@ -1,20 +1,22 @@
 import Component from '../component';
-import { globals } from '../config.js';
+import appStateStore from '../storage/appStateStore';
+import verifyAction from './parts/verifyAction';
+import Router from '../router';
 
 var Sidebar = {
 	linkList: [
 		{ title: 'Website', link: '/', active: false },
-		{ title: 'Logout', link: '/'+globals.ADMIN_URL+'#signed-out', active: false },
-		{ title: 'Dashboard', link: '/'+globals.ADMIN_URL+'', active: false },
-		{ title: 'View Articles', link: '/'+globals.ADMIN_URL+'#article-list', active: false },
-		{ title: 'Add Articles', link: '/'+globals.ADMIN_URL+'#article-add', active: false },
-		{ title: 'View Plants', link: '/'+globals.ADMIN_URL+'#plants-list', active: false },
-		{ title: 'Add Plants', link: '/'+globals.ADMIN_URL+'#plant-add', active: false },
-		{ title: 'View Users', link: '/'+globals.ADMIN_URL+'#users-list', active: false },
-		{ title: 'Add User', link: '/'+globals.ADMIN_URL+'#signup', active: false },
-		{ title: 'View Categories', link: '/'+globals.ADMIN_URL+'#category-list', active: false },
-		{ title: 'Add Category', link: '/'+globals.ADMIN_URL+'#category-add', active: false },
-		{ title: 'Backup', link: '/'+globals.ADMIN_URL+'#backup', active: false },
+		{ title: 'Logout', link: 'signed-out', active: false },
+		{ title: 'Dashboard', link: '', active: false },
+		{ title: 'View Articles', link: 'article-list', active: false },
+		{ title: 'Add Articles', link: 'article-add', active: false },
+		{ title: 'View Plants', link: 'plants-list', active: false },
+		{ title: 'Add Plants', link: 'plant-add', active: false },
+		{ title: 'View Users', link: 'users-list', active: false },
+		{ title: 'Add User', link: 'signup', active: false },
+		{ title: 'View Categories', link: 'category-list', active: false },
+		{ title: 'Add Category', link: 'category-add', active: false },
+		{ title: 'Backup', link: 'backup', active: false },
 	],
 	build: function() {
 		let sidebar = this.el.querySelector('.admin-side-menu');
@@ -23,6 +25,17 @@ var Sidebar = {
 			    <a class="nav-link" href=${item.link}>${item.title}</a>
 			</li>`);
 			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				if(appStateStore.storageData.formTouched) {
+					this.verifyAction.open((verified) => {
+						if(verified) {
+							Router.push(item.link);
+							appStateStore.setData({ formTouched: false });
+						}
+					});
+				} else {
+					Router.push(item.link);
+				}
 			}, false);
 			sidebar.appendChild(link);
 		});
@@ -40,6 +53,10 @@ var Sidebar = {
                 <ul class="vertical menu admin-side-menu">
                 </ul>
              </div>`
+		});
+
+		inst.verifyAction = verifyAction.init({
+			message: 'navigate away?'
 		});
 
 		inst.build();
