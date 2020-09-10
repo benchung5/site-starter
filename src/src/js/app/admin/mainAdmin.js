@@ -19,6 +19,7 @@ import articleListStore from '../storage/articleListStore';
 import articleFilterStore from '../storage/articleFilterStore';
 import articleTablesStore from '../storage/articleTablesStore';
 import appStateStore from '../storage/appStateStore';
+import SignInPopup from './auth/signInPopup';
 
 (function() {
 	var Main = {
@@ -33,7 +34,9 @@ import appStateStore from '../storage/appStateStore';
 						this.dashboard.el.querySelector('#user').innerHTML = authData.email;
 						this.el.appendChild(this.dashboard.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('dashboard');
+						});
 					}
 				});
 			} else if(route === 'signed-out') {
@@ -44,7 +47,9 @@ import appStateStore from '../storage/appStateStore';
 					if(authData.id) {
 						this.el.appendChild(this.plantsList.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('plants-list');
+						});
 					}
 				});
 			} else if(route === 'plant-add') {
@@ -52,7 +57,9 @@ import appStateStore from '../storage/appStateStore';
 					if(authData.id) {
 						this.el.appendChild(this.plantAdd.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('plant-add');
+						});
 					}
 				});
 			} else if(route === 'plant-edit') {
@@ -61,7 +68,9 @@ import appStateStore from '../storage/appStateStore';
 						this.plantEdit.onLoad();
 						this.el.appendChild(this.plantEdit.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('plant-edit');
+						});
 					}
 				});
 			} else if(route === 'article-list') {
@@ -69,7 +78,9 @@ import appStateStore from '../storage/appStateStore';
 					if(authData.id) {
 						this.el.appendChild(this.articleList.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('article-list');
+						});
 					}
 				});
 			} else if(route === 'article-add') {
@@ -77,7 +88,9 @@ import appStateStore from '../storage/appStateStore';
 					if(authData.id) {
 						this.el.appendChild(this.articleAdd.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('article-add');
+						});
 					}
 				});
 			} else if(route === 'article-edit') {
@@ -86,7 +99,9 @@ import appStateStore from '../storage/appStateStore';
 						this.articleEdit.onLoad();
 						this.el.appendChild(this.articleEdit.el);
 					} else {
-						Router.push('signin');
+						this.signInPopup.open(() => {
+							Router.push('article-edit');
+						});
 					}
 				});
 			} else {
@@ -124,6 +139,7 @@ import appStateStore from '../storage/appStateStore';
 			inst.articleList = ArticleList.init();
 			inst.articleAdd = ArticleAdd.init();
 			inst.articleEdit = ArticleEdit.init();
+			inst.signInPopup = SignInPopup.init();
 
 			
 

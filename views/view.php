@@ -20,7 +20,7 @@ use Lib\Utils;
 						<div class="body-area"><?= $view_data['article']->body ?></div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
-						<span>Pubilished: <?= date('F jS, Y', strtotime(Utils::sanitize($view_data['article']->created_on))) ?></span><br>
+						<span class="bold">Pubilished</span>: <?= date('F jS, Y', strtotime(Utils::sanitize($view_data['article']->created_on))) ?><br>
 						<?php
 						$categories = [];
 						if ($view_data['article']->categories) {
@@ -29,7 +29,7 @@ use Lib\Utils;
 							}
 						}
 						?>
-						<span>Categories: <?= $view_data['article']->categories ? Utils::sanitize(implode(', ', $categories)) : ''; ?><br>
+						<span class="bold">Categories</span>: <?= $view_data['article']->categories ? Utils::sanitize(implode(', ', $categories)) : ''; ?><br>
 					</div>
 				</div>
 			</div>

@@ -17,8 +17,7 @@ var Dashboard = {
 			`<div class="admin-main">
                <div class="row">
                     <div class="main-window columns small-12 large-9">
-                        <h1 class="margin-bottom">Dashboard</h1>
-                        Admin Area. <br/>
+                        <h3>Dashboard</h3>
                         Welcome <span id="user"></span>
                     </div>
                 </div>	
