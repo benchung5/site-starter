@@ -1,6 +1,4 @@
 import Component from '../component';
-import appStateStore from '../storage/appStateStore';
-import verifyAction from './parts/verifyAction';
 import Router from '../router';
 
 var Sidebar = {
@@ -26,16 +24,7 @@ var Sidebar = {
 			</li>`);
 			link.addEventListener('click', (e) => {
 				e.preventDefault();
-				if(appStateStore.storageData.formTouched) {
-					this.verifyAction.open((verified) => {
-						if(verified) {
-							Router.push(item.link);
-							appStateStore.setData({ formTouched: false });
-						}
-					});
-				} else {
-					Router.push(item.link);
-				}
+				Router.push(item.link);
 			}, false);
 			sidebar.appendChild(link);
 		});
@@ -53,10 +42,6 @@ var Sidebar = {
                 <ul class="vertical menu admin-side-menu">
                 </ul>
              </div>`
-		});
-
-		inst.verifyAction = verifyAction.init({
-			message: 'navigate away?'
 		});
 
 		inst.build();
