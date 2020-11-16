@@ -137,12 +137,6 @@ class Trees_model extends Model
 				->innerJoin('tolerances tl', 'tl.id', 'tt.tolerance_id')
 				->getAll();
 
-			// reproduction types
-			$result->reproduction_type = $this->db->table('reproduction_types')
-				->select('id, name')
-				->where('id', $result->reproduction_type_id)
-				->get();
-
 			// insects
 			$result->insects = $this->db->table('trees_insects ti')
 				->select('i.id, i.name')
@@ -156,6 +150,12 @@ class Trees_model extends Model
 				->where('td.tree_id', $result->id)
 				->innerJoin('diseases d', 'd.id', 'td.disease_id')
 				->getAll();
+
+			// reproduction type
+			$result->reproduction_type = $this->db->table('reproduction_types rt')
+				->select('rt.id, rt.name')
+				->where('id', $result->reproduction_type_id)
+				->get();
 
 			// // conifer_leaf_type
 			// $conifer_leaf_type = $this->db->table('trees_conifer tc')

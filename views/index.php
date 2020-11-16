@@ -19,6 +19,57 @@ $this->insert('featured', $view_data );
             </div>
         </section>
 
+        <section id="beautiful-peices">
+                <div class="beautiful-peices-bg"></div>
+                <div class="stroke-top"></div>
+                <div class="stroke-bottom"></div>
+                <div class="row beautiful-peices-row main-row">
+                    <div class="show-for-large small-12 large-5 columns left">
+                        <picture class="device-middle" data-scroll>
+                          <source srcset="assets/img/device-middle.png" media="(min-width: 1200px)">
+                          <source srcset="assets/img/device-middle.png">
+                          <img src="assets/img/device-middle.png" >
+                        </picture>
+                    </div>
+                    <div class="small-12 large-7 columns right medium-media-padding">
+                        <div data-scroll>
+                            <h3>Over 250+ Beautiful Pieces</h3>
+                            <p>As information and images of the myriad works goes online, we’re eager for you to expand the conversation around them, with your own insights and memories.</p>
+                        </div>
+                        <div class="row types-count-row" data-scroll>
+                            <div class="small-6 columns">
+                                <div class="types-count">
+                                    <a href="#" class="circle-button monument" alt="monument"><div class="icon"></div></a>
+                                    <span class="large" data-monument></span> Monuments
+                                </div>
+                                <div class="types-count">
+                                    <a href="#" class="circle-button mural" alt="murals"><div class="icon"></div></a>
+                                    <span class="large" data-mural></span> Murals
+                                </div>
+                                <div class="types-count">
+                                    <a href="#" class="circle-button totem" alt="totems"><div class="icon"></div></a>
+                                    <span class="large" data-totem></span> Totems
+                                </div>
+                            </div>
+                            <div class="small-6 columns">
+                                <div class="types-count">
+                                    <a href="#" class="circle-button sculpture" alt="sculpture"><div class="icon"></div></a>
+                                    <span class="large" data-sculpture></span> sculptures
+                                </div>
+                                <div class="types-count">
+                                    <a href="#" class="circle-button statue" alt="statue"><div class="icon"></div></a>
+                                    <span class="large" data-statue></span> Statues
+                                </div>
+                                <div class="types-count">
+                                    <a href="#" class="circle-button installation" alt="installations"><div class="icon"></div></a>
+                                    <span class="large" data-installation></span> Installations
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
         <section id="explore">
            <div class="row">
                 <div class="small-12 columns medium-media-padding">

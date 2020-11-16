@@ -315,7 +315,9 @@ figure img {
 .small-text {
   font-size: 0.7rem;
   p {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.9rem;
+    line-height: 1.5;
+    max-width: 600px;
   }
 }
 

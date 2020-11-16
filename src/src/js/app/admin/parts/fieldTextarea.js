@@ -35,6 +35,20 @@ var FieldTextarea = {
 
 	  this.wrapTextInElement('p');
 	},
+	onSmallTextClick: function(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+
+	  if (this.textarea.value) {
+	     //get the current highlighted text
+	     let selObj = window.getSelection(); 
+	     let selectedText = selObj.toString();
+	     //wrap it all in a div with class small
+	     let wrappedText = '<div class="small-text">\n'+selectedText+'\n</div>';
+
+	     this.updateTextArea(wrappedText, selectedText);
+	  }
+	},
 	onUlClick: function(e) {
 	  e.stopPropagation();
 	  e.preventDefault();
@@ -98,6 +112,7 @@ var FieldTextarea = {
 		       <button id="ul">ul</button>
 		       <button id="figure">figure</button>
 		       <button id="clear">clear</button>
+		       <button id="small-text">small text</button>
 		       <textarea
 			       class="form-control"
 			       rows="12" 
@@ -125,6 +140,7 @@ var FieldTextarea = {
 		inst.el.querySelector('#ul').addEventListener('click', inst.onUlClick.bind(inst));
 		inst.el.querySelector('#figure').addEventListener('click', inst.onFigureClick.bind(inst));
 		inst.el.querySelector('#clear').addEventListener('click', inst.onClearClick.bind(inst));
+		inst.el.querySelector('#small-text').addEventListener('click', inst.onSmallTextClick.bind(inst));
 
 		return inst;
 	}

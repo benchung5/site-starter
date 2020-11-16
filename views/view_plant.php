@@ -15,7 +15,14 @@ use Lib\Utils;
 					<div class="small-12 large-8 columns">
 						<div class="title-area">
 							<h1><?= Utils::sanitize($view_data['tree']->common_name) ?></h1>&nbsp;&nbsp;
-							<h2 class="italic">(<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<?= Utils::sanitize($view_data['tree']->specific_epithet) ?>)</h2>
+							<h2 class="italic">(<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<?= Utils::sanitize($view_data['tree']->specific_epithet) ?> 
+								<?php
+								if($view_data['tree']->subspecies) {
+									echo '&nbsp;subsp.&nbsp;';
+									echo Utils::sanitize($view_data['tree']->subspecies);
+								}
+								?>
+						)</h2>
 						</div>
 
 						<div id="example-component"></div>
@@ -237,14 +244,12 @@ use Lib\Utils;
 						?>
 
 						<?php
-						// if ($view_data['tree']->soil) {
-						// 	echo '<span>Soil:<br>';
-						// 	echo '<ul> ';
-						// 	foreach ($view_data['tree']->soil as $_soil) {
-						// 		echo '<li>' . Utils::sanitize($_soil->name) . '</li>';
-						// 	}
-						// 	echo '</ul><br>';
-						// }
+						$reproduction_type = [];
+						if ($view_data['tree']->reproduction_type) {
+							echo '<span class="bold">Reproduction type</span>: ';
+							echo Utils::sanitize($view_data['tree']->reproduction_type->name);
+							echo '<br>';
+						}
 						?>
 
 					</div>
