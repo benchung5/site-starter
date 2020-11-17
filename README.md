@@ -42,3 +42,4 @@ Utils::json_respond_error('Could not create article', $e->getMessage());
 
 editing html layout page:
 htmwebpackplugin copies from src/src/layout-template.php and overrites layout.php
+
