@@ -33,36 +33,36 @@ $this->insert('featured', $view_data );
                     </div>
                     <div class="small-12 large-7 columns right medium-media-padding">
                         <div data-scroll>
-                            <h3>Over 250+ Beautiful Pieces</h3>
-                            <p>As information and images of the myriad works goes online, we’re eager for you to expand the conversation around them, with your own insights and memories.</p>
+                            <h3>Fusce lorem leo, porttitor non</h3>
+                            <p>Fusce lorem leo, porttitor non aliquet vel, mollis eget magna. Integer sodales ornare ipsum, in placerat metus lobortis a. dis parturient.</p>
                         </div>
                         <div class="row types-count-row" data-scroll>
                             <div class="small-6 columns">
                                 <div class="types-count">
                                     <a href="#" class="circle-button monument" alt="monument"><div class="icon"></div></a>
-                                    <span class="large" data-monument></span> Monuments
+                                    <span class="large" data-monument></span> Curabitur
                                 </div>
                                 <div class="types-count">
                                     <a href="#" class="circle-button mural" alt="murals"><div class="icon"></div></a>
-                                    <span class="large" data-mural></span> Murals
+                                    <span class="large" data-mural></span> Quisque
                                 </div>
                                 <div class="types-count">
                                     <a href="#" class="circle-button totem" alt="totems"><div class="icon"></div></a>
-                                    <span class="large" data-totem></span> Totems
+                                    <span class="large" data-totem></span> Nullam
                                 </div>
                             </div>
                             <div class="small-6 columns">
                                 <div class="types-count">
                                     <a href="#" class="circle-button sculpture" alt="sculpture"><div class="icon"></div></a>
-                                    <span class="large" data-sculpture></span> sculptures
+                                    <span class="large" data-sculpture></span> Donec
                                 </div>
                                 <div class="types-count">
                                     <a href="#" class="circle-button statue" alt="statue"><div class="icon"></div></a>
-                                    <span class="large" data-statue></span> Statues
+                                    <span class="large" data-statue></span> Suspendisse
                                 </div>
                                 <div class="types-count">
                                     <a href="#" class="circle-button installation" alt="installations"><div class="icon"></div></a>
-                                    <span class="large" data-installation></span> Installations
+                                    <span class="large" data-installation></span> Etiam
                                 </div>
                             </div>
                         </div>
