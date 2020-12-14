@@ -452,14 +452,19 @@ class Trees_model extends Model
 
 			// include images and category
 			$this->db
-				->select('GROUP_CONCAT(ft.name ORDER BY ft.sort_order, ft.name) AS images')
-				->select('GROUP_CONCAT(ft.description ORDER BY ft.sort_order, ft.name) AS image_descriptions')
+				//->select('GROUP_CONCAT(ft.name ORDER BY ft.sort_order, ft.name) AS images')
+				// ->select('GROUP_CONCAT(ft.description ORDER BY ft.sort_order, ft.name) AS image_descriptions')
+				->select('t.images')
 				->select('GROUP_CONCAT(DISTINCT c.slug) AS category')
 				->leftJoin('files_trees ft', 'ft.ref_id', 't.id')
 				->leftJoin('trees_category c', 't.trees_category_id', 'c.id')
 				->groupBy('t.id');
 
 			$result = $this->db->orderBy('common_name')->getAll();
+
+			foreach ($result AS $entry) {
+				$entry->images = Json_decode($entry->images) ?: [] ;
+			}
 
 			return $result;
 		}

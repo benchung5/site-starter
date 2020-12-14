@@ -27,12 +27,12 @@ var GridViewPlants = {
 
 			let image = null;
 
-			if (item.images) {
+			if (item.images.length) {
 				image = this.createEl(`
 					<picture>
-					    <source srcSet="${PLANTS_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}" media="(max-width: 1275px)"/>
-					    <source srcSet="${PLANTS_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}"/>
-					    <img alt="${item.image_descriptions.split(',')[0]}" src="${PLANTS_UPLOADS_PATH + imgName(item.images.split(',')[0], 'medium')}"/> 
+					    <source srcSet="${PLANTS_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}" media="(max-width: 1275px)"/>
+					    <source srcSet="${PLANTS_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}"/>
+					    <img alt="${item.images[0].description}" src="${PLANTS_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}"/> 
 					</picture>
 				`);
 			} else {

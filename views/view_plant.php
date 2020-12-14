@@ -15,14 +15,7 @@ use Lib\Utils;
 					<div class="small-12 large-8 columns">
 						<div class="title-area">
 							<h1><?= Utils::sanitize($view_data['tree']->common_name) ?></h1>&nbsp;&nbsp;
-							<h2 class="italic">(<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<?= Utils::sanitize($view_data['tree']->specific_epithet) ?> 
-								<?php
-								if($view_data['tree']->subspecies) {
-									echo '&nbsp;subsp.&nbsp;';
-									echo Utils::sanitize($view_data['tree']->subspecies);
-								}
-								?>
-						)</h2>
+							<h2 class="italic">(<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) ?></span>&nbsp;<?= Utils::sanitize($view_data['tree']->specific_epithet) ?><?php if($view_data['tree']->subspecies) {echo '&nbsp;subsp.&nbsp;'; echo Utils::sanitize($view_data['tree']->subspecies);}?>)</h2>
 						</div>
 
 						<div id="example-component"></div>
