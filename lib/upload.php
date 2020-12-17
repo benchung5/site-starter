@@ -52,6 +52,7 @@ class Upload
 
 			if ($ref_type == 'articles') {
 				$files = Controller::load_model('files_model');
+				$tags = Controller::load_model('tags_files_articles_model');
 			} elseif ($ref_type == 'trees') {
 				$files = Controller::load_model('files_trees_model');
 				$tags = Controller::load_model('tags_files_trees_model');
@@ -84,6 +85,7 @@ class Upload
 						$new_id = $files->add($file_data);
 						$new_name = pathinfo($file_data['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($file_data['name'], PATHINFO_EXTENSION);
 						$tag_name = '';
+
 						if ($file_data['tag_id']) {
 							$tag_name = $tags->get($file_data['tag_id'])->name;
 						}
