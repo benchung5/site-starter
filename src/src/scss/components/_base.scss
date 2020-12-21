@@ -1755,7 +1755,7 @@ arcticles
           max-width: 200px;
         }
         @include MQ(L) {
-         max-width: 300px;
+         max-width: 200px;
         }
       }
       .info {
@@ -1782,7 +1782,7 @@ arcticles
       }
       .info-footer {
         text-transform: uppercase;
-        margin-top: 1em;
+        font-size: 0.7em;
       }
       @include MQ(S) {
         display: flex;

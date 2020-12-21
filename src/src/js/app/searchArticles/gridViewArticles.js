@@ -25,7 +25,7 @@ var GridViewArticles = {
 			articleListStore.storageData.articles.map((item) => {
 				// remove html and trim
 				let body = item.body.replace(/<[^>]*>?/gm, '');
-				body = body.substring(0, 250) + '...';
+				body = body.substring(0, 200) + '...';
 
 				card = this.createEl(`
 					<a href="/articles/${item.categories.split(',')[0]}/${item.slug}" class="article-row" alt="${item.name}" data-slug="${item.slug}">
