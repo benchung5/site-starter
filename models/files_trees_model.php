@@ -10,31 +10,31 @@ class Files_trees_model extends Model
 		parent::__construct();
 	}
 
-	public function get_all_by_ref_id($ref_id, $opts = [], $isCount = false) 
-	{
-		$this->db->table('files_trees ft');
+	// public function get_all_by_ref_id($ref_id, $opts = [], $isCount = false) 
+	// {
+	// 	$this->db->table('files_trees ft');
 
-		if ($isCount) {
-			 $this->db->select('DISTINCT ft.id');
+	// 	if ($isCount) {
+	// 		 $this->db->select('DISTINCT ft.id');
 
-			 $result = $this->db->getAll();
+	// 		 $result = $this->db->getAll();
 
-			return count($result);
-		} else {
-			if (isset($opts['select'])) {
-				$this->db->select(implode(',', $opts['select']));
-			} else {
-				$this->db->select('DISTINCT ft.id, ft.ref_id, ft.name, ft.sort_order, ft.extension, tft.name AS tag_name, ft.description');
-			}
+	// 		return count($result);
+	// 	} else {
+	// 		if (isset($opts['select'])) {
+	// 			$this->db->select(implode(',', $opts['select']));
+	// 		} else {
+	// 			$this->db->select('DISTINCT ft.id, ft.ref_id, ft.name, ft.sort_order, ft.extension, tft.name AS tag_name, ft.description');
+	// 		}
 
-			$this->db->leftJoin('tags_files_trees tft','tft.id','ft.tag_id');
-			$this->db->where('ref_id', $ref_id);
+	// 		$this->db->leftJoin('tags_files_trees tft','tft.id','ft.tag_id');
+	// 		$this->db->where('ref_id', $ref_id);
 
-			$result = $this->db->getAll();
+	// 		$result = $this->db->getAll();
 
-			return $result;
-		}
-	}
+	// 		return $result;
+	// 	}
+	// }
 
 	public function add($data)
 	{

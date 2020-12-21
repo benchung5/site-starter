@@ -46,12 +46,12 @@ var GridViewArticles = {
 
 				let image = null;
 
-				if (item.featured_image) {
+				if (item.images.length) {
 					image = this.createEl(`
 						<picture>
-						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}" media="(max-width: 1275px)"/>
-						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/>
-						    <img alt="${item.image_description}" src="${ARTICLES_UPLOADS_PATH + imgName(item.featured_image, 'medium')}"/> 
+						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}" media="(max-width: 1275px)"/>
+						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}"/>
+						    <img alt="${item.images[0].description}" src="${ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}"/> 
 						</picture>
 					`);
 				} else {

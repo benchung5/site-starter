@@ -75,6 +75,8 @@ class Articles extends Controller
 			'tags' => isset($data['tags']) ? $data['tags'] : null,
 		];
 
+		Utils::dbug($data);
+
 		if ($is_add) {
 			//add created on date
 			$update_data['created_on'] = date('Y-m-d');
@@ -88,7 +90,7 @@ class Articles extends Controller
 
 		} else {
 			$this->articles->update([
-				'where' => ['slug' => $data['slug']], 
+				'where' => ['id' => $data['article_id']], 
 				'update' => $update_data,
 				'joins' => $joins_data,
 			]);
@@ -177,7 +179,8 @@ class Articles extends Controller
 			'limit' => $data['limit'], 
 			'like' => isset($data['search']) ? $data['search'] : null, 
 			'categories' => isset($data['categories']) ? $data['categories'] : null,
-			'tags' => isset($data['tags']) ? $data['tags'] : null, 
+			'tags' => isset($data['tags']) ? $data['tags'] : null,
+			'mode' => isset($data['mode']) ? $data['mode'] : null,
 			'select' => ['a.id', 'a.slug', 'a.name', 'a.body']
 		];
 

@@ -20,6 +20,8 @@ import ButtonShowMenu from '../parts/buttonShowMenu';
 	      	articleListStore.init();
 	      	articleTablesStore.init();
 	      	articleFilterStore.init();
+	      	//only return articles in production mode for searchArticles
+	      	articleFilterStore.setData({ mode: 2 });
 
 			//call initialize on Component first
 			inst.initialize({

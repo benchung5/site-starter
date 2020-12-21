@@ -68,6 +68,15 @@ class Articles_model extends Model
 	{
 		$this->db->table('articles a');
 
+		// only return ones in a certain mode
+		if (isset($opts['mode'])) {
+			if ($opts['mode']) {
+				$this->db->where('a.mode_id', '=', $opts['mode']);
+			} else {
+				return [];
+			}
+		}
+
 		// use search criteria
 		if (isset($opts['like'])) {
 			$this->db->grouped(function($q, $opts) {
@@ -107,15 +116,20 @@ class Articles_model extends Model
 
 			//include images and categories
 			$this->db
-				->select('GROUP_CONCAT(DISTINCT f.name) AS featured_image')
-				->select('GROUP_CONCAT(DISTINCT f.description) AS image_description')
+				// ->select('GROUP_CONCAT(DISTINCT f.name) AS featured_image')
+				// ->select('GROUP_CONCAT(DISTINCT f.description) AS image_description')
+				->select('a.images')
 				->select('GROUP_CONCAT(DISTINCT c.slug) AS categories')
-				->leftJoin('files f', 'f.id', 'a.featured_image')
+				// ->leftJoin('files f', 'f.id', 'a.featured_image')
 				->leftJoin('article_categories ac', 'ac.article_id', 'a.id')
 				->leftJoin('categories c', 'c.id', 'ac.category_id')
 				->groupBy('a.id');
 
-			$result = $this->db->getAll();
+			$result = $this->db->orderBy('created_on')->getAll();
+
+			foreach ($result AS $entry) {
+				$entry->images = Json_decode($entry->images) ?: [] ;
+			}
 
 			return $result;
 		}

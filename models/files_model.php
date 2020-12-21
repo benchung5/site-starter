@@ -10,31 +10,31 @@ class Files_model extends Model
 		parent::__construct();
 	}
 
-	public function get_all_by_ref_id($ref_id, $opts = [], $isCount = false) 
-	{
-		$this->db->table('files f');
+	// public function get_all_by_ref_id($ref_id, $opts = [], $isCount = false) 
+	// {
+	// 	$this->db->table('files f');
 
-		if ($isCount) {
-			 $this->db->select('DISTINCT f.id');
+	// 	if ($isCount) {
+	// 		 $this->db->select('DISTINCT f.id');
 
-			 $result = $this->db->getAll();
+	// 		 $result = $this->db->getAll();
 
-			return count($result);
-		} else {
-			if (isset($opts['select'])) {
-				$this->db->select(implode(',', $opts['select']));
-			} else {
-				$this->db->select('DISTINCT f.id, f.ref_id, f.name, f.sort_order, f.extension, tf.name AS tag_name, f.description');
-			}
+	// 		return count($result);
+	// 	} else {
+	// 		if (isset($opts['select'])) {
+	// 			$this->db->select(implode(',', $opts['select']));
+	// 		} else {
+	// 			$this->db->select('DISTINCT f.id, f.ref_id, f.name, f.sort_order, f.extension, tf.name AS tag_name, f.description');
+	// 		}
 
-			$this->db->leftJoin('tags_files tf','tf.id','f.tag_id');
-			$this->db->where('ref_id', $ref_id);
+	// 		$this->db->leftJoin('tags_files tf','tf.id','f.tag_id');
+	// 		$this->db->where('ref_id', $ref_id);
 
-			$result = $this->db->getAll();
+	// 		$result = $this->db->getAll();
 
-			return $result;
-		}
-	}
+	// 		return $result;
+	// 	}
+	// }
 
 	public function add($data)
 	{

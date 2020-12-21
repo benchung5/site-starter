@@ -55,10 +55,13 @@ export function searchArticles(searchObj, callback) {
     function buildQuery(inObj) {
     	const query = {};
 
-        // just include search, offset and limit as is
+        // just include search, offset, mode and limit as is
         query.search = inObj.search;
         query.offset = inObj.offset;
         query.limit = inObj.limit;
+        if (inObj.mode) {
+            query.mode = inObj.mode;
+        }
 
     	//format categories, query only active ones
     	if (inObj.categories && (inObj.categories.length !== 0)) {
