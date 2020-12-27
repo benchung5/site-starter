@@ -1,6 +1,7 @@
 src/node_modules
 src/npm-debug.log
 vendor
+uploads
 composer.phar
 log
 .htaccess
