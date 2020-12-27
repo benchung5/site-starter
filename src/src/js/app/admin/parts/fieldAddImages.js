@@ -26,6 +26,8 @@ var FieldAddImages = {
 	  this.updatePreview();
 	},
 	onUpdateFiles: function(fileData, preview) {
+
+		console.log(fileData);
 		//output updated files
 		let croppedOut = cloneDeep(this.state.croppedOut);
 		croppedOut.push(fileData);

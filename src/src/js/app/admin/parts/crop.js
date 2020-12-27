@@ -23,11 +23,11 @@ var Crop = {
 
 	  return finalName;
 	},
-	blobToFile: function(blob, fileName) {
-	  //currently only works for chrome, ff and safari 10.1+
-	  let file = new File([blob], this.validateFileName(fileName));
-	  return file;
-	},
+	// blobToFile: function(blob, fileName) {
+	//   //currently only works for chrome, ff and safari 10.1+
+	//   let file = new File([blob], fileName);
+	//   return file;
+	// },
 	loadImage: function(file) {
 	  this.file = file;
 	  let reader = new FileReader();
@@ -104,13 +104,17 @@ var Crop = {
 		    this.thumbWidth, this.thumbHeight // w, h of result image (scale)
 			);
 
-	    console.log(this.state.meta.tag);
-
 	    //convert to blob and output file data and preview
 		this.canvas.toBlob((blob) => {
+			const fileName = this.validateFileName(this.file.name)
+
+			//currently only works for chrome, ff and safari 10.1+
+			let file = new File([blob], fileName);
+
 			const fileData = {
-			  croppedFile: this.blobToFile(blob, this.file.name),
+			  croppedFile: file,
 			  originalFile: this.file,
+			  //originalFile: this.validateFileName(fileName),
 			  tag_id: this.state.meta.tag,
 			  description: this.state.meta.description,
 			  caption: this.state.meta.caption
@@ -118,7 +122,7 @@ var Crop = {
 
 			const previewData = {
 				dataUrl: this.canvas.toDataURL('image/jpeg'),
-				name: this.file.name,
+				name: fileName,
 				tagName: this.state.meta.tagName,
 			}
 

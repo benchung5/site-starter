@@ -75,8 +75,6 @@ class Articles extends Controller
 			'tags' => isset($data['tags']) ? $data['tags'] : null,
 		];
 
-		Utils::dbug($data);
-
 		if ($is_add) {
 			//add created on date
 			$update_data['created_on'] = date('Y-m-d');
