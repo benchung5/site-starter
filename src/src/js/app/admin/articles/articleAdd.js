@@ -28,7 +28,7 @@ var ArticleAdd = {
 		this.fieldAddImages.state.croppedOut.map((item, index) => {
 			formData.append('image'+'_'+index+'_original', item.originalFile);
 			formData.append('image'+'_'+index+'_cropped', item.croppedFile);
-			formData.append('image'+'_'+index+'_info', [item.tag_id, item.description]);
+			formData.append('image'+'_'+index+'_info', item.tag_id + '|||' + item.description + '|||' + item.caption);
 		});
 
 		// //delete any empty fields in formData

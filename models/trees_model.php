@@ -39,7 +39,16 @@ class Trees_model extends Model
 			// $this->files_trees = $this->load_model('files_trees_model');
 			// $result->images = $this->files_trees->get_all_by_ref_id($result->id);
 
+			// get images
 			$result->images = Json_decode($result->images) ?: [] ;
+			foreach ($result->images as $image) {
+				if(property_exists($image, 'tag')) {
+					$image->tag_name = $this->db->table('tags_files_trees t')
+						->select('*')
+						->where('id', $image->tag)
+						->get()->name;
+				}
+			}
 
 			// origins
 			$result->origins = $this->db->table('trees_origins _to')
@@ -360,7 +369,7 @@ class Trees_model extends Model
 			//$this->db->table('trees_conifer')->where('tree_id', $deleted_tree_id)->delete();
 			
 			// remove files
-			$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();
+			//$this->db->table('files_trees')->where('ref_id', $deleted_tree_id)->delete();
 
 			return $deleted_tree_id;
 		}

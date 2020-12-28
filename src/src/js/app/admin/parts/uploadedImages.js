@@ -40,6 +40,7 @@ var UploadedImages = {
 		//this.hiddenFieldImages.el.value = JSON.stringify(images);
 	},
 	updateImages: function() {
+		
 		// clear drop preview first
 		this.dropPreview.innerHTML = '';
 		this.state.images.map((item, index) => {

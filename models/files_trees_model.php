@@ -1,6 +1,7 @@
 <?php
 use Lib\Model;
 use Lib\Utils;
+use Lib\Upload;
 
 class Files_trees_model extends Model
 {
@@ -46,27 +47,60 @@ class Files_trees_model extends Model
 		}
 	}
 
-	public function update_associations($ref_type, $ref_id, $deleted_images) 
+	public function update_associations($deleted_images) 
 	{
-		$deleted_images = is_array($deleted_images) ?: explode(',', $deleted_images); 
-
-		// compare new image associations with existing ones and adjust
+		// delete specific files and their uploads
 		foreach ($deleted_images as $deleted_image) {
+
 			$this->db->table('files_trees')
-				->where('ref_id', (int)$ref_id)
 				->where('name', $deleted_image)
 				->delete();
+		}
 
-			//also remove the actual uploaded files
-			//todo: combine this with lib/uploads verion of this
-			$path = realpath('./uploads');
-			if (is_dir($path.'/'.$ref_type)) {
-				$deleted_image_sml = preg_replace('/(\.[\w\d_-]+)$/i', '-sml$1', $deleted_image);
-				$deleted_image_med = preg_replace('/(\.[\w\d_-]+)$/i', '-med$1', $deleted_image);
-				unlink($path.'/'.$ref_type.'/'.$deleted_image);
-				unlink($path.'/'.$ref_type.'/'.$deleted_image_sml);
-				unlink($path.'/'.$ref_type.'/'.$deleted_image_med);
+		//repove the actual uploads
+		Upload::remove('trees', $deleted_images);
+
+
+		// $deleted_images = is_array($deleted_images) ?: explode(',', $deleted_images); 
+
+		// // compare new image associations with existing ones and adjust
+		// foreach ($deleted_images as $deleted_image) {
+		// 	$this->db->table('files_trees')
+		// 		->where('name', $deleted_image)
+		// 		->delete();
+
+		// 	//also remove the actual uploaded files
+		// 	//todo: combine this with lib/uploads verion of this
+		// 	$path = realpath('./uploads');
+		// 	if (is_dir($path.'/'.$ref_type)) {
+		// 		$deleted_image_sml = preg_replace('/(\.[\w\d_-]+)$/i', '-sml$1', $deleted_image);
+		// 		$deleted_image_med = preg_replace('/(\.[\w\d_-]+)$/i', '-med$1', $deleted_image);
+		// 		unlink($path.'/'.$ref_type.'/'.$deleted_image);
+		// 		unlink($path.'/'.$ref_type.'/'.$deleted_image_sml);
+		// 		unlink($path.'/'.$ref_type.'/'.$deleted_image_med);
+		// 	}
+		// }
+	}
+
+	public function remove_associations($id) 
+	{
+		//remove all files and their uploads used by a tree
+		$trees = $this->load_model('trees_model');
+		$tree = $trees->get(['id' => $id]);
+		$uploads = [];
+		
+		if (!empty($tree->images)) {
+			foreach ($tree->images AS $image) {
+				//remove the files
+				$this->db->table('files_trees')
+					->where('id', $image->id)
+					->delete();
+
+				$uploads[] = $image->name;
 			}
+
+			//remove the actual uploads
+			Upload::remove('trees', $uploads);
 		}
 	}
 

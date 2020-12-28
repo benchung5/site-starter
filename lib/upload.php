@@ -11,34 +11,40 @@ class Upload
 		parent::__construct();
 	}
 
-	public function remove($ref_type, $ref_id) 
+	public function remove($ref_type, $uploads) 
 	{
-		if ($ref_type == 'articles') {
-			$files = Controller::load_model('files_model');
-		} elseif ($ref_type == 'trees') {
-			$files = Controller::load_model('files_trees_model');
-		}
+		//remove the actual uploaded files
+		if (! empty($uploads)) {
+			foreach ($uploads as $upload) {
+				$path = './uploads/'.$ref_type.'/'.$upload;
 
-		$result = $files->get_all_by_ref_id($ref_id, [], false);
+				if (file_exists($path))
+				{
+					//delete the file
+					unlink($path);
+					unlink('./uploads/'.$ref_type.'/'.pathinfo($upload, PATHINFO_FILENAME).'-med.'.pathinfo($upload, PATHINFO_EXTENSION));
+					unlink('./uploads/'.$ref_type.'/'.pathinfo($upload, PATHINFO_FILENAME).'-sml.'.pathinfo($upload, PATHINFO_EXTENSION));
 
-		foreach ($result as $file) {
-			$path = './uploads/'.$ref_type.'/'.$file->name;
-
-			if (file_exists($path))
-			{
-				//delete the file
-				unlink($path);
-				unlink('./uploads/'.$ref_type.'/'.pathinfo($file->name, PATHINFO_FILENAME).'-med.'.pathinfo($file->name, PATHINFO_EXTENSION));
-				unlink('./uploads/'.$ref_type.'/'.pathinfo($file->name, PATHINFO_FILENAME).'-sml.'.pathinfo($file->name, PATHINFO_EXTENSION));
-
-				//to test unlink
-				// if (!unlink($path)) {
-				//   echo ("Error deleting $path or med/sml versions");
-				// }
-			} else {
-				//echo ('associated file: $path already deleted');
+					//to test unlink
+					// if (!unlink($path)) {
+					//   echo ("Error deleting $path or med/sml versions");
+					// }
+				} else {
+					//echo ('associated file: $path already deleted');
+				}
 			}
 		}
+
+		// //remove the actual uploaded files
+		// //todo: combine this with lib/uploads verion of this
+		// $path = realpath('./uploads');
+		// if (is_dir($path.'/articles')) {
+		// 	$deleted_image_sml = preg_replace('/(\.[\w\d_-]+)$/i', '-sml$1', $deleted_image);
+		// 	$deleted_image_med = preg_replace('/(\.[\w\d_-]+)$/i', '-med$1', $deleted_image);
+		// 	unlink($path.'/articles/'.$deleted_image);
+		// 	unlink($path.'/articles/'.$deleted_image_sml);
+		// 	unlink($path.'/articles/'.$deleted_image_med);
+		// }
 	}
 
 	public function upload($ref_type, $ref_id, $data) 
@@ -84,22 +90,24 @@ class Upload
 					if ($isOriginalField !== false) {
 						$file_data['ref_id'] = $ref_id;
 						$file_data['sort_order'] = $count;
-						$file_data['tag_id'] = $imgInfoFields ? $imgInfoFields[$count][0] : '';
-						$file_data['description'] = $imgInfoFields[$count][1];
-						$file_data['caption'] = $imgInfoFields[$count][2];
+						// if ($imgInfoFields) {
+						// 	$file_data['tag_id'] = $imgInfoFields[$count][0] ? $imgInfoFields[$count][0] : '';
+						// 	$file_data['description'] = $imgInfoFields[$count][1] ? $imgInfoFields[$count][1] : '';
+						// 	$file_data['caption'] = $imgInfoFields[$count][2];
+						// }
+
 						//add file to db, get new id and name with id
 						$new_id = $files->add($file_data);
 						$new_name = pathinfo($croppedVersion['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($croppedVersion['name'], PATHINFO_EXTENSION);
-						$tag_name = '';
 
-						if ($file_data['tag_id']) {
-							$tag_name = $tags->get($file_data['tag_id'])->name;
-						}
 						//update filename with new file id
 						$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
 
 						// store the new image in new_files (to return from this function)
-						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'tag_name' => $tag_name, 'description' => $file_data['description'], 'caption' => $file_data['caption']];
+						$tag = (! empty($imgInfoFields[$count][0])) ? $imgInfoFields[$count][0] : '';
+						$description = (! empty($imgInfoFields[$count][1])) ? $imgInfoFields[$count][1] : '';
+						$caption = (! empty($imgInfoFields[$count][2])) ? $imgInfoFields[$count][2] : '';
+						$new_files[] = (object) ['id' => $new_id, 'name' => $new_name, 'tag' => $tag, 'description' => $description, 'caption' => $caption];
 
 						// move file, append new id, delete temp file
 						$destination_original = './uploads/'.$ref_type.'/'.$new_name;

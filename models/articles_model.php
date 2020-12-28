@@ -42,7 +42,16 @@ class Articles_model extends Model
 			// 	// ->orderBy('sort_order, name')
 			// 	->getAll();
 
+			// get images
 			$result->images = Json_decode($result->images) ?: [] ;
+			foreach ($result->images as $image) {
+				if(property_exists($image, 'tag')) {
+					$image->tag_name = $this->db->table('tags_files_articles t')
+						->select('*')
+						->where('id', $image->tag)
+						->get()->name;
+				}
+			}
 
 			// get categories
 			$result->categories = $this->db->table('categories c')
@@ -51,12 +60,12 @@ class Articles_model extends Model
 				->where('ac.article_id', $result->id)
 				->getAll();
 
-			// get tags
-			$result->tags = $this->db->table('article_tags at')
-				->select('t.id, t.name')
-				->where('article_id', $result->id)
-				->innerJoin('tags t', 't.id', 'at.tag_id')
-				->getAll();
+			// // get tags
+			// $result->tags = $this->db->table('article_tags at')
+			// 	->select('t.id, t.name')
+			// 	->where('article_id', $result->id)
+			// 	->innerJoin('tags t', 't.id', 'at.tag_id')
+			// 	->getAll();
 			
 			return $result;
 		}
@@ -152,7 +161,7 @@ class Articles_model extends Model
 
 			//insert joins
 			$this->insert_joins($new_article_id, $joins_data, 'categories', 'category_id', 'article_categories');
-			$this->insert_joins($new_article_id, $joins_data, 'tags', 'tag_id', 'article_tags');
+			// $this->insert_joins($new_article_id, $joins_data, 'tags', 'tag_id', 'article_tags');
 			
 			return $new_article_id;
 		}
@@ -194,10 +203,10 @@ class Articles_model extends Model
 			$this->db->table('article_categories')->where('article_id', $deleted_article_id)->delete();
 
 			// remove tags
-			$this->db->table('article_tags')->where('article_id', $deleted_article_id)->delete();
+			// $this->db->table('article_tags')->where('article_id', $deleted_article_id)->delete();
 
 			// remove files
-			$this->db->table('files')->where('ref_id', $deleted_article_id)->delete();
+			//$this->db->table('files')->where('ref_id', $deleted_article_id)->delete();
 
 			return $deleted_article_id;
 		}
@@ -220,7 +229,7 @@ class Articles_model extends Model
 			$joins = $opts['joins'];
 
 			$this->update_joins($article_id, $joins, 'categories', 'category_id', 'article_categories');
-			$this->update_joins($article_id, $joins, 'tags', 'tag_id', 'article_tags');
+			// $this->update_joins($article_id, $joins, 'tags', 'tag_id', 'article_tags');
 
 		}
 	}

@@ -1,6 +1,7 @@
 <?php
 use Lib\Model;
 use Lib\Utils;
+use Lib\Upload;
 
 class Files_model extends Model
 {
@@ -46,25 +47,39 @@ class Files_model extends Model
 		}
 	}
 
-	public function update_associations($ref_type, $ref_id, $deleted_images) 
+	public function update_associations($deleted_images) 
 	{
-		// delete images
+		// delete specific files and their uploads
 		foreach ($deleted_images as $deleted_image) {
+
 			$this->db->table('files')
-				->where('ref_id', (int)$ref_id)
 				->where('name', $deleted_image)
 				->delete();
+		}
 
-			//also remove the actual uploaded files
-			//todo: combine this with lib/uploads verion of this
-			$path = realpath('./uploads');
-			if (is_dir($path.'/'.$ref_type)) {
-				$deleted_image_sml = preg_replace('/(\.[\w\d_-]+)$/i', '-sml$1', $deleted_image);
-				$deleted_image_med = preg_replace('/(\.[\w\d_-]+)$/i', '-med$1', $deleted_image);
-				unlink($path.'/'.$ref_type.'/'.$deleted_image);
-				unlink($path.'/'.$ref_type.'/'.$deleted_image_sml);
-				unlink($path.'/'.$ref_type.'/'.$deleted_image_med);
+		//repove the actual uploads
+		Upload::remove('articles', $deleted_images);
+	}
+
+	public function remove_associations($id) 
+	{
+		//remove all files and their uploads used by an article
+		$articles = $this->load_model('articles_model');
+		$article = $articles->get(['id' => $id]);
+		$uploads = [];
+		
+		if (!empty($article->images)) {
+			foreach ($article->images AS $image) {
+				//remove the files
+				$this->db->table('files')
+					->where('id', $image->id)
+					->delete();
+
+				$uploads[] = $image->name;
 			}
+
+			//remove the actual uploads
+			Upload::remove('articles', $uploads);
 		}
 	}
 

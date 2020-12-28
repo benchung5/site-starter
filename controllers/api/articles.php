@@ -12,6 +12,7 @@ class Articles extends Controller
 	public function __construct() 
 	{
 		$this->articles = $this->load_model('articles_model');
+		$this->files = $this->load_model('files_model');
 
 		parent::__construct();
 	}
@@ -48,9 +49,8 @@ class Articles extends Controller
 		}		
 	}
 
-	public function update_article($data, $is_add) {
-		$files = $this->load_model('files_model');
-
+	public function update_article($data, $is_add) 
+	{
 		$this->validator->addEntries(['slug' => $data['slug']]);
 		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
 		$this->validator->validate();
@@ -106,9 +106,9 @@ class Articles extends Controller
 			$deleted_images = is_array($data['deleted_images']) ?: explode(',', $data['deleted_images']);
 
 			// delete original file uploads if applicable
-			$files->update_associations('articles', $updated_article->id, $deleted_images);
+			$this->files->update_associations($deleted_images);
 
-			// delete images recorded in tree
+			// delete images recorded in article
 			foreach ($updated_images as $key=>$value) {
 				foreach ($deleted_images as $di) {
 					if ($di == $value->name) {
@@ -120,6 +120,7 @@ class Articles extends Controller
 			$updated_images = array_values($updated_images);
 		}
 
+		//record new images into the article
 		if ($new_images) {
 			foreach ($new_images as $ni) {
 				array_push($updated_images, $ni);
@@ -140,7 +141,8 @@ class Articles extends Controller
 		$data = Utils::json_read();
 
 		// remove file uploads (need to do this before removing the files to get lookup)
-		Upload::remove('articles', $data['article']['id']);
+		//Upload::remove('articles', $data['article']['id']);
+		$this->files->remove_associations($data['article']['id']);
 
 		$this->articles->remove(['slug' => $data['article']['slug']]);
 

@@ -12,6 +12,7 @@ class Trees extends Controller
 	public function __construct() 
 	{
 		$this->trees = $this->load_model('trees_model');
+		$this->files = $this->load_model('files_trees_model');
 
 		parent::__construct();
 	}
@@ -50,8 +51,6 @@ class Trees extends Controller
 
 	protected function update_tree($data, $is_add) 
 	{
-		$files = $this->load_model('files_trees_model');
-
 		$this->validator->addEntries(['slug' => $data['slug']]);
 		$this->validator->addRule('slug', 'Must be a valid slug', 'slug');
 		$this->validator->validate();
@@ -143,7 +142,7 @@ class Trees extends Controller
 			$deleted_images = is_array($data['deleted_images']) ?: explode(',', $data['deleted_images']);
 
 			// delete original file uploads if applicable
-			$files->update_associations('trees', $updated_tree->id, $data['deleted_images']);
+			$this->files->update_associations($deleted_images);
 
 			// delete images recorded in tree
 			foreach ($updated_images as $key=>$value) {
@@ -157,6 +156,7 @@ class Trees extends Controller
 			$updated_images = array_values($updated_images);
 		}
 
+		//record new images into the tree
 		if ($new_images) {
 			foreach ($new_images as $ni) {
 				array_push($updated_images, $ni);
@@ -176,7 +176,7 @@ class Trees extends Controller
 		$data = Utils::json_read();
 
 		// remove file uploads (need to do this before removing the files to get lookup)
-		Upload::remove('trees', $data['tree']['id']);
+		$this->files->remove_associations($data['tree']['id']);
 
 		// remove tree, associations, and files
 		$this->trees->remove(['slug' => $data['tree']['slug']]);
