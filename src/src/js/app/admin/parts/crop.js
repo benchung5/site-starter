@@ -14,8 +14,8 @@ var Crop = {
 	  let validatedName = sanitizeFilename(fileName);
 	  //replace spaces with dashes
 	  let spacesReplaced = validatedName.replace(/\ +/g, '-');
-	  //remove these characters: ()';
-	  let bracketsReplaced = spacesReplaced.replace(/(\(|\)|'|;)+/g, '');
+	  //remove these characters: ()';,
+	  let bracketsReplaced = spacesReplaced.replace(/(\(|\)|'|;|,)+/g, '');
 	  //append date
 	  // var date = new Date().getTime();
 	  // let finalName = bracketsReplaced.replace(/(\.[\w\d_-]+)$/i, '-' + date + '$1');

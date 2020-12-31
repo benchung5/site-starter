@@ -8,7 +8,6 @@ let Router = {
 		this.onRouteChange();
 	},
 	onRouteChange: function() {
-		console.log(appStateStore.storageData.formTouched);
 		if(appStateStore.storageData.formTouched) {
 			this.verifyAction.open((verified) => {
 				if(verified) {
