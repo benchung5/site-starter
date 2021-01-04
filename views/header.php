@@ -13,7 +13,7 @@ use Config\Config as Config;
     <div class="row text-center">
       <div class="small-10 large-4 columns logo-container align-middle">
         <h1 class="logo-main">
-          <a href="/"><img alt="Niagara Native Trees" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png"></a>
+          <a href="/"><div class="logo-img"></div></a>
         </h1>
       </div>
       <nav class="large-8 columns menu-container show-for-large">
@@ -62,7 +62,7 @@ use Config\Config as Config;
   <div class="mobile-menu-container hide-for-large" style="visibility: hidden; opacity: 0;"> 
     <div class="mobile-menu-inner">
       <div class="top">
-        <img class="mobile-top-logo" src="<?=Config::paths('ROOT_URL')?>assets/img/naturewithus-logo.png">
+        <div class="logo-img mobile-top-logo"></div>
       </div>   
       <ul class="menu menu-mobile vertical">
           <li><a href="/" title="Nature With Us Home">Home</a></li>

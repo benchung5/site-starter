@@ -641,6 +641,13 @@ header
         display: block;
         line-height: 0;
         font-size: inherit;
+        .logo-img {
+          height: 50px;
+          width: 239px;
+          background-image: url(/assets/img/naturewithus-logo.svg);
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
       }
     }
     .menu-container {
@@ -2125,18 +2132,6 @@ parts
   top: 20px;
   right: 20px;
   cursor: pointer;
-}
-
-.logo {
-  background: url(../img/icons/aito-logo-colour.svg) no-repeat;
-  width: 91px;
-  height: 91px;
-}
-
-.logo-wide {
-  background: url(../img/icons/venture-logo.svg) no-repeat;
-  width: 150px;
-  height: 33px;
 }
 
 .button-microsite {
