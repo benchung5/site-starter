@@ -31,13 +31,6 @@ var PlantEdit = {
 		//append the current plant id
 		formData.append('tree_id', this.plantId);
 
-		// //delete any empty fields in formData
-		// for (let pair of formData.entries()) {
-		// 	if (pair[1] == "") {
-		// 		formData.delete(pair[0]);
-		// 	}
-		// }
-
 		//delete any empty fields in formData
 		Array.from(formData).map((item) => {
 			if (item[1] == '') {
@@ -50,9 +43,6 @@ var PlantEdit = {
 
 		//form no longer touched
 		appStateStore.setData({ formTouched: false })
-
-		//clear deleted images
-		this.uploadedImages.reset();
 	},
 	clearMessages: function() {
 	  this.submissionMessage.innerHTML = '';

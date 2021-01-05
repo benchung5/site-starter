@@ -12,16 +12,36 @@ var UploadedImages = {
 		let updatedImages = clone(this.state.images);
 		updatedImages.splice(index, 1);
 
+		let deletedImages = clone(this.state.deletedImages);
+		let imageDeleted =  clone(this.state.images[index]);
+		deletedImages.push(imageDeleted);
+
 		//update local state
 		this.setState({ images: updatedImages });
+		this.setState({ deletedImages });
 		this.updateImages();
+
+		//update parent
+		this.updateHiddenFields(deletedImages);
 
 		//update dragreorder
 		this.reInitDragReorder(this.state.images);
 	},
+	reset: function() {
+		this.setState({ deletedImages: [] });
+		this.hiddenFieldDeletedImages.el.value = '';
+	},
 	onCopyClick: function(item) {
 		let imgStr = '<img alt="' + item.description + '" src="/uploads/' + this.refType + '/' + item.name + '" />';
 		copyStringToClipboard(imgStr);
+	},
+	updateHiddenFields: function(deletedImages) {
+		let delImages = [];
+		Object.keys(deletedImages).forEach((key) => {
+		    delImages[key] = deletedImages[key].name;
+		})
+		this.hiddenFieldDeletedImages.el.value = delImages.toString();
+		//this.hiddenFieldImages.el.value = JSON.stringify(images);
 	},
 	updateImages: function() {
 		// clear drop preview first
@@ -46,9 +66,6 @@ var UploadedImages = {
 
 			this.dropPreview.appendChild(dropPreviewImage);
 		});
-
-		//update parent
-		this.hiddenFieldUpdatedImages.el.value = JSON.stringify(this.state.images);
 	},
 	onReorder: function(updatedState) {
 		this.setState({ images: updatedState });
@@ -65,7 +82,8 @@ var UploadedImages = {
 		//set initial state
 		inst.refType = options.refType;
 		inst.setState({ 
-			images: options.images
+			images: options.images, 
+			deletedImages: [] 
 		});
 
 		//call initialize on Component first
@@ -79,9 +97,10 @@ var UploadedImages = {
 		inst.dropPreview = inst.el.querySelector('.drop-preview-wrapper');
 		//inst.hiddenFieldImages = FieldHidden.init({ name: 'images'});
 		//inst.el.appendChild(inst.hiddenFieldImages.el);
-		inst.hiddenFieldUpdatedImages = FieldHidden.init({ name: 'updated_images'});
-		inst.el.appendChild(inst.hiddenFieldUpdatedImages.el);
+		inst.hiddenFieldDeletedImages = FieldHidden.init({ name: 'deleted_images'});
+		inst.el.appendChild(inst.hiddenFieldDeletedImages.el);
 		
+
 		inst.updateImages();
 
 		//init dragreorder, must do this after initialize and image list has been added

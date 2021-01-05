@@ -103,14 +103,7 @@ class Trees extends Controller
 			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null,
 			'insects' => isset($data['insects']) ? $data['insects'] : null,
 			'diseases' => isset($data['diseases']) ? $data['diseases'] : null,
-			// 'conifer_leaf_structures' => isset($data['conifer_leaf_structures']) ? $data['conifer_leaf_structures'] : null,
-			// 'conifer_cone_features' => isset($data['conifer_cone_features']) ? $data['conifer_cone_features'] : null
 		];
-
-		//conifer data
-		// $conifer_data = [];
-		// if(isset($data['conifer_leaf_type_id'])) { $conifer_data['leaf_type_id'] = $data['conifer_leaf_type_id']; };
-		// if(isset($data['conifer_leaf_cross_section_id'])) { $conifer_data['leaf_cross_section_id'] = $data['conifer_leaf_cross_section_id']; };
 
 		if ($is_add) {
 			$insert_data = [
@@ -126,7 +119,6 @@ class Trees extends Controller
 				'where' => ['id' => $data['tree_id']], 
 				'update' => $update_data,
 				'joins' => $joins_data
-				// 'conifer_data' => $conifer_data,
 			]);
 
 			$updated_tree = $this->trees->get(['id' => $data['tree_id']]);
@@ -135,25 +127,23 @@ class Trees extends Controller
 		// new file uploads if any
 		$new_images = Upload::upload('trees', $updated_tree->id, $data);
 
-		// update new image data into tree images
-		$updated_images = $updated_tree->images;
+		//find out if any images are deleted and delete them
+		$original_images = $updated_tree->images;
+		$updated_images = json_decode($data['updated_images']);
 
-		if (isset($data['deleted_images'])) {
-			$deleted_images = is_array($data['deleted_images']) ?: explode(',', $data['deleted_images']);
-
-			// delete original file uploads if applicable
-			$this->files->update_associations($deleted_images);
-
-			// delete images recorded in tree
-			foreach ($updated_images as $key=>$value) {
-				foreach ($deleted_images as $di) {
-					if ($di == $value->name) {
-						unset($updated_images[$key]);
-					} 
-				}
+		$diff = array_udiff($original_images, $updated_images,
+		  function ($obj_a, $obj_b) {
+		    return $obj_a->id - $obj_b->id;
+		  }
+		);
+		
+		$deleted_images = [];
+		if ($diff) {
+			foreach ($diff as $image) {
+				$deleted_images[] = $image->name;
 			}
-			//reset indexes
-			$updated_images = array_values($updated_images);
+			// delete original file uploads
+			$this->files->update_associations($deleted_images);
 		}
 
 		//record new images into the tree
