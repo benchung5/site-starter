@@ -6,15 +6,17 @@ $this->insert('featured', $view_data );
 <div class="home-page site-wrapper">
     <div class="content-wrapper">
         <section id="hero">
-            <div class="row hero-row">
-                <div class="small-12 large-12 columns">
+            <div class="row">
+                <div class="medium-12 large-7 columns">
                     <div class="center">
-                        <h1>Create Natural Surroundings</h1>
-                        <p>The Niagara Region is home to some of the most unique and diverse fauna in Canada.
-                            Help preserve local ecosystems by learning how to identify and grow native trees.
+                        <h1>Your Local Sustainable Tree & Garden Service</h1>
+                        <p>We are a small tree and softscape service, trained and <span style="color: #e0e003;">passionate about the work we do in the Niagara Region.</span> Contact us for a free same day estimate.
+                            
                         </p>
-                        <a class="button-view-models transparent" href="plants">Search Native Trees</a>
+                        <a class="button-action transparent" href="contact">Lets Get in Touch</a>
                     </div>
+                </div>
+                <div class="medium-12 large-5 columns">
                 </div>
             </div>
         </section>
@@ -24,45 +26,41 @@ $this->insert('featured', $view_data );
                 <div class="stroke-top"></div>
                 <div class="stroke-bottom"></div>
                 <div class="row beautiful-peices-row main-row">
-                    <div class="show-for-large small-12 large-5 columns left">
-                        <picture class="device-middle" data-scroll>
-                          <source srcset="assets/img/device-middle.png" media="(min-width: 1200px)">
-                          <source srcset="assets/img/device-middle.png">
-                          <img src="assets/img/device-middle.png" >
-                        </picture>
+                    <div class="small-12 large-5 columns left">
+                        <div>
+                            <h3>Our Services</h3>
+                            <p>Our unique blend of services target home owners or commercial properties needing tree services, garden upkeep or a blend of the two. Here are a few of them...</p>
+                        </div>
                     </div>
                     <div class="small-12 large-7 columns right medium-media-padding">
-                        <div data-scroll>
-                            <h3>Fusce lorem leo, porttitor non</h3>
-                            <p>Fusce lorem leo, porttitor non aliquet vel, mollis eget magna. Integer sodales ornare ipsum, in placerat metus lobortis a. dis parturient.</p>
-                        </div>
+
                         <div class="row types-count-row" data-scroll>
                             <div class="small-6 columns">
                                 <div class="types-count">
-                                    <a href="#" class="circle-button monument" alt="monument"><div class="icon"></div></a>
-                                    <span class="large" data-monument></span> Curabitur
+                                    <a href="services" class="circle-button fine-pruning" alt="fine pruning"><div class="icon"></div></a>
+                                    <span class="large" data-fine-pruning></span>Fine Pruning
                                 </div>
                                 <div class="types-count">
-                                    <a href="#" class="circle-button mural" alt="murals"><div class="icon"></div></a>
-                                    <span class="large" data-mural></span> Quisque
+                                    <a href="services" class="circle-button hedge-trimming" alt="hedge trimming"><div class="icon"></div></a>
+                                    <span class="large" data-hedge-trimming></span>Hedge Trimming 
                                 </div>
                                 <div class="types-count">
-                                    <a href="#" class="circle-button totem" alt="totems"><div class="icon"></div></a>
-                                    <span class="large" data-totem></span> Nullam
+                                    <a href="services" class="circle-button garden-installation" alt="garden installation"><div class="icon"></div></a>
+                                    <span class="large" data-garden-installation></span>Garden Installation
                                 </div>
                             </div>
                             <div class="small-6 columns">
                                 <div class="types-count">
-                                    <a href="#" class="circle-button sculpture" alt="sculpture"><div class="icon"></div></a>
-                                    <span class="large" data-sculpture></span> Donec
+                                    <a href="services" class="circle-button tree-removal" alt="tree removal"><div class="icon"></div></a>
+                                    <span class="large" data-tree-removal></span>Tree Removal
                                 </div>
                                 <div class="types-count">
-                                    <a href="#" class="circle-button statue" alt="statue"><div class="icon"></div></a>
-                                    <span class="large" data-statue></span> Suspendisse
+                                    <a href="services" class="circle-button planting" alt="planting"><div class="icon"></div></a>
+                                    <span class="large" data-planting></span> Planting
                                 </div>
                                 <div class="types-count">
-                                    <a href="#" class="circle-button installation" alt="installations"><div class="icon"></div></a>
-                                    <span class="large" data-installation></span> Etiam
+                                    <a href="services" class="circle-button consulting" alt="consulting"><div class="icon"></div></a>
+                                    <span class="large" data-consulting></span>Consulting
                                 </div>
                             </div>
                         </div>

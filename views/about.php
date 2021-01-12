@@ -9,11 +9,25 @@ use Lib\Utils;
 <div class="site-wrapper">
 	<div class="content-wrapper view">
 		<section id="about-hero">
-		    <div class="row about-row">
+		    <div class="row">
 		        <div class="small-12 large-7 columns">
 		            <div class="left">
-		                <h1>Our Goal</h1>
-		                <p>To raise awareness of the biology and ecological benefits of trees in the Niagara Region. Specifically, to provide knowledge about identifying and growing beneficial native, and naturallized landscapes.</p>
+		                <h1>About Us</h1>
+		                <p>
+		                	We are a small Niagara owned and operated tree and landscape service, with a track record of rigorous work ethic and satisfied clients.
+		                </p>
+
+		                <p>
+		                	We are fully insured with experience in arboriculture and landscaping. Our services include fine pruning, tree removal, hedge trimming, planting, and softscapes.
+		                </p>
+
+		                <p>
+		                	We are passionate about the Niagara Region's unique ecosystem and the important role trees and landscape play in the urban environment. Nature With Us is a <span style="color: #e0e003;">specialty tree service educated in both horticulture and arboriculture, addressing the needs of trees, landscapes, and the environment.</span>
+		                </p>
+
+		                <p>
+		                	Proudly serving St. Catharines, Thorold, Niagara Falls, Niagara-on-the-Lake, Fonthill, Welland, Grimsby, and Beamsville (and surrounding areas).
+		                </p>
 		            </div>
 		        </div>
 
@@ -22,12 +36,6 @@ use Lib\Utils;
 		        </div>
 		    </div>
 		</section>
-
-<!-- 		<div class="row">
-			<div class="small-12 columns internal">
-				<p>Coming soon...</p>
-			</div>
-		</div> -->
 	</div><!-- /content wrapper -->
 
 	<?php $this->insert('footer', $view_data ); ?>

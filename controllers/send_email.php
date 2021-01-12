@@ -14,7 +14,7 @@ class Send_email extends Controller
 		if(isset($_POST['email'])) {
 
 		    // CHANGE THE TWO LINES BELOW
-			$email_to = "ben@benchung.com";
+			$email_to = "info@natruewithus.com";
 			$email_subject = "Form submission from natruewithus.com";
 
 		    // validation expected data exists

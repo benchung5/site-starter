@@ -11,6 +11,6 @@ class About extends Controller
 
 	public function index() 
 	{
-		$this->render('about', null, 'About');
+		$this->render('about', null, 'About - Nature With Us');
 	}
 }

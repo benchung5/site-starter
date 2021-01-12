@@ -4,7 +4,6 @@
 	<div class="content-wrapper view">
 		<div class="row">
 			<div class="small-12 columns internal">
-
 				<div class="row">
 					<div class="small-12 large-8 columns">
 						<div class="title-area">
@@ -32,7 +31,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div><!-- /content wrapper -->
 
