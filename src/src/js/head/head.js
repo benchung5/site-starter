@@ -79,6 +79,19 @@
 //   }
 // })()
 
+// //google map
+// let map;
+// function initMap() {
+//   map = new google.maps.Map(document.getElementById("map"), {
+//     center: { lat: 43.139, lng: -79.265 },
+//     zoom: 11,
+//   });
+//   const ctaLayer = new google.maps.KmlLayer({
+//     url: "http:/localhost/assets/img/service-areas-kml.kml",
+//     map: map,
+//   });
+// }
+
 // ------------------
 
 /* Modernizr 2.6.2 (Custom Build) | MIT & BSD

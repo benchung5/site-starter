@@ -10,11 +10,12 @@
         <div class="small-12 columns">
             <div class="copywright padding-columns">© naturewithus.com&nbsp;2019.
             </div>
-<!--             <div class="socials">
-                <a href="https://twitter.com/AITONiagara" target="_blank" class="social twitter"></a>
-                <a href="https://www.facebook.com/aitoniagara/" target="_blank" class="social facebook"></a>
-                <a href="https://www.instagram.com/aitoniagara/" target="_blank" class="social instagram"></a>
-            </div> -->
+            <div class="contact-icons">
+                <div class="icon-with-text phone">
+                    <div class="icon"></div>
+                    289-697-8873
+                </div>
+            </div>
         </div>
     </div>
 </footer>

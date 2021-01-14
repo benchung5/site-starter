@@ -199,6 +199,11 @@ extends
   background-repeat: no-repeat;
 }
 
+%spacer {
+  width: 100%;
+  clear: both;
+}
+
 /* ==========================================================================
 global-styles
 ========================================================================== */
@@ -359,7 +364,7 @@ helper classes
 /*horizontal align*/
 
 .h-align-child {
-  position: relative;
+  position: absolute;
   left:50%;
   transform: translateX(-50%);
 }
@@ -367,7 +372,7 @@ helper classes
 /*vertical align*/
 
 .v-align-child {
-  position: relative;
+  position: absolute;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -383,6 +388,16 @@ helper classes
 .clear {
   clear: both;
   width: 100%;
+}
+
+.spacer-sml {
+  @extend %spacer;
+  height: 1em;
+}
+
+.spacer-med {
+  @extend %spacer;
+  height: 2em;
 }
 
 /* ==========================================================================
@@ -432,7 +447,7 @@ parts
   transition: all 0.3s ease;
   display: inline-block;
   &:hover {
-    color: $pink;
+    color: #e0e003;
     background: #fff !important;
     box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
   }
@@ -449,6 +464,13 @@ parts
       box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
     }
   }
+}
+
+.socials {
+   display: flex;
+   &>*{
+    flex-shrink: 0;
+   }
 }
 
 // .circle-group {
@@ -599,7 +621,7 @@ page layout
   .internal {
     margin-top: 4em;
     .sidebar {
-      margin-top: 4em;
+      margin-top: 4.5em;
       margin-bottom: 4em;
       @include breakpoint(medium down) {
        margin-top: 0;
@@ -874,10 +896,9 @@ about
       color: #fff;
     }
     h1 {
-      font-weight: 400;
+      font-weight: 600;
       font-family: $title-font;
       font-size: 3.5em;
-      text-transform: uppercase;
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
       @media (min-width: $hero-small) {
         //font-size: 4em;
@@ -934,11 +955,10 @@ hero
     color: #fff;
   }
   h1 {
-    font-weight: 400;
+    font-weight: 600;
     font-family: $title-font;
     font-size: 3.5em;
     text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-    text-transform: uppercase;
     @media (max-width: $hero-small) {
       font-size: 2.2em;
     }
@@ -1127,12 +1147,62 @@ explore
 contact
 ========================================================================== */
 
-.contact {
-
+[data-contact] .content-wrapper {
+    position: relative;
+    background-image: url(../img/faded-jap-maple-bg.jpg);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
 }
 
 .contact-input {
   margin-bottom: 0.5em;
+  width: 100%;
+}
+
+.colum-inputs {
+  display: flex;
+  &>*:first-child {
+    margin-right: 0.25em;
+  }
+  &>*:last-child {
+    margin-left: 0.25em;
+  }
+}
+
+.icon-with-text {
+  display: flex;
+  align-items: center;
+  &>*:first-child {
+    margin-right: 10px;
+  }
+}
+
+.icon {
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.phone {
+  .icon {
+    background-image: url(../img/icons/phone.svg);
+    height: 18px;
+    width: 10px;
+  }
+}
+
+.email {
+  .icon {
+    background-image: url(../img/icons/email.svg);
+    height: 14px;
+    width: 13px;
+  }
+  .email-img {
+    background-image: url(../img/email-img.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 17px;
+    width: 151px;
+  }
 }
 
 /* ==========================================================================
@@ -1242,7 +1312,7 @@ social share / social
   cursor: pointer;
   background-color: $pink;
   background-size: 20px 20px;
-  margin: 0 1.5em;
+  margin: 0 5px;
   cursor: pointer;
 }
 .facebook {
@@ -1410,36 +1480,18 @@ footer {
     color: #b4b4b4;
   }
 
-  // .footer-logos-wrapper {
-  //   display: flex;
-  //   justify-content: center;
-  //   .footer-logos {
-  //     display: flex;
-  //     margin: 0 auto 2.5em;
-  //     align-items: center;
-  //     justify-content: center;
-  //     flex-wrap: wrap;
-  //     img {
-  //       margin: 0 2em 2em;
-  //     }
-  //   }
-  // }
-
   .footer-bottom {
     .columns {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      color: #7c7982;
       .copywright {
           font-size: 0.8em;
-          line-height: 0;
           display: inline-block;
-          color: #7c7982;
           text-transform: uppercase;
       }
-      // .socials {
-      //   display: flex;
-      // }
     }
   }
 }

@@ -6,7 +6,7 @@ $this->insert('featured', $view_data );
 <div class="home-page site-wrapper">
     <div class="content-wrapper">
         <section id="hero">
-            <div class="row">
+            <div class="row v-align-child">
                 <div class="medium-12 large-7 columns">
                     <div class="center">
                         <h1>Your Local Sustainable Tree & Garden Service</h1>

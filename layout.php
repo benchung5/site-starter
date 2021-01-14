@@ -133,8 +133,12 @@ use Lib\Meta;
 
   <!-- vendor libs -->
   <script src="<?= Config::paths('ROOT_URL').'assets/js/vendor.js' ?>"></script>
+  <!-- google map api -->
+<!--   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPvuxrEwbrEv-3Um8Ptt__ymx9EEYoEYs&callback=initMap&libraries=&v=weekly"></script> -->
   <!-- app js -->
   <script src="<?= Config::paths('ROOT_URL').'assets/js/app.js' ?>"></script>
+
+
 
   <!-- *** footer scripts are loaded belew here *** -->
 
