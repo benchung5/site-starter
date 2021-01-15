@@ -28,9 +28,9 @@
                         </div>
                         <div class="spacer-sml"></div>
 						<div class="socials">
-						    <a href="#" target="_blank" class="social twitter"></a>
-						    <a href="#" target="_blank" class="social facebook"></a>
-						    <a href="#" target="_blank" class="social instagram"></a>
+						    <a href="https://twitter.com/niagaratrees" target="_blank" class="social twitter"></a>
+						    <a href="https://www.facebook.com/Nature-With-Us-102397125171201" target="_blank" class="social facebook"></a>
+						    <a href="https://www.instagram.com/niagaratreeandgarden/" target="_blank" class="social instagram"></a>
 						</div>
 						<div class="spacer-med"></div>
 						Send us an email
