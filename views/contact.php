@@ -10,7 +10,7 @@
 							<h1>Contact Us</h1>	
 						</div>
 						<div class="body-area">
-							<iframe frameborder="0" style="background: :#000;" src="https://www.google.com/maps/d/u/1/embed?mid=1GoyPMh2LJFg8z1yxEssSmBbCR8rNi0vw" width="100%" height="480"></iframe>
+							<iframe frameborder="0" style="background: :#000;" src="https://www.google.com/maps/d/u/1/embed?mid=1awPJjtj45KrtM2nn2M0sHxy09Wz7-kT7" width="100%" height="480"></iframe>
 						</div>
 					</div>
 					<div class="small-12 large-5 columns sidebar">
@@ -29,7 +29,7 @@
                         <div class="spacer-sml"></div>
 						<div class="socials">
 						    <a href="https://twitter.com/niagaratrees" target="_blank" class="social twitter"></a>
-						    <a href="https://www.facebook.com/Nature-With-Us-102397125171201" target="_blank" class="social facebook"></a>
+						    <a href="https://www.facebook.com/niagaratreeandgarden" target="_blank" class="social facebook"></a>
 						    <a href="https://www.instagram.com/niagaratreeandgarden/" target="_blank" class="social instagram"></a>
 						</div>
 						<div class="spacer-med"></div>

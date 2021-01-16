@@ -73,13 +73,13 @@ use Config\Config as Config;
           <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>
       </ul>
       <div class="mobile-menu-stretch"></div>
-      <ul class="mobile-menu-buttons">
+<!--       <ul class="mobile-menu-buttons">
         <li><a href="/search">Search</a></li>
-<!--         <li>
+        <li>
           <a href="/admin">signup</a>
           <a href="/admin">login</a>
-        </li>  -->
-      </ul>
+        </li> 
+      </ul> -->
     </div>
   </div>
 

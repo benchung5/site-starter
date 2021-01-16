@@ -13,7 +13,7 @@ $this->insert('featured', $view_data );
                         <p>We are a small tree and softscape service, trained and <span style="color: #e0e003;">passionate about the work we do in the Niagara Region.</span> Contact us for a free same day estimate.
                             
                         </p>
-                        <a class="button-action transparent" href="contact">Lets Get in Touch</a>
+                        <a class="button-action transparent" href="contact">Let's Get in Touch</a>
                     </div>
                 </div>
                 <div class="medium-12 large-5 columns">
