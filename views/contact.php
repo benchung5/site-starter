@@ -34,7 +34,8 @@
 						</div>
 						<div class="spacer-med"></div>
 						Send us an email
-						<form class="contact" name="htmlform" method="post" action="send_email">
+						<form class="contact" method="post" action="https://formspree.io/f/xbjpqnve">				
+						<!-- <form class="contact" name="htmlform" method="post" action="send_email"> -->
 							<div class="colum-inputs">
 								<div class="contact-input">
 									<input   type="text" name="name" maxlength="50" size="30" placeholder="name">

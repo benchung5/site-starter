@@ -5,11 +5,6 @@ use Config\Secret;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-// /* Include the Composer generated autoload.php file. */
-// // require 'C:\xampp\composer\vendor\autoload.php';
-// // require 'path/to/PHPMailer/src/Exception.php';
-// require 'vendor\phpmailer\src\PHPMailer.php';
-// // require 'path/to/PHPMailer/src/SMTP.php';
 
 class Send_email extends Controller 
 {
