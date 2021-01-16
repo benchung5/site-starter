@@ -1,6 +1,7 @@
 <?php
 namespace Controllers;
 use Lib\Controller;
+use Config\Secret;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -63,14 +64,6 @@ class Send_email extends Controller
 				    $email_message .= "Email: ".clean_string($email_from)."\n";
 				    $email_message .= "message: ".clean_string($message)."\n";
 
-
-					// // create email headers
-					 //    $headers = 'From: '.$email_from."\r\n".
-					 //    'Reply-To: '.$email_from."\r\n" .
-					 //    'X-Mailer: PHP/' . phpversion();
-					 //    @mail($email_to, $email_subject, $email_message, $headers);
-					 //    //echo mail($email_to, $email_subject, $email_message, $headers);
-
 				    //use PHPMailer
 				    $mail = new PHPMailer();
 
@@ -85,7 +78,7 @@ class Send_email extends Controller
 				    $mail->Port = 587;
 				    $mail->isHTML();
 				    $mail->Username = 'info@naturewithus.com';
-				    $mail->Password = 'Sme1ephant';
+				    $mail->Password = Secret::keys('GMAIL_PASS');
 				     
 				    $mail->SetFrom($email_from);
 				    $mail->Subject = $email_subject;

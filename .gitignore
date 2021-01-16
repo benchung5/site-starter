@@ -7,3 +7,4 @@ log
 .htaccess
 lib/db.php
 secret.txt
+config/secret.php
