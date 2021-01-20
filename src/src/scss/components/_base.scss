@@ -726,7 +726,7 @@ $transition: .3s; // increase this to see the transformations in
 
 .mobile-menu-button {
   position: absolute;
-  right: 0.5em;
+  right: 1.5em;
   top: 0;
   transform: translateY($header-height/2 - 1.2);
   z-index: 12;
@@ -1168,9 +1168,13 @@ hero
   }
   .button-action {
     margin-top: 1em;
+    margin-bottom: 5em;
   }
   @include breakpoint(small down) {
    text-align: center;
+  }
+  @include breakpoint(xlarge down) {
+   background-image: url(../img/hero-image-sml.jpg);
   }
 
   @media (max-height: 715px) {
@@ -2034,17 +2038,17 @@ internal loader
 @keyframes color {
   100%,
   0% {
-    stroke: $pink;
+    stroke: $light-green;
   }
   40% {
-    stroke: $pink;
+    stroke: $light-green;
   }
   66% {
-    stroke: $pink;
+    stroke: $light-green;
   }
   80%,
   90% {
-    stroke: $pink;
+    stroke: $light-green;
   }
 }
 
@@ -2759,7 +2763,7 @@ buttons
     top: 16px;
     left: 16px;
     border-radius: 50%;
-    background: url(../img/icons/check-white.svg) center center no-repeat $pink;
+    background: url(../img/icons/check-white.svg) center center no-repeat $light-green;
     background-size: 12px 12px;
   }
 }
@@ -2776,44 +2780,7 @@ buttons
 //menu icons
 .icon-arrow {
   width: 10px;
-} 
-
-// //routes
-// .cycling {
-//   &.active {
-//     .icon {
-//       background-color: $pink;
-//     }
-//   }
-//   .icon {
-//     background-image: url(../img/icons/route-biking.svg);
-//     background-size: 26px 26px;
-//   }
-// }
-
-// .walking-hiking {
-//   &.active {
-//     .icon {
-//       background-color: $orange;
-//     }
-//   }
-//   .icon {
-//     background-image: url(../img/icons/route-hiking.svg);
-//     background-size: 26px 26px;
-//   }
-// }
-
-// .hospitality {
-//   &.active {
-//     .icon {
-//       background-color: $green;
-//     }
-//   }
-//   .icon {
-//     background-image: url(../img/icons/route-hospitality.svg);
-//     background-size: 26px 26px;
-//   }
-// }
+}
 
 
 /* ==========================================================================

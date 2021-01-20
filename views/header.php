@@ -16,7 +16,7 @@ use Config\Config as Config;
           <a href="/"><div class="logo-img"></div></a>
         </h1>
       </div>
-      <nav class="large-8 columns menu-container show-for-large">
+      <nav class="large-8 columns menu-container show-for-xlarge">
         <ul class="menu menu-left align-right">
           <li><a href="/" title="Nature With Us Home">Home</a></li>
           <li><a href="/services" title="Our Services">Services</a></li>
@@ -54,13 +54,13 @@ use Config\Config as Config;
     </div>
   </div> -->
 
-  <div class="mobile-menu-button hide-for-large">
+  <div class="mobile-menu-button hide-for-xlarge">
     <button class="grid-button rearrange" type="button" role="button" aria-label="Toggle Navigation">
       <span class="grid"></span>
     </button>
   </div>
 
-  <div class="mobile-menu-container hide-for-large" style="visibility: hidden; opacity: 0;"> 
+  <div class="mobile-menu-container hide-for-xlarge" style="visibility: hidden; opacity: 0;"> 
     <div class="mobile-menu-inner">
       <div class="top">
         <div class="logo-img mobile-top-logo"></div>

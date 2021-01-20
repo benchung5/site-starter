@@ -9,9 +9,7 @@
 						<div class="title-area">
 							<h1>Contact Us</h1>	
 						</div>
-						<div class="body-area">
-							<iframe frameborder="0" style="background: :#000;" src="https://www.google.com/maps/d/u/1/embed?mid=1awPJjtj45KrtM2nn2M0sHxy09Wz7-kT7" width="100%" height="480"></iframe>
-						</div>
+						<iframe frameborder="0" style="background: :#000;" src="https://www.google.com/maps/d/u/1/embed?mid=1awPJjtj45KrtM2nn2M0sHxy09Wz7-kT7" width="100%" height="480"></iframe>
 					</div>
 					<div class="small-12 large-5 columns sidebar">
 						<div class="contact-icons">
