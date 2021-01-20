@@ -60,8 +60,7 @@ var Dropdown = {
 		inst.expandAnimation = animation.init(inst.dropdownBody, {
 			duration: 0.2,
 			ease: 'ease-in-out',
-			property: 'height',
-			propertyTo: inst.height + 'px',
+			propertyTo: [['height', inst.height + 'px']],
 			onEnd: () => {
 
 			},
@@ -69,8 +68,7 @@ var Dropdown = {
 		inst.contractAnimation = animation.init(inst.dropdownBody, {
 			duration: 0.2,
 			ease: 'ease-in-out',
-			property: 'height',
-			propertyTo: '0',
+			propertyTo: [['height', 0]],
 			onEnd: () => {
 				inst.dropdownBody.style.visibility = 'hidden';
 			},
@@ -79,8 +77,7 @@ var Dropdown = {
 		inst.arrowDownAnimation = animation.init(inst.dropdownArrow, { 
 			duration: 0.2,
 			ease: 'ease-in-out',
-			property: 'transform',
-			propertyTo: 'rotate(0deg)',
+			propertyTo: [['transform', 'rotate(0deg)']],
 			onEnd: () => {
 
 			},
@@ -88,8 +85,7 @@ var Dropdown = {
 		inst.arrowRightAnimation = animation.init(inst.dropdownArrow, { 
 			duration: 0.2,
 			ease: 'ease-in-out',
-			property: 'transform',
-			propertyTo: 'rotate(-90deg)'
+			propertyTo: [['transform', 'rotate(-90deg)']],
 		});
 
 		return inst;

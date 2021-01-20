@@ -36,8 +36,7 @@ var SideMenuArticlesMobile = {
 		inst.closeMenuAnimation = animation.init(inst.el, {
 			duration: 0.6,
 			ease: 'ease-in-out',
-			property: 'transform',
-			propertyTo: 'translateX(-100%)',
+			propertyTo: [['transform', 'translateX(-100%)']],
 			onEnd: () => {
 				addClass(inst.el, 'close');
 				removeClass(inst.el, 'open');
@@ -46,8 +45,7 @@ var SideMenuArticlesMobile = {
 		inst.openMenuAnimation = animation.init(inst.el, {
 			duration: 0.6,
 			ease: 'ease-in-out',
-			property: 'transform',
-			propertyTo: 'translateX(0)',
+			propertyTo: [['transform', 'translateX(0)']],
 		});
 
 		return inst;

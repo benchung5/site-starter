@@ -56,8 +56,7 @@ var Loader = {
 
 		//animation
 		inst.showLoadingAnimation = animation.init(inst.preload, {
-			property: 'opacity',
-			propertyTo: 1,
+			propertyTo: [['opacity', 1]],
 			duration: 0.2,
 			ease: 'ease-in-out',
 			onStart: () => {
@@ -65,8 +64,7 @@ var Loader = {
 			}
 		});
 		inst.hideLoadingAnimation = animation.init(inst.preload, {
-			property: 'opacity',
-			propertyTo: 0,
+			propertyTo: [['opacity', 0]],
 			duration: 0.2,
 			ease: 'ease-in-out',
 			onEnd: () => {

@@ -16,44 +16,53 @@ var Animation = {
 	  }
 	},
 	animate: function() {
-		//add a custum hash class to only allow the event listener for this animation
-		this.hash = Math.random().toString(36).substr(2, 16);
-		addClass(this.el, this.hash);
+		setTimeout(() => {
+			//add a custum hash class to only allow the event listener for this animation
+			this.hash = Math.random().toString(36).substr(2, 16);
+			addClass(this.el, this.hash);
 
-		if(this.onStart) {
-			this.onStart();
-		}
+			if(this.onStart) {
+				this.onStart();
+			}
 
-		this.el.style[this.property] = this.propertyTo;
+			this.propertyTo.map((item)=> {
+				this.el.style[item[0]] = item[1];
+			});
+		}, this.delay);
 	},
 	init: function(el, options) {
-		var inst = Object.create(this);
+		if(el) {
+			var inst = Object.create(this);
 
-		inst.onStart = options.onStart || null;
-		inst.el = el;
-		inst.propertyTo = options.propertyTo;
-		inst.property = options.property;
-
-		el.style.transitionProperty = options.property;
-		el.style.transitionDuration = options.duration.toString() + 's';
-		el.style.transitionTimingFunction = options.ease;
-
-		//get the transition event name (for browser compantibility)
-		let transitionEndEventName = inst.getTransitionEndEventName();
-		el.addEventListener(transitionEndEventName, (e) => {
-			if (hasClass(e.target, inst.hash)) {
-
-				if (options.onEnd) {
-					options.onEnd();
-				}
-				//remove the custom class
-				removeClass(e.target, inst.hash);
+			inst.onStart = options.onStart || null;
+			inst.el = el;
+			inst.propertyTo = options.propertyTo;
+			if(options.delay) {
+				inst.delay = options.delay*1000;
+			} else {
+				inst.delay = 0;
 			}
-		});
+			
+			//el.style.transitionProperty = options.property;
+			el.style.transitionProperty = 'all';
+			el.style.transitionDuration = options.duration.toString() + 's';
+			el.style.transitionTimingFunction = options.ease;
 
+			//get the transition event name (for browser compantibility)
+			let transitionEndEventName = inst.getTransitionEndEventName();
+			el.addEventListener(transitionEndEventName, (e) => {
+				if (hasClass(e.target, inst.hash)) {
 
+					if (options.onEnd) {
+						options.onEnd();
+					}
+					//remove the custom class
+					removeClass(e.target, inst.hash);
+				}
+			});
 
-		return inst;
+			return inst;
+		}
 	}
 }
 

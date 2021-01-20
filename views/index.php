@@ -6,9 +6,9 @@ $this->insert('featured', $view_data );
 <div class="home-page site-wrapper">
     <div class="content-wrapper">
         <section id="hero">
-            <div class="row v-align-child">
+            <div class="row">
                 <div class="medium-12 large-7 columns">
-                    <div class="center">
+                    <div class="center content-container">
                         <h1>Your Local Sustainable Tree & Garden Service</h1>
                         <p>We are a small tree and softscape service, trained and <span style="color: #e0e003;">passionate about the work we do in the Niagara Region.</span> Contact us for a free same day estimate.
                             
@@ -21,11 +21,9 @@ $this->insert('featured', $view_data );
             </div>
         </section>
 
-        <section id="beautiful-peices">
-                <div class="beautiful-peices-bg"></div>
-                <div class="stroke-top"></div>
-                <div class="stroke-bottom"></div>
-                <div class="row beautiful-peices-row main-row">
+        <section id="services">
+                <div class="services-bg"></div>
+                <div class="row services-row main-row">
                     <div class="small-12 large-5 columns left">
                         <div>
                             <h3>Our Services</h3>
@@ -34,33 +32,33 @@ $this->insert('featured', $view_data );
                     </div>
                     <div class="small-12 large-7 columns right medium-media-padding">
 
-                        <div class="row types-count-row" data-scroll>
-                            <div class="small-6 columns">
-                                <div class="types-count">
+                        <div class="row action-items-row" data-scroll>
+                            <div class="small-6 columns buttons-anim-one">
+                                <div class="action-item">
                                     <a href="services" class="circle-button fine-pruning" alt="fine pruning"><div class="icon"></div></a>
-                                    <span class="large" data-fine-pruning></span>Fine Pruning
+                                    <a class="text" href="services">Fine Pruning</a>
                                 </div>
-                                <div class="types-count">
+                                <div class="action-item">
                                     <a href="services" class="circle-button hedge-trimming" alt="hedge trimming"><div class="icon"></div></a>
-                                    <span class="large" data-hedge-trimming></span>Hedge Trimming 
+                                    <a class="text" href="services">Hedge Trimming</a>
                                 </div>
-                                <div class="types-count">
+                                <div class="action-item">
                                     <a href="services" class="circle-button garden-installation" alt="garden installation"><div class="icon"></div></a>
-                                    <span class="large" data-garden-installation></span>Garden Installation
+                                    <a class="text" href="services">Garden Installation</a>
                                 </div>
                             </div>
-                            <div class="small-6 columns">
-                                <div class="types-count">
+                            <div class="small-6 columns buttons-anim-two">
+                                <div class="action-item">
                                     <a href="services" class="circle-button tree-removal" alt="tree removal"><div class="icon"></div></a>
-                                    <span class="large" data-tree-removal></span>Tree Removal
+                                    <a class="text" href="services">Tree Removal</a>
                                 </div>
-                                <div class="types-count">
+                                <div class="action-item">
                                     <a href="services" class="circle-button planting" alt="planting"><div class="icon"></div></a>
-                                    <span class="large" data-planting></span> Planting
+                                    <a class="text" href="services">Planting</a>
                                 </div>
-                                <div class="types-count">
+                                <div class="action-item">
                                     <a href="services" class="circle-button consulting" alt="consulting"><div class="icon"></div></a>
-                                    <span class="large" data-consulting></span>Consulting
+                                   <a class="text" href="services"> Consulting</a>
                                 </div>
                             </div>
                         </div>

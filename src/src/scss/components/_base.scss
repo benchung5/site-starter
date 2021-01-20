@@ -856,11 +856,9 @@ $transition: .3s; // increase this to see the transformations in
 home page
 ========================================================================== */
 
-.home-page {
-  h3 {
-    font-size: 2em;
-    font-weight: 600;
-  }
+.home-page h3, [data-services] h3 {
+  font-size: 2em;
+  font-weight: 600;
 }
 
 /* ==========================================================================
@@ -872,6 +870,182 @@ services
   background-image: url(../img/faded-flower-bg.jpg);
   background-size: 100% auto;
   background-repeat: no-repeat;
+}
+
+#services {
+  overflow: hidden;
+  position: relative;
+  .services-bg {
+    background-image: url(../img/bg-middle.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #645f68;
+    position: absolute;
+    width: 100%;
+    //below to accomodate sliver bg show through stroke
+    height: 100%;
+  }
+  .services-row {
+    position: relative;
+  }
+  .main-row {
+    padding: 7em 2em;
+    max-width: 1400px;
+  }
+  .device-middle img {
+    display: none;
+    @media (min-width: $hero-small) {
+      display: block;
+    }
+  }
+  .left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  color: #fff;
+  h3, p {
+    color: #fff;
+  }
+  h3 {
+    font-size: 2em;
+    @include breakpoint(large up) {
+      font-size: 2.5em;
+    }
+  }
+  p, .action-item {
+    font-family: $secondary-title-font;
+    font-size: 1.1em;
+    line-height: 2.2;
+  }
+  p {
+    margin-bottom: 2em;
+    line-height: 1.8em;
+  }
+  .large {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 0 0.2em;
+  }
+  .action-items-row {
+    & > .columns {
+      @media (max-width: 500px) { 
+        flex: 0 0 100%;
+        max-width: 260px;
+        margin: 0 auto;
+      }
+    }
+    .buttons-anim-one {
+      transform: translateX(-5%);
+      opacity: 0;
+    }
+    .buttons-anim-two {
+      transform: translateX(5%);
+      opacity: 0;
+    }
+    .action-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.2em;
+      .text {
+        color: #fff;
+        margin-left: 1em;
+      }
+      @media (min-width: $hero-small) { 
+        margin-bottom: 1.8em;
+      }
+      .circle-button .icon {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  }
+  @media (min-width: $hero-medium) { 
+    font-size: 1em;
+  }
+}
+
+#eco-friendly {
+  overflow: hidden;
+  position: relative;
+  .eco-friendly-bg {
+    background-image: url(../img/bg-river-bush.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #645f68;
+    position: absolute;
+    width: 100%;
+    //below to accomodate sliver bg show through stroke
+    height: 100%;
+  }
+  .eco-friendly-row {
+    position: relative;
+  }
+  .main-row {
+    padding: 7em 2em;
+    max-width: 1400px;
+  }
+  .device-middle img {
+    display: none;
+    @media (min-width: $hero-small) {
+      display: block;
+    }
+  }
+  .left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  color: #fff;
+  h3, p {
+    color: #fff;
+  }
+  h3 {
+    font-size: 2em;
+    @include breakpoint(large up) {
+      font-size: 2.5em;
+    }
+  }
+  p, .action-item {
+    font-family: $secondary-title-font;
+    font-size: 1.1em;
+    line-height: 2.2;
+  }
+  p {
+    margin-bottom: 2em;
+    line-height: 1.8em;
+  }
+  .large {
+    font-size: 2em;
+    font-weight: 600;
+    margin: 0 0.2em;
+  }
+  .action-item-row {
+    & > .columns {
+      @media (max-width: 500px) { 
+        flex: 0 0 100%;
+        max-width: 260px;
+        margin: 0 auto;
+      }
+    }
+    .action-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.2em;
+      @media (min-width: $hero-small) { 
+        margin-bottom: 1.8em;
+      }
+      .circle-button .icon {
+        width: 90px;
+        height: 90px;
+      }
+    }
+  }
+  @media (min-width: $hero-medium) { 
+    font-size: 1em;
+  }
 }
 
 /* ==========================================================================
@@ -950,7 +1124,10 @@ hero
   background-repeat: no-repeat;
   padding: 10em 2em 0;
   align-items: center;
-
+  .content-container {
+    transform: translateX(7%);
+    opacity: 0;
+  }
   h1, h2, p {
     color: #fff;
   }
@@ -1007,92 +1184,6 @@ hero
     // max-width: 86rem;
   }
 }
-
-/* ==========================================================================
-beautiful peices
-========================================================================== */
-
-#beautiful-peices {
-  overflow: hidden;
-  position: relative;
-  .beautiful-peices-bg {
-    background-image: url(../img/bg-middle.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #645f68;
-    position: absolute;
-    width: 100%;
-    //below to accomodate sliver bg show through stroke
-    height: 99%;
-  }
-  .beautiful-peices-row {
-    position: relative;
-  }
-  .main-row {
-    padding: 7em 2em;
-    max-width: 1400px;
-  }
-  .device-middle img {
-    display: none;
-    @media (min-width: $hero-small) {
-      display: block;
-    }
-  }
-  .left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  color: #fff;
-  h3, p {
-    color: #fff;
-  }
-  h3 {
-    font-size: 2em;
-    @include breakpoint(large up) {
-      font-size: 2.5em;
-    }
-  }
-  p, .types-count {
-    font-family: $secondary-title-font;
-    font-size: 1.1em;
-    line-height: 2.2;
-  }
-  p {
-    margin-bottom: 2em;
-    line-height: 1.8em;
-  }
-  .large {
-    font-size: 2em;
-    font-weight: 600;
-    margin: 0 0.2em;
-  }
-  .types-count-row {
-    & > .columns {
-      @media (max-width: 500px) { 
-        flex: 0 0 100%;
-        max-width: 260px;
-        margin: 0 auto;
-      }
-    }
-    .types-count {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.2em;
-      @media (min-width: $hero-small) { 
-        margin-bottom: 1.8em;
-      }
-      .circle-button .icon {
-        width: 90px;
-        height: 90px;
-      }
-    }
-  }
-  @media (min-width: $hero-medium) { 
-    font-size: 1em;
-  }
-}
-
 
 /* ==========================================================================
 explore
@@ -2967,7 +3058,7 @@ social share / social
 .facebook, .SocialMediaShareButton--facebook {
   background-image: url(../img/icons/social-facebook.svg);
   background-color: #3B5998;
-  background-size: 15px 15px;
+  background-size: 8px 15px;
 }
 .twitter, .SocialMediaShareButton--twitter {
   background-image: url(../img/icons/social-twitter.svg);

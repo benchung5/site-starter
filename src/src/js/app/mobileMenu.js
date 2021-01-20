@@ -14,8 +14,7 @@ const mobileMenu = function() {
 		var menuButton = menuButtonHolder.querySelector(".grid-button");
 
 		const fadeInAnimation = animation.init(menuHolder, {
-			property: 'opacity',
-			propertyTo: 1,
+			propertyTo: [['opacity', '1']],
 			duration: 0.3,
 			ease: 'linear',
 			onStart: function() {
@@ -24,8 +23,7 @@ const mobileMenu = function() {
 			},
 		});
 		const fadeOutAnimation = animation.init(menuHolder, {
-			property: 'opacity',
-			propertyTo: 0,
+			propertyTo: [['opacity', '0']],
 			duration: 0.3,
 			ease: 'linear',
 			onStart: function() {

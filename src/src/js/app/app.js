@@ -11,11 +11,9 @@ import loadVideo from './loadVideo';
 import bodyClasses from './bodyClasses';
 import windowSize from './windowSize';
 import mobileMenu from './mobileMenu';
-//import animation from './animation';
 import fooSlider from './fooSlider';
-// experimenting=========================================
-// import List from './components/list';
-// import Scroll from './scroll';
+import homePage from './homePage';
+
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -53,6 +51,11 @@ load foundation plugins - keep this
 	windowSize();
 
 	mobileMenu();
+
+	//home page animation
+	if(window.location.pathname == '/') {
+		homePage();
+	}
 
 	fooSlider();
 })();

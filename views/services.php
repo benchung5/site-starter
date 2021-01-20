@@ -30,6 +30,11 @@ use Lib\Utils;
 							Whether regular maintenance is needed, or hedges have become too high to reach, we're here to help. Straight cuts and aesthetics are emphasized and we're also mindful of the long-term health of your hedge structure. We address the needs of each species, their current state, condition, and future challenges such as the loss of inner foliage resulting in "leggy" growth.
 						</p>
 
+						<h2>Garden Installation</h2>
+						<p>
+							We install new garden beds, providing experienced assistance with design and plant selection. Informal retaining wall or border construction is also offered for structure or design asthetics. This is often followed by seasonal maintenance such as edging, mulching, planting, deadheading, weeding, and fall cleanup as needed.
+						</p>
+
 						<h2>Consulting</h2>
 						We provide consulting on:
 						<ul>
@@ -45,13 +50,31 @@ use Lib\Utils;
 				</div>
 			</div>
 		</div>
-
-<!-- 		<div class="row">
-			<div class="small-12 columns internal">
-				<p>Coming soon...</p>
-			</div>
-		</div> -->
 	</div><!-- /content wrapper -->
+	<section id="eco-friendly">
+	        <div class="eco-friendly-bg"></div>
+	        <div class="row eco-friendly-row main-row">
+	            <div class="small-12 large-7 columns left">
+	                <div>
+	                    <h3>Eco Friendly</h3>
+	                    <p>We provide sustainable, eco-friendly methods;
+						   avoiding the use of harsh chemicals, and using organic materials where possible. Electric saws are used to mitigate carbon footprint while working. Plant material is sourced from local suppliers to reduce transportation emissions. All tree brush and yard waste is composted/Recycled back into the environment.
+						 </p>
+						 <p>
+						   We recommend and promote the use of native trees and plants to support local ecosystems where possible. We believe a few small and seemingly effortless decisions can make lasting changes on the environment.
+						 </p>
+	                </div>
+	            </div>
+	            <div class="small-12 large-5 columns right medium-media-padding">
+
+	                <div class="row types-count-row" data-scroll>
+	                    <div class="small-12 columns">
+	                    	<img src="assets/img/planting-hands.png">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	</section>
 
 	<?php $this->insert('footer', $view_data ); ?>
 
