@@ -21,8 +21,6 @@ var PlantEdit = {
 		e.preventDefault();
 		let formData = new FormData(e.target);
 
-		console.log('formdata before images: ', formData);
-
 		// append new image data to formData
 		this.fieldAddImages.state.croppedOut.map((item, index) => {
 			formData.append('image'+'_'+index+'_original', item.originalFile);
@@ -33,8 +31,6 @@ var PlantEdit = {
 		//append the current plant id
 		formData.append('tree_id', this.plantId);
 
-		console.log('formdata after images: ', formData);
-
 		//delete any empty fields in formData
 		Array.from(formData).map((item) => {
 			if (item[1] == '') {
@@ -42,8 +38,9 @@ var PlantEdit = {
 			}
 		});
 
+		//log out the values
+		console.log(Array.from(formData));
 
-		console.log('formdata after delete empty fields: ', formData);
 
 		// call action to submit edited
 		updatePlant(formData, this.renderUpdated.bind(this));
