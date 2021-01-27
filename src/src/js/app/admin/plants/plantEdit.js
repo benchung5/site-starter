@@ -122,6 +122,7 @@ var PlantEdit = {
 			this.formFields.appendChild(this.uploadedImages.el);
 
 			//init fieldAddImages
+			console.log('fieldaddimages called from plantEdit');
 			this.fieldAddImages = FieldAddImages.init({
 				tags: plantTablesStore.storageData['tags']
 			});

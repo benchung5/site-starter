@@ -104,7 +104,7 @@ class Articles extends Controller
 
 		//find out if any images are deleted and delete them
 		$original_images = $updated_article->images;
-		$updated_images = json_decode($data['updated_images']);
+		$updated_images = isset($data['updated_images']) ? json_decode($data['updated_images']) : [];
 
 		$diff = array_udiff($original_images, $updated_images,
 		  function ($obj_a, $obj_b) {

@@ -124,12 +124,9 @@ class Trees extends Controller
 			$updated_tree = $this->trees->get(['id' => $data['tree_id']]);
 		}
 
-		// new file uploads if any
-		$new_images = Upload::upload('trees', $updated_tree->id, $data);
-
 		//find out if any images are deleted and delete them
 		$original_images = $updated_tree->images;
-		$updated_images = json_decode($data['updated_images']);
+		$updated_images = isset($data['updated_images']) ? json_decode($data['updated_images']) : [];
 
 		$diff = array_udiff($original_images, $updated_images,
 		  function ($obj_a, $obj_b) {
@@ -146,7 +143,9 @@ class Trees extends Controller
 			$this->files->update_associations($deleted_images);
 		}
 
-		//record new images into the tree
+		//record new images into the tree if any
+		$new_images = Upload::upload('trees', $updated_tree->id, $data);
+
 		if ($new_images) {
 			foreach ($new_images as $ni) {
 				array_push($updated_images, $ni);

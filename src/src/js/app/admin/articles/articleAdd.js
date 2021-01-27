@@ -64,6 +64,65 @@ var ArticleAdd = {
 		this.submissionMessage.innerHTML = '';
 		this.submissionMessage.innerHTML = `<span>Article: ${articleUpdated.name}<br/>successfully added.</span>`;
 	},
+	onLoad: function() {
+		//first clear the form fields
+		this.formFields.innerHTML = '';
+
+		//get article table data
+		fetchArticleTables((articleTables) => {
+			//use articleTablesStore because some values exist there statically and not in the articleTables
+			articleTablesStore.setData(articleTables);
+
+			//create the fields
+			articleFields.map((item) => {
+				if(item.type === 'input') {
+					let input = FieldInput.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition
+					});
+					this.formFields.appendChild(input.el);
+				}
+				if(item.type === 'dropdownSelect') {
+					let dropdownSelect = FieldDropdownSelect.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+						selectItems: articleTablesStore.storageData[item.name]
+					});
+					this.formFields.appendChild(dropdownSelect.el);
+				}
+				if(item.type === 'multiSelect') {
+					let multiSelect = FieldMultiSelect.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+						selectItems: articleTablesStore.storageData[item.name]
+					});
+					this.formFields.appendChild(multiSelect.el);
+				}
+				if(item.type === 'textarea') {
+					let textarea = FieldTextarea.init({
+						name: item.name,
+						label: item.label,
+						error: item.error,
+						condition: item.condition,
+					});
+					this.formFields.appendChild(textarea.el);
+				}
+			});
+
+			//init fieldAddImages
+			console.log('fieldaddimages called from articlAdd');
+			this.fieldAddImages = FieldAddImages.init({
+				tags: articleTablesStore.storageData['tags']
+			});
+			this.formFields.appendChild(this.fieldAddImages.el);
+		});
+	},
 	init: function() {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
@@ -97,61 +156,7 @@ var ArticleAdd = {
 		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
-
-		//get article table data
-		fetchArticleTables((articleTables) => {
-			//use articleTablesStore because some values exist there statically and not in the articleTables
-			articleTablesStore.setData(articleTables);
-
-			//create the fields
-			articleFields.map((item) => {
-				if(item.type === 'input') {
-					let input = FieldInput.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition
-					});
-					inst.formFields.appendChild(input.el);
-				}
-				if(item.type === 'dropdownSelect') {
-					let dropdownSelect = FieldDropdownSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						selectItems: articleTablesStore.storageData[item.name]
-					});
-					inst.formFields.appendChild(dropdownSelect.el);
-				}
-				if(item.type === 'multiSelect') {
-					let multiSelect = FieldMultiSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						selectItems: articleTablesStore.storageData[item.name]
-					});
-					inst.formFields.appendChild(multiSelect.el);
-				}
-				if(item.type === 'textarea') {
-					let textarea = FieldTextarea.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-					});
-					inst.formFields.appendChild(textarea.el);
-				}
-			});
-
-			//init fieldAddImages
-			inst.fieldAddImages = FieldAddImages.init({
-				tags: articleTablesStore.storageData['tags']
-			});
-			inst.formFields.appendChild(inst.fieldAddImages.el);
-			inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
-		});
+		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 
 		return inst;
 	}

@@ -56,9 +56,11 @@ import SignInPopup from './auth/signInPopup';
 			} else if(route === 'plant-add') {
 				Auth.authenticate((authData) => {
 					if(authData.id) {
+						this.plantAdd.onLoad();
 						this.el.appendChild(this.plantAdd.el);
 					} else {
 						this.signInPopup.open(() => {
+							this.plantAdd.onLoad();
 							this.el.appendChild(this.plantAdd.el);
 						});
 					}
@@ -88,9 +90,11 @@ import SignInPopup from './auth/signInPopup';
 			} else if(route === 'article-add') {
 				Auth.authenticate((authData) => {
 					if(authData.id) {
+						this.articleAdd.onLoad();
 						this.el.appendChild(this.articleAdd.el);
 					} else {
 						this.signInPopup.open(() => {
+							this.articleAdd.onLoad();
 							this.el.appendChild(this.articleAdd.el);
 						});
 					}

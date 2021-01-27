@@ -128,6 +128,7 @@ var ArticleEdit = {
 			this.formFields.appendChild(this.uploadedImages.el);
 
 			//init fieldAddImages
+			console.log('fieldaddimages called from articleEdit');
 			this.fieldAddImages = FieldAddImages.init({
 				tags: articleTablesStore.storageData['tags']
 			});
