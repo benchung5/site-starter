@@ -120,7 +120,8 @@ export function updatePlant(formData, callback) {
     xhr.send(`${SERVER_URL}/trees/update`,
     {
         method: 'POST',
-        body: formData
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
     }, (apiData) => {
         callback(apiData);
     });
