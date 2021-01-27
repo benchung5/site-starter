@@ -74,8 +74,8 @@ class Upload
 				}
 			}
 
+			//move to temp folder and return info
 			$files_data = self::upload_files($ref_type);
-			//move to temp folder and return info			
 
 			if (! $files_data['error']) {
 				$count = 0;
@@ -115,7 +115,6 @@ class Upload
 						self::constrain_img($destination_original);
 
 						// do cropped version (med)
-						
 						$new_name = pathinfo($croppedVersion['name'], PATHINFO_FILENAME).'-'.$new_id.'-med.'.pathinfo($croppedVersion['name'], PATHINFO_EXTENSION);
 						$destination_cropped = './uploads/'.$ref_type.'/'.$new_name;
 						rename($croppedVersion['tmp_name'], $destination_cropped);

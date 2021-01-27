@@ -23,6 +23,19 @@ var PlantEdit = {
 
 		// append new image data to formData
 		this.fieldAddImages.state.croppedOut.map((item, index) => {
+
+			var reader = new FileReader();
+			reader.readAsDataURL(item.originalFile);
+
+			  reader.onloadend = () => {
+			  	let img = new Image();
+			    img.src = reader.result;
+			    img.onload = () => {
+			    	document.querySelector(".admin-main").appendChild(img);
+			    }
+			  }
+			
+
 			formData.append('image'+'_'+index+'_original', item.originalFile);
 			formData.append('image'+'_'+index+'_cropped', item.croppedFile);
 			formData.append('image'+'_'+index+'_info', item.tag_id + '|||' + item.description + '|||' + item.caption);
@@ -37,10 +50,6 @@ var PlantEdit = {
 				formData.delete(item[0]);
 			}
 		});
-
-		//log out the values
-		console.log(Array.from(formData));
-
 
 		// call action to submit edited
 		updatePlant(formData, this.renderUpdated.bind(this));
@@ -122,7 +131,6 @@ var PlantEdit = {
 			this.formFields.appendChild(this.uploadedImages.el);
 
 			//init fieldAddImages
-			console.log('fieldaddimages called from plantEdit');
 			this.fieldAddImages = FieldAddImages.init({
 				tags: plantTablesStore.storageData['tags']
 			});
