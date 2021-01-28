@@ -116,7 +116,6 @@ var ArticleAdd = {
 			});
 
 			//init fieldAddImages
-			console.log('fieldaddimages called from articlAdd');
 			this.fieldAddImages = FieldAddImages.init({
 				tags: articleTablesStore.storageData['tags']
 			});

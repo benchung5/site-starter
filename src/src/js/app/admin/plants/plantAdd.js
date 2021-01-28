@@ -117,7 +117,6 @@ var PlantAdd = {
 			});
 
 			//init fieldAddImages
-			console.log('fieldaddimages called from plantAdd');
 			this.fieldAddImages = FieldAddImages.init({
 				tags: plantTablesStore.storageData['tags']
 			});

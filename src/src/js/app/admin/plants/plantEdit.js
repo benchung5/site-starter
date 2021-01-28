@@ -23,19 +23,14 @@ var PlantEdit = {
 
 		// append new image data to formData
 		this.fieldAddImages.state.croppedOut.map((item, index) => {
-
-			var reader = new FileReader();
-			reader.readAsDataURL(item.originalFile);
-
-			  reader.onloadend = () => {
-			  	let img = new Image();
-			    img.src = reader.result;
-			    img.onload = () => {
-			    	document.querySelector(".admin-main").appendChild(img);
-			    }
-			  }
+			// //check to make sure the source image hasn't changed since we 
+			// //read the dropped in file (readAsDataURL in crop.js)
+			// let img = new Image();
+			// img.src = URL.createObjectURL(item.originalFile);
+			// img.onload = () => {
+			//   document.querySelector(".admin-main").appendChild(img);
+			// }
 			
-
 			formData.append('image'+'_'+index+'_original', item.originalFile);
 			formData.append('image'+'_'+index+'_cropped', item.croppedFile);
 			formData.append('image'+'_'+index+'_info', item.tag_id + '|||' + item.description + '|||' + item.caption);

@@ -50,9 +50,6 @@ var ArticleEdit = {
 
 		//form no longer touched
 		appStateStore.setData({ formTouched: false })
-
-		//clear deleted images
-		this.uploadedImages.reset();
 	},
 	clearMessages: function() {
 	  this.submissionMessage.innerHTML = '';
@@ -128,7 +125,6 @@ var ArticleEdit = {
 			this.formFields.appendChild(this.uploadedImages.el);
 
 			//init fieldAddImages
-			console.log('fieldaddimages called from articleEdit');
 			this.fieldAddImages = FieldAddImages.init({
 				tags: articleTablesStore.storageData['tags']
 			});

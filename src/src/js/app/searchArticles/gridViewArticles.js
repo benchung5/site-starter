@@ -28,7 +28,7 @@ var GridViewArticles = {
 				body = body.substring(0, 200) + '...';
 
 				card = this.createEl(`
-					<a href="/articles/${item.categories.split(',')[0]}/${item.slug}" class="article-row" alt="${item.name}" data-slug="${item.slug}">
+					<a href="/articles/${item.categories}/${item.slug}" class="article-row" alt="${item.name}" data-slug="${item.slug}">
 					    <div class="inner">
 					        <div class="image">
 					        	${/* image here */''}

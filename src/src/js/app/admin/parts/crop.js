@@ -29,7 +29,17 @@ var Crop = {
 	//   return file;
 	// },
 	loadImage: function(file) {
-	  this.file = file;
+	  this.fileName = this.validateFileName(file.name)
+
+	  //convert the original file to blob then back to file again so it can be stored in memory
+	  //otherwize if file is changed in the desktop the reference to it will be broken.
+	  file.arrayBuffer().then((arrayBuffer) => {
+	      let blob = new Blob([new Uint8Array(arrayBuffer)], {type: file.type });
+	      //currently only works for chrome, ff and safari 10.1+
+	      let convertedFile = new File([blob], this.fileName, {type : 'image/jpeg'});
+	      this.file = convertedFile;
+	  });
+
 	  let reader = new FileReader();
 	  reader.readAsDataURL(file);
 	  reader.onloadend = () => {
@@ -106,10 +116,10 @@ var Crop = {
 
 	    //convert to blob and output file data and preview
 		this.canvas.toBlob((blob) => {
-			const fileName = this.validateFileName(this.file.name)
+			const fileName = this.fileName;
 
 			//currently only works for chrome, ff and safari 10.1+
-			let file = new File([blob], fileName);
+			let file = new File([blob], fileName, {type : 'image/jpeg'});
 
 			const fileData = {
 			  croppedFile: file,
