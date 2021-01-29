@@ -30,7 +30,7 @@ class Tags extends Controller
 
 		if ($this->validator->foundErrors()) {
 		    $errors = $this->validator->getErrors();
-		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+		    Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 		}
 
 		try {
@@ -42,7 +42,7 @@ class Tags extends Controller
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_tag);
 		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+			Utils::json_respond(JWT_PROCESSING_ERROR, $e->getMessage());
 		}
 	}
 
@@ -84,7 +84,7 @@ class Tags extends Controller
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
 		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+			Utils::json_respond(JWT_PROCESSING_ERROR, $e->getMessage());
 		}		
 	}
 }

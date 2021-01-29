@@ -127,7 +127,7 @@ class JWT
         // Check if this token has expired.
         if (isset($payload->exp) && ($timestamp - static::$leeway) >= $payload->exp) {
             //throw new Exception('Expired token');
-            Utils::json_respond_error(ACCESS_TOKEN_ERRORS, 'Expired token');  
+            Utils::json_respond(ACCESS_TOKEN_ERRORS, 'Expired token');  
         }
         return $payload;
     }

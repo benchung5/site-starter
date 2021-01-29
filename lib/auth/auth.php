@@ -11,7 +11,10 @@ class Auth
 		$paylod = [
 			'iat' => time(),
 			'iss' => 'localhost',
-			'exp' => time() + (15*60),
+            //15 mins
+			//'exp' => time() + (15*60),
+            //2 hours
+            'exp' => time() + (120*60),
 			'userId' => $user_id
 		];
 
@@ -39,7 +42,7 @@ class Auth
             // }
             return $headers;
         }
-        Utils::json_respond_error(ATHORIZATION_HEADER_NOT_FOUND, 'Access Token Not found');
+        Utils::json_respond(ATHORIZATION_HEADER_NOT_FOUND, 'Access Token Not found');
     }
 
     // Get header Authorization

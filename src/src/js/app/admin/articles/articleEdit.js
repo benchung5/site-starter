@@ -57,9 +57,13 @@ var ArticleEdit = {
 	onInputChange: function() {
 		this.clearMessages();
 	},
-	renderUpdated: function(articleUpdated) {
+	renderUpdated: function(response) {
 		this.submissionMessage.innerHTML = '';
-		this.submissionMessage.innerHTML = `<span>Article: ${articleUpdated.name}<br/>successfully updated.</span>`;
+		if(response.error) {
+			this.submissionMessage.innerHTML = `<span>Error: ${response.error}</span>`;
+		} else {
+			this.submissionMessage.innerHTML = `<span>Article: ${response.name}<br/>successfully updated.</span>`;
+		}
 	},
 	onLoad: function() {
 		//first clear the form fields

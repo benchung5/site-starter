@@ -32,7 +32,7 @@ class Trees extends Controller
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_tree);
 		} catch (Exception $e) {
-			Utils::json_respond_error('Could not create tree', $e->getMessage());
+			Utils::json_respond('Could not create tree', $e->getMessage());
 		}
 	}
 
@@ -45,7 +45,7 @@ class Trees extends Controller
 
 			Utils::json_respond(SUCCESS_RESPONSE, $data);	
 		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+			Utils::json_respond(JWT_PROCESSING_ERROR, $e->getMessage());
 		}		
 	}
 
@@ -57,7 +57,7 @@ class Trees extends Controller
 
 		if ($this->validator->foundErrors()) {
 		    $errors = $this->validator->getErrors();
-		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+		    Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 		}
 
 		//'add' or 'update'

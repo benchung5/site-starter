@@ -61,9 +61,13 @@ var PlantAdd = {
 	onInputChange: function() {
 		this.clearMessages();
 	},
-	renderUpdated: function(treeUpdated) {
+	renderUpdated: function(response) {
 		this.submissionMessage.innerHTML = '';
-		this.submissionMessage.innerHTML = `<span>Tree: ${treeUpdated.common_name}<br/>successfully added.</span>`;
+		if(response.error) {
+			this.submissionMessage.innerHTML = `<span>Error: ${response.error}</span>`;
+		} else {
+			this.submissionMessage.innerHTML = `<span>Tree: ${response.common_name}<br/>successfully added.</span>`;
+		}
 	},
 	onLoad: function() {
 		//first clear the form fields

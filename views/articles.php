@@ -3,7 +3,7 @@
 <div class="site-wrapper">
 	<div class="content-wrapper">
 
-		<!-- react container -->
+		<!-- js container -->
 		<div class="articles-container"></div>	
 
 	</div><!-- /content wrapper -->

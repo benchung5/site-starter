@@ -41,19 +41,18 @@ var Xhr = {
 		fetch(url, parameters)
 		.then(res => {
 			if (res.ok) {
-				//console.log('fetch to '+ options.endpoint +' successful')
-				
+				//convert to json gives another promise .then (below)
+				return res.json();
 			} else {
-				//console.log('fetch to '+ options.endpoint +' not successful')
+				console.log('error, response status: ', res.status);
+				return res.json();
 			}
-			//convert to json gives another promise
-			return res.json() 
 		})
 		.then(data => {
 			//sent the data back
 			callback(data);
 		})
-		.catch(error => console.log(error))
+		.catch(error => console.log('xhr callback error: ', error))
 	}
 }
 

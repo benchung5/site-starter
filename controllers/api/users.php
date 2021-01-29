@@ -24,7 +24,6 @@ class Users extends Controller
 
 	public function verify() 
 	{
-		
 		try {
 			$payload = Auth::validateToken();
 			
@@ -36,7 +35,7 @@ class Users extends Controller
 			}
 			
 		} catch (Exception $e) {
-			Utils::json_respond_error(ACCESS_TOKEN_ERRORS, $e->getMessage());
+			Utils::json_respond(ACCESS_TOKEN_ERRORS, $e->getMessage());
 		}
 	}
 
@@ -53,7 +52,7 @@ class Users extends Controller
 
 			if ($this->validator->foundErrors()) {
 			    $errors = $this->validator->getErrors();
-			    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+			    Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 			}
 
 			try {
@@ -69,13 +68,12 @@ class Users extends Controller
 
 				Utils::json_respond(SUCCESS_RESPONSE, $data);
 			} catch (Exception $e) {
-				//Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
-				Utils::json_respond_error(JWT_PROCESSING_ERROR, 'Bad login info');
+				Utils::json_respond(JWT_PROCESSING_ERROR, 'Bad login info');
 			}
 
 			Auth::generateToken();
 		} else {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, 'Bad login info');
+			Utils::json_respond(JWT_PROCESSING_ERROR, 'Bad login info');
 		}
 	}
 
@@ -91,7 +89,7 @@ class Users extends Controller
 
 		if ($this->validator->foundErrors()) {
 		    $errors = $this->validator->getErrors();
-		    Utils::json_respond_error(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
+		    Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, implode(', ', $errors));
 		}
 
 		try {
@@ -102,7 +100,7 @@ class Users extends Controller
 
 			Utils::json_respond(SUCCESS_RESPONSE, $new_user->email);
 		} catch (Exception $e) {
-			Utils::json_respond_error(JWT_PROCESSING_ERROR, $e->getMessage());
+			Utils::json_respond(JWT_PROCESSING_ERROR, $e->getMessage());
 		}
 
 		Auth::generateToken();

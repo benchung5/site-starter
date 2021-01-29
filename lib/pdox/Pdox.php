@@ -514,7 +514,7 @@ class Pdox
     //   die($msg);
     // else
     //   throw new PDOException($this->error . ". ("  . $this->query . ")");
-    Utils::json_respond_error(ACCESS_TOKEN_ERRORS, $this->error);
+    Utils::json_respond_error(INTERNAL_ERROR, $this->error);
   }
 
   public function get($type = false)

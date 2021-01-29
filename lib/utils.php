@@ -51,10 +51,10 @@ class Utils
 
 	public static function json_respond_error($code, $message) 
 	{
-		header("content-type: application/json");
 		header('Status: '.$code);
-		$errorMsg = json_encode(['error' => $message]);
-		echo $errorMsg; exit;
+		http_response_code(500);
+		$response = json_encode(['error' => $message]);
+		echo $response; exit;
 	}
 
 	public static function sanitize($str) 
