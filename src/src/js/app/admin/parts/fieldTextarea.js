@@ -49,6 +49,20 @@ var FieldTextarea = {
 	     this.updateTextArea(wrappedText, selectedText);
 	  }
 	},
+	onAnchorClick: function(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+
+	  if (this.textarea.value) {
+	     //get the current highlighted text
+	     let selObj = window.getSelection(); 
+	     let selectedText = selObj.toString();
+	     //wrap it all in a div with class small
+	     let wrappedText = '<a href="">'+selectedText+'</a>';
+
+	     this.updateTextArea(wrappedText, selectedText);
+	  }
+	},
 	onUlClick: function(e) {
 	  e.stopPropagation();
 	  e.preventDefault();
@@ -109,10 +123,12 @@ var FieldTextarea = {
 		       <label>${options.label}:</label>
 		       <button id="h">h3</button>
 		       <button id="p">p</button>
+		       <button id="a">a</button>
 		       <button id="ul">ul</button>
 		       <button id="figure">figure</button>
 		       <button id="clear">clear</button>
 		       <button id="small-text">small text</button>
+
 		       <textarea
 			       class="form-control"
 			       rows="12" 
@@ -141,6 +157,7 @@ var FieldTextarea = {
 		inst.el.querySelector('#figure').addEventListener('click', inst.onFigureClick.bind(inst));
 		inst.el.querySelector('#clear').addEventListener('click', inst.onClearClick.bind(inst));
 		inst.el.querySelector('#small-text').addEventListener('click', inst.onSmallTextClick.bind(inst));
+		inst.el.querySelector('#a').addEventListener('click', inst.onAnchorClick.bind(inst));
 
 		return inst;
 	}
