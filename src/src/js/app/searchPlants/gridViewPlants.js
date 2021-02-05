@@ -63,7 +63,7 @@ var GridViewPlants = {
                     </div>
                 </div>
                 <div class="row grid-view-inner">
-                    <div class="left show-for-large">
+                    <div class="left">
                     	${/* sideMenuPlants */''}
                     </div>
                     <div class="right">

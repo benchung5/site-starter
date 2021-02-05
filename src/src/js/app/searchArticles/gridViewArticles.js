@@ -84,7 +84,7 @@ var GridViewArticles = {
                     </div>
                 </div>
                 <div class="row grid-view-inner">
-                    <div class="left show-for-large">
+                    <div class="left">
                     	${/* sideMenuArticles */''}
                     </div>
                     <div class="right">

@@ -112,7 +112,8 @@ class Upload
 						// move file, append new id, delete temp file
 						$destination_original = './uploads/'.$ref_type.'/'.$new_name;
 						rename($file_data['tmp_name'], $destination_original);
-						self::constrain_img($destination_original);
+						// the incoming original image should already be resized and optimized on the front end
+						// self::constrain_img($destination_original);
 
 						// do cropped version (med)
 						$new_name = pathinfo($croppedVersion['name'], PATHINFO_FILENAME).'-'.$new_id.'-med.'.pathinfo($croppedVersion['name'], PATHINFO_EXTENSION);
@@ -223,29 +224,29 @@ class Upload
 		return $result;
 	}
 
-	public function constrain_img($destination)
-	{
-	  // constrain to max size
-	  // read image from file
-	  $img = Image::make($destination);
+	// public function constrain_img($destination)
+	// {
+	//   // constrain to max size
+	//   // read image from file
+	//   $img = Image::make($destination);
 	  
-	  $max_width = 875;
-	  $max_height = 875;
+	//   $max_width = 875;
+	//   $max_height = 875;
 
-	  if ($img->width() > $max_width || $img->height() > $max_height) {
-	    // prevent EXIF data from rotating the image
-	    $img->orientate();
-	    // resize to maximum width and maxium height
-	    $img->resize($max_width, $max_height, function ($constraint) {
-	        // constraining the aspect ratio
-	        $constraint->aspectRatio();
-	        // prevent possible upsizing
-	        $constraint->upsize();
-	      })->save($destination, 95);
-	  }
+	//   if ($img->width() > $max_width || $img->height() > $max_height) {
+	//     // prevent EXIF data from rotating the image
+	//     $img->orientate();
+	//     // resize to maximum width and maxium height
+	//     $img->resize($max_width, $max_height, function ($constraint) {
+	//         // constraining the aspect ratio
+	//         $constraint->aspectRatio();
+	//         // prevent possible upsizing
+	//         $constraint->upsize();
+	//       })->save($destination, 95);
+	//   }
 
-	  return true;
-	}
+	//   return true;
+	// }
 
 	public function create_thumb($source, $destination, $width, $height) {
 		//create thumb version

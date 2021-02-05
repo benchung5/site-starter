@@ -29,7 +29,7 @@ import ButtonShowMenu from '../parts/buttonShowMenu';
 				el: 
 				`<div class="main-container"}>
 		          <div class="row">
-		           <div class="filter-container hide-for-large">
+		           <div class="filter-container">
 		           </div>
 		          </div>
 		        </div>`

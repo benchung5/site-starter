@@ -3,8 +3,9 @@ import ImageEditMeta from './imageEditMeta';
 import sanitizeFilename from 'sanitize-filename';
 
 var Crop = {
-	thumbWidth: 200,
-	thumbHeight: 200,
+	// the the size the med thumbnail size will end up being
+	// this is duplicated and resized again on the server to create the (sml) thumb size
+	thumbSize: 200,
 	onUnmount: function() {
 	  //do this to avoid memory leaks
 	  window.URL.revokeObjectURL(this.file.preview);
@@ -23,23 +24,42 @@ var Crop = {
 
 	  return finalName;
 	},
-	// blobToFile: function(blob, fileName) {
-	//   //currently only works for chrome, ff and safari 10.1+
-	//   let file = new File([blob], fileName);
-	//   return file;
-	// },
 	loadImage: function(file) {
 	  this.fileName = this.validateFileName(file.name)
 
-	  //convert the original file to blob then back to file again so it can be stored in memory
-	  //otherwize if file is changed in the desktop the reference to it will be broken.
-	  file.arrayBuffer().then((arrayBuffer) => {
-	      let blob = new Blob([new Uint8Array(arrayBuffer)], {type: file.type });
-	      //currently only works for chrome, ff and safari 10.1+
-	      let convertedFile = new File([blob], this.fileName, {type : 'image/jpeg'});
-	      this.file = convertedFile;
+	  // //convert the original file to blob then back to file again so it can be stored in memory
+	  // //otherwize if file is changed in the desktop the reference to it will be broken.
+	  // file.arrayBuffer().then((arrayBuffer) => {
+	  //     let blob = new Blob([new Uint8Array(arrayBuffer)], {type: file.type });
+	  //     //currently only works for chrome, ff and safari 10.1+
+	  //     let convertedFile = new File([blob], this.fileName, {type : 'image/jpeg'});
+	  //     this.file = convertedFile;
+	  // });
+
+	  this.fileToCanvas(file, 875, true, (tempCanvas) => {
+	  	this.tempOriginalCanvas = tempCanvas;
+  	    //convert to blob (we've both resized the original file and prevented the reference from the 
+  	    //original uploaded file from being broken by storing it in memory)
+  		this.tempOriginalCanvas.toBlob((blob) => {
+  			//currently only works for chrome, ff and safari 10.1+
+  			this.file = new File([blob], this.fileName, {type : 'image/jpeg'});
+  		}, 'image/jpeg', 0.95);
 	  });
 
+	  this.fileToCanvas(file, this.thumbSize, false, (tempCanvas) => {
+	  	this.tempCropCanvas = tempCanvas;
+	  	//draw temp canvas (for cropping) to the main canvas (draw as an image)
+	  	this.canvas.width = tempCanvas.width;
+	  	this.canvas.height = tempCanvas.height;
+	  	this.ctx.drawImage(tempCanvas, 0, 0);
+
+	    //draw a rectangle in the center of the image
+	    this.rectXPos = (tempCanvas.width - this.thumbSize)/2;
+		this.rectYPos = (tempCanvas.height - this.thumbSize)/2;
+		this.drawRect();
+	  });
+	},
+	fileToCanvas: function(file, maxSize, isLongestEdge, callback) {
 	  let reader = new FileReader();
 	  reader.readAsDataURL(file);
 	  reader.onloadend = () => {
@@ -51,45 +71,50 @@ var Crop = {
 	    	let height = 0;
 	    	let width = 0;
 
-	    	if(img.naturalWidth > img.naturalHeight) {
-	    		height = this.thumbHeight;
-	    		width = this.thumbWidth*widthAspect
-	    	}
+	    	if(isLongestEdge) {
+	    		//resize it to the maxSize on the longest edge
+	    		if(img.naturalWidth > img.naturalHeight) {
+	    			height = maxSize / widthAspect;
+	    			width = maxSize;
+	    		}
 
-	    	if(img.naturalWidth < img.naturalHeight) {
-	    		width = this.thumbWidth;
-	    		height = this.thumbHeight*heightAspect
+	    		if(img.naturalWidth < img.naturalHeight) {
+	    			width = maxSize / heightAspect;
+	    			height = maxSize;
+	    		}
+	    	} else {
+	    		//resize it to the maxSize on the shortest edge
+	    		if(img.naturalWidth > img.naturalHeight) {
+	    			height = maxSize;
+	    			width = maxSize*widthAspect
+	    		}
+
+	    		if(img.naturalWidth < img.naturalHeight) {
+	    			width = maxSize;
+	    			height = maxSize*heightAspect
+	    		}
 	    	}
 
 	    	//create a temporary canvas to create the resized image
-	    	this.tempCanvas = document.createElement('canvas');
-	    	this.tempCanvas.width = width;
-	    	this.tempCanvas.height = height;
-	    	var tempCtx = this.tempCanvas.getContext('2d');
+	    	let tempCanvas = document.createElement('canvas');
+	    	tempCanvas.width = width;
+	    	tempCanvas.height = height;
+	    	var tempCtx = tempCanvas.getContext('2d');
 
     	    tempCtx.drawImage(img,
-    		    0, 0, // x, y start from top left of image (crop),
-    		    img.naturalWidth, img.naturalHeight, // w, h of image (crop),
+    		    0, 0, // x, y start from top left of image (source),
+    		    img.naturalWidth, img.naturalHeight, // w, h of image (source),
     		    0, 0, // x, y start from top left of canvas for result image,
     		    width, height // w, h of result image (scale)
 				);
 
-
-    	    //draw temp canvas to the main canvas (draw as an image)
-    	    this.canvas.width = width;
-    	    this.canvas.height = height;
-    	    this.ctx.drawImage(this.tempCanvas, 0, 0);
-
-    	    //draw a rectangle in the center of the image
-    	    this.rectXPos = (width - this.thumbWidth)/2;
-			this.rectYPos = (height - this.thumbHeight)/2;
-			this.drawRect();
+    	    callback(tempCanvas);
 	    }
 	  }
 	},
 	drawRect: function() {
 		this.ctx.beginPath();
-		this.ctx.rect(this.rectXPos, this.rectYPos, this.thumbWidth, this.thumbHeight);
+		this.ctx.rect(this.rectXPos, this.rectYPos, this.thumbSize, this.thumbSize);
 		this.ctx.stroke();
 	},
 	submitCrop: function() {
@@ -103,15 +128,16 @@ var Crop = {
 
 		//clear canvas and set it's width and height to finished crop dimensions
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-		this.canvas.width = this.thumbWidth;
-		this.canvas.height = this.thumbHeight;
+		this.canvas.width = this.thumbSize;
+		this.canvas.height = this.thumbSize;
 
 		//crop the portion of the image inside the box and draw
-	    this.ctx.drawImage(this.tempCanvas,
+		//let tempCanvas = document.createElement('canvas');
+	    this.ctx.drawImage(this.tempCropCanvas,
 		    this.rectXPos, this.rectYPos, // x, y start from top left of image (crop),
-		    this.thumbWidth, this.thumbHeight, // w, h of image (crop),
+		    this.thumbSize, this.thumbSize, // w, h of image (crop),
 		    0, 0, // x, y start from top left of canvas for result image,
-		    this.thumbWidth, this.thumbHeight // w, h of result image (scale)
+		    this.thumbSize, this.thumbSize // w, h of result image (scale)
 			);
 
 	    //convert to blob and output file data and preview
@@ -203,9 +229,7 @@ var Crop = {
 		inst.cropperButtons.before(inst.imageEditMeta.el);
 
 		inst.canvas = inst.el.querySelector('#canvas');
-		// inst.canvas.style.maxWidth = '400px';
-		// inst.canvas.style.maxheight = '400px';
-		inst.canvas.style.height = this.thumbHeight;
+		inst.canvas.style.height = this.thumbSize;
 		inst.ctx = inst.canvas.getContext('2d');
 
 		return inst;

@@ -1648,8 +1648,9 @@ product grid
 // @include MQ(M) {
 //    display: none;
 //  }
-$S:     580px; 
-$M:     800px;     
+
+$S:     424px; 
+$M:     630px;     
 $L:     1150px;
 
 @mixin MQ($canvas) {
@@ -1673,9 +1674,11 @@ $L:     1150px;
     min-width: 0;
   }
   .left {
+    display: none;
     @include MQ(M) {
       flex: 0 0 33.33333%;
       max-width: 33.33333%;
+      display: block;
     }
     @include MQ(L) {
       flex: 0 0 33.33333%;
@@ -1728,6 +1731,9 @@ $L:     1150px;
         position: relative;
         overflow: hidden;
         margin: 0 auto;
+        img {
+          width: 100%;
+        }
         .img-info {
           @include h-align-absolute(15px);
           @include v-align-absolute(15px);
@@ -1766,6 +1772,68 @@ $L:     1150px;
 }
 
 /* ==========================================================================
+filter
+========================================================================== */
+.filter-container {
+  flex: 1 1 0px;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+  display: block;
+  @include MQ(M) {
+    display: none;
+  }
+}
+.filter {
+  display: flex;
+  height: 3em;
+  border-bottom: 1px solid #ccc;
+  margin-top: 0.5em;
+  .show-menu-mobile {
+    flex: 1;
+    background-color: #fff;
+    width: 100%;
+    hieght: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $card-box-shadow;
+    .filter-icon {
+      width: 25px;
+      height: 14px;
+      margin-left: 0.5em;
+    }
+  }
+}
+
+.search-form {
+  position: relative;
+  width: 100%;
+  input {
+    height: 40px;
+    padding: 10px 45px;
+    border: 0 none;
+    box-shadow: 0 -1px 0 $border-color inset;
+  }
+  .search-button {
+    position: absolute;
+    @include v-align-absolute(22px);
+    left: 15px;
+    height: 22px;
+    width: 22px;
+    cursor: pointer;
+    background-image: url(../img/icons/search.svg);
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+  }
+  // .search-clear {
+  //   position: absolute;
+  //   @include v-align-absolute(40px);
+  //   right: 17px;
+  //   @extend %close-button;
+  // }
+}
+
+/* ==========================================================================
 arcticles
 ========================================================================== */
 
@@ -1783,10 +1851,13 @@ arcticles
     cursor: pointer;
     padding: .25em;
     display: inline-block;
-    width: 100%;
+    width: 50%;
     .inner {
       background-color: #fff;
       box-shadow: $card-box-shadow;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
       .image {
         flex-shrink: 0;
         width: 100%;
@@ -1819,10 +1890,11 @@ arcticles
       .info {
         background: #fff;
         padding: 1em 1.7em;
-        font-size: 100%;
+        font-size: 75%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        font-size: 75%;
         h2 {
         }
         p {
@@ -1831,8 +1903,11 @@ arcticles
         .right {
           color: #888;
         }
-        @include MQ(S) {
-          font-size: 75%;
+        .article-body {
+          display: none;
+          @include MQ(S) {
+            display: block;
+          }
         }
         @include MQ(L) {
           font-size: 100%;
@@ -1842,9 +1917,15 @@ arcticles
         text-transform: uppercase;
         font-size: 0.7em;
       }
-      @include MQ(S) {
-        display: flex;
+      @include MQ(M) {
+        flex-direction: row;
       }
+    }
+    @include MQ(S) {
+      width: 33.333%;
+    }
+    @include MQ(M) {
+      width: 100%;
     }
   }
 }
@@ -2251,64 +2332,6 @@ map buttons
   background-size: 25px 14px;
   width: 52px;
   height: 52px;
-}
-
-/* ==========================================================================
-filter
-========================================================================== */
-.filter-container {
-  flex: 1 1 0px;
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
-}
-.filter {
-  display: flex;
-  height: 3em;
-  border-bottom: 1px solid #ccc;
-  margin-top: 0.5em;
-  .show-menu-mobile {
-    flex: 1;
-    background-color: #fff;
-    width: 100%;
-    hieght: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: $card-box-shadow;
-    .filter-icon {
-      width: 25px;
-      height: 14px;
-      margin-left: 0.5em;
-    }
-  }
-}
-
-.search-form {
-  position: relative;
-  width: 100%;
-  input {
-    height: 40px;
-    padding: 10px 45px;
-    border: 0 none;
-    box-shadow: 0 -1px 0 $border-color inset;
-  }
-  .search-button {
-    position: absolute;
-    @include v-align-absolute(22px);
-    left: 15px;
-    height: 22px;
-    width: 22px;
-    cursor: pointer;
-    background-image: url(../img/icons/search.svg);
-    background-size: 22px 22px;
-    background-repeat: no-repeat;
-  }
-  // .search-clear {
-  //   position: absolute;
-  //   @include v-align-absolute(40px);
-  //   right: 17px;
-  //   @extend %close-button;
-  // }
 }
 
 /* ==========================================================================
