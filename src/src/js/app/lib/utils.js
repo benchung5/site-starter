@@ -126,6 +126,7 @@ export function setUrlParams(key, val) {
     val = [];
     val.push(str);
   }
+
   val = val.join('+');
   let hash = window.location.hash;
   // replace valu on the part of the hash that has the current key
@@ -142,7 +143,11 @@ export function setUrlParams(key, val) {
       if (regexp.test(parts[i])) {
         let params = parts[i].split('=');
         if (params[0]) {
-          finalParts[i] = key + '=' + val;
+          if(key && (!val.length)) {
+            //if there is a key but an empty value remove it altogether
+          } else {
+            finalParts[i] = key + '=' + val;
+          }
         }
       } else {
         finalParts[i] = parts[i];
@@ -150,8 +155,11 @@ export function setUrlParams(key, val) {
       }
     }
 
-    // if key doesn't exist, just add it in with it's new values
-    if (!containsKey) {
+    //re-index the array incase we had to remove one due to empty value
+    finalParts.filter(val => val)
+
+    // if key doesn't exist and it has a value, just add it in with it's new values
+    if ((!containsKey) && (val.length)) {
       finalParts = lodashClone(parts);
       finalParts.push(key + '=' + val)
     }
@@ -164,17 +172,10 @@ export function setUrlParams(key, val) {
 }
 
 export function getUrlParams(key) {
-    //set the category if there's a query string
-    // let categories = (/^[?#]/.test(window.location.hash) ? window.location.hash.slice(1) : query)
-    // categories = categories.split('&')
-    // .reduce((params, param) => {
-     //      let [key, value] = param.split('=');
-     //      params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-     //      return params;
-    // });
   let hash = window.location.hash;
+
   if(hash) {
-    hash = hash.replace('#', '')
+    hash = hash.replace('#', '');
 
     // get the query parts
     let parts = (/\?/.test(hash) ? hash.split('?') : [hash]);
@@ -188,11 +189,10 @@ export function getUrlParams(key) {
 
         if (params && (!params[1])) {
           //if a parameter but no value
-          return null;
+          return [];
         }
 
         if (params && params[1]) {
-
           //if value(s) 
           // sanitize
           params[0] = sanitizeInputString(params[0]);

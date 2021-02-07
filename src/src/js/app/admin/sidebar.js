@@ -1,5 +1,6 @@
 import Component from '../component';
 import Router from '../router';
+import { resetFilter } from '../actions/plants';
 
 var Sidebar = {
 	linkList: [
@@ -24,7 +25,12 @@ var Sidebar = {
 			</li>`);
 			link.addEventListener('click', (e) => {
 				e.preventDefault();
-				Router.push(item.link);
+
+				//reset the filter settings first
+				resetFilter(() => {
+					Router.push(item.link);
+				});
+
 			}, false);
 			sidebar.appendChild(link);
 		});

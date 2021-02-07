@@ -93,6 +93,8 @@ var GridViewPlants = {
 
 		plantListStore.addListener(inst.buildItems.bind(inst));
 
+		inst.buildItems();
+
 		return inst;
 	}
 }

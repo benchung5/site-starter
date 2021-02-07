@@ -1,6 +1,5 @@
 import Component from '../component';
 import Button from './button';
-import { getUrlParams } from '../lib/utils';
 
 var ButtonList = {
 	onItemClick: function(e) {
@@ -27,7 +26,7 @@ var ButtonList = {
 		el.dataset.isActive = isActive;
 	},
 	buildButtons: function() {
-		let modifiedData = this.buttonData.map((item, index) => {
+		this.buttonData.map((item, index) => {
 			const children = this.createEl(`
 					<div>
 				    	<i class="fas fa-${item.icon}"></i>
@@ -39,7 +38,7 @@ var ButtonList = {
 			const button = Button.init({
 				className: `${this.classPropButton} ${item.slug}`,
 				style: `height: ${this.buttonHeight}px`,
-				isActive: this.allActive,
+				isActive: item.active || this.allActive,
 				id: item.id,
 				name: item.name,
 				onClick: this.onItemClick.bind(this),
@@ -52,22 +51,25 @@ var ButtonList = {
 
 			wrapper.appendChild(button.el);
 			this.el.appendChild(wrapper);
+			this.updateButtonState(item.id, item.active);
 
-			// if url contains selected categories, just select those
-			let selectedCategories = getUrlParams('categories');
-			let isActive = true;
-            if (selectedCategories) {
-                isActive = false;
-                if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
-                    isActive = true;
-                }
-                this.updateButtonState(item.id, isActive);
-            }
-			return Object.assign(item, { active: isActive });
+			// // if url contains selected categories, just select those
+			// let selectedCategories = getUrlParams('categories');
+			// let isActive = true;
+   //          if (selectedCategories) {
+   //              isActive = false;
+   //              if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
+   //                  isActive = true;
+   //              }
+   //              this.updateButtonState(item.id, isActive);
+   //          }
+			// return Object.assign(item, { active: isActive });
 		});
 
-		//send initial callback
-		this.updateData(modifiedData);
+		// console.log(modifiedData);
+
+		// //send initial callback
+		// this.updateData(modifiedData);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);

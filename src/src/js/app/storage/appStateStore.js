@@ -6,7 +6,6 @@ var AppStateStore = {
         isLoading: false,
         showMenu: 'close',
         isOnline: true,
-        clearSearch: false,
         formTouched: false,
     },
     init: function() {

@@ -1,5 +1,9 @@
 import xhr from '../xhr';
 import appStateStore from '../storage/appStateStore';
+import { getUrlParams } from '../lib/utils';
+import plantFilterStore from '../storage/plantFilterStore';
+import plantTablesStore from '../storage/plantTablesStore';
+import plantListStore from '../storage/plantListStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -144,6 +148,57 @@ export function deletePlant(tree, callback) {
         body: JSON.stringify(tree)
     }, (apiData) => {
         callback(apiData);
+    });
+}
+
+export function updateFilterFromUrl(callback) {
+    const selectedCategories = getUrlParams('categories');
+    const search = getUrlParams('search');
+    const offset = getUrlParams('offset');
+
+    fetchPlantTables((apiData) => {
+        plantTablesStore.setData(apiData);
+
+        let modifiedCategories = plantTablesStore.storageData.trees_category_id.map((item, index) => {
+            // if url contains selected categories, just select those
+            let selectedCategories = getUrlParams('categories');
+            let isActive = true;
+            if (selectedCategories) {
+                isActive = false;
+                if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
+                    isActive = true;
+                }
+            }
+            return Object.assign(item, { active: isActive });
+        });
+
+        plantFilterStore.setData({ 
+            categoriesTrees: modifiedCategories, 
+            search: search[0] || '',
+            offset: parseInt(offset[0] || 0)
+        });
+
+        //search trees
+        searchTrees(plantFilterStore.storageData, (apiData) => {
+            plantListStore.setData(apiData);
+
+            callback();
+        });
+    });
+}
+
+export function resetFilter(callback) {
+    plantFilterStore.setData({ 
+        categoriesTrees: [], 
+        search: '',
+        offset: 0
+    });
+
+    //search trees
+    searchTrees(plantFilterStore.storageData, (apiData) => {
+        plantListStore.setData(apiData);
+
+        callback();
     });
 }
 

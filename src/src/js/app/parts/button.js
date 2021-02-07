@@ -10,7 +10,6 @@ var Button = {
 		//call initialize on Component first
 		inst.initialize({
 			el: `<a
-				href="#"
 				class="${options.className ? options.className : ''} ${options.isDisabled ? "disabled" : ''}" 
 				style="cursor: pointer; ${options.style ? options.style : ''}"
 				data-id="${options.id ? options.id : ''}"

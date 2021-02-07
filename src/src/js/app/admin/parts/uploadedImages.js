@@ -20,7 +20,11 @@ var UploadedImages = {
 		this.reInitDragReorder(this.state.images);
 	},
 	onCopyClick: function(item) {
-		let imgStr = '<img alt="' + item.description + '" src="/uploads/' + this.refType + '/' + item.name + '" />';
+		let desc = item.description ? 'alt="'+ item.description +'"' : '';
+		let imgStr = '<img '+ desc  +' src="/uploads/' + this.refType + '/' + item.name + '" />';
+		if(item.caption) {
+			imgStr = '<figure>\n'+imgStr+'\n<figcaption>'+item.caption+'</figcaption>\n</figure>';
+		}
 		copyStringToClipboard(imgStr);
 	},
 	updateImages: function() {

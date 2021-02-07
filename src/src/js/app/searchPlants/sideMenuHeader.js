@@ -4,12 +4,13 @@ import appStateStore from '../storage/appStateStore';
 import { searchTrees } from '../actions/plants';
 import plantFilterStore from '../storage/plantFilterStore';
 import plantListStore from '../storage/plantListStore';
+import { setUrlParams } from '../lib/utils';
 
 var SideMenuHeader = {
 	onItemClick: function() {
 	    appStateStore.setData({ showMenu: 'close' });
-	    appStateStore.setData({ clearSearch: true }, { clearSearch: false });
 	    plantFilterStore.setData({ search: '' });
+	    setUrlParams('search', '');
 	    searchTrees(plantFilterStore.storageData, (apiData) => {
 	    	plantListStore.setData(apiData);
 	    });

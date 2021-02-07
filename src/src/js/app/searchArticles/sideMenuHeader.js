@@ -8,7 +8,6 @@ import articleListStore from '../storage/articleListStore';
 var SideMenuHeader = {
 	onItemClick: function() {
 	    appStateStore.setData({ showMenu: 'close' });
-	    appStateStore.setData({ clearSearch: true }, { clearSearch: false });
 	    articleFilterStore.setData({ search: '' });
 	    searchArticles(articleFilterStore.storageData, (apiData) => {
 	    	articleListStore.setData(apiData);

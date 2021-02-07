@@ -75,10 +75,11 @@ var PlantsList = {
 			message: 'delete item?'
 		});
 
-		inst.build();
-
 		//listen for updated plantlistStore
 		plantListStore.addListener(inst.renderList.bind(inst));
+
+		inst.build();
+		inst.renderList();
 
 		return inst;
 	}
