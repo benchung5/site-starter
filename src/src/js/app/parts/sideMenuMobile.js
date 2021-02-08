@@ -2,9 +2,9 @@ import Component from '../component';
 import appStateStore from '../storage/appStateStore';
 import { addClass, removeClass } from '../lib/utils';
 import animation from '../animation';
-import SideMenuPlantsContent from './sideMenuPlantsContent';
+import SideMenuContent from './sideMenuContent';
 
-var SideMenuPlantsMobile = {
+var SideMenuMobile = {
 	hideShowMenu() {
 		if(appStateStore.storageData.showMenu == 'close') {
 			this.closeMenuAnimation.animate();
@@ -14,7 +14,7 @@ var SideMenuPlantsMobile = {
 			removeClass(this.el, 'close');
 		}
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -27,8 +27,14 @@ var SideMenuPlantsMobile = {
             </div>`
 		});
 
-		inst.sideMenuPlantsContent = SideMenuPlantsContent.init({});
-		inst.el.appendChild(inst.sideMenuPlantsContent.el);
+		inst.sideMenuContent = SideMenuContent.init({
+			changeCategories: options.changeCategories,
+			search: options.search,
+			clearSearch: options.clearSearch,
+			filterStore: options.filterStore,
+			categories: options.categories
+		});
+		inst.el.appendChild(inst.sideMenuContent.el);
 
 		appStateStore.addListener(inst.hideShowMenu.bind(inst));
 
@@ -52,4 +58,4 @@ var SideMenuPlantsMobile = {
 	}
 }
 
-export default SideMenuPlantsMobile;
+export default SideMenuMobile;

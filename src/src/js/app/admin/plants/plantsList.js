@@ -1,21 +1,22 @@
 import Component from '../../component';
 import { getSingle, deletePlant } from '../../actions/plants';
 import Sidebar from '../sidebar';
-import SearchTrees from '../../parts/searchTrees';
-import PaginationPlants from '../../parts/paginationPlants';
+import Search from '../../parts/search';
+import Pagination from '../../parts/pagination';
 import plantListStore from '../../storage/plantListStore';
 import { searchTrees } from '../../actions/plants';
 import plantFilterStore from '../../storage/plantFilterStore';
 import { globals } from '../../config';
 import verifyAction from '../parts/verifyAction';
+import { setUrlParams } from '../../lib/utils';
 
 var PlantsList = {
 	build: function() {
 		const mainWindow = this.el.querySelector('.main-window');
 		mainWindow.before(this.sidebar.el);
 		this.itemList = this.el.querySelector('.item-list');
-		this.itemList.before(this.searchTrees.el);
-		mainWindow.appendChild(this.paginationTrees.el);
+		this.itemList.before(this.search.el);
+		mainWindow.appendChild(this.pagination.el);
 	},
 	onDeleteTreeClick: function(e) {
 		e.preventDefault();
@@ -32,6 +33,14 @@ var PlantsList = {
 			}
 		});
 	},
+	updateOffset: function(newOffset) {
+		plantFilterStore.setData({ offset: newOffset });
+		setUrlParams('offset', newOffset);
+		//search trees
+		searchTrees(plantFilterStore.storageData, (apiData) => {
+			plantListStore.setData(apiData);
+		});
+	},
 	renderList: function() {
 		this.itemList.innerHTML = '';
 
@@ -46,6 +55,16 @@ var PlantsList = {
 				el.querySelector('#delete').addEventListener('click', this.onDeleteTreeClick.bind(this), false);
 
 			    this.itemList.appendChild(el);
+		});
+	},
+	search: function(search) {
+		//update the trees filter then search using the updated trees filter
+		//always reset the offset to 0 when searching so you view the first page
+		plantFilterStore.setData({ search: search, offset: 0 });
+		setUrlParams('offset', 0);
+		setUrlParams('search', search);
+		searchTrees(plantFilterStore.storageData, (apiData) => {
+			plantListStore.setData(apiData);
 		});
 	},
 	init: function() {
@@ -69,8 +88,16 @@ var PlantsList = {
 		});
 
 		inst.sidebar = Sidebar.init();
-		inst.searchTrees = SearchTrees.init({});
-		inst.paginationTrees = PaginationPlants.init();
+		inst.search = Search.init({
+			filterStore: plantFilterStore,
+			search: inst.search.bind(inst)
+		});
+		inst.pagination = Pagination.init({
+			filterStore: plantFilterStore,
+			entriesPerPage: globals.ADMIN_ENTRIES_PER_PAGE,
+			listStore: plantListStore,
+			updateOffset: inst.updateOffset.bind(inst),
+		});
 		inst.verifyAction = verifyAction.init({
 			message: 'delete item?'
 		});

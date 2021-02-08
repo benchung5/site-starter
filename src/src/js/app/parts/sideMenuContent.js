@@ -1,10 +1,10 @@
 import Component from '../component';
-import SearchTrees from '../parts/searchTrees';
+import Search from './search';
 import SideMenuHeader from './sideMenuHeader';
-import FilterPlants from './filterPlants';
+import Filter from './filter';
 
-var SideMenuPlantsContent = {
-	init: function() {
+var SideMenuContent = {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -23,25 +23,30 @@ var SideMenuPlantsContent = {
 		});
 
 		//side menu header
-		const searchTrees = SearchTrees.init({
+		const search = Search.init({
 			placeholder: 'Search Tree Name',
-			hasButton: true
+			hasButton: true,
+			search: options.search,
+			filterStore: options.filterStore
 		});
 		const sideMenuHeader = SideMenuHeader.init({
 			isClose: true,
-			children: searchTrees.el
+			children: search.el,
+			clearSearch: options.clearSearch,
 		});
 		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 
-		//plant filter
-		const filterPlants = FilterPlants.init({
-			buttonHeight: 40
+		//filter
+		const filter = Filter.init({
+			buttonHeight: 40,
+			changeCategories: options.changeCategories,
+			categories: options.categories
 		});
-		const filter = inst.el.querySelector('#filter');
-		filter.appendChild(filterPlants.el);
+		const filterEl = inst.el.querySelector('#filter');
+		filterEl.appendChild(filter.el);
 
 		return inst;
 	}
 }
 
-export default SideMenuPlantsContent;
+export default SideMenuContent;

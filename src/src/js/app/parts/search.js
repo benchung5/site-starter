@@ -1,26 +1,16 @@
 import Component from '../component';
 import { formatSearchString } from '../lib/stringUtils';
-import { searchTrees } from '../actions/plants';
-import plantFilterStore from '../storage/plantFilterStore';
-import { setUrlParams } from '../lib/utils';
-import plantListStore from '../storage/plantListStore';
-import appStateStore from '../storage/appStateStore';
+// import { searchTrees } from '../actions/plants';
+// import options.filterStore from '../storage/options.filterStore';
+// import { setUrlParams } from '../lib/utils';
+// import plantListStore from '../storage/plantListStore';
 
 var SearchTrees = {
 	isClearSearch: function() {
-		if (!plantFilterStore.storageData.search) {
+		if (!this.filterStore.storageData.search) {
 			//clear search
 			this.input.value = '';
 		}
-	},
-	search: function(search) {
-		//update the trees filter then search using the updated trees filter
-		//always reset the offset to 0 when searching so you view the first page
-		plantFilterStore.setData({ search: search, offset: 0 });
-		setUrlParams('offset', 0);
-		searchTrees(plantFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
-		});
 	},
 	submitForm: function(e) {
 		e.preventDefault();
@@ -30,15 +20,15 @@ var SearchTrees = {
 		search = formatSearchString(search);
 
 		this.search(search);
-
-		//store in the url
-		setUrlParams('search', search);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
+
+		inst.filterStore = options.filterStore;
+		inst.search = options.search;
 
 		//call initialize on Component first
 		inst.initialize({
@@ -53,8 +43,8 @@ var SearchTrees = {
 		inst.input = inst.el.querySelector('input[name="search"]');
 
 		//fill in the search box with the initial search value if any
-		if(plantFilterStore.storageData.search) {
-			inst.input.value = plantFilterStore.storageData.search;
+		if(options.filterStore.storageData.search) {
+			inst.input.value = options.filterStore.storageData.search;
 		}
 
 		if(options.hasButton) {
@@ -62,7 +52,7 @@ var SearchTrees = {
 			inst.input.before(searchButton);
 		}
 
-		plantFilterStore.addListener(inst.isClearSearch.bind(inst));
+		options.filterStore.addListener(inst.isClearSearch.bind(inst));
 
 		return inst;
 	}

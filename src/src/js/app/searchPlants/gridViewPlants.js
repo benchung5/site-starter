@@ -1,8 +1,7 @@
 import Component from '../component';
 import Loader from '../parts/loader';
-import SideMenuPlants from './sideMenuPlants';
-import plantListStore from '../storage/plantListStore';
-import PaginationPlants from '../parts/paginationPlants';
+import SideMenu from '../parts/sideMenu';
+import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
 //config
 const env = process.env.NODE_ENV || "development";
@@ -11,7 +10,7 @@ var { PLANTS_UPLOADS_PATH } = require('../config')[env];
 var GridViewPlants = {
 	buildItems: function() {
 		this.cardsContainer.innerHTML = '';
-		plantListStore.storageData.trees.map((item) => {
+		this.listStore.storageData.trees.map((item) => {
 			let card = this.createEl(`
 				<a href="/plants/${item.category}/${item.slug}" class="product-card" alt="${item.common_name}" data-slug="${item.slug}">
 				    <div class="inner">
@@ -49,7 +48,7 @@ var GridViewPlants = {
 			this.cardsContainer.appendChild(card);
 		});
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -64,24 +63,34 @@ var GridViewPlants = {
                 </div>
                 <div class="row grid-view-inner">
                     <div class="left">
-                    	${/* sideMenuPlants */''}
+                    	${/* sideMenu */''}
                     </div>
                     <div class="right">
                         <div class="cards-container">
                         	${/* cards render here */''}
                         </div>
-                        ${/* paginationPlants */''}
+                        ${/* Pagination */''}
                     </div>
                 </div>
             </div>`
 		);
 
+		inst.listStore = options.listStore;
+
 		//build components
-		inst.sideMenuPlants = SideMenuPlants.init();
-		inst.gridView.querySelector('.left').appendChild(inst.sideMenuPlants.el);
+		inst.sideMenu = SideMenu.init({
+			changeCategories: options.changeCategories,
+			search: options.search,
+			clearSearch: options.clearSearch,
+			filterStore: options.filterStore,
+			categories: options.categories
+		});
+		inst.gridView.querySelector('.left').appendChild(inst.sideMenu.el);
 		inst.cardsContainer = inst.gridView.querySelector('.cards-container');
-		inst.paginationPlants = PaginationPlants.init();
-		inst.gridView.querySelector('.right').appendChild(inst.paginationPlants.el);
+
+		inst.pagination = Pagination.init(options);
+
+		inst.gridView.querySelector('.right').appendChild(inst.pagination.el);
 
 		inst.loader = Loader.init({
 			children: inst.gridView
@@ -91,7 +100,7 @@ var GridViewPlants = {
 		inst.initialize({});
 		inst.el = inst.loader.el;
 
-		plantListStore.addListener(inst.buildItems.bind(inst));
+		inst.listStore.addListener(inst.buildItems.bind(inst));
 
 		inst.buildItems();
 

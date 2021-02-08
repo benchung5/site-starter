@@ -1,50 +1,38 @@
 import Component from '../component';
-import { globals } from '../config';
-import plantFilterStore from '../storage/plantFilterStore';
-import plantListStore from '../storage/plantListStore';
 import { toggleClass } from '../lib/utils';
-import { setUrlParams } from '../lib/utils';
-import { searchTrees } from '../actions/plants';
+
 
 var MyComp = {
 	back: function() {
-		if(plantFilterStore.storageData.offset === 0 ) { 
+		if(this.filterStore.storageData.offset === 0 ) { 
 			return; 
 		}
-		let newOffset = plantFilterStore.storageData.offset - globals.ADMIN_ENTRIES_PER_PAGE;
-		this.update(newOffset);
+		let newOffset = this.filterStore.storageData.offset - this.entriesPerPage;
+		this.updateOffset(newOffset);
 	},
 	advance: function() {
-		if ((plantFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= plantListStore.storageData.count) { 
+		if ((this.filterStore.storageData.offset + this.entriesPerPage) >= this.listStore.storageData.count) { 
 			return; 
 		}
-		let newOffset = plantFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE;
-		this.update(newOffset);
-	},
-	update: function(newOffset) {
-		plantFilterStore.setData({ offset: newOffset });
-		setUrlParams('offset', newOffset);
-		//search trees
-		searchTrees(plantFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
-		});
+		let newOffset = this.filterStore.storageData.offset + this.entriesPerPage;
+		this.updateOffset(newOffset);
 	},
 	updateControls: function() {
 		//prev
-		if(plantFilterStore.storageData.offset === 0) {
+		if(this.filterStore.storageData.offset === 0) {
 			toggleClass(this.prev, 'disabled');
 		}
 		//next
-		const end = ((plantFilterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= plantListStore.storageData.count) ? true : false;
+		const end = ((this.filterStore.storageData.offset + this.entriesPerPage) >= this.listStore.storageData.count) ? true : false;
 		if(end) {
 			toggleClass(this.next, 'disabled');
 		}
 		//page
-		this.page.innerHTML = plantFilterStore.storageData.offset / globals.ADMIN_ENTRIES_PER_PAGE + 1;
+		this.page.innerHTML = this.filterStore.storageData.offset / this.entriesPerPage + 1;
 		//count
-		this.count.innerHTML = plantListStore.storageData.count;
+		this.count.innerHTML = this.listStore.storageData.count;
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -79,16 +67,13 @@ var MyComp = {
 		inst.page = inst.el.querySelector('#page');
 		inst.count = inst.el.querySelector('#count');
 
-		//when the offset gets changed by another component or by this one
-		plantFilterStore.addListener(inst.updateControls.bind(inst));
+		inst.filterStore = options.filterStore;
+		inst.entriesPerPage = options.entriesPerPage;
+		inst.listStore = options.listStore;
+		inst.updateOffset = options.updateOffset;
 
-		// // get offset from url
-		// const offset = getUrlParams('offset');
-		// if (offset) {
-		//   inst.updateOffset(parseInt(offset[0]));
-		// } else {
-		// 	inst.update();
-		// }
+		//when the offset gets changed by another component or by this one
+		inst.filterStore.addListener(inst.updateControls.bind(inst));
 
 		inst.updateControls();
 
