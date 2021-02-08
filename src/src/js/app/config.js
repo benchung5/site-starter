@@ -18,7 +18,7 @@ module.exports = {
              'CONTENT_TYPE': 'application/json',
            }
          },
-      ADMIN_ENTRIES_PER_PAGE: 3,
+      ADMIN_ENTRIES_PER_PAGE: 25,
       ADMIN_URL: 'admin_752'
     }
 }
