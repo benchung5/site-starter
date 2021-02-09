@@ -88,7 +88,11 @@ var GridViewPlants = {
 		inst.gridView.querySelector('.left').appendChild(inst.sideMenu.el);
 		inst.cardsContainer = inst.gridView.querySelector('.cards-container');
 
-		inst.pagination = Pagination.init(options);
+		inst.pagination = Pagination.init({
+			listStore: options.listStore,
+			filterStore: options.filterStore,
+			updateOffset : options.updateOffset,
+		});
 
 		inst.gridView.querySelector('.right').appendChild(inst.pagination.el);
 

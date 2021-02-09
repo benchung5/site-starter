@@ -1,14 +1,12 @@
 import Component from '../component';
 import SideMenuMobile from '../parts/sideMenuMobile';
 import GridViewPlants from './gridViewPlants';
-import appStateStore from '../storage/appStateStore';
 import plantTablesStore from '../storage/plantTablesStore';
 import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
 import ButtonShowMenu from '../parts/buttonShowMenu';
 import { updateFilterFromUrl } from '../actions/plants';
 import { searchTrees } from '../actions/plants';
-import { globals } from '../config';
 import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
 (function() {
@@ -43,7 +41,6 @@ import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 			});
 		},
 		clearSearch: function() {
-		    appStateStore.setData({ showMenu: 'close' });
 		    plantFilterStore.setData({ search: '' });
 		    searchTrees(plantFilterStore.storageData, (apiData) => {
 		    	plantListStore.setData(apiData);
@@ -88,7 +85,6 @@ import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 
       			const gridViewPlants = GridViewPlants.init({
       				filterStore: plantFilterStore,
-      				entriesPerPage: globals.ADMIN_ENTRIES_PER_PAGE,
       				listStore: plantListStore,
       				updateOffset: inst.updateOffset.bind(inst),
       				changeCategories: inst.changeCategories.bind(inst),

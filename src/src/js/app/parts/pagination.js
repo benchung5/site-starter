@@ -1,5 +1,6 @@
 import Component from '../component';
 import { toggleClass } from '../lib/utils';
+import { globals } from '../config';
 
 
 var MyComp = {
@@ -7,14 +8,14 @@ var MyComp = {
 		if(this.filterStore.storageData.offset === 0 ) { 
 			return; 
 		}
-		let newOffset = this.filterStore.storageData.offset - this.entriesPerPage;
+		let newOffset = this.filterStore.storageData.offset - globals.ADMIN_ENTRIES_PER_PAGE;
 		this.updateOffset(newOffset);
 	},
 	advance: function() {
-		if ((this.filterStore.storageData.offset + this.entriesPerPage) >= this.listStore.storageData.count) { 
+		if ((this.filterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= this.listStore.storageData.count) { 
 			return; 
 		}
-		let newOffset = this.filterStore.storageData.offset + this.entriesPerPage;
+		let newOffset = this.filterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE;
 		this.updateOffset(newOffset);
 	},
 	updateControls: function() {
@@ -23,14 +24,14 @@ var MyComp = {
 			toggleClass(this.prev, 'disabled');
 		}
 		//next
-		const end = ((this.filterStore.storageData.offset + this.entriesPerPage) >= this.listStore.storageData.count) ? true : false;
+		const end = ((this.filterStore.storageData.offset + globals.ADMIN_ENTRIES_PER_PAGE) >= this.listStore.storageData.count) ? true : false;
 		if(end) {
 			toggleClass(this.next, 'disabled');
 		}
 		//page
-		this.page.innerHTML = this.filterStore.storageData.offset / this.entriesPerPage + 1;
+		this.page.innerHTML = this.filterStore.storageData.offset / globals.ADMIN_ENTRIES_PER_PAGE + 1;
 		//count
-		this.count.innerHTML = this.listStore.storageData.count;
+		this.countEl.innerHTML = this.listStore.storageData.count;
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -65,10 +66,9 @@ var MyComp = {
 		inst.next = inst.el.querySelector('.paginate-next')
 		inst.next.firstElementChild.addEventListener('click', inst.advance.bind(inst), false);
 		inst.page = inst.el.querySelector('#page');
-		inst.count = inst.el.querySelector('#count');
+		inst.countEl = inst.el.querySelector('#count');
 
 		inst.filterStore = options.filterStore;
-		inst.entriesPerPage = options.entriesPerPage;
 		inst.listStore = options.listStore;
 		inst.updateOffset = options.updateOffset;
 

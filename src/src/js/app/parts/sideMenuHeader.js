@@ -1,5 +1,6 @@
 import Component from '../component';
 import Button from './button';
+import appStateStore from '../storage/appStateStore';
 // import appStateStore from '../storage/appStateStore';
 // import { searchTrees } from '../actions/plants';
 // import plantFilterStore from '../storage/plantFilterStore';
@@ -8,6 +9,7 @@ import Button from './button';
 
 var SideMenuHeader = {
 	onItemClick: function() {
+		appStateStore.setData({ showMenu: 'close' });
 		this.clearSearch();
 	},
 	init: function(options) {
