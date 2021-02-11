@@ -24,7 +24,7 @@ var Dashboard = {
             </div>`
 		});
 
-		inst.sidebar = Sidebar.init();
+		inst.sidebar = Sidebar.init({});
 
 		inst.build()
 

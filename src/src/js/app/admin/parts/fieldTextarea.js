@@ -119,7 +119,7 @@ var FieldTextarea = {
 		//call initialize on Component first 
 		inst.initialize({
 			el: 
-			`<div class="form-group">
+			`<div class="form-group" data-name="${options.name}">
 		       <label>${options.label}:</label>
 		       <button id="h">h3</button>
 		       <button id="p">p</button>
@@ -138,6 +138,7 @@ var FieldTextarea = {
 		     </div>`
 		});
 
+		//handle errors, just for on blur, not on form submit
 		let errorEl = inst.el.querySelector('.error');
 		inst.el.querySelector('textarea').addEventListener('blur', (e) => {
 			inst.input = inst.el.querySelector('textarea');

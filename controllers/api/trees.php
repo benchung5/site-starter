@@ -209,10 +209,10 @@ class Trees extends Controller
 			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id'],
 		];
 
-		$trees = $this->trees->get_all($opts);
-
-		//just to count the results without the offset and limit
+		//just to count the results *without the offset and limit
 		$count = $this->trees->get_all($opts, true);
+
+		$trees = $this->trees->get_all($opts);
 
 		$result = ['trees' => $trees, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 

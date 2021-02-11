@@ -20,7 +20,7 @@ import articleFilterStore from '../storage/articleFilterStore';
 import articleTablesStore from '../storage/articleTablesStore';
 import appStateStore from '../storage/appStateStore';
 import SignInPopup from './auth/signInPopup';
-import { updateFilterFromUrl } from '../actions/plants';
+
 
 (function() {
 	var Main = {
@@ -136,23 +136,20 @@ import { updateFilterFromUrl } from '../actions/plants';
 			articleFilterStore.init();
 			articleTablesStore.init();
 
-			//get the filter settings from the url
-			updateFilterFromUrl(() => {
-				//components to show
-				inst.signIn = SignIn.init();
-				inst.pageNotFound = PageNotFound.init();
-				inst.signedOut = SignedOut.init();
-				inst.dashboard = Dashboard.init();
-				inst.plantsList = PlantsList.init();
-				inst.plantAdd = PlantAdd.init();
-				inst.plantEdit = PlantEdit.init();
-				inst.articleList = ArticleList.init();
-				inst.articleAdd = ArticleAdd.init();
-				inst.articleEdit = ArticleEdit.init();
-				inst.signInPopup = SignInPopup.init();
+			//components to show
+			inst.signIn = SignIn.init();
+			inst.pageNotFound = PageNotFound.init();
+			inst.signedOut = SignedOut.init();
+			inst.dashboard = Dashboard.init();
+			inst.plantsList = PlantsList.init();
+			inst.plantAdd = PlantAdd.init();
+			inst.plantEdit = PlantEdit.init();
+			inst.articleList = ArticleList.init();
+			inst.articleAdd = ArticleAdd.init();
+			inst.articleEdit = ArticleEdit.init();
+			inst.signInPopup = SignInPopup.init();
 
-				Router.init(inst.update.bind(inst));
-			});
+			Router.init(inst.update.bind(inst));
 
 			return inst;
 		}

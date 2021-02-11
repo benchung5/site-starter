@@ -1,6 +1,5 @@
 import Component from '../component';
 import Router from '../router';
-import { resetFilter } from '../actions/plants';
 
 var Sidebar = {
 	linkList: [
@@ -26,20 +25,23 @@ var Sidebar = {
 			link.addEventListener('click', (e) => {
 				e.preventDefault();
 
-				//reset the filter settings first
-				resetFilter(() => {
-					Router.push(item.link);
-				});
+				Router.push(item.link);
 
+				if(this.onPageChange) {
+					this.onPageChange();
+				}
+				
 			}, false);
 			sidebar.appendChild(link);
 		});
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component)
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
+
+		inst.onPageChange = options.onPageChange;
 
 		//call initialize on Component first
 		inst.initialize({

@@ -177,7 +177,7 @@ class Articles extends Controller
 
 		$opts = [
 			'offset' => $data['offset'], 
-			'limit' => $data['limit'], 
+			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
 			'categories' => isset($data['categories']) ? $data['categories'] : null,
 			'tags' => isset($data['tags']) ? $data['tags'] : null,
@@ -185,10 +185,10 @@ class Articles extends Controller
 			'select' => ['a.id', 'a.slug', 'a.name', 'a.body']
 		];
 
-		$articles = $this->articles->get_all($opts);
-
-		//just to count the results without the offset and limit
+		//just to count the results *without the offset and limit
 		$count = $this->articles->get_all($opts, true);
+
+		$articles = $this->articles->get_all($opts);
 
 		$result = ['articles' => $articles, 'count' => $count, 'offset' => (int)$data['offset'], 'limit' => (int)$data['limit']];
 

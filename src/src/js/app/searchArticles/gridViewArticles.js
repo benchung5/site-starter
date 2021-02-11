@@ -1,8 +1,7 @@
 import Component from '../component';
 import Loader from '../parts/loader';
-import SideMenuArticles from './sideMenuArticles';
-import articleListStore from '../storage/articleListStore';
-import PaginationArticles from '../parts/paginationArticles';
+import SideMenu from '../parts/sideMenu';
+import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
 //config
 const env = process.env.NODE_ENV || "development";
@@ -12,7 +11,7 @@ var GridViewArticles = {
 	buildItems: function() {
 		this.cardsContainer.innerHTML = '';
 		let card = null;
-		if(articleListStore.storageData.articles.length == 0) {
+		if(this.listStore.storageData.articles.length == 0) {
 			card = this.createEl(`
 				<div class="article-row">
 				    <div class="inner">
@@ -22,7 +21,7 @@ var GridViewArticles = {
 			`);
 			this.cardsContainer.appendChild(card);
 		} else {
-			articleListStore.storageData.articles.map((item) => {
+			this.listStore.storageData.articles.map((item) => {
 				// remove html and trim
 				let body = item.body.replace(/<[^>]*>?/gm, '');
 				body = body.substring(0, 200) + '...';
@@ -70,11 +69,13 @@ var GridViewArticles = {
 		}
 		
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
+
+		inst.listStore = options.listStore;
 
 		inst.gridView = inst.createEl(
 			`<div>
@@ -85,24 +86,32 @@ var GridViewArticles = {
                 </div>
                 <div class="row grid-view-inner">
                     <div class="left">
-                    	${/* sideMenuArticles */''}
+                    	${/* sideMenu */''}
                     </div>
                     <div class="right">
                         <div class="articles-container">
                         	${/* cards render here */''}
                         </div>
-                        ${/* paginationArticles */''}
+                        ${/* pagination */''}
                     </div>
                 </div>
             </div>`
 		);
 
 		//build components
-		inst.sideMenuArticles = SideMenuArticles.init();
-		inst.gridView.querySelector('.left').appendChild(inst.sideMenuArticles.el);
+		inst.sideMenu = SideMenu.init({
+			onUpdate: options.onUpdate,
+			filterStore: options.filterStore,
+			categories: options.categories
+		});
+		inst.gridView.querySelector('.left').appendChild(inst.sideMenu.el);
 		inst.cardsContainer = inst.gridView.querySelector('.articles-container');
-		inst.paginationArticles = PaginationArticles.init();
-		inst.gridView.querySelector('.right').appendChild(inst.paginationArticles.el);
+		inst.pagination = Pagination.init({
+			listStore: options.listStore,
+			filterStore: options.filterStore,
+			onUpdate : options.onUpdate,
+		});
+		inst.gridView.querySelector('.right').appendChild(inst.pagination.el);
 
 		inst.loader = Loader.init({
 			children: inst.gridView
@@ -112,7 +121,9 @@ var GridViewArticles = {
 		inst.initialize({});
 		inst.el = inst.loader.el;
 
-		articleListStore.addListener(inst.buildItems.bind(inst));
+		inst.listStore.addListener(inst.buildItems.bind(inst));
+
+		inst.buildItems();
 
 		return inst;
 	}

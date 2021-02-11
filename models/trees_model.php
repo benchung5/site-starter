@@ -455,6 +455,7 @@ class Trees_model extends Model
 				$this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
 			}
 
+			//offset and limit
 			if (isset($opts['offset'])) {
 				$this->db->limit($opts['offset'], $opts['limit']);
 			}

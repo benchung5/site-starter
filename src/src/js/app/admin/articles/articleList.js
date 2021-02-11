@@ -1,10 +1,9 @@
 import Component from '../../component';
-import { getSingle, deleteArticle } from '../../actions/articles';
+import { getSingle, deleteArticle, resetFilter, searchArticles, updateFilterFromUrl } from '../../actions/articles';
 import Sidebar from '../sidebar';
-import SearchArticles from '../../parts/searchArticles';
-import PaginationArticles from '../../parts/paginationArticles';
+import Search from '../../parts/search';
+import Pagination from '../../parts/pagination';
 import articleListStore from '../../storage/articleListStore';
-import { searchArticles } from '../../actions/articles';
 import articleFilterStore from '../../storage/articleFilterStore';
 import { globals } from '../../config';
 import verifyAction from '../parts/verifyAction';
@@ -14,8 +13,8 @@ var ArticlesList = {
 		const mainWindow = this.el.querySelector('.main-window');
 		mainWindow.before(this.sidebar.el);
 		this.itemList = this.el.querySelector('.item-list');
-		this.itemList.before(this.searchArticles.el);
-		mainWindow.appendChild(this.paginationArticles.el);
+		this.itemList.before(this.search.el);
+		mainWindow.appendChild(this.pagination.el);
 	},
 	onDeleteArticleClick: function(e) {
 		e.preventDefault();
@@ -31,6 +30,16 @@ var ArticlesList = {
 				});
 			}
 		});
+	},
+	onUpdate: function() {
+		//search articles
+		searchArticles(articleFilterStore.storageData, (apiData) => {
+			articleListStore.setData(apiData);
+		});
+	},
+	onPageChange: function() {
+		//reset the filter settings first
+		resetFilter(() => {});
 	},
 	renderList: function() {
 		this.itemList.innerHTML = '';
@@ -68,15 +77,29 @@ var ArticlesList = {
             </div>`
 		});
 
-		inst.sidebar = Sidebar.init();
-		inst.searchArticles = SearchArticles.init({});
-		inst.paginationArticles = PaginationArticles.init();
+		inst.sidebar = Sidebar.init({
+			onPageChange: inst.onPageChange.bind(inst),
+		});
+		inst.search = Search.init({
+			filterStore: articleFilterStore,
+			onUpdate: inst.onUpdate.bind(inst)
+		});
+		inst.pagination = Pagination.init({
+			filterStore: articleFilterStore,
+			listStore: articleListStore,
+			onUpdate: inst.onUpdate.bind(inst),
+		});
 		inst.verifyAction = verifyAction.init({
 			message: 'delete item?'
 		});
 
 		inst.build();
 
+		//get the filter settings from the url
+		updateFilterFromUrl(() => {
+			inst.renderList();
+		});
+		
 		//listen for updated articlelistStore
 		articleListStore.addListener(inst.renderList.bind(inst));
 

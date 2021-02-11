@@ -1,9 +1,14 @@
 import Component from '../component';
-import { toggleClass } from '../lib/utils';
+import { toggleClass, setUrlParams } from '../lib/utils';
 import { globals } from '../config';
 
 
 var MyComp = {
+	updateOffset: function(newOffset) {
+		this.filterStore.setData({ offset: newOffset });
+		setUrlParams('offset', newOffset);
+		this.onUpdate();
+	},
 	back: function() {
 		if(this.filterStore.storageData.offset === 0 ) { 
 			return; 
@@ -70,10 +75,11 @@ var MyComp = {
 
 		inst.filterStore = options.filterStore;
 		inst.listStore = options.listStore;
-		inst.updateOffset = options.updateOffset;
+		inst.onUpdate = options.onUpdate;
 
 		//when the offset gets changed by another component or by this one
 		inst.filterStore.addListener(inst.updateControls.bind(inst));
+		inst.listStore.addListener(inst.updateControls.bind(inst));
 
 		inst.updateControls();
 

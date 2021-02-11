@@ -9,7 +9,7 @@ const plantFields = [
 	{name: 'subspecies', label: 'subspecies', type: 'input', error: null, condition: null},
 	{name: 'variety', label: 'variety', type: 'input', error: null, condition: null},
 	{name: 'cultivar', label: 'cultivar', type: 'input', error: null, condition: null},
-	{name: 'trees_category_id', label: 'category', type: 'dropdownSelect', error: null, condition: null},
+	{name: 'trees_category_id', label: 'category', type: 'dropdownSelect', error: 'Please enter a category', condition: 'required'},
 	{name: 'zone_id', label: 'zone', type: 'dropdownSelect', error: null, condition: null},
 	{name: 'origins', label: 'ecoregions', type: 'multiSelect', error: null, condition: null},
 	{name: 'eco_benefits', label: 'eco benefits', type: 'multiSelect', error: null, condition: null},
@@ -37,7 +37,7 @@ const plantFields = [
     {name: 'insects', label: 'insects', type: 'multiSelect', error: null, condition: null},
     {name: 'diseases', label: 'diseases', type: 'multiSelect', error: null, condition: null},
     {name: 'body', label: 'body', type: 'textarea', error: null, condition: null},
-    {name: 'mode_id', label: 'mode', type: 'dropdownSelect', error: null, condition: null},
+    {name: 'mode_id', label: 'mode', type: 'dropdownSelect', error: 'Please enter a mode', condition: 'required'},
 ];
 
 export default plantFields;

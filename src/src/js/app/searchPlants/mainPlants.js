@@ -4,47 +4,17 @@ import GridViewPlants from './gridViewPlants';
 import plantTablesStore from '../storage/plantTablesStore';
 import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
+import appStateStore from '../storage/appStateStore';
 import ButtonShowMenu from '../parts/buttonShowMenu';
-import { updateFilterFromUrl } from '../actions/plants';
-import { searchTrees } from '../actions/plants';
-import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
+import { searchTrees, updateFilterFromUrl } from '../actions/plants';
 
 (function() {
 	var Main = {
-		updateOffset: function(newOffset) {
-			plantFilterStore.setData({ offset: newOffset });
-			setUrlParams('offset', newOffset);
+		onUpdate: function() {
 			//search trees
 			searchTrees(plantFilterStore.storageData, (apiData) => {
 				plantListStore.setData(apiData);
 			});
-		},
-		changeCategories: function(modifiedData) {
-			//update the hash url with the selected categories
-			const categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
-			setUrlParams('categories', categorySlugs);
-			//when the fliter changes, reset the page back to 0
-			plantFilterStore.setData({ categoriesTrees: modifiedData, offset: 0 });
-			setUrlParams('offset', 0);
-			searchTrees(plantFilterStore.storageData, (apiData) => {
-				plantListStore.setData(apiData);
-			});
-		},
-		search: function(search) {
-			//update the trees filter then search using the updated trees filter
-			//always reset the offset to 0 when searching so you view the first page
-			plantFilterStore.setData({ search: search, offset: 0 });
-			setUrlParams('offset', 0);
-			setUrlParams('search', search);
-			searchTrees(plantFilterStore.storageData, (apiData) => {
-				plantListStore.setData(apiData);
-			});
-		},
-		clearSearch: function() {
-		    plantFilterStore.setData({ search: '' });
-		    searchTrees(plantFilterStore.storageData, (apiData) => {
-		    	plantListStore.setData(apiData);
-		    });
 		},
 		init: function() {
 			var proto = Object.assign({}, this, Component);
@@ -74,23 +44,18 @@ import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
       		        </div>`
       			});
 
-      			const sideMenu = SideMenuMobile.init({
-      				changeCategories: inst.changeCategories.bind(inst),
-      				search: inst.search.bind(inst),
-      				clearSearch: inst.clearSearch.bind(inst),
+      			const sideMenuMobile = SideMenuMobile.init({
+      				onUpdate: inst.onUpdate.bind(inst),
       				filterStore: plantFilterStore,
       				categories: plantTablesStore.storageData.trees_category_id
       			});
-      			inst.el.appendChild(sideMenu.el);
+      			inst.el.appendChild(sideMenuMobile.el);
 
       			const gridViewPlants = GridViewPlants.init({
       				filterStore: plantFilterStore,
       				listStore: plantListStore,
-      				updateOffset: inst.updateOffset.bind(inst),
-      				changeCategories: inst.changeCategories.bind(inst),
+      				onUpdate: inst.onUpdate.bind(inst),
       				categories: plantTablesStore.storageData.trees_category_id,
-      				search: inst.search.bind(inst),
-      				clearSearch: inst.clearSearch.bind(inst),
       			});
       			inst.el.appendChild(gridViewPlants.el);
 

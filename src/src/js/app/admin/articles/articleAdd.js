@@ -9,17 +9,13 @@ import { fetchArticleTables, addArticle } from '../../actions/articles';
 import articleTablesStore from '../../storage/articleTablesStore';
 import appStateStore from '../../storage/appStateStore';
 import articleFields from './articleFields';
+import { checkFieldErrors } from '../../lib/formUtils';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
 
 var ArticleAdd = {
 	submitForm: function(e) {
-		// e.preventDefault();
-		// let formData = new FormData();
-		// formData.append('mykey', 'myvalue');
-
-
 		// prevent form from refreshing the page
 		e.preventDefault();
 		let formData = new FormData(e.target);
@@ -31,16 +27,11 @@ var ArticleAdd = {
 			formData.append('image'+'_'+index+'_info', item.tag_id + '|||' + item.description + '|||' + item.caption);
 		});
 
-		// //delete any empty fields in formData
-		// for (let pair of formData.entries()) {
-		// 	if (pair[1] == "") {
-		// 		formData.delete(pair[0]);
-		// 	}
-		// }
-
-		//delete any empty fields in formData
+		
 		Array.from(formData).map((item) => {
+			//delete any empty fields in formData
 			if (item[1] == '') {
+				//console.log('emty field:', item);
 				formData.delete(item[0]);
 			}
 		});
@@ -48,11 +39,20 @@ var ArticleAdd = {
 		// //use this to log out formdata values
 		// console.log(Array.from(formData));
 
-		//form no longer touched
-		appStateStore.setData({ formTouched: false })
+		//handle field errors
+		let hasErrors = checkFieldErrors(e.target, articleFields);
 
-		// call action to submit edited
-		addArticle(formData, this.renderUpdated.bind(this));
+		if(hasErrors) {
+			this.submissionMessage.innerHTML = `<span>please fill in all required fields</span>`;
+		} else {
+			//form no longer touched
+			appStateStore.setData({ formTouched: false })
+
+			// call action to submit edited
+			addArticle(formData, this.renderUpdated.bind(this));
+
+			this.clearMessages();
+		}
 	},
 	clearMessages: function() {
 	  this.submissionMessage.innerHTML = '';
@@ -152,7 +152,7 @@ var ArticleAdd = {
 		});
 
 		//build
-		inst.sidebar = Sidebar.init();
+		inst.sidebar = Sidebar.init({});
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');

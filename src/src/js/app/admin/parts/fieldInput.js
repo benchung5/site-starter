@@ -10,13 +10,14 @@ var FieldInput = {
 		//call initialize on Component first 
 		inst.initialize({
 			el: 
-			`<div class="form-group ">
+			`<div class="form-group" data-name="${options.name}">
                 <label>${options.label}:</label>
                 <input class="form-control" type="text" name="${options.name}" value="${options.value || ''}">
                 <div class="error"></div>
              </div>`
 		});
 
+		//handle errors, just for on blur, not on form submit
 		let errorEl = inst.el.querySelector('.error');
 		inst.el.querySelector('input').addEventListener('blur', (e) => {
 			inst.input = inst.el.querySelector('input');

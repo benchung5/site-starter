@@ -11,6 +11,7 @@ import articleTablesStore from '../../storage/articleTablesStore';
 import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import articleFields from './articleFields';
+import { checkFieldErrors } from '../../lib/formUtils';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -31,13 +32,6 @@ var ArticleEdit = {
 		//append the current article id
 		formData.append('article_id', this.articleId);
 
-		// //delete any empty fields in formData
-		// for (let pair of formData.entries()) {
-		// 	if (pair[1] == "") {
-		// 		formData.delete(pair[0]);
-		// 	}
-		// }
-
 		//delete any empty fields in formData
 		Array.from(formData).map((item) => {
 			if (item[1] == '') {
@@ -45,11 +39,20 @@ var ArticleEdit = {
 			}
 		});
 
-		// call action to submit edited
-		updateArticle(formData, this.renderUpdated.bind(this));
+		let hasErrors = checkFieldErrors(e.target, articleFields);
 
-		//form no longer touched
-		appStateStore.setData({ formTouched: false })
+		if(hasErrors) {
+			this.submissionMessage.innerHTML = `<span>please fill in all required fields</span>`;
+		} else {
+			// call action to submit edited
+			updateArticle(formData, this.renderUpdated.bind(this));
+
+			//form no longer touched
+			appStateStore.setData({ formTouched: false });
+
+			this.clearMessages();
+		}
+
 	},
 	clearMessages: function() {
 	  this.submissionMessage.innerHTML = '';
@@ -161,7 +164,7 @@ var ArticleEdit = {
 		});
 
 		//build
-		inst.sidebar = Sidebar.init();
+		inst.sidebar = Sidebar.init({});
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');

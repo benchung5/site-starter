@@ -1,16 +1,21 @@
 import Component from '../component';
 import { formatSearchString } from '../lib/stringUtils';
+import { setUrlParams } from '../lib/utils';
 // import { searchTrees } from '../actions/plants';
 // import options.filterStore from '../storage/options.filterStore';
-// import { setUrlParams } from '../lib/utils';
 // import plantListStore from '../storage/plantListStore';
 
 var SearchTrees = {
-	isClearSearch: function() {
-		if (!this.filterStore.storageData.search) {
-			//clear search
-			this.input.value = '';
-		}
+	updateSearchInput: function() {
+		this.input.value = this.filterStore.storageData.search;
+	},
+	search: function(search) {
+		//update the trees filter then search using the updated trees filter
+		//always reset the offset to 0 when searching so you view the first page
+		this.filterStore.setData({ search: search, offset: 0 });
+		setUrlParams('offset', 0);
+		setUrlParams('search', search);
+		this.onUpdate();
 	},
 	submitForm: function(e) {
 		e.preventDefault();
@@ -28,7 +33,7 @@ var SearchTrees = {
 		proto.constructor = inst;
 
 		inst.filterStore = options.filterStore;
-		inst.search = options.search;
+		inst.onUpdate = options.onUpdate;
 
 		//call initialize on Component first
 		inst.initialize({
@@ -52,7 +57,7 @@ var SearchTrees = {
 			inst.input.before(searchButton);
 		}
 
-		options.filterStore.addListener(inst.isClearSearch.bind(inst));
+		options.filterStore.addListener(inst.updateSearchInput.bind(inst));
 
 		return inst;
 	}

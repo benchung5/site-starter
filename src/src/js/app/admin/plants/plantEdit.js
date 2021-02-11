@@ -11,6 +11,7 @@ import plantTablesStore from '../../storage/plantTablesStore';
 import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import plantFields from './plantFields';
+import { checkFieldErrors } from '../../lib/formUtils';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -46,11 +47,20 @@ var PlantEdit = {
 			}
 		});
 
-		// call action to submit edited
-		updatePlant(formData, this.renderUpdated.bind(this));
+		//handle field errors
+		let hasErrors = checkFieldErrors(e.target, plantFields);
 
-		//form no longer touched
-		appStateStore.setData({ formTouched: false })
+		if(hasErrors) {
+			this.submissionMessage.innerHTML = `<span>please fill in all required fields</span>`;
+		} else {
+			// call action to submit edited
+			updatePlant(formData, this.renderUpdated.bind(this));
+
+			//form no longer touched
+			appStateStore.setData({ formTouched: false })
+
+			this.clearMessages();
+		}
 	},
 	clearMessages: function() {
 	  this.submissionMessage.innerHTML = '';
@@ -162,7 +172,7 @@ var PlantEdit = {
 		});
 
 		//build
-		inst.sidebar = Sidebar.init();
+		inst.sidebar = Sidebar.init({});
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');

@@ -16,11 +16,9 @@ var SideMenu = {
 		});
 
 		inst.sideMenuContent = SideMenuContent.init({
-			changeCategories: options.changeCategories,
-			search: options.search,
-			clearSearch: options.clearSearch,
 			filterStore: options.filterStore,
-			categories: options.categories
+			categories: options.categories,
+			onUpdate: options.onUpdate,
 		});
 		inst.el.appendChild(inst.sideMenuContent.el);
 

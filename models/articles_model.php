@@ -93,6 +93,19 @@ class Articles_model extends Model
 			}, $opts);
 		}
 
+		//categories
+		if (isset($opts['categories'])) {
+			if (count($opts['categories']) > 0) {
+				$this->db
+					->innerJoin('article_categories at', 'at.article_id', 'a.id')
+					->innerJoin('categories t', 't.id', 'at.category_id')
+					->in('t.id', $opts['categories']);
+			} else {
+				// force no results since category is queried but no category is selected
+				return [];
+			}
+		}
+
 
 		if ($isCount) {
 			 $this->db->select('DISTINCT a.id');
@@ -101,26 +114,17 @@ class Articles_model extends Model
 
 			return count($result);
 		} else {
+
+			//select
 			if (isset($opts['select'])) {
 				$this->db->select(implode(',', $opts['select']));
 			} else {
 				$this->db->select('a.id, a.slug, a.name');
 			}
 
+			//offset & limit
 			if (isset($opts['offset'])) {
 				$this->db->limit($opts['offset'], $opts['limit']);
-			}
-
-			if (isset($opts['categories'])) {
-				if (count($opts['categories']) > 0) {
-					$this->db
-						->innerJoin('article_categories at', 'at.article_id', 'a.id')
-						->innerJoin('categories t', 't.id', 'at.category_id')
-						->in('t.id', $opts['categories']);
-				} else {
-					// force no results since category is queried but no category is selected
-					return [];
-				}
 			}
 
 			//include images and categories

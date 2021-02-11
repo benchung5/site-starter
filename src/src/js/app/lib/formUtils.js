@@ -81,3 +81,23 @@ export function formatOutFormFields(formProps, multiselectFields) {
 
     return formpropsClone;
 }
+
+export function checkFieldErrors(form, fieldsData) {
+    let hasErrors = false;
+    const fields = Array.from(form.querySelectorAll('.form-group'));
+    fields.map((fieldEl) => {
+      fieldsData.map((field) => {
+        if(fieldEl.dataset.name == field.name) {
+          if(field.condition == 'required') {
+            if(!fieldEl.querySelector('.form-control').value) {
+              fieldEl.querySelector('.error').innerHTML = field.error;
+              hasErrors = true;
+            } else {
+              fieldEl.querySelector('.error').innerHTML = '';
+            }
+          }
+        }
+      });
+    });
+    return hasErrors;
+}

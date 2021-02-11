@@ -1,10 +1,9 @@
 import Component from '../../component';
-import { getSingle, deletePlant } from '../../actions/plants';
+import { getSingle, deletePlant, searchTrees, resetFilter, updateFilterFromUrl } from '../../actions/plants';
 import Sidebar from '../sidebar';
 import Search from '../../parts/search';
 import Pagination from '../../parts/pagination';
 import plantListStore from '../../storage/plantListStore';
-import { searchTrees } from '../../actions/plants';
 import plantFilterStore from '../../storage/plantFilterStore';
 import { globals } from '../../config';
 import verifyAction from '../parts/verifyAction';
@@ -33,13 +32,15 @@ var PlantsList = {
 			}
 		});
 	},
-	updateOffset: function(newOffset) {
-		plantFilterStore.setData({ offset: newOffset });
-		setUrlParams('offset', newOffset);
+	onUpdate() {
 		//search trees
 		searchTrees(plantFilterStore.storageData, (apiData) => {
 			plantListStore.setData(apiData);
 		});
+	},
+	onPageChange() {
+		//reset the filter settings first
+		resetFilter(() => {});
 	},
 	renderList: function() {
 		this.itemList.innerHTML = '';
@@ -55,16 +56,6 @@ var PlantsList = {
 				el.querySelector('#delete').addEventListener('click', this.onDeleteTreeClick.bind(this), false);
 
 			    this.itemList.appendChild(el);
-		});
-	},
-	search: function(search) {
-		//update the trees filter then search using the updated trees filter
-		//always reset the offset to 0 when searching so you view the first page
-		plantFilterStore.setData({ search: search, offset: 0 });
-		setUrlParams('offset', 0);
-		setUrlParams('search', search);
-		searchTrees(plantFilterStore.storageData, (apiData) => {
-			plantListStore.setData(apiData);
 		});
 	},
 	init: function() {
@@ -87,16 +78,17 @@ var PlantsList = {
             </div>`
 		});
 
-		inst.sidebar = Sidebar.init();
+		inst.sidebar = Sidebar.init({
+			onPageChange: inst.onPageChange.bind(inst),
+		});
 		inst.search = Search.init({
 			filterStore: plantFilterStore,
-			search: inst.search.bind(inst)
+			onUpdate: inst.onUpdate.bind(inst)
 		});
 		inst.pagination = Pagination.init({
 			filterStore: plantFilterStore,
-			entriesPerPage: globals.ADMIN_ENTRIES_PER_PAGE,
 			listStore: plantListStore,
-			updateOffset: inst.updateOffset.bind(inst),
+			onUpdate: inst.onUpdate.bind(inst),
 		});
 		inst.verifyAction = verifyAction.init({
 			message: 'delete item?'
@@ -106,7 +98,11 @@ var PlantsList = {
 		plantListStore.addListener(inst.renderList.bind(inst));
 
 		inst.build();
-		inst.renderList();
+
+		//get the filter settings from the url
+		updateFilterFromUrl(() => {
+			inst.renderList();
+		});
 
 		return inst;
 	}

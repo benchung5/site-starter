@@ -1,21 +1,26 @@
 import Component from '../component';
 import Dropdown from './dropdown';
 import ButtonList from './buttonList';
+import { setUrlParams, flattenActiveObjArray } from '../lib/utils';
 // import tablesStore from '../storage/tablesStore';
 // import plantFilterStore from '../storage/plantFilterStore';
 // import plantListStore from '../storage/plantListStore';
 
 var PlantFilter = {
-	onUpdateCategories: function(modifiedData) {
-		this.changeCategories(modifiedData);
+	changeCategories: function(modifiedData) {
+		//update the hash url with the selected categories
+		const categorySlugs = flattenActiveObjArray(modifiedData, 'slug');
+		setUrlParams('categories', categorySlugs);
+		//when the fliter changes, reset the page back to 0
+		this.filterStore.setData({ categoriesTrees: modifiedData, offset: 0 });
+		setUrlParams('offset', 0);
+		this.onUpdate();
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
-
-		// inst.filterStore = options.filterStore;
 
 		//call initialize on Component first
 		inst.initialize({
@@ -24,7 +29,8 @@ var PlantFilter = {
 		});
 
 		inst.buttonHeight = options.buttonHeight;
-		inst.changeCategories = options.changeCategories;
+		inst.onUpdate = options.onUpdate;
+		inst.filterStore = options.filterStore;
 
 		inst.buttonList = ButtonList.init({
 			wrapperClass: 'single-col',
@@ -33,7 +39,7 @@ var PlantFilter = {
 			buttonHeight: options.buttonHeight,
 			//buttonData: options.tablesStore.storageData.trees_category_id,
 			buttonData: options.categories,
-			updateData: inst.onUpdateCategories.bind(inst),
+			updateData: inst.changeCategories.bind(inst),
 			allActive: true
 		});
 

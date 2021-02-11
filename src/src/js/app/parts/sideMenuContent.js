@@ -26,21 +26,24 @@ var SideMenuContent = {
 		const search = Search.init({
 			placeholder: 'Search Tree Name',
 			hasButton: true,
-			search: options.search,
-			filterStore: options.filterStore
+			onUpdate: options.onUpdate,
+			filterStore: options.filterStore,
 		});
 		const sideMenuHeader = SideMenuHeader.init({
 			isClose: true,
 			children: search.el,
-			clearSearch: options.clearSearch,
+			onUpdate: options.onUpdate,
+			filterStore: options.filterStore,
+			onUpdate: options.onUpdate,
 		});
 		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 
 		//filter
 		const filter = Filter.init({
 			buttonHeight: 40,
-			changeCategories: options.changeCategories,
-			categories: options.categories
+			categories: options.categories,
+			onUpdate: options.onUpdate,
+			filterStore: options.filterStore,
 		});
 		const filterEl = inst.el.querySelector('#filter');
 		filterEl.appendChild(filter.el);

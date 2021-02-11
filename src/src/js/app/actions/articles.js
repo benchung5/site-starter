@@ -1,5 +1,9 @@
 import xhr from '../xhr';
 import appStateStore from '../storage/appStateStore';
+import { getUrlParams } from '../lib/utils';
+import articleFilterStore from '../storage/articleFilterStore';
+import articleTablesStore from '../storage/articleTablesStore';
+import articleListStore from '../storage/articleListStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -144,6 +148,57 @@ export function deleteArticle(article, callback) {
         body: JSON.stringify(article)
     }, (apiData) => {
         callback(apiData);
+    });
+}
+
+export function updateFilterFromUrl(callback) {
+    const selectedCategories = getUrlParams('categories');
+    const search = getUrlParams('search');
+    const offset = getUrlParams('offset');
+
+    fetchArticleTables((apiData) => {
+        articleTablesStore.setData(apiData);
+
+        let modifiedCategories = articleTablesStore.storageData.categories.map((item, index) => {
+            // if url contains selected categories, just select those
+            let selectedCategories = getUrlParams('categories');
+            let isActive = true;
+            if (selectedCategories) {
+                isActive = false;
+                if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
+                    isActive = true;
+                }
+            }
+            return Object.assign(item, { active: isActive });
+        });
+
+        articleFilterStore.setData({ 
+            categories: modifiedCategories, 
+            search: search[0] || '',
+            offset: parseInt(offset[0] || 0)
+        });
+
+        //search
+        searchArticles(articleFilterStore.storageData, (apiData) => {
+            articleListStore.setData(apiData);
+
+            callback();
+        });
+    });
+}
+
+export function resetFilter(callback) {
+    articleFilterStore.setData({ 
+        categoriesTrees: [], 
+        search: '',
+        offset: 0
+    });
+
+    //search
+    searchArticles(articleFilterStore.storageData, (apiData) => {
+        articleListStore.setData(apiData);
+
+        callback();
     });
 }
 
