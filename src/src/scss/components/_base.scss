@@ -1420,6 +1420,103 @@ social share / social
 .instagram {
   background-image: url(../img/icons/social-instagram.svg);
 }
+.linkedin {
+  background-image: url(../img/icons/social-linkedin.svg);
+  background-size: 14px 14px;
+}
+.yelp {
+  background-image: url(../img/icons/social-yelp.svg);
+  background-size: 17px 17px;
+}
+
+.share-icons-button {
+  position: absolute;
+  right: 0;
+  display: block;
+  width: 35px;
+  height: 35px;
+  background-image: url(../img/icons/share.svg);
+  background-size: 17px 17px;
+  background-color: $pink;
+  @extend %circle-icon;
+}
+
+.socials-share-popup {
+  padding: 2px 5px;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: -4px;
+  right: -7px;
+  border-radius: 25px;
+  box-shadow: $light-shadow;
+  background: #fff;
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+  &.close {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .SocialMediaShareButton {
+    margin-right: 1em;
+  }
+  .social-share-close {
+    @extend %close-button;
+    margin-right: 0;
+  }
+}
+
+
+.social, .SocialMediaShareButton {
+  width: 35px;
+  height: 35px;
+  @extend %circle-icon;
+  cursor: pointer;
+}
+.facebook, .SocialMediaShareButton--facebook {
+  background-image: url(../img/icons/social-facebook.svg);
+  background-color: #3B5998;
+  background-size: 8px 15px;
+}
+.twitter, .SocialMediaShareButton--twitter {
+  background-image: url(../img/icons/social-twitter.svg);
+  background-color: #1DA1F2;
+  background-size: 15px 15px;
+}
+.linkedin {
+  background-color: #007ab9;
+}
+.yelp {
+  background-color: #c1272d;
+}
+.pinterest, .SocialMediaShareButton--pinterest {
+  background-image: url(../img/icons/social-pinterest.svg);
+  background-color: #BD081C;
+  background-size: 16px 21px;
+}
+.SocialMediaShareButton--email{
+  background-image: url(../img/icons/social-url.svg);
+  background-color: #80C342;
+  background-size: 18px 18px;
+}
+.instagram {
+  background-image: url(../img/icons/social-instagram.svg);
+  background-color: #E1306C;
+  background-size: 15px 15px;
+}
+//reverse french and english so it show's the opposite one to the current state
+.social.fr {
+  background-image: url(../img/icons/language-english.svg);
+  background-size: 35px 35px;
+}
+.social.en {
+  background-image: url(../img/icons/language-french.svg);
+  background-size: 35px 35px;
+}
 
 /* ==========================================================================
 gallery
@@ -3000,92 +3097,7 @@ art piece
   @extend %circle-icon
 }
 
-/* ==========================================================================
-social share / social
-========================================================================== */
 
-.share-icons-button {
-  position: absolute;
-  right: 0;
-  display: block;
-  width: 35px;
-  height: 35px;
-  background-image: url(../img/icons/share.svg);
-  background-size: 17px 17px;
-  background-color: $pink;
-  @extend %circle-icon;
-}
-
-.socials-share-popup {
-  padding: 2px 5px;
-  opacity: 0;
-  visibility: hidden;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: -4px;
-  right: -7px;
-  border-radius: 25px;
-  box-shadow: $light-shadow;
-  background: #fff;
-  &.open {
-    opacity: 1;
-    visibility: visible;
-  }
-  &.close {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .SocialMediaShareButton {
-    margin-right: 1em;
-  }
-  .social-share-close {
-    @extend %close-button;
-    margin-right: 0;
-  }
-}
-
-
-.social, .SocialMediaShareButton {
-  width: 35px;
-  height: 35px;
-  @extend %circle-icon;
-  cursor: pointer;
-}
-.facebook, .SocialMediaShareButton--facebook {
-  background-image: url(../img/icons/social-facebook.svg);
-  background-color: #3B5998;
-  background-size: 8px 15px;
-}
-.twitter, .SocialMediaShareButton--twitter {
-  background-image: url(../img/icons/social-twitter.svg);
-  background-color: #1DA1F2;
-  background-size: 15px 15px;
-}
-.pinterest, .SocialMediaShareButton--pinterest {
-  background-image: url(../img/icons/social-pinterest.svg);
-  background-color: #BD081C;
-  background-size: 16px 21px;
-}
-.SocialMediaShareButton--email{
-  background-image: url(../img/icons/social-url.svg);
-  background-color: #80C342;
-  background-size: 18px 18px;
-}
-.instagram {
-  background-image: url(../img/icons/social-instagram.svg);
-  background-color: #E1306C;
-  background-size: 15px 15px;
-}
-//reverse french and english so it show's the opposite one to the current state
-.social.fr {
-  background-image: url(../img/icons/language-english.svg);
-  background-size: 35px 35px;
-}
-.social.en {
-  background-image: url(../img/icons/language-french.svg);
-  background-size: 35px 35px;
-}
 
 /* ==========================================================================
 fooslider

@@ -29,6 +29,8 @@
 						    <a href="https://twitter.com/niagaratrees" target="_blank" class="social twitter"></a>
 						    <a href="https://www.facebook.com/niagaratreeandgarden" target="_blank" class="social facebook"></a>
 						    <a href="https://www.instagram.com/niagaratreeandgarden/" target="_blank" class="social instagram"></a>
+						    <a href="https://linkedin.com/company/nature-with-us" target="_blank" class="social linkedin"></a>
+						    <a href="https://www.yelp.ca/biz/nature-with-us-st-catharines" target="_blank" class="social yelp"></a>
 						</div>
 						<div class="spacer-med"></div>
 						Send us an email
