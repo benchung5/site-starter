@@ -30,6 +30,7 @@
 						    <a href="https://www.facebook.com/niagaratreeandgarden" target="_blank" class="social facebook"></a>
 						    <a href="https://www.instagram.com/niagaratreeandgarden/" target="_blank" class="social instagram"></a>
 						    <a href="https://linkedin.com/company/nature-with-us" target="_blank" class="social linkedin"></a>
+						    <a href="https://www.pinterest.ca/naturewithus" target="_blank" class="social pinterest"></a>
 						    <a href="https://www.yelp.ca/biz/nature-with-us-st-catharines" target="_blank" class="social yelp"></a>
 						</div>
 						<div class="spacer-med"></div>
@@ -42,6 +43,9 @@
 								</div>
 								<div class="contact-input">
 									<input  class="contact-input" type="text" name="email" maxlength="80" size="30" placeholder="email">
+								</div>
+								<div class="phone-input">
+									<input  class="phone-input" type="text" name="telephone" maxlength="80" size="30" placeholder="phone">
 								</div>
 							</div>
 							<div class="contact-input">

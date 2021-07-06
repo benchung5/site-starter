@@ -14,15 +14,15 @@ use Lib\Utils;
 		            <div class="left">
 		                <h1>About Us</h1>
 		                <p>
-		                	We are a small Niagara owned and operated tree and landscape service, with a track record of rigorous work ethic and satisfied clients.
+		                	We are a small Niagara owned and operated tree and shrub service, with a track record of rigorous work ethic and satisfied clients.
 		                </p>
 
 		                <p>
-		                	We are fully insured with experience in arboriculture and landscaping. Our services include fine pruning, tree removal, hedge trimming, planting, and softscapes.
+		                	We are fully insured, with experience in arboriculture and sustainable landscapes. Our services include fine pruning, tree removal, hedge trimming, planting, and shrub maintenance.
 		                </p>
 
 		                <p>
-		                	We are passionate about the Niagara Region's unique ecosystem and the important role trees and landscape play in the urban environment. Nature With Us is a <span style="color: #e0e003;">specialty tree service educated in both horticulture and arboriculture, addressing the needs of trees, landscapes, and the environment.</span>
+		                	We are passionate about the Niagara Region's unique ecosystem and the important role trees and landscape play in the urban environment. Nature With Us is a <span style="color: #e0e003;">specialty tree service educated in both horticulture and arboriculture, addressing the needs of both trees, and the environment.</span>
 		                </p>
 
 		                <p>

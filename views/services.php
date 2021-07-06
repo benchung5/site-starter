@@ -30,9 +30,9 @@ use Lib\Utils;
 							Whether regular maintenance is needed, or hedges have become too high to reach, we're here to help. Straight cuts and aesthetics are emphasized and we're also mindful of the long-term health of your hedge structure. We address the needs of each species, their current state, condition, and future challenges such as the loss of inner foliage resulting in "leggy" growth.
 						</p>
 
-						<h2>Garden Installation</h2>
+						<h2>Shrub Maintenance</h2>
 						<p>
-							We install new garden beds, providing experienced assistance with design and plant selection. Informal retaining wall or border construction is also offered for structure or design asthetics. This is often followed by seasonal maintenance such as edging, mulching, planting, deadheading, weeding, and fall cleanup as needed.
+							We provide rutine pruning and removal of bushes and shrubs, including ornamentals and fruit trees. This is often accompanied by seasonal maintenance such as edging, mulching, planting, deadwooding, and fall cleanup as needed.
 						</p>
 
 						<h2>Consulting</h2>
@@ -40,7 +40,7 @@ use Lib\Utils;
 						<ul>
 							<li>Tree and woody shrub identification 
 							<li>Planting and design recommendations
-							<li>Disease diagnosis and control
+							<li>Disease diagnosis and advice
 							<li>Ecological and sustainable landscaping practices
 						</ul>
 					</div>
@@ -58,7 +58,7 @@ use Lib\Utils;
 	                <div>
 	                    <h3>Eco Friendly</h3>
 	                    <p>We provide sustainable, eco-friendly methods;
-						   avoiding the use of harsh chemicals, and using organic materials where possible. Electric saws are used to mitigate carbon footprint while working. Plant material is sourced from local suppliers to reduce transportation emissions. All tree brush and yard waste is composted/Recycled back into the environment.
+						   avoiding the use of harsh chemicals, and using organic materials where possible. Electric saws are used where possible to mitigate carbon footprint and noise pollution while working. Plant material is sourced from local suppliers to reduce transportation emissions. All tree brush and yard waste is composted/Recycled back into the environment.
 						 </p>
 						 <p>
 						   We recommend and promote the use of native trees and plants to support local ecosystems where possible. We believe a few small and seemingly effortless decisions can make lasting changes on the environment.
