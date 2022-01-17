@@ -13,6 +13,7 @@ import windowSize from './windowSize';
 import mobileMenu from './mobileMenu';
 import fooSlider from './fooSlider';
 import homePage from './homePage';
+import treeRemovalCalculator from './treeRemovalCalculator';	
 
 
 //config
@@ -55,6 +56,11 @@ load foundation plugins - keep this
 	//home page animation
 	if(window.location.pathname == '/') {
 		homePage();
+	}
+
+	//tree removal calculator
+	if(window.location.pathname == '/tree_removal_calculator') {
+		treeRemovalCalculator();
 	}
 
 	fooSlider();

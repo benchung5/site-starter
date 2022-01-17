@@ -1,6 +1,8 @@
 # Rule 1
 User-agent: *
 Disallow: /admin/
+Disallow: /admin_752/
+Disallow: /tree_removal_calculator/
 
 # Rule 2
 User-agent: *

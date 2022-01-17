@@ -247,11 +247,6 @@ h3, h4, h5 {
   margin-bottom: 1rem;
 }
 
-label {
-  text-transform: uppercase;
-  padding: 0 0 1.25rem;
-}
-
 iframe {
   margin-bottom: 2em;
 }
@@ -264,18 +259,38 @@ figcaption {
   font-size: 0.8rem;
 }
 
+input {
+
+}
+
+[type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], [type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], [type='url'], [type='color'] textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 0.5em;
+  padding: 0.5rem;
+  border: 1px solid #cacaca;
+  border-radius: 0;
+  background-color: #fefefe;
+  box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #0a0a0a;
+  appearance: none; 
+}
+
+.error {
+    color: red;
+}
+
 .view .body-area figure img {
   margin-bottom: 0.5em;
 }
 
 .view .body-area a {
   color: $dark-green;
-} 
-
-[type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], 
-[type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], 
-[type='url'], [type='color'], textarea {
-  margin-bottom: 0;
 }
 
 .input-group-button a, .input-group-button input, .input-group-button button, .input-group-button label
