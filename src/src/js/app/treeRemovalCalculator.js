@@ -10,38 +10,56 @@ export default function() {
 		let stemCount = parseInt(formData.get('stem_count')) ;
 		let stemLength = parseInt(formData.get('stem_length')) ;
 		let stemDiameter = parseFloat(formData.get('stem_diameter'));
-		let stemDiameterExponental = stemDiameter + (stemDiameter / 10);
+		stemDiameter = (stemDiameter > 1) ? (stemDiameter + (stemDiameter / 10)) : stemDiameter;
 		let stemAngle = formData.get('stem_angle');
 		let crownDensity = formData.get('crown_density');
 		let brushRigging = parseFloat(formData.get('brush_rigging'));
 		let squareRigging = parseFloat(formData.get('square_rigging'));
 		let climbCount = parseInt(formData.get('climb_count')) ;
+		let keepingBrush = formData.get('keeping_brush');
+		let keepingBigWood = formData.get('keeping_bigwood');
+		let easeOfAccess = formData.get('ease_of_access');
+		let dragDistance = formData.get('drag_distance');
+		let disposalDistance = formData.get('disposal_distance');
+		let addedCost = formData.get('added_cost');
+		let reducedCost = formData.get('reduced_cost');
 
-		let total = stemDiameterExponental * stemLength;
+		//stems
+		let total = stemDiameter * stemLength;
 		total = total * treeType;
+		let bias = 0.65;
+		total = total * bias;
 		total = total * stemAngle;
 		let stemDiscount = 0;
 		total = total +  (total * (squareRigging / 2));
 
+		//crown
 		total = total * crownDensity;
 		total = total +  (total * (brushRigging / 2));
 		
+		//stem count
 		total = total * stemCount;
 		stemDiscount = 	(stemCount > 1) ? total * 0.10 : stemDiscount;
 		stemDiscount = stemDiscount * (stemCount - 1);
 		total = total - stemDiscount;
 
-		console.log(((climbCount == 1) ? (climbCount * 200) : (((climbCount - 1) * 125) + 200)));
+		//keeping brush/wood
+		total = total * ((keepingBrush == "yes") ? (0.95 - (crownDensity / 20)) : 1);
+		total = total * ((keepingBigWood == "yes") ? (0.95 - (stemDiameter / 20)) : 1);
 
+		//access
+		total = total * easeOfAccess;
+		total = total * dragDistance;
+		total = total * disposalDistance;
+
+		//fixed expenses
 		total = total + ((climbCount == 1) ? (climbCount * 200) : (((climbCount - 1) * 125) + 200));
+		total = total + (total * addedCost);
+		total = total - (total * reducedCost);
 
 		total = total || 0;
-
 		totalField.innerHTML = parseInt(total);
-
 	}
-
-
 
 	var totalField = document.querySelector('#total');
 
