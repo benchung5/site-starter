@@ -57,11 +57,20 @@ export default function() {
 		total = total + (total * addedCost);
 		total = total - (total * reducedCost);
 
+		//total
 		total = total || 0;
 		totalField.innerHTML = parseInt(total);
+
+		//time
+		let hourlyCharge = 175;
+		let hours = total / hourlyCharge;
+		let days = hours / 8;
+		days = Math.round(days * 10) / 10;
+		timeField.innerHTML = days + ((days == 1) ? " day" : " days");
 	}
 
 	var totalField = document.querySelector('#total');
+	var timeField = document.querySelector('#time');
 
 	let form = document.querySelector('#tree-removal-form');
 	form.addEventListener('submit', () => { e.preventDefault(); submitForm(); });

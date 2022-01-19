@@ -12,9 +12,37 @@
 									<label>Tree Type:</label>
 									<select class="form-control" type="text" name="tree_type" value>
 										<option value="13">Apple</option>
-										<option value="12.6">Ash</option>
+										<option value="12.6">Ash (White, Green)</option>
+										<option value="12.3">Aspen, Quaking</option>
+										<option value="12.3">Basswood</option>
 										<option value="12.9">Beech</option>
-										<option value="12.7">Birch</option>
+										<option value="12.7">Birch, Paper</option>
+										<option value="13.1">Birch, Yellow</option>
+										<option value="12.5">Butternut</option>
+										<option value="12.5">Cedar</option>
+										<option value="12.5">Cherry, Black</option>
+										<option value="13.0">Chestnut</option>
+										<option value="12.7">Cottonwood</option>
+										<option value="12.9">Elm, American</option>
+										<option value="12.6">Fir, White</option>
+										<option value="12.5">Gum, Black</option>
+										<option value="12.7">Gum, Red</option>
+										<option value="12.7">Hackberry</option>
+										<option value="12.7">Hemlock, Eastern</option>
+										<option value="13.5">Hickory, Shagbark</option>
+										<option value="13.3">Locust, Honey</option>
+										<option value="13.2">Magnolia, Ev</option>
+										<option value="13.2">Magnolia, Ev</option>
+										<option value="12.7">Maple, Red</option>
+										<option value="12.5">Maple, Silver</option>
+										<option value="13.1">Maple, Sugar</option>
+										<option value="13.4">Oak, Red</option>
+										<option value="13.4">Oak, White</option>
+										<option value="12.1">Tulip Tree</option>
+										<option value="12.8">Sycamore</option>
+										<option value="13.2">Walnut, Black</option>
+										<option value="12.0">Pine, White</option>
+										<option value="11.9">Spruce</option>
 									</select>
 									<div class="error"></div>
 								</div>
@@ -148,6 +176,7 @@
 								<div class="spacer-med"></div>
 								<div class="form-group">
 									<label class="bold">Total: $<span id="total">0</span></label>
+									<label>Time: <span id="time"></span></label>
 								</div>
 							</div>
 						</form>
