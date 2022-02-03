@@ -74,9 +74,9 @@
 									<label>Crown Density:</label>
 									<select class="form-control" type="text" name="crown_density" value>
 										<option value="1">Bare</option>
-										<option value="1.2">Sparse</option>
-										<option selected="selected" value="1.4">Average</option>
-										<option value="1.6">Dense</option>
+										<option value="1.1">Sparse</option>
+										<option selected="selected" value="1.2">Average</option>
+										<option value="1.3">Dense</option>
 									</select>
 									<div class="error"></div>
 								</div>								
@@ -107,6 +107,11 @@
 									<input name="climb_count" value="1" class="form-control" type="number" min="0" step="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' >
 									<div class="error"></div>
 								</div>
+								<div class="form-group" data-name="climb_height">
+									<label>Height of Climbs:</label>
+									<input name="climb_height" value="1" class="form-control" type="number" min="0" step="1">
+									<div class="error"></div>
+								</div>	
 								<div class="form-group" data-name="keeping_brush">
 									<label>Keeping Brush?:</label>
 									<select class="form-control" type="text" name="keeping_brush" value>

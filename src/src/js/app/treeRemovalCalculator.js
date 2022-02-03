@@ -16,6 +16,7 @@ export default function() {
 		let brushRigging = parseFloat(formData.get('brush_rigging'));
 		let squareRigging = parseFloat(formData.get('square_rigging'));
 		let climbCount = parseInt(formData.get('climb_count')) ;
+		let climbHeight = parseInt(formData.get('climb_height')) ;
 		let keepingBrush = formData.get('keeping_brush');
 		let keepingBigWood = formData.get('keeping_bigwood');
 		let easeOfAccess = formData.get('ease_of_access');
@@ -31,11 +32,11 @@ export default function() {
 		total = total * bias;
 		total = total * stemAngle;
 		let stemDiscount = 0;
-		total = total +  (total * (squareRigging / 2));
+		total = total +  (total * (squareRigging / 3));
 
 		//crown
 		total = total * crownDensity;
-		total = total +  (total * (brushRigging / 2));
+		total = total +  (total * (brushRigging / 3));
 		
 		//stem count
 		total = total * stemCount;
@@ -53,7 +54,9 @@ export default function() {
 		total = total * disposalDistance;
 
 		//fixed expenses
-		total = total + ((climbCount == 1) ? (climbCount * 200) : (((climbCount - 1) * 125) + 200));
+		let climbcost = climbHeight * 2;
+		console.log(climbcost);
+		total = total + ((climbCount == 1) ? (climbcost + 50) : ((climbCount * climbcost) + 50));
 		total = total + (total * addedCost);
 		total = total - (total * reducedCost);
 
