@@ -4,6 +4,7 @@ import { getUrlParams } from '../lib/utils';
 import articleFilterStore from '../storage/articleFilterStore';
 import articleTablesStore from '../storage/articleTablesStore';
 import articleListStore from '../storage/articleListStore';
+import { formatSearchString } from '../lib/stringUtils';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -60,7 +61,10 @@ export function searchArticles(searchObj, callback) {
     	const query = {};
 
         // just include search, offset, mode and limit as is
-        query.search = inObj.search;
+        //convert search into comma string
+        if (inObj.search) {
+            query.search = formatSearchString(inObj.search);
+        }
         query.offset = inObj.offset;
         query.limit = inObj.limit;
         if (inObj.mode) {

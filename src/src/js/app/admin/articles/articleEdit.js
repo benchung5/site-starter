@@ -75,6 +75,8 @@ var ArticleEdit = {
 		//get the article data
 		const article = getUrlParams('article')[0];
 		getArticle(article, (apiData) => {
+			//update the link to the live article
+			this.link.href = `/articles/${apiData.categories[0].slug}/${apiData.slug}`;
 			//record the current article id
 			this.articleId = apiData.id
 			//create the fields
@@ -150,6 +152,7 @@ var ArticleEdit = {
               <div class="row">
                   <div class="main-window columns small-12 large-9">
                       <h3>Edit Article</h3>
+                      <a id="link" style="float: right; display: inline-block;" target="_blank">&nbsp;&nbsp;view article</a>
                       <form>
 	                      <div id="form-fields">
 	                      </div>
@@ -165,9 +168,10 @@ var ArticleEdit = {
 
 		//build
 		inst.sidebar = Sidebar.init({});
-		const mainWindow = inst.el.querySelector('.main-window');
-		mainWindow.before(inst.sidebar.el);
+		inst.mainWindow = inst.el.querySelector('.main-window');
+		inst.mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');
+		inst.link = inst.el.querySelector('#link');
 		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));

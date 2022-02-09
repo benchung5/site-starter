@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
+class ComposerStaticInit175859ea1425fd729146a0ff90532c71
 {
     public static $files = array (
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -67,27 +67,7 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
     );
 
     public static $classMap = array (
-        'Config\\Config' => __DIR__ . '/../..' . '/config/config.php',
-        'Config\\Secret' => __DIR__ . '/../..' . '/config/secret.php',
-        'Controllers\\About' => __DIR__ . '/../..' . '/controllers/about.php',
-        'Controllers\\Access_denied' => __DIR__ . '/../..' . '/controllers/access_denied.php',
-        'Controllers\\Admin' => __DIR__ . '/../..' . '/controllers/admin.php',
-        'Controllers\\Admin_752' => __DIR__ . '/../..' . '/controllers/admin_752.php',
-        'Controllers\\Api\\Article_tables' => __DIR__ . '/../..' . '/controllers/api/article_tables.php',
-        'Controllers\\Api\\Articles' => __DIR__ . '/../..' . '/controllers/api/articles.php',
-        'Controllers\\Api\\Categories' => __DIR__ . '/../..' . '/controllers/api/categories.php',
-        'Controllers\\Api\\Tags' => __DIR__ . '/../..' . '/controllers/api/tags.php',
-        'Controllers\\Api\\Tree_tables' => __DIR__ . '/../..' . '/controllers/api/tree_tables.php',
-        'Controllers\\Api\\Trees' => __DIR__ . '/../..' . '/controllers/api/trees.php',
-        'Controllers\\Api\\Users' => __DIR__ . '/../..' . '/controllers/api/users.php',
-        'Controllers\\Articles' => __DIR__ . '/../..' . '/controllers/articles.php',
-        'Controllers\\Contact' => __DIR__ . '/../..' . '/controllers/contact.php',
-        'Controllers\\Four_o_four' => __DIR__ . '/../..' . '/controllers/four_o_four.php',
-        'Controllers\\Index' => __DIR__ . '/../..' . '/controllers/index.php',
-        'Controllers\\Login' => __DIR__ . '/../..' . '/controllers/login.php',
-        'Controllers\\Plants' => __DIR__ . '/../..' . '/controllers/plants.php',
-        'Controllers\\Send_email' => __DIR__ . '/../..' . '/controllers/send_email.php',
-        'Controllers\\Services' => __DIR__ . '/../..' . '/controllers/services.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'GuzzleHttp\\Psr7\\AppendStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/AppendStream.php',
         'GuzzleHttp\\Psr7\\BufferStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/BufferStream.php',
         'GuzzleHttp\\Psr7\\CachingStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/CachingStream.php',
@@ -236,20 +216,6 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
         'Intervention\\Image\\Point' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Point.php',
         'Intervention\\Image\\Response' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Response.php',
         'Intervention\\Image\\Size' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Size.php',
-        'Lib\\Auth\\Auth' => __DIR__ . '/../..' . '/lib/auth/auth.php',
-        'Lib\\Auth\\JWT' => __DIR__ . '/../..' . '/lib/auth/jwt.php',
-        'Lib\\Controller' => __DIR__ . '/../..' . '/lib/controller.php',
-        'Lib\\Db' => __DIR__ . '/../..' . '/lib/db.php',
-        'Lib\\Meta' => __DIR__ . '/../..' . '/lib/meta.php',
-        'Lib\\Model' => __DIR__ . '/../..' . '/lib/model.php',
-        'Lib\\Pdox\\Cache' => __DIR__ . '/../..' . '/lib/pdox/Cache.php',
-        'Lib\\Pdox\\Pdox' => __DIR__ . '/../..' . '/lib/pdox/Pdox.php',
-        'Lib\\Upload' => __DIR__ . '/../..' . '/lib/upload.php',
-        'Lib\\Uri' => __DIR__ . '/../..' . '/lib/uri.php',
-        'Lib\\Utils' => __DIR__ . '/../..' . '/lib/utils.php',
-        'Lib\\Validation\\Validation_rule' => __DIR__ . '/../..' . '/lib/validation/validation_rule.php',
-        'Lib\\Validation\\Validator' => __DIR__ . '/../..' . '/lib/validation/validator.php',
-        'Lib\\View' => __DIR__ . '/../..' . '/lib/view.php',
         'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
         'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
         'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
@@ -267,9 +233,9 @@ class ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit0268024e2ef8d293088904ee0a9ae5c7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit175859ea1425fd729146a0ff90532c71::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit175859ea1425fd729146a0ff90532c71::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit175859ea1425fd729146a0ff90532c71::$classMap;
 
         }, null, ClassLoader::class);
     }

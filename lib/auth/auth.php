@@ -31,7 +31,7 @@ class Auth
 	}
     
     // get access token from header/
-    protected function getBearerToken() 
+    protected static function getBearerToken() 
     {
         $headers = self::getAuthorizationHeader();
         // HEADER: Get the access token from the header
@@ -46,7 +46,7 @@ class Auth
     }
 
     // Get header Authorization
-    protected function getAuthorizationHeader()
+    protected static function getAuthorizationHeader()
     {
         $headers = null;
         if (isset($_SERVER['Authorization'])) {

@@ -8,7 +8,7 @@ use Lib\Controller;
 class Upload
 {
 	public function __construct() {
-		parent::__construct();
+		// parent::__construct();
 	}
 
 	public function remove($ref_type, $uploads) 
@@ -47,7 +47,7 @@ class Upload
 		// }
 	}
 
-	public function upload($ref_type, $ref_id, $data) 
+	public static function upload($ref_type, $ref_id, $data) 
 	{
 		//adjust memory limit to allow for large file sizes
 		ini_set('memory_limit', '256M');

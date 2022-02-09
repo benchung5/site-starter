@@ -1927,10 +1927,10 @@ filter
   position: relative;
   width: 100%;
   input {
-    height: 40px;
     padding: 10px 45px;
     border: 0 none;
     box-shadow: 0 -1px 0 $border-color inset;
+    height:100%;
   }
   .search-button {
     position: absolute;

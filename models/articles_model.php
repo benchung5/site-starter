@@ -88,9 +88,12 @@ class Articles_model extends Model
 
 		// use search criteria
 		if (isset($opts['like'])) {
-			$this->db->grouped(function($q, $opts) {
-				$q->like('a.name', '%'.$opts['like'].'%')->orLike('a.slug', '%'.$opts['like'].'%');
-			}, $opts);
+			foreach (explode(',', $opts['like']) AS $search_term) {
+				$this->db->grouped(function($q, $search_term) {
+					$q->like('a.name', '%'.$search_term.'%')
+					->orLike('a.slug', '%'.$search_term.'%');
+				}, $search_term);
+			}
 		}
 
 		//categories

@@ -301,9 +301,9 @@ class Validator
     {
         $text = trim(strip_tags($text));
 
-        if (get_magic_quotes_gpc()) {
-            $text = stripslashes($text);
-        }
+        // if (get_magic_quotes_gpc()) {
+        //     $text = stripslashes($text);
+        // }
         return $text;
     }
     

@@ -83,6 +83,9 @@ var PlantEdit = {
 		//get the plant data
 		const plant = getUrlParams('plant')[0];
 		getPlant(plant, (apiData) => {
+			console.log(apiData);
+			//update the link to the live article
+			this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
 			//record the current plant id
 			this.plantId = apiData.id
 			//create the fields
@@ -158,6 +161,7 @@ var PlantEdit = {
               <div class="row">
                   <div class="main-window columns small-12 large-9">
                       <h3>Edit Plant</h3>
+                      <a id="link" style="float: right; display: inline-block;" target="_blank">&nbsp;&nbsp;view plant</a>
                       <form>
 	                      <div id="form-fields">
 	                      </div>
@@ -176,6 +180,7 @@ var PlantEdit = {
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');
+		inst.link = inst.el.querySelector('#link');
 		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));

@@ -31,7 +31,7 @@ export function formatSearchString(searchTxt) {
 
         return outText;
     } else {
-        return [];
+        return null;
     }
 }
 

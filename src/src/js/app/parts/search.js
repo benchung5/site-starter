@@ -20,10 +20,7 @@ var SearchTrees = {
 	submitForm: function(e) {
 		e.preventDefault();
 		let formData = new FormData(e.target);
-
 		let search = formData.get('search');
-		search = formatSearchString(search);
-
 		this.search(search);
 	},
 	init: function(options) {

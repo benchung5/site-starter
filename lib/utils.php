@@ -5,7 +5,7 @@ use Config\Config;
 class Utils
 {
 	public function __construct() {
-		parent::__construct();
+		// parent::__construct();
 	}
 
 	public static function read_get() {

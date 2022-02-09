@@ -23,12 +23,16 @@ var Sidebar = {
 			    <a class="nav-link" href=${item.link}>${item.title}</a>
 			</li>`);
 			link.addEventListener('click', (e) => {
-				e.preventDefault();
+				if(item.link == '/') {
+					//treat as a normal link and go to site root
+				} else {
+					e.preventDefault();
 
-				Router.push(item.link);
+					Router.push(item.link);
 
-				if(this.onPageChange) {
-					this.onPageChange();
+					if(this.onPageChange) {
+						this.onPageChange();
+					}
 				}
 				
 			}, false);

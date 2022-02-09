@@ -24,6 +24,7 @@ export default function() {
 		let disposalDistance = formData.get('disposal_distance');
 		let addedCost = formData.get('added_cost');
 		let reducedCost = formData.get('reduced_cost');
+		
 
 		//stems
 		let total = stemDiameter * stemLength;

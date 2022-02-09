@@ -431,15 +431,15 @@ class Trees_model extends Model
 				->leftJoin('genuses g', 'g.id', 't.genus_id')
 				->groupBy('t.id');
 
-			$this->db->grouped(function($q, $opts) {
-				$q->like('t.common_name', '%'.$opts['like'].'%')
-				->orLike('t.other_common_names', '%'.$opts['like'].'%')
-				->orLike('t.specific_epithet', '%'.$opts['like'].'%')
-				->orLike('t.other_species', '%'.$opts['like'].'%')
-				->orLike('t.genus_id', '%g.id%');
-
-
-			}, $opts);
+			foreach (explode(',', $opts['like']) AS $search_term) {
+				$this->db->grouped(function($q, $search_term) {
+					$q->like('t.common_name', '%'.$search_term.'%')
+					->orLike('t.other_common_names', '%'.$search_term.'%')
+					->orLike('t.specific_epithet', '%'.$search_term.'%')
+					->orLike('t.other_species', '%'.$search_term.'%')
+					->orLike('t.genus_id', '%g.id%');
+				}, $search_term);
+			}
 		}
 
 		if ($isCount) {
