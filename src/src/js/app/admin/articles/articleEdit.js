@@ -32,12 +32,12 @@ var ArticleEdit = {
 		//append the current article id
 		formData.append('article_id', this.articleId);
 
-		//delete any empty fields in formData
-		Array.from(formData).map((item) => {
-			if (item[1] == '') {
-				formData.delete(item[0]);
-			}
-		});
+		// //delete any empty fields in formData
+		// Array.from(formData).map((item) => {
+		// 	if (item[1] == '') {
+		// 		formData.delete(item[0]);
+		// 	}
+		// });
 
 		let hasErrors = checkFieldErrors(e.target, articleFields);
 

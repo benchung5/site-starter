@@ -92,7 +92,6 @@ export function flattenObjArray(inArray, key) {
       //convert to comma string
       return outArray;
     } else {
-      //console.log('flattenObjArray needs an array as input')
       return null
     }
 }
@@ -194,9 +193,9 @@ export function getUrlParams(key) {
 
         if (params && params[1]) {
           //if value(s) 
-          // sanitize
-          params[0] = sanitizeInputString(params[0]);
-          params[1] = sanitizeInputString(params[1]);
+          //sanitize
+          params[0] = decodeURI(sanitizeInputString(params[0]));
+          params[1] = decodeURI(sanitizeInputString(params[1]));
 
           //(split by +) returns them in the form of an array
           params = params[1].split('+');

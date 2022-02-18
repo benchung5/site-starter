@@ -40,12 +40,12 @@ var PlantEdit = {
 		//append the current plant id
 		formData.append('tree_id', this.plantId);
 
-		//delete any empty fields in formData
-		Array.from(formData).map((item) => {
-			if (item[1] == '') {
-				formData.delete(item[0]);
-			}
-		});
+		// //delete any empty fields in formData
+		// Array.from(formData).map((item) => {
+		// 	if (item[1] == '') {
+		// 		formData.delete(item[0]);
+		// 	}
+		// });
 
 		//handle field errors
 		let hasErrors = checkFieldErrors(e.target, plantFields);

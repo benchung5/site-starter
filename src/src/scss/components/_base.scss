@@ -2610,6 +2610,7 @@ menu
   .menu-header {
     display: flex;
     .menu-header-right {
+      display: none;
       border-left: 1px solid $border-color;
       border-bottom: 1px solid $border-color;
       position: relative;

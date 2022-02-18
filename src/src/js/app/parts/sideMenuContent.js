@@ -32,9 +32,6 @@ var SideMenuContent = {
 		const sideMenuHeader = SideMenuHeader.init({
 			isClose: true,
 			children: search.el,
-			onUpdate: options.onUpdate,
-			filterStore: options.filterStore,
-			onUpdate: options.onUpdate,
 		});
 		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 

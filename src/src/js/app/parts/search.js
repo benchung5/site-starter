@@ -1,9 +1,6 @@
 import Component from '../component';
 import { formatSearchString } from '../lib/stringUtils';
 import { setUrlParams } from '../lib/utils';
-// import { searchTrees } from '../actions/plants';
-// import options.filterStore from '../storage/options.filterStore';
-// import plantListStore from '../storage/plantListStore';
 
 var SearchTrees = {
 	updateSearchInput: function() {
