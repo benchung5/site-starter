@@ -13,9 +13,6 @@ $segments = Uri::get_parts();
 
 $controller_dir = isset($segments['controller_dir']) ? $segments['controller_dir'].'/' : '';
 
-Utils::dbug(ucfirst($controller_dir.$segments['controller']));
-
-
 $controller = Config::paths('CONTROLLER_PATH').ucfirst($controller_dir.$segments['controller']).'.php';
 
 if (file_exists($controller)) {
