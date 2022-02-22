@@ -10,9 +10,13 @@ Config::define_constants();
 
 $segments = Uri::get_parts();
 
+
 $controller_dir = isset($segments['controller_dir']) ? $segments['controller_dir'].'/' : '';
 
-$controller = Config::paths('CONTROLLER_PATH').$controller_dir.$segments['controller'].'.php';
+Utils::dbug(ucfirst($controller_dir.$segments['controller']));
+
+
+$controller = Config::paths('CONTROLLER_PATH').ucfirst($controller_dir.$segments['controller']).'.php';
 
 if (file_exists($controller)) {
 	$controller_dir_namespace = isset($segments['controller_dir']) ? $segments['controller_dir']."\\" : '';
