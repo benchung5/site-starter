@@ -12,6 +12,7 @@ import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import articleFields from './articleFields';
 import { checkFieldErrors } from '../../lib/formUtils';
+import UpdateMessage from '../parts/updateMessage';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -42,7 +43,7 @@ var ArticleEdit = {
 		let hasErrors = checkFieldErrors(e.target, articleFields);
 
 		if(hasErrors) {
-			this.submissionMessage.innerHTML = `<span>please fill in all required fields</span>`;
+			this.updateMessage.renderError(`<span>please fill in all required fields</span>`);
 		} else {
 			// call action to submit edited
 			updateArticle(formData, this.renderUpdated.bind(this));
@@ -50,27 +51,25 @@ var ArticleEdit = {
 			//form no longer touched
 			appStateStore.setData({ formTouched: false });
 
-			this.clearMessages();
+			this.updateMessage.clear();
 		}
 
 	},
-	clearMessages: function() {
-	  this.submissionMessage.innerHTML = '';
-	},
 	onInputChange: function() {
-		this.clearMessages();
+		this.updateMessage.clear();
 	},
 	renderUpdated: function(response) {
-		this.submissionMessage.innerHTML = '';
+		this.updateMessage.clear();
 		if(response.error) {
-			this.submissionMessage.innerHTML = `<span>Error: ${response.error}</span>`;
+			this.updateMessage.renderError(`<span>Error: ${response.error}</span>`);
 		} else {
-			this.submissionMessage.innerHTML = `<span>Article: ${response.name}<br/>successfully updated.</span>`;
+			this.updateMessage.renderSuccess(`Article: ${response.name}<br/>successfully updated.`);
 		}
 	},
 	onLoad: function() {
 		//first clear the form fields
 		this.formFields.innerHTML = '';
+		this.updateMessage.clear();
 
 		//get the article data
 		const article = getUrlParams('article')[0];
@@ -158,8 +157,6 @@ var ArticleEdit = {
 	                      </div>
 	                      <button action="submit" class="btn btn-primary">Submit</button>
                       </form>
-                      <div class="submission-message">
-                      </div>
                   </div>
               </div>
           </div>
@@ -168,14 +165,15 @@ var ArticleEdit = {
 
 		//build
 		inst.sidebar = Sidebar.init({});
+		inst.updateMessage = UpdateMessage.init({});
 		inst.mainWindow = inst.el.querySelector('.main-window');
 		inst.mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.link = inst.el.querySelector('#link');
-		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
+		inst.form.after(inst.updateMessage.el);
 
 		//get article table data
 		fetchArticleTables((apiData) => {

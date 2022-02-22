@@ -10,6 +10,7 @@ import articleTablesStore from '../../storage/articleTablesStore';
 import appStateStore from '../../storage/appStateStore';
 import articleFields from './articleFields';
 import { checkFieldErrors } from '../../lib/formUtils';
+import UpdateMessage from '../parts/updateMessage';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -43,7 +44,7 @@ var ArticleAdd = {
 		let hasErrors = checkFieldErrors(e.target, articleFields);
 
 		if(hasErrors) {
-			this.submissionMessage.innerHTML = `<span>please fill in all required fields</span>`;
+			this.updateMessage.renderError(`<span>please fill in all required fields</span>`);
 		} else {
 			//form no longer touched
 			appStateStore.setData({ formTouched: false })
@@ -51,26 +52,24 @@ var ArticleAdd = {
 			// call action to submit edited
 			addArticle(formData, this.renderUpdated.bind(this));
 
-			this.clearMessages();
+			this.updateMessage.clear();
 		}
 	},
-	clearMessages: function() {
-	  this.submissionMessage.innerHTML = '';
-	},
 	onInputChange: function() {
-		this.clearMessages();
+		this.updateMessage.clear();
 	},
 	renderUpdated: function(response) {
-		this.submissionMessage.innerHTML = '';
+		this.updateMessage.clear();
 		if(response.error) {
-			this.submissionMessage.innerHTML = `<span>Error: ${response.error}</span>`;
+			this.updateMessage.renderError(`<span>Error: ${response.error}</span>`);
 		} else {
-			this.submissionMessage.innerHTML = `<span>Article: ${response.name}<br/>successfully added.</span>`;
+			this.updateMessage.renderSuccess(`Article: ${response.name}<br/>successfully added.`);
 		}
 	},
 	onLoad: function() {
 		//first clear the form fields
 		this.formFields.innerHTML = '';
+		this.updateMessage.clear();
 
 		//get article table data
 		fetchArticleTables((articleTables) => {
@@ -143,8 +142,6 @@ var ArticleAdd = {
 	                      </div>
 	                      <button action="submit" class="btn btn-primary">Submit</button>
                       </form>
-                      <div class="submission-message">
-                      </div>
                   </div>
               </div>
           </div>
@@ -153,13 +150,14 @@ var ArticleAdd = {
 
 		//build
 		inst.sidebar = Sidebar.init({});
+		inst.updateMessage = UpdateMessage.init({});
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');
-		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
+		inst.form.after(inst.updateMessage.el);
 
 		return inst;
 	}

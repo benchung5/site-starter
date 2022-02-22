@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit175859ea1425fd729146a0ff90532c71
+class ComposerStaticInitb4c162aa919befd1fccc2dcdc09684ce
 {
     public static $files = array (
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -18,6 +18,9 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
         ),
         'L' => 
         array (
+            'Lib\\Validation\\' => 15,
+            'Lib\\Pdox\\' => 9,
+            'Lib\\Auth\\' => 9,
             'Lib\\' => 4,
         ),
         'I' => 
@@ -30,6 +33,7 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
         ),
         'C' => 
         array (
+            'Controllers\\Api\\' => 16,
             'Controllers\\' => 12,
             'Config\\' => 7,
         ),
@@ -44,6 +48,18 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'Lib\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib/validation',
+        ),
+        'Lib\\Pdox\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib/pdox',
+        ),
+        'Lib\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib/auth',
+        ),
         'Lib\\' => 
         array (
             0 => __DIR__ . '/../..' . '/lib',
@@ -55,6 +71,10 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'Controllers\\Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/controllers/api',
         ),
         'Controllers\\' => 
         array (
@@ -68,6 +88,28 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Config\\Config' => __DIR__ . '/../..' . '/config/Config.php',
+        'Config\\Secret' => __DIR__ . '/../..' . '/config/Secret.php',
+        'Controllers\\About' => __DIR__ . '/../..' . '/controllers/About.php',
+        'Controllers\\Access_denied' => __DIR__ . '/../..' . '/controllers/Access_denied.php',
+        'Controllers\\Admin' => __DIR__ . '/../..' . '/controllers/Admin.php',
+        'Controllers\\Admin_752' => __DIR__ . '/../..' . '/controllers/Admin_752.php',
+        'Controllers\\Api\\Article_tables' => __DIR__ . '/../..' . '/controllers/api/Article_tables.php',
+        'Controllers\\Api\\Articles' => __DIR__ . '/../..' . '/controllers/api/Articles.php',
+        'Controllers\\Api\\Categories' => __DIR__ . '/../..' . '/controllers/api/Categories.php',
+        'Controllers\\Api\\Tags' => __DIR__ . '/../..' . '/controllers/api/Tags.php',
+        'Controllers\\Api\\Tree_tables' => __DIR__ . '/../..' . '/controllers/api/Tree_tables.php',
+        'Controllers\\Api\\Trees' => __DIR__ . '/../..' . '/controllers/api/Trees.php',
+        'Controllers\\Api\\Users' => __DIR__ . '/../..' . '/controllers/api/Users.php',
+        'Controllers\\Articles' => __DIR__ . '/../..' . '/controllers/Articles.php',
+        'Controllers\\Contact' => __DIR__ . '/../..' . '/controllers/Contact.php',
+        'Controllers\\Four_o_four' => __DIR__ . '/../..' . '/controllers/Four_o_four.php',
+        'Controllers\\Index' => __DIR__ . '/../..' . '/controllers/Index.php',
+        'Controllers\\Login' => __DIR__ . '/../..' . '/controllers/Login.php',
+        'Controllers\\Plants' => __DIR__ . '/../..' . '/controllers/Plants.php',
+        'Controllers\\Send_email' => __DIR__ . '/../..' . '/controllers/Send_email.php',
+        'Controllers\\Services' => __DIR__ . '/../..' . '/controllers/Services.php',
+        'Controllers\\Tree_removal_calculator' => __DIR__ . '/../..' . '/controllers/Tree_removal_calculator.php',
         'GuzzleHttp\\Psr7\\AppendStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/AppendStream.php',
         'GuzzleHttp\\Psr7\\BufferStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/BufferStream.php',
         'GuzzleHttp\\Psr7\\CachingStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/CachingStream.php',
@@ -216,6 +258,20 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
         'Intervention\\Image\\Point' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Point.php',
         'Intervention\\Image\\Response' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Response.php',
         'Intervention\\Image\\Size' => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image/Size.php',
+        'Lib\\Auth\\Auth' => __DIR__ . '/../..' . '/lib/auth/Auth.php',
+        'Lib\\Auth\\JWT' => __DIR__ . '/../..' . '/lib/auth/JWT.php',
+        'Lib\\Controller' => __DIR__ . '/../..' . '/lib/Controller.php',
+        'Lib\\Db' => __DIR__ . '/../..' . '/lib/Db.php',
+        'Lib\\Meta' => __DIR__ . '/../..' . '/lib/Meta.php',
+        'Lib\\Model' => __DIR__ . '/../..' . '/lib/Model.php',
+        'Lib\\Pdox\\Cache' => __DIR__ . '/../..' . '/lib/pdox/Cache.php',
+        'Lib\\Pdox\\Pdox' => __DIR__ . '/../..' . '/lib/pdox/Pdox.php',
+        'Lib\\Upload' => __DIR__ . '/../..' . '/lib/Upload.php',
+        'Lib\\Uri' => __DIR__ . '/../..' . '/lib/Uri.php',
+        'Lib\\Utils' => __DIR__ . '/../..' . '/lib/Utils.php',
+        'Lib\\Validation\\Validation_rule' => __DIR__ . '/../..' . '/lib/validation/Validation_rule.php',
+        'Lib\\Validation\\Validator' => __DIR__ . '/../..' . '/lib/validation/Validator.php',
+        'Lib\\View' => __DIR__ . '/../..' . '/lib/View.php',
         'PHPMailer\\PHPMailer\\Exception' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/Exception.php',
         'PHPMailer\\PHPMailer\\OAuth' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/OAuth.php',
         'PHPMailer\\PHPMailer\\PHPMailer' => __DIR__ . '/..' . '/phpmailer/phpmailer/src/PHPMailer.php',
@@ -233,9 +289,9 @@ class ComposerStaticInit175859ea1425fd729146a0ff90532c71
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit175859ea1425fd729146a0ff90532c71::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit175859ea1425fd729146a0ff90532c71::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit175859ea1425fd729146a0ff90532c71::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb4c162aa919befd1fccc2dcdc09684ce::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb4c162aa919befd1fccc2dcdc09684ce::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb4c162aa919befd1fccc2dcdc09684ce::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -37,18 +37,18 @@ use Lib\Utils;
 						</div> -->
 
 					</div>
-					<div class="small-12 large-4 columns sidebar">
-						<span class="bold">Pubilished</span>: <?= date('F jS, Y', strtotime(Utils::sanitize($view_data['article']->created_on))) ?><br>
-						<?php
-						$categories = [];
-						if ($view_data['article']->categories) {
-							foreach ($view_data['article']->categories as $category) {
-								$categories[] = $category->name;
-							}
+				</div>
+				<div class="small-12 large-4 columns sidebar">
+					<span class="bold">Pubilished</span>: <?= date('F jS, Y', strtotime(Utils::sanitize($view_data['article']->created_on))) ?><br>
+					<?php
+					$categories = [];
+					if ($view_data['article']->categories) {
+						foreach ($view_data['article']->categories as $category) {
+							$categories[] = $category->name;
 						}
-						?>
-						<span class="bold">Categories</span>: <?= $view_data['article']->categories ? Utils::sanitize(implode(', ', $categories)) : ''; ?><br>
-					</div>
+					}
+					?>
+					<span class="bold">Categories</span>: <?= $view_data['article']->categories ? Utils::sanitize(implode(', ', $categories)) : ''; ?><br>
 				</div>
 			</div>
 

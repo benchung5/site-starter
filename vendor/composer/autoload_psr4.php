@@ -8,9 +8,13 @@ $baseDir = dirname($vendorDir);
 return array(
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Lib\\Validation\\' => array($baseDir . '/lib/validation'),
+    'Lib\\Pdox\\' => array($baseDir . '/lib/pdox'),
+    'Lib\\Auth\\' => array($baseDir . '/lib/auth'),
     'Lib\\' => array($baseDir . '/lib'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
+    'Controllers\\Api\\' => array($baseDir . '/controllers/api'),
     'Controllers\\' => array($baseDir . '/controllers'),
     'Config\\' => array($baseDir . '/config'),
 );

@@ -12,6 +12,7 @@ import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import plantFields from './plantFields';
 import { checkFieldErrors } from '../../lib/formUtils';
+import UpdateMessage from '../parts/updateMessage';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -51,7 +52,7 @@ var PlantEdit = {
 		let hasErrors = checkFieldErrors(e.target, plantFields);
 
 		if(hasErrors) {
-			this.submissionMessage.innerHTML = `<span>please fill in all required fields</span>`;
+			this.updateMessage.renderError(`<span>please fill in all required fields</span>`);
 		} else {
 			// call action to submit edited
 			updatePlant(formData, this.renderUpdated.bind(this));
@@ -59,31 +60,27 @@ var PlantEdit = {
 			//form no longer touched
 			appStateStore.setData({ formTouched: false })
 
-			this.clearMessages();
+			this.updateMessage.clear();
 		}
 	},
-	clearMessages: function() {
-	  this.submissionMessage.innerHTML = '';
-	},
 	onInputChange: function() {
-		this.clearMessages();
+		this.updateMessage.clear();
 	},
 	renderUpdated: function(response) {
-		this.submissionMessage.innerHTML = '';
 		if(response.error) {
-			this.submissionMessage.innerHTML = `<span>Error: ${response.error}</span>`;
+			this.updateMessage.renderError(`<span>Error: ${response.error}</span>`);
 		} else {
-			this.submissionMessage.innerHTML = `<span>Tree: ${response.common_name}<br/>successfully updated.</span>`;
+			this.updateMessage.renderSuccess(`Tree: ${response.common_name}<br/>successfully updated.`);
 		}
 	},
 	onLoad: function() {
-		//first clear the form fields
+		//first clear the form
 		this.formFields.innerHTML = '';
+		this.updateMessage.clear();
 
 		//get the plant data
 		const plant = getUrlParams('plant')[0];
 		getPlant(plant, (apiData) => {
-			console.log(apiData);
 			//update the link to the live article
 			this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
 			//record the current plant id
@@ -167,8 +164,6 @@ var PlantEdit = {
 	                      </div>
 	                      <button action="submit" class="btn btn-primary">Submit</button>
                       </form>
-                      <div class="submission-message">
-                      </div>
                   </div>
               </div>
           </div>
@@ -177,14 +172,15 @@ var PlantEdit = {
 
 		//build
 		inst.sidebar = Sidebar.init({});
+		inst.updateMessage = UpdateMessage.init({});
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.link = inst.el.querySelector('#link');
-		inst.submissionMessage = inst.el.querySelector('.submission-message');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
+		inst.form.after(inst.updateMessage.el);
 
 		//get plant table data
 		fetchPlantTables((apiData) => {

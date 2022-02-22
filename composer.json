@@ -2,8 +2,12 @@
 	"autoload": {
 		"psr-4": {
 			"Controllers\\": "controllers",
+			"Controllers\\Api\\": "controllers/api",
 			"Config\\": "config",
-			"Lib\\": "lib"
+			"Lib\\": "lib",
+			"Lib\\Auth\\": "lib/auth",
+			"Lib\\Pdox\\": "lib/pdox",
+			"Lib\\Validation\\": "lib/validation"
 		}
 	},
 
