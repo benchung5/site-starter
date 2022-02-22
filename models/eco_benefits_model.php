@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Conifer_cone_features_model extends Model
+class Eco_benefits_model extends Model
 {
 	public $options;
 
@@ -11,9 +11,9 @@ class Conifer_cone_features_model extends Model
 		parent::__construct();
 	}
 
-	public function get_all($opts = [])
+	public function get_all($opts = []) 
 	{
-		$this->db->table('conifer_cone_features');
+		$this->db->table('eco_benefits');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

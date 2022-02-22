@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Conifer_leaf_structures_model extends Model
+class Native_to_model extends Model
 {
 	public $options;
 
@@ -13,7 +13,7 @@ class Conifer_leaf_structures_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('conifer_leaf_structures');
+		$this->db->table('native_to');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

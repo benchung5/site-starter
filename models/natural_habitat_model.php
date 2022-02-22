@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Conifer_leaf_cross_sections_model extends Model
+class Natural_habitat_model extends Model
 {
 	public $options;
 
@@ -13,7 +13,7 @@ class Conifer_leaf_cross_sections_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('conifer_leaf_cross_sections');
+		$this->db->table('natural_habitat');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));

@@ -2,7 +2,7 @@
 
 use Lib\Model;
 
-class Conifer_leaf_types_model extends Model
+class Families_model extends Model
 {
 	public $options;
 
@@ -13,7 +13,7 @@ class Conifer_leaf_types_model extends Model
 
 	public function get_all($opts = []) 
 	{
-		$this->db->table('conifer_leaf_types');
+		$this->db->table('families');
 		
 		if ($opts) {
 			$this->db->select(implode(',', $opts));
@@ -21,7 +21,7 @@ class Conifer_leaf_types_model extends Model
 			$this->db->select('*');
 		}
 
-		$result = $this->db->getAll();
+		$result = $this->db->orderBy('name')->getAll();
 		return $result;
 	}
 }

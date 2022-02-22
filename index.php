@@ -10,14 +10,13 @@ Config::define_constants();
 
 $segments = Uri::get_parts();
 
-
 $controller_dir = isset($segments['controller_dir']) ? $segments['controller_dir'].'/' : '';
 
-$controller = Config::paths('CONTROLLER_PATH').ucfirst($controller_dir.$segments['controller']).'.php';
+$controller = Config::paths('CONTROLLER_PATH').$controller_dir.$segments['controller'].'.php';
 
 if (file_exists($controller)) {
 	$controller_dir_namespace = isset($segments['controller_dir']) ? $segments['controller_dir']."\\" : '';
-	$controller_class_name = "Controllers\\".ucfirst($controller_dir_namespace.$segments['controller']);	
+	$controller_class_name = "Controllers\\".$controller_dir_namespace.$segments['controller'];	
 	$contr = new $controller_class_name;
 
 	// if it's an article view, handle differently because of category slug
