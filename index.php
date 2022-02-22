@@ -17,7 +17,8 @@ $controller = Config::paths('CONTROLLER_PATH').ucfirst($controller_dir.$segments
 
 if (file_exists($controller)) {
 	$controller_dir_namespace = isset($segments['controller_dir']) ? $segments['controller_dir']."\\" : '';
-	$controller_class_name = "Controllers\\".$controller_dir_namespace.$segments['controller'];	
+	$controller_class_name = "Controllers\\".ucfirst($controller_dir_namespace.$segments['controller']);	
+	Utils::dbug($controller_class_name);
 	$contr = new $controller_class_name;
 
 	// if it's an article view, handle differently because of category slug
