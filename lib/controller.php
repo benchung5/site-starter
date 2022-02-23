@@ -32,7 +32,7 @@ class Controller
 		$this->view->render($view_name, $data);
 	}
 
-	public function load_model($model_file)
+	public static function load_model($model_file)
 	{
 		$path = Config::paths('MODEL_PATH').$model_file.'.php';
 		if (file_exists($path)) {

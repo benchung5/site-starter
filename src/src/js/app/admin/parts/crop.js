@@ -95,6 +95,12 @@ var Crop = {
 	    		}
 	    	}
 
+	    	//if image is already square
+	    	if(img.naturalWidth == img.naturalHeight) {
+	    		width = maxSize;
+	    		height = maxSize;
+	    	}
+
 	    	//create a temporary canvas to create the resized image
 	    	let tempCanvas = document.createElement('canvas');
 	    	tempCanvas.width = width;

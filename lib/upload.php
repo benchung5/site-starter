@@ -191,7 +191,7 @@ class Upload
 	    return $result;
 	}
 
-	protected function upload_transfer($ref, $destination, $field_name, $index = null)
+	protected static function upload_transfer($ref, $destination, $field_name, $index = null)
 	{
 		$result = array(
 			'ref_type'  => $ref,
@@ -248,7 +248,7 @@ class Upload
 	//   return true;
 	// }
 
-	public function create_thumb($source, $destination, $width, $height) {
+	public static function create_thumb($source, $destination, $width, $height) {
 		//create thumb version
 		$img = Image::make($source);
 		// crop the best fitting ratio and resize
