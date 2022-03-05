@@ -9,8 +9,8 @@ $this->insert('featured', $view_data );
             <div class="row">
                 <div class="small-12 xlarge-7 columns">
                     <div class="center content-container">
-                        <h1>Your Local Sustainable Tree & Shrub Service</h1>
-                        <p>We are a small tree and Shrub service, trained and <span style="color: #e0e003;">passionate about the work we do in the Niagara Region.</span> Contact us for a free same day estimate.
+                        <h1>Your St. Catharines Tree Service</h1>
+                        <p>We are a small tree and Shrub service, trained and <span style="color: #e0e003;">passionate about the work we do in St. Catharines and the Niagara Region.</span> Contact us for a free same day estimate.
                             
                         </p>
                         <a class="button-action transparent" href="contact">Let's Get in Touch</a>

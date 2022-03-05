@@ -46,7 +46,10 @@ var UploadedImages = {
 				</div>
 				`);
 			dropPreviewImage.querySelector('.close-btn').addEventListener('click', this.onDeleteClick.bind(this, index), false);
-			dropPreviewImage.querySelector('.copy-btn').addEventListener('click', this.onCopyClick.bind(this, item), false);
+			dropPreviewImage.querySelector('.copy-btn').addEventListener('click', (e) => {
+				e.preventDefault(); 
+				this.onCopyClick(item);
+			}, false);
 
 			this.dropPreview.appendChild(dropPreviewImage);
 		});

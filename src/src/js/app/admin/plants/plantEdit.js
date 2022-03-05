@@ -81,69 +81,75 @@ var PlantEdit = {
 		//get the plant data
 		const plant = getUrlParams('plant')[0];
 		getPlant(plant, (apiData) => {
-			//update the link to the live article
-			this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
-			//record the current plant id
-			this.plantId = apiData.id
-			//create the fields
-			plantFields.map((item) => {
-				if(item.type === 'input') {
-					let input = FieldInput.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name]
-					});
-					this.formFields.appendChild(input.el);
-				}
-				if(item.type === 'dropdownSelect') {
-					let dropdownSelect = FieldDropdownSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name],
-						selectItems: plantTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(dropdownSelect.el);
-				}
-				if(item.type === 'multiSelect') {
-					let multiSelect = FieldMultiSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name],
-						selectItems: plantTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(multiSelect.el);
-				}
-				if(item.type === 'textarea') {
-					let input = FieldTextarea.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name]
-					});
-					this.formFields.appendChild(input.el);
-				}
-			});
+			//get plant table data
+			fetchPlantTables((plantTablesData) => {
+				plantTablesStore.setData(plantTablesData);
 
-			//init UploadedImages
-			this.uploadedImages = UploadedImages.init({
-				onChange: this.onInputChange.bind(this),
-				images: apiData.images,
-				refType: 'trees'
-			});
-			this.formFields.appendChild(this.uploadedImages.el);
+				//update the link to the live article
+				this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
+				//record the current plant id
+				this.plantId = apiData.id
+				//create the fields
+				plantFields.map((item) => {
+					if(item.type === 'input') {
+						let input = FieldInput.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name]
+						});
+						this.formFields.appendChild(input.el);
+					}
+					if(item.type === 'dropdownSelect') {
+						let dropdownSelect = FieldDropdownSelect.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name],
+							selectItems: plantTablesStore.storageData[item.name]
+						});
+						this.formFields.appendChild(dropdownSelect.el);
+					}
+					if(item.type === 'multiSelect') {
+						let multiSelect = FieldMultiSelect.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name],
+							selectItems: plantTablesStore.storageData[item.name]
+						});
+						this.formFields.appendChild(multiSelect.el);
+					}
+					if(item.type === 'textarea') {
+						let input = FieldTextarea.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name]
+						});
+						this.formFields.appendChild(input.el);
+					}
+				});
 
-			//init fieldAddImages
-			this.fieldAddImages = FieldAddImages.init({
-				tags: plantTablesStore.storageData['tags']
+				//init UploadedImages
+				this.uploadedImages = UploadedImages.init({
+					onChange: this.onInputChange.bind(this),
+					images: apiData.images,
+					refType: 'trees'
+				});
+				this.formFields.appendChild(this.uploadedImages.el);
+
+				//init fieldAddImages
+				this.fieldAddImages = FieldAddImages.init({
+					tags: plantTablesStore.storageData['tags']
+				});
+				this.formFields.appendChild(this.fieldAddImages.el);
+
 			});
-			this.formFields.appendChild(this.fieldAddImages.el);
 		});
 	},
 	init: function() {
@@ -181,11 +187,6 @@ var PlantEdit = {
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 		inst.form.after(inst.updateMessage.el);
-
-		//get plant table data
-		fetchPlantTables((apiData) => {
-			plantTablesStore.setData(apiData);
-		});
 
 		return inst;
 	}

@@ -20,7 +20,7 @@ class Config
 	{
 		/*site title*/
 		define('SITE_TITLE', 'Nature With Us');
-		define('SITE_DESCRIPTION', 'Providing articles and resources on trees native to the Niagara Region');
+		define('SITE_DESCRIPTION', 'St. Catharines tree service. Fully insured tree removal, tree trimming, and pruning.');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

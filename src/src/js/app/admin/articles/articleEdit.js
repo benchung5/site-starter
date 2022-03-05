@@ -74,69 +74,75 @@ var ArticleEdit = {
 		//get the article data
 		const article = getUrlParams('article')[0];
 		getArticle(article, (apiData) => {
-			//update the link to the live article
-			this.link.href = `/articles/${apiData.categories[0].slug}/${apiData.slug}`;
-			//record the current article id
-			this.articleId = apiData.id
-			//create the fields
-			articleFields.map((item) => {
-				if(item.type === 'input') {
-					let input = FieldInput.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name]
-					});
-					this.formFields.appendChild(input.el);
-				}
-				if(item.type === 'dropdownSelect') {
-					let dropdownSelect = FieldDropdownSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name],
-						selectItems: articleTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(dropdownSelect.el);
-				}
-				if(item.type === 'multiSelect') {
-					let multiSelect = FieldMultiSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name],
-						selectItems: articleTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(multiSelect.el);
-				}
-				if(item.type === 'textarea') {
-					let input = FieldTextarea.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						value: apiData[item.name]
-					});
-					this.formFields.appendChild(input.el);
-				}
+			//get article table data
+			fetchArticleTables((articleTablesData) => {
+				articleTablesStore.setData(articleTablesData);
+
+				//update the link to the live article
+				this.link.href = `/articles/${apiData.categories[0].slug}/${apiData.slug}`;
+				//record the current article id
+				this.articleId = apiData.id
+				//create the fields
+				articleFields.map((item) => {
+					if(item.type === 'input') {
+						let input = FieldInput.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name]
+						});
+						this.formFields.appendChild(input.el);
+					}
+					if(item.type === 'dropdownSelect') {
+						let dropdownSelect = FieldDropdownSelect.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name],
+							selectItems: articleTablesStore.storageData[item.name]
+						});
+						this.formFields.appendChild(dropdownSelect.el);
+					}
+					if(item.type === 'multiSelect') {
+						let multiSelect = FieldMultiSelect.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name],
+							selectItems: articleTablesStore.storageData[item.name]
+						});
+						this.formFields.appendChild(multiSelect.el);
+					}
+					if(item.type === 'textarea') {
+						let input = FieldTextarea.init({
+							name: item.name,
+							label: item.label,
+							error: item.error,
+							condition: item.condition,
+							value: apiData[item.name]
+						});
+						this.formFields.appendChild(input.el);
+					}
+				});
+
+				//init UploadedImages
+				this.uploadedImages = UploadedImages.init({
+					onChange: this.onInputChange.bind(this),
+					images: apiData.images,
+					refType: 'articles'
+				});
+				this.formFields.appendChild(this.uploadedImages.el);
+
+				//init fieldAddImages
+				this.fieldAddImages = FieldAddImages.init({
+					tags: articleTablesStore.storageData['tags']
+				});
+				this.formFields.appendChild(this.fieldAddImages.el);
 			});
 
-			//init UploadedImages
-			this.uploadedImages = UploadedImages.init({
-				onChange: this.onInputChange.bind(this),
-				images: apiData.images,
-				refType: 'articles'
-			});
-			this.formFields.appendChild(this.uploadedImages.el);
-
-			//init fieldAddImages
-			this.fieldAddImages = FieldAddImages.init({
-				tags: articleTablesStore.storageData['tags']
-			});
-			this.formFields.appendChild(this.fieldAddImages.el);
 		});
 	},
 	init: function() {
@@ -174,11 +180,6 @@ var ArticleEdit = {
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 		inst.form.after(inst.updateMessage.el);
-
-		//get article table data
-		fetchArticleTables((apiData) => {
-			articleTablesStore.setData(apiData);
-		});
 
 		return inst;
 	}

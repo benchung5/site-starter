@@ -57,7 +57,50 @@ var Crop = {
 	    this.rectXPos = (tempCanvas.width - this.thumbSize)/2;
 		this.rectYPos = (tempCanvas.height - this.thumbSize)/2;
 		this.drawRect();
+
+		this.canvas.addEventListener('mousedown', (e) => {
+			this.mouseIsDown = true;
+			this.movePrevPosX = e.clientX;
+			this.movePrevPosY = e.clientY;
+			this.moveRectangle(e);
+		});
+
+		//make sure if it's outside the canvas, mouseup is still called
+		document.addEventListener('mouseup', (e) => {
+			this.mouseIsDown = false;
+		});
+
+		document.addEventListener('mousemove', (e) => {
+			this.moveRectangle(e);
+		});
 	  });
+	},
+	moveRectangle: function (e) {
+		if (this.mouseIsDown == true) {
+			//move amt x
+			this.moveAmountX = e.clientX - this.movePrevPosX;
+			this.movePrevPosX = e.clientX;
+			let newPosX = Math.round(this.rectXPos + this.moveAmountX);
+
+			//move amt y
+			this.moveAmountY = e.clientY - this.movePrevPosY;
+			this.movePrevPosY = e.clientY;
+			let newPosY = Math.round(this.rectYPos + this.moveAmountY);
+
+			if (newPosX >= 0 && ((newPosX + this.thumbSize) <= this.canvas.width)) {
+				if (newPosY >= 0 && ((newPosY + this.thumbSize) <= this.canvas.height)) {
+					//clear the canvas first
+					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+					//redraw the image
+					this.ctx.drawImage(this.tempCropCanvas, 0, 0);
+
+					this.rectXPos = newPosX
+					this.rectYPos = newPosY
+					//draw the new rectangle
+					this.drawRect();
+				}
+			}
+		}
 	},
 	fileToCanvas: function(file, maxSize, isLongestEdge, callback) {
 	  let reader = new FileReader();
@@ -124,14 +167,6 @@ var Crop = {
 		this.ctx.stroke();
 	},
 	submitCrop: function() {
-		// if(window.navigator.msSaveBlob) {
-
-		// } else {
-		// 	this.canvas.toBlob((blob) => {
-
-		// 	});
-		// }
-
 		//clear canvas and set it's width and height to finished crop dimensions
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.canvas.width = this.thumbSize;

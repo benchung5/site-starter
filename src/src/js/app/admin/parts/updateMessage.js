@@ -10,7 +10,7 @@ var UpdateMessage = {
 	},
 	renderError: function(errorMessage) {
 		this.clear;
-		this.el.innerHTML = errorMessage;
+		this.el.innerHTML = `<span class="error">${errorMessage}</span>`;
 	},
 	init: function() {
 		var proto = Object.assign({}, this, Component);

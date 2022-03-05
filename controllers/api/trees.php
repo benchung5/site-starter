@@ -72,37 +72,37 @@ class Trees extends Controller
 		if(isset($data['specific_epithet'])) { $update_data['specific_epithet'] = $data['specific_epithet']; };
 		if(isset($data['other_species'])) { $update_data['other_species'] = $data['other_species']; };
 		if(isset($data['subspecies'])) { $update_data['subspecies'] = $data['subspecies']; };
-		if(isset($data['zone_id'])) { $update_data['zone_id'] = $data['zone_id']; };
 		if(isset($data['variety'])) { $update_data['variety'] = $data['variety']; };
 		if(isset($data['cultivar'])) { $update_data['cultivar'] = $data['cultivar']; };
 		if(isset($data['trees_category_id'])) { $update_data['trees_category_id'] = $data['trees_category_id']; };
+		if(isset($data['zone_id'])) { $update_data['zone_id'] = $data['zone_id']; };
 		if(isset($data['reproduction_type_id'])) { $update_data['reproduction_type_id'] = $data['reproduction_type_id']; };
-		if(isset($data['height_min'])) { $update_data['height_min'] = $data['height_min']; };
-		if(isset($data['height_max'])) { $update_data['height_max'] = $data['height_max']; };
-		if(isset($data['width_min'])) { $update_data['width_min'] = $data['width_min']; };
-		if(isset($data['width_max'])) { $update_data['width_max'] = $data['width_max']; };
-		if(isset($data['growth_rate'])) { $update_data['growth_rate'] = $data['growth_rate']; };
-		if(isset($data['lifespan_min'])) { $update_data['lifespan_min'] = $data['lifespan_min']; };
-		if(isset($data['lifespan_max'])) { $update_data['lifespan_max'] = $data['lifespan_max']; };
+		if(!empty($data['height_min'])) { $update_data['height_min'] = $data['height_min']; };
+		if(!empty($data['height_max'])) { $update_data['height_max'] = $data['height_max']; };
+		if(!empty($data['width_min'])) { $update_data['width_min'] = $data['width_min']; };
+		if(!empty($data['width_max'])) { $update_data['width_max'] = $data['width_max']; };
+		if(!empty($data['growth_rate'])) { $update_data['growth_rate'] = $data['growth_rate']; };
+		if(!empty($data['lifespan_min'])) { $update_data['lifespan_min'] = $data['lifespan_min']; };
+		if(!empty($data['lifespan_max'])) { $update_data['lifespan_max'] = $data['lifespan_max']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
-		if(isset($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
+		if(!empty($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
 
 		// the many to many table data...
 		$joins_data = [
-			'origins' => isset($data['origins']) ? $data['origins'] : null,
-			'eco_benefits' => isset($data['eco_benefits']) ? $data['eco_benefits'] : null,
-			'native_to' => isset($data['native_to']) ? $data['native_to'] : null,
-			'shapes' => isset($data['shapes']) ? $data['shapes'] : null,
-			'light' => isset($data['light']) ? $data['light'] : null,
-			'soil' => isset($data['soil']) ? $data['soil'] : null,
-			'natural_habitat' => isset($data['natural_habitat']) ? $data['natural_habitat'] : null,
-			'common_uses' => isset($data['common_uses']) ? $data['common_uses'] : null,
-			'transplanting' => isset($data['transplanting']) ? $data['transplanting'] : null,
-			'unique_attractions' => isset($data['unique_attractions']) ? $data['unique_attractions'] : null,
-			'tolerances' => isset($data['tolerances']) ? $data['tolerances'] : null,
-			'insects' => isset($data['insects']) ? $data['insects'] : null,
-			'diseases' => isset($data['diseases']) ? $data['diseases'] : null,
+			'origins' => !empty($data['origins']) ? $data['origins'] : null,
+			'eco_benefits' => !empty($data['eco_benefits']) ? $data['eco_benefits'] : null,
+			'native_to' => !empty($data['native_to']) ? $data['native_to'] : null,
+			'shapes' => !empty($data['shapes']) ? $data['shapes'] : null,
+			'light' => !empty($data['light']) ? $data['light'] : null,
+			'soil' => !empty($data['soil']) ? $data['soil'] : null,
+			'natural_habitat' => !empty($data['natural_habitat']) ? $data['natural_habitat'] : null,
+			'common_uses' => !empty($data['common_uses']) ? $data['common_uses'] : null,
+			'transplanting' => !empty($data['transplanting']) ? $data['transplanting'] : null,
+			'unique_attractions' => !empty($data['unique_attractions']) ? $data['unique_attractions'] : null,
+			'tolerances' => !empty($data['tolerances']) ? $data['tolerances'] : null,
+			'insects' => !empty($data['insects']) ? $data['insects'] : null,
+			'diseases' => !empty($data['diseases']) ? $data['diseases'] : null,
 		];
 
 		if ($is_add) {

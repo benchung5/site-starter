@@ -17,8 +17,6 @@ import treeRemovalCalculator from './treeRemovalCalculator';
 
 
 //config
-const env = process.env.NODE_ENV || "development";
-var { SERVER_URL } = require('../react-app/config')[env];
 const isAdminPage = (window.location.href.indexOf('admin') > -1);
 
 /* ==========================================================================
