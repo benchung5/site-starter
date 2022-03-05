@@ -24,28 +24,25 @@ use Lib\Meta;
   <meta name="author" content="Ben Chung">
    
   <!-- Mobile app Tags -->
-  <meta name="application-name" content="appname">
+<!--   <meta name="application-name" content="appname">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="App Title">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="msapplication-starturl" content="/">
-  <meta name="msapplication-navbutton-color" content="#e1306c">
+  <meta name="msapplication-navbutton-color" content="#e1306c"> -->
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@handle">
-  <meta name="twitter:title" content="">
-  <meta name="twitter:description" content="">
-  <meta name="twitter:image:src" content="">
+  <meta name="twitter:site" content="@niagaratrees">
+  <meta name="twitter:creator" content="@niagaratrees">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="">
-  <meta property="og:title" content="">
-  <meta property="og:url" content="">
-  <meta property="og:description" content="">
-  <meta property="og:image" content="">
+  <meta property="og:site_name" content="naturewithus.com">
+  <meta property="og:title" content="<?php echo $page_title ?:  SITE_TITLE; ?>">
+  <meta property="og:description" content="<?php echo $page_description ?: 'St. Cathatharines tree & shrub service'; ?>">
+<!--   <meta property="og:image" content=""> -->
   
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">

@@ -12,9 +12,9 @@ use Lib\Utils;
 		    <div class="row">
 		        <div class="small-12 large-7 columns">
 		            <div class="left">
-		                <h1>About Us</h1>
+		                <h1>Our St. Catharines Tree Care</h1>
 		                <p>
-		                	We are a small Niagara owned and operated tree and shrub service, with a track record of rigorous work ethic and satisfied clients.
+		                	We are a small locally owned and operated tree care service, with a track record of rigorous work ethic and satisfied clients.
 		                </p>
 
 		                <p>
@@ -26,7 +26,7 @@ use Lib\Utils;
 		                </p>
 
 		                <p>
-		                	Proudly serving St. Catharines, Thorold, Niagara Falls, Niagara-on-the-Lake, Fonthill, Welland, Grimsby, and Beamsville (and surrounding areas).
+		                	Proudly serving St. Catharines and surrounding areas.
 		                </p>
 		            </div>
 		        </div>

@@ -9,7 +9,7 @@ $this->insert('featured', $view_data );
             <div class="row">
                 <div class="small-12 xlarge-7 columns">
                     <div class="center content-container">
-                        <h1>Your St. Catharines Tree Service</h1>
+                        <h1>Your Local St. Catharines Tree Service</h1>
                         <p>We are a small tree and Shrub service, trained and <span style="color: #e0e003;">passionate about the work we do in St. Catharines and the Niagara Region.</span> Contact us for a free same day estimate.
                             
                         </p>
@@ -26,7 +26,7 @@ $this->insert('featured', $view_data );
                 <div class="row services-row main-row">
                     <div class="small-12 large-5 columns left">
                         <div>
-                            <h3>Our Services</h3>
+                            <h3>Tree Care</h3>
                             <p>Our unique blend of services target home owners or commercial properties needing tree services, pruning, upkeep or a blend of the two. Here are a few of them...</p>
                         </div>
                     </div>
@@ -36,29 +36,29 @@ $this->insert('featured', $view_data );
                             <div class="small-6 columns buttons-anim-one">
                                 <div class="action-item">
                                     <a href="services" class="circle-button fine-pruning" alt="fine pruning"><div class="icon"></div></a>
-                                    <a class="text" href="services">Fine Pruning</a>
+                                    <a class="text" href="services"><h3 class="inherit-parent-text">Fine Pruning</h4></a>
                                 </div>
                                 <div class="action-item">
                                     <a href="services" class="circle-button hedge-trimming" alt="hedge trimming"><div class="icon"></div></a>
-                                    <a class="text" href="services">Hedge Trimming</a>
+                                    <a class="text" href="services"><h3 class="inherit-parent-text">Hedge Trimming</h4></a>
                                 </div>
                                 <div class="action-item">
                                     <a href="services" class="circle-button garden-installation" alt="shrub maintenance"><div class="icon"></div></a>
-                                    <a class="text" href="services">Shrub Maintenance</a>
+                                    <a class="text" href="services"><h3 class="inherit-parent-text">Shrub Maintenance</h4></a>
                                 </div>
                             </div>
                             <div class="small-6 columns buttons-anim-two">
                                 <div class="action-item">
                                     <a href="services" class="circle-button tree-removal" alt="tree removal"><div class="icon"></div></a>
-                                    <a class="text" href="services">Tree Removal</a>
+                                    <a class="text" href="services"><h3 class="inherit-parent-text">Tree Removal</h4></a>
                                 </div>
                                 <div class="action-item">
                                     <a href="services" class="circle-button planting" alt="planting"><div class="icon"></div></a>
-                                    <a class="text" href="services">Planting</a>
+                                    <a class="text" href="services"><h3 class="inherit-parent-text">Planting</h4></a>
                                 </div>
                                 <div class="action-item">
                                     <a href="services" class="circle-button consulting" alt="consulting"><div class="icon"></div></a>
-                                   <a class="text" href="services"> Consulting</a>
+                                   <a class="text" href="services"><h3 class="inherit-parent-text">Consulting</h4></a>
                                 </div>
                             </div>
                         </div>
@@ -81,17 +81,17 @@ $this->insert('featured', $view_data );
                 <div class="gallery-wrapper">
                     <a href="/plants#categories=deciduous-trees" class="gal-item img1">
                         <div class="heading-wrapper">
-                            <h3>Deciduous Trees</h3>
+                            <h4>Deciduous Trees</h4>
                         </div>
                     </a>
                     <a href="/plants#categories=coniferous-trees" class="gal-item img2">
                         <div class="heading-wrapper">
-                            <h3>Coniferous Trees</h3>
+                            <h4>Coniferous Trees</h4>
                         </div>
                     </a>
                     <a href="/plants#categories=shrubs-woody-plants" class="gal-item img3">
                         <div class="heading-wrapper">
-                            <h3>Shrubs & Woody Plants</h3>
+                            <h4>Shrubs & Woody Plants</h4>
                         </div>
                     </a>
                 </div>

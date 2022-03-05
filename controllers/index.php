@@ -13,6 +13,6 @@ class Index extends Controller
 	public function index($param = null) 
 	{
 		// pass view data to view
-		$this->render('index', null, 'Niagara Tree & Shrub Service', 'Locally owned and operated tree and Shrub service. Our services include fine pruning, tree removal, hedge trimming, planting, and shrub maintenance.');
+		$this->render('index', null, 'St. Catharines Tree Service', 'Locally owned and operated tree and Shrub service. Our services include fine pruning, tree removal, hedge trimming, planting, and shrub maintenance.');
 	}
 }
