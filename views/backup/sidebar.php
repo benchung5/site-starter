@@ -15,7 +15,7 @@
                           "I always feel great when I walk out of that office. <span class="highlight">It's improved my back health greatly</span>, not to mention Chordasco's comfortable, laid back, friendly and forgiving service."
                       </div>
                       <div class="spacer-sml"></div>
-                       <span class="small">Ben Chung - st. Catharines</span>
+                       <span class="small">Ben Chung - Prince George</span>
                   </li>
               </ul>
           </div>

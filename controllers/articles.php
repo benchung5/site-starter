@@ -13,7 +13,7 @@ class Articles extends Controller
 
 	public function index() 
 	{
-		$this->render('articles', null, 'Articles', 'Search articles on Niagara trees. Topics include trees in Niagara, native trees, sustainable tree care, designing with trees and tree biology.');
+		$this->render('articles', null, 'Articles', 'Search articles on Canadian trees and shrubs. Topics include trees in Niagara, native trees, sustainable tree care, designing with trees and tree biology.');
 
 		$this->load_script('mainArticles.js');
 	}

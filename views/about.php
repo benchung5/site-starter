@@ -12,7 +12,7 @@ use Lib\Utils;
 		    <div class="row">
 		        <div class="small-12 large-7 columns">
 		            <div class="left">
-		                <h1>Our St. Catharines Tree Care</h1>
+		                <h1>Our Prince George Tree Care</h1>
 		                <p>
 		                	We are a small locally owned and operated tree care service, with a track record of rigorous work ethic and satisfied clients.
 		                </p>
@@ -22,11 +22,11 @@ use Lib\Utils;
 		                </p>
 
 		                <p>
-		                	We are passionate about the Niagara Region's unique ecosystem and the important role trees and landscape play in the urban environment. Nature With Us is a <span style="color: #e0e003;">specialty tree service educated in both horticulture and arboriculture, addressing the needs of both trees, and the environment.</span>
+		                	We are passionate about northern BC's unique ecosystem and the important role trees and landscape play in the urban environment. Nature With Us is a <span style="color: #e0e003;">specialty tree service educated in both horticulture and arboriculture, addressing the needs of both trees, and the environment.</span>
 		                </p>
 
 		                <p>
-		                	Proudly serving St. Catharines and surrounding areas.
+		                	As a former Ontario company, we have moved to BC with plans to bring our eastern arboriculture knowledge, talent, and the same great service to Prince George, and it's surrounding regions.
 		                </p>
 		            </div>
 		        </div>

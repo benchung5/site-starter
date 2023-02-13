@@ -8,7 +8,7 @@
     </div> -->
     <div class="row footer-bottom">
         <div class="small-12 columns">
-            <div class="copywright padding-columns">© naturewithus.com&nbsp;2022.
+            <div class="copywright padding-columns">© naturewithus.com&nbsp;2023.
             </div>
             <div class="contact-icons">
                 <div class="icon-with-text phone">

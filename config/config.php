@@ -20,7 +20,7 @@ class Config
 	{
 		/*site title*/
 		define('SITE_TITLE', 'Nature With Us');
-		define('SITE_DESCRIPTION', 'St. Catharines tree service. Fully insured tree removal, tree trimming, and pruning.');
+		define('SITE_DESCRIPTION', 'Prince George tree service. Fully insured tree removal, tree trimming, and pruning.');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

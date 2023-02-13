@@ -67,7 +67,7 @@ use Config\Config as Config;
       </div>   
       <ul class="menu menu-mobile vertical">
           <li><a href="/" title="Nature With Us Home">Home</a></li>
-          <li><a href="/plants" title="Niagara Trees">Niagara Trees</a></li>
+          <li><a href="/plants" title="Canadian Plants">Canadian Plants</a></li>
           <li><a href="/articles" title="Articles">Articles</a></li>
           <li><a href="/about" title="About Nature With Us">About</a></li>
           <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>
