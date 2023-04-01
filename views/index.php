@@ -13,7 +13,7 @@ $this->insert('featured', $view_data );
                         <p>We are a small, family owned <span style="color: #e0e003;">native tree farm</span> located in Prince George, BC. We grow trees and shrubs native to the interior pacific north west.
                             
                         </p>
-                        <a class="button-action transparent" href="plants">View Trees & Shrubs</a>
+                        <a class="button-action transparent" href="/plants#?native_to=western-north-america?trees_category_id=shrubs-woody-plants+deciduous-trees+coniferous-trees">View Trees & Shrubs</a>
                     </div>
                 </div>
                 <div class="small-12 xlarge-5 columns">
