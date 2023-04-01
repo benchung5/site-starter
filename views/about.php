@@ -12,21 +12,16 @@ use Lib\Utils;
 		    <div class="row">
 		        <div class="small-12 large-7 columns">
 		            <div class="left">
-		                <h1>Our Prince George Tree Care</h1>
+		                <h1>About Us</h1>
 		                <p>
-		                	We are a small locally owned and operated tree care service, with a track record of rigorous work ethic and satisfied clients.
+		                	As a small, family run <span style="color: #e0e003;">native tree and shrub farm</span>. We are passionate about northern BC's unique ecosystem and the important role native plants play in the urban, rural, and the wild environments.
 		                </p>
-
 		                <p>
-		                	We are fully insured, with experience in arboriculture and sustainable landscapes. Our services include fine pruning, tree removal, hedge trimming, planting, and shrub maintenance.
+		                	We are fairly new, the business was started in 2020 as a tree service, and we moved to BC with plans to bring our passion of native trees and shrubs to the interior Pacific Northwest, and it's surrounding regions. Our vision came from a combined interest in native plants and ecosystem restoration in forests and urban environments.
 		                </p>
-
 		                <p>
-		                	We are passionate about northern BC's unique ecosystem and the important role trees and landscape play in the urban environment. Nature With Us is a <span style="color: #e0e003;">specialty tree service educated in both horticulture and arboriculture, addressing the needs of both trees, and the environment.</span>
-		                </p>
-
-		                <p>
-		                	As a former Ontario company, we have moved to BC with plans to bring our eastern arboriculture knowledge, talent, and the same great service to Prince George, and it's surrounding regions.
+		                	Currently we supply potted, bare root, and plug native coniferous trees, deciduous trees, and woody plants.
+		                	As a small nursery, our intention is increased value rather than volume, personal relations rather than automation.
 		                </p>
 		            </div>
 		        </div>
@@ -36,7 +31,33 @@ use Lib\Utils;
 		        </div>
 		    </div>
 		</section>
+
 	</div><!-- /content wrapper -->
+
+	<section id="eco-friendly">
+	        <div class="eco-friendly-bg"></div>
+	        <div class="row eco-friendly-row main-row">
+	            <div class="small-12 large-7 columns left">
+	                <div>
+	                    <h3>Eco Friendly</h3>
+	                    <p>We provide sustainable, eco-friendly methods;
+						   avoiding the use of harsh chemicals, and using organic materials for fertilizing and maintainting plant health. As a small farm, hand tools are mainly used used, mitigating our carbon footprint and noise pollution while working. Plant seeds are sourced locally and ethically from our forest or nearby wild sites to reduce transportation emissions. Recycled materials are used to their fullest where possible for structures, propagation, etc.
+						 </p>
+						 <p>
+						   We recommend and promote the use of native trees and plants to support local ecosystems. Plants have a deep connection to the local conditions, mother trees and soil miccorrizae. We believe a few small and seemingly effortless decisions such as diversification, preserving soil health, and growing wild plant species can make lasting changes on the environment.
+						 </p>
+	                </div>
+	            </div>
+	            <div class="small-12 large-5 columns right medium-media-padding">
+
+	                <div class="row types-count-row" data-scroll>
+	                    <div class="small-12 columns">
+	                    	<img src="assets/img/planting-hands.png">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	</section>
 
 	<?php $this->insert('footer', $view_data ); ?>
 

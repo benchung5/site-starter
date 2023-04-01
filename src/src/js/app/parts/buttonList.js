@@ -7,7 +7,6 @@ var ButtonList = {
 		let id = e.target.getAttribute('data-id');
 		
 	    let modifiedData = this.buttonData.map((item, index) => {
-	    	console.log(item, id);
 	    	//set current active to the opposite of what it was (toggle);
 	    	if (item.id == id) {
 	    		this.updateButtonState(id, (!item.active));

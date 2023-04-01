@@ -1,5 +1,5 @@
 import Component from '../component';
-import SideMenuMobile from '../parts/sideMenuMobile';
+import SideMenuArticlesMobile from './sideMenuArticlesMobile';
 import GridViewArticles from './gridViewArticles';
 import appStateStore from '../storage/appStateStore';
 import articleTablesStore from '../storage/articleTablesStore';
@@ -44,7 +44,7 @@ import { searchArticles, updateFilterFromUrl } from '../actions/articles';
 	      		        </div>`
 	      			});
 
-	      			const sideMenuArticles = SideMenuMobile.init({
+	      			const sideMenuArticles = SideMenuArticlesMobile.init({
 	      				onUpdate: inst.onUpdate.bind(inst),
 	      				filterStore: articleFilterStore,
 	      				categories: articleTablesStore.storageData.categories

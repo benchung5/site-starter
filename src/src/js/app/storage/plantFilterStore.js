@@ -4,10 +4,9 @@ import { globals } from '../config.js';
 var PlantFilterStore = {
 	name: 'plantFilterStore',
 	storageData: {
-		categoriesTrees: [],
-	    origins: [],
-	    zones: [],
-	    search: '',
+		search: '',
+		trees_category_id: [],
+	    native_to: [],
 	    offset: 0,
 	    limit: globals.ADMIN_ENTRIES_PER_PAGE
 	},

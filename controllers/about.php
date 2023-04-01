@@ -11,6 +11,6 @@ class About extends Controller
 
 	public function index() 
 	{
-		$this->render('about', null, 'About St. Prince George Tree Care');
+		$this->render('about', null, 'About our northern BC native tree farm');
 	}
 }

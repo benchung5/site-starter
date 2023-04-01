@@ -1,6 +1,6 @@
 import Component from '../component';
 import Loader from '../parts/loader';
-import SideMenu from '../parts/sideMenu';
+import SideMenuArticles from './sideMenuArticles';
 import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
 //config
@@ -99,12 +99,12 @@ var GridViewArticles = {
 		);
 
 		//build components
-		inst.sideMenu = SideMenu.init({
+		inst.sideMenuArticles = SideMenuArticles.init({
 			onUpdate: options.onUpdate,
 			filterStore: options.filterStore,
 			categories: options.categories
 		});
-		inst.gridView.querySelector('.left').appendChild(inst.sideMenu.el);
+		inst.gridView.querySelector('.left').appendChild(inst.sideMenuArticles.el);
 		inst.cardsContainer = inst.gridView.querySelector('.articles-container');
 		inst.pagination = Pagination.init({
 			listStore: options.listStore,

@@ -33,7 +33,7 @@ var Xhr = {
 
 		if (query) {
 			//from: https://fetch.spec.whatwg.org/#fetch-api
-			//?search=&offset=0&limit=25&categoriesTrees[]=3&categoriesTrees[]=6&zones[]=1
+			//?search=&offset=0&limit=25&trees[]=3&trees_category_id[]=6&zones[]=1
 			//url.search = new URLSearchParams(query).toString();
 			url.search = this.createQueryString(query);
 		} 

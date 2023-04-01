@@ -55,8 +55,9 @@ use Lib\Utils;
 						<div class="body-area"><?= $view_data['tree']->body ?></div>
 					</div>
 					<div class="small-12 large-4 columns sidebar">
-						<?= '<span class="bold">Botanical Name</span>: ' . Utils::sanitize($view_data['tree']->family_genus->genus_name) .'&nbsp;'. Utils::sanitize($view_data['tree']->specific_epithet) . '<br>'; ?>
-
+						<?= '<span class="bold">Botanical Name</span>: ' . Utils::sanitize($view_data['tree']->family_genus->genus_name) .'&nbsp;'. Utils::sanitize($view_data['tree']->specific_epithet); ?>
+						<?php if($view_data['tree']->subspecies) {echo 'subsp.&nbsp;'; echo Utils::sanitize($view_data['tree']->subspecies);}?>
+						<br>
 						<?= $view_data['tree']->other_common_names ? '<span class="bold">Other Names</span>: ' . Utils::sanitize($view_data['tree']->other_common_names) . '<br>' : ''; ?>
 
 						<?= $view_data['tree']->other_species ? '<span class="bold">Other Botanical Names</span>: ' . Utils::sanitize($view_data['tree']->other_species) . '<br>' : ''; ?>

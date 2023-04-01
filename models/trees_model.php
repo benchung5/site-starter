@@ -411,15 +411,15 @@ class Trees_model extends Model
 			}
 		}
 
-		// only in origins
-		if (isset($opts['origins'])) {
-			if (count($opts['origins']) > 0) {
+		// only in native_to
+		if (isset($opts['native_to'])) {
+			if (count($opts['native_to']) > 0) {
 				$this->db
-					->innerJoin('trees_origins _to', '_to.tree_id', 't.id')
-					->innerJoin('origins o', 'o.id', '_to.origin_id')
-					->in('o.id', $opts['origins']);
+					->innerJoin('trees_native_to _tnt', '_tnt.tree_id', 't.id')
+					->innerJoin('native_to nt', 'nt.id', '_tnt.native_to_id')
+					->in('nt.id', $opts['native_to']);
 			} else {
-				// force no results since origin is queried but no origin is selected
+				// force no results since native_to is queried but no native_to is selected
 				return [];
 			}
 		}

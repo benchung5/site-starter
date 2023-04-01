@@ -29,7 +29,7 @@ var SideMenuMobile = {
 
 		inst.sideMenuContent = SideMenuContent.init({
 			filterStore: options.filterStore,
-			categories: options.categories,
+			tablesStore: options.tablesStore,
 			onUpdate: options.onUpdate,
 		});
 		inst.el.appendChild(inst.sideMenuContent.el);

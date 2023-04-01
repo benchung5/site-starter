@@ -202,9 +202,8 @@ class Trees extends Controller
 			'offset' => $data['offset'], 
 			'limit' => $data['limit'],
 			'like' => isset($data['search']) ? $data['search'] : null, 
-			'trees_category' => isset($data['categoriesTrees']) ? $data['categoriesTrees'] : null, 
-			'zones' => isset($data['zones']) ? $data['zones'] : null,
-			'origins' => isset($data['origins']) ? $data['origins'] : null,
+			'trees_category' => isset($data['trees_category_id']) ? $data['trees_category_id'] : null, 
+			'native_to' => isset($data['native_to']) ? $data['native_to'] : null,
 			'mode' => isset($data['mode']) ? $data['mode'] : null,
 			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id'],
 		];

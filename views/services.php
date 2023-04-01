@@ -51,31 +51,6 @@ use Lib\Utils;
 			</div>
 		</div>
 	</div><!-- /content wrapper -->
-	<section id="eco-friendly">
-	        <div class="eco-friendly-bg"></div>
-	        <div class="row eco-friendly-row main-row">
-	            <div class="small-12 large-7 columns left">
-	                <div>
-	                    <h3>Eco Friendly</h3>
-	                    <p>We provide sustainable, eco-friendly methods;
-						   avoiding the use of harsh chemicals, and using organic materials where possible. Electric saws are used where possible to mitigate carbon footprint and noise pollution while working. Plant material is sourced from local suppliers to reduce transportation emissions. All tree brush and yard waste is composted/Recycled back into the environment.
-						 </p>
-						 <p>
-						   We recommend and promote the use of native trees and plants to support local ecosystems where possible. We believe a few small and seemingly effortless decisions can make lasting changes on the environment.
-						 </p>
-	                </div>
-	            </div>
-	            <div class="small-12 large-5 columns right medium-media-padding">
-
-	                <div class="row types-count-row" data-scroll>
-	                    <div class="small-12 columns">
-	                    	<img src="assets/img/planting-hands.png">
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	</section>
-
 	<?php $this->insert('footer', $view_data ); ?>
 
 </div><!-- /site wrapper -->

@@ -113,6 +113,7 @@ var PlantEdit = {
 						this.formFields.appendChild(dropdownSelect.el);
 					}
 					if(item.type === 'multiSelect') {
+						console.log('multiselect: ', apiData[item.name]);
 						let multiSelect = FieldMultiSelect.init({
 							name: item.name,
 							label: item.label,

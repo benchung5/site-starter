@@ -85,17 +85,16 @@ export function contains(needle) {
 export function flattenObjArray(inArray, key) {
 //return an array of values given a key in an array of objects
     if(inArray) {
-      //convert to regular array of strings
       let outArray = inArray.map((item) => {
           return item[key];
       });
-      //convert to comma string
       return outArray;
     } else {
       return null
     }
 }
 
+//eventually remove this for articles and use flattenObjArray above (plants uses it)
 export function flattenActiveObjArray(inArrayObj, key) {
   //return an array of values given a key in an array of objects (if 'active')
   //used for button controls

@@ -20,7 +20,7 @@ class Config
 	{
 		/*site title*/
 		define('SITE_TITLE', 'Nature With Us');
-		define('SITE_DESCRIPTION', 'Prince George tree service. Fully insured tree removal, tree trimming, and pruning.');
+		define('SITE_DESCRIPTION', 'Northern BC Native Tree Farm. Locally owned and operated native tree and shrub nursery. We grow coniferous and deciduous trees, shrubs, and woody plants native to the interior Pacific North West.');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

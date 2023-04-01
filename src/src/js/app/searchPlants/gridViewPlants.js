@@ -3,6 +3,7 @@ import Loader from '../parts/loader';
 import SideMenu from '../parts/sideMenu';
 import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
+
 //config
 const env = process.env.NODE_ENV || "development";
 var { PLANTS_UPLOADS_PATH } = require('../config')[env];
@@ -81,7 +82,7 @@ var GridViewPlants = {
 		inst.sideMenu = SideMenu.init({
 			onUpdate: options.onUpdate,
 			filterStore: options.filterStore,
-			categories: options.categories
+			tablesStore: options.tablesStore
 		});
 		inst.gridView.querySelector('.left').appendChild(inst.sideMenu.el);
 		inst.cardsContainer = inst.gridView.querySelector('.cards-container');

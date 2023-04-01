@@ -71,44 +71,33 @@ export function searchTrees(searchObj, callback) {
             query.mode = inObj.mode;
         }
         
-    	//format categoriesTrees, query only active ones
-    	if (inObj.categoriesTrees && (inObj.categoriesTrees.length !== 0)) {
+    	//format trees_category_id
+    	if (inObj.trees_category_id && (inObj.trees_category_id.length !== 0)) {
     		//return a new array without undefined
-    		let catArray = inObj.categoriesTrees.reduce(function(result, item) {
-    		  if(item.active) {
+    		let catArray = inObj.trees_category_id.reduce(function(result, item) {          
+              if(item) {
+
     		    result.push(item.id);
     		  }
     		  return result;
     		}, []);
 
-    		query.categoriesTrees = catArray;
+    		query.trees_category_id = catArray;
     	}
 
-    	//format origins, query only active ones
-    	if (inObj.origins && (inObj.origins.length !== 0)) {
+    	//format native_to
+    	if (inObj.native_to && (inObj.native_to.length !== 0)) {
     		//return a new array without undefined
-    		let originsArray = inObj.origins.reduce(function(result, item) {
-    		  if(item.active) {
+    		let nativeToArray = inObj.native_to.reduce(function(result, item) {
+    		  // if(item.active) {
+              if(item) {
     		    result.push(item.id);
     		  }
     		  return result;
     		}, []);
 
-    		query.origins = originsArray;
+    		query.native_to = nativeToArray;
     	}
-
-        //format origins, query only active ones
-        if (inObj.zones && (inObj.zones.length !== 0)) {
-            //return a new array without undefined
-            let zonesArray = inObj.zones.reduce(function(result, item) {
-              if(item.active) {
-                result.push(item.id);
-              }
-              return result;
-            }, []);
-
-            query.zones = zonesArray;
-        }
 
     	return query;
     }
@@ -156,28 +145,38 @@ export function deletePlant(tree, callback) {
 }
 
 export function updateFilterFromUrl(callback) {
-    const selectedCategories = getUrlParams('categories');
+    //*later on, make this funtion more abstract
+    const selectedCategories = getUrlParams('trees_category_id');
+    const selectedNativeTo = getUrlParams('native_to');
     const search = getUrlParams('search');
     const offset = getUrlParams('offset');
 
     fetchPlantTables((apiData) => {
         plantTablesStore.setData(apiData);
 
-        let modifiedCategories = plantTablesStore.storageData.trees_category_id.map((item, index) => {
-            // if url contains selected categories, just select those
-            let selectedCategories = getUrlParams('categories');
-            let isActive = true;
+        //return just the selected categories
+        let modifiedCategories = plantTablesStore.storageData.trees_category_id.filter((item, index) => {
             if (selectedCategories) {
-                isActive = false;
-                if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
-                    isActive = true;
-                }
+                return (selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1);
             }
-            return Object.assign(item, { active: isActive });
+        });
+
+        //return just the selected nativeTo
+        let modifiedNativeTo = plantTablesStore.storageData.native_to.filter((item, index) => {
+            if (selectedNativeTo) {
+                return (selectedNativeTo.length > 0) && (selectedNativeTo.indexOf(item.slug) > -1);
+            }
         });
 
         plantFilterStore.setData({ 
-            categoriesTrees: modifiedCategories, 
+            trees_category_id: modifiedCategories,
+        });
+
+        plantFilterStore.setData({ 
+            native_to: modifiedNativeTo, 
+        });
+
+        plantFilterStore.setData({ 
             search: search[0] || '',
             offset: parseInt(offset[0] || 0)
         });
@@ -193,7 +192,7 @@ export function updateFilterFromUrl(callback) {
 
 export function resetFilter(callback) {
     plantFilterStore.setData({ 
-        categoriesTrees: [], 
+        trees_category_id: [], 
         search: '',
         offset: 0
     });

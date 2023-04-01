@@ -46,7 +46,7 @@ var PlantAdd = {
 			this.updateMessage.renderError(`<span>please fill in all required fields</span>`);
 		} else {
 			//form no longer touched
-			appStateStore.setData({ formTouched: false })
+			appStateStore.setData({ formTouched: false });
 
 			// call action to submit edited
 			addPlant(formData, this.renderUpdated.bind(this));

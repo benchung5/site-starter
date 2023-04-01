@@ -744,8 +744,6 @@ body[data-index] #header {
   }
 }
 
-
-
 /* ==========================================================================
 mobile menu
 ========================================================================== */
@@ -981,6 +979,7 @@ services
       align-items: center;
       margin-bottom: 1.2em;
       .text {
+        cursor: default;
         color: #fff;
         margin-left: 1em;
       }
@@ -1345,21 +1344,21 @@ buttons
   }
 }
 
-.fine-pruning {
+.seeds {
    .icon {
-     background-image: url(../img/fine-pruning.jpg);
+     background-image: url(../img/seeds.jpg);
    }
 }
 
-.hedge-trimming {
+.bare-root-plants {
    .icon {
-     background-image: url(../img/hedge-trimming.jpg);
+     background-image: url(../img/bare-root-plants.jpg);
    }
 }
 
-.tree-removal {
+.potted-plants {
    .icon {
-     background-image: url(../img/tree-removal.jpg);
+     background-image: url(../img/potted-plants.jpg);
    }
 }
 
@@ -1369,9 +1368,9 @@ buttons
    }
 }
 
-.garden-installation {
+.seedlings {
    .icon {
-     background-image: url(../img/garden-installation.jpg);
+     background-image: url(../img/seedlings.jpg);
    }
 }
 
@@ -1871,6 +1870,7 @@ $L:     1150px;
 /* ==========================================================================
 filter
 ========================================================================== */
+
 .filter-container {
   flex: 1 1 0px;
   padding-right: 0.625rem;
@@ -1894,11 +1894,78 @@ filter
     justify-content: center;
     align-items: center;
     box-shadow: $card-box-shadow;
-    .filter-icon {
-      width: 25px;
-      height: 14px;
-      margin-left: 0.5em;
+    .filter-text {
+      margin-right: 0.5em;
+      color: #b3b4b6;
     }
+    .filter-icon {
+      height: 22px;
+      width: 22px;
+      cursor: pointer;
+      background-image: url(../img/icons/search.svg);
+      background-size: 22px 22px;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.search-filter {
+  margin: 0 0.5em 0.5em 0.5em;
+  padding-top: 0.5em;
+  .multiselect {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    border: 1px solid #cacaca;
+    border-radius: 0;
+    background-color: #fefefe;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #0a0a0a;
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    .option {
+      cursor: pointer;
+    }
+    .selected {
+      background: #e8e6e6;
+    }
+  }
+  button, .btn {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 0;
+    border-style: solid;
+    border-width: 0;
+    cursor: pointer;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0 0 1.11111rem;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.88889rem 1.77778rem 0.94444rem 1.77778rem;
+    font-size: 0.88889rem;
+    background-color: #8b9e00;
+    border-color: #007095;
+    color: #FFFFFF;
+    transition: background-color 300ms ease-out;
+  }
+
+  button:hover, button:focus, .button:hover, .button:focus 
+  .btn:hover, .btn:focus, .btn:hover, .btn:focus
+  {
+    color: #FFFFFF;
+    background-color: #bcbc1d;
   }
 }
 
@@ -2586,22 +2653,27 @@ menu
      width: 90%;
     }
   }
-  .menu-header {
+}
+
+.menu-header {
+  display: flex;
+  justify-content: flex-end;
+  .menu-header-right {
     display: flex;
-    .menu-header-right {
-      display: none;
-      border-left: 1px solid $border-color;
-      border-bottom: 1px solid $border-color;
-      position: relative;
-      width: 90px;
-      .menu-close {
-        position: absolute;
-        @include v-align-absolute(40px);
-        right: 17px;
-        @extend %close-button;
-      }
+    position: relative;
+    width: 40px;
+    height: 40px;
+    .menu-close {
+      position: absolute;
+      @include v-align-absolute(40px);
+      @include h-align-absolute(40px);
+      @extend %close-button;
     }
   }
+}
+
+.side-menu .menu-header {
+  display: none;
 }
 
 // mobile version
@@ -2621,21 +2693,6 @@ menu
     //full screen on mobile while open
     @include breakpoint(small down) {
      width: 90%;
-    }
-  }
-  .menu-header {
-    display: flex;
-    .menu-header-right {
-      border-left: 1px solid $border-color;
-      border-bottom: 1px solid $border-color;
-      position: relative;
-      width: 90px;
-      .menu-close {
-        position: absolute;
-        @include v-align-absolute(40px);
-        right: 17px;
-        @extend %close-button;
-      }
     }
   }
 }
@@ -2829,6 +2886,7 @@ buttons
 
 //circle button
 .circle-button {
+  cursor: default;
   position: relative;
   padding: 1em 0;
   display: flex;

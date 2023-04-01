@@ -14,7 +14,7 @@ class Plants extends Controller
 
 	public function index() 
 	{
-		$this->render('plants', null, 'Canadian Tree Search', 'Search trees, shrubs and woody plants commonly found in the Northern BC region');
+		$this->render('plants', null, 'Interior Pacific North West Tree Search', 'Search trees, shrubs and woody plants commonly found in the interior northern BC region');
 
 		$this->load_script('mainPlants.js');
 	}

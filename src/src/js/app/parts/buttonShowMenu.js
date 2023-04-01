@@ -10,11 +10,18 @@ var ButtonShowMenu = {
 			appStateStore.setData({ showMenu: 'open' });
 		}
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
+
+		let searchText = '';
+		if (arguments.length == 0){
+			searchText = 'Search';
+		} else {
+			searchText = options.searchText;
+		}
 
 
 		//call initialize on Component first
@@ -28,7 +35,7 @@ var ButtonShowMenu = {
 					data-id="side-menu-toggle"
 					alt="Side Menu"
 					>
-						<img class="filter-icon" src="/assets/img/icons/menu.svg"/>
+						<div class="filter-text">${searchText}</div><div class="filter-icon"></div>
 					</a>
 				</div>`
 		});

@@ -1,7 +1,7 @@
 import Component from '../component';
-import Search from './search';
+// import Search from './search';
 import SideMenuHeader from './sideMenuHeader';
-import Filter from './filter';
+import FilterPlants from './filterPlants';
 
 var SideMenuContent = {
 	init: function(options) {
@@ -22,28 +22,27 @@ var SideMenuContent = {
              `
 		});
 
-		//side menu header
-		const search = Search.init({
-			placeholder: 'Search Tree Name',
-			hasButton: true,
-			onUpdate: options.onUpdate,
-			filterStore: options.filterStore,
-		});
+		// //side menu header
+		// const search = Search.init({
+		// 	placeholder: 'Search Tree Name',
+		// 	hasButton: true,
+		// 	onUpdate: options.onUpdate,
+		// 	filterStore: options.filterStore,
+		// });
 		const sideMenuHeader = SideMenuHeader.init({
 			isClose: true,
-			children: search.el,
 		});
 		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 
 		//filter
-		const filter = Filter.init({
+		const filterPlants = FilterPlants.init({
 			buttonHeight: 40,
-			categories: options.categories,
+			tablesStore: options.tablesStore,
 			onUpdate: options.onUpdate,
 			filterStore: options.filterStore,
 		});
 		const filterEl = inst.el.querySelector('#filter');
-		filterEl.appendChild(filter.el);
+		filterEl.appendChild(filterPlants.el);
 
 		return inst;
 	}

@@ -17,6 +17,7 @@ import { searchTrees, updateFilterFromUrl } from '../actions/plants';
 			});
 		},
 		init: function() {
+
 			var proto = Object.assign({}, this, Component);
 			var inst = Object.create(proto);
 			// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -47,7 +48,7 @@ import { searchTrees, updateFilterFromUrl } from '../actions/plants';
       			const sideMenuMobile = SideMenuMobile.init({
       				onUpdate: inst.onUpdate.bind(inst),
       				filterStore: plantFilterStore,
-      				categories: plantTablesStore.storageData.trees_category_id
+      				tablesStore: plantTablesStore.storageData
       			});
       			inst.el.appendChild(sideMenuMobile.el);
 
@@ -55,11 +56,11 @@ import { searchTrees, updateFilterFromUrl } from '../actions/plants';
       				filterStore: plantFilterStore,
       				listStore: plantListStore,
       				onUpdate: inst.onUpdate.bind(inst),
-      				categories: plantTablesStore.storageData.trees_category_id,
+      				tablesStore: plantTablesStore.storageData
       			});
       			inst.el.appendChild(gridViewPlants.el);
 
-      			const buttonShowMenu = ButtonShowMenu.init();
+      			const buttonShowMenu = ButtonShowMenu.init({ searchText: 'Search Plants' });
       			inst.el.querySelector('.filter-container').appendChild(buttonShowMenu.el);
 	      	});
 
