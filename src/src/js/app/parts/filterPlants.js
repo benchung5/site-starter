@@ -56,6 +56,13 @@ var FilterPlants = {
                   <div id="form-fields">
                   </div>
                   <button action="submit" class="btn btn-primary">Search Plants</button>
+                  <br/>
+                  <br/>
+                  <p>
+                  	Use the above filter to search trees, shrubs, and woody plants native to Canada.
+      			  	Currently we only carry plants native to the Pacific North West but feel free to use our search tool for other native Canadian plants.
+      			  </p>
+      			  <br/>
               </form>
 			</div>`
 		});

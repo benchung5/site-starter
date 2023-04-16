@@ -11,6 +11,6 @@ class About extends Controller
 
 	public function index() 
 	{
-		$this->render('about', null, 'About our northern BC native tree farm');
+		$this->render('about', null, 'About our northern BC native tree farm', 'We sell native trees and shrubs of the Pacific North West. Wholesale and retail by appointment.');
 	}
 }

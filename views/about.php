@@ -52,7 +52,7 @@ use Lib\Utils;
 
 	                <div class="row types-count-row" data-scroll>
 	                    <div class="small-12 columns">
-	                    	<img src="assets/img/planting-hands.png">
+	                    	<img src="assets/img/planting-hands.png" alt="eco-friendly">
 	                    </div>
 	                </div>
 	            </div>
