@@ -54,6 +54,9 @@ use Lib\Meta;
   <meta name="msapplication-config" content="/assets/favicons/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
+  <!-- Pinterest claim domain -->
+  <meta name="p:domain_verify" content="219a2e3abcb58f0c87468ee8bc72fb09"/>
+
   <style>
     .preload {
       background-color: rgba(255,255,255,1);

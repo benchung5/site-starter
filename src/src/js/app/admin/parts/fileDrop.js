@@ -48,6 +48,30 @@ var FileDrop = {
 		}
 
 	},
+	handleClick: function(e) {
+		var input = document.createElement('input');
+		input.type = 'file';
+
+		input.onchange = e => {
+		   // getting a hold of the file reference
+		   var file = e.target.files[0]; 
+
+		   	this.handleFiles([file]);
+
+		   // // setting up the reader
+		   // var reader = new FileReader();
+		   // reader.readAsDataURL(file); // this is reading as data url
+
+		   // // here we tell the reader what to do when it's done reading...
+		   // reader.onload = readerEvent => {
+		   //    var content = readerEvent.target.result; // this is the content!
+		   //    document.querySelector('#content').style.backgroundImage = 'url('+ content +')';
+		   // }
+		}
+
+		input.click();
+		input.remove();
+	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -70,7 +94,7 @@ var FileDrop = {
 		inst.el.appendChild(inst.updateMessage.el);
 
 		//add event listeners
-		['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+		['dragenter', 'dragover', 'dragleave', 'drop','click'].forEach(eventName => {
 		  inst.el.addEventListener(eventName, inst.preventDefaults.bind(inst), false)
 		});
 		['dragenter', 'dragover'].forEach(eventName => {
@@ -78,8 +102,9 @@ var FileDrop = {
 		});
 		['dragleave', 'drop'].forEach(eventName => {
 		  inst.el.addEventListener(eventName, inst.unhighlight.bind(inst), false)
-		})
-		inst.el.addEventListener('drop', inst.handleDrop.bind(inst), false)
+		});
+		inst.el.addEventListener('drop', inst.handleDrop.bind(inst), false);
+		inst.el.addEventListener('click', inst.handleClick.bind(inst), false);
 
 		return inst;
 	}
