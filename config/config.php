@@ -20,7 +20,7 @@ class Config
 	{
 		/*site title*/
 		define('SITE_TITLE', 'Nature With Us');
-		define('SITE_DESCRIPTION', 'Northern BC Native Tree Farm. Locally owned and operated native tree and shrub nursery. We grow coniferous and deciduous trees, shrubs, and woody plants native to the interior Pacific North West.');
+		define('SITE_DESCRIPTION', 'Northern Wild Seeds. We provide northern seeds and seedlings of native plants and medicinal plants for home owners and restoration projects');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

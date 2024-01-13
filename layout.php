@@ -19,8 +19,7 @@ use Lib\Meta;
   </title>
   <meta name="description" content="<?php
     $page_description = Meta::get_page_description();
-    echo $page_description ?:  SITE_DESCRIPTION;
-  ?>">
+    echo $page_description ?:  SITE_DESCRIPTION;  ?>">
   <meta name="author" content="Ben Chung">
    
   <!-- Mobile app Tags -->

@@ -29,7 +29,7 @@ var FilterPlants = {
 				Object.assign(filterStoreClone, { [item[0]]: filterObjsArr });
 
 				//update the hash url with the selected items
-				const filterObjsArrSlugs = flattenObjArray(filterObjsArr, 'slug');
+				let filterObjsArrSlugs = flattenObjArray(filterObjsArr, 'slug');
 				setUrlParams([item[0]], filterObjsArrSlugs);
 			}
 
@@ -59,8 +59,9 @@ var FilterPlants = {
                   <br/>
                   <br/>
                   <p>
-                  	Use the above filter to search trees, shrubs, and woody plants native to Canada.
-      			  	Currently we only carry plants native to the Pacific North West but feel free to use our search tool for other native Canadian plants.
+                  	Use the above filter to search trees, shrubs, woody plants, grasses, and sedges of the north.
+      			  	We are constantly building our selection, and working on our online ordering system. In the mean time
+      			  	let us know what we can help you find.
       			  </p>
       			  <br/>
               </form>

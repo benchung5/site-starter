@@ -1344,39 +1344,39 @@ buttons
   }
 }
 
-.seeds {
+.callaction-native-plants {
    .icon {
-     background-image: url(../img/seeds.jpg);
+     background-image: url(../img/callaction-native-plants.jpg);
    }
 }
 
-.bare-root-plants {
+.callaction-medicinal-plants {
    .icon {
-     background-image: url(../img/bare-root-plants.jpg);
+     background-image: url(../img/callaction-medicinal-plants.jpg);
    }
 }
 
-.potted-plants {
+.callaction-wildflowers {
    .icon {
-     background-image: url(../img/potted-plants.jpg);
+     background-image: url(../img/callaction-wildflowers.jpg);
    }
 }
 
-.planting {
+.callaction-native-trees {
    .icon {
-     background-image: url(../img/planting.jpg);
+     background-image: url(../img/callaction-native-trees.jpg);
    }
 }
 
-.seedlings {
+.callaction-grasses-sedges {
    .icon {
-     background-image: url(../img/seedlings.jpg);
+     background-image: url(../img/callaction-grasses-sedges.jpg);
    }
 }
 
-.consulting {
+.callaction-wild-edibles {
    .icon {
-     background-image: url(../img/consulting.jpg);
+     background-image: url(../img/callaction-wild-edibles.jpg);
    }
 }
 
@@ -1589,13 +1589,13 @@ gallery
         }
       }
       &.img1 {
-        background-image: url(../img/deciduous-trees.jpg);
+        background-image: url(../img/trees-shrubs.jpg);
       }
       &.img2 {
-        background-image: url(../img/coniferous-trees.jpg);
+        background-image: url(../img/herbaceous-plants.jpg);
       }
       &.img3 {
-        background-image: url(../img/shrubs-woody-plants.jpg);
+        background-image: url(../img/grasses-sedges.jpg);
       }
       h4 {
         color: $white;
