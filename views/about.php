@@ -14,13 +14,13 @@ use Lib\Utils;
 		            <div class="left">
 		                <h1>About Us</h1>
 		                <p>
-		                	As a small, family run <span style="color: #e0e003;">native tree and shrub farm</span>. We are passionate about northern BC's unique ecosystem and the important role native plants play in the urban, rural, and the wild environments.
+		                	As a small, family run <span style="color: #e0e003;">seed and seedling farm</span>. We are passionate about northern BC's unique ecosystem and the important role native and medicinal plants play in the urban, rural, and the wild environments.
 		                </p>
 		                <p>
-		                	We are fairly new, the business was started in 2020 as a tree service, and we moved to BC with plans to bring our passion of native trees and shrubs to the interior Pacific Northwest, and it's surrounding regions. Our vision came from a combined interest in native plants and ecosystem restoration in forests and urban environments.
+		                	We are fairly new, the business was started in 2020 as a tree service, and we moved to BC with plans to bring our passion of native and medicinal plants to the interior Pacific Northwest, and it's surrounding regions. Our vision came from a combined interest in native/medicinal plants, and ecosystem restoration in forests and urban environments.
 		                </p>
 		                <p>
-		                	Currently we supply potted, bare root, and plug native coniferous trees, deciduous trees, and woody plants.
+		                	Currently we are focusing on online supply of soil blocks and seed packs of trees, woody plants, herbaceous plants, grasses, and sedges.
 		                	As a small nursery, our intention is increased value rather than volume, personal relations rather than automation.
 		                </p>
 		            </div>
