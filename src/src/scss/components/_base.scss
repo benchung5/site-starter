@@ -286,16 +286,19 @@ input {
     color: red;
 }
 
-.view .body-area .media-center{
+.view .body-area .media-center {
   background-color: #fff;
   display: flex;
   justify-content: center;
-  margin-bottom: 0.5em;
+  margin-bottom: 2em;
   img, iframe {
     margin-bottom: 0;
   }
 }
 
+.view .body-area figure .media-center {
+  margin-bottom: 0.5em;
+}
 .view .body-area figure img {
   margin-bottom: 0.5em;
 }
