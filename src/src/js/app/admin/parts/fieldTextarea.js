@@ -13,12 +13,17 @@ var FieldTextarea = {
 
 	  this.textarea.value = replacedBodyText;
 	},
-	wrapTextInElement: function(element) {
+	wrapTextInElement: function(element, className) {
 	  if (this.textarea.value) {
 	     //get the current highlighted text
 	     let selObj = window.getSelection(); 
 	     let selectedText = selObj.toString();
-	     let wrappedText = '<'+element+'>'+selectedText+'</'+element+'>';
+	     let wrappedText = '';
+	     if (className) {
+	     	wrappedText = '<'+element+' class="'+className+'">'+selectedText+'</'+element+'>';
+	     } else {
+	     	wrappedText = '<'+element+'>'+selectedText+'</'+element+'>';
+	     }
 
 	     this.updateTextArea(wrappedText, selectedText);
 	  }
@@ -48,6 +53,12 @@ var FieldTextarea = {
 
 	     this.updateTextArea(wrappedText, selectedText);
 	  }
+	},
+	onMediaCenterClick: function(e) {
+	  e.stopPropagation();
+	  e.preventDefault();
+
+	  this.wrapTextInElement('div', 'media-center');
 	},
 	onAnchorClick: function(e) {
 	  e.stopPropagation();
@@ -128,6 +139,7 @@ var FieldTextarea = {
 		       <button id="figure">figure</button>
 		       <button id="clear">clear</button>
 		       <button id="small-text">small text</button>
+		       <button id="media-center">media center</button>
 
 		       <textarea
 			       class="form-control"
@@ -158,7 +170,9 @@ var FieldTextarea = {
 		inst.el.querySelector('#figure').addEventListener('click', inst.onFigureClick.bind(inst));
 		inst.el.querySelector('#clear').addEventListener('click', inst.onClearClick.bind(inst));
 		inst.el.querySelector('#small-text').addEventListener('click', inst.onSmallTextClick.bind(inst));
+		inst.el.querySelector('#media-center').addEventListener('click', inst.onMediaCenterClick.bind(inst));
 		inst.el.querySelector('#a').addEventListener('click', inst.onAnchorClick.bind(inst));
+		
 
 		return inst;
 	}

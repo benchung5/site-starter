@@ -257,6 +257,7 @@ figure {
 
 figcaption {
   font-size: 0.8rem;
+  text-align: center;
 }
 
 input {
@@ -283,6 +284,16 @@ input {
 
 .error {
     color: red;
+}
+
+.view .body-area .media-center{
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+  img, iframe {
+    margin-bottom: 0;
+  }
 }
 
 .view .body-area figure img {
