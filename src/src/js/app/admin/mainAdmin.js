@@ -81,7 +81,6 @@ import SignInPopup from './auth/signInPopup';
 			} else if(route === 'article-list') {
 				Auth.authenticate((authData) => {
 					if(authData.id) {
-						console.log(this.el);
 						this.el.appendChild(this.articleList.el);
 					} else {
 						this.signInPopup.open(() => {
@@ -127,6 +126,8 @@ import SignInPopup from './auth/signInPopup';
 			inst.initialize({
 				container: document.querySelector('.js-app-container'),
 			});
+
+			console.log(plantFilterStore);
 			
 			//init storage items
 			plantListStore.init();

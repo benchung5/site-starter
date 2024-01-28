@@ -1,3 +1,4 @@
+
 import xhr from '../xhr';
 import appStateStore from '../storage/appStateStore';
 import { getUrlParams } from '../lib/utils';
@@ -44,6 +45,7 @@ export function getPlant(slug, callback) {
 }
 
 export function searchTrees(searchObj, callback) {
+    // console.log(searchObj); 
     appStateStore.setData({ isLoading: true });
 	
     let query = buildQuery(searchObj);
@@ -158,9 +160,6 @@ export function updateFilterFromUrl(callback) {
         let modifiedCategories = plantTablesStore.storageData.trees_category_id.filter((item, index) => {
             if (selectedCategories) {
                 return (selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1);
-            } else {
-                //if nothing selected in the URL, just select all
-                return true;
             }
         });
 
@@ -168,9 +167,6 @@ export function updateFilterFromUrl(callback) {
         let modifiedNativeTo = plantTablesStore.storageData.native_to.filter((item, index) => {
             if (selectedNativeTo) {
                 return (selectedNativeTo.length > 0) && (selectedNativeTo.indexOf(item.slug) > -1);
-            } else {
-                //if nothing selected in the URL, just select all
-                return true;
             }
         });
 

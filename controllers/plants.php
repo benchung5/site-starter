@@ -14,7 +14,7 @@ class Plants extends Controller
 
 	public function index() 
 	{
-		$this->render('plants', null, 'Native Canadian Tree & Shrub Search', 'Search trees, shrubs and woody plants commonly found in Canada');
+		$this->render('plants', null, 'Search Native & Medicinal Plants Of the North', 'native trees, shrubs, herbaceous plants, and sedges of Canada');
 
 		$this->load_script('mainPlants.js');
 	}
