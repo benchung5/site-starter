@@ -27,6 +27,7 @@ class Plants extends Controller
 			$view_data = [];
 			$view_data['tree'] = $plant;
 			$this->render('view_plant', $view_data, $plant->common_name);
+			$this->load_script('mainSourceProducts.js');
 		} else {
 			$this->render('404');
 		}

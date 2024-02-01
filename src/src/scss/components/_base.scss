@@ -233,16 +233,12 @@ a, a:link, a:visited, a:hover, a:active {
 h1 {
   font-family: $title-font;
   font-size: 2.2em;
+  letter-spacing: -0.03em;
 }
 
-h2 {
+h2, h3, h4, h5 {
   font-family: $title-font;
-  font-size: 1.5em;
-  margin-bottom: 1rem;
-}
-
-h3, h4, h5 {
-  font-family: $title-font;
+  font-weight: lighter;
   font-size: 1.5em;
   margin-bottom: 1rem;
 }
@@ -1712,6 +1708,7 @@ single view
     align-items: baseline;
     h1 {
       margin-bottom: 0.7em;
+      font-weight: 600;
     }
     h1, span {
       display: block;
@@ -2404,13 +2401,6 @@ map
   transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000); /* easeOutExpo */
 }
 
-/* ==========================================================================
-zoom control
-========================================================================== */
-
-.zoom-control {
-
-}
 
 /* ==========================================================================
 extends
@@ -3281,18 +3271,22 @@ fooslider
   justify-content: space-between;
   z-index: 2;
   //bottom: calc(50% - 20px);
-  @include v-align-absolute(40px);
+  @include v-align-absolute(1.5em);
+  padding-right: 1em;
+  padding-left: 1em;
+  opacity: 50%;
 }
 
 .fs-prev, 
 .fs-next {
   display: block;
   cursor: pointer;
-  padding: 0.5em 1em;
-  margin: 0 1em;
-  color: white;
   outline: none;
-  border: 1px solid #fff;
+  background-image: url(../img/icons/arrow.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 1.5em;
+  height: 1.5em;
   &:hover {
     color: white;
   }
@@ -3300,53 +3294,18 @@ fooslider
 
 .fs-prev {
   left: 0;
+  transform: rotate(90deg);
 }
 
 .fs-next {
   right: 0;
+  transform: rotate(-90deg);
 }
 
 /* ==========================================================================
 test stuff
 ========================================================================== */
 
-// section {
-//   padding: 3em;
-//   height: 100vh;
-//   position: relative;
-//   box-sizing: border-box;
-  
-//   blockquote {
-//     font-size: 2.3em;
-//     width: 30%;
-//     margin-top: 17%;
-//     position: absolute;
-    
-//     span {
-//       width: 100%;
-//       background: red;
-//       display: block;
-//       height: 5px;
-//       margin-top: 20px;
-//     }
-//   }
-  
-//   img {
-//     position: absolute;
-//   }
-  
-//   img:nth-of-type(1) {
-//     width: 40%;
-//     right: 0;
-//     top: 20%;
-//   }
-//   img:nth-of-type(2) {
-//     width: 25%;
-//     right: 40%;
-//     top: 29%;
-//     margin-top: 15%;
-//   }
-// }
 section:nth-child(odd) {
   background: #f1f1f1;
 }
@@ -3394,4 +3353,137 @@ drag reorder
 
 .draggable.dragging {
   opacity: .5;
+}
+
+/* ==========================================================================
+plant view
+========================================================================== */
+
+/* Android 2.3 :checked fix */
+@keyframes fake {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+    }
+}
+body {        
+    animation: fake 1s infinite;
+}
+
+.worko-tabs {
+    .state{
+      position: absolute;
+      left: -10000px;
+    }
+  
+    .flex-tabs{
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 3px solid #eee;
+        .tab{
+          max-height: 40px;
+        }
+      
+        .panel {
+          background-color: #fff;
+          font-size: 0.9em;
+          padding: 20px;
+          min-height: 300px;
+          display: none;
+          width: 100%;
+          flex-basis: auto;
+      }
+    }
+
+    .tab {
+      display: inline-block;
+      padding: 0.5em 2em;
+      vertical-align: top;
+      background-color: #eee;
+      cursor: hand;
+      cursor: pointer;
+      border-right: 1px solid #f4f6f7;
+      line-height: inherit;
+      font-size: 0.9em;
+      color: inherit;
+        &:hover{
+          background-color: #fff;
+        }
+    }  
+}
+
+#tab-one:checked ~ .tabs #tab-one-label,
+#tab-two:checked ~ .tabs #tab-two-label,
+#tab-three:checked ~ .tabs #tab-three-label,
+#tab-four:checked ~ .tabs #tab-four-label{
+    background-color: #fff;
+    color: #8b9e00;
+    cursor: default;
+}
+
+#tab-one:checked ~ .tabs #tab-one-panel,
+#tab-two:checked ~ .tabs #tab-two-panel,
+#tab-three:checked ~ .tabs #tab-three-panel,
+#tab-four:checked ~ .tabs #tab-four-panel{
+    display: block;
+}
+
+@media (max-width: 600px){
+  .flex-tabs{
+    flex-direction: column;
+    
+    .tab{
+      background: #fff;
+      border-bottom: 1px solid #f4f6f7;
+      
+        &:last-of-type{
+          border-bottom: none;
+        }
+    }
+    
+    #tab-one-label{order:1;}
+    #tab-two-label{order: 3;}
+    #tab-three-label{order: 5;};
+    #tab-four-label{order: 7;};
+    #tab-one-panel{order: 2;}
+    #tab-two-panel{order: 4;}
+    #tab-three-panel{order: 6;}
+    #tab-four-panel{ order: 8;}
+  }
+  
+    #tab-one:checked ~ .tabs #tab-one-label,
+    #tab-two:checked ~ .tabs #tab-two-label,
+    #tab-three:checked ~ .tabs #tab-three-label,
+    #tab-four:checked ~ .tabs #tab-four-label{
+      border-bottom: none;
+    }
+  
+  #tab-one:checked ~ .tabs #tab-one-panel,
+  #tab-two:checked ~ .tabs #tab-two-panel,
+  #tab-three:checked ~ .tabs #tab-three-panel,
+  #tab-four:checked ~ .tabs #tab-four-panel{
+    border-bottom: 1px solid #f4f6f7;
+  }
+}
+
+.plant-details {
+  font-size: 0.9em;
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 1.5em;
+    .title {
+      font-weight: 550;
+      background-color: #eee;
+    }
+    .title, .info {
+      padding: 0.6em 1em;
+      flex: 50%;
+      padding-top: 0.6em;
+      padding-bottom: 0.6em;
+      border-bottom: 1px solid #f4f6f7;
+    }
+  }
 }

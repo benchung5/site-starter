@@ -13,14 +13,14 @@ $dark-shadow: 2px 2px 2px #000;
 // $light-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
 $light-shadow: 0 2px 5px rgba(0,0,0,0.15);
 $corner-roundness: 10px;
-$title-font: "Lato";
+$title-font: "Open Sans";
 $secondary-title-font: "Open Sans", arial;
 $title-font-color: #645f68;
 $light-font-color: #645f68;
 $border-color: #E3E3E3;
 $border-light-color: #EBEBEB;
 $border-light-transp: 1px solid rgba(255, 255, 255, 0.1);
-$body-font: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $light-border-color: #D4D4D4;
 $header-height: 5em;
 $page-gutter: 3.5em;
@@ -145,7 +145,7 @@ pagination
 $global-font-size: 100%;
 //$global-width: rem-calc(1200);
 $global-width: 1400px;
-$global-lineheight: 1.5;
+$global-lineheight: 1.8;
 $foundation-palette: (
   primary: #970E24,
   secondary: #EDEDED,
@@ -241,7 +241,7 @@ $header-styles: (
 $header-text-rendering: optimizeLegibility;
 $small-font-size: 0.85em;
 $header-small-font-color: $medium-gray;
-$paragraph-lineheight: 1.5;
+$paragraph-lineheight: 1.8;
 $paragraph-margin-bottom: 2rem;
 $paragraph-text-rendering: optimizeLegibility;
 $code-color: $black;

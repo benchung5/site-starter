@@ -40,6 +40,9 @@ PATHS:
   searchArticles:
   # entry for external js file
     - "src/js/app/searchArticles/mainArticles.js"
+  addToCart:
+  # entry for external js file
+    - "src/js/app/addToCart/mainSourceProducts.js"
   admin:
   # entry for external js file
     - "src/js/app/admin/mainAdmin.js"
