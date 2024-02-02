@@ -1724,7 +1724,7 @@ single view
     }
   }
   .images, .image {
-    margin-bottom: 2em;
+    margin-bottom: 4em;
   }
 }
 
@@ -3191,7 +3191,7 @@ fooslider
   position: absolute;
   overflow: hidden;
   /*background transition color:*/
-  background-color: #000;
+  background-color: #2f2a33;
 }
 
 .fooslider .slide {
@@ -3208,7 +3208,6 @@ fooslider
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
   color: #fff;
 }
 
@@ -3387,9 +3386,9 @@ body {
         }
       
         .panel {
-          background-color: #fff;
+          border-top: solid 1px #e1e0e2;
           font-size: 0.9em;
-          padding: 20px;
+          padding: 4em;
           min-height: 300px;
           display: none;
           width: 100%;
@@ -3398,20 +3397,24 @@ body {
     }
 
     .tab {
+      position: relative;
+      top: 2px;
       display: inline-block;
       padding: 0.5em 2em;
       vertical-align: top;
-      background-color: #eee;
       cursor: hand;
       cursor: pointer;
-      border-right: 1px solid #f4f6f7;
       line-height: inherit;
       font-size: 0.9em;
       color: inherit;
         &:hover{
-          background-color: #fff;
+          color: #8b9e00;
         }
-    }  
+    }
+
+    #tab-one-label {
+    margin-left: 4em;
+    }
 }
 
 #tab-one:checked ~ .tabs #tab-one-label,
@@ -3419,8 +3422,13 @@ body {
 #tab-three:checked ~ .tabs #tab-three-label,
 #tab-four:checked ~ .tabs #tab-four-label{
     background-color: #fff;
+    border: solid 1px #e1e0e2;
+    border-bottom: none;
     color: #8b9e00;
     cursor: default;
+    padding-left: 4em;
+    background: #f4f6f7 url(../img/icons/arrow-black.svg) no-repeat 1.5em center;
+    background-size: 0.55em;
 }
 
 #tab-one:checked ~ .tabs #tab-one-panel,
@@ -3435,12 +3443,16 @@ body {
     flex-direction: column;
     
     .tab{
-      background: #fff;
-      border-bottom: 1px solid #f4f6f7;
+/*      background: #fff;
+      border-bottom: 1px solid #f4f6f7;*/
       
         &:last-of-type{
           border-bottom: none;
         }
+    }
+
+    #tab-one-label {
+    margin-left: 0;
     }
     
     #tab-one-label{order:1;}
@@ -3476,7 +3488,7 @@ body {
     line-height: 1.5em;
     .title {
       font-weight: 550;
-      background-color: #eee;
+      background-color: #ecebec;
     }
     .title, .info {
       padding: 0.6em 1em;

@@ -23,8 +23,6 @@ import { searchTrees, updateFilterFromUrl } from '../actions/plants';
 			// assign the instance constructor to the prototype so 'this' refers to the instance
 			proto.constructor = inst;
 
-			console.log(plantFilterStore, 'user view');
-
 	      	//init storage
 	      	appStateStore.init();
 	      	plantListStore.init();

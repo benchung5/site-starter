@@ -234,28 +234,6 @@ use Lib\Utils;
 										echo '</div>';
 									}
 
-									$insects = [];
-									if ($view_data['tree']->insects) {
-										foreach ($view_data['tree']->insects as $insect) {
-											$insects[] = $insect->name;
-										}
-										echo '<div class="title">Insects</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $insects));
-										echo '</div>';
-									}
-
-									$diseases = [];
-									if ($view_data['tree']->diseases) {
-										foreach ($view_data['tree']->diseases as $disease) {
-											$diseases[] = $disease->name;
-										}
-										echo '<div class="title">Diseases</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $diseases));
-										echo '</div>';
-									}
-
 									$light = [];
 									if ($view_data['tree']->light) {
 										foreach ($view_data['tree']->light as $_light) {
@@ -306,6 +284,9 @@ use Lib\Utils;
 			</div>
 		</div>
 	</div><!-- /content wrapper -->
+
+	<!-- insert the current tree id into javascript variable -->
+	<script>(function() { localStorage.setItem('currentTreeId', <?php echo $view_data['tree']->id; ?>); })();</script>
 
 	<?php $this->insert('footer', $view_data ); ?>
 
