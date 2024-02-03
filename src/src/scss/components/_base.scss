@@ -3499,3 +3499,99 @@ body {
     }
   }
 }
+ 
+.source-product-list {
+  margin-bottom: 4em;
+  border-top: 1px solid #e1e0e2;
+  .product-type {
+    border-bottom: 1px solid #e1e0e2;
+    padding: 1em 0;
+    h4 {
+      font-size: 1em;
+      font-weight: 600;
+      font-family: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
+    }
+    .product {
+      margin-bottom: 0.7em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .prod-variation-name {
+      }
+      .prod-price {
+        
+      }
+    }
+  }
+}
+
+.Input-plus-minus {
+  display: flex;
+  > * {
+    flex-basis: 33.3333333333%;
+    height: 2.5em;
+    width: 2.5em;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f6f7;
+/*    color: #ccc;*/
+    color: #4d4f50;
+    border: .0625rem solid #eaeaea;
+    outline: 0;
+    background-width: 0.5em;
+    background-height: 0.5em;
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+      path {
+        fill: #645f68;
+      }
+    }
+    &.subtract {
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0;
+      border-right-color: transparent;
+    }
+    &.add {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0.25rem;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0.25rem;
+      border-left-color: transparent;
+    }
+  }
+  input {
+    margin: 0;
+    outline: 0;
+    padding: 0 0.2rem;
+    text-align: center;
+    background-color: #fff;
+    color: #645f68;
+    border: none;
+    box-shadow: none;
+    border-bottom: .0625rem solid #eaeaea;
+    border-top: .0625rem solid #eaeaea;
+    transition: none;
+    &:focus {
+      border: .0625rem solid #e3e3e3;
+      transition: none;
+    }
+/*   remove spinners*/
+    -webkit-appearance: none;
+    appearance: none;
+    /* Firefox */
+    -moz-appearance:textfield;
+    /* Chrome, Safari, Edge, Opera */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+  }
+}
