@@ -216,3 +216,25 @@ export function clone(objectToClone) {
     return false;
   }
 }
+
+export function debounce(func, timeout = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
+  };
+}
+
+
+export function moveElement(el, targetParent) {
+  //moves el to the targetParent (container of the new location)
+  //will not move it if it's already in the new location 
+  //so calling this multiple times won't hurt
+  if (el && targetParent) {
+    // abort if no parent or if already in the target
+    if (!el.parentNode || el.parentNode == targetParent) { return; }
+    // detach node from DOM
+    let node = el.parentNode.removeChild(el);
+    targetParent.appendChild(node);
+  }
+}

@@ -28,6 +28,7 @@ return array(
     'Controllers\\Plants' => $baseDir . '/controllers/plants.php',
     'Controllers\\Send_email' => $baseDir . '/controllers/send_email.php',
     'Controllers\\Services' => $baseDir . '/controllers/services.php',
+    'Controllers\\Shipping' => $baseDir . '/controllers/shipping.php',
     'Controllers\\Tree_removal_calculator' => $baseDir . '/controllers/tree_removal_calculator.php',
     'GuzzleHttp\\Psr7\\AppendStream' => $vendorDir . '/guzzlehttp/psr7/src/AppendStream.php',
     'GuzzleHttp\\Psr7\\BufferStream' => $vendorDir . '/guzzlehttp/psr7/src/BufferStream.php',

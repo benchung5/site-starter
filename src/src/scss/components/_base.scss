@@ -219,15 +219,19 @@ html, body {
    // @include font-smoothing;
 }
 
-p { 
-  font-size:1.1em;
-  // margin-bottom: 2em;
-  //line-height: 2.1em;
+body { 
+  font-size:1.1rem;
 }
 
 a, a:link, a:visited, a:hover, a:active {
     text-decoration: none !important;
     // color: #535353 !important;
+}
+
+.content-wrapper {
+  li {
+    margin-bottom: 1em;
+  }
 }
 
 h1 {
@@ -236,12 +240,42 @@ h1 {
   letter-spacing: -0.03em;
 }
 
-h2, h3, h4, h5 {
+h2, h3 {
   font-family: $title-font;
   font-weight: lighter;
   font-size: 1.5em;
   margin-bottom: 1rem;
 }
+
+h4, h5 {
+  font-size: 1em;
+  font-weight: 600;
+  font-family: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  margin-bottom: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  text-indent: initial;
+  border-spacing: 0;
+  border: 1px solid #e1e0e2;
+  width: 100%;
+  tbody {
+    background-color: transparent;
+    tr {
+      background-color: transparent;
+      th, td {
+        text-align: left;
+        padding: 0.5rem 1rem;
+      }
+      td {
+        border-left: 1px solid #e1e0e2;
+        border-bottom: 1px solid #e1e0e2;
+      }
+    }
+  }
+}
+
 
 iframe {
   margin-bottom: 2em;
@@ -515,116 +549,6 @@ parts
    }
 }
 
-// .circle-group {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   width: 17.5em;
-//   .circle-wrapper {
-//     height: 17.5em;
-//     width: 100%;
-//     position: relative;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     &::before {
-//       content: '';
-//       position: absolute;
-//       left: 0;
-//       top: 0;
-//       width: 100%;
-//       height: 100%;
-//       border-radius: 50%;
-//       z-index: 2;
-//       background-image: url(../img/dot-pattern.png);
-//       padding: 4em;
-//     }
-//   }
-
-//   .circle {
-//     background-repeat: no-repeat;
-//     background-size: contain;
-//     width: 80px;
-//     height: 80px;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     border-radius: 50%;
-//     margin-bottom: 11em;
-//     position: absolute;
-//     z-index: 3;
-//     left: 50%;
-//     top: 50%;
-//     margin-left: -40px;
-//     margin-top: -40px;
-//     .icon {
-//       background-size: contain;
-//       background-position: center;
-//       background-repeat: no-repeat;
-//     }
-//     &.pink {
-//       box-shadow: 0 0 0 20px rgba(236,46,98, 0.25), 0 0 0 40px rgba(236,46,98, 0.25), 0 0 0 60px rgba(236,46,98, 0.25); 
-//       background-color: $pink;
-//     }
-//     &.yellow {
-//       box-shadow: 0 0 0 20px rgba(250,166,39, 0.25), 0 0 0 40px rgba(250,166,39, 0.25), 0 0 0 60px rgba(250,166,39, 0.25); 
-//       background-color: $orange;
-//     }
-//     &.green {
-//       box-shadow: 0 0 0 20px rgba(128,195,66, 0.25), 0 0 0 40px rgba(128,195,66, 0.25), 0 0 0 60px rgba(128,195,66, 0.25); 
-//       background-color: $green;
-//     }
-//     &.navy {
-//       box-shadow: 0 0 0 20px rgba(17,60,100, 0.25), 0 0 0 40px rgba(17,60,100, 0.25), 0 0 0 60px rgba(17,60,100, 0.25); 
-//       background-color: $navy;
-//     }
-//     &.teal {
-//       box-shadow: 0 0 0 20px rgba(40,165,177, 0.25), 0 0 0 40px rgba(40,165,177, 0.25), 0 0 0 60px rgba(40,165,177, 0.25); 
-//       background-color: $turquoise;
-//     }
-//     &.purple {
-//       box-shadow: 0 0 0 20px rgba(47,41,84, 0.25), 0 0 0 40px rgba(47,41,84, 0.25), 0 0 0 60px rgba(47,41,84, 0.25); 
-//       background-color: $purple;
-//     }
-//   }
-//   .circle-title {
-//     display: flex;
-//     justify-content: center;
-//     margin-top: 0.1em;
-//   }
-//   .icon-biking {
-//     background-image: url(../img/icons/route-biking.svg);
-//     width: 40px;
-//     height: 40px;
-//   }
-//   .icon-hiking {
-//     background-image: url(../img/icons/route-hiking.svg);
-//     width: 40px;
-//     height: 40px;
-//   }
-//   .icon-hospitality {
-//     background-image: url(../img/icons/route-hospitality.svg);
-//     width: 40px;
-//     height: 40px;
-//   }
-//   .icon-device {
-//     background-image: url(../img/icon-device.svg);
-//     width: 40px;
-//     height: 40px;
-//   }
-//   .icon-computer {
-//     background-image: url(../img/icon-computer.svg);
-//     width: 40px;
-//     height: 40px;
-//   }
-//   .icon-marker {
-//     background-image: url(../img/icon-marker.svg);
-//     width: 28px;
-//     height: 40px;
-//   }
-// }
-
 .close-btn {
   background: url(../img/icons/profile-close.svg) no-repeat;
   width: 24px;
@@ -680,6 +604,15 @@ body:not([data-index]) .content-wrapper {
   @include breakpoint(medium down) {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+.row.small-media-padding {
+  margin-right: -0.7rem;
+  margin-left: -0.7rem;
+  .columns.small-media-padding {
+      padding-left: 0.7rem;
+      padding-right: 0.7rem;
   }
 }
 
@@ -1335,6 +1268,23 @@ contact
     background-repeat: no-repeat;
     height: 17px;
     width: 151px;
+  }
+}
+
+/* ==========================================================================
+shipping
+========================================================================== */
+
+[data-shipping] .content-wrapper {
+  position: relative;
+  background-image: url(../img/faded-shipping-map.jpg);
+  background-position: right top;
+  background-repeat: no-repeat;
+  img {
+    margin-bottom: 4em;
+  }
+  a {
+    color:#8b9e00;
   }
 }
 
@@ -3358,6 +3308,30 @@ drag reorder
 plant view
 ========================================================================== */
 
+ 
+.content-wrapper.view-plant {
+  .internal {
+    .title-area {
+      margin-bottom: 1.5em;
+      display: inline-block;
+      h1 {
+        margin-bottom: 0.2em;
+        font-weight: 600;
+      }
+      h1, span {
+        display: block;
+      }
+      h2 {
+        font-size: 1em;
+      }
+    }
+    .sidebar {
+      margin-top: 0;
+    }
+  }
+}
+
+
 /* Android 2.3 :checked fix */
 @keyframes fake {
     from {
@@ -3387,12 +3361,14 @@ body {
       
         .panel {
           border-top: solid 1px #e1e0e2;
-          font-size: 0.9em;
-          padding: 4em;
+          padding: 2em 4em;
           min-height: 300px;
           display: none;
           width: 100%;
           flex-basis: auto;
+          & > div {
+
+          }
       }
     }
 
@@ -3400,13 +3376,15 @@ body {
       position: relative;
       top: 2px;
       display: inline-block;
-      padding: 0.5em 2em;
+      padding: 0.5em 1em;
       vertical-align: top;
       cursor: hand;
       cursor: pointer;
       line-height: inherit;
       font-size: 0.9em;
       color: inherit;
+      display: flex;
+      align-items: center;
         &:hover{
           color: #8b9e00;
         }
@@ -3426,8 +3404,8 @@ body {
     border-bottom: none;
     color: #8b9e00;
     cursor: default;
-    padding-left: 4em;
-    background: #f4f6f7 url(../img/icons/arrow-black.svg) no-repeat 1.5em center;
+    padding-left: 2.5em;
+    background: #f4f6f7 url(../img/icons/arrow-black.svg) no-repeat 1em center;
     background-size: 0.55em;
 }
 
@@ -3486,6 +3464,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     line-height: 1.5em;
+    min-width: 240px;
     .title {
       font-weight: 550;
       background-color: #ecebec;
@@ -3503,19 +3482,34 @@ body {
 .source-product-list {
   margin-bottom: 4em;
   border-top: 1px solid #e1e0e2;
+  min-width: 240px;
   .product-type {
     border-bottom: 1px solid #e1e0e2;
     padding: 1em 0;
-    h4 {
-      font-size: 1em;
-      font-weight: 600;
-      font-family: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif
+    .title-container {
+      display: flex;
+      margin-bottom: 1em;
+      .icon-seeds, .icon-plants {
+        width: 2em;
+        height: 2em;
+        background-size: contain !important;
+        margin-right: 0.5em;
+      }
+      .icon-seeds {
+        background: url(../img/icons/seeds.svg) no-repeat center center;
+      }
+      .icon-plants {
+        background: url(../img/icons/plants.svg) no-repeat center center;
+      }
     }
     .product {
       margin-bottom: 0.7em;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      & > * {
+        min-width: 3em;
+      }
       .prod-variation-name {
       }
       .prod-price {
@@ -3527,10 +3521,11 @@ body {
 
 .Input-plus-minus {
   display: flex;
+  align-items: center;
   > * {
     flex-basis: 33.3333333333%;
-    height: 2.5em;
-    width: 2.5em;
+    height: 42px;
+    width: 42px;
   }
   a {
     display: flex;

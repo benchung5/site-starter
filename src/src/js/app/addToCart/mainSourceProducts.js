@@ -2,6 +2,7 @@ import Component from '../component';
 import { getProducts } from '../actions/products';
 import productListStore from '../storage/productListStore';
 import InputPlusMinus from '../parts/inputPlusMinus';
+import { moveElement } from '../lib/utils';
 
 (function() {
 	var Main = {
@@ -25,7 +26,13 @@ import InputPlusMinus from '../parts/inputPlusMinus';
 
 			});
 		},
-		update: function() {
+		onMobileChange: function(e) {
+			if(e.detail.isMobile) {
+				moveElement(this.bodyAreaEl, this.mobileBodyAreaEl);
+			}
+			if(e.detail.isMobile == false) {
+				moveElement(this.bodyAreaEl, this.desktopBodyAreaEl);
+			} 
 
 		},
 		init: function() {
@@ -39,19 +46,20 @@ import InputPlusMinus from '../parts/inputPlusMinus';
 
 			inst.initialize({
 				//select the container in the document
-				container: document.querySelector('.source-product-list-container'),
+				container: document.querySelector('#source-product-list-container'),
 				el: 
 				`<div class="source-product-list">
 					<form>
 						<div class="product-type">
-							<h4>Seeds</h4>
+							<div class="title-container"><div class="icon-seeds"></div><h4>Seeds</h4></div>
 							<div id="seeds"></div>
 						</div>
 						<div class="product-type">
-							<h4>Plants</h4>
+							<div class="title-container"><div class="icon-plants"></div><h4>Plants</h4></div>
 							<div id="plants"></div>
 						</div>
 						<input id="add-to-cart-input" type="hidden" value="" ></input>
+						<button action="submit" class="btn btn-primary">Add To Cart</button>
 					</form>
 					
 				</div>`
@@ -66,11 +74,14 @@ import InputPlusMinus from '../parts/inputPlusMinus';
 
 			getProducts({source_id: currentTreeId}, (apiData) => {
 				productListStore.setData(apiData);
+				inst.buildItems();
 			});
 
-			productListStore.addListener(inst.buildItems.bind(inst));
-
-			inst.buildItems();
+			// productListStore.addListener(inst.buildItems.bind(inst));
+			this.bodyAreaEl = document.getElementById('body-area');
+			this.mobileBodyAreaEl = document.getElementById('mobile-body-area-container');
+			this.desktopBodyAreaEl = document.getElementById('desktop-body-area-container');
+			window.addEventListener('isMobile', this.onMobileChange.bind(this));
 		}
 	}
 

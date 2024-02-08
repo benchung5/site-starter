@@ -109,6 +109,7 @@ class ComposerStaticInitcd31682ad36a619b4fd0050264613878
         'Controllers\\Plants' => __DIR__ . '/../..' . '/controllers/plants.php',
         'Controllers\\Send_email' => __DIR__ . '/../..' . '/controllers/send_email.php',
         'Controllers\\Services' => __DIR__ . '/../..' . '/controllers/services.php',
+        'Controllers\\Shipping' => __DIR__ . '/../..' . '/controllers/shipping.php',
         'Controllers\\Tree_removal_calculator' => __DIR__ . '/../..' . '/controllers/tree_removal_calculator.php',
         'GuzzleHttp\\Psr7\\AppendStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/AppendStream.php',
         'GuzzleHttp\\Psr7\\BufferStream' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/BufferStream.php',
