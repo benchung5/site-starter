@@ -2,15 +2,36 @@ import Component from '../component';
 import { getProducts } from '../actions/products';
 import productListStore from '../storage/productListStore';
 import InputPlusMinus from '../parts/inputPlusMinus';
-import { moveElement } from '../lib/utils';
+import { moveElement, clone } from '../lib/utils';
+import { addItemToCart } from '../actions/cart';
 
 (function() {
 	var Main = {
+		submitForm: function(e) {
+			//prevent form from refreshing the page
+			e.preventDefault();
+			let formData = new FormData(e.target);
+			// [[product_id, quantity]]
+			let formDataArray = Array.from(formData);
+
+			let productsForCart = formDataArray.map((formDataItem) => {
+				productListStore.storageData.products.map((productListStoreItem) => {
+					if (formDataItem[0] == productListStoreItem.id && formDataItem[1] > 0) {
+						let productListStoreItemClone = clone(productListStoreItem);
+						let newItem = Object.assign(productListStoreItemClone, 
+							{ image : this.currentPlantImage }, { plantId : this.currentPlantId}, { quantity : formDataItem[1] });
+						addItemToCart(newItem);
+					}
+				});
+			});
+
+		},
 		buildItems: function() {
 			productListStore.storageData.products.map((item) => {
 				let createProd = (elem, item) => {
 					let inputPlusMinus = InputPlusMinus.init({
-						inputName: item.id
+						inputName: item.id,
+						maxValue: item.amount_available
 					});
 					let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>
 						<div class="prod-price">$${item.price}</div></div>`);
@@ -48,8 +69,9 @@ import { moveElement } from '../lib/utils';
 				//select the container in the document
 				container: document.querySelector('#source-product-list-container'),
 				el: 
-				`<div class="source-product-list">
-					<form>
+				`
+				<form>
+					<div class="source-product-list">
 						<div class="product-type">
 							<div class="title-container"><div class="icon-seeds"></div><h4>Seeds</h4></div>
 							<div id="seeds"></div>
@@ -59,23 +81,26 @@ import { moveElement } from '../lib/utils';
 							<div id="plants"></div>
 						</div>
 						<input id="add-to-cart-input" type="hidden" value="" ></input>
-						<button action="submit" class="btn btn-primary">Add To Cart</button>
-					</form>
-					
-				</div>`
+					</div>
+					<button action="submit" class="btn btn-primary">Add To Cart</button>
+				</form>
+				`
 			});
 
 			inst.seeds = inst.el.querySelector('#seeds');
 			inst.plants = inst.el.querySelector('#plants');
 			inst.addToCartInput = inst.el.querySelector('#add-to-cart-input');
 
-			//get the currentTreeId from local storage variable set through php in view_plant.php
-			let currentTreeId = localStorage.getItem('currentTreeId');
+			//get the currentPlantId from local storage variable set through php in view_plant.php
+			inst.currentPlantId = localStorage.getItem('currentPlantId');
+			inst.currentPlantImage = localStorage.getItem('currentPlantImage');
 
-			getProducts({source_id: currentTreeId}, (apiData) => {
+			getProducts({source_id: inst.currentPlantId}, (apiData) => {
 				productListStore.setData(apiData);
 				inst.buildItems();
 			});
+
+			inst.el.addEventListener('submit', inst.submitForm.bind(inst));
 
 			// productListStore.addListener(inst.buildItems.bind(inst));
 			this.bodyAreaEl = document.getElementById('body-area');

@@ -61,7 +61,7 @@ use Lib\Utils;
 
 								        <div id="tab-one-panel" class="panel active">
 								          <h3>About</h3>
-								          <p><?= $view_data['tree']->body ?></p>
+								          <?= $view_data['tree']->body ?>
 								        </div>
 								        <div id="tab-two-panel" class="panel">
 								        	<h3>Growing From Seed</h3>
@@ -73,15 +73,15 @@ use Lib\Utils;
 					            		            	<table class="instruction-table">
 					            			            	<tbody>
 					            			            	<tr>
-					            				            	<th>sowing time</th>
+					            				            	<th>Sowing Time</th>
 					            				            	<td>Sow in fall for spring germination.</td>
 					            			            	</tr>
 					            			            	<tr>
-					            				            	<th>seed treatment</th>
+					            				            	<th>Seed Treatment</th>
 					            				            	<td>Cold moist stratification required.</td>
 					            			            	</tr>
 					            			            	<tr>
-					            				            	<th>seeding instructions</th>
+					            				            	<th>Seeding Instructions</th>
 					            				            	<td>Coming soon...</td>
 					            			            	</tr>
 					            		            	</tbody>
@@ -309,8 +309,13 @@ use Lib\Utils;
 		</div>
 	</div><!-- /content wrapper -->
 
+	<?php print_r($view_data['tree']->images[0]->name); ?>
+
 	<!-- insert the current tree id into javascript variable -->
-	<script>(function() { localStorage.setItem('currentTreeId', <?php echo $view_data['tree']->id; ?>); })();</script>
+	<script>(function() { 
+		localStorage.setItem('currentPlantId', <?php echo $view_data['tree']->id; ?>); 
+		localStorage.setItem('currentPlantImage', '<?php echo $view_data['tree']->images[0]->name ?>')
+	})();</script>
 
 	<?php $this->insert('footer', $view_data ); ?>
 

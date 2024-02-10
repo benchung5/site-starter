@@ -231,6 +231,7 @@ a, a:link, a:visited, a:hover, a:active {
 .content-wrapper {
   li {
     margin-bottom: 1em;
+    padding-left: 0.5em
   }
 }
 
@@ -260,6 +261,7 @@ table {
   border-spacing: 0;
   border: 1px solid #e1e0e2;
   width: 100%;
+  font-size: 0.9rem;
   tbody {
     background-color: transparent;
     tr {
@@ -413,6 +415,36 @@ input.submit-button, button.submit-button {
 @media print {
     .no-print { display: none; }
 }
+
+.btn-primary {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0;
+  cursor: pointer;
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
+  font-weight: bold;
+  line-height: normal;
+  margin: 0 0 1.11111rem;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.88889rem 1.77778rem 0.94444rem 1.77778rem;
+  font-size: 0.8rem;
+  background-color: #8b9e00;
+  border-color: #007095;
+  color: #FFFFFF;
+  transition: background-color 300ms ease-out;
+  &:hover, &:focus {
+    color: #FFFFFF;
+    background-color: #bcbc1d;
+  }
+}
+
+
 
 /* ==========================================================================
 helper classes
@@ -1911,35 +1943,6 @@ filter
       background-size: 12px 12px;
       background-repeat: no-repeat;
     }
-  }
-  button, .btn {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    border-radius: 0;
-    border-style: solid;
-    border-width: 0;
-    cursor: pointer;
-    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
-    font-weight: normal;
-    line-height: normal;
-    margin: 0 0 1.11111rem;
-    position: relative;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: 0.88889rem 1.77778rem 0.94444rem 1.77778rem;
-    font-size: 0.8rem;
-    background-color: #8b9e00;
-    border-color: #007095;
-    color: #FFFFFF;
-    transition: background-color 300ms ease-out;
-  }
-
-  button:hover, button:focus, .button:hover, .button:focus 
-  .btn:hover, .btn:focus, .btn:hover, .btn:focus
-  {
-    color: #FFFFFF;
-    background-color: #bcbc1d;
   }
 }
 
@@ -3459,7 +3462,7 @@ body {
 }
 
 .plant-details {
-  font-size: 0.9em;
+  font-size: 0.9rem;
   .list {
     display: flex;
     flex-wrap: wrap;
@@ -3479,45 +3482,52 @@ body {
   }
 }
  
-.source-product-list {
-  margin-bottom: 4em;
-  border-top: 1px solid #e1e0e2;
-  min-width: 240px;
-  .product-type {
-    border-bottom: 1px solid #e1e0e2;
-    padding: 1em 0;
-    .title-container {
-      display: flex;
-      margin-bottom: 1em;
-      .icon-seeds, .icon-plants {
-        width: 2em;
-        height: 2em;
-        background-size: contain !important;
-        margin-right: 0.5em;
+ #source-product-list-container {
+  margin-bottom: 2em;
+  .source-product-list {
+    margin-bottom: 1rem;
+    border-top: 1px solid #e1e0e2;
+    min-width: 240px;
+    .product-type {
+      border-bottom: 1px solid #e1e0e2;
+      .title-container {
+        display: flex;
+        align-items: center;
+        margin: 0.7em 0;
+        h2, h3, h4 {
+          margin-bottom: 0;
+        }
+        .icon-seeds, .icon-plants {
+          width: 2em;
+          height: 2em;
+          background-size: contain !important;
+          margin-right: 0.5em;
+        }
+        .icon-seeds {
+          background: url(../img/icons/seeds.svg) no-repeat center center;
+        }
+        .icon-plants {
+          background: url(../img/icons/plants.svg) no-repeat center center;
+        }
       }
-      .icon-seeds {
-        background: url(../img/icons/seeds.svg) no-repeat center center;
-      }
-      .icon-plants {
-        background: url(../img/icons/plants.svg) no-repeat center center;
-      }
-    }
-    .product {
-      margin-bottom: 0.7em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      & > * {
-        min-width: 3em;
-      }
-      .prod-variation-name {
-      }
-      .prod-price {
-        
+      .product {
+        margin-bottom: 0.7em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & > * {
+          min-width: 3em;
+        }
+        .prod-variation-name {
+        }
+        .prod-price {
+          
+        }
       }
     }
   }
-}
+ }
+
 
 .Input-plus-minus {
   display: flex;
@@ -3558,6 +3568,11 @@ body {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0.25rem;
       border-left-color: transparent;
+    }
+    &.disabled svg{
+      path {
+        fill: #b7aebf;
+      }
     }
   }
   input {
