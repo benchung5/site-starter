@@ -1,5 +1,6 @@
 import Component from '../component';
 import { addClass, removeClass } from  '../lib/utils';
+import AnimationInOut from '../animationInOut';
 
 var InputPlusMinus = {
 	onItemClick: function(e) {
@@ -25,6 +26,7 @@ var InputPlusMinus = {
 	enableDisable: function() {
 		if (this.input.value >= this.maxValue) {
 			addClass(this.buttonAdd, 'disabled');
+			this.bubbleAnimation.animate();
 		} else {
 			removeClass(this.buttonAdd, 'disabled');
 		}
@@ -42,6 +44,9 @@ var InputPlusMinus = {
 		inst.initialize({
 			el: `
 				<div class="Input-plus-minus ${options.className ? options.className : ''}">
+					<div class="bubble-text">
+						only ${options.maxValue} left
+					</div>
 					<a
 					type="button"
 					class="subtract${options.isDisabled ? " disabled" : ''}" 
@@ -73,12 +78,33 @@ var InputPlusMinus = {
 		inst.buttonSubtract = inst.el.querySelector('.subtract');
 		inst.buttonAdd = inst.el.querySelector('.add');
 		inst.input = inst.el.querySelector('input');
+		inst.bubbleText = inst.el.querySelector('.bubble-text');
 
 		//enable or disable buttons if initial value is already max val
 		inst.enableDisable();
 
 		inst.buttonSubtract.addEventListener('click', inst.onItemClick.bind(inst), false);
 		inst.buttonAdd.addEventListener('click', inst.onItemClick.bind(inst), false);
+
+		//animation
+		inst.bubbleAnimation = AnimationInOut.init(inst.bubbleText, 
+			{
+				propertyTo: [['opacity', '1']],
+				duration: 0.1,
+				ease: 'linear',
+				onStart: () => {
+					inst.bubbleText.style.visibility = 'visible';
+				},
+			},
+			{
+				propertyTo: [['opacity', '0']],
+				duration: 0.1,
+				ease: 'linear',
+				delay: 0.6,
+			},
+			0.6, () => {
+				inst.bubbleText.style.visibility = 'hidden';
+		});
 
 
 		return inst;

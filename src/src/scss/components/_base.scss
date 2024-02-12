@@ -220,7 +220,7 @@ html, body {
 }
 
 body { 
-  font-size:1.1rem;
+  font-size:1rem;
 }
 
 a, a:link, a:visited, a:hover, a:active {
@@ -249,7 +249,7 @@ h2, h3 {
 }
 
 h4, h5 {
-  font-size: 1em;
+  font-size: 1.1rem;
   font-weight: 600;
   font-family: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   margin-bottom: 1rem;
@@ -346,14 +346,6 @@ input {
   height: auto;
 }
 
-.button {
-  @extend %button-base;
-  font-size: 1.3rem;
-  &.secondary {
-    color: #BBBBBB;
-  }
-}
-
 .menu {
   text-transform: uppercase;
   font-family: $title-font;
@@ -416,22 +408,36 @@ input.submit-button, button.submit-button {
     .no-print { display: none; }
 }
 
+.button {
+  @extend %button-base;
+  font-size: 1.3rem;
+  &.secondary {
+    color: #BBBBBB;
+  }
+}
+
+.btn-primary, .btn-secondary {
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ border-radius: 0;
+ border-style: solid; 
+ cursor: pointer;
+ font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
+ line-height: normal;
+ position: relative;
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
 .btn-primary {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border-radius: 0;
-  border-style: solid;
   border-width: 0;
-  cursor: pointer;
-  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif !important;
   font-weight: bold;
-  line-height: normal;
   margin: 0 0 1.11111rem;
   width: 100%;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
   padding: 0.88889rem 1.77778rem 0.94444rem 1.77778rem;
   font-size: 0.8rem;
   background-color: #8b9e00;
@@ -441,6 +447,18 @@ input.submit-button, button.submit-button {
   &:hover, &:focus {
     color: #FFFFFF;
     background-color: #bcbc1d;
+  }
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 0.0625rem solid #938b99;
+  padding: 0.5rem 1.5rem;
+  color: #938b99;
+  font-size: 0.8rem;
+  width: 7.9rem;
+  &:hover {
+
   }
 }
 
@@ -3493,13 +3511,13 @@ body {
       .title-container {
         display: flex;
         align-items: center;
-        margin: 0.7em 0;
+        margin: 1em 0 2em;
         h2, h3, h4 {
           margin-bottom: 0;
         }
         .icon-seeds, .icon-plants {
-          width: 2em;
-          height: 2em;
+          width: 1.5em;
+          height: 1.5em;
           background-size: contain !important;
           margin-right: 0.5em;
         }
@@ -3532,6 +3550,7 @@ body {
 .Input-plus-minus {
   display: flex;
   align-items: center;
+  position: relative;
   > * {
     flex-basis: 33.3333333333%;
     height: 42px;
@@ -3603,5 +3622,31 @@ body {
       margin: 0;
     }
 
+  }
+}
+
+.bubble-text {
+  opacity: 0;
+  visibility: hidden;
+  font-size: 0.7em;
+  background:#8b9e00; 
+  color:#fff; 
+  padding:7px 15px; 
+  border-radius:3px; 
+  width:100px;
+  position: absolute;
+  top: -3.2em;
+  left: 50%;
+  transform: translateX(-50%);
+  height: auto;
+  &::after {
+    content:""; 
+    border-left:0.7em solid transparent;
+    border-right:0.7em solid transparent;
+    border-top: 0.7em solid #8b9e00;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -0.5em;
   }
 }

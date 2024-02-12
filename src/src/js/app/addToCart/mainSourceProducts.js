@@ -29,19 +29,29 @@ import { addItemToCart } from '../actions/cart';
 		buildItems: function() {
 			productListStore.storageData.products.map((item) => {
 				let createProd = (elem, item) => {
-					let inputPlusMinus = InputPlusMinus.init({
-						inputName: item.id,
-						maxValue: item.amount_available
-					});
+					let priceOrMessage = "$"+item.price;
+					let inputOrNotify = null;
+
+					if(item.amount_available > 0) {
+						let inputPlusMinus = InputPlusMinus.init({
+							inputName: item.id,
+							maxValue: item.amount_available
+						});
+						inputOrNotify = inputPlusMinus.el
+					} else {
+						inputOrNotify = this.createEl(`<a class="btn-secondary">Notify Me</a>`);
+						priceOrMessage = 'Out of Stock';
+					}
 					let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>
-						<div class="prod-price">$${item.price}</div></div>`);
-					product.appendChild(inputPlusMinus.el);
+						<div class="prod-price">${priceOrMessage}</div></div>`);
+					product.appendChild(inputOrNotify);
+					
 					elem.appendChild(product);
 				}
-				if(item.productTypeName == 'seeds') {
+				if(item.productTypeName == 'Seeds') {
 					createProd(this.seeds, item);
 				}
-				if(item.productTypeName == 'plants') {
+				if(item.productTypeName == 'Plants') {
 					createProd(this.plants, item);
 				}
 

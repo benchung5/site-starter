@@ -16,21 +16,24 @@ var Animation = {
 	  }
 	},
 	animate: function() {
-		setTimeout(() => {
-			//add a custum hash class to only allow the event listener for this animation
-			this.hash = Math.random().toString(36).substr(2, 16);
-			addClass(this.el, this.hash);
+		if(this.animating == false) {
+			setTimeout(() => {
+				this.animating = true; 
+				//add a custum hash class to only allow the event listener for this animation
+				this.hash = Math.random().toString(36).substr(2, 16);
+				addClass(this.el, this.hash);
 
-			if(this.onStart) {
-				this.onStart();
-			}
+				if(this.onStart) {
+					this.onStart();
+				}
 
-			this.propertyTo.map((item)=> {
-				this.el.style[item[0]] = item[1];
-			});
-		}, this.delay);
+				this.propertyTo.map((item)=> {
+					this.el.style[item[0]] = item[1];
+				});
+			}, this.delay);
+		}
 	},
-	init: function(el, options) {
+	init: function(el, options, inOutOnEnd) {
 		if(el) {
 			var inst = Object.create(this);
 
@@ -48,6 +51,9 @@ var Animation = {
 			el.style.transitionDuration = options.duration.toString() + 's';
 			el.style.transitionTimingFunction = options.ease;
 
+			//prevent operations during animation
+			inst.animating = false;
+
 			//get the transition event name (for browser compantibility)
 			let transitionEndEventName = inst.getTransitionEndEventName();
 			el.addEventListener(transitionEndEventName, (e) => {
@@ -56,9 +62,15 @@ var Animation = {
 					if (options.onEnd) {
 						options.onEnd();
 					}
+
+					if (inOutOnEnd) {
+						//used only by the animationInOut.js component
+						inOutOnEnd();
+					}
 					//remove the custom class
 					removeClass(e.target, inst.hash);
 				}
+				inst.animating = false;
 			});
 
 			return inst;
