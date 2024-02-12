@@ -1,6 +1,5 @@
 import Component from '../component';
 import SearchArticles from '../parts/searchArticles';
-import SideMenuHeader from './sideMenuHeader';
 import FilterArticles from './filterArticles';
 
 var SideMenuArticlesContent = {
@@ -15,7 +14,6 @@ var SideMenuArticlesContent = {
 			el: 
 			`
 			<div>
-			 <div id="side-menu-header"></div>
 			 <div id="filter"></div>
              <div class="bottom"></div>
             </div>
@@ -27,11 +25,6 @@ var SideMenuArticlesContent = {
 			placeholder: 'Search Articles',
 			hasButton: true
 		});
-		const sideMenuHeader = SideMenuHeader.init({
-			isClose: true,
-			children: searchArticles.el
-		});
-		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 
 		//article filter
 		const filterArticles = FilterArticles.init({

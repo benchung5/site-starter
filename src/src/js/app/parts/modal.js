@@ -1,5 +1,5 @@
-import Component from '../../component';
-import { addClass, removeClass } from '../../lib/utils';
+import Component from '../component';
+import { addClass, removeClass } from '../lib/utils';
 
 var Modal = {
 	open: function() {

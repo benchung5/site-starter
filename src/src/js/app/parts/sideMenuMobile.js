@@ -1,19 +1,8 @@
 import Component from '../component';
-import appStateStore from '../storage/appStateStore';
-import { addClass, removeClass } from '../lib/utils';
-import animation from '../animation';
 import SideMenuContent from './sideMenuContent';
+import ModalFromSide from './modalFromSide';
 
 var SideMenuMobile = {
-	hideShowMenu() {
-		if(appStateStore.storageData.showMenu == 'close') {
-			this.closeMenuAnimation.animate();
-		} else if(appStateStore.storageData.showMenu == 'open') {
-			this.openMenuAnimation.animate();
-			addClass(this.el, 'open');
-			removeClass(this.el, 'close');
-		}
-	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -23,8 +12,7 @@ var SideMenuMobile = {
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<div class="side-menu-mobile ${appStateStore.storageData.showMenu}">
-            </div>`
+			`<div></div>`
 		});
 
 		inst.sideMenuContent = SideMenuContent.init({
@@ -32,25 +20,14 @@ var SideMenuMobile = {
 			tablesStore: options.tablesStore,
 			onUpdate: options.onUpdate,
 		});
-		inst.el.appendChild(inst.sideMenuContent.el);
 
-		appStateStore.addListener(inst.hideShowMenu.bind(inst));
+		inst.modalFromSide = ModalFromSide.init({
+			content: inst.sideMenuContent.el
+		});
 
-		//setup animation
-		inst.closeMenuAnimation = animation.init(inst.el, {
-			duration: 0.6,
-			ease: 'ease-in-out',
-			propertyTo: [['transform', 'translateX(-100%)']],
-			onEnd: () => {
-				addClass(inst.el, 'close');
-				removeClass(inst.el, 'open');
-			},
-		});
-		inst.openMenuAnimation = animation.init(inst.el, {
-			duration: 0.6,
-			ease: 'ease-in-out',
-			propertyTo: [['transform', 'translateX(0)']],
-		});
+
+		inst.el.appendChild(inst.modalFromSide.el);
+
 
 		return inst;
 	}

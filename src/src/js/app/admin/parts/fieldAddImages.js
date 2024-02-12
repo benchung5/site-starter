@@ -1,6 +1,6 @@
 import Component from '../../component';
 import FileDrop from './fileDrop';
-import Modal from './modal';
+import Modal from '../../parts/modal';
 import Crop from './crop';
 import cloneDeep from 'lodash/cloneDeep';
 

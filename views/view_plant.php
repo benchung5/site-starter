@@ -314,7 +314,7 @@ use Lib\Utils;
 	<!-- insert the current tree id into javascript variable -->
 	<script>(function() { 
 		localStorage.setItem('currentPlantId', <?php echo $view_data['tree']->id; ?>); 
-		localStorage.setItem('currentPlantImage', '<?php echo $view_data['tree']->images[0]->name ?>')
+		localStorage.setItem('currentPlantImage', '<?php echo $view_data['tree']->images[0]->name ?>');
 	})();</script>
 
 	<?php $this->insert('footer', $view_data ); ?>

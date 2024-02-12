@@ -2,6 +2,7 @@ import Component from '../component';
 import { getProducts } from '../actions/products';
 import productListStore from '../storage/productListStore';
 import InputPlusMinus from '../parts/inputPlusMinus';
+import CartPopup from './cartPopup';
 import { moveElement, clone } from '../lib/utils';
 import { addItemToCart } from '../actions/cart';
 
@@ -25,6 +26,7 @@ import { addItemToCart } from '../actions/cart';
 				});
 			});
 
+			this.cartPopup.open();
 		},
 		buildItems: function() {
 			productListStore.storageData.products.map((item) => {
@@ -111,6 +113,8 @@ import { addItemToCart } from '../actions/cart';
 			});
 
 			inst.el.addEventListener('submit', inst.submitForm.bind(inst));
+
+			inst.cartPopup = CartPopup.init();
 
 			// productListStore.addListener(inst.buildItems.bind(inst));
 			this.bodyAreaEl = document.getElementById('body-area');

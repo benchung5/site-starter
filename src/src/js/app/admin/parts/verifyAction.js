@@ -1,5 +1,5 @@
 import Component from '../../component';
-import Modal from './modal';
+import Modal from '../../parts/modal';
 
 var VerifyAction = {
 	open: function(callback) {

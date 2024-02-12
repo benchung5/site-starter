@@ -1,5 +1,4 @@
 import Component from '../component';
-import Button from './button';
 import appStateStore from '../storage/appStateStore';
 
 var SideMenuHeader = {

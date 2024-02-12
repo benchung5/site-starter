@@ -15,24 +15,11 @@ var SideMenuContent = {
 			el: 
 			`
 			<div>
-			 <div id="side-menu-header"></div>
 			 <div id="filter"></div>
              <div class="bottom"></div>
             </div>
              `
 		});
-
-		// //side menu header
-		// const search = Search.init({
-		// 	placeholder: 'Search Tree Name',
-		// 	hasButton: true,
-		// 	onUpdate: options.onUpdate,
-		// 	filterStore: options.filterStore,
-		// });
-		const sideMenuHeader = SideMenuHeader.init({
-			isClose: true,
-		});
-		inst.el.querySelector('#side-menu-header').appendChild(sideMenuHeader.el);
 
 		//filter
 		const filterPlants = FilterPlants.init({

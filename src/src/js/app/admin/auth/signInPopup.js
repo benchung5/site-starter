@@ -1,5 +1,5 @@
 import Component from '../../component';
-import Modal from '../parts/modal';
+import Modal from '../../parts/modal';
 import LoginForm from './loginForm';
 
 var SignInPopup = {

@@ -1,25 +1,24 @@
 import Component from '../component';
-import SideMenuArticlesContent from './sideMenuArticlesContent';
+import Button from '../parts/button';
 
-var SideMenuArticles = {
-	init: function() {
+var Cart = {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
+
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<div class="side-menu">
-            </div>`
+			`<div class="cart">
+				<div class="list">shopping cart list</div>
+			 </div>`
 		});
-
-		inst.sideMenuArticlesContent = SideMenuArticlesContent.init({});
-		inst.el.appendChild(inst.sideMenuArticlesContent.el);
 
 		return inst;
 	}
 }
 
-export default SideMenuArticles;
+export default Cart;
