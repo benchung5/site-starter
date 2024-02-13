@@ -121,6 +121,33 @@ import { addItemToCart } from '../actions/cart';
 			this.mobileBodyAreaEl = document.getElementById('mobile-body-area-container');
 			this.desktopBodyAreaEl = document.getElementById('desktop-body-area-container');
 			window.addEventListener('isMobile', this.onMobileChange.bind(this));
+
+
+			//making the custom event 'localUpdated' for when localStorage is updated
+			//because no existing event for this
+			// ---------------------------------------------------------/
+			//capture the original function
+			const localStore = localStorage.setItem;
+
+			//add event creator to prototype of localStorage
+			Object.getPrototypeOf(localStorage).localStorageEvent = function() {
+				if(!this.evt) {
+					this.evt = new Event('localUpdated');
+				}
+				return this.evt;
+			}.bind(this);
+
+			//make a new function to replace it, then call the original
+			//function within this
+			localStorage.setItem = function(key, value) {
+			  const evt = this.localStorageEvent();
+			        evt.key = key; 
+			        evt.value = value; 
+
+			  document.dispatchEvent(evt);
+			  // 'this' refers to the object that calls the function
+			  localStore.apply(this, arguments);
+			};
 		}
 	}
 

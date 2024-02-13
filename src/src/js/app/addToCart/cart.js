@@ -1,7 +1,29 @@
 import Component from '../component';
 import Button from '../parts/button';
+import { imgName } from '../lib/stringUtils';
+
+//config
+const env = process.env.NODE_ENV || "development";
+var { PLANTS_UPLOADS_PATH } = require('../config')[env];
 
 var Cart = {
+	buildItems: function(cart) {
+		this.cartList.innerHTML = '';
+		cart.map((item) => {
+			let cartItem = this.createEl(`<div class="cart-item">
+				<img class="image"src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/>
+				<div class="name">${item.productTypeName}: ${item.productTypeVariationName}</div>
+				<div class="price">$${item.price}</div>
+				<div class="quantity">${item.quantity}</div>
+				<div class="total">$${item.price*item.quantity}</div>
+				</div>`);
+			this.cartList.appendChild(cartItem);  
+		});
+	},
+	localUpdated: function(e) {
+		let val = JSON.parse(e.value);
+		this.buildItems(val);
+	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -16,6 +38,14 @@ var Cart = {
 				<div class="list">shopping cart list</div>
 			 </div>`
 		});
+
+		inst.cartList = inst.el.querySelector('.list');
+
+		//listen for our custom event for local storage updated
+		document.addEventListener("localUpdated", inst.localUpdated.bind(inst));
+
+		inst.cart = JSON.parse(localStorage.getItem('cart')) || [];
+		inst.buildItems(inst.cart);
 
 		return inst;
 	}

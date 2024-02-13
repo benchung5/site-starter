@@ -2669,7 +2669,7 @@ menu
   @extend %side-panel;
   transform: translateX(-100%);
   z-index: 10;
-  width: 326px;
+/*  width: 326px;*/
   left: 0;
   //animation in react component
   box-shadow: none;
@@ -3655,3 +3655,32 @@ body {
 /* ==========================================================================
 cart
 ========================================================================== */
+
+.cart {
+  .list {
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      .image {
+          flex-basis: 15%;
+          max-width: 15%;
+      }
+      .name {
+          flex-basis: 30%;
+          max-width: 30%
+      }
+      .price {
+          flex-basis: 20%;
+          max-width: 20%;
+      }
+      .quantity {
+        flex-basis: 20%;
+        max-width: 20%;
+      }
+      .total {
+        flex-basis: 15%;
+        max-width: 15%;
+      }
+    }
+  }
+}
