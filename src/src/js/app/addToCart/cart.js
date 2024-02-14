@@ -10,9 +10,10 @@ var Cart = {
 	buildItems: function(cart) {
 		this.cartList.innerHTML = '';
 		cart.map((item) => {
+			console.log(item);
 			let cartItem = this.createEl(`<div class="cart-item">
-				<img class="image"src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/>
-				<div class="name">${item.productTypeName}: ${item.productTypeVariationName}</div>
+				<a class="image" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
+				<div class="name"><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div>
 				<div class="price">$${item.price}</div>
 				<div class="quantity">${item.quantity}</div>
 				<div class="total">$${item.price*item.quantity}</div>

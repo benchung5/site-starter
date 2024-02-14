@@ -20,7 +20,13 @@ import { addItemToCart } from '../actions/cart';
 					if (formDataItem[0] == productListStoreItem.id && formDataItem[1] > 0) {
 						let productListStoreItemClone = clone(productListStoreItem);
 						let newItem = Object.assign(productListStoreItemClone, 
-							{ image : this.currentPlantImage }, { plantId : this.currentPlantId}, { quantity : formDataItem[1] });
+							{ image : this.currentPlantImage }, 
+							{ plantId : this.currentPlantId}, 
+							{ commonName : this.currentPlantCommonName },
+							{ botanicalName : this.currentPlantBotanicalName },
+							{ plantUrl : this.currentPlantUrl },
+							{ quantity : formDataItem[1] },
+							);
 						addItemToCart(newItem);
 					}
 				});
@@ -106,6 +112,9 @@ import { addItemToCart } from '../actions/cart';
 			//get the currentPlantId from local storage variable set through php in view_plant.php
 			inst.currentPlantId = localStorage.getItem('currentPlantId');
 			inst.currentPlantImage = localStorage.getItem('currentPlantImage');
+			inst.currentPlantBotanicalName = localStorage.getItem('currentPlantBotanicalName');
+			inst.currentPlantCommonName = localStorage.getItem('currentPlantCommonName');
+			inst.currentPlantUrl= localStorage.getItem('currentPlantUrl');
 
 			getProducts({source_id: inst.currentPlantId}, (apiData) => {
 				productListStore.setData(apiData);

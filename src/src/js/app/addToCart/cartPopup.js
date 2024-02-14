@@ -16,12 +16,15 @@ var CartPopup = {
 
 		//call initialize on Component first
 		inst.initialize({
-			container: document.querySelector('.site-wrapper'),
+			container: document.querySelector('body'),
 			el: `<div></div>`
 		});
 
 		inst.cart = Cart.init();
-		inst.modalfromSide = ModalfromSide.init({ content: inst.cart.el });
+		inst.modalfromSide = ModalfromSide.init({
+			title: 'Shopping Cart',
+			content: inst.cart.el
+	});
 		inst.el.appendChild(inst.modalfromSide.el);
 
 		return inst;

@@ -2,6 +2,7 @@
 <?php 
 use Config\Config as Config;
 use Lib\Utils;
+use Lib\Uri;
 ?>
 
 <?php $this->insert('header', $view_data ); ?>
@@ -309,12 +310,13 @@ use Lib\Utils;
 		</div>
 	</div><!-- /content wrapper -->
 
-	<?php print_r($view_data['tree']->images[0]->name); ?>
-
 	<!-- insert the current tree id into javascript variable -->
 	<script>(function() { 
 		localStorage.setItem('currentPlantId', <?php echo $view_data['tree']->id; ?>); 
 		localStorage.setItem('currentPlantImage', '<?php echo $view_data['tree']->images[0]->name ?>');
+		localStorage.setItem('currentPlantCommonName', '<?= Utils::sanitize($view_data['tree']->common_name) ?>');
+		localStorage.setItem('currentPlantBotanicalName', '<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) .' '. Utils::sanitize($view_data['tree']->specific_epithet); if($view_data['tree']->subspecies) {echo 'subsp.&nbsp;'; echo Utils::sanitize($view_data['tree']->subspecies);}?>');
+		localStorage.setItem('currentPlantUrl', '<?php Uri::get_current_url() ?>');
 	})();</script>
 
 	<?php $this->insert('footer', $view_data ); ?>
