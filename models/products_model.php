@@ -11,12 +11,7 @@ class Products_model extends Model
 
 		// only in products that belong to the source
 		if (isset($opts['source_id'])) {
-			if (count($opts['source_id']) > 0) {
-				$this->db->where('p.source_id', '>=', $opts['source_id'][0]);
-			} else {
-				// force no results since native_to is queried but no native_to is selected
-				return [];
-			}
+			$this->db->where('p.source_id', '=', $opts['source_id']);
 		}
 
 		$this->db
@@ -25,7 +20,7 @@ class Products_model extends Model
 			->leftJoin('product_type_variations ptv', 'p.product_type_variation_id', 'ptv.id');
 
 		$result = $this->db->getAll();
-		
+
 		return $result;
 	}
 }

@@ -3,32 +3,38 @@ import appStateStore from '../storage/appStateStore';
 import animation from '../animation';
 import { addClass, removeClass } from '../lib/utils';
 
+// Usage:
+// inst.loader = Loader.init({
+// 	children: inst.el
+// });
+// inst.el = inst.loader.el;
+
 var Loader = {
-	onLoadingChange: function() {
-		if(appStateStore.storageData.isLoading) {
-			this.setLoading();
+	// onLoadingChange: function(e) {
+
+	// },
+	animate: function() {
+		if(appStateStore.storageData.isLoading && (!this.isInitialPageLoad)) {
+			this.startLock();
+			if(!this.isInitialPageLoad) {
+				this.showLoadingAnimation.animate();
+			}
 		}
-		if(! appStateStore.storageData.isLoading) {
+		if(!appStateStore.storageData.isLoading) {
 			//if not currently doing minimum load
 			if(!this.state.lockLoad) {
 			  //this.setState({ isLoading: false });
 			  this.hideLoadingAnimation.animate();
 			}
-		}
+		}	
 	},
-	setLoading: function() {
-	  //apply a minimum load
-	  //this.setState({ isLoading: true });
-
-	  this.showLoadingAnimation.animate();
-	  this.setState({ lockLoad: true });
-	  setTimeout(() => {
-	    if(!appStateStore.storageData.isLoading) {
-	      //this.setState({ isLoading: false });
-	      this.hideLoadingAnimation.animate();
-	    }
-	    this.setState({ lockLoad: false });
-	  }, 150);
+	startLock: function() {
+		//force a minimum amount of time to show the loader
+		this.setState({ lockLoad: true });
+		setTimeout(() => {
+		  this.setState({ lockLoad: false });
+		  this.animate();
+		}, 600);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -41,7 +47,7 @@ var Loader = {
 			el: 
 			`
 			<div class="preload-wrapper">
-			  <div class="preload-internal">
+			  <div class="preload-internal" style="visibility: hidden; opacity: 0;">
 			    <svg class="circular" viewBox="25 25 50 50">
 			      <circle class="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10"/>
 			    </svg>
@@ -51,6 +57,17 @@ var Loader = {
 		});
 
 		inst.preload = inst.el.querySelector('.preload-internal');
+		//if used on initial page load, just show the loader, don't animate it in
+		inst.isInitialPageLoad = options.isInitialPageLoad;
+		if(inst.isInitialPageLoad) {
+			inst.preload.style.visibility = 'visible';
+			inst.preload.style.opacity = 1;
+			inst.startLock();
+		}
+		inst.preload.style.backgroundColor = options.backgroundColor ? options.backgroundColor : inst.preload.style.backgroundColor;
+		if(options.isFullScreen) {
+			inst.preload.style.position = "fixed";
+		}
 
 		inst.el.appendChild(options.children);
 
@@ -61,6 +78,9 @@ var Loader = {
 			ease: 'ease-in-out',
 			onStart: () => {
 				inst.preload.style.visibility = 'visible';
+			},
+			onEnd: () => {
+				//inst.onLoadingChange.call(this);
 			}
 		});
 		inst.hideLoadingAnimation = animation.init(inst.preload, {
@@ -72,8 +92,11 @@ var Loader = {
 			}
 		});
 
-		appStateStore.addListener(inst.onLoadingChange.bind(inst));
-		inst.onLoadingChange();
+		appStateStore.addListener((e) => {
+			if(e.detail.isLoading !== undefined) {
+				inst.animate();
+			}
+		});
 
 		return inst;
 	}

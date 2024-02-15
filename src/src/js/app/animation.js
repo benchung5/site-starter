@@ -46,8 +46,7 @@ var Animation = {
 				inst.delay = 0;
 			}
 			
-			//el.style.transitionProperty = options.property;
-			el.style.transitionProperty = 'all';
+			el.style.transitionProperty = options.transitionProperty || 'all';
 			el.style.transitionDuration = options.duration.toString() + 's';
 			el.style.transitionTimingFunction = options.ease;
 

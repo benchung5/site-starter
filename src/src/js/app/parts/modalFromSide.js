@@ -50,7 +50,12 @@ var ModalFromSide = {
 		}
 
 		appStateStore.init();
-		appStateStore.addListener(inst.hideShowModal.bind(inst));
+		//appStateStore.addListener(inst.hideShowModal.bind(inst));
+		appStateStore.addListener((e) => {
+			if(e.detail.showMenu !== undefined) {
+				inst.hideShowModal();
+			}
+		});
 
 		inst.headerRight = inst.el.querySelector('.menu-header-right');
 		const closeButton = Button.init({
@@ -65,6 +70,7 @@ var ModalFromSide = {
 			duration: 0.6,
 			ease: 'ease',
 			propertyTo: [['opacity', '1']],
+			transitionProperty: 'opacity',
 			onStart: () => {
 				inst.el.style.visibility = 'visible';
 			},
@@ -73,6 +79,7 @@ var ModalFromSide = {
 			duration: 0.6,
 			ease: 'ease',
 			propertyTo: [['opacity', '0']],
+			transitionProperty: 'opacity',
 			onEnd: () => {
 				inst.el.style.visibility = 'hidden';
 			},

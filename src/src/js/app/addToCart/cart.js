@@ -1,6 +1,7 @@
 import Component from '../component';
 import Button from '../parts/button';
 import { imgName } from '../lib/stringUtils';
+import InputPlusMinus from '../parts/inputPlusMinus';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -10,14 +11,20 @@ var Cart = {
 	buildItems: function(cart) {
 		this.cartList.innerHTML = '';
 		cart.map((item) => {
-			console.log(item);
+			let inputPlusMinus = InputPlusMinus.init({
+				inputName: item.id,
+				inputValue: item.quantity,
+				maxValue: item.amount_available
+			});
 			let cartItem = this.createEl(`<div class="cart-item">
 				<a class="image" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
-				<div class="name"><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div>
+				<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
 				<div class="price">$${item.price}</div>
-				<div class="quantity">${item.quantity}</div>
+				<div class="quantity"></div>
 				<div class="total">$${item.price*item.quantity}</div>
 				</div>`);
+			let quantity = cartItem.querySelector('.quantity');
+			quantity.appendChild(inputPlusMinus.el);
 			this.cartList.appendChild(cartItem);  
 		});
 	},

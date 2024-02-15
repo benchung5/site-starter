@@ -21,12 +21,14 @@ var InputPlusMinus = {
 		}
 
 		//then disable enable/disable buttons if needed
-		this.enableDisable();
+		this.enableDisable(true);
 	},
-	enableDisable: function() {
+	enableDisable: function(isClick) {
 		if (this.input.value >= this.maxValue) {
 			addClass(this.buttonAdd, 'disabled');
-			this.bubbleAnimation.animate();
+			if(isClick) {
+				this.bubbleAnimation.animate();
+			}
 		} else {
 			removeClass(this.buttonAdd, 'disabled');
 		}
@@ -45,7 +47,7 @@ var InputPlusMinus = {
 			el: `
 				<div class="Input-plus-minus ${options.className ? options.className : ''}">
 					<div class="bubble-text">
-						only ${options.maxValue} left
+						only ${inst.maxValue} left
 					</div>
 					<a
 					type="button"
@@ -80,9 +82,6 @@ var InputPlusMinus = {
 		inst.input = inst.el.querySelector('input');
 		inst.bubbleText = inst.el.querySelector('.bubble-text');
 
-		//enable or disable buttons if initial value is already max val
-		inst.enableDisable();
-
 		inst.buttonSubtract.addEventListener('click', inst.onItemClick.bind(inst), false);
 		inst.buttonAdd.addEventListener('click', inst.onItemClick.bind(inst), false);
 
@@ -106,6 +105,9 @@ var InputPlusMinus = {
 				inst.bubbleText.style.visibility = 'hidden';
 		});
 
+		//enable or disable buttons if initial value is already max val
+		console.log('enableDisable 1');
+		inst.enableDisable();
 
 		return inst;
 	}

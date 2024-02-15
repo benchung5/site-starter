@@ -1,10 +1,12 @@
 import Component from '../component';
 import { getProducts } from '../actions/products';
 import productListStore from '../storage/productListStore';
+import appStateStore from '../storage/appStateStore';
 import InputPlusMinus from '../parts/inputPlusMinus';
 import CartPopup from './cartPopup';
 import { moveElement, clone } from '../lib/utils';
 import { addItemToCart } from '../actions/cart';
+import Loader from '../parts/loader';
 
 (function() {
 	var Main = {
@@ -51,8 +53,9 @@ import { addItemToCart } from '../actions/cart';
 						priceOrMessage = 'Out of Stock';
 					}
 					let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>
-						<div class="prod-price">${priceOrMessage}</div></div>`);
-					product.appendChild(inputOrNotify);
+						<div class="prod-price">${priceOrMessage}</div><div class="prod-quantity"></div></div>`);
+					let productQuantity = product.querySelector('.prod-quantity');
+					productQuantity.appendChild(inputOrNotify);
 					
 					elem.appendChild(product);
 				}
@@ -82,10 +85,9 @@ import { addItemToCart } from '../actions/cart';
 
 			//init storage
 			productListStore.init();
+			appStateStore.init();
 
 			inst.initialize({
-				//select the container in the document
-				container: document.querySelector('#source-product-list-container'),
 				el: 
 				`
 				<form>
@@ -116,6 +118,15 @@ import { addItemToCart } from '../actions/cart';
 			inst.currentPlantCommonName = localStorage.getItem('currentPlantCommonName');
 			inst.currentPlantUrl= localStorage.getItem('currentPlantUrl');
 
+			//insert into loader, then insert that into the page container
+			inst.loader = Loader.init({
+				children: inst.el,
+				isInitialPageLoad: true,
+				backgroundColor: '#f4f6f7'
+			});
+			let container = document.querySelector('#source-product-list-container');
+			container.appendChild(inst.loader.el);
+
 			getProducts({source_id: inst.currentPlantId}, (apiData) => {
 				productListStore.setData(apiData);
 				inst.buildItems();
@@ -130,6 +141,8 @@ import { addItemToCart } from '../actions/cart';
 			this.mobileBodyAreaEl = document.getElementById('mobile-body-area-container');
 			this.desktopBodyAreaEl = document.getElementById('desktop-body-area-container');
 			window.addEventListener('isMobile', this.onMobileChange.bind(this));
+
+
 
 
 			//making the custom event 'localUpdated' for when localStorage is updated

@@ -3,6 +3,7 @@ import Loader from '../parts/loader';
 import SideMenu from '../parts/sideMenu';
 import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
+import appStateStore from '../storage/appStateStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -55,6 +56,8 @@ var GridViewPlants = {
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
+		inst.initialize({});
+
 		inst.gridView = inst.createEl(
 			`<div>
                 <div class="row">
@@ -77,6 +80,7 @@ var GridViewPlants = {
 		);
 
 		inst.listStore = options.listStore;
+		appStateStore.init();
 
 		//build components
 		inst.sideMenu = SideMenu.init({
@@ -94,11 +98,11 @@ var GridViewPlants = {
 		inst.gridView.querySelector('.right').appendChild(inst.pagination.el);
 
 		inst.loader = Loader.init({
-			children: inst.gridView
+			children: inst.gridView,
+			isInitialPageLoad: true,
+			isFullScreen: true
 		});
 
-
-		inst.initialize({});
 		inst.el = inst.loader.el;
 
 		inst.listStore.addListener(inst.buildItems.bind(inst));
