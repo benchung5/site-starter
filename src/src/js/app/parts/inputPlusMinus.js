@@ -106,7 +106,6 @@ var InputPlusMinus = {
 		});
 
 		//enable or disable buttons if initial value is already max val
-		console.log('enableDisable 1');
 		inst.enableDisable();
 
 		return inst;

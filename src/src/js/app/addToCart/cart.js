@@ -29,6 +29,7 @@ var Cart = {
 		});
 	},
 	localUpdated: function(e) {
+		console.log('localUpdated');
 		let val = JSON.parse(e.value);
 		this.buildItems(val);
 	},

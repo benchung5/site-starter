@@ -84,13 +84,17 @@ class Trees extends Controller
 		if(!empty($data['growth_rate'])) { $update_data['growth_rate'] = $data['growth_rate']; };
 		if(!empty($data['lifespan_min'])) { $update_data['lifespan_min'] = $data['lifespan_min']; };
 		if(!empty($data['lifespan_max'])) { $update_data['lifespan_max'] = $data['lifespan_max']; };
+		if(!empty($data['seeds_packet'])) { $update_data['seeds_packet'] = $data['seeds_packet']; };
+		if(!empty($data['seeds_gram'])) { $update_data['seeds_gram'] = $data['seeds_gram']; };
+		if(!empty($data['cost_gram'])) { $update_data['cost_gram'] = $data['cost_gram']; };
+		if(!empty($data['dormancy_treatment'])) { $update_data['dormancy_treatment'] = $data['dormancy_treatment']; };
+		if(!empty($data['seeding_instructions'])) { $update_data['seeding_instructions'] = $data['seeding_instructions']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 		if(!empty($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
 
 		// the many to many table data...
 		$joins_data = [
-			'origins' => !empty($data['origins']) ? $data['origins'] : null,
 			'eco_benefits' => !empty($data['eco_benefits']) ? $data['eco_benefits'] : null,
 			'native_to' => !empty($data['native_to']) ? $data['native_to'] : null,
 			'shapes' => !empty($data['shapes']) ? $data['shapes'] : null,
@@ -101,8 +105,8 @@ class Trees extends Controller
 			'transplanting' => !empty($data['transplanting']) ? $data['transplanting'] : null,
 			'unique_attractions' => !empty($data['unique_attractions']) ? $data['unique_attractions'] : null,
 			'tolerances' => !empty($data['tolerances']) ? $data['tolerances'] : null,
-			'insects' => !empty($data['insects']) ? $data['insects'] : null,
-			'diseases' => !empty($data['diseases']) ? $data['diseases'] : null,
+			// 'insects' => !empty($data['insects']) ? $data['insects'] : null,
+			// 'diseases' => !empty($data['diseases']) ? $data['diseases'] : null,
 		];
 
 		if ($is_add) {

@@ -132,6 +132,8 @@ import Loader from '../parts/loader';
 				inst.buildItems();
 			});
 
+			console.log(inst.el);
+
 			inst.el.addEventListener('submit', inst.submitForm.bind(inst));
 
 			inst.cartPopup = CartPopup.init();
@@ -151,18 +153,10 @@ import Loader from '../parts/loader';
 			//capture the original function
 			const localStore = localStorage.setItem;
 
-			//add event creator to prototype of localStorage
-			Object.getPrototypeOf(localStorage).localStorageEvent = function() {
-				if(!this.evt) {
-					this.evt = new Event('localUpdated');
-				}
-				return this.evt;
-			}.bind(this);
-
 			//make a new function to replace it, then call the original
 			//function within this
 			localStorage.setItem = function(key, value) {
-			  const evt = this.localStorageEvent();
+			  const evt = new Event('localUpdated');
 			        evt.key = key; 
 			        evt.value = value; 
 

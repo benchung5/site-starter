@@ -92,11 +92,7 @@ var Loader = {
 			}
 		});
 
-		appStateStore.addListener((e) => {
-			if(e.detail.isLoading !== undefined) {
-				inst.animate();
-			}
-		});
+		appStateStore.addListener(inst.animate.bind(inst), 'isLoading');
 
 		return inst;
 	}

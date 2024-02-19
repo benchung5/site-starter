@@ -73,17 +73,25 @@ use Lib\Uri;
 					            	            <div class="small-12 large-6 columns small-media-padding">
 					            		            	<table class="instruction-table">
 					            			            	<tbody>
+            			            		            	<tr>
+            			            			            	<th>Seeds/Packet</th>
+            			            			            	<td><?= $view_data['tree']->seeds_packet ? Utils::sanitize($view_data['tree']->seeds_packet) : 'Coming soon...'; ?></td>
+            			            		            	</tr>
+		            		            	            	<tr>
+		            		            		            	<th>Seeds/Gram</th>
+		            		            		            	<td><?= $view_data['tree']->seeds_gram ? Utils::sanitize($view_data['tree']->seeds_gram) : 'Coming soon...'; ?></td>
+		            		            	            	</tr>
+    		            	            	            	<tr>
+    		            	            		            	<th>Cost/Gram</th>
+    		            	            		            	<td><?= $view_data['tree']->cost_gram ? Utils::sanitize($view_data['tree']->cost_gram) : 'Coming soon...'; ?> For bulk orders (min $20)</td>
+    		            	            	            	</tr>
 					            			            	<tr>
-					            				            	<th>Sowing Time</th>
-					            				            	<td>Sow in fall for spring germination.</td>
-					            			            	</tr>
-					            			            	<tr>
-					            				            	<th>Seed Treatment</th>
-					            				            	<td>Cold moist stratification required.</td>
+					            				            	<th>Dormancy Treatment</th>
+					            				            	<td><?= $view_data['tree']->dormancy_treatment ? Utils::sanitize($view_data['tree']->dormancy_treatment) : 'Coming soon...'; ?></td>
 					            			            	</tr>
 					            			            	<tr>
 					            				            	<th>Seeding Instructions</th>
-					            				            	<td>Coming soon...</td>
+					            				            	<td><?= $view_data['tree']->seeding_instructions ? Utils::sanitize($view_data['tree']->seeding_instructions) : 'Coming soon...'; ?></td>
 					            			            	</tr>
 					            		            	</tbody>
 					            	            	</table>
@@ -97,7 +105,7 @@ use Lib\Uri;
 								        </div>
 								        <div id="tab-four-panel" class="panel">
 								            <h3>Shipping</h3>
-								            <p>We currently ship within the provinces of British Columbia and Alberta, and it usually takes 2-5 business days in the mail once shipped. Seeds ship year-round, plants are generally available from May to September and can be reserved during off season; Shipping costs are calculated during checkout. See <a href="/shipping">Shipping</a> for more details.
+								            <p>We currently ship within the provinces of British Columbia and Alberta, and it usually takes 2-5 business days in the mail once shipped. Seeds ship year-round. Plants are generally available from May to September and can be reserved during off season; Shipping costs are calculated during checkout. <b>Seed orders over $100 ship free!</b> See <a href="/shipping">Shipping</a> for more details.
 								            </p>
 								        </div>
 								    </div>

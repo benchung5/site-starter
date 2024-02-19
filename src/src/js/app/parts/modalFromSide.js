@@ -50,12 +50,7 @@ var ModalFromSide = {
 		}
 
 		appStateStore.init();
-		//appStateStore.addListener(inst.hideShowModal.bind(inst));
-		appStateStore.addListener((e) => {
-			if(e.detail.showMenu !== undefined) {
-				inst.hideShowModal();
-			}
-		});
+		appStateStore.addListener(inst.hideShowModal.bind(inst), 'showMenu');
 
 		inst.headerRight = inst.el.querySelector('.menu-header-right');
 		const closeButton = Button.init({

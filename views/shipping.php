@@ -11,7 +11,7 @@
 						</div>
 						<img alt="shipping" src="/assets/img/shipping.jpg" />
 						<h2>How Is Shipping Calculated</h2>
-						<p>Shipping costs are calculated at checkout and are based on your location and the type/amount of products ordered. Feel free to use the shopping cart to test shipping costs and go back before submitting the order to make adjustments if need be.</p>
+						<p>Shipping costs are calculated at checkout and are based on your location and the type/amount of products ordered. Feel free to use the shopping cart to test shipping costs and go back before submitting the order to make adjustments if need be. <b>Seed orders over $100 ship free!</b></p>
 
 						<h2>Shipping Season</h2>
 						<p>Seeds ship year round. A fresh supply of seeds are harvested in the fall depending on the species. We ship them throughout the winter, into the growing season.</p>
