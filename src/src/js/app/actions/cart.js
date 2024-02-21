@@ -2,7 +2,6 @@ import productListStore from '../storage/productListStore';
 
 
 export function addItemToCart(item) {
-    console.log(item);
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let foundCartItem = cart.find((existingItem) => existingItem.id == item.id);
     if(foundCartItem) {
@@ -16,7 +15,6 @@ export function addItemToCart(item) {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(localStorage);
 }
 
 

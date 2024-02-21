@@ -37,6 +37,22 @@ import Loader from '../parts/loader';
 			this.cartPopup.open();
 		},
 		buildItems: function() {
+			let seedContainerEl = this.createEl(`
+				<div class="product-type">
+					<div class="title-container"><div class="icon-seeds"></div><h4>Seeds</h4></div>
+					<div id="seeds"></div>
+				</div>
+				`);
+			let seedEl = seedContainerEl.querySelector('#seeds');
+
+			let plantContainerEl = this.createEl(`
+				<div class="product-type">
+					<div class="title-container"><div class="icon-plants"></div><h4>Plants</h4></div>
+					<div id="plants"></div>
+				</div>
+				`);
+			let plantEl = plantContainerEl.querySelector('#plants');
+
 			productListStore.storageData.products.map((item) => {
 				let createProd = (elem, item) => {
 					let priceOrMessage = "$"+item.price;
@@ -60,10 +76,12 @@ import Loader from '../parts/loader';
 					elem.appendChild(product);
 				}
 				if(item.productTypeName == 'Seeds') {
-					createProd(this.seeds, item);
+					createProd(seedEl, item);
+					this.sourceProductList.appendChild(seedContainerEl);
 				}
 				if(item.productTypeName == 'Plants') {
-					createProd(this.plants, item);
+					createProd(plantEl, item);
+					this.sourceProductList.appendChild(plantContainerEl);
 				}
 
 			});
@@ -92,24 +110,13 @@ import Loader from '../parts/loader';
 				`
 				<form>
 					<div class="source-product-list">
-						<div class="product-type">
-							<div class="title-container"><div class="icon-seeds"></div><h4>Seeds</h4></div>
-							<div id="seeds"></div>
-						</div>
-						<div class="product-type">
-							<div class="title-container"><div class="icon-plants"></div><h4>Plants</h4></div>
-							<div id="plants"></div>
-						</div>
-						<input id="add-to-cart-input" type="hidden" value="" ></input>
 					</div>
 					<button action="submit" class="btn btn-primary">Add To Cart</button>
 				</form>
 				`
 			});
 
-			inst.seeds = inst.el.querySelector('#seeds');
-			inst.plants = inst.el.querySelector('#plants');
-			inst.addToCartInput = inst.el.querySelector('#add-to-cart-input');
+			inst.sourceProductList = inst.el.querySelector('.source-product-list');
 
 			//get the currentPlantId from local storage variable set through php in view_plant.php
 			inst.currentPlantId = localStorage.getItem('currentPlantId');
@@ -131,8 +138,6 @@ import Loader from '../parts/loader';
 				productListStore.setData(apiData);
 				inst.buildItems();
 			});
-
-			console.log(inst.el);
 
 			inst.el.addEventListener('submit', inst.submitForm.bind(inst));
 

@@ -20,8 +20,9 @@ var PlantTablesStore = {
 		'unique_attractions' : [],
 		'tolerances' : [],
 		'reproduction_type_id' : [],
-		'insects' : [],
-		'diseases' : [],
+		'dormancy_treatment_id' : [],
+		// 'insects' : [],
+		// 'diseases' : [],
 		'mode_id' : [],
 	},
 	init: function() {

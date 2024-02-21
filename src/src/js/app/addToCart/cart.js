@@ -2,6 +2,7 @@ import Component from '../component';
 import Button from '../parts/button';
 import { imgName } from '../lib/stringUtils';
 import InputPlusMinus from '../parts/inputPlusMinus';
+import appStateStore from '../storage/appStateStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -10,26 +11,41 @@ var { PLANTS_UPLOADS_PATH } = require('../config')[env];
 var Cart = {
 	buildItems: function(cart) {
 		this.cartList.innerHTML = '';
-		cart.map((item) => {
-			let inputPlusMinus = InputPlusMinus.init({
-				inputName: item.id,
-				inputValue: item.quantity,
-				maxValue: item.amount_available
+		if(cart.length == 0) {
+			let empty = this.createEl(`
+				<div class="cart-empty">
+					<div class="message">Your cart is currently empty.</div>
+					<button class="btn btn-primary">continue Browsing</button>
+				</div>
+				`);
+			let button = empty.querySelector('button');
+			button.addEventListener('click', this.onBrowseClick.bind(this));
+			this.cartList.appendChild(empty);
+		} else {
+			cart.map((item) => {
+				let inputPlusMinus = InputPlusMinus.init({
+					inputName: item.id,
+					inputValue: item.quantity,
+					maxValue: item.amount_available
+				});
+				let cartItem = this.createEl(`<div class="cart-item">
+					<a class="image" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
+					<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
+					<div class="price">$${item.price}</div>
+					<div class="quantity"></div>
+					<div class="total">$${item.price*item.quantity}</div>
+					</div>`);
+				let quantity = cartItem.querySelector('.quantity');
+				quantity.appendChild(inputPlusMinus.el);
+				this.cartList.appendChild(cartItem);  
 			});
-			let cartItem = this.createEl(`<div class="cart-item">
-				<a class="image" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
-				<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
-				<div class="price">$${item.price}</div>
-				<div class="quantity"></div>
-				<div class="total">$${item.price*item.quantity}</div>
-				</div>`);
-			let quantity = cartItem.querySelector('.quantity');
-			quantity.appendChild(inputPlusMinus.el);
-			this.cartList.appendChild(cartItem);  
-		});
+		}
+	},
+	onBrowseClick: function(e) {
+		e.preventDefault();
+		appStateStore.setData({ showMenu: 'close'});
 	},
 	localUpdated: function(e) {
-		console.log('localUpdated');
 		let val = JSON.parse(e.value);
 		this.buildItems(val);
 	},
@@ -44,7 +60,7 @@ var Cart = {
 		inst.initialize({
 			el: 
 			`<div class="cart">
-				<div class="list">shopping cart list</div>
+				<div class="list"></div>
 			 </div>`
 		});
 

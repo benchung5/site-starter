@@ -2657,6 +2657,7 @@ menu
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e1e0e2;
   .menu-header-right {
     display: flex;
     position: relative;
@@ -3675,7 +3676,6 @@ cart
       justify-content: space-between;
       flex-wrap: wrap;
       border-bottom: 1px solid #e1e0e2;
-      border-top: 1px solid #e1e0e2;
       h3 {
         font-size: 1rem;
         font-weight: 600;
@@ -3732,6 +3732,21 @@ cart
            max-width: 33.33%; 
         }
       }
+    }
+  }
+  .cart-empty {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .message {
+      margin: 3rem 0;
+    }
+    button {
+/*      margin: 2rem 5rem;*/
+    }
+    min-width: 25rem;
+    @include breakpoint(small down) {
+        min-width: none;
     }
   }
 }

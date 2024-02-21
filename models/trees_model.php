@@ -134,6 +134,21 @@ class Trees_model extends Model
 				->innerJoin('tolerances tl', 'tl.id', 'tt.tolerance_id')
 				->getAll();
 
+			// dormancy_treatment
+			$result->dormancy_treatment = $this->db->table('dormancy_treatments')
+				->select('id, name')
+				->where('id', $result->dormancy_treatment_id)
+				->get();
+
+			foreach ($result->images as $image) {
+				if(property_exists($image, 'tag')) {
+					$image->tag_name = $this->db->table('tags_files_trees t')
+						->select('*')
+						->where('id', $image->tag)
+						->get()->name;
+				}
+			}
+
 			// // insects
 			// $result->insects = $this->db->table('trees_insects ti')
 			// 	->select('i.id, i.name')
@@ -153,6 +168,23 @@ class Trees_model extends Model
 				->select('rt.id, rt.name')
 				->where('id', $result->reproduction_type_id)
 				->get();
+
+			// seeds
+			$result->seed_prod_count = $this->db->table('products p')
+				->where('source_id', $result->id)
+				->where('pt.name', 'Seeds')
+				->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
+				->count('p.id', 'seeds')
+				->getAll();
+
+			$result->plant_prod_count = $this->db->table('products p')
+				->where('source_id', $result->id)
+				->where('pt.name', 'Plants')
+				->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
+				->count('p.id', 'plants')
+				->getAll();
+
+			//Utils::dbug($result->seed_prod_count);
 
 			return $result;
 		}

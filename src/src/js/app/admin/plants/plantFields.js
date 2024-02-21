@@ -36,7 +36,7 @@ const plantFields = [
     {name: 'seeds_packet', label: 'seeds / packet', type: 'input', error: null, condition: null},
     {name: 'seeds_gram', label: 'seeds / gram', type: 'input', error: null, condition: null},
     {name: 'cost_gram', label: 'cost / gram', type: 'input', error: null, condition: null},
-    {name: 'dormancy_treatment', label: 'dormancy treatment', type: 'input', error: null, condition: null},
+    {name: 'dormancy_treatment_id', label: 'dormancy treatment', type: 'dropdownSelect', error: null, condition: null},
     {name: 'seeding_instructions', label: 'seeding instructions', type: 'textarea', error: null, condition: null},
     // {name: 'insects', label: 'insects', type: 'multiSelect', error: null, condition: null},
     // {name: 'diseases', label: 'diseases', type: 'multiSelect', error: null, condition: null},

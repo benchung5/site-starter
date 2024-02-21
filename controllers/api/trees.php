@@ -87,7 +87,7 @@ class Trees extends Controller
 		if(!empty($data['seeds_packet'])) { $update_data['seeds_packet'] = $data['seeds_packet']; };
 		if(!empty($data['seeds_gram'])) { $update_data['seeds_gram'] = $data['seeds_gram']; };
 		if(!empty($data['cost_gram'])) { $update_data['cost_gram'] = $data['cost_gram']; };
-		if(!empty($data['dormancy_treatment'])) { $update_data['dormancy_treatment'] = $data['dormancy_treatment']; };
+		if(!empty($data['dormancy_treatment_id'])) { $update_data['dormancy_treatment_id'] = $data['dormancy_treatment_id']; };
 		if(!empty($data['seeding_instructions'])) { $update_data['seeding_instructions'] = $data['seeding_instructions']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 		if(!empty($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };

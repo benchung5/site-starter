@@ -26,8 +26,9 @@ class Tree_tables extends Controller
 		$this->unique_attractions = $this->load_model('unique_attractions_model');
 		$this->tolerances = $this->load_model('tolerances_model');
 		$this->reproduction_types = $this->load_model('reproduction_types_model');
-		$this->insects = $this->load_model('insects_model');
-		$this->diseases = $this->load_model('diseases_model');
+		$this->dormancy_treatments = $this->load_model('dormancy_treatments_model');
+		// $this->insects = $this->load_model('insects_model');
+		// $this->diseases = $this->load_model('diseases_model');
 		$this->growth_rate = $this->load_model('growth_rate_model');
 		$this->mode = $this->load_model('mode_model');
 
@@ -60,8 +61,9 @@ class Tree_tables extends Controller
 			'unique_attractions' => $this->unique_attractions->get_all() ?: [],
 			'tolerances' => $this->tolerances->get_all() ?: [],
 			'reproduction_type_id' => $this->reproduction_types->get_all() ?: [],
-			'insects' => $this->insects->get_all() ?: [],
-			'diseases' => $this->diseases->get_all() ?: [],
+			'dormancy_treatment_id' => $this->dormancy_treatments->get_all() ?: [],
+			// 'insects' => $this->insects->get_all() ?: [],
+			// 'diseases' => $this->diseases->get_all() ?: [],
 			'growth_rate' => $this->growth_rate->get_all() ?: [],
 			'mode_id' => $this->mode->get_all() ?: [],
 		];

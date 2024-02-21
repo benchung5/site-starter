@@ -65,43 +65,70 @@ use Lib\Uri;
 								          <?= $view_data['tree']->body ?>
 								        </div>
 								        <div id="tab-two-panel" class="panel">
-								        	<h3>Growing From Seed</h3>
-								            <div class="row small-media-padding">
-					            	            <div class="small-12 large-6 columns small-media-padding">
-					            	            	<p>Growing from seed is one of the most economical and satisfying ways to build a native  plant garden. The table shows brief planting instructions, including how long and what kind of stratification this plant needs. For further information on stratification and seed preparation please refer to our article: <a alt="Preparing To Grow Wild Plant Seeds" href="/articles/native-plants/preparing-to-grow-wild-plant-seeds" target="_blank">Preparing To Grow Wild Plant Seeds</a></p>
-					            	            </div>
-					            	            <div class="small-12 large-6 columns small-media-padding">
-					            		            	<table class="instruction-table">
-					            			            	<tbody>
-            			            		            	<tr>
-            			            			            	<th>Seeds/Packet</th>
-            			            			            	<td><?= $view_data['tree']->seeds_packet ? Utils::sanitize($view_data['tree']->seeds_packet) : 'Coming soon...'; ?></td>
-            			            		            	</tr>
-		            		            	            	<tr>
-		            		            		            	<th>Seeds/Gram</th>
-		            		            		            	<td><?= $view_data['tree']->seeds_gram ? Utils::sanitize($view_data['tree']->seeds_gram) : 'Coming soon...'; ?></td>
-		            		            	            	</tr>
-    		            	            	            	<tr>
-    		            	            		            	<th>Cost/Gram</th>
-    		            	            		            	<td><?= $view_data['tree']->cost_gram ? Utils::sanitize($view_data['tree']->cost_gram) : 'Coming soon...'; ?> For bulk orders (min $20)</td>
-    		            	            	            	</tr>
-					            			            	<tr>
-					            				            	<th>Dormancy Treatment</th>
-					            				            	<td><?= $view_data['tree']->dormancy_treatment ? Utils::sanitize($view_data['tree']->dormancy_treatment) : 'Coming soon...'; ?></td>
-					            			            	</tr>
-					            			            	<tr>
-					            				            	<th>Seeding Instructions</th>
-					            				            	<td><?= $view_data['tree']->seeding_instructions ? Utils::sanitize($view_data['tree']->seeding_instructions) : 'Coming soon...'; ?></td>
-					            			            	</tr>
-					            		            	</tbody>
-					            	            	</table>
-					            	            </div>
-								            </div>
+					        	<?php
+				        			if ($view_data['tree']->seed_prod_count[0]->seeds) {
+			        					$seeds_pack = $view_data['tree']->seeds_packet ? Utils::sanitize($view_data['tree']->seeds_packet) : 'Coming soon...';
+
+				        				$seeds_gram = $view_data['tree']->seeds_gram ? Utils::sanitize($view_data['tree']->seeds_gram) : 'Coming soon...';
+
+				        				$cost_gram = ($view_data['tree']->cost_gram) ? Utils::sanitize($view_data['tree']->cost_gram) : 'Price coming soon...';
+
+				        				$dormancy_treatment = $view_data['tree']->dormancy_treatment ? Utils::sanitize($view_data['tree']->dormancy_treatment->name) : 'Coming soon...';
+
+				        				$seeding_instructions = $view_data['tree']->seeding_instructions ? Utils::sanitize($view_data['tree']->seeding_instructions) : 'Coming soon...';
+
+				        				echo '
+							        	<h3>Growing From Seed</h3>
+							            <div class="row small-media-padding">
+				            	            <div class="small-12 large-6 columns small-media-padding">
+				            	            	<p>Growing from seed is one of the most economical and satisfying ways to build a native  plant garden. The table shows brief planting instructions, including how long and what kind of stratification this plant needs. For further information on stratification and seed preparation please refer to our article: <a alt="Preparing To Grow Wild Plant Seeds" href="/articles/native-plants/preparing-to-grow-wild-plant-seeds" target="_blank">Preparing To Grow Wild Plant Seeds</a></p>
+				            	            </div>
+				            	            <div class="small-12 large-6 columns small-media-padding">
+				            		            	<table class="instruction-table">
+				            			            	<tbody>
+        			            		            	<tr>
+        			            			            	<th>Seeds/Packet</th>
+        			            			            	<td>' . $seeds_pack . '</td>
+        			            		            	</tr>
+	            		            	            	<tr>
+	            		            		            	<th>Seeds/Gram</th>
+	            		            		            	<td>' . $seeds_gram . '</td>
+	            		            	            	</tr>
+		            	            	            	<tr>
+		            	            		            	<th>Cost/Gram</th>
+		            	            		            	<td>' . $cost_gram . ' For bulk orders (min $20)</td>
+		            	            	            	</tr>
+				            			            	<tr>
+				            				            	<th>Dormancy Treatment</th>
+				            				            	<td>' . $dormancy_treatment . '</td>
+				            			            	</tr>
+				            			            	<tr>
+				            				            	<th>Seeding Instructions</th>
+				            				            	<td>' . $seeding_instructions . '</td>
+				            			            	</tr>
+				            		            	</tbody>
+				            	            	</table>
+				            	            </div>
+							            </div>
+				        				';
+				        			} else {
+				        				echo 'No seeds available for this plant at this time.';
+				        			}
+
+					        	?>
 								        </div>
 								        <div id="tab-three-panel" class="panel">
-								            <h3>Growing From Plants</h3>
-								            <p>Seedlings are a more economical option than established plants and an easier start than growing from seed. Our plants are shipped in soil blocks or plug trays. Plants do surprizingly well in the mail but need special care upon arrival. Please see
-								            <a href="/articles/native-plants/planting-mail-order-seedlings">Planting Mail Order Seedlings</a> for information on how to plant and care for seedlings.</p>
+								        	<?php
+								        	if ($view_data['tree']->seed_prod_count[0]->seeds) {
+								        		echo '
+								        		<h3>Growing From Plants</h3>
+								        		<p>Seedlings are a more economical option than established plants and an easier start than growing from seed. Our plants are shipped in soil blocks or plug trays. Plants do surprizingly well in the mail but need special care upon arrival. Please see
+								        		<a href="/articles/native-plants/planting-mail-order-seedlings">Planting Mail Order Seedlings</a> for information on how to plant and care for seedlings.</p>	
+								        		';
+								        	} else {
+								        		echo 'No plants available for this plant at this time.';
+								        	}
+								            ?>
 								        </div>
 								        <div id="tab-four-panel" class="panel">
 								            <h3>Shipping</h3>
