@@ -14,6 +14,13 @@ class Uri
 		return $url; // Outputs: Full URL
 	}
 
+	public static function get_current_domain()
+	{
+		$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+		$domain = $protocol . $_SERVER['HTTP_HOST'];
+		return $domain; // Outputs: Domain
+	}
+
 	private static function _get_current_uri()
 	{
 	    $basepath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)) . '/';

@@ -43,6 +43,9 @@ PATHS:
   addToCart:
   # entry for external js file
     - "src/js/app/addToCart/mainSourceProducts.js"
+  checkout:
+  # entry for external js file
+    - "src/js/app/checkout/checkout.js"
   admin:
   # entry for external js file
     - "src/js/app/admin/mainAdmin.js"

@@ -13,6 +13,7 @@
 
     "require": {
 		"intervention/image": "^2.7",
-		"phpmailer/phpmailer": "^6.2"
+		"phpmailer/phpmailer": "^6.2",
+		"stripe/stripe-php": "^13.11"
 	}
 }

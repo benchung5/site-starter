@@ -1387,7 +1387,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nvar Component = {\r\n\tstate:
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("module.exports = {\r\n   \"development\": {\r\n      SERVER_URL: \"/api\",\r\n      ROOT_URL: \"/\",\r\n      ARTICLES_UPLOADS_PATH: '/uploads/articles/',\r\n      PLANTS_UPLOADS_PATH: '/uploads/trees/',\r\n   },\r\n   \"production\": {\r\n      SERVER_URL: \"/api\",\r\n      ROOT_URL: \"/\",\r\n      ARTICLES_UPLOADS_PATH: '/uploads/articles/',\r\n      PLANTS_UPLOADS_PATH: '/uploads/trees/',\r\n   },\r\n   \"globals\": {\r\n      HIDE_MENU_THRESHOLD: 1150,\r\n      POST_CONFIG: {\r\n           headers: {\r\n             'CONTENT_TYPE': 'application/json',\r\n           }\r\n         },\r\n      ADMIN_ENTRIES_PER_PAGE: 25,\r\n      ADMIN_URL: 'admin_752'\r\n    }\r\n}\n\n//# sourceURL=webpack:///./src/js/app/config.js?");
+eval("module.exports = {\r\n   \"development\": {\r\n      SERVER_URL: \"/api\",\r\n      DOMAIN_URL: 'http://localhost',\r\n      ROOT_URL: \"/\",\r\n      ARTICLES_UPLOADS_PATH: '/uploads/articles/',\r\n      PLANTS_UPLOADS_PATH: '/uploads/trees/',\r\n   },\r\n   \"production\": {\r\n      DOMAIN_URL: 'https://naturewithus.com',\r\n      SERVER_URL: \"/api\",\r\n      ROOT_URL: \"/\",\r\n      ARTICLES_UPLOADS_PATH: '/uploads/articles/',\r\n      PLANTS_UPLOADS_PATH: '/uploads/trees/',\r\n   },\r\n   \"globals\": {\r\n      HIDE_MENU_THRESHOLD: 1150,\r\n      POST_CONFIG: {\r\n           headers: {\r\n             'CONTENT_TYPE': 'application/json',\r\n           }\r\n         },\r\n      ADMIN_ENTRIES_PER_PAGE: 25,\r\n      ADMIN_URL: 'admin_752'\r\n    }\r\n}\n\n//# sourceURL=webpack:///./src/js/app/config.js?");
 
 /***/ }),
 

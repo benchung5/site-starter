@@ -84,6 +84,10 @@ gulp.task('watch-addToCart-js', function () {
     return watch('src/js/app/**/*.js', addToCart);
 });
 
+gulp.task('watch-checkout-js', function () {
+    return watch('src/js/app/**/*.js', checkout);
+});
+
 gulp.task('watch-admin-js', function () {
     return watch('src/js/app/**/*.js', admin);
 });
@@ -103,12 +107,12 @@ gulp.task('watch-head-js', function () {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task('build',
- gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, searchPlants, searchArticles, addToCart, admin, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
+ gulp.series(clean, gulp.parallel([sass, sassAdmin, javascript, searchPlants, searchArticles, addToCart, checkout, admin, vendorJavascript, headJavascript, images, media, favicons]), generateServiceWorker));
 
 // Build the site, run the server, then watch for file changes, and run webpack(with dev server)
 gulp.task('default',
   //gulp.series('build', gulp.parallel([devServer, 'watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-vendor-js', 'watch-head-js'])));
-  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-searchPlants-js', 'watch-searchArticles-js', 'watch-addToCart-js', 'watch-admin-js', 'watch-vendor-js', 'watch-head-js'])));
+  gulp.series('build', gulp.parallel(['watch-img', 'watch-media', 'watch-favicons', 'watch-scss', 'watch-app-js', 'watch-searchPlants-js', 'watch-searchArticles-js', 'watch-addToCart-js', 'watch-checkout-js', 'watch-admin-js', 'watch-vendor-js', 'watch-head-js'])));
 
 // function devServer() {
 //   // Start a webpack-dev-server
@@ -314,6 +318,20 @@ function searchArticles() {
 function addToCart() {
   gutil.log('updating addToCart js');
   return gulp.src(PATHS.addToCart)
+    //this makes sure the output js file isn't hashed
+    .pipe(named())
+    .pipe($.sourcemaps.init())
+    .pipe(webpackStream(simpleWebpackConfig, webpack))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
+    .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/js'));
+}
+
+function checkout() {
+  gutil.log('updating checkout js');
+  return gulp.src(PATHS.checkout)
     //this makes sure the output js file isn't hashed
     .pipe(named())
     .pipe($.sourcemaps.init())

@@ -110,6 +110,16 @@ use Lib\Meta;
 
     gtag('config', 'UA-140991222-1');
   </script>
+
+  <?php 
+  if ($view_data['head_scripts']) {
+    foreach ($view_data['head_scripts'] as $script) {
+      echo $script;
+    } 
+  }
+  
+
+  ?>
  
   </head>
   
