@@ -21,10 +21,13 @@ var Loader = {
 			}
 		}
 		if(!appStateStore.storageData.isLoading) {
+			let timeout = this.delayFinish || 0;
 			//if not currently doing minimum load
 			if(!this.state.lockLoad) {
 			  //this.setState({ isLoading: false });
-			  this.hideLoadingAnimation.animate();
+				setTimeout(() => {
+					this.hideLoadingAnimation.animate();
+				}, timeout);
 			}
 		}	
 	},
@@ -42,11 +45,13 @@ var Loader = {
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
+		inst.delayFinish = options.delayFinish;
+
 		//call initialize on Component first
 		inst.initialize({
 			el: 
 			`
-			<div class="preload-wrapper">
+			<div class="preload-wrapper" style="min-height: ${options.minHeight ? options.minHeight : 'auto'}">
 			  <div class="preload-internal" style="visibility: hidden; opacity: 0;">
 			    <svg class="circular" viewBox="25 25 50 50">
 			      <circle class="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10"/>

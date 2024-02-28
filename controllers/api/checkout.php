@@ -15,76 +15,54 @@ class Checkout extends Controller
 
 	public function index()
 	{
+
 		$stripeSecretKey = Secret::keys('STRIPE_API_KEY');
-		
 		$stripe = new \Stripe\StripeClient($stripeSecretKey);
+
+		// $stripe->tax->registrations->create([
+		//   'country' => 'CA',
+		//   'country_options' => [
+		//     'ca' => [
+		//       'province' => 'BC',
+		//       'type' => 'province_standard',
+		//     ],
+		//   ],
+		//   'active_from' => 'now',
+		// ]);
+
+		function calculateOrderAmount(array $products): int {
+		    // Replace this constant with a calculation of the order's amount
+		    // Calculate the order total on the server to prevent
+		    // people from directly manipulating the amount on the client
+		    return 1400;
+		}
+
 		header('Content-Type: application/json');
 
-		$DOMAIN = Uri::get_current_domain();
+		try {
+		    // retrieve JSON from POST body
+		    $jsonStr = file_get_contents('php://input');
+		    $jsonObj = json_decode($jsonStr);
 
-		$checkout_session = $stripe->checkout->sessions->create([
-		  'ui_mode' => 'embedded',
-		  'shipping_address_collection' => ['allowed_countries' => ['CA']],
-		  'shipping_options' => [
-		    // [
-		    //   'shipping_rate_data' => [
-		    //     'type' => 'fixed_amount',
-		    //     'fixed_amount' => [
-		    //       'amount' => 0,
-		    //       'currency' => 'usd',
-		    //     ],
-		    //     'display_name' => 'Free shipping',
-		    //     'delivery_estimate' => [
-		    //       'minimum' => [
-		    //         'unit' => 'business_day',
-		    //         'value' => 5,
-		    //       ],
-		    //       'maximum' => [
-		    //         'unit' => 'business_day',
-		    //         'value' => 7,
-		    //       ],
-		    //     ],
-		    //   ],
-		    // ],
-		    [
-		      'shipping_rate_data' => [
-		        'type' => 'fixed_amount',
-		        'fixed_amount' => [
-		          'amount' => 2500,
-		          'currency' => 'cad',
+		    // Create a PaymentIntent with amount and currency
+		    $paymentIntent = $stripe->paymentIntents->create([
+		        'amount' => calculateOrderAmount($jsonObj->order->products),
+		        'currency' => 'cad',
+		        // 'receipt_email' => $jsonObj->order->receiptEmail,
+		        // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
+		        'automatic_payment_methods' => [
+		            'enabled' => true,
 		        ],
-		        'display_name' => 'Next day air',
-		        'delivery_estimate' => [
-		          'minimum' => [
-		            'unit' => 'business_day',
-		            'value' => 3,
-		          ],
-		          'maximum' => [
-		            'unit' => 'business_day',
-		            'value' => 5,
-		          ],
-		        ],
-		      ],
-		    ],
-		  ],
-		  'line_items' => [[
-		  	'price_data' => [
-		  	  'currency' => 'cad',
-		  	  'unit_amount' => 2000,
-		  	  'product_data' => [
-		  	    'name' => 'T-shirt',
-		  	    'description' => 'Comfortable cotton t-shirt',
-		  	    'images' => [$DOMAIN . '/uploads/trees/1024px-Platanus_occidentalis_12zz-315-sml.jpg'],
-		  	  ],
-		  	],
-		  	'quantity' => 1,
-		  ]],
-		  'mode' => 'payment',
-		  'return_url' => $DOMAIN . '/checkout_return?session_id={CHECKOUT_SESSION_ID}',
-		]);
-		
+		    ]);
 
-		echo json_encode(array('clientSecret' => $checkout_session->client_secret));
+		    $output = [
+		        'clientSecret' => $paymentIntent->client_secret,
+		    ];
 
+		    echo json_encode($output);
+		} catch (Error $e) {
+		    http_response_code(500);
+		    echo json_encode(['error' => $e->getMessage()]);
+		}
 	}
 }

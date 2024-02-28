@@ -1,7 +1,7 @@
 import Component from '../component';
 
 var MyComp = {
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
