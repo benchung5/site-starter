@@ -1,57 +1,81 @@
 import Component from '../component';
+import Loader from '../parts/loader';
+import appStateStore from '../storage/appStateStore';
 
 var PaymentStatus = {
-	onPaymentSuccess: function(paymentIntent) {
-	  //todo... save transaction data to database
-	  // paymentIntent.id...
-	  this.customerEmailEl.textContent = localStorage.getItem('customerEmail');
-	  this.customerNameEl.textContent = paymentIntent.shipping.name;
-	  this.shippingLineOne.textContent = paymentIntent.shipping.address.line1;
-	  this.shippingLineTwo.textContent = paymentIntent.shipping.address.line2;
-	  this.shippingCity.textContent = paymentIntent.shipping.address.city;
-	  this.shippingProvince.textContent = paymentIntent.shipping.address.state;
-	  this.shippingPostalCode.textContent = paymentIntent.shipping.address.postal_code;
-	  this.messageContainer.classList.remove("hidden");
+	paymentMessage: async function() {
+		let messageEl = null;
+		const { paymentIntent } = await this.stripe.retrievePaymentIntent(this.clientSecret);
+		const customerEmail = localStorage.getItem('customerEmail');
+
+		//todo... save transaction data to database
+		// paymentIntent.id...	
+
+		switch (paymentIntent.status) {
+		case "succeeded":
+			messageEl = this.createEl(`
+				<div>		    
+					<p>
+					<b>We appreciate your business!</b><br>
+					A confirmation email will be sent to:<br>
+					<span id="customer-email">${customerEmail}</span>
+					</p>
+					<p>
+					<b>Package will be shipped to:</b><br>
+					<span id="customer-name">${paymentIntent.shipping.name}</span><br>
+					<span id="line1">${paymentIntent.shipping.address.line1}</span><br>
+					${paymentIntent.shipping.address.line2 ? '<span id="line2">'+paymentIntent.shipping.address.line2+'</span><br>' : ''}
+					<span id="city">${paymentIntent.shipping.address.city}</span>, <span id="state">${paymentIntent.shipping.address.state}</span><br>
+					<span id="postal_code">${paymentIntent.shipping.address.postal_code}</span><br>
+					</p>
+					<p>
+					If you have any questions, please email us: <a href="mailto:info@naturewithus.com">info@naturewithus.com</a>
+					</p>
+				</div>
+				`);
+			break;
+		case "processing":
+			messageEl = this.createEl(`<p>Your payment is processing.</p>`);
+			break;
+		case "requires_payment_method":
+			messageEl = this.createEl(`Your payment was not successful, please try again.`);
+			break;
+		default:
+			messageEl = this.createEl(`Something went wrong.`);
+			break;
+		}
+
+		this.el.appendChild(messageEl);
+
+		appStateStore.setData({ isLoading: false});
 	},
-	init: async function(options) {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
-		// //call initialize on Component first
-		// inst.initialize({
-		// 	el: 
-		// 	`<button style="cursor: pointer; display: block;"></button>`
-		// });
+		//call initialize on Component first
+		inst.initialize({
+			el: `<div></div>`
+		});
 
-		inst.messageContainer = document.querySelector("#success");
-		inst.customerEmailEl = document.getElementById('customer-email');
-		inst.customerNameEl = document.getElementById('customer-name');
-		inst.shippingLineOne = document.getElementById('line1');
-		inst.shippingLineTwo = document.getElementById('line2');
-		inst.shippingCity = document.getElementById('city');
-		inst.shippingProvince = document.getElementById('state');
-		inst.shippingPostalCode = document.getElementById('postal_code');
+		inst.container = document.querySelector('#message-container')
+		let loader = Loader.init({
+			children: inst.el,
+			minHeight: '10rem',
+			size: '4rem',
+			backgroundColor: '#f4f6f7'
+		});
+		inst.container.appendChild(loader.el);
+		appStateStore.setData({ isLoading: true});
+
 
 		inst.stripe = options.stripe ? options.stripe : null;
 		inst.message = options.message ? options.message : null;
+		inst.clientSecret = options.clientSecret ? options.clientSecret : null;
 
-		const { paymentIntent } = await inst.stripe.retrievePaymentIntent(options.clientSecret);
-		switch (paymentIntent.status) {
-		case "succeeded":
-		  inst.onPaymentSuccess(paymentIntent);
-		  break;
-		case "processing":
-		  inst.message("Your payment is processing.");
-		  break;
-		case "requires_payment_method":
-		  inst.message("Your payment was not successful, please try again.");
-		  break;
-		default:
-		  inst.message("Something went wrong.");
-		  break;
-		}
+		inst.paymentMessage();
 
 		return inst;
 	}

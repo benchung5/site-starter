@@ -1,17 +1,29 @@
 import Component from '../component';
 import { toggleClass } from '../lib/utils';
+import LoadingButton from '../parts/loadingButton';
 const env = process.env.NODE_ENV || "development";
 var { DOMAIN_URL } = require('../config')[env];
 
 var Payment = {
+	onPaymentFormLoaded: function(e) {
+		const headerEl = this.createEl(`<h2>Payment</h2>`);
+		this.el.prepend(headerEl);
+		const buttonHolderEl = this.el.querySelector('#button-holder');
+		buttonHolderEl.appendChild(this.submitButton.el);
+	},
+	onPaymentFormChanged: function(e) {
+		if (e.complete){
+			this.submitButton.isEnabled(true);
+		}
+	},
 	onPaymentFormSubmit: async function(e) {
 		e.preventDefault();
-		this.setLoading(true);
+		this.submitButton.isLoading(true);
 
 		const { error } = await this.stripe.confirmPayment({
 			elements: this.elements,
 			confirmParams: {
-		    // payment completion page
+		    // redirect to payment completion page
 				return_url: `${DOMAIN_URL}/checkout`,
 			},
 		});
@@ -27,17 +39,7 @@ var Payment = {
 			this.message("An unexpected error occurred.");
 		}
 
-		this.setLoading(false);
-	},
-	setLoading: function(isLoading) {
-		if (isLoading) {
-	    // Disable the button and show a spinner
-			this.submitButton.disabled = true;
-			toggleClass(this.submitButton, 'button--loading');
-		} else {
-			this.submitButton.disabled = false;
-			toggleClass(this.submitButton, 'button--loading');
-		}
+		this.submitButton.isLoading(false);
 	},
 	init: async function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -45,23 +47,30 @@ var Payment = {
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
-		  // cancel if payment element is already initiated
-		if(inst.paymentElement) {
-		    // paymentElement.update({business: {name: 'Stripe Shop'}});
-		    // or 
-		    // paymentElement.update();
-			return;
-		}
-
-		// //call initialize on Component first
-		// inst.initialize({
-		// 	el: 
-		// 	`<button style="cursor: pointer; display: block;"></button>`
-		// });
-
 		inst.stripe = options.stripe ? options.stripe : null;
 		inst.elements = options.elements ? options.elements : null;
 		inst.message = options.message ? options.message : null;
+
+		//call initialize on Component first
+		inst.initialize({
+			container: document.querySelector('#payment-container'),
+			el: 
+			`<form id="payment-form">
+			  <div id="payment-element">
+			    <!--Stripe.js injects the Payment Element-->
+			  </div>
+			  <div id="button-holder"></div>
+			  <div id="payment-message" class="hidden"></div>
+			</form>`
+		});
+
+		inst.submitButton = LoadingButton.init({
+			text: 'Pay Now',
+			disabled: true,
+		});
+
+
+		inst.el.addEventListener("submit", inst.onPaymentFormSubmit.bind(inst));
 
 		const paymentElementOptions = {
 			business: {name: 'Nature With Us'},
@@ -70,11 +79,8 @@ var Payment = {
 
 		inst.paymentElement = inst.elements.create("payment", paymentElementOptions);
 		inst.paymentElement.mount("#payment-element");
-
-		// for spinner on payment submission
-		inst.submitButton = document.querySelector("#submit");
-
-		document.querySelector("#payment-form").addEventListener("submit", inst.onPaymentFormSubmit.bind(inst));
+		inst.paymentElement.on('ready', inst.onPaymentFormLoaded.bind(inst));
+		inst.paymentElement.on('change', inst.onPaymentFormChanged.bind(inst));
 
 		return inst;
 	}

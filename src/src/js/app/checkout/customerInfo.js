@@ -1,27 +1,35 @@
 import Component from '../component';
 import Loader from '../parts/loader';
 import appStateStore from '../storage/appStateStore';
+import LoadingButton from '../parts/loadingButton';
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../config')[env];
+
 
 var CustomerInfo = {
 	linkAuthenticationElementLoaded: function(e) {
 		appStateStore.setData({ isLoading: false});
 		const headerEl = this.createEl(`<h2>Customer Info</h2>`);
 		this.el.prepend(headerEl);
+		const buttonHolderEl = this.el.querySelector('#button-holder');
+		buttonHolderEl.appendChild(this.submitButton.el);
 	},
-	linkAuthenticationElementChanged: function(event) {
-		const email = event.value.email;
+	linkAuthenticationElementChanged: function(e) {
+		const email = e.value.email;
 		localStorage.setItem('customerEmail', email);
 	},
-	addressElementChanged: function(event) {
-		if (event.complete){
+	addressElementChanged: function(e) {
+		if (e.complete){
       		// Extract potentially complete address
-			const address = event.value.address;
-     		 //todo...calculate shipping and tax and update order summary
-			console.log(address);
-			this.onAddressComplete();
+			this.setState({ address: e.value.address });
+			this.submitButton.isEnabled(true);
 		}
+	},
+	onCalculateShippingClick: function(e) {
+		e.preventDefault();
+ 		//todo...calculate shipping and tax and update order summary
+ 		this.submitButton.isLoading(true);
+		this.onCalculateShipping();
 	},
 	init: async function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -39,14 +47,21 @@ var CustomerInfo = {
 				<div id="address-element">
 				  <!-- Stripe.js injects address element-->
 				</div>
+				<div id="button-holder"></div>
 			</div>`
+		});
+
+		inst.submitButton = LoadingButton.init({
+			text: 'Calculate Shipping',
+			disabled: true,
+			onClick: inst.onCalculateShippingClick.bind(inst)
 		});
 
 	  	//insert into loader, then insert that into the page container
 		let loader = Loader.init({
 			children: inst.el,
 			minHeight: '10rem',
-	    // isInitialPageLoad: true,
+			size: '4rem',
 			backgroundColor: '#f4f6f7'
 		});
 		let container = document.querySelector("#customer-info-container");
@@ -71,7 +86,7 @@ var CustomerInfo = {
 		inst.addressElement.mount('#address-element');
 
 		inst.addressElement.on('ready', inst.linkAuthenticationElementLoaded.bind(inst));
-		inst.onAddressComplete = options.onAddressComplete.bind(inst);
+		inst.onCalculateShipping = options.onCalculateShipping.bind(inst);
 	    //fires a soon a s the form is filled, no submit needed
 		inst.addressElement.on('change', inst.addressElementChanged.bind(inst));
 

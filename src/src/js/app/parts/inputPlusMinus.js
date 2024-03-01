@@ -22,6 +22,10 @@ var InputPlusMinus = {
 
 		//then disable enable/disable buttons if needed
 		this.enableDisable(true);
+
+		if(this.onChange) {
+			this.onChange(this.input.value);
+		}
 	},
 	enableDisable: function(isClick) {
 		if (this.input.value >= this.maxValue) {
@@ -41,6 +45,7 @@ var InputPlusMinus = {
 
 		inst.inputValue = options.inputValue ? options.inputValue : 0;
 		inst.maxValue = options.maxValue ? options.maxValue : 1000;
+		inst.onChange = options.onChange ? options.onChange : null;
 
 		//call initialize on Component first
 		inst.initialize({
