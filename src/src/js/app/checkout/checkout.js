@@ -1,12 +1,13 @@
 
 var { STRIPE_PUBLISHABLE_KEY } = require('../secret')['globals'];
-import appStateStore from '../storage/appStateStore';
 import Component from '../component';
 import CustomerInfo from './customerInfo';
 import Payment from './payment';
 import PaymentStatus from './paymentStatus';
 import { postOrder } from '../actions/checkout'
 import OrderSummary from './orderSummary';
+import Loader from '../parts/loader';
+import appStateStore from '../storage/appStateStore';
 
 (function() {
   var Main = {
@@ -21,6 +22,9 @@ import OrderSummary from './orderSummary';
         messageContainer.textContent = "";
       }, 4000);
     },
+    onFirstElementLoaded: function () {
+      appStateStore.setData({ isLoading: false});
+    },
     init: function() {
       var proto = Object.assign({}, this, Component);
       var inst = Object.create(proto);
@@ -28,6 +32,18 @@ import OrderSummary from './orderSummary';
       proto.constructor = inst;
 
       appStateStore.init();
+
+      let elementsContainerEl = document.querySelector("#elements-container");
+      let customerInfoContainerEl = document.querySelector("#customer-info-container");
+      //insert into loader, then insert that into the page container
+      let loader = Loader.init({
+        children: customerInfoContainerEl,
+        minHeight: '10rem',
+        size: '4rem',
+        backgroundColor: '#f4f6f7'
+      });
+      elementsContainerEl.appendChild(loader.el);
+      appStateStore.setData({ isLoading: true});
 
       inst.order = {
         products: [],
@@ -65,6 +81,7 @@ import OrderSummary from './orderSummary';
           inst.cutomerInfo = CustomerInfo.init({
             stripe: inst.stripe,
             elements: inst.elements,
+            onElementLoaded: inst.onFirstElementLoaded.bind(inst),
             onCalculateShipping: () => {
               //making sure not to load it twice
               if(!inst.payment) {

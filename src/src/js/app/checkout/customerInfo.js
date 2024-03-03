@@ -1,6 +1,4 @@
 import Component from '../component';
-import Loader from '../parts/loader';
-import appStateStore from '../storage/appStateStore';
 import LoadingButton from '../parts/loadingButton';
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../config')[env];
@@ -8,11 +6,11 @@ var { SERVER_URL } = require('../config')[env];
 
 var CustomerInfo = {
 	linkAuthenticationElementLoaded: function(e) {
-		appStateStore.setData({ isLoading: false});
 		const headerEl = this.createEl(`<h2>Customer Info</h2>`);
 		this.el.prepend(headerEl);
 		const buttonHolderEl = this.el.querySelector('#button-holder');
 		buttonHolderEl.appendChild(this.submitButton.el);
+		this.elementLoaded();
 	},
 	linkAuthenticationElementChanged: function(e) {
 		const email = e.value.email;
@@ -39,6 +37,7 @@ var CustomerInfo = {
 
 		//call initialize on Component first
 		inst.initialize({
+			container: document.querySelector("#customer-info-container"),
 			el: 
 			`<div class="inner">
 				<div id="link-authentication-element">
@@ -57,19 +56,9 @@ var CustomerInfo = {
 			onClick: inst.onCalculateShippingClick.bind(inst)
 		});
 
-	  	//insert into loader, then insert that into the page container
-		let loader = Loader.init({
-			children: inst.el,
-			minHeight: '10rem',
-			size: '4rem',
-			backgroundColor: '#f4f6f7'
-		});
-		let container = document.querySelector("#customer-info-container");
-		container.appendChild(loader.el);
-		appStateStore.setData({ isLoading: true});
-
 		inst.stripe = options.stripe ? options.stripe : null;
 		inst.elements = options.elements ? options.elements : null;
+		inst.elementLoaded = options.onElementLoaded;
 
 		// linkAuthenticationElement----------
 		inst.linkAuthenticationElement = inst.elements.create("linkAuthentication");

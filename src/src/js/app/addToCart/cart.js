@@ -36,6 +36,14 @@ var Cart = {
 		if(cart.length == 0) {
 			this.cartList.appendChild(this.cartEmptyEl);
 		} else {
+			let header = this.createEl(`<div class="header cart-item">
+					<div class="first">Photo</div>
+					<div class="name">Name</div>
+					<div class="price">Price</div>
+					<div class="quantity">Quantity</div>
+					<div class="total">Total</div>
+				</div>`);
+			this.cartList.prepend(header);
 			let total = 0;
 			cart.map((item) => {
 				const subtotal = parseInt(item.price) * parseInt(item.quantity);
@@ -48,13 +56,14 @@ var Cart = {
 				});
 
 				let cartItem = this.createEl(`<div class="cart-item">
-					<a class="image" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
+					<a class="first" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
 					<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
+					<div class="header cart-item mobile"><div class="price">Price</div><div class="quantity">Quantity</div><div class="total">Total</div></div>
 					<div class="price">$${item.price}</div>
-					<div class="quantity"></div>
+					<div id="quantity" class="quantity"></div>
 					<div class="total">$${subtotal}</div>
 					</div>`);
-				let quantity = cartItem.querySelector('.quantity');
+				let quantity = cartItem.querySelector('#quantity');
 				quantity.appendChild(inputPlusMinus.el);
 				this.cartList.appendChild(cartItem);  
 			});

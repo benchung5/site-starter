@@ -7,6 +7,7 @@ import CartPopup from './cartPopup';
 import { moveElement, clone } from '../lib/utils';
 import { addItemToCart } from '../actions/cart';
 import Loader from '../parts/loader';
+import NotifyMePopup from './notifyMePopup';
 
 (function() {
 	var Main = {
@@ -65,7 +66,8 @@ import Loader from '../parts/loader';
 						});
 						inputOrNotify = inputPlusMinus.el
 					} else {
-						inputOrNotify = this.createEl(`<a class="btn-secondary">Notify Me</a>`);
+						inputOrNotify = this.createEl(`<a data-${'foo'} class="btn-secondary">Notify Me</a>`);
+						inputOrNotify.addEventListener('click', this.onNotifyMeClick.bind(this, item));
 						priceOrMessage = 'Out of Stock';
 					}
 					let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>
@@ -85,6 +87,16 @@ import Loader from '../parts/loader';
 				}
 
 			});
+		},
+		onNotifyMeClick: function(item) {
+			Object.assign(item, {
+				currentPlantCommonName: this.currentPlantCommonName,
+				currentPlantBotanicalName: this.currentPlantBotanicalName
+			});
+			this.notifyMePopup = NotifyMePopup.init({
+				data: item,
+			});
+			this.notifyMePopup.open();
 		},
 		onMobileChange: function(e) {
 			if(e.detail.isMobile) {

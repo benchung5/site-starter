@@ -12,17 +12,13 @@
 						<iframe frameborder="0" style="background: :#000;" src="https://www.google.com/maps/d/u/0/embed?mid=19OqDGhCRznhV_FsSSolO7gjNJEkr1jI&ehbc=2E312F" width="100%" height="480"></iframe>
 					</div>
 					<div class="small-12 large-5 columns sidebar">
-						<div class="contact-icons">
-			                <div class="icon-with-text phone">
-			                    <div class="icon"></div>
-			                    289-697-8873
-			                </div>
-			            </div>
-            			<div class="contact-icons">
-                            <div class="icon-with-text email">
-                                <div class="icon"></div>
-                                <div class="email-img"></div>
-                            </div>
+		                <div class="icon-with-text phone">
+		                    <div class="icon"></div>
+		                    Call Us: 289-697-8873
+		                </div>
+                        <div class="icon-with-text email">
+                            <div class="icon"></div>
+                            <div class="email-img"></div>
                         </div>
                         <div class="spacer-sml"></div>
 						<div class="socials">
@@ -34,7 +30,6 @@
 						<div class="spacer-med"></div>
 						Send us an email
 						<form class="contact" method="post" action="https://formspree.io/f/xbjpqnve">				
-						<!-- <form class="contact" name="htmlform" method="post" action="send_email"> -->
 							<div class="colum-inputs">
 								<div class="contact-input">
 									<input   type="text" name="name" maxlength="50" size="30" placeholder="name">

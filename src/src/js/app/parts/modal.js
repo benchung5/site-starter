@@ -19,6 +19,12 @@ var Modal = {
 	    this.el.style.opacity = '0';
 	  }, 100);
 	},
+	onScreenCoverClick: function(e) {
+		//if you hit the screen cover...
+		if (!e.target.closest('#modal > *') && e.target.closest('#modal')) {
+		    this.close();
+		}
+	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -34,6 +40,7 @@ var Modal = {
 		inst.contentElement = options.contentElement;
 		inst.el.appendChild(inst.contentElement);
 		document.body.insertBefore(inst.el, document.body.firstChild);
+		inst.el.addEventListener('click', inst.onScreenCoverClick.bind(inst));
 
 		return inst;
 	}

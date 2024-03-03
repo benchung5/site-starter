@@ -17,5 +17,15 @@ export function addItemToCart(item) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+export function postNotifyMe(formData, callback) {
+    xhr.send(`https://formspree.io/f/xbjpqnve`,
+    {
+        method: 'POST',
+        body: formData
+    }, (apiData) => {
+        callback(apiData);
+    });
+}
+
 
 
