@@ -234,6 +234,10 @@ extends
   margin-bottom: 1rem;
 }
 
+%small-text {
+  font-size: 0.7rem;
+}
+
 /* ==========================================================================
 global-styles
 ========================================================================== */
@@ -315,7 +319,8 @@ figcaption {
 }
 
 button:disabled,
-button[disabled] {
+button[disabled],
+a:disabled {
   background-color: #cccccc63;
   color: #938b99;
   &:hover {
@@ -344,6 +349,7 @@ button[disabled] {
 
 .error {
     color: red;
+    @extend %small-text;
 }
 
 .view .body-area .media-center {
@@ -2137,7 +2143,7 @@ modal
        @include modal-inner(15em, 2em, 4em);
        text-align: center;
     }
-    .close {
+/*    .close {
         position: absolute;
         right: 2rem;
         top: 1.5rem;
@@ -2148,7 +2154,7 @@ modal
         &:hover, &:focus {
           color: rgba(255, 255, 255, 1);
         }
-    }
+    }*/
 }
 
 .modal-from-side {
@@ -3813,14 +3819,35 @@ cart
   }
 }
 
-.notify-me-popup {
+.popup-form-wrapper {
   color: #fff;
-  flex-grow: 1;
-  max-width: 400px;
-  .main-window {
-    padding: 3em;
+  label {
+    color: #fff;
+  }
+  display: flex;
+  justify-content: center;
+  .popup-form {
+    min-width: 21rem;
+    #update-message .error {
+      color:#fff;
+      @extend %small-text;
+    }
+    textarea {
+      margin-bottom: 0.5rem;
+    }
+    .button {
+/*      margin-top: 1.25rem;*/
+    }
+    .submission-message {
+      margin-bottom: 0.5rem;
+    }
+  }
+  .close {
+    @extend %close-button;
   }
 }
+
+
 
 /* ==========================================================================
 checkout

@@ -1,5 +1,5 @@
 import productListStore from '../storage/productListStore';
-
+import xhr from '../xhr';
 
 export function addItemToCart(item) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -18,13 +18,19 @@ export function addItemToCart(item) {
 }
 
 export function postNotifyMe(formData, callback) {
-    xhr.send(`https://formspree.io/f/xbjpqnve`,
+    xhr.send(
+        null,
     {
         method: 'POST',
+        headers: {'Accept': 'application/json'},
         body: formData
-    }, (apiData) => {
+    }, 
+    (apiData) => {
         callback(apiData);
-    });
+    },
+    null,
+    `https://formspree.io/f/xpzvrged`
+    );
 }
 
 

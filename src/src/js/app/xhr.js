@@ -28,8 +28,14 @@ var Xhr = {
 
 		return queryString;
 	},
-	send: function(endpoint, parameters, callback, query) {
-		var url = new URL(window.location.origin + endpoint)
+	send: function(endpoint, parameters, callback, query, fullUrl) {
+		var url = null;
+		if(fullUrl) {
+			url = fullUrl;
+		} else {
+			url = new URL(window.location.origin + endpoint);
+		}
+		
 
 		if (query) {
 			//from: https://fetch.spec.whatwg.org/#fetch-api

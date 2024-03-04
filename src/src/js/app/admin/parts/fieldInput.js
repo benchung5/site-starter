@@ -11,8 +11,8 @@ var FieldInput = {
 		inst.initialize({
 			el: 
 			`<div class="form-group" data-name="${options.name}">
-                <label>${options.label}:</label>
-                <input class="form-control" type="text" name="${options.name}" value="${options.value || ''}">
+                <label for="field-${options.name}">${options.label}:</label>
+                <input id="field-${options.name}" class="form-control" type="text" placeholder="${options.placeholder ? options.placeholder : ''}" name="${options.name}" value="${options.value || ''}">
                 <div class="error"></div>
              </div>`
 		});
