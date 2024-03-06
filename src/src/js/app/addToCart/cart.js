@@ -3,7 +3,6 @@ import Button from '../parts/button';
 import { imgName } from '../lib/stringUtils';
 import InputPlusMinus from '../parts/inputPlusMinus';
 import appStateStore from '../storage/appStateStore';
-import productListStore from '../storage/productListStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -18,7 +17,6 @@ var Cart = {
 		let formData = new FormData(this.el);
 		// [[product_id, quantity]]
 		let formDataArray = Array.from(formData);
-
 		let cartClone = JSON.parse(localStorage.getItem('cart'));
 
 		formDataArray.map((formDataItem) => {
@@ -53,6 +51,7 @@ var Cart = {
 					inputValue: item.quantity,
 					maxValue: item.amount_available,
 					onChange: this.onQuantityChange.bind(this),
+					onRemove: this.onRemove.bind(this),
 				});
 
 				let cartItem = this.createEl(`<div class="cart-item">
@@ -73,6 +72,14 @@ var Cart = {
 	},
 	onQuantityChange: function() {
 		this.submitQuantities();
+	},
+	onRemove: function (id) {
+		let cartClone = JSON.parse(localStorage.getItem('cart'));
+		cartClone = cartClone.filter((item) => item.id != id);
+
+		//updated localstorage with the modified values
+		//*buildItems gets fired on custom event when localstorage is updated
+		localStorage.setItem('cart', JSON.stringify(cartClone));
 	},
 	onCheckoutClick: function() {
 		this.submitQuantities();

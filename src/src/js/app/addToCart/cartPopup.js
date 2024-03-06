@@ -4,6 +4,7 @@ import Button from '../parts/button';
 import Cart from './cart';
 import appStateStore from '../storage/appStateStore';
 
+// initialized in app.js
 var CartPopup = {
 	open: function() {
 		appStateStore.setData({ showMenu: 'open'});

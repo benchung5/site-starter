@@ -1,10 +1,7 @@
 'use strict';
-
 import $ from 'jquery';
 window.$ = $;
-
 //------
-
 import isOnline from './onlineStatus';
 import serviceWorker from './serviceWorker';
 import loadVideo from './loadVideo';
@@ -13,8 +10,11 @@ import windowSize from './windowSize';
 import mobileMenu from './mobileMenu';
 import fooSlider from './fooSlider';
 import homePage from './homePage';
-import treeRemovalCalculator from './treeRemovalCalculator';	
-
+import treeRemovalCalculator from './treeRemovalCalculator';
+import CartIcon from './addToCart/cartIcon';
+import CartPopup from './addToCart/CartPopup';
+import MainSourceProducts from './addToCart/mainSourceProducts';
+import appStateStore from './storage/appStateStore';
 
 //config
 const isAdminPage = (window.location.href.indexOf('admin') > -1);
@@ -50,6 +50,12 @@ load foundation plugins - keep this
 	windowSize();
 
 	mobileMenu();
+
+	//cart
+	appStateStore.init();
+	CartPopup.init();
+	CartIcon.init();
+	MainSourceProducts.init();
 
 	//home page animation
 	if(window.location.pathname == '/') {

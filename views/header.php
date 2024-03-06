@@ -24,6 +24,7 @@ use Config\Config as Config;
           <li><a href="/articles" title="Articles">Articles</a></li>
           <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>
         </ul>
+        <div id="cart-icon-container"></div>
       </nav>
     </div>
   </div>
