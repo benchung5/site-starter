@@ -713,72 +713,104 @@ body:not([data-index]) .content-wrapper {
 header
 ========================================================================== */
 
-#header {
-  z-index: 5;
-  width: 100%;
-  flex-shrink: 0;
-  .logo-main {
-    margin-bottom: 0;
-    padding: 1em 0;
-    display: block;
-    line-height: 0;
-    font-size: inherit;
-    .logo-img {
-      height: 50px;
-      width: 245px;
-      background-image: url(/assets/img/naturewithus-logo.svg);
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
+body[data-checkout] {
+  h2, h3 {
+    @extend %small-title;
   }
-  .header-inner {
-    background: #2f2a33;
-    .logo-container {
-      display: flex;
+  #header {
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    .header-inner {
+      background: #fff;
     }
-    .menu-container {
-      display: flex;
-      align-items: center;
-      .menu {
-        text-transform: uppercase;
-        font-family: $secondary-title-font;
-        font-weight: 400;
-        height: 5em;
-        margin: 0;
-        list-style-type: none;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        width: 100%;
-        a {
-          color: #fff;
+    .header-right {
+      .icon-lock {
+        background: url(../img/icons/lock.svg) no-repeat center center;
+        width: 1.4rem;
+        height: 1.4rem;
+        background-size: contain;
+        margin-bottom: 0.2rem;
+        @include breakpoint(medium down) {
+            width: 1rem;
+            height: 1rem;
         }
       }
-      & > li {
-            flex: 0 0 auto;
+      .title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        font-family: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        margin: 0 0 0 0.2rem;
+        @include breakpoint(medium down) {
+            font-size: 0.8rem;
+        }
       }
-      &.align-right {
-        justify-content: flex-end;
+    }
+  }
+}
+
+#header {
+  background: #2f2a33;
+  width: 100%;
+  z-index: 1;
+  .header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo-main {
+      width: 100%;
+      max-width: 245px;
+      margin-bottom: 0;
+      padding: 1em 0;
+      display: flex;
+      align-items: center;
+      .logo-img {
+        width: 100%;
+        height: 50px;
+        display: block;
+        background-image: url(/assets/img/naturewithus-logo.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
       }
-      &.lesser-menu a {
-        font-size: .85em;
-        padding: 1.8rem .8rem;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      .menu-container {
+        display: flex;
+        align-items: center;
+        .menu {
+          text-transform: uppercase;
+          font-family: $secondary-title-font;
+          font-weight: 400;
+          height: 5em;
+          margin: 0;
+          list-style-type: none;
+          display: flex;
+          flex-wrap: nowrap;
+          align-items: center;
+          width: 100%;
+          a {
+            color: #fff;
+            white-space: nowrap;
+          }
+        }
+        & > li {
+              flex: 0 0 auto;
+        }
+        &.align-right {
+          justify-content: flex-end;
+        }
       }
       .cart {
         cursor: pointer;
         position: relative;
         display: block;
-        width: 28px;
-        height: 28px;
+        width: 23px;
+        height: 23px;
         overflow: hidden;
         margin-left: 1rem;
-/*        .material-icons {
-          position: relative;
-          top: 4px;
-          z-index: 1;
-          font-size: 24px;
-          color: white;
-        }*/
         .count {
           position: absolute;
           top: 0;
@@ -797,25 +829,34 @@ header
           font-weight: bold;
         }
       }
+      @include breakpoint(large down) {
+          font-size: 0.9rem;
+          .material-symbols-outlined {
+            font-size: 21px;
+          }
+      }
+      @include breakpoint(medium down) {
+          margin-right: 3.5rem;
+      }
     }
   }
 }
 
-.material-symbols-outlined {
-  color: white;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 300,
-  'GRAD' 0,
-  'opsz' 40
+#header {
+  .material-symbols-outlined {
+    color: white;
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 40
+  }
 }
 
 // header home page
 body[data-index] #header {
+  background: transparent;
   position: absolute;
-  .header-inner{
-    background: transparent;
-  }
 }
 
 /* ==========================================================================
@@ -885,6 +926,7 @@ $transition: .3s; // increase this to see the transformations in
   width: 100%;
   height: 100vh;
   top: 0;
+  left: 0;
   background: #2f2a33;
   color: white;
   font-size: 1em;
@@ -3762,6 +3804,7 @@ cart
 
 .cart {
   font-size: 0.9rem;
+  height: 23px;
   .list {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -3868,6 +3911,11 @@ cart
   }
 }
 
+#mobile-cart-icon-container {
+  display: flex;
+  align-items: center;
+}
+
 .popup-form-wrapper {
   color: #fff;
   label {
@@ -3912,47 +3960,6 @@ checkout
   line-height: 20px;
   padding-top: 12px;
   text-align: center;
-}
-
-body[data-checkout] {
-  h2, h3 {
-    @extend %small-title;
-  }
-  #header {
-    background: #fff;
-    border-bottom: 1px solid #e6e6e6;
-    .header-inner {
-      background: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .header-right {
-      display: flex;
-      align-items: center;
-      margin-left: 2rem;
-      .icon-lock {
-        background: url(../img/icons/lock.svg) no-repeat center center;
-        width: 1.4rem;
-        height: 1.4rem;
-        background-size: contain;
-        margin-bottom: 0.2rem;
-        @include breakpoint(medium down) {
-            width: 1rem;
-            height: 1rem;
-        }
-      }
-      .title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        font-family: lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-        margin: 0 0 0 0.2rem;
-        @include breakpoint(medium down) {
-            font-size: 0.8rem;
-        }
-      }
-    }
-  }
 }
 
 #button-holder {

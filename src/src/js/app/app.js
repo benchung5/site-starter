@@ -55,7 +55,14 @@ load foundation plugins - keep this
 	appStateStore.init();
 	CartPopup.init();
 	CartIcon.init();
-	MainSourceProducts.init();
+	//if on plant view page
+	const sourceProductListContainer = document.querySelector('#source-product-list-container');
+	if(sourceProductListContainer) {
+		MainSourceProducts.init({
+			container: sourceProductListContainer
+		});
+	}
+	
 
 	//home page animation
 	if(window.location.pathname == '/') {

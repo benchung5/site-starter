@@ -8,9 +8,9 @@ use Lib\Utils;
 <header id="header">
     <div class="row">
     	<div class="small-12 columns header-inner">
-	        <h1 class="logo-main">
-	          <a href="/"><div class="logo-img"></div></a>
-	        </h1>
+    		<div class="logo-main">
+    		  <a href="/" class="logo-img"></a>
+    		</div>
 	        <div class="header-right"><div class="icon-lock"></div><h1 class="title">Secure Checkout</h1></div>
     	</div>
     </div>

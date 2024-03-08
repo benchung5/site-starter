@@ -50,7 +50,9 @@ var Cart = {
 					inputName: item.id,
 					inputValue: item.quantity,
 					maxValue: item.amount_available,
+					minValue: 1,
 					onChange: this.onQuantityChange.bind(this),
+					enableRemove: true,
 					onRemove: this.onRemove.bind(this),
 				});
 

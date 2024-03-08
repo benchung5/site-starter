@@ -57,7 +57,7 @@ gulp.task('watch-img', function () {
 });
 
 gulp.task('watch-media', function () {
-    return watch('src/media/**/', media);
+    return watch('src/media/**/*', media);
 });
 
 gulp.task('watch-favicons', function () {
@@ -238,7 +238,7 @@ function images() {
 
 // Copy files out of the assets/media folder
 function media() {
-  return gulp.src('src/media/**/')
+  return gulp.src('src/media/**/*')
     .pipe(gulp.dest(PATHS.dist + PATHS.distAssets + '/media'));
 }
 

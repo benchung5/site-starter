@@ -63,7 +63,8 @@ var MainSourceProducts = {
 				if(item.amount_available > 0) {
 					let inputPlusMinus = InputPlusMinus.init({
 						inputName: item.id,
-						maxValue: item.amount_available
+						maxValue: item.amount_available,
+						minValue: 0
 					});
 					inputOrNotify = inputPlusMinus.el
 				} else {
@@ -108,7 +109,7 @@ var MainSourceProducts = {
 		} 
 
 	},
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -143,7 +144,7 @@ var MainSourceProducts = {
 			isInitialPageLoad: true,
 			backgroundColor: '#f4f6f7'
 		});
-		let container = document.querySelector('#source-product-list-container');
+		let container = options.container;
 		container.appendChild(inst.loader.el);
 
 		getProducts({source_id: inst.currentPlantId}, (apiData) => {
