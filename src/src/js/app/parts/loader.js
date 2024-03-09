@@ -13,7 +13,27 @@ var Loader = {
 	// onLoadingChange: function(e) {
 
 	// },
+	isLoading: function(isLoading) {
+		// remove this eventually
+		if(isLoading && (!this.isInitialPageLoad)) {
+			this.startLock();
+			if(!this.isInitialPageLoad) {
+				this.showLoadingAnimation.animate();
+			}
+		}
+		if(!isLoading) {
+			let timeout = this.delayFinish || 0;
+			//if not currently doing minimum load
+			if(!this.state.lockLoad) {
+			  //this.setState({ isLoading: false });
+				setTimeout(() => {
+					this.hideLoadingAnimation.animate();
+				}, timeout);
+			}
+		}	
+	},
 	animate: function() {
+		// **********remove this function eventually
 		if(appStateStore.storageData.isLoading && (!this.isInitialPageLoad)) {
 			this.startLock();
 			if(!this.isInitialPageLoad) {
@@ -37,7 +57,7 @@ var Loader = {
 		setTimeout(() => {
 		  this.setState({ lockLoad: false });
 		  this.animate();
-		}, 600);
+		}, 1000);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -79,8 +99,8 @@ var Loader = {
 		//animation
 		inst.showLoadingAnimation = animation.init(inst.preload, {
 			propertyTo: [['opacity', 1]],
-			duration: 0.2,
-			ease: 'ease-in-out',
+			duration: 0,
+			ease: 'none',
 			onStart: () => {
 				inst.preload.style.visibility = 'visible';
 			},

@@ -3,7 +3,7 @@ import appStateStore from '../storage/appStateStore';
 
 var SideMenuHeader = {
 	onItemClick: function() {
-		appStateStore.setData({ showMenu: 'close' });
+		appStateStore.setData({ showMenu: false });
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);

@@ -4,7 +4,8 @@ var AppStateStore = {
     name: 'appStateStore',
 	storageData: {
         isLoading: false,
-        showMenu: 'close',
+        showMenu: false,
+        showCart: false,
         isOnline: true,
         formTouched: false,
     },

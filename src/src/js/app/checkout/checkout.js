@@ -4,10 +4,12 @@ import Component from '../component';
 import CustomerInfo from './customerInfo';
 import Payment from './payment';
 import PaymentStatus from './paymentStatus';
-import { postOrder } from '../actions/checkout'
+import { postOrder, calcShippingAndTax } from '../actions/checkout'
 import OrderSummary from './orderSummary';
 import Loader from '../parts/loader';
 import appStateStore from '../storage/appStateStore';
+import checkoutStore from '../storage/checkoutStore';
+
 
 (function() {
   var Main = {
@@ -32,6 +34,7 @@ import appStateStore from '../storage/appStateStore';
       proto.constructor = inst;
 
       appStateStore.init();
+      checkoutStore.init();
 
       let elementsContainerEl = document.querySelector("#elements-container");
       let customerInfoContainerEl = document.querySelector("#customer-info-container");
@@ -42,11 +45,13 @@ import appStateStore from '../storage/appStateStore';
         size: '4rem',
         backgroundColor: '#f4f6f7'
       });
-      elementsContainerEl.appendChild(loader.el);
-      appStateStore.setData({ isLoading: true});
+      elementsContainerEl.prepend(loader.el);
 
       inst.order = {
         products: [],
+        address: [],
+        pickup: '',
+        message: '',
       };
 
       // This is your test publishable API key.
@@ -75,25 +80,43 @@ import appStateStore from '../storage/appStateStore';
           clientSecret: statusClientSecret
         });
       } else {
-        inst.orderSummary = OrderSummary.init();
-        postOrder(inst.order, (apiData) => {
-          inst.elements = inst.stripe.elements({ clientSecret: apiData.clientSecret, appearance });
-          inst.cutomerInfo = CustomerInfo.init({
-            stripe: inst.stripe,
-            elements: inst.elements,
-            onElementLoaded: inst.onFirstElementLoaded.bind(inst),
-            onCalculateShipping: () => {
-              //making sure not to load it twice
-              if(!inst.payment) {
-                inst.payment = Payment.init({
-                  stripe: inst.stripe,
-                  elements: inst.elements,
-                  message: inst.showMessage.bind(inst)
+        let cart = JSON.parse(localStorage.getItem('cart'));
+        inst.orderSummary = OrderSummary.init({ 
+          cart: cart 
+        });
+        if(cart.length !== 0) {
+          appStateStore.setData({ isLoading: true});
+          postOrder(inst.order, (apiData) => {
+            inst.elements = inst.stripe.elements({ clientSecret: apiData.clientSecret, appearance });
+            inst.cutomerInfo = CustomerInfo.init({
+              stripe: inst.stripe,
+              elements: inst.elements,
+              onElementLoaded: inst.onFirstElementLoaded.bind(inst),
+              onCalculateShipping: (info) => {
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                inst.order.products = cart;
+                inst.order.address = info.address;
+                inst.order.pickup = info.pickup;
+                inst.order.message = info.message;
+
+                calcShippingAndTax(inst.order, (apiData) => {
+                  inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
+
+                  checkoutStore.setData({ calcShippingLoading: false});
+
+                  //making sure not to load it twice
+                  if(!inst.payment) {
+                    inst.payment = Payment.init({
+                      stripe: inst.stripe,
+                      elements: inst.elements,
+                      message: inst.showMessage.bind(inst)
+                    });
+                  }
                 });
               }
-            }
+            });
           });
-        });
+        }
       }
     }
   }

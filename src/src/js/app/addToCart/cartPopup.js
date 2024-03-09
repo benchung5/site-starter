@@ -6,9 +6,15 @@ import appStateStore from '../storage/appStateStore';
 
 // initialized in app.js
 var CartPopup = {
-	open: function() {
-		appStateStore.setData({ showMenu: 'open'});
+	toggleCart: function(e) {
+		this.modalfromSide.hideShowModal(e.detail.showCart);
 	},
+	closeCart: function() {
+		appStateStore.setData({ showCart: false });
+	},
+	// open: function() {
+	// 	this.toggleCart(true);
+	// },
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -24,12 +30,15 @@ var CartPopup = {
 		inst.cart = Cart.init();
 		inst.modalfromSide = ModalfromSide.init({
 			title: 'Shopping Cart',
-			content: inst.cart.el
-	});
+			content: inst.cart.el,
+			onCloseClick: inst.closeCart.bind(inst),
+		});
 		inst.el.appendChild(inst.modalfromSide.el);
+
+		appStateStore.addListener(inst.toggleCart.bind(inst), 'showCart');
 
 		return inst;
 	}
 }
 
-export default CartPopup;
+export default CartPopup; 

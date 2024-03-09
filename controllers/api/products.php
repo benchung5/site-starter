@@ -7,8 +7,6 @@ use Lib\Upload;
 
 class Products extends Controller 
 {
-	protected $trees = null;
-
 	public function __construct() 
 	{
 		$this->products = $this->load_model('products_model');

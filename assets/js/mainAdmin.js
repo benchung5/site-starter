@@ -1890,7 +1890,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sto
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ \"./src/js/app/store.js\");\n\r\n\r\nvar AppStateStore = {\r\n    name: 'appStateStore',\r\n\tstorageData: {\r\n        isLoading: false,\r\n        showMenu: 'close',\r\n        isOnline: true,\r\n        formTouched: false,\r\n    },\r\n    init: function() {\r\n        Object.assign(this, _store__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\r\n        this.initialze();\r\n    }\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (AppStateStore);\n\n//# sourceURL=webpack:///./src/js/app/storage/appStateStore.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ \"./src/js/app/store.js\");\n\r\n\r\nvar AppStateStore = {\r\n    name: 'appStateStore',\r\n\tstorageData: {\r\n        isLoading: false,\r\n        showMenu: false,\r\n        showCart: false,\r\n        isOnline: true,\r\n        formTouched: false,\r\n    },\r\n    init: function() {\r\n        Object.assign(this, _store__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\r\n        this.initialze();\r\n    }\r\n}\r\n\r\n/* harmony default export */ __webpack_exports__[\"default\"] = (AppStateStore);\n\n//# sourceURL=webpack:///./src/js/app/storage/appStateStore.js?");
 
 /***/ }),
 

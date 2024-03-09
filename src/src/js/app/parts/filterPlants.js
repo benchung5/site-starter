@@ -37,7 +37,7 @@ var FilterPlants = {
 
 		//lastly, update the offset and close the mobile menu if open
 		Object.assign(filterStoreClone, { offset: 0});
-		appStateStore.setData({ showMenu: 'close' });
+		appStateStore.setData({ showMenu: false });
 
 		this.filterStore.setData(filterStoreClone);
 		this.onUpdate();

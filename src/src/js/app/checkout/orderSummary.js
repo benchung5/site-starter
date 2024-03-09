@@ -1,10 +1,10 @@
 import Component from '../component';
 import { imgName } from '../lib/stringUtils';
-// import appStateStore from '../storage/appStateStore';
-
+import checkoutStore from '../storage/checkoutStore';
+import Loader from '../parts/loader';
 //config
 const env = process.env.NODE_ENV || "development";
-var { PLANTS_UPLOADS_PATH } = require('../config')[env];
+var { PLANTS_UPLOADS_PATH, DOMAIN_URL } = require('../config')[env];
 
 var OrderSummary = {
 	buildItems: function(cart) {
@@ -39,17 +39,34 @@ var OrderSummary = {
 			});
 			this.subtotalEl.innerHTML = total;
 			this.subtotalItemCountEl.innerHTML = count;
+			this.totalEl.innerHTML = total;
+			this.setState({ total: total });
 
-			this.cartList.appendChild(this.checkoutEl);
+			this.cartList.appendChild(this.loaderForFooter.el);
 		}
+	},
+	updateShippingAndTax: function (shipping, tax) {
+		this.taxEl.innerHTML = tax;
+		this.totalEl.innerHTML = this.state.total + shipping + tax;
+		// do this last to avoid casting issues
+		if (shipping == 0) {
+			shipping = 'FREE';
+		}
+		this.shippingEl.innerHTML = shipping;
+		this.beforeShippingTaxMessage.style.visibility = 'hidden';
 	},
 	onBrowseClick: function(e) {
 		e.preventDefault();
-		appStateStore.setData({ showMenu: 'close'});
+		// redirect to catalogue page
+		window.location.href = `${DOMAIN_URL}/plants`;
 	},
 	localUpdated: function(e) {
 		let val = JSON.parse(e.value);
 		this.buildItems(val);
+	},
+	calcShippingLoading: function(e) {
+		console.log(e.detail.calcShippingLoading);
+		this.loaderForFooter.isLoading(e.detail.calcShippingLoading);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -79,7 +96,9 @@ var OrderSummary = {
 		inst.buttonContinueBrowsing = inst.cartEmptyEl.querySelector('button');
 		inst.buttonContinueBrowsing.addEventListener('click', inst.onBrowseClick.bind(inst));
 
-		inst.checkoutEl = inst.createEl(`
+		inst.cart = options.cart || JSON.parse(localStorage.getItem('cart'));
+
+		inst.footerEl = inst.createEl(`
 			<div class="footer">
 				<div class="subtotal cart-item">
 					<div class="first">Subtotal (<span id="subtotal-item-count"></span> items)</div>
@@ -87,25 +106,38 @@ var OrderSummary = {
 				</div>
 				<div class="cart-item">
 					<div class="first">Shipping</div>
-					<div class="total"><span id="shipping">${inst.shippingCost ? ('$'+inst.shippingCost) : 'TBD'}</span></div>
+					<div class="total"><span id="shipping">TBD</span></div>
 				</div>
 				<div class="cart-item">
 					<div class="first">Tax</div>
-					<div class="total"><span id="tax">${inst.taxCost ? ('$'+inst.taxCost) : 'TBD'}</span></div>
+					<div class="total"><span id="tax">TBD</span></div>
 				</div>
 				<div class="cart-item grand-total">
-					<div class="first">Total</div>
-					<div class="total"><span id="tax">${inst.grandTotal ? ('$'+inst.grandTotal) : 'TBD'}</span></div>
+					<div class="first">Total&nbsp;<span id="before-shipping-and-tax" class="small-text">(before shipping and tax)</span></div>
+					<div class="total">$<span id="grand-total"></span></div>
 				</div>
 			</div>
 			`);
-		inst.subtotalEl = inst.checkoutEl.querySelector('#subtotal');
-		inst.subtotalItemCountEl = inst.checkoutEl.querySelector('#subtotal-item-count');
+		inst.subtotalEl = inst.footerEl.querySelector('#subtotal');
+		inst.subtotalItemCountEl = inst.footerEl.querySelector('#subtotal-item-count');
+		inst.taxEl = inst.footerEl.querySelector('#tax');
+		inst.shippingEl = inst.footerEl.querySelector('#shipping');
+		inst.totalEl = inst.footerEl.querySelector('#grand-total');
+		inst.beforeShippingTaxMessage = inst.footerEl.querySelector('#before-shipping-and-tax');
+
+		//insert into loader, then insert that into the page container
+		inst.loaderForFooter = Loader.init({
+		  children: inst.footerEl,
+		  minHeight: '10rem',
+		  size: '4rem',
+		  backgroundColor: '#f4f6f7',
+		});
 
 		//listen for our custom event for local storage updated
 		document.addEventListener("localUpdated", inst.localUpdated.bind(inst));
 
-		inst.cart = JSON.parse(localStorage.getItem('cart')) || [];
+		checkoutStore.addListener(inst.calcShippingLoading.bind(inst), 'calcShippingLoading');
+
 		inst.buildItems(inst.cart);
 
 		return inst;

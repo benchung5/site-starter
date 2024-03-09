@@ -93,7 +93,7 @@ var Cart = {
 	},
 	onBrowseClick: function(e) {
 		e.preventDefault();
-		appStateStore.setData({ showMenu: 'close'});
+		appStateStore.setData({ showCart: false});
 	},
 	localUpdated: function(e) {
 		let val = JSON.parse(e.value);

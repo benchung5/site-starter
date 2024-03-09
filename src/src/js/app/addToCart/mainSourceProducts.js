@@ -35,7 +35,7 @@ var MainSourceProducts = {
 			});
 		});
 
-		appStateStore.setData({ showMenu: 'open'});
+		appStateStore.setData({ showCart: true});
 		// this.cartPopup.open();
 	},
 	buildItems: function() {

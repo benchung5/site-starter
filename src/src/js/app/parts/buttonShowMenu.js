@@ -4,11 +4,13 @@ import appStateStore from '../storage/appStateStore';
 var ButtonShowMenu = {
 	onButtonClick: function(e) {
 		e.preventDefault();
-		if (appStateStore.storageData.showMenu == 'open') {
-			appStateStore.setData({ showMenu: 'close' });
+		if (appStateStore.storageData.showMenu == true) {
+			appStateStore.setData({ showMenu: false });
 		} else {
-			appStateStore.setData({ showMenu: 'open' });
+			appStateStore.setData({ showMenu: true });
 		}
+
+		console.log('button: ', appStateStore.storageData.showMenu);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -30,7 +32,7 @@ var ButtonShowMenu = {
 					<a
 					href="#"
 					id="side-menu-toggle"
-					class="show-menu-mobile ${appStateStore.storageData.showMenu}" 
+					class="show-menu-mobile ${appStateStore.storageData.showMenu ? 'open' : 'close'}" 
 					style="cursor: pointer;"
 					data-id="side-menu-toggle"
 					alt="Side Menu"

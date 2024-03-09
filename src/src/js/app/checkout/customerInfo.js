@@ -1,7 +1,9 @@
 import Component from '../component';
 import LoadingButton from '../parts/loadingButton';
+import checkoutStore from '../storage/checkoutStore';
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../config')[env];
+import { clone } from '../lib/utils';
 
 
 var CustomerInfo = {
@@ -26,8 +28,32 @@ var CustomerInfo = {
 	onCalculateShippingClick: function(e) {
 		e.preventDefault();
  		//todo...calculate shipping and tax and update order summary
- 		this.submitButton.isLoading(true);
-		this.onCalculateShipping();
+ 		checkoutStore.setData({ calcShippingLoading: true});
+
+ 		let formData = new FormData(this.additionalInfoForm);
+ 		let additionalInfoArray = Array.from(formData);
+ 		const address = this.state.address;
+
+ 		let message = '';
+ 		let pickup = '';
+
+ 		additionalInfoArray.map((item) => {
+ 			if (item[0] == 'message') {
+ 				message = item[1];
+ 			}
+ 			if (item[0] == 'pickup') {
+ 				pickup = item[1];
+ 			}
+ 		})
+
+		this.onCalculateShipping({
+			pickup: pickup,
+			message: message,
+			address: address
+		});
+	},
+	calcShippingLoading: function(e) {
+		this.submitButton.isLoading(e.detail.calcShippingLoading);
 	},
 	init: async function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -43,6 +69,12 @@ var CustomerInfo = {
 				<div id="link-authentication-element">
 				  <!-- Stripe.js injects link authentication element-->
 				</div>
+				<form id="additional-info">
+					<input type="checkbox" id="pickup" name="pickup" value="yes">
+					<label for="pickup">I want to pick up this order myself</label><br>
+					<label for="message">Message (optional)</label>
+					<textarea rows="4" id="message" name="message" placeholder="Anything you'd like us to know..."></textarea>
+				</form>
 				<div id="address-element">
 				  <!-- Stripe.js injects address element-->
 				</div>
@@ -55,6 +87,8 @@ var CustomerInfo = {
 			disabled: true,
 			onClick: inst.onCalculateShippingClick.bind(inst)
 		});
+
+		inst.additionalInfoForm = inst.el.querySelector('#additional-info');
 
 		inst.stripe = options.stripe ? options.stripe : null;
 		inst.elements = options.elements ? options.elements : null;
@@ -78,6 +112,8 @@ var CustomerInfo = {
 		inst.onCalculateShipping = options.onCalculateShipping.bind(inst);
 	    //fires a soon a s the form is filled, no submit needed
 		inst.addressElement.on('change', inst.addressElementChanged.bind(inst));
+
+		checkoutStore.addListener(inst.calcShippingLoading.bind(inst), 'calcShippingLoading');
 
 		return inst;
 	}

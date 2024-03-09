@@ -1,6 +1,8 @@
 import Component from '../component';
 
 var MyComp = {
+	// set state... this.setState({ myProp: false });
+	// get state... this.state.myProp
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);

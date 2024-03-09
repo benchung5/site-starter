@@ -6,7 +6,7 @@ import { moveElement } from '../lib/utils';
 
 var CartIcon = {
 	onCartClick: function() {
-		appStateStore.setData({ showMenu: 'open'});
+		appStateStore.setData({ showCart: true});
 		// this.cartPopup.open();
 	},
 	onMobileChange: function(e) {

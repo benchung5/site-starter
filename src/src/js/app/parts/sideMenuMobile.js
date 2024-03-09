@@ -1,8 +1,15 @@
 import Component from '../component';
 import SideMenuContent from './sideMenuContent';
 import ModalFromSide from './modalFromSide';
+import appStateStore from '../storage/appStateStore';
 
 var SideMenuMobile = {
+	toggleMenu: function(e) {
+		this.modalFromSide.hideShowModal(e.detail.showMenu);
+	},
+	closeMenu: function() {
+		appStateStore.setData({ showMenu: false });
+	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
@@ -22,9 +29,11 @@ var SideMenuMobile = {
 		});
 
 		inst.modalFromSide = ModalFromSide.init({
-			content: inst.sideMenuContent.el
+			content: inst.sideMenuContent.el,
+			onCloseClick: inst.closeMenu.bind(inst),
 		});
 
+		appStateStore.addListener(inst.toggleMenu.bind(inst), 'showMenu');
 
 		inst.el.appendChild(inst.modalFromSide.el);
 

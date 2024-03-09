@@ -1,0 +1,2223 @@
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => i
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => AB
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => i
+            [message] => e
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => yes
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => yes
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 79 Strada blvd., , Strada
+                    [line2] => 
+                    [city] => St. Catharines
+                    [country] => CA
+                    [postal_code] => L2S 3L3
+                    [state] => ON
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 79 Strada blvd., , Strada
+                    [line2] => 
+                    [city] => St. Catharines
+                    [country] => CA
+                    [postal_code] => L2S 3L3
+                    [state] => ON
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => yes
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => yes
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------
+Array
+(
+    [order] => Array
+        (
+            [products] => Array
+                (
+                    [0] => Array
+                        (
+                            [id] => 2
+                            [productTypeName] => Seeds
+                            [productTypeVariationName] => 1 oz.
+                            [price] => 20.00
+                            [amount_available] => 1
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                    [1] => Array
+                        (
+                            [id] => 3
+                            [productTypeName] => Plants
+                            [productTypeVariationName] => 3 pack
+                            [price] => 5.00
+                            [amount_available] => 2
+                            [image] => Vaccinium_macrocarpon_(15054125499)-312.jpg
+                            [plantId] => 174
+                            [commonName] => American Cranberry
+                            [botanicalName] => Vaccinium macrocarpon
+                            [plantUrl] => 
+                            [quantity] => 1
+                        )
+
+                )
+
+            [address] => Array
+                (
+                    [line1] => 5535 Patterson Road East
+                    [line2] => 
+                    [city] => Prince George
+                    [country] => CA
+                    [postal_code] => V2N6A2
+                    [state] => BC
+                )
+
+            [pickup] => 
+            [message] => 
+        )
+
+)
+
+-----------------------------------------------
+from: C:\xampp\htdocs\1pix_app\controllers\api\shipping_and_tax.php
+-----------------------------------------------

@@ -30,11 +30,18 @@ class Checkout extends Controller
 		//   'active_from' => 'now',
 		// ]);
 
-		function calculateOrderAmount(array $products): int {
+		function calculate_order_amount(array $products, $shipping=0): int {
 		    // Replace this constant with a calculation of the order's amount
 		    // Calculate the order total on the server to prevent
 		    // people from directly manipulating the amount on the client
+		    // include shipping
 		    return 1400;
+		}
+
+		function get_order_id()
+		{
+			//get the next available order ID from the DB
+			return 34534;
 		}
 
 		header('Content-Type: application/json');
@@ -46,13 +53,23 @@ class Checkout extends Controller
 
 		    // Create a PaymentIntent with amount and currency
 		    $paymentIntent = $stripe->paymentIntents->create([
-		        'amount' => calculateOrderAmount($jsonObj->order->products),
+		        'amount' => calculate_order_amount($jsonObj->order->products, $jsonObj->order->products),
 		        'currency' => 'cad',
 		        // 'receipt_email' => $jsonObj->order->receiptEmail,
 		        // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
 		        'automatic_payment_methods' => [
 		            'enabled' => true,
 		        ],
+		        'metadata' => [
+		        	'order_id' => get_order_id($jsonObj->order->products),
+		        	'customer_message' => $jsonObj->order->message,
+		        	'products' => $jsonObj->order->products,
+		        ],
+		        // add this information when you decide to use a tracking number, meanwhile the shipping el fills this in
+		        // 'shipping' => [
+		        // 	'tracking_number' => 'todo',
+		        //	'address' => [],
+		        // ]
 		    ]);
 
 		    $output = [

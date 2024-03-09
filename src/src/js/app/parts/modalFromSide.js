@@ -1,28 +1,27 @@
 import Component from '../component';
-import appStateStore from '../storage/appStateStore';
 import { addClass, removeClass } from '../lib/utils';
 import animation from '../animation';
 import Button from './button';
 
 var ModalFromSide = {
-	hideShowModal() {
-		if(appStateStore.storageData.showMenu == 'close') {
+	hideShowModal(isOpen) {
+		if(!isOpen) {
 			this.closeBackgroundAnimation.animate();
 			this.closeMenuAnimation.animate();
-		} else if(appStateStore.storageData.showMenu == 'open') {
+		} else if(isOpen) {
 			this.openBackgroundAnimation.animate();
 			this.openMenuAnimation.animate();
 			addClass(this.sideMenuMobile, 'open');
 			removeClass(this.sideMenuMobile, 'close');
 		}
 	},
-	close: function() {
-		appStateStore.setData({showMenu: 'close'});
-	},
+	// close: function() {
+	// 	this.onCloseClick()
+	// },
 	onScreenCoverClick: function(e) {
 		//if you hit the screen cover, close the side menu
 		if (!e.target.closest('.side-menu-mobile') && e.target.closest('.modal-from-side')) {
-		    this.close();
+		    this.hideShowModal(false);
 		}
 	},
 	init: function(options) {
@@ -36,7 +35,7 @@ var ModalFromSide = {
 			el: 
 			`
 			<div class="modal-from-side">
-				<div class="side-menu-mobile ${appStateStore.storageData.showMenu}">
+				<div class="side-menu-mobile close">
 					<div class="menu-header"><h2 class="menu-header-left">${options.title || ""}</h2><div class="menu-header-right"></div></div>
 	            </div>
             </div>
@@ -49,14 +48,11 @@ var ModalFromSide = {
 			inst.sideMenuMobile.appendChild(options.content);
 		}
 
-		appStateStore.init();
-		appStateStore.addListener(inst.hideShowModal.bind(inst), 'showMenu');
-
 		inst.headerRight = inst.el.querySelector('.menu-header-right');
 		const closeButton = Button.init({
 			className: 'menu-close',
 			name: 'Close',
-			onClick: inst.close.bind(inst)
+			onClick: options.onCloseClick.bind(inst),
 		});
 		inst.headerRight.appendChild(closeButton.el)
 

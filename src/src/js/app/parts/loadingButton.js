@@ -6,19 +6,24 @@ var LoadingButton = {
 		this.onClick(e);
 	},
 	isLoading: function(isLoading) {
-		if (isLoading) {
-	    // Disable the button and show a spinner
-			this.el.disabled = true;
-			toggleClass(this.el, 'button--loading');
-		} else {
-			this.el.disabled = false;
-			toggleClass(this.el, 'button--loading');
+		if (this.state.isEnabled) {
+			if (isLoading) {
+		    	// Disable the button and show a spinner
+				this.el.disabled = true;
+				toggleClass(this.el, 'button--loading');
+			} else {
+				this.el.disabled = false;
+				toggleClass(this.el, 'button--loading');
+			}
 		}
 	},
 	isEnabled: function(isEnabled) {
+		//this is just for disabling manually the button
 		if (isEnabled) {
+			this.setState({ isEnabled: true });
 			this.el.disabled = false;
 		} else {
+			this.setState({ isEnabled: false });
 			this.el.disabled = true;
 		}
 	},

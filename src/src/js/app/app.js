@@ -52,17 +52,19 @@ load foundation plugins - keep this
 	mobileMenu();
 
 	//cart
-	appStateStore.init();
-	CartPopup.init();
-	CartIcon.init();
-	//if on plant view page
-	const sourceProductListContainer = document.querySelector('#source-product-list-container');
-	if(sourceProductListContainer) {
-		MainSourceProducts.init({
-			container: sourceProductListContainer
-		});
+	if(!isAdminPage) {
+		appStateStore.init();
+		CartPopup.init();
+		CartIcon.init();
+		//if on plant view page
+		const sourceProductListContainer = document.querySelector('#source-product-list-container');
+		if(sourceProductListContainer) {
+			MainSourceProducts.init({
+				container: sourceProductListContainer
+			});
+		}
 	}
-	
+
 
 	//home page animation
 	if(window.location.pathname == '/') {
