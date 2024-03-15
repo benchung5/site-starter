@@ -2,88 +2,64 @@
 namespace Controllers\Api;
 use Lib\Controller;
 use Lib\Utils;
+use Lib\Calc_payment;
+use Config\Secret;
 
 
 class Shipping_and_tax extends Controller 
 {
 	public function __construct() 
 	{
-		$this->products = $this->load_model('products_model');
-
 		parent::__construct();
 	}
 
 	public function index()
 	{
 		$data = Utils::json_read();
-		Utils::dbug($data);
 
-		// calc shipping
-		$seeds = [];
-		$plants = [];
-		$shipping_cost = 0.00;
-		if ($data['order']['pickup'] !== 'yes') {
+		$verified = Calc_payment::verify_products($data['order']);
 
-			foreach ($data['order']['products'] as $product) {
-				// calc shipping
-				if ($product['productTypeName'] == 'Seeds') {
-					$seeds[] = $product;
-				}
-				if ($product['productTypeName'] == 'Plants') {
-					$plants[] = $product;
-				}
-			}
+		if (!$verified) {
+			http_response_code(500);
+			echo json_encode(['error' => "sorry, cart items don't match existing products. Try again or contact us for help"]);
+		} else {
+			$subtotal = Calc_payment::calc_subtotal($data['order']);
+			$shipping_cost = Calc_payment::calc_shipping($data['order']);
+			$tax = Calc_payment::calc_tax($data['order']);
+			$total = $subtotal + $shipping_cost + $tax;
+			$total = intval($total * 100);
+			
+			$stripeSecretKey = Secret::keys('STRIPE_API_KEY');
+			$stripe = new \Stripe\StripeClient($stripeSecretKey);
 
-			$seeds_count = count($seeds);
-			$plants_count = count($plants);
+			$stripe->paymentIntents->update(
+			  $data['order']['paymentIntentId'],
+			  [
+			  	'amount' => $total,
+			  	'metadata' => [
+			  		// 'order_id' => '6735',
+			  		'customer_message' => $data['order']['message'],
+			  		'products' => json_encode($data['order']['products']),
+			  		'shipping' => $shipping_cost,
+			  		'tax' => $tax,
+			  		'email' => $data['order']['email'],
+			  	],
+			  	// 'receipt_email' => $data['order']['email'],
+			  	'description' => '(created by Nature With Us)'
+			  	// add this information when you decide to use a tracking number, meanwhile the shipping el fills this in
+			  	// 'shipping' => [
+			  	// 	'tracking_number' => 'todo',
+			  	//	'address' => [],
+			  	// ]
+			  ]
+			);
 
-			if ($seeds_count >= 1 && $seeds_count <= 5) {
-				$shipping_cost = 1.25;
-			} elseif ($seeds_count >= 6 && $seeds_count <= 20) {
-				$shipping_cost = 5.00;
-			}
+			$result = (object) [
+				'shipping' => $shipping_cost,
+				'tax' => $tax,
+			];
+
+			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		}
-
-
-		// calc tax
-		// Alberta: 5% GST, BC: 7% PST + 5% GST
-		$total = 0.00;
-		$tax = 0.00;
-		foreach ($data['order']['products'] as $product) {
-			$subtotal = $product['price'] * $product['quantity'];
-			$total = $subtotal + $total;
-		}
-
-		if ($data['order']['address']['state'] == 'BC') {
-			$tax = $total * 0.12;
-		}
-
-		if ($data['order']['address']['state'] == 'AB') {
-			$tax = $total * 0.05;
-		}
-
-		$result = (object) [
-			'shipping' => $shipping_cost,
-			'tax' => $tax,
-		];
-
-		Utils::json_respond(SUCCESS_RESPONSE, $result);
-		
-	
-		// $opts = [];
-
-		// if(isset($data['source_id'])) { $opts['source_id'] = $data['source_id']; };
-
-		// $products = $this->products->get_all($opts);
-
-		// $result = ['products' => $products];
-
-		// if ($result) {
-		// 	Utils::json_respond(SUCCESS_RESPONSE, $result);
-		// } else {
-		// 	Utils::json_respond(SUCCESS_RESPONSE, ['products' => []]);
-		// }		
-		
 	}
-
 }

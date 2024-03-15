@@ -3972,16 +3972,20 @@ checkout
   display: none;
 }
 
+#elements-container {
+  display: none;
+}
+
 #payment-message {
-  color: rgb(105, 115, 134);
-  font-size: 16px;
-  line-height: 20px;
-  padding-top: 12px;
   text-align: center;
+  margin-bottom: 1rem;
 }
 
 #button-holder {
   margin: 2rem 0 2rem;
+  &.pay-now {
+    margin-bottom: 0;
+  }
 }
 
 

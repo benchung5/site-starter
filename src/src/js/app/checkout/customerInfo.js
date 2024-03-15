@@ -15,14 +15,23 @@ var CustomerInfo = {
 		this.elementLoaded();
 	},
 	linkAuthenticationElementChanged: function(e) {
-		const email = e.value.email;
-		localStorage.setItem('customerEmail', email);
+		this.setState({ email: e.value.email });
+		//localStorage.setItem('email', e.value.email);
 	},
 	addressElementChanged: function(e) {
 		if (e.complete){
       		// Extract potentially complete address
 			this.setState({ address: e.value.address });
 			this.submitButton.isEnabled(true);
+		}
+	},
+	onPickupClick: function(e) {
+		if (e.target.checked) {
+			this.messageEl.placeholder = "Your pickup details here... Let us know your pickup availability, etc."
+			this.messageLabelEl.innerHTML = "Message"
+		} else {
+			this.messageEl.placeholder = "Anything you'd like us to know...";
+			this.messageLabelEl.innerHTML = "Message (optional)";
 		}
 	},
 	onCalculateShippingClick: function(e) {
@@ -33,6 +42,7 @@ var CustomerInfo = {
  		let formData = new FormData(this.additionalInfoForm);
  		let additionalInfoArray = Array.from(formData);
  		const address = this.state.address;
+ 		const email = this.state.email;
 
  		let message = '';
  		let pickup = '';
@@ -49,7 +59,8 @@ var CustomerInfo = {
 		this.onCalculateShipping({
 			pickup: pickup,
 			message: message,
-			address: address
+			address: address,
+			email: email
 		});
 	},
 	calcShippingLoading: function(e) {
@@ -72,7 +83,7 @@ var CustomerInfo = {
 				<form id="additional-info">
 					<input type="checkbox" id="pickup" name="pickup" value="yes">
 					<label for="pickup">I want to pick up this order myself</label><br>
-					<label for="message">Message (optional)</label>
+					<label id="message-label" for="message">Message (optional)</label>
 					<textarea rows="4" id="message" name="message" placeholder="Anything you'd like us to know..."></textarea>
 				</form>
 				<div id="address-element">
@@ -89,6 +100,10 @@ var CustomerInfo = {
 		});
 
 		inst.additionalInfoForm = inst.el.querySelector('#additional-info');
+		inst.pickupEl = inst.el.querySelector('#pickup');
+		inst.pickupEl.addEventListener('click', inst.onPickupClick.bind(inst));
+		inst.messageEl = inst.el.querySelector('#message');
+		inst.messageLabelEl = inst.el.querySelector('#message-label');
 
 		inst.stripe = options.stripe ? options.stripe : null;
 		inst.elements = options.elements ? options.elements : null;

@@ -22,7 +22,7 @@ import checkoutStore from '../storage/checkoutStore';
       setTimeout(function () {
         messageContainer.classList.add("hidden");
         messageContainer.textContent = "";
-      }, 4000);
+      }, 5000);
     },
     onFirstElementLoaded: function () {
       appStateStore.setData({ isLoading: false});
@@ -48,10 +48,12 @@ import checkoutStore from '../storage/checkoutStore';
       elementsContainerEl.prepend(loader.el);
 
       inst.order = {
+        paymentIntentId: '',
         products: [],
         address: [],
         pickup: '',
         message: '',
+        email: '',
       };
 
       // This is your test publishable API key.
@@ -85,8 +87,11 @@ import checkoutStore from '../storage/checkoutStore';
           cart: cart 
         });
         if(cart.length !== 0) {
+          elementsContainerEl.style.display = 'block';
           appStateStore.setData({ isLoading: true});
+          inst.order.products = cart;
           postOrder(inst.order, (apiData) => {
+            inst.order.paymentIntentId = apiData.paymentIntentId;
             inst.elements = inst.stripe.elements({ clientSecret: apiData.clientSecret, appearance });
             inst.cutomerInfo = CustomerInfo.init({
               stripe: inst.stripe,
@@ -94,10 +99,10 @@ import checkoutStore from '../storage/checkoutStore';
               onElementLoaded: inst.onFirstElementLoaded.bind(inst),
               onCalculateShipping: (info) => {
                 const cart = JSON.parse(localStorage.getItem('cart'));
-                inst.order.products = cart;
                 inst.order.address = info.address;
                 inst.order.pickup = info.pickup;
                 inst.order.message = info.message;
+                inst.order.email = info.email;
 
                 calcShippingAndTax(inst.order, (apiData) => {
                   inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);

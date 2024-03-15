@@ -9,7 +9,7 @@ var { PLANTS_UPLOADS_PATH, DOMAIN_URL } = require('../config')[env];
 var OrderSummary = {
 	buildItems: function(cart) {
 		this.cartList.innerHTML = '';
-		if(cart.length == 0) {
+		if(!cart || cart.length == 0) {
 			this.cartList.appendChild(this.cartEmptyEl);
 		} else {
 			let header = this.createEl(`<div class="header cart-item">
@@ -65,7 +65,6 @@ var OrderSummary = {
 		this.buildItems(val);
 	},
 	calcShippingLoading: function(e) {
-		console.log(e.detail.calcShippingLoading);
 		this.loaderForFooter.isLoading(e.detail.calcShippingLoading);
 	},
 	init: function(options) {

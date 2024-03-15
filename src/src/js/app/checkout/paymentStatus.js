@@ -6,33 +6,36 @@ var PaymentStatus = {
 	paymentMessage: async function() {
 		let messageEl = null;
 		const { paymentIntent } = await this.stripe.retrievePaymentIntent(this.clientSecret);
-		const customerEmail = localStorage.getItem('customerEmail');
-
-		//todo... save transaction data to database
-		// paymentIntent.id...	
 
 		switch (paymentIntent.status) {
 		case "succeeded":
+			const amount = (paymentIntent.amount / 100).toFixed(2);
 			messageEl = this.createEl(`
 				<div>		    
 					<p>
-					<b>We appreciate your business!</b><br>
-					A confirmation email will be sent to:<br>
-					<span id="customer-email">${customerEmail}</span>
+						<b>We appreciate your business!</b><br>
+						A confirmation will be sent to your email address.<br>
 					</p>
 					<p>
-					<b>Package will be shipped to:</b><br>
-					<span id="customer-name">${paymentIntent.shipping.name}</span><br>
-					<span id="line1">${paymentIntent.shipping.address.line1}</span><br>
-					${paymentIntent.shipping.address.line2 ? '<span id="line2">'+paymentIntent.shipping.address.line2+'</span><br>' : ''}
-					<span id="city">${paymentIntent.shipping.address.city}</span>, <span id="state">${paymentIntent.shipping.address.state}</span><br>
-					<span id="postal_code">${paymentIntent.shipping.address.postal_code}</span><br>
+						<b>Package will be shipped to:</b><br>
+						<span id="customer-name">${paymentIntent.shipping.name}</span><br>
+						<span id="line1">${paymentIntent.shipping.address.line1}</span><br>
+						${paymentIntent.shipping.address.line2 ? '<span id="line2">'+paymentIntent.shipping.address.line2+'</span><br>' : ''}
+						<span id="city">${paymentIntent.shipping.address.city}</span>, <span id="state">${paymentIntent.shipping.address.state}</span><br>
+						<span id="postal_code">${paymentIntent.shipping.address.postal_code}</span><br>
+					</p>
+					<p>
+						<b>Details</b><br>
+						ID: ${paymentIntent.id}<br>
+						Amount: $${amount} CAD
 					</p>
 					<p>
 					If you have any questions, please email us: <a href="mailto:info@naturewithus.com">info@naturewithus.com</a>
 					</p>
 				</div>
 				`);
+			//remove cart from localstorage
+			localStorage.removeItem('cart');
 			break;
 		case "processing":
 			messageEl = this.createEl(`<p>Your payment is processing.</p>`);

@@ -59,7 +59,7 @@ var Payment = {
 			  <div id="payment-element">
 			    <!--Stripe.js injects the Payment Element-->
 			  </div>
-			  <div id="button-holder"></div>
+			  <div id="button-holder" class="pay-now"></div>
 			  <div id="payment-message" class="hidden"></div>
 			</form>`
 		});
