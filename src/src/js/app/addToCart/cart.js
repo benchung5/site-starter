@@ -1,6 +1,7 @@
 import Component from '../component';
 import Button from '../parts/button';
 import { imgName } from '../lib/stringUtils';
+import { formatPrice } from '../lib/cartUtils';
 import InputPlusMinus from '../parts/inputPlusMinus';
 import appStateStore from '../storage/appStateStore';
 
@@ -60,9 +61,9 @@ var Cart = {
 					<a class="first" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
 					<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
 					<div class="header cart-item mobile"><div class="price">Price</div><div class="quantity">Quantity</div><div class="total">Total</div></div>
-					<div class="price">$${item.price}</div>
+					<div class="price">${formatPrice(item.price)}</div>
 					<div id="quantity" class="quantity"></div>
-					<div class="total">$${subtotal}</div>
+					<div class="total">${formatPrice(subtotal)}</div>
 					</div>`);
 				let quantity = cartItem.querySelector('#quantity');
 				quantity.appendChild(inputPlusMinus.el);
@@ -89,7 +90,7 @@ var Cart = {
 		window.location.href = `${DOMAIN_URL}/checkout`;
 	},
 	updateTotal: function(total) {
-		this.subtotalEl.innerHTML = total;
+		this.subtotalEl.innerHTML = formatPrice(total);
 	},
 	onBrowseClick: function(e) {
 		e.preventDefault();
@@ -131,7 +132,7 @@ var Cart = {
 
 		inst.checkoutEl = inst.createEl(`
 			<div class="cart-checkout">
-			<div class="message">Subtotal: $<span id="subtotal"></span></div>
+			<div class="message">Subtotal: <span id="subtotal"></span></div>
 				<a id="checkout-button" class="btn btn-primary message">Checkout</a>
 			</div>
 			`);

@@ -28,8 +28,7 @@ use Lib\Utils;
 							<div id="payment-container">
 							</div>
 						</div>
-						<section id="message-container">
-						</section>
+						<div id="message-container" class="hidden"></div>
 					</div>
 					<div class="small-12 large-5 columns">
 						<div id="order-summary-container"></div>

@@ -20,3 +20,16 @@ export function getCartTotals(cart) {
 	// { count, total }
 	return totalObj
 }
+
+export function formatPrice(centsInt, showCurrancy) {
+	let dollars = centsInt / 100;
+
+	// Format the price above to USD using the locale, style, and currency.
+	let opts = {};
+
+	opts.style = 'currency';
+	opts.currency = showCurrancy ? 'CAD' : 'USD';
+
+	let CADDollar = new Intl.NumberFormat('en-US', opts);
+	return CADDollar.format(dollars);
+}

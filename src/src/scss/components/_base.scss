@@ -841,7 +841,7 @@ body[data-checkout] {
           width: 16px;
           height: 16px;
           line-height:16px;
-          display: block;
+          visibility: hidden;
           text-align: center;
           color: white;
           font-family: 'Roboto', sans-serif;
@@ -3969,16 +3969,20 @@ checkout
 ========================================================================== */
 
 .hidden {
-  display: none;
+  visibility: none;
 }
 
 #elements-container {
   display: none;
 }
 
-#payment-message {
+#message-container {
   text-align: center;
   margin-bottom: 1rem;
+}
+
+#payment-status-message {
+  text-align: left;
 }
 
 #button-holder {

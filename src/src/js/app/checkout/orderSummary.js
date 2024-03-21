@@ -1,7 +1,9 @@
 import Component from '../component';
 import { imgName } from '../lib/stringUtils';
+import { formatPrice } from '../lib/cartUtils';
 import checkoutStore from '../storage/checkoutStore';
 import Loader from '../parts/loader';
+
 //config
 const env = process.env.NODE_ENV || "development";
 var { PLANTS_UPLOADS_PATH, DOMAIN_URL } = require('../config')[env];
@@ -30,29 +32,47 @@ var OrderSummary = {
 					<a class="first" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
 					<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
 					<div class="header cart-item mobile"><div class="price">Price</div><div class="quantity">Quantity</div><div class="total">Total</div></div>
-					<div class="price">$${item.price}</div>
+					<div class="price">${formatPrice(item.price)}</div>
 					<div class="quantity">${item.quantity}</div>
-					<div class="total">$${subtotal}</div>
+					<div class="total">${formatPrice(subtotal)}</div>
 					</div>`);
 				let quantity = cartItem.querySelector('.quantity');
-				this.cartList.appendChild(cartItem);  
+				this.cartList.appendChild(cartItem);
 			});
-			this.subtotalEl.innerHTML = total;
+			//subtotal
+			this.subtotalEl.innerHTML = '';
+			const subtotalEl = this.createEl(`<span>${formatPrice(total)}</span>`);
+			this.subtotalEl.appendChild(subtotalEl);
 			this.subtotalItemCountEl.innerHTML = count;
-			this.totalEl.innerHTML = total;
-			this.setState({ total: total });
 
+			//grand total
+			this.totalEl.innerHTML = '';
+			const totalEl = this.createEl(`<span>${formatPrice(total)}</span>`);
+			this.totalEl.appendChild(totalEl);
+
+			this.setState({ total: total });
 			this.cartList.appendChild(this.loaderForFooter.el);
 		}
 	},
 	updateShippingAndTax: function (shipping, tax) {
-		this.taxEl.innerHTML = tax;
-		this.totalEl.innerHTML = this.state.total + shipping + tax;
+		this.taxEl.innerHTML = '';
+		const taxEl = this.createEl(`<span>${formatPrice(tax)}</span>`);
+		this.taxEl.appendChild(taxEl);
+
+		const total = this.state.total + parseInt(shipping) + parseInt(tax);
+		this.totalEl.innerHTML = '';
+		const totalEl = this.createEl(`<span>${formatPrice(total, true)}</span>`);
+		this.totalEl.appendChild(totalEl);
+		
 		// do this last to avoid casting issues
 		if (shipping == 0) {
 			shipping = 'FREE';
+		} else {
+			shipping = formatPrice(shipping);
 		}
-		this.shippingEl.innerHTML = shipping;
+		this.shippingEl.innerHTML = '';
+		const shippingEl = this.createEl(`<span>${shipping}</span>`);
+		this.shippingEl.appendChild(shippingEl);
 		this.beforeShippingTaxMessage.style.visibility = 'hidden';
 	},
 	onBrowseClick: function(e) {
@@ -101,7 +121,7 @@ var OrderSummary = {
 			<div class="footer">
 				<div class="subtotal cart-item">
 					<div class="first">Subtotal (<span id="subtotal-item-count"></span> items)</div>
-					<div class="total">$<span id="subtotal"></span></div>
+					<div class="total"><span id="subtotal"></span></div>
 				</div>
 				<div class="cart-item">
 					<div class="first">Shipping</div>
@@ -113,7 +133,7 @@ var OrderSummary = {
 				</div>
 				<div class="cart-item grand-total">
 					<div class="first">Total&nbsp;<span id="before-shipping-and-tax" class="small-text">(before shipping and tax)</span></div>
-					<div class="total">$<span id="grand-total"></span></div>
+					<div class="total"><span id="grand-total"></span></div>
 				</div>
 			</div>
 			`);
@@ -139,6 +159,12 @@ var OrderSummary = {
 
 		inst.buildItems(inst.cart);
 
+		const shipping = localStorage.getItem('shipping');
+		const tax = localStorage.getItem('tax');
+		if (shipping && tax) {
+			inst.updateShippingAndTax(shipping, tax);
+		}
+		
 		return inst;
 	}
 }

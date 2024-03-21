@@ -4,6 +4,9 @@ var CheckoutStore = {
     name: 'appStateStore',
 	storageData: {
         calcShippingLoading: false,
+        paymentProcessing: false,
+        customerDetailsValid: false,
+        paymentInfoValid: false,
     },
     init: function() {
         Object.assign(this, Store);

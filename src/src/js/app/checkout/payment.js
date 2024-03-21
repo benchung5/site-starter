@@ -1,6 +1,7 @@
 import Component from '../component';
 import { toggleClass } from '../lib/utils';
 import LoadingButton from '../parts/loadingButton';
+import checkoutStore from '../storage/checkoutStore';
 const env = process.env.NODE_ENV || "development";
 var { DOMAIN_URL } = require('../config')[env];
 
@@ -12,13 +13,16 @@ var Payment = {
 		buttonHolderEl.appendChild(this.submitButton.el);
 	},
 	onPaymentFormChanged: function(e) {
-		if (e.complete){
-			this.submitButton.isEnabled(true);
+		if (e.complete) {
+			checkoutStore.setData({paymentInfoValid: true});
+		} else {
+			checkoutStore.setData({paymentInfoValid: false});
 		}
 	},
 	onPaymentFormSubmit: async function(e) {
 		e.preventDefault();
-		this.submitButton.isLoading(true);
+		// this.submitButton.isLoading(true);
+		checkoutStore.setData({paymentProcessing: true});
 
 		const { error } = await this.stripe.confirmPayment({
 			elements: this.elements,
@@ -39,9 +43,31 @@ var Payment = {
 			this.message("An unexpected error occurred.");
 		}
 
-		this.submitButton.isLoading(false);
+		//only see this if there's an error anyways
+		// this.submitButton.isLoading(false);
 	},
-	init: async function(options) {
+	checkPaymentInfoValid: function(e) {
+		if (e.detail.paymentInfoValid && checkoutStore.storageData.customerDetailsValid) {
+			this.submitButton.isEnabled(true);
+		} else {
+			this.submitButton.isEnabled(false);
+		}
+	},
+	checkCustomerDetailsValid: function(e) {
+		if (e.detail.customerDetailsValid && checkoutStore.storageData.paymentInfoValid) {
+			this.submitButton.isEnabled(true);
+		} else {
+			this.submitButton.isEnabled(false);
+		}
+	},
+	checkPaymentProcessing: function (e) {
+		if (e.detail.paymentProcessing) {
+			this.submitButton.isLoading(true);
+		} else {
+			this.submitButton.isLoading(false);
+		}
+	},
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -60,7 +86,6 @@ var Payment = {
 			    <!--Stripe.js injects the Payment Element-->
 			  </div>
 			  <div id="button-holder" class="pay-now"></div>
-			  <div id="payment-message" class="hidden"></div>
 			</form>`
 		});
 
@@ -81,6 +106,10 @@ var Payment = {
 		inst.paymentElement.mount("#payment-element");
 		inst.paymentElement.on('ready', inst.onPaymentFormLoaded.bind(inst));
 		inst.paymentElement.on('change', inst.onPaymentFormChanged.bind(inst));
+
+		checkoutStore.addListener(inst.checkPaymentProcessing.bind(inst), 'paymentProcessing');
+		checkoutStore.addListener(inst.checkPaymentInfoValid.bind(inst), 'paymentInfoValid');
+		checkoutStore.addListener(inst.checkCustomerDetailsValid.bind(inst), 'customerDetailsValid');
 
 		return inst;
 	}

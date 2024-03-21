@@ -38,7 +38,6 @@ class Checkout extends Controller
 		    $data = Utils::json_read();
 
 		    $subtotal = Calc_payment::calc_subtotal($data['order']);
-		    $subtotal = intval($subtotal * 100);
 		    
 	    	// Create a PaymentIntent with amount and currency
 	    	$paymentIntent = $stripe->paymentIntents->create([

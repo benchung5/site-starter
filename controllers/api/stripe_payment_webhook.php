@@ -2,6 +2,7 @@
 namespace Controllers\Api;
 use Lib\Controller;
 use Lib\Utils;
+use Lib\Send_email;
 use Config\Secret;
 
 class Stripe_payment_webhook extends Controller 
@@ -9,6 +10,7 @@ class Stripe_payment_webhook extends Controller
   public function __construct() 
   {
     $this->payment_transactions = $this->load_model('payment_transactions_model');
+    $this->temp_cart = $this->load_model('temp_cart_model');
     parent::__construct();
   }
 
@@ -77,7 +79,7 @@ class Stripe_payment_webhook extends Controller
           $paymentIntent = $event->data->object;
         case 'payment_intent.succeeded':
           $paymentIntent = $event->data->object;
-          // lookup $paymentIntent->id
+
           $transaction = [];
           $transaction['payment_intent_id'] = $paymentIntent->id;
           $transaction['amount'] = $paymentIntent->amount;
@@ -90,19 +92,28 @@ class Stripe_payment_webhook extends Controller
           $transaction['line2'] = $paymentIntent->shipping->address->line2;
           $transaction['postal_code'] = $paymentIntent->shipping->address->postal_code;
           $transaction['state'] = $paymentIntent->shipping->address->state;
-          $transaction['metadata'] = $paymentIntent->metadata->toJSON();
+          // $transaction['metadata'] = $paymentIntent->metadata->toJSON();
           $transaction['created'] = $paymentIntent->created;
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
 
+          $result = $this->temp_cart->get_products($paymentIntent->id);
+          
+          $transaction['products'] = json_encode($result->products);
+
           $order_id = $this->payment_transactions->add($transaction);
 
-          //send customer confirmation email
-          // Utils::dbug($paymentIntent->metadata->email);
+          //clear this entry from temp cart
+          $this->temp_cart->remove($paymentIntent->id);
 
-          // Utils::dbug($order_id);
+          // //send customer confirmation email
+          // Utils::dbug($paymentIntent->metadata->email);
+          $email_body = 'order# ' . $order_id;
+          Send_email::send('info@naturewithus.com', 'Your Order Confirmation - naturewithus.com', $email_body );
+          //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
+
         case 'charge.succeeded':
-          // Utils::dbug('charge succeeded');
+          // old stripe event, ignore this one
         default:
           // Utils::dbug('Received unknown event type ' . $event->type);
           echo 'Received unknown event type ' . $event->type;

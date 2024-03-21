@@ -1,6 +1,7 @@
 import Component from '../component';
 import Loader from '../parts/loader';
 import appStateStore from '../storage/appStateStore';
+import { formatPrice } from '../lib/cartUtils';
 
 var PaymentStatus = {
 	paymentMessage: async function() {
@@ -9,9 +10,9 @@ var PaymentStatus = {
 
 		switch (paymentIntent.status) {
 		case "succeeded":
-			const amount = (paymentIntent.amount / 100).toFixed(2);
+			const amount = formatPrice(paymentIntent.amount);
 			messageEl = this.createEl(`
-				<div>		    
+				<div id="payment-status-message">		    
 					<p>
 						<b>We appreciate your business!</b><br>
 						A confirmation will be sent to your email address.<br>
@@ -27,15 +28,13 @@ var PaymentStatus = {
 					<p>
 						<b>Details</b><br>
 						ID: ${paymentIntent.id}<br>
-						Amount: $${amount} CAD
+						Amount: ${amount} CAD
 					</p>
 					<p>
 					If you have any questions, please email us: <a href="mailto:info@naturewithus.com">info@naturewithus.com</a>
 					</p>
 				</div>
 				`);
-			//remove cart from localstorage
-			localStorage.removeItem('cart');
 			break;
 		case "processing":
 			messageEl = this.createEl(`<p>Your payment is processing.</p>`);

@@ -21,8 +21,16 @@ var CustomerInfo = {
 	addressElementChanged: function(e) {
 		if (e.complete){
       		// Extract potentially complete address
-			this.setState({ address: e.value.address });
-			this.submitButton.isEnabled(true);
+      		if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
+      			this.setState({ address: e.value.address });
+      			this.message("");
+      			checkoutStore.setData({customerDetailsValid: true});
+      		} else {
+      			this.message("Sorry, we only ship plants and seeds to BC or Alberta.");
+      			checkoutStore.setData({customerDetailsValid: false});
+      		}
+		} else {
+			checkoutStore.setData({customerDetailsValid: false});
 		}
 	},
 	onPickupClick: function(e) {
@@ -66,11 +74,34 @@ var CustomerInfo = {
 	calcShippingLoading: function(e) {
 		this.submitButton.isLoading(e.detail.calcShippingLoading);
 	},
-	init: async function(options) {
+	isEnabled: function (isEnabled) {
+		if (isEnabled) {
+			this.submitButton.isEnabled(true);
+		} else {
+			this.submitButton.isEnabled(false);
+		}
+	},
+	checkCustomerDetailsValid: function(e) {
+		if (e.detail.customerDetailsValid) {
+			this.submitButton.isEnabled(true);
+		} else {
+			this.submitButton.isEnabled(false);
+		}
+	},
+	checkPaymentProcessing: function (e) {
+		if (e.detail.paymentProcessing) {
+			this.submitButton.isEnabled(false);
+		} else {
+			this.submitButton.isEnabled(true);
+		}
+	},
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
+
+		inst.message = options.message ? options.message : null;
 
 		//call initialize on Component first
 		inst.initialize({
@@ -129,6 +160,8 @@ var CustomerInfo = {
 		inst.addressElement.on('change', inst.addressElementChanged.bind(inst));
 
 		checkoutStore.addListener(inst.calcShippingLoading.bind(inst), 'calcShippingLoading');
+		checkoutStore.addListener(inst.checkPaymentProcessing.bind(inst), 'paymentProcessing');
+		checkoutStore.addListener(inst.checkCustomerDetailsValid.bind(inst), 'customerDetailsValid');
 
 		return inst;
 	}

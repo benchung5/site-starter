@@ -9,20 +9,20 @@ import OrderSummary from './orderSummary';
 import Loader from '../parts/loader';
 import appStateStore from '../storage/appStateStore';
 import checkoutStore from '../storage/checkoutStore';
+import { getUrlParams } from '../lib/utils';
 
 
 (function() {
   var Main = {
     showMessage: function (messageText) {
-      const messageContainer = document.querySelector("#payment-message");
+      const messageContainer = document.querySelector("#message-container");
 
-      messageContainer.classList.remove("hidden");
-      messageContainer.textContent = messageText;
+      messageContainer.innerHTML = messageText;
 
-      setTimeout(function () {
-        messageContainer.classList.add("hidden");
-        messageContainer.textContent = "";
-      }, 5000);
+      // setTimeout(function () {
+      //   messageContainer.classList.add("hidden");
+      //   messageContainer.textContent = "";
+      // }, 5000);
     },
     onFirstElementLoaded: function () {
       appStateStore.setData({ isLoading: false});
@@ -71,6 +71,41 @@ import checkoutStore from '../storage/checkoutStore';
       // the element group to modify
       inst.elements = null;
 
+      // remove later
+      // **************************************
+      // **************************************
+      const hash = getUrlParams('test')[0];
+      if (hash == 25465) {
+        let testCart = [{
+                  "id": "111",
+                  "productTypeName": "Seeds",
+                  "productTypeVariationName": "Packet",
+                  "price": "50",
+                  "amount_available": "1",
+                  "status": null,
+                  "image": null,
+                  "plantId": "220",
+                  "commonName": "Test Prod",
+                  "botanicalName": "",
+                  "plantUrl": "",
+                  "quantity": "1"
+              }];
+
+        testCart = JSON.stringify(testCart);
+        localStorage.setItem('cart', testCart);
+
+        inst.order.test = 25465;
+      }
+      // **************************************
+      // **************************************
+
+      let cart = JSON.parse(localStorage.getItem('cart'));
+
+      localStorage.getItem('cart');
+      inst.orderSummary = OrderSummary.init({ 
+        cart: cart
+      });
+
       // check for payment completion response, otherwise start customer info form
       const statusClientSecret = new URLSearchParams(window.location.search).get(
         "payment_intent_client_secret");
@@ -81,11 +116,11 @@ import checkoutStore from '../storage/checkoutStore';
           message: inst.showMessage.bind(inst),
           clientSecret: statusClientSecret
         });
+        //remove stuff from localstorage
+        localStorage.removeItem('cart');
+        localStorage.removeItem('shipping');
+        localStorage.removeItem('tax');
       } else {
-        let cart = JSON.parse(localStorage.getItem('cart'));
-        inst.orderSummary = OrderSummary.init({ 
-          cart: cart 
-        });
         if(cart.length !== 0) {
           elementsContainerEl.style.display = 'block';
           appStateStore.setData({ isLoading: true});
@@ -96,8 +131,10 @@ import checkoutStore from '../storage/checkoutStore';
             inst.cutomerInfo = CustomerInfo.init({
               stripe: inst.stripe,
               elements: inst.elements,
+              message: inst.showMessage.bind(inst),
               onElementLoaded: inst.onFirstElementLoaded.bind(inst),
               onCalculateShipping: (info) => {
+                this.showMessage('');
                 const cart = JSON.parse(localStorage.getItem('cart'));
                 inst.order.address = info.address;
                 inst.order.pickup = info.pickup;
@@ -106,7 +143,8 @@ import checkoutStore from '../storage/checkoutStore';
 
                 calcShippingAndTax(inst.order, (apiData) => {
                   inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
-
+                  localStorage.setItem('shipping', apiData.shipping);
+                  localStorage.setItem('tax', apiData.tax);
                   checkoutStore.setData({ calcShippingLoading: false});
 
                   //making sure not to load it twice
@@ -114,7 +152,7 @@ import checkoutStore from '../storage/checkoutStore';
                     inst.payment = Payment.init({
                       stripe: inst.stripe,
                       elements: inst.elements,
-                      message: inst.showMessage.bind(inst)
+                      message: inst.showMessage.bind(inst),
                     });
                   }
                 });

@@ -10,6 +10,7 @@ class Shipping_and_tax extends Controller
 {
 	public function __construct() 
 	{
+		$this->temp_cart = $this->load_model('temp_cart_model');
 		parent::__construct();
 	}
 
@@ -26,11 +27,24 @@ class Shipping_and_tax extends Controller
 			$subtotal = Calc_payment::calc_subtotal($data['order']);
 			$shipping_cost = Calc_payment::calc_shipping($data['order']);
 			$tax = Calc_payment::calc_tax($data['order']);
+			// remove later
+			// **************************************
+			// **************************************
+			if ($data['order']['test'] == 25465) {
+				$shipping_cost = 0;
+				$tax = 0;
+			}
+			// **************************************
+			// **************************************
 			$total = $subtotal + $shipping_cost + $tax;
-			$total = intval($total * 100);
 			
 			$stripeSecretKey = Secret::keys('STRIPE_API_KEY');
 			$stripe = new \Stripe\StripeClient($stripeSecretKey);
+
+			$products = [];
+			foreach ($data['order']['products'] as $product) {
+				$products[] = (object) ['id' => $product['id'], 'quantity' => $product['quantity']];
+			}
 
 			$stripe->paymentIntents->update(
 			  $data['order']['paymentIntentId'],
@@ -39,7 +53,7 @@ class Shipping_and_tax extends Controller
 			  	'metadata' => [
 			  		// 'order_id' => '6735',
 			  		'customer_message' => $data['order']['message'],
-			  		'products' => json_encode($data['order']['products']),
+			  		'products' => json_encode($products),
 			  		'shipping' => $shipping_cost,
 			  		'tax' => $tax,
 			  		'email' => $data['order']['email'],
@@ -59,6 +73,8 @@ class Shipping_and_tax extends Controller
 				'tax' => $tax,
 			];
 
+			$this->temp_cart->add(['payment_intent_id' => $data['order']['paymentIntentId'], 'products' => json_encode($data['order']['products'])]);
+			
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
 		}
 	}

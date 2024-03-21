@@ -11,7 +11,7 @@ class Calc_payment
 		// calc shipping
 		$seeds = [];
 		$plants = [];
-		$shipping_cost = 0.00;
+		$shipping_cost = 0;
 		if ($order['pickup'] !== 'yes') {
 
 			foreach ($order['products'] as $product) {
@@ -28,9 +28,9 @@ class Calc_payment
 			$plants_count = count($plants);
 
 			if ($seeds_count >= 1 && $seeds_count <= 5) {
-				$shipping_cost = 1.25;
+				$shipping_cost = 125;
 			} elseif ($seeds_count >= 6 && $seeds_count <= 20) {
-				$shipping_cost = 5.00;
+				$shipping_cost = 500;
 			}
 		}
 
@@ -40,8 +40,8 @@ class Calc_payment
 	public static function calc_tax($order) {
 		// calc tax
 		// Alberta: 5% GST, BC: 7% PST + 5% GST
-		$total = 0.00;
-		$tax = 0.00;
+		$total = 0;
+		$tax = 0;
 		foreach ($order['products'] as $product) {
 			$subtotal = $product['price'] * $product['quantity'];
 			$total = $subtotal + $total;
@@ -59,7 +59,7 @@ class Calc_payment
 	}
 
 	public static function calc_subtotal($order) {
-		$total = 0.00;
+		$total = 0;
 		foreach ($order['products'] as $product) {
 			$subtotal = $product['price'] * $product['quantity'];
 			$total = $subtotal + $total;

@@ -5,6 +5,7 @@ import appStateStore from '../storage/appStateStore';
 import InputPlusMinus from '../parts/inputPlusMinus';
 // import CartPopup from './cartPopup';
 import { moveElement, clone } from '../lib/utils';
+import { formatPrice } from '../lib/cartUtils';
 import { addItemToCart } from '../actions/cart';
 import Loader from '../parts/loader';
 import NotifyMePopup from './notifyMePopup';
@@ -57,7 +58,7 @@ var MainSourceProducts = {
 
 		productListStore.storageData.products.map((item) => {
 			let createProd = (elem, item) => {
-				let priceOrMessage = "$"+item.price;
+				let priceOrMessage = formatPrice(item.price);
 				let inputOrNotify = null;
 
 				if((item.amount_available > 0) && (!item.status)) {
