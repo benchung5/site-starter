@@ -1,0 +1,12 @@
+src/node_modules
+src/npm-debug.log
+src/src/js/app/secret.js
+vendor
+uploads
+composer.phar
+log
+.htaccess
+lib/Db.php
+secret.txt
+server_installation.txt
+config/Secret.php

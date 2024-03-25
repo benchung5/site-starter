@@ -1,0 +1,56 @@
+# Your project's server will run on localhost:xxxx at this port
+PORT: 8080
+
+# UnCSS will use these settings
+UNCSS_OPTIONS:
+  html:
+    - "src/**/*.html"
+  ignore:
+    - !!js/regexp ^\.is-.*
+
+# Gulp will reference these paths when it copies files
+PATHS:
+  # Builde paths (static sites version)
+  #================================================
+  dist: "../assets"
+  distAssets: ""
+  #================================================
+  # foundation scss
+  sass:
+    - "node_modules/foundation-sites/scss"
+  # Paths to static assets that aren't images, CSS, or JavaScript
+  media:
+    - "src/media/**/*"
+  # Path to favicons, app icons, xml and mainfest files
+  favicons:
+    - "src/favicons/**/*"
+  # Uploads folder for testing
+  uploads:
+    - "uploads/**/*"
+  # Paths to JavaScript libraries, which are combined into one file
+  vendor:
+    - "src/js/vendor/**/*.js"
+  # Paths to Sass libraries, which can then be loaded with @import
+  javascript:
+  # entry for external js file
+    - "src/js/app/app.js"
+  searchPlants:
+  # entry for external js file
+    - "src/js/app/searchPlants/mainPlants.js"
+  searchArticles:
+  # entry for external js file
+    - "src/js/app/searchArticles/mainArticles.js"
+  addToCart:
+  # entry for external js file
+    - "src/js/app/addToCart/mainSourceProducts.js"
+  checkout:
+  # entry for external js file
+    - "src/js/app/checkout/checkout.js"
+  admin:
+  # entry for external js file
+    - "src/js/app/admin/mainAdmin.js"
+  # js files to insert into the head
+  head:
+    - "src/js/head/**/*.js"
+  manifest:
+    - "src/manifest/manifest.json"
