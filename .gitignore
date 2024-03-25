@@ -6,6 +6,7 @@ uploads
 composer.phar
 log
 .htaccess
-lib/db.php
+lib/Db.php
 secret.txt
-config/secret.php
+server_installation.txt
+config/Secret.php
