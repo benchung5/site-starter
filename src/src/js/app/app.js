@@ -3,7 +3,6 @@ import $ from 'jquery';
 window.$ = $;
 //------
 import isOnline from './onlineStatus';
-import serviceWorker from './serviceWorker';
 import loadVideo from './loadVideo';
 import bodyClasses from './bodyClasses';
 import windowSize from './windowSize';
@@ -30,14 +29,6 @@ load foundation plugins - keep this
 
 
 (function() {
-	// turn on/off service worker
-	var canRegister = false;
-	if(!isAdminPage && canRegister) {
-		serviceWorker('register');
-	} else {
-		serviceWorker('unregister');
-	}
-
 	//check if online/offline and handle it
 	if(!isAdminPage) {
 		isOnline();
