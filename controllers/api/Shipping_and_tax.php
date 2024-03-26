@@ -30,9 +30,11 @@ class Shipping_and_tax extends Controller
 			// remove later
 			// **************************************
 			// **************************************
-			if ($data['order']['test'] == 25465) {
-				$shipping_cost = 0;
-				$tax = 0;
+			if (isset($data['order']['test'])) {
+				if ($data['order']['test'] == 25465) {
+					$shipping_cost = 0;
+					$tax = 0;
+				}
 			}
 			// **************************************
 			// **************************************
