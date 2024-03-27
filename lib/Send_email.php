@@ -117,28 +117,6 @@ class Send_email
 			}
 			return $output;
 
-
-			// //can only set this to true when using this on local host
-			// $mail->isSMTP();
-			// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-			// $mail->Host = 'smtp.gmail.com';
-			// //Set the encryption mechanism to use - STARTTLS or SMTPS
-			// $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-			// $mail->SMTPAuth = true;
-			
-			// $mail->SMTPSecure = 'ssl';
-			// $mail->Port = 587;
-			// $mail->isHTML();
-			// $mail->Username = 'info@naturewithus.com';
-			// $mail->Password = Secret::keys('GMAIL_PASS');
-			 
-			// $mail->SetFrom($email_from);
-			// $mail->Subject = $subject;
-			// $mail->Body = $message;
-			// $mail->AddAddress($email_to);
-
-			// $mail->send();
-
 		} catch (Exception $e) {
 			echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 			Utils::dbug($mail->ErrorInfo);
