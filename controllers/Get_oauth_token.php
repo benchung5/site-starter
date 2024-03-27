@@ -93,8 +93,8 @@ class Get_oauth_token extends Controller
 		$clientSecret = Secret::keys('OAUTH_SECRET_KEY');
 
 		//If this automatic URL doesn't work, set it yourself manually to the URL of this script
-		$redirectUri = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
-		//$redirectUri = 'http://localhost/PHPMailer/redirect';
+		//$redirectUri = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+		$redirectUri = 'https://naturewithus.com/get_oauth_token?provider=Google';
 
 		$params = [
 		    'clientId' => $clientId,
