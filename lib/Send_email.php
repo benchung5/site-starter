@@ -2,8 +2,10 @@
 namespace Lib;
 use Config\Secret;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\OAuth;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use League\OAuth2\Client\Provider\Google;
 
 
 class Send_email
