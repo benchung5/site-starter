@@ -48,18 +48,21 @@ class Shipping_and_tax extends Controller
 				$products[] = (object) ['id' => $product['id'], 'quantity' => $product['quantity']];
 			}
 
+			$products = json_encode($products);
+
+			$metadata = [
+					  		'customer_message' => $data['order']['message'],
+					  		'products' => $products,
+					  		'shipping' => $shipping_cost,
+					  		'tax' => $tax,
+					  		'email' => $data['order']['email'],
+					  	];
+
 			$stripe->paymentIntents->update(
 			  $data['order']['paymentIntentId'],
 			  [
 			  	'amount' => $total,
-			  	'metadata' => [
-			  		// 'order_id' => '6735',
-			  		'customer_message' => $data['order']['message'],
-			  		'products' => json_encode($products),
-			  		'shipping' => $shipping_cost,
-			  		'tax' => $tax,
-			  		'email' => $data['order']['email'],
-			  	],
+			  	'metadata' => $metadata,
 			  	// 'receipt_email' => $data['order']['email'],
 			  	'description' => '(created by Nature With Us)'
 			  	// add this information when you decide to use a tracking number, meanwhile the shipping el fills this in

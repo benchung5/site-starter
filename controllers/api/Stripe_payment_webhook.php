@@ -66,6 +66,8 @@ class Stripe_payment_webhook extends Controller
         case 'payment_intent.succeeded':
           $paymentIntent = $event->data->object;
 
+          $metadata = $paymentIntent->metadata->toArray();
+
           $transaction = [];
           $transaction['payment_intent_id'] = $paymentIntent->id;
           $transaction['amount'] = $paymentIntent->amount;
@@ -78,7 +80,9 @@ class Stripe_payment_webhook extends Controller
           $transaction['line2'] = $paymentIntent->shipping->address->line2;
           $transaction['postal_code'] = $paymentIntent->shipping->address->postal_code;
           $transaction['state'] = $paymentIntent->shipping->address->state;
-          // $transaction['metadata'] = $paymentIntent->metadata->toJSON();
+          // $transaction['email'] = $metadata['email'];
+          // $transaction['tax'] = $metadata['tax'];
+          // $transaction['shipping'] = $metadata['shipping'];
           $transaction['created'] = $paymentIntent->created;
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
@@ -93,9 +97,36 @@ class Stripe_payment_webhook extends Controller
           $this->temp_cart->remove($paymentIntent->id);
 
           // //send customer confirmation email
-          // Utils::dbug($paymentIntent->metadata->email);
-          $email_body = 'order# ' . $order_id;
-          Send_email::send('info@naturewithus.com', 'Your Order Confirmation - naturewithus.com', $email_body );
+          $amount = number_format(($transaction['amount']/100), 2);
+          $tax = number_format(($metadata['tax']/100), 2);
+          $shipping = number_format(($metadata['shipping']/100), 2);
+
+          $email_body = 'Thank you for your business! Below are your order details...<br><br>'.
+          'customer email: ' . $metadata['email'].'<br>'.
+          '<b>order# ' . $order_id.'</b><br><br>';
+          
+          $email_body .= 'items:<br>--------------------------------------------<br>';
+          foreach (json_decode($result->products) as $product) {
+              $email_body .= $product->commonName.' - '.$product->productTypeName.' ('.$product->productTypeVariationName.') x '.$product->quantity.'<br>--------------------------------------------<br>';
+          }
+
+          $email_body .= '<br>tax: $'.$tax.'<br>'.
+          'shipping: $'.$shipping.'<br>'.
+          '<b>total: $'.$amount.'</b><br><br>'.
+          '<b>shipping address:</b><br>'.$transaction['line1'].'<br>';
+
+          if ($transaction['line2']) {
+            $email_body .= $transaction['line2'].'<br>';
+          }
+
+          $email_body .= $transaction['postal_code'].'<br>'.
+          $transaction['state'].'<br><br>';
+
+          $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>289-697-8873";
+
+          Utils::dbug($email_body);
+
+          Send_email::send($metadata['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
           //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
 
         case 'charge.succeeded':

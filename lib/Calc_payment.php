@@ -84,9 +84,8 @@ class Calc_payment
 					$valid = false;
 				}
 
-				if ($product['price'] !== $existing_product->price) {
+				if (intval($product['price']) !== $existing_product->price) {
 					$valid = false;
-
 				}
 			}
 		}
