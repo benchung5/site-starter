@@ -3924,7 +3924,7 @@ cart
       margin-bottom: 0.8rem;
     }
     @include breakpoint(small down) {
-        min-width: none;
+        min-width: auto;
     }
   }
 }

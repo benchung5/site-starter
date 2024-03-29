@@ -8,6 +8,8 @@ var ModalFromSide = {
 		if(!isOpen) {
 			this.closeBackgroundAnimation.animate();
 			this.closeMenuAnimation.animate();
+			addClass(this.sideMenuMobile, 'close');
+			removeClass(this.sideMenuMobile, 'open');
 		} else if(isOpen) {
 			this.openBackgroundAnimation.animate();
 			this.openMenuAnimation.animate();

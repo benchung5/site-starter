@@ -73,6 +73,7 @@ class Stripe_payment_webhook extends Controller
           $transaction['amount'] = $paymentIntent->amount;
           $transaction['amount_received'] = $paymentIntent->amount_received;
           $transaction['description'] = $paymentIntent->description;
+          $transaction['email'] = $paymentIntent->receipt_email;
           $transaction['name'] = $paymentIntent->shipping->name;
           $transaction['phone'] = $paymentIntent->shipping->phone;
           $transaction['city'] = $paymentIntent->shipping->address->city;
@@ -80,9 +81,8 @@ class Stripe_payment_webhook extends Controller
           $transaction['line2'] = $paymentIntent->shipping->address->line2;
           $transaction['postal_code'] = $paymentIntent->shipping->address->postal_code;
           $transaction['state'] = $paymentIntent->shipping->address->state;
-          // $transaction['email'] = $metadata['email'];
-          // $transaction['tax'] = $metadata['tax'];
-          // $transaction['shipping'] = $metadata['shipping'];
+          $transaction['tax'] = $metadata['tax'];
+          $transaction['shipping'] = $metadata['shipping'];
           $transaction['created'] = $paymentIntent->created;
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
@@ -102,7 +102,7 @@ class Stripe_payment_webhook extends Controller
           $shipping = number_format(($metadata['shipping']/100), 2);
 
           $email_body = 'Thank you for your business! Below are your order details...<br><br>'.
-          'customer email: ' . $metadata['email'].'<br>'.
+          'customer email: ' . $transaction['email'].'<br>'.
           '<b>order# ' . $order_id.'</b><br><br>';
           
           $email_body .= 'items:<br>--------------------------------------------<br>';
@@ -124,9 +124,9 @@ class Stripe_payment_webhook extends Controller
 
           $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>289-697-8873";
 
-          Utils::dbug($email_body);
+          //Utils::dbug($paymentIntent);
 
-          Send_email::send($metadata['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
+          Send_email::send($transaction['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
           //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
 
         case 'charge.succeeded':
