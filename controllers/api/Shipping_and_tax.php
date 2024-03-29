@@ -22,7 +22,7 @@ class Shipping_and_tax extends Controller
 
 		if (!$verified) {
 			http_response_code(500);
-			echo json_encode(['error' => "sorry, cart items don't match existing products. Try again or contact us for help"]);
+			echo json_encode(['error' => "Sorry, there was a problem calculating this order. Try again or contact us for help. We're sorry for the inconvenience."]);
 		} else {
 			$subtotal = Calc_payment::calc_subtotal($data['order']);
 			$shipping_cost = Calc_payment::calc_shipping($data['order']);

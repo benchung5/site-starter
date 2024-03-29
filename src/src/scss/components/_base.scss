@@ -835,6 +835,7 @@ body[data-checkout] {
         overflow: hidden;
         margin-left: 1rem;
         font-size: 0.9rem;
+        margin-right: 3.5rem;
         .count {
           position: absolute;
           top: 0;
@@ -852,15 +853,15 @@ body[data-checkout] {
           font-family: 'Roboto', sans-serif;
           font-weight: bold;
         }
+        @include breakpoint(small down) {
+            margin-right: 3rem;
+        }
       }
       @include breakpoint(large down) {
           font-size: 0.9rem;
           .material-symbols-outlined {
             font-size: 21px;
           }
-      }
-      @include breakpoint(medium down) {
-          margin-right: 3.5rem;
       }
     }
   }
@@ -899,6 +900,9 @@ $transition: .3s; // increase this to see the transformations in
   top: 0;
   transform: translateY($header-height/2 - 1.2);
   z-index: 12;
+  @include breakpoint(small down) {
+      right: 0.4rem;
+  }
   .grid-button {
     @extend %kill-outline;
     padding: $base*2; //2rem

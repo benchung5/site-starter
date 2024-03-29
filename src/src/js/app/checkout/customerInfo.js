@@ -15,22 +15,42 @@ var CustomerInfo = {
 		this.elementLoaded();
 	},
 	linkAuthenticationElementChanged: function(e) {
-		this.setState({ email: e.value.email });
-		//localStorage.setItem('email', e.value.email);
+		if (e.value.email) {
+			this.setState({ email: e.value.email });
+		} else {
+			this.setState({ email: null });
+		}
+		
+		this.checkAllComplete();
 	},
 	addressElementChanged: function(e) {
-		if (e.complete){
+		if (e.complete) {
       		// Extract potentially complete address
       		if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
       			this.setState({ address: e.value.address });
-      			this.message("");
-      			checkoutStore.setData({customerDetailsValid: true});
+      			
       		} else {
-      			this.message("Sorry, we only ship plants and seeds to BC or Alberta.");
-      			checkoutStore.setData({customerDetailsValid: false});
+      			this.message("Sorry, we only ship plants and seeds to BC or Alberta");
+      			this.setState({ address: null });
       		}
 		} else {
+			this.setState({ address: null });
+		}
+
+		this.checkAllComplete();
+	},
+	checkAllComplete: function() {
+		if (this.state.address && this.state.email) {
+			checkoutStore.setData({customerDetailsValid: true});
+			this.submitButton.isEnabled(true);
+			this.message("");
+		} else {
 			checkoutStore.setData({customerDetailsValid: false});
+			this.submitButton.isEnabled(false);
+		}
+
+		if (this.state.address && (!this.state.email)) {
+			this.message("Please enter an email address");
 		}
 	},
 	onPickupClick: function(e) {
@@ -76,13 +96,6 @@ var CustomerInfo = {
 	},
 	isEnabled: function (isEnabled) {
 		if (isEnabled) {
-			this.submitButton.isEnabled(true);
-		} else {
-			this.submitButton.isEnabled(false);
-		}
-	},
-	checkCustomerDetailsValid: function(e) {
-		if (e.detail.customerDetailsValid) {
 			this.submitButton.isEnabled(true);
 		} else {
 			this.submitButton.isEnabled(false);
@@ -161,7 +174,6 @@ var CustomerInfo = {
 
 		checkoutStore.addListener(inst.calcShippingLoading.bind(inst), 'calcShippingLoading');
 		checkoutStore.addListener(inst.checkPaymentProcessing.bind(inst), 'paymentProcessing');
-		checkoutStore.addListener(inst.checkCustomerDetailsValid.bind(inst), 'customerDetailsValid');
 
 		return inst;
 	}

@@ -134,7 +134,7 @@ import { getUrlParams } from '../lib/utils';
               message: inst.showMessage.bind(inst),
               onElementLoaded: inst.onFirstElementLoaded.bind(inst),
               onCalculateShipping: (info) => {
-                this.showMessage('');
+                inst.showMessage('');
                 const cart = JSON.parse(localStorage.getItem('cart'));
                 inst.order.address = info.address;
                 inst.order.pickup = info.pickup;
@@ -142,18 +142,27 @@ import { getUrlParams } from '../lib/utils';
                 inst.order.email = info.email;
 
                 calcShippingAndTax(inst.order, (apiData) => {
-                  inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
-                  localStorage.setItem('shipping', apiData.shipping);
-                  localStorage.setItem('tax', apiData.tax);
-                  checkoutStore.setData({ calcShippingLoading: false});
-
-                  //making sure not to load it twice
-                  if(!inst.payment) {
-                    inst.payment = Payment.init({
-                      stripe: inst.stripe,
-                      elements: inst.elements,
-                      message: inst.showMessage.bind(inst),
-                    });
+                  if (apiData.error) {
+                    inst.showMessage(apiData.error);
+                    //destroy all elements
+                    inst.cutomerInfo.linkAuthenticationElement.destroy();
+                    inst.cutomerInfo.addressElement.destroy();
+                    inst.cutomerInfo.el.innerHTML = "";
+                    inst.orderSummary.el.innerHTML = "";
+                  } else {
+                    inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
+                    localStorage.setItem('shipping', apiData.shipping);
+                    localStorage.setItem('tax', apiData.tax);
+                    checkoutStore.setData({ calcShippingLoading: false});
+                    
+                    //making sure not to load it twice
+                    if(!inst.payment) {
+                      inst.payment = Payment.init({
+                        stripe: inst.stripe,
+                        elements: inst.elements,
+                        message: inst.showMessage.bind(inst),
+                      });
+                    }
                   }
                 });
               }

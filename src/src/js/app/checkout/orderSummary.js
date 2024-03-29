@@ -55,25 +55,27 @@ var OrderSummary = {
 		}
 	},
 	updateShippingAndTax: function (shipping, tax) {
-		this.taxEl.innerHTML = '';
-		const taxEl = this.createEl(`<span>${formatPrice(tax)}</span>`);
-		this.taxEl.appendChild(taxEl);
+		if (shipping && tax) {
+			this.taxEl.innerHTML = '';
+			const taxEl = this.createEl(`<span>${formatPrice(tax)}</span>`);
+			this.taxEl.appendChild(taxEl);
 
-		const total = this.state.total + parseInt(shipping) + parseInt(tax);
-		this.totalEl.innerHTML = '';
-		const totalEl = this.createEl(`<span>${formatPrice(total, true)}</span>`);
-		this.totalEl.appendChild(totalEl);
-		
-		// do this last to avoid casting issues
-		if (shipping == 0) {
-			shipping = 'FREE';
-		} else {
-			shipping = formatPrice(shipping);
+			const total = this.state.total + parseInt(shipping) + parseInt(tax);
+			this.totalEl.innerHTML = '';
+			const totalEl = this.createEl(`<span>${formatPrice(total, true)}</span>`);
+			this.totalEl.appendChild(totalEl);
+			
+			// do this last to avoid casting issues
+			if (shipping == 0) {
+				shipping = 'FREE';
+			} else {
+				shipping = formatPrice(shipping);
+			}
+			this.shippingEl.innerHTML = '';
+			const shippingEl = this.createEl(`<span>${shipping}</span>`);
+			this.shippingEl.appendChild(shippingEl);
+			this.beforeShippingTaxMessage.style.visibility = 'hidden';
 		}
-		this.shippingEl.innerHTML = '';
-		const shippingEl = this.createEl(`<span>${shipping}</span>`);
-		this.shippingEl.appendChild(shippingEl);
-		this.beforeShippingTaxMessage.style.visibility = 'hidden';
 	},
 	onBrowseClick: function(e) {
 		e.preventDefault();
@@ -161,9 +163,7 @@ var OrderSummary = {
 
 		const shipping = localStorage.getItem('shipping');
 		const tax = localStorage.getItem('tax');
-		if (shipping && tax) {
-			inst.updateShippingAndTax(shipping, tax);
-		}
+		inst.updateShippingAndTax(shipping, tax);
 		
 		return inst;
 	}
