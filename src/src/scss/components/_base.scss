@@ -2872,16 +2872,15 @@ menu
   z-index: 10;
   left: 0;
   box-shadow: none;
+  //full screen on mobile
+  @include breakpoint(small down) {
+   width: 100%;
+  }
   &.close {
     box-shadow: none;
   }
   &.open {
     box-shadow: $light-shadow;
-    //full screen on mobile while open
-    @include breakpoint(small down) {
-     width: 100%;
-     transition-property: none !important;
-    }
   }
 }
 
