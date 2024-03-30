@@ -105,7 +105,7 @@ var InputPlusMinus = {
 		inst.trashEl = inst.createEl(`<span class="material-symbols-outlined">delete</span>`);
 		inst.minusEl = inst.createEl(`<svg data-id="subtract" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M200-440v-80h560v80H200Z"/></svg>`);
 		if (!inst.enableRemove) {
-			// if no trash can, just insert the minul el for good
+			// if no trash can, just insert the minus el for good
 			inst.buttonSubtract.appendChild(inst.minusEl);
 		}
 

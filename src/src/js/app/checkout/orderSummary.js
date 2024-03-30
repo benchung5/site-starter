@@ -161,10 +161,6 @@ var OrderSummary = {
 
 		inst.buildItems(inst.cart);
 
-		const shipping = localStorage.getItem('shipping');
-		const tax = localStorage.getItem('tax');
-		inst.updateShippingAndTax(shipping, tax);
-		
 		return inst;
 	}
 }

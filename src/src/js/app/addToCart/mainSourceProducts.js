@@ -160,34 +160,11 @@ var MainSourceProducts = {
 
 		inst.el.addEventListener('submit', inst.submitForm.bind(inst));
 
-		// inst.cartPopup = CartPopup.init();
-
 		// productListStore.addListener(inst.buildItems.bind(inst));
 		this.bodyAreaEl = document.getElementById('body-area');
 		this.mobileBodyAreaEl = document.getElementById('mobile-body-area-container');
 		this.desktopBodyAreaEl = document.getElementById('desktop-body-area-container');
 		window.addEventListener('isMobile', this.onMobileChange.bind(this));
-
-
-
-
-		//making the custom event 'localUpdated' for when localStorage is updated
-		//because no existing event for this
-		// ---------------------------------------------------------/
-		//capture the original function
-		const localStore = localStorage.setItem;
-
-		//make a new function to replace it, then call the original
-		//function within this
-		localStorage.setItem = function(key, value) {
-		  const evt = new Event('localUpdated');
-		        evt.key = key; 
-		        evt.value = value; 
-
-		  document.dispatchEvent(evt);
-		  // 'this' refers to the object that calls the function
-		  localStore.apply(this, arguments);
-		};
 	}
 }
 

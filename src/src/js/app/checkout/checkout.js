@@ -101,11 +101,6 @@ import { getUrlParams } from '../lib/utils';
 
       let cart = JSON.parse(localStorage.getItem('cart'));
 
-      localStorage.getItem('cart');
-      inst.orderSummary = OrderSummary.init({ 
-        cart: cart
-      });
-
       // check for payment completion response, otherwise start customer info form
       const statusClientSecret = new URLSearchParams(window.location.search).get(
         "payment_intent_client_secret");
@@ -118,9 +113,11 @@ import { getUrlParams } from '../lib/utils';
         });
         //remove stuff from localstorage
         localStorage.removeItem('cart');
-        localStorage.removeItem('shipping');
-        localStorage.removeItem('tax');
       } else {
+        localStorage.getItem('cart');
+        inst.orderSummary = OrderSummary.init({ 
+          cart: cart
+        });
         if(cart.length !== 0) {
           elementsContainerEl.style.display = 'block';
           appStateStore.setData({ isLoading: true});
@@ -151,8 +148,6 @@ import { getUrlParams } from '../lib/utils';
                     inst.orderSummary.el.innerHTML = "";
                   } else {
                     inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
-                    localStorage.setItem('shipping', apiData.shipping);
-                    localStorage.setItem('tax', apiData.tax);
                     checkoutStore.setData({ calcShippingLoading: false});
                     
                     //making sure not to load it twice

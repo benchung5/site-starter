@@ -44,6 +44,24 @@ load foundation plugins - keep this
 
 	//cart
 	if(!isAdminPage) {
+		//making the custom event 'localUpdated' for when localStorage is updated
+		//because no existing event for this
+		// ---------------------------------------------------------/
+		//capture the original function
+		const localStore = localStorage.setItem;
+
+		//make a new function to replace it, then call the original
+		//function within this
+		localStorage.setItem = function(key, value) {
+		  const evt = new Event('localUpdated');
+		        evt.key = key; 
+		        evt.value = value; 
+
+		  document.dispatchEvent(evt);
+		  // 'this' refers to the object that calls the function
+		  localStore.apply(this, arguments);
+		};
+		
 		appStateStore.init();
 		CartPopup.init();
 		CartIcon.init();
