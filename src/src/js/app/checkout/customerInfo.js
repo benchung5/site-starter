@@ -1,5 +1,6 @@
 import Component from '../component';
 import LoadingButton from '../parts/loadingButton';
+import Loader from '../parts/loader';
 import checkoutStore from '../storage/checkoutStore';
 const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../config')[env];
@@ -8,11 +9,7 @@ import { clone } from '../lib/utils';
 
 var CustomerInfo = {
 	linkAuthenticationElementLoaded: function(e) {
-		const headerEl = this.createEl(`<h2>Customer Info</h2>`);
-		this.el.prepend(headerEl);
-		const buttonHolderEl = this.el.querySelector('#button-holder');
-		buttonHolderEl.appendChild(this.submitButton.el);
-		this.elementLoaded();
+		this.loader.isLoading(false);
 	},
 	linkAuthenticationElementChanged: function(e) {
 		if (e.value.email) {
@@ -42,11 +39,11 @@ var CustomerInfo = {
 	checkAllComplete: function() {
 		if (this.state.address && this.state.email) {
 			checkoutStore.setData({customerDetailsValid: true});
-			this.submitButton.isEnabled(true);
+			this.calculateButton.isEnabled(true);
 			this.message("");
 		} else {
 			checkoutStore.setData({customerDetailsValid: false});
-			this.submitButton.isEnabled(false);
+			this.calculateButton.isEnabled(false);
 		}
 
 		if (this.state.address && (!this.state.email)) {
@@ -90,23 +87,30 @@ var CustomerInfo = {
 			address: address,
 			email: email
 		});
+
+		this.detach();
 	},
 	calcShippingLoading: function(e) {
-		this.submitButton.isLoading(e.detail.calcShippingLoading);
+		// this.calculateButton.isLoading(e.detail.calcShippingLoading);
 	},
 	isEnabled: function (isEnabled) {
 		if (isEnabled) {
-			this.submitButton.isEnabled(true);
+			this.calculateButton.isEnabled(true);
 		} else {
-			this.submitButton.isEnabled(false);
+			this.calculateButton.isEnabled(false);
 		}
 	},
-	checkPaymentProcessing: function (e) {
-		if (e.detail.paymentProcessing) {
-			this.submitButton.isEnabled(false);
-		} else {
-			this.submitButton.isEnabled(true);
-		}
+	detach: function() {
+		// this.linkAuthenticationElement.unmount();
+		// this.addressElement.unmount();
+		// this.calculateButton.isEnabled(false);
+		this.customerInfoContainer.style.display = "none";
+	},
+	reAttach: function() {
+		// this.linkAuthenticationElement.mount('#link-authentication-element');
+		// this.addressElement.mount('#address-element');
+		// this.calculateButton.isEnabled(true);
+		this.customerInfoContainer.style.display = "block";
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -118,9 +122,9 @@ var CustomerInfo = {
 
 		//call initialize on Component first
 		inst.initialize({
-			container: document.querySelector("#customer-info-container"),
 			el: 
 			`<div class="inner">
+				<h2>Customer Info</h2>
 				<div id="link-authentication-element">
 				  <!-- Stripe.js injects link authentication element-->
 				</div>
@@ -133,15 +137,30 @@ var CustomerInfo = {
 				<div id="address-element">
 				  <!-- Stripe.js injects address element-->
 				</div>
-				<div id="button-holder"></div>
+				<div id="calculate-button-holder"></div>
 			</div>`
 		});
 
-		inst.submitButton = LoadingButton.init({
-			text: 'Calculate Shipping',
+		inst.customerInfoContainer = document.querySelector("#customer-info-container");
+
+		//insert into loader, then insert that into the page container
+		inst.loader = Loader.init({
+		  children: inst.el,
+		  minHeight: '10rem',
+		  size: '4rem',
+		  backgroundColor: '#f4f6f7',
+		  isInitialPageLoad: true,
+		});
+		inst.loader.isLoading(true);
+		inst.customerInfoContainer.prepend(inst.loader.el);
+		
+		inst.calculateButton = LoadingButton.init({
+			text: 'Update Total',
 			disabled: true,
 			onClick: inst.onCalculateShippingClick.bind(inst)
 		});
+		const buttonHolderEl = inst.el.querySelector('#calculate-button-holder');
+		buttonHolderEl.appendChild(inst.calculateButton.el);
 
 		inst.additionalInfoForm = inst.el.querySelector('#additional-info');
 		inst.pickupEl = inst.el.querySelector('#pickup');
@@ -151,7 +170,6 @@ var CustomerInfo = {
 
 		inst.stripe = options.stripe ? options.stripe : null;
 		inst.elements = options.elements ? options.elements : null;
-		inst.elementLoaded = options.onElementLoaded;
 
 		// linkAuthenticationElement----------
 		inst.linkAuthenticationElement = inst.elements.create("linkAuthentication");
@@ -173,7 +191,6 @@ var CustomerInfo = {
 		inst.addressElement.on('change', inst.addressElementChanged.bind(inst));
 
 		checkoutStore.addListener(inst.calcShippingLoading.bind(inst), 'calcShippingLoading');
-		checkoutStore.addListener(inst.checkPaymentProcessing.bind(inst), 'paymentProcessing');
 
 		return inst;
 	}

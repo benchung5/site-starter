@@ -2,12 +2,11 @@
 var { STRIPE_PUBLISHABLE_KEY } = require('../secret')['globals'];
 import Component from '../component';
 import CustomerInfo from './customerInfo';
+import CustomerInfoSummary from './customerInfoSummary';
 import Payment from './payment';
 import PaymentStatus from './paymentStatus';
 import { postOrder, calcShippingAndTax } from '../actions/checkout'
 import OrderSummary from './orderSummary';
-import Loader from '../parts/loader';
-import appStateStore from '../storage/appStateStore';
 import checkoutStore from '../storage/checkoutStore';
 import { getUrlParams } from '../lib/utils';
 
@@ -16,16 +15,34 @@ import { getUrlParams } from '../lib/utils';
   var Main = {
     showMessage: function (messageText) {
       const messageContainer = document.querySelector("#message-container");
-
       messageContainer.innerHTML = messageText;
-
-      // setTimeout(function () {
-      //   messageContainer.classList.add("hidden");
-      //   messageContainer.textContent = "";
-      // }, 5000);
     },
-    onFirstElementLoaded: function () {
-      appStateStore.setData({ isLoading: false});
+    onChangeCustomerInfo: function() {
+      checkoutStore.setData({customerDetailsUpdating: true});
+      this.customerInfo.reAttach();
+      this.customerInfoSummary.detach();
+    },
+    onTotalUpdated: function (apiData) {
+      if (apiData.error) {
+        this.showMessage(apiData.error);
+        //destroy all elements
+        this.customerInfo.linkAuthenticationElement.destroy();
+        this.customerInfo.addressElement.destroy();
+        this.customerInfo.el.innerHTML = "";
+        this.orderSummary.el.innerHTML = "";
+      } else {
+        this.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
+        checkoutStore.setData({ calcShippingLoading: false});
+        checkoutStore.setData({customerDetailsUpdating: false});
+      }
+
+      if (!this.payment) {
+        this.payment = Payment.init({
+          stripe: this.stripe,
+          elements: this.elements,
+          message: this.showMessage.bind(this),
+        });
+      }
     },
     init: function() {
       var proto = Object.assign({}, this, Component);
@@ -33,19 +50,10 @@ import { getUrlParams } from '../lib/utils';
       // assign the instance constructor to the prototype so 'this' refers to the instance
       proto.constructor = inst;
 
-      appStateStore.init();
       checkoutStore.init();
 
       let elementsContainerEl = document.querySelector("#elements-container");
       let customerInfoContainerEl = document.querySelector("#customer-info-container");
-      //insert into loader, then insert that into the page container
-      let loader = Loader.init({
-        children: customerInfoContainerEl,
-        minHeight: '10rem',
-        size: '4rem',
-        backgroundColor: '#f4f6f7'
-      });
-      elementsContainerEl.prepend(loader.el);
 
       inst.order = {
         paymentIntentId: '',
@@ -120,18 +128,25 @@ import { getUrlParams } from '../lib/utils';
         });
         if(cart.length !== 0) {
           elementsContainerEl.style.display = 'block';
-          appStateStore.setData({ isLoading: true});
           inst.order.products = cart;
           postOrder(inst.order, (apiData) => {
             inst.order.paymentIntentId = apiData.paymentIntentId;
             inst.elements = inst.stripe.elements({ clientSecret: apiData.clientSecret, appearance });
-            inst.cutomerInfo = CustomerInfo.init({
+            inst.customerInfo = CustomerInfo.init({
               stripe: inst.stripe,
               elements: inst.elements,
               message: inst.showMessage.bind(inst),
-              onElementLoaded: inst.onFirstElementLoaded.bind(inst),
               onCalculateShipping: (info) => {
                 inst.showMessage('');
+                if(!inst.customerInfoSummary) {
+                  inst.customerInfoSummary = CustomerInfoSummary.init({
+                    customerInfo: info,
+                    onButtonClick: inst.onChangeCustomerInfo.bind(inst),
+                  });
+                } else {
+                  inst.customerInfoSummary.reAttach();
+                }
+
                 const cart = JSON.parse(localStorage.getItem('cart'));
                 inst.order.address = info.address;
                 inst.order.pickup = info.pickup;
@@ -139,26 +154,7 @@ import { getUrlParams } from '../lib/utils';
                 inst.order.email = info.email;
 
                 calcShippingAndTax(inst.order, (apiData) => {
-                  if (apiData.error) {
-                    inst.showMessage(apiData.error);
-                    //destroy all elements
-                    inst.cutomerInfo.linkAuthenticationElement.destroy();
-                    inst.cutomerInfo.addressElement.destroy();
-                    inst.cutomerInfo.el.innerHTML = "";
-                    inst.orderSummary.el.innerHTML = "";
-                  } else {
-                    inst.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
-                    checkoutStore.setData({ calcShippingLoading: false});
-                    
-                    //making sure not to load it twice
-                    if(!inst.payment) {
-                      inst.payment = Payment.init({
-                        stripe: inst.stripe,
-                        elements: inst.elements,
-                        message: inst.showMessage.bind(inst),
-                      });
-                    }
-                  }
+                  inst.onTotalUpdated(apiData);
                 });
               }
             });

@@ -6,7 +6,7 @@ var CheckoutStore = {
         calcShippingLoading: false,
         paymentProcessing: false,
         customerDetailsValid: false,
-        paymentInfoValid: false,
+        customerDetailsUpdating: false,
     },
     init: function() {
         Object.assign(this, Store);

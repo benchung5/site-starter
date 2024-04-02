@@ -14,10 +14,11 @@ var Payment = {
 	},
 	onPaymentFormChanged: function(e) {
 		if (e.complete) {
-			checkoutStore.setData({paymentInfoValid: true});
+			this.setState({paymentInfoValid: true});
 		} else {
-			checkoutStore.setData({paymentInfoValid: false});
+			this.setState({paymentInfoValid: false});
 		}
+		this.checkReadyToSubmit();
 	},
 	onPaymentFormSubmit: async function(e) {
 		e.preventDefault();
@@ -46,15 +47,15 @@ var Payment = {
 		//only see this if there's an error anyways
 		// this.submitButton.isLoading(false);
 	},
-	checkPaymentInfoValid: function(e) {
-		if (e.detail.paymentInfoValid && checkoutStore.storageData.customerDetailsValid) {
-			this.submitButton.isEnabled(true);
-		} else {
-			this.submitButton.isEnabled(false);
-		}
-	},
 	checkCustomerDetailsValid: function(e) {
-		if (e.detail.customerDetailsValid && checkoutStore.storageData.paymentInfoValid) {
+		// if (e.detail.customerDetailsValid && this.state.paymentInfoValid && !checkoutStore.storageData.customerDetailsUpdating) {
+		// 	this.submitButton.isEnabled(true);
+		// } else {
+		// 	this.submitButton.isEnabled(false);
+		// }
+	},
+	checkReadyToSubmit: function() {
+		if (checkoutStore.storageData.customerDetailsValid && this.state.paymentInfoValid && !checkoutStore.storageData.customerDetailsUpdating) {
 			this.submitButton.isEnabled(true);
 		} else {
 			this.submitButton.isEnabled(false);
@@ -65,6 +66,13 @@ var Payment = {
 			this.submitButton.isLoading(true);
 		} else {
 			this.submitButton.isLoading(false);
+		}
+	},
+	isEnabled: function(isEnabled) {
+		if (isEnabled) {
+			this.submitButton.isEnabled(true);
+		} else {
+			this.submitButton.isEnabled(false);
 		}
 	},
 	init: function(options) {
@@ -108,8 +116,9 @@ var Payment = {
 		inst.paymentElement.on('change', inst.onPaymentFormChanged.bind(inst));
 
 		checkoutStore.addListener(inst.checkPaymentProcessing.bind(inst), 'paymentProcessing');
-		checkoutStore.addListener(inst.checkPaymentInfoValid.bind(inst), 'paymentInfoValid');
-		checkoutStore.addListener(inst.checkCustomerDetailsValid.bind(inst), 'customerDetailsValid');
+		checkoutStore.addListener(inst.checkReadyToSubmit.bind(inst), 'customerDetailsValid');
+		checkoutStore.addListener(inst.checkReadyToSubmit.bind(inst), 'customerDetailsUpdating');
+
 
 		return inst;
 	}

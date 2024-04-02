@@ -1,5 +1,5 @@
 import Component from '../component';
-import appStateStore from '../storage/appStateStore';
+// import appStateStore from '../storage/appStateStore';
 import animation from '../animation';
 import { addClass, removeClass } from '../lib/utils';
 
@@ -14,49 +14,50 @@ var Loader = {
 
 	// },
 	isLoading: function(isLoading) {
-		// remove this eventually
 		if(isLoading && (!this.isInitialPageLoad)) {
+			this.setState({isLoading : true});
 			this.startLock();
-			if(!this.isInitialPageLoad) {
-				this.showLoadingAnimation.animate();
-			}
+			this.showLoadingAnimation.animate();
 		}
 		if(!isLoading) {
+			this.setState({isLoading : false});
 			let timeout = this.delayFinish || 0;
 			//if not currently doing minimum load
 			if(!this.state.lockLoad) {
-			  //this.setState({ isLoading: false });
 				setTimeout(() => {
 					this.hideLoadingAnimation.animate();
 				}, timeout);
 			}
 		}	
 	},
-	animate: function() {
-		// **********remove this function eventually
-		if(appStateStore.storageData.isLoading && (!this.isInitialPageLoad)) {
-			this.startLock();
-			if(!this.isInitialPageLoad) {
-				this.showLoadingAnimation.animate();
-			}
-		}
-		if(!appStateStore.storageData.isLoading) {
-			let timeout = this.delayFinish || 0;
-			//if not currently doing minimum load
-			if(!this.state.lockLoad) {
-			  //this.setState({ isLoading: false });
-				setTimeout(() => {
-					this.hideLoadingAnimation.animate();
-				}, timeout);
-			}
-		}	
-	},
+	// animate: function() {
+	// 	// **********remove this function eventually
+	// 	if(appStateStore.storageData.isLoading && (!this.isInitialPageLoad)) {
+	// 		this.startLock();
+	// 		if(!this.isInitialPageLoad) {
+	// 			this.showLoadingAnimation.animate();
+	// 		}
+	// 	}
+	// 	if(!appStateStore.storageData.isLoading) {
+	// 		let timeout = this.delayFinish || 0;
+	// 		//if not currently doing minimum load
+	// 		if(!this.state.lockLoad) {
+	// 		  //this.setState({ isLoading: false });
+	// 			setTimeout(() => {
+	// 				this.hideLoadingAnimation.animate();
+	// 			}, timeout);
+	// 		}
+	// 	}	
+	// },
 	startLock: function() {
 		//force a minimum amount of time to show the loader
 		this.setState({ lockLoad: true });
 		setTimeout(() => {
 		  this.setState({ lockLoad: false });
-		  this.animate();
+		  if (this.state.isLoading == false) {
+		  	this.isLoading(false);
+		  }
+		  // this.animate();
 		}, 1000);
 	},
 	init: function(options) {
@@ -85,6 +86,7 @@ var Loader = {
 		//if used on initial page load, just show the loader, don't animate it in
 		inst.isInitialPageLoad = options.isInitialPageLoad;
 		if(inst.isInitialPageLoad) {
+			inst.setState({isLoading : true});
 			inst.preload.style.visibility = 'visible';
 			inst.preload.style.opacity = 1;
 			inst.startLock();
@@ -105,7 +107,6 @@ var Loader = {
 				inst.preload.style.visibility = 'visible';
 			},
 			onEnd: () => {
-				//inst.onLoadingChange.call(this);
 			}
 		});
 		inst.hideLoadingAnimation = animation.init(inst.preload, {
@@ -117,7 +118,7 @@ var Loader = {
 			}
 		});
 
-		appStateStore.addListener(inst.animate.bind(inst), 'isLoading');
+		// appStateStore.addListener(inst.animate.bind(inst), 'isLoading');
 
 		return inst;
 	}

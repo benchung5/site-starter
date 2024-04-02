@@ -225,7 +225,6 @@ export function debounce(func, timeout = 300) {
   };
 }
 
-
 export function moveElement(el, targetParent) {
   //moves el to the targetParent (container of the new location)
   //will not move it if it's already in the new location 
@@ -238,3 +237,40 @@ export function moveElement(el, targetParent) {
     targetParent.appendChild(node);
   }
 }
+
+export var detachReAttach = {
+  // //usage:
+  // //remove full width vid to prevent playing it
+  // DetachReAttach.detatch(myEl);
+
+  // //re attach the video
+  // DetachReAttach.reAttach(function() {
+  //   //element re-attached to same spot...
+  // });
+    detatch: function(el) {
+      if (el) {
+        //if we don't already have a detached el...
+        if(!this.node) {
+          this.node = el || this.node;
+          this.parent = this.node.parentNode || this.parent;
+          this.next = this.node.nextSibling || this.next;
+          // abort if no parent
+          if (!this.parent) { return; }
+          // Detach .node from DOM.
+          this.parent.removeChild(this.node);
+        }
+      }
+    },
+    // Re-attach node to DOM.
+    reAttach: function (callback) {
+         // abort if no parent
+        if (!this.parent) { return; }
+        if(this.node) {
+          this.parent.insertBefore(this.node, this.next);
+        }
+        //reset the node
+        this.node = null;
+        //fire callback
+        callback();
+    }
+};

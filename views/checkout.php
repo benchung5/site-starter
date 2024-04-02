@@ -25,13 +25,14 @@ use Lib\Utils;
 						<div id="elements-container">
 							<div id="customer-info-container">
 							</div>
-							<div id="payment-container">
-							</div>
+							<div id="info-summary-container"></div>
 						</div>
 						<div id="message-container" class="hidden"></div>
 					</div>
 					<div class="small-12 large-5 columns">
 						<div id="order-summary-container"></div>
+						<div id="proceed-payment-container"></div>
+						<div id="payment-container"></div>
 						<div class="contact-box">
 							<h3>Need Help?</h3>
 	                        <div class="icon-with-text email">
