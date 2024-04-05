@@ -33,10 +33,12 @@ var LoadingButton = {
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
+		const btnClass = options.style ? options.style : 'btn-primary';
+
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<button id="submit" class="btn btn-primary loading-button" ${options.disabled ? 'disabled' : ''}>
+			`<button id="submit" class="btn ${btnClass} loading-button" ${options.disabled ? 'disabled' : ''}>
 			    <span class="button-text">${options.text}</span>
 			 </button>`
 		});

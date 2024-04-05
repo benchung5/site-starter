@@ -25,6 +25,11 @@ var Payment = {
 		// this.submitButton.isLoading(true);
 		checkoutStore.setData({paymentProcessing: true});
 
+		// const {error, confirmationToken} = await stripe.createConfirmationToken({
+		// 	elements: this.elements,
+		// 	return_url: `${DOMAIN_URL}/checkout`,
+		// });
+
 		const { error } = await this.stripe.confirmPayment({
 			elements: this.elements,
 			confirmParams: {

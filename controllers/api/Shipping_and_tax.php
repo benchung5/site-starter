@@ -73,14 +73,15 @@ class Shipping_and_tax extends Controller
 			  ]
 			);
 
-			$result = (object) [
+			$response = (object) [
 				'shipping' => $shipping_cost,
 				'tax' => $tax,
+				'total' => $total,
 			];
 
 			$this->temp_cart->add(['payment_intent_id' => $data['order']['paymentIntentId'], 'products' => json_encode($data['order']['products'])]);
 			
-			Utils::json_respond(SUCCESS_RESPONSE, $result);
+			Utils::json_respond(SUCCESS_RESPONSE, $response);
 		}
 	}
 }

@@ -3,7 +3,7 @@ import Loader from '../parts/loader';
 import SideMenu from '../parts/sideMenu';
 import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
-import appStateStore from '../storage/appStateStore';
+// import appStateStore from '../storage/appStateStore';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -49,6 +49,7 @@ var GridViewPlants = {
 			card.querySelector('.image').appendChild(image);
 			this.cardsContainer.appendChild(card);
 		});
+		this.loader.isLoading(false);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -80,7 +81,7 @@ var GridViewPlants = {
 		);
 
 		inst.listStore = options.listStore;
-		appStateStore.init();
+		// appStateStore.init();
 
 		//build components
 		inst.sideMenu = SideMenu.init({

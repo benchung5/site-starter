@@ -81,14 +81,14 @@ var CustomerInfo = {
  			}
  		})
 
+		this.detach();
+
 		this.onCalculateShipping({
 			pickup: pickup,
 			message: message,
 			address: address,
 			email: email
 		});
-
-		this.detach();
 	},
 	calcShippingLoading: function(e) {
 		// this.calculateButton.isLoading(e.detail.calcShippingLoading);

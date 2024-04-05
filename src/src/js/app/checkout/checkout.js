@@ -31,7 +31,7 @@ import { getUrlParams } from '../lib/utils';
         this.customerInfo.el.innerHTML = "";
         this.orderSummary.el.innerHTML = "";
       } else {
-        this.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax);
+        this.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax, apiData.total);
         checkoutStore.setData({ calcShippingLoading: false});
         checkoutStore.setData({customerDetailsUpdating: false});
       }
@@ -144,6 +144,7 @@ import { getUrlParams } from '../lib/utils';
                     onButtonClick: inst.onChangeCustomerInfo.bind(inst),
                   });
                 } else {
+                  inst.customerInfoSummary.update(info);
                   inst.customerInfoSummary.reAttach();
                 }
 

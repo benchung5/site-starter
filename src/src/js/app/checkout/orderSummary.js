@@ -39,28 +39,26 @@ var OrderSummary = {
 				let quantity = cartItem.querySelector('.quantity');
 				this.cartList.appendChild(cartItem);
 			});
-			//subtotal
+			//total for the line
 			this.subtotalEl.innerHTML = '';
 			const subtotalEl = this.createEl(`<span>${formatPrice(total)}</span>`);
 			this.subtotalEl.appendChild(subtotalEl);
 			this.subtotalItemCountEl.innerHTML = count;
 
-			//grand total
+			//subtotal for everything
 			this.totalEl.innerHTML = '';
 			const totalEl = this.createEl(`<span>${formatPrice(total)}</span>`);
 			this.totalEl.appendChild(totalEl);
 
-			this.setState({ total: total });
 			this.cartList.appendChild(this.loaderForFooter.el);
 		}
 	},
-	updateShippingAndTax: function (shipping, tax) {
+	updateShippingAndTax: function (shipping, tax, total) {
 		if (shipping && tax) {
 			this.taxEl.innerHTML = '';
 			const taxEl = this.createEl(`<span>${formatPrice(tax)}</span>`);
 			this.taxEl.appendChild(taxEl);
 
-			const total = this.state.total + parseInt(shipping) + parseInt(tax);
 			this.totalEl.innerHTML = '';
 			const totalEl = this.createEl(`<span>${formatPrice(total, true)}</span>`);
 			this.totalEl.appendChild(totalEl);

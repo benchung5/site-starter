@@ -14,8 +14,29 @@ var CustomerInfoSummary = {
 		e.preventDefault();
 		this.onButtonClick();
 	},
-	build: function() {
-		this.customerInfoEl.innerHTML = this.customerInfo;
+	update: function(info) {
+		this.customerInfoEl.innerHTML = '';
+		this.customerInfoEl.innerHTML = `<p>
+		<b>Email:</b><br>
+			<span id="customer-email">${info.email}</span><br>
+		</p>
+		<p>
+			<b>Address:</b><br>
+			<span id="line1">${info.address.line1}</span><br>
+			${info.address.line2 ? '<span id="line2">'+info.address.line2+'</span><br>' : ''}
+			<span id="city">${info.address.city}</span>, <span id="state">${info.address.state}</span><br>
+			<span id="postal_code">${info.address.postal_code}</span><br>
+		</p>`;
+
+		if (info.pickup) {
+			const pickupEl = this.createEl(`<p><b>Pickup:</b><br>${info.pickup}</p>`);
+			this.customerInfoEl.appendChild(pickupEl);
+		}
+
+		if (info.message) {
+			const messageEl = this.createEl(`<p><b>Message:</b><br>${info.message}</p>`);
+			this.customerInfoEl.appendChild(messageEl);
+		}
 	},
 	checkPaymentProcessing: function(e) {
 		if (e.detail.paymentProcessing) {
@@ -48,12 +69,13 @@ var CustomerInfoSummary = {
 		inst.submitButton = LoadingButton.init({
 			text: 'Change Customer Info',
 			disabled: false,
-			onClick: inst.onButtonClick.bind(inst)
+			onClick: inst.onButtonClick.bind(inst),
+			style: 'btn-secondary',
 		});
 		const buttonHolderEl = inst.el.querySelector('#submit-button-holder');
 		buttonHolderEl.appendChild(inst.submitButton.el);
 
-		inst.build();
+		inst.update(inst.customerInfo);
 
 		inst.container = document.querySelector("#info-summary-container");
 

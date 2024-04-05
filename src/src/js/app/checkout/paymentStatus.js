@@ -1,6 +1,5 @@
 import Component from '../component';
 import Loader from '../parts/loader';
-import appStateStore from '../storage/appStateStore';
 import { formatPrice } from '../lib/cartUtils';
 
 var PaymentStatus = {
@@ -49,7 +48,7 @@ var PaymentStatus = {
 
 		this.el.appendChild(messageEl);
 
-		appStateStore.setData({ isLoading: false});
+		this.loader.isLoading(false);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -63,14 +62,14 @@ var PaymentStatus = {
 		});
 
 		inst.container = document.querySelector('#message-container')
-		let loader = Loader.init({
+		inst.loader = Loader.init({
 			children: inst.el,
 			minHeight: '10rem',
 			size: '4rem',
-			backgroundColor: '#f4f6f7'
+			backgroundColor: '#f4f6f7',
+			isInitialPageLoad: true,
 		});
-		inst.container.appendChild(loader.el);
-		appStateStore.setData({ isLoading: true});
+		inst.container.appendChild(inst.loader.el);
 
 
 		inst.stripe = options.stripe ? options.stripe : null;

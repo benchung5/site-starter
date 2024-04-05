@@ -84,9 +84,10 @@ var Cart = {
 		//*buildItems gets fired on custom event when localstorage is updated
 		localStorage.setItem('cart', JSON.stringify(cartClone));
 	},
-	onCheckoutClick: function() {
+	onCheckoutClick: function(e) {
+		e.preventDefault();
 		this.submitQuantities();
-		//redirect to checkout page
+		// redirect to checkout page
 		window.location.href = `${DOMAIN_URL}/checkout`;
 	},
 	updateTotal: function(total) {

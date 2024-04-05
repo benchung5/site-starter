@@ -95,6 +95,7 @@ var MainSourceProducts = {
 			}
 
 		});
+		this.loader.isLoading(false);
 	},
 	onNotifyMeClick: function(item) {
 		Object.assign(item, {

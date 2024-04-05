@@ -101,7 +101,6 @@ extends
   padding: 1em 2em;
   letter-spacing: 0.01em;
   font-weight: 600;
-  background: rgba(0, 0, 0, 0.8);
 }
 
 %bold-base {
@@ -514,11 +513,13 @@ input.submit-button, button.submit-button {
 .btn-secondary {
   background: transparent;
   border: 0.0625rem solid #938b99;
-  padding: 0.5rem;
+  padding: 0.5rem 1.5rem;
   color: #938b99;
   font-size: 0.8rem;
-  &:hover {
-
+  outline: none;
+  &:hover, &:focus, &:focus-visible, &:active  {
+    color: #645f68;
+    background: transparent;
   }
 }
 
@@ -2457,9 +2458,6 @@ loading button
 ========================================================================== */
 
 .loading-button {
-  &:active {
-    background: #007a63;
-  }
   .button-text {
     transition: all 0.2s;
   }
@@ -2872,7 +2870,8 @@ menu
   left: 0;
   box-shadow: none;
   //full screen on mobile
-  @include breakpoint(small down) {
+  width: 33rem;
+  @include breakpoint(medium down) {
    width: 100%;
   }
   &.close {
@@ -3990,7 +3989,7 @@ checkout
 
 #message-container {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 #payment-status-message {
@@ -4003,7 +4002,6 @@ checkout
     margin-bottom: 0;
   }
 }
-
 
 #payment-element {
   margin-bottom: 24px;
@@ -4050,4 +4048,8 @@ checkout
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
+}
+
+#info-summary {
+  margin-bottom: 2.5rem;
 }
