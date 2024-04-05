@@ -54,26 +54,24 @@ var OrderSummary = {
 		}
 	},
 	updateShippingAndTax: function (shipping, tax, total) {
-		if (shipping && tax) {
-			this.taxEl.innerHTML = '';
-			const taxEl = this.createEl(`<span>${formatPrice(tax)}</span>`);
-			this.taxEl.appendChild(taxEl);
+		this.taxEl.innerHTML = '';
+		const taxEl = this.createEl(`<span>${formatPrice(tax)}</span>`);
+		this.taxEl.appendChild(taxEl);
 
-			this.totalEl.innerHTML = '';
-			const totalEl = this.createEl(`<span>${formatPrice(total, true)}</span>`);
-			this.totalEl.appendChild(totalEl);
-			
-			// do this last to avoid casting issues
-			if (shipping == 0) {
-				shipping = 'FREE';
-			} else {
-				shipping = formatPrice(shipping);
-			}
-			this.shippingEl.innerHTML = '';
-			const shippingEl = this.createEl(`<span>${shipping}</span>`);
-			this.shippingEl.appendChild(shippingEl);
-			this.beforeShippingTaxMessage.style.visibility = 'hidden';
+		this.totalEl.innerHTML = '';
+		const totalEl = this.createEl(`<span>${formatPrice(total, true)}</span>`);
+		this.totalEl.appendChild(totalEl);
+		
+		// do this last to avoid casting issues
+		if (shipping == 0) {
+			shipping = 'FREE';
+		} else {
+			shipping = formatPrice(shipping);
 		}
+		this.shippingEl.innerHTML = '';
+		const shippingEl = this.createEl(`<span>${shipping}</span>`);
+		this.shippingEl.appendChild(shippingEl);
+		this.beforeShippingTaxMessage.style.visibility = 'hidden';
 	},
 	onBrowseClick: function(e) {
 		e.preventDefault();
