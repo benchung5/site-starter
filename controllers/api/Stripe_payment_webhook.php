@@ -33,10 +33,14 @@ class Stripe_payment_webhook extends Controller
         $payload, $sig_header, $endpoint_secret
       );
     } catch(\UnexpectedValueException $e) {
+      Utils::dbug('Invalid payload:');
+      Utils::dbug($e);
       // Invalid payload
       http_response_code(400);
       exit();
     } catch(\Stripe\Exception\SignatureVerificationException $e) {
+      Utils::dbug('Invalid signature:');
+      Utils::dbug($e);
       // Invalid signature
       http_response_code(400);
       exit();
