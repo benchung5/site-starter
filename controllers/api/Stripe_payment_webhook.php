@@ -68,6 +68,7 @@ class Stripe_payment_webhook extends Controller
         case 'payment_intent.requires_action':
           $paymentIntent = $event->data->object;
         case 'payment_intent.succeeded':
+          Utils::dbug("entering - payment_intent.succeeded");
           $paymentIntent = $event->data->object;
 
           $metadata = $paymentIntent->metadata->toArray();
@@ -128,7 +129,10 @@ class Stripe_payment_webhook extends Controller
 
           $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>289-697-8873";
 
-          //Utils::dbug($paymentIntent);
+          Utils::dbug($paymentIntent);
+          Utils::dbug($metadata);
+          Utils::dbug($order_id);
+          Utils::dbug($email_body);
 
           Send_email::send($transaction['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
           //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
