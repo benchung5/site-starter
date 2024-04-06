@@ -24,7 +24,7 @@ class Stripe_payment_webhook extends Controller
     // Replace the below endpoint secret with your endpoint's unique secret
     // If you are testing with the CLI, find the secret by running 'stripe listen'
     // If you are using an endpoint defined with the API or dashboard, look in your webhook settings
-    // at https://dashboard.stripe.com/webhooks
+    // at https://dashboard.stripe.com/webhooks (click 'reveal' under Signing secret in webhooks)
 
     // // This is your Stripe CLI webhook secret for testing your endpoint locally.
     // $endpoint_secret = 'whsec_6fa8dc72fd0596811364a7ce129abc61a3cfc5e2cb13cfd7cb49bada848bb236';
