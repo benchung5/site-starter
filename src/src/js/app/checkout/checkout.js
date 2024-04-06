@@ -1,5 +1,4 @@
 
-var { STRIPE_PUBLISHABLE_KEY } = require('../secret')['globals'];
 import Component from '../component';
 import CustomerInfo from './customerInfo';
 import CustomerInfoSummary from './customerInfoSummary';
@@ -9,6 +8,8 @@ import { postOrder, calcShippingAndTax } from '../actions/checkout'
 import OrderSummary from './orderSummary';
 import checkoutStore from '../storage/checkoutStore';
 import { getUrlParams } from '../lib/utils';
+const env = process.env.NODE_ENV || "development";
+var { STRIPE_PUBLISHABLE_KEY } = require('../secret')[env];
 
 
 (function() {
