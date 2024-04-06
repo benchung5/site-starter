@@ -1,0 +1,469 @@
+entering - payment_intent.succeeded
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
+Stripe\PaymentIntent Object
+(
+    [id] => pi_3P2RQmGO2Nlvl2w30UTBz6hT
+    [object] => payment_intent
+    [amount] => 1000
+    [amount_capturable] => 0
+    [amount_details] => Stripe\StripeObject Object
+        (
+            [tip] => Array
+                (
+                )
+
+        )
+
+    [amount_received] => 0
+    [application] => 
+    [application_fee_amount] => 
+    [automatic_payment_methods] => Stripe\StripeObject Object
+        (
+            [allow_redirects] => always
+            [enabled] => 1
+        )
+
+    [canceled_at] => 
+    [cancellation_reason] => 
+    [capture_method] => automatic
+    [client_secret] => pi_3P2RQmGO2Nlvl2w30UTBz6hT_secret_zBiI92mpqVtHkyIhgVAyrV5En
+    [confirmation_method] => automatic
+    [created] => 1712379884
+    [currency] => cad
+    [customer] => 
+    [description] => 
+    [invoice] => 
+    [last_payment_error] => 
+    [latest_charge] => 
+    [livemode] => 
+    [metadata] => Stripe\StripeObject Object
+        (
+        )
+
+    [next_action] => 
+    [on_behalf_of] => 
+    [payment_method] => 
+    [payment_method_configuration_details] => 
+    [payment_method_options] => Stripe\StripeObject Object
+        (
+            [card] => Stripe\StripeObject Object
+                (
+                    [installments] => 
+                    [mandate_options] => 
+                    [network] => 
+                    [request_three_d_secure] => automatic
+                )
+
+        )
+
+    [payment_method_types] => Array
+        (
+            [0] => card
+        )
+
+    [processing] => 
+    [receipt_email] => 
+    [review] => 
+    [setup_future_usage] => 
+    [shipping] => 
+    [source] => 
+    [statement_descriptor] => 
+    [statement_descriptor_suffix] => 
+    [status] => requires_payment_method
+    [transfer_data] => 
+    [transfer_group] => 
+)
+
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
+Array
+(
+)
+
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
+7827
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
+Thank you for your business! Below are your order details...<br><br>customer email: <br><b>order# 7827</b><br><br>items:<br>--------------------------------------------<br><br>tax: $0.00<br>shipping: $0.00<br><b>total: $10.00</b><br><br><b>shipping address:</b><br><br><br><br><br>If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>289-697-8873
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
+Invalid signature:
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
+Stripe\Exception\SignatureVerificationException Object
+(
+    [message:protected] => No signatures found matching the expected signature for payload
+    [string:Exception:private] => 
+    [code:protected] => 0
+    [file:protected] => C:\xampp\xampp\htdocs\1pix_app\vendor\stripe\stripe-php\lib\Exception\SignatureVerificationException.php
+    [line:protected] => 28
+    [trace:Exception:private] => Array
+        (
+            [0] => Array
+                (
+                    [file] => C:\xampp\xampp\htdocs\1pix_app\vendor\stripe\stripe-php\lib\WebhookSignature.php
+                    [line] => 59
+                    [function] => factory
+                    [class] => Stripe\Exception\SignatureVerificationException
+                    [type] => ::
+                    [args] => Array
+                        (
+                            [0] => No signatures found matching the expected signature for payload
+                            [1] => {
+  "id": "evt_3P2SeLGO2Nlvl2w31kRaPb9V",
+  "object": "event",
+  "api_version": "2023-10-16",
+  "created": 1712384569,
+  "data": {
+    "object": {
+      "id": "pi_3P2SeLGO2Nlvl2w31IED2Gqb",
+      "object": "payment_intent",
+      "amount": 1000,
+      "amount_capturable": 0,
+      "amount_details": {
+        "tip": {
+        }
+      },
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "automatic_payment_methods": {
+        "allow_redirects": "always",
+        "enabled": true
+      },
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "client_secret": "pi_3P2SeLGO2Nlvl2w31IED2Gqb_secret_oKi1hkvCz4nqKTo0BP4er45Wz",
+      "confirmation_method": "automatic",
+      "created": 1712384569,
+      "currency": "cad",
+      "customer": null,
+      "description": null,
+      "invoice": null,
+      "last_payment_error": null,
+      "latest_charge": null,
+      "livemode": false,
+      "metadata": {
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_configuration_details": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "mandate_options": null,
+          "network": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "processing": null,
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    }
+  },
+  "livemode": false,
+  "pending_webhooks": 3,
+  "request": {
+    "id": "req_jlAL7yHjOVVxDb",
+    "idempotency_key": "e669dd3c-fa1b-4316-aede-6ae3d57d7bc2"
+  },
+  "type": "payment_intent.created"
+}
+                            [2] => t=1712384569,v1=ce42a3224e3fc9e45ee105241e0318c5dc267c5cf506750243bb35c707e1008a,v0=1482509d84236f599c200e9e5d352a9e5fa73ffff3684ac94e9d9c8be93bdf3e
+                        )
+
+                )
+
+            [1] => Array
+                (
+                    [file] => C:\xampp\xampp\htdocs\1pix_app\vendor\stripe\stripe-php\lib\Webhook.php
+                    [line] => 29
+                    [function] => verifyHeader
+                    [class] => Stripe\WebhookSignature
+                    [type] => ::
+                    [args] => Array
+                        (
+                            [0] => {
+  "id": "evt_3P2SeLGO2Nlvl2w31kRaPb9V",
+  "object": "event",
+  "api_version": "2023-10-16",
+  "created": 1712384569,
+  "data": {
+    "object": {
+      "id": "pi_3P2SeLGO2Nlvl2w31IED2Gqb",
+      "object": "payment_intent",
+      "amount": 1000,
+      "amount_capturable": 0,
+      "amount_details": {
+        "tip": {
+        }
+      },
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "automatic_payment_methods": {
+        "allow_redirects": "always",
+        "enabled": true
+      },
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "client_secret": "pi_3P2SeLGO2Nlvl2w31IED2Gqb_secret_oKi1hkvCz4nqKTo0BP4er45Wz",
+      "confirmation_method": "automatic",
+      "created": 1712384569,
+      "currency": "cad",
+      "customer": null,
+      "description": null,
+      "invoice": null,
+      "last_payment_error": null,
+      "latest_charge": null,
+      "livemode": false,
+      "metadata": {
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_configuration_details": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "mandate_options": null,
+          "network": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "processing": null,
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    }
+  },
+  "livemode": false,
+  "pending_webhooks": 3,
+  "request": {
+    "id": "req_jlAL7yHjOVVxDb",
+    "idempotency_key": "e669dd3c-fa1b-4316-aede-6ae3d57d7bc2"
+  },
+  "type": "payment_intent.created"
+}
+                            [1] => t=1712384569,v1=ce42a3224e3fc9e45ee105241e0318c5dc267c5cf506750243bb35c707e1008a,v0=1482509d84236f599c200e9e5d352a9e5fa73ffff3684ac94e9d9c8be93bdf3e
+                            [2] => whsec_iVwxuK2dqJ0rYlk9W2WP12XcaYWMVZPq
+                            [3] => 300
+                        )
+
+                )
+
+            [2] => Array
+                (
+                    [file] => C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+                    [line] => 57
+                    [function] => constructEvent
+                    [class] => Stripe\Webhook
+                    [type] => ::
+                    [args] => Array
+                        (
+                            [0] => {
+  "id": "evt_3P2SeLGO2Nlvl2w31kRaPb9V",
+  "object": "event",
+  "api_version": "2023-10-16",
+  "created": 1712384569,
+  "data": {
+    "object": {
+      "id": "pi_3P2SeLGO2Nlvl2w31IED2Gqb",
+      "object": "payment_intent",
+      "amount": 1000,
+      "amount_capturable": 0,
+      "amount_details": {
+        "tip": {
+        }
+      },
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "automatic_payment_methods": {
+        "allow_redirects": "always",
+        "enabled": true
+      },
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "client_secret": "pi_3P2SeLGO2Nlvl2w31IED2Gqb_secret_oKi1hkvCz4nqKTo0BP4er45Wz",
+      "confirmation_method": "automatic",
+      "created": 1712384569,
+      "currency": "cad",
+      "customer": null,
+      "description": null,
+      "invoice": null,
+      "last_payment_error": null,
+      "latest_charge": null,
+      "livemode": false,
+      "metadata": {
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_configuration_details": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "mandate_options": null,
+          "network": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "processing": null,
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    }
+  },
+  "livemode": false,
+  "pending_webhooks": 3,
+  "request": {
+    "id": "req_jlAL7yHjOVVxDb",
+    "idempotency_key": "e669dd3c-fa1b-4316-aede-6ae3d57d7bc2"
+  },
+  "type": "payment_intent.created"
+}
+                            [1] => t=1712384569,v1=ce42a3224e3fc9e45ee105241e0318c5dc267c5cf506750243bb35c707e1008a,v0=1482509d84236f599c200e9e5d352a9e5fa73ffff3684ac94e9d9c8be93bdf3e
+                            [2] => whsec_iVwxuK2dqJ0rYlk9W2WP12XcaYWMVZPq
+                        )
+
+                )
+
+            [3] => Array
+                (
+                    [file] => C:\xampp\xampp\htdocs\1pix_app\index.php
+                    [line] => 29
+                    [function] => index
+                    [class] => Controllers\Api\Stripe_payment_webhook
+                    [type] => ->
+                    [args] => Array
+                        (
+                        )
+
+                )
+
+        )
+
+    [previous:Exception:private] => 
+    [httpBody:protected] => {
+  "id": "evt_3P2SeLGO2Nlvl2w31kRaPb9V",
+  "object": "event",
+  "api_version": "2023-10-16",
+  "created": 1712384569,
+  "data": {
+    "object": {
+      "id": "pi_3P2SeLGO2Nlvl2w31IED2Gqb",
+      "object": "payment_intent",
+      "amount": 1000,
+      "amount_capturable": 0,
+      "amount_details": {
+        "tip": {
+        }
+      },
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "automatic_payment_methods": {
+        "allow_redirects": "always",
+        "enabled": true
+      },
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "client_secret": "pi_3P2SeLGO2Nlvl2w31IED2Gqb_secret_oKi1hkvCz4nqKTo0BP4er45Wz",
+      "confirmation_method": "automatic",
+      "created": 1712384569,
+      "currency": "cad",
+      "customer": null,
+      "description": null,
+      "invoice": null,
+      "last_payment_error": null,
+      "latest_charge": null,
+      "livemode": false,
+      "metadata": {
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_configuration_details": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "mandate_options": null,
+          "network": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "processing": null,
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    }
+  },
+  "livemode": false,
+  "pending_webhooks": 3,
+  "request": {
+    "id": "req_jlAL7yHjOVVxDb",
+    "idempotency_key": "e669dd3c-fa1b-4316-aede-6ae3d57d7bc2"
+  },
+  "type": "payment_intent.created"
+}
+    [sigHeader:protected] => t=1712384569,v1=ce42a3224e3fc9e45ee105241e0318c5dc267c5cf506750243bb35c707e1008a,v0=1482509d84236f599c200e9e5d352a9e5fa73ffff3684ac94e9d9c8be93bdf3e
+)
+
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------

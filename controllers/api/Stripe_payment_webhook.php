@@ -21,30 +21,72 @@ class Stripe_payment_webhook extends Controller
     $stripeSecretKey = Secret::keys('STRIPE_API_KEY');
     $stripe = new \Stripe\StripeClient($stripeSecretKey);
 
-    // This is your Stripe CLI webhook secret for testing your endpoint locally.
-    $endpoint_secret = 'whsec_6fa8dc72fd0596811364a7ce129abc61a3cfc5e2cb13cfd7cb49bada848bb236';
+    // Replace the below endpoint secret with your endpoint's unique secret
+    // If you are testing with the CLI, find the secret by running 'stripe listen'
+    // If you are using an endpoint defined with the API or dashboard, look in your webhook settings
+    // at https://dashboard.stripe.com/webhooks
+
+    // // This is your Stripe CLI webhook secret for testing your endpoint locally.
+    // $endpoint_secret = 'whsec_6fa8dc72fd0596811364a7ce129abc61a3cfc5e2cb13cfd7cb49bada848bb236';
+
+    // The live webhook secret.
+    $endpoint_secret = 'whsec_iVwxuK2dqJ0rYlk9W2WP12XcaYWMVZPq';
+
 
     $payload = @file_get_contents('php://input');
-    $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
     $event = null;
 
     try {
-      $event = \Stripe\Webhook::constructEvent(
-        $payload, $sig_header, $endpoint_secret
+      $event = \Stripe\Event::constructFrom(
+        json_decode($payload, true)
       );
     } catch(\UnexpectedValueException $e) {
       Utils::dbug('Invalid payload:');
       Utils::dbug($e);
       // Invalid payload
-      http_response_code(400);
-      exit();
-    } catch(\Stripe\Exception\SignatureVerificationException $e) {
-      Utils::dbug('Invalid signature:');
-      Utils::dbug($e);
-      // Invalid signature
+      echo '⚠️  Webhook error while parsing basic request.';
       http_response_code(400);
       exit();
     }
+    if ($endpoint_secret) {
+      // Only verify the event if there is an endpoint secret defined
+      // Otherwise use the basic decoded event
+      $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+      try {
+        $event = \Stripe\Webhook::constructEvent(
+          $payload, $sig_header, $endpoint_secret
+        );
+      } catch(\Stripe\Exception\SignatureVerificationException $e) {
+        Utils::dbug('Invalid signature:');
+        Utils::dbug($e);
+        // Invalid signature
+        echo '⚠️  Webhook error while validating signature.';
+        http_response_code(400);
+        exit();
+      }
+    }
+
+    // $payload = @file_get_contents('php://input');
+    // // $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+    // $event = null;
+
+    // try {
+    //   $event = \Stripe\Webhook::constructEvent(
+    //     $payload, $sig_header, $endpoint_secret
+    //   );
+    // } catch(\UnexpectedValueException $e) {
+    //   Utils::dbug('Invalid payload:');
+    //   Utils::dbug($e);
+    //   // Invalid payload
+    //   http_response_code(400);
+    //   exit();
+    // } catch(\Stripe\Exception\SignatureVerificationException $e) {
+    //   Utils::dbug('Invalid signature:');
+    //   Utils::dbug($e);
+    //   // Invalid signature
+    //   http_response_code(400);
+    //   exit();
+    // }
 
     try {
       // Handle the event
@@ -67,6 +109,11 @@ class Stripe_payment_webhook extends Controller
           $paymentIntent = $event->data->object;
         case 'payment_intent.requires_action':
           $paymentIntent = $event->data->object;
+        case 'payment_method.attached':
+          $paymentMethod = $event->data->object; // contains a \Stripe\PaymentMethod
+          // Then define and call a method to handle the successful attachment of a PaymentMethod.
+          // handlePaymentMethodAttached($paymentMethod);
+          break;
         case 'payment_intent.succeeded':
           Utils::dbug("entering - payment_intent.succeeded");
           $paymentIntent = $event->data->object;
@@ -136,7 +183,7 @@ class Stripe_payment_webhook extends Controller
 
           Send_email::send($transaction['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
           //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
-
+          break;
         case 'charge.succeeded':
           // old stripe event, ignore this one
         default:
