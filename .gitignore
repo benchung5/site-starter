@@ -4,7 +4,6 @@ src/src/js/app/secret.js
 vendor
 uploads
 composer.phar
-log
 .htaccess
 lib/Db.php
 secret.txt

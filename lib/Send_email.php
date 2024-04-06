@@ -28,7 +28,7 @@ class Send_email
 
 			if(strlen($error_message) > 0) {
 				echo "Message could not be sent. Mailer Error: {$error_message}";
-				Utils::dbug($error_message);
+				//Utils::dbug($error_message);
 				die();
 			}
 
@@ -113,7 +113,7 @@ class Send_email
 			if (!$mail->send()) {
 			    //$output = json_encode(array('type'=>'error', 'text' => '<b>'.$from.'</b> is invalid.'));
 			    $output = json_encode(array('type'=>'error', 'text' => 'Server error. Please mail info@nature.com'));
-			    Utils::dbug('did not send');
+			    //Utils::dbug('did not send');
 			} else {
 			    $output = json_encode(array('type'=>'message', 'text' => 'Email sent successfully.'));
 			}
@@ -121,7 +121,7 @@ class Send_email
 
 		} catch (Exception $e) {
 			echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-			Utils::dbug($mail->ErrorInfo);
+			//Utils::dbug($mail->ErrorInfo);
 			die();
 		}
 	}
