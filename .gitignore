@@ -3,6 +3,7 @@ src/npm-debug.log
 src/src/js/app/secret.js
 vendor
 uploads
+log
 composer.phar
 .htaccess
 lib/Db.php

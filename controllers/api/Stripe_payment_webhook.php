@@ -41,8 +41,8 @@ class Stripe_payment_webhook extends Controller
         json_decode($payload, true)
       );
     } catch(\UnexpectedValueException $e) {
-      Utils::dbug('Invalid payload:');
-      Utils::dbug($e);
+      // Utils::dbug('Invalid payload:');
+      // Utils::dbug($e);
       // Invalid payload
       echo '⚠️  Webhook error while parsing basic request.';
       http_response_code(400);
@@ -57,8 +57,8 @@ class Stripe_payment_webhook extends Controller
           $payload, $sig_header, $endpoint_secret
         );
       } catch(\Stripe\Exception\SignatureVerificationException $e) {
-        Utils::dbug('Invalid signature:');
-        Utils::dbug($e);
+        // Utils::dbug('Invalid signature:');
+        // Utils::dbug($e);
         // Invalid signature
         echo '⚠️  Webhook error while validating signature.';
         http_response_code(400);
@@ -115,7 +115,7 @@ class Stripe_payment_webhook extends Controller
           // handlePaymentMethodAttached($paymentMethod);
           break;
         case 'payment_intent.succeeded':
-          Utils::dbug("entering - payment_intent.succeeded");
+          // Utils::dbug("entering - payment_intent.succeeded");
           $paymentIntent = $event->data->object;
 
           $metadata = $paymentIntent->metadata->toArray();
@@ -176,10 +176,10 @@ class Stripe_payment_webhook extends Controller
 
           $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>289-697-8873";
 
-          Utils::dbug($paymentIntent);
-          Utils::dbug($metadata);
-          Utils::dbug($order_id);
-          Utils::dbug($email_body);
+          // Utils::dbug($paymentIntent);
+          // Utils::dbug($metadata);
+          // Utils::dbug($order_id);
+          // Utils::dbug($email_body);
 
           Send_email::send($transaction['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
           //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
