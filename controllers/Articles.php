@@ -13,7 +13,7 @@ class Articles extends Controller
 
 	public function index() 
 	{
-		$this->render('articles', null, 'Articles', 'Search articles on northern native and medicinal plants. Topics include medicinal plants, native plants, sustainable landscapes, and plant science.');
+		$this->render('articles', null, 'Articles', 'Search articles on northern native plants and wildfowers. Topics include medicinal plants, native plants, sustainable landscapes, and plant science.');
 
 		$this->load_script('mainArticles.js');
 	}

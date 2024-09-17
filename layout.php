@@ -40,7 +40,7 @@ use Lib\Meta;
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="naturewithus.com">
   <meta property="og:title" content="<?php echo $page_title ?:  SITE_TITLE; ?>">
-  <meta property="og:description" content="<?php echo $page_description ?: 'St. Cathatharines tree & shrub service'; ?>">
+  <meta property="og:description" content="<?php echo $page_description ?: SITE_DESCRIPTION; ?>">
 <!--   <meta property="og:image" content=""> -->
   
   <!-- Favicons -->

@@ -41,7 +41,7 @@ use Lib\Meta;
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="naturewithus.com">
   <meta property="og:title" content="<?php echo $page_title ?:  SITE_TITLE; ?>">
-  <meta property="og:description" content="<?php echo $page_description ?: 'Northern Wild Seeds. We provide northern seeds and seedlings of native plants and medicinal plants for home owners and restoration projects'; ?>">
+  <meta property="og:description" content="<?php echo $page_description ?: SITE_DESCRIPTION; ?>">
 <!--   <meta property="og:image" content=""> -->
   
   <!-- Favicon (place files in root) -->

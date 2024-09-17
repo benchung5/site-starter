@@ -82,14 +82,14 @@ module.exports = {
          // DEV_SERVER_SCRIPT: JSON.stringify('dev-server-script')
        }
     }),
-    new HtmlWebpackPlugin({
-      //the template file to use (two steps out of the bundle directory)
-      template: './layout-template.php',
-      //the output file to write to
-      filename: '../../layout.php',
-      inject: 'dev-server-script',
-      // environment: process.env.DEV_SERVER_SCRIPT
-    }),
+    // new HtmlWebpackPlugin({
+    //   //the template file to use (two steps out of the bundle directory)
+    //   template: './layout-template.php',
+    //   //the output file to write to
+    //   filename: '../../layout.php',
+    //   inject: 'dev-server-script',
+    //   // environment: process.env.DEV_SERVER_SCRIPT
+    // }),
     new webpack.ProvidePlugin({
       //for promises to work for ie11
       Promise: 'es6-promise-promise', // works as expected

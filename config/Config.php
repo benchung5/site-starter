@@ -19,8 +19,8 @@ class Config
 	public static function define_constants()
 	{
 		/*site title*/
-		define('SITE_TITLE', 'Nature With Us');
-		define('SITE_DESCRIPTION', 'Northern Wild Seeds. We provide northern seeds and seedlings of native plants and medicinal plants for home owners and restoration projects');
+		define('SITE_TITLE', 'Northern Wild Seeds | Nature With Us');
+		define('SITE_DESCRIPTION', 'Order native tree, plant, and wildflower seeds + seedlings. Located in northern BC, we sell online to wild plant enthusiasts and restoration companies.');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

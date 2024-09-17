@@ -115,12 +115,12 @@ module.exports = {
        }
     }),
 
-    new HtmlWebpackPlugin({
-      //the template file to use (two steps out of the bundle directory)
-      template: './layout-template.php',
-      //the output file to write to
-      filename: '../../layout.php',
-    }),
+    // new HtmlWebpackPlugin({
+    //   //the template file to use (two steps out of the bundle directory)
+    //   template: './layout-template.php',
+    //   //the output file to write to
+    //   filename: '../../layout.php',
+    // }),
     // new webpack.optimize.UglifyJsPlugin({  // replaced by optimization: minimize
     //     compress: {
     //         warnings: false,
