@@ -214,6 +214,9 @@ class Upload
 		$result['tmp_name'] = $target;
 
 		// move and overrite if exists
+		Utils::dbug(exec('whoami'));
+		Utils::dbug($temp_name);
+		Utils::dbug($target);
 		$ok = move_uploaded_file($temp_name, $target);
 		//$ok = @move_uploaded_file($result['tmp_name'], $target);
 

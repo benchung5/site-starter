@@ -67,7 +67,7 @@ use Lib\Uri;
 								        <div id="tab-two-panel" class="panel">
 					        	<?php
 				        			if ($view_data['tree']->seed_prod_count[0]->seeds) {
-			        					$seeds_pack = $view_data['tree']->seeds_packet ? Utils::sanitize($view_data['tree']->seeds_packet) : 'Coming soon...';
+			        					$seeds_pack = $view_data['tree']->seeds_packet ? Utils::sanitize($view_data['tree']->seeds_packet . '+') : 'Coming soon...';
 
 				        				$seeds_gram = $view_data['tree']->seeds_gram ? Utils::sanitize($view_data['tree']->seeds_gram) : 'Coming soon...';
 
@@ -204,19 +204,6 @@ use Lib\Uri;
 									echo '<div class="title">Natural habitat</div>';
 									echo '<div class="info">';
 									echo Utils::sanitize(implode(', ', $natural_habitats));
-									echo '</div>';
-								}
-								?>
-
-								<?php
-								$shapes = [];
-								if ($view_data['tree']->shapes) {
-									foreach ($view_data['tree']->shapes as $shape) {
-										$shapes[] = $shape->name;
-									}
-									echo '<div class="title">Shapes</div>';
-									echo '<div class="info">';
-									echo Utils::sanitize(implode(', ', $shapes));
 									echo '</div>';
 								}
 								?>
