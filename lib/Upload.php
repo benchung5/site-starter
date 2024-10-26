@@ -11,7 +11,7 @@ class Upload
 		// parent::__construct();
 	}
 
-	public function remove($ref_type, $uploads) 
+	public static function remove($ref_type, $uploads) 
 	{
 		//remove the actual uploaded files
 		if (! empty($uploads)) {
