@@ -56,45 +56,51 @@ var MainSourceProducts = {
 			`);
 		let plantEl = plantContainerEl.querySelector('#plants');
 
-		productListStore.storageData.products.map((item) => {
-			let createProd = (elem, item) => {
-				let priceOrMessage = formatPrice(item.price);
-				let inputOrNotify = null;
+		if(productListStore.storageData.products.length) {
+			productListStore.storageData.products.map((item) => {
+				let createProd = (elem, item) => {
+					let priceOrMessage = formatPrice(item.price);
+					let inputOrNotify = null;
 
-				if((item.amount_available > 0) && (!item.status)) {
-					let inputPlusMinus = InputPlusMinus.init({
-						inputName: item.id,
-						maxValue: item.amount_available,
-						minValue: 0
-					});
-					inputOrNotify = inputPlusMinus.el
-				} else {
-					inputOrNotify = this.createEl(`<a data-${item.id} class="btn-secondary">Notify Me</a>`);
-					inputOrNotify.addEventListener('click', this.onNotifyMeClick.bind(this, item));
-					if (item.status) {
-						priceOrMessage = item.status;
+					if((item.amount_available > 0) && (!item.status)) {
+						let inputPlusMinus = InputPlusMinus.init({
+							inputName: item.id,
+							maxValue: item.amount_available,
+							minValue: 0
+						});
+						inputOrNotify = inputPlusMinus.el
 					} else {
-						priceOrMessage = 'Out of Stock';
+						inputOrNotify = this.createEl(`<a data-${item.id} class="btn-secondary">Notify Me</a>`);
+						inputOrNotify.addEventListener('click', this.onNotifyMeClick.bind(this, item));
+						if (item.status) {
+							priceOrMessage = item.status;
+						} else {
+							priceOrMessage = 'Out of Stock';
+						}
 					}
+
+					let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>
+						<div class="prod-price">${priceOrMessage}</div><div class="prod-quantity"></div></div>`);
+					let productQuantity = product.querySelector('.prod-quantity');
+					productQuantity.appendChild(inputOrNotify);
+					
+					elem.appendChild(product);
+				}
+				if(item.productTypeName == 'Seeds') {
+					createProd(seedEl, item);
+					this.sourceProductList.appendChild(seedContainerEl);
+				}
+				if(item.productTypeName == 'Plants') {
+					createProd(plantEl, item);
+					this.sourceProductList.appendChild(plantContainerEl);
 				}
 
-				let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>
-					<div class="prod-price">${priceOrMessage}</div><div class="prod-quantity"></div></div>`);
-				let productQuantity = product.querySelector('.prod-quantity');
-				productQuantity.appendChild(inputOrNotify);
-				
-				elem.appendChild(product);
-			}
-			if(item.productTypeName == 'Seeds') {
-				createProd(seedEl, item);
-				this.sourceProductList.appendChild(seedContainerEl);
-			}
-			if(item.productTypeName == 'Plants') {
-				createProd(plantEl, item);
-				this.sourceProductList.appendChild(plantContainerEl);
-			}
+			});
+			//create submit button
+			let submitButton = this.createEl(`<button action="submit" class="btn btn-primary">Add To Cart</button>`)
+			this.el.appendChild(submitButton);
+		}
 
-		});
 		this.loader.isLoading(false);
 	},
 	onNotifyMeClick: function(item) {
@@ -131,7 +137,6 @@ var MainSourceProducts = {
 			<form>
 				<div class="source-product-list">
 				</div>
-				<button action="submit" class="btn btn-primary">Add To Cart</button>
 			</form>
 			`
 		});

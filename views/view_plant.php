@@ -333,11 +333,19 @@ use Lib\Uri;
 	</div><!-- /content wrapper -->
 
 	<!-- insert the current tree id into javascript variable -->
-	<script>(function() { 
+	<script>(function() {
 		localStorage.setItem('currentPlantId', <?php echo $view_data['tree']->id; ?>); 
-		localStorage.setItem('currentPlantImage', '<?php echo $view_data['tree']->images[0]->name ?>');
+		localStorage.setItem('currentPlantImage', '<?php echo isset($view_data['tree']->images[0]) ? $view_data['tree']->images[0]->name : '' ?>');
 		localStorage.setItem('currentPlantCommonName', '<?= Utils::sanitize($view_data['tree']->common_name) ?>');
-		localStorage.setItem('currentPlantBotanicalName', '<?= Utils::sanitize($view_data['tree']->family_genus->genus_name) .' '. Utils::sanitize($view_data['tree']->specific_epithet); if($view_data['tree']->subspecies) {echo '&nbsp;subsp.&nbsp;'; echo Utils::sanitize($view_data['tree']->subspecies);}?>');
+		
+		localStorage.setItem('currentPlantBotanicalName', '<?php
+			if(isset($view_data['tree']->family_genus->genus_name))
+				{echo Utils::sanitize($view_data['tree']->family_genus->genus_name);} 
+			if(isset($view_data['tree']->specific_epithet))
+				{echo Utils::sanitize($view_data['tree']->specific_epithet);}
+			if(isset($view_data['tree']->subspecies))
+				{echo '&nbsp;subsp.&nbsp;' . Utils::sanitize($view_data['tree']->subspecies);} 
+		?>');
 		localStorage.setItem('currentPlantUrl', '<?php Uri::get_current_url() ?>');
 	})();</script>
 
