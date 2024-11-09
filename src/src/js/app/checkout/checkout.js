@@ -87,8 +87,8 @@ var { STRIPE_PUBLISHABLE_KEY } = require('../secret')[env];
       if (hash == 25465) {
         let testCart = [{
                   "id": "111",
-                  "productTypeName": "Seeds",
-                  "productTypeVariationName": "Packet",
+                  "productTypeName": "Plants",
+                  "productTypeVariationName": "3 Pack",
                   "price": "50",
                   "amount_available": "1",
                   "status": null,

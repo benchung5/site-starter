@@ -22,7 +22,6 @@ var CustomerInfo = {
 	},
 	addressElementChanged: function(e) {
 		let cart = JSON.parse(localStorage.getItem('cart')) || [];
-		console.log(cart);
 		if (e.complete) {
       		// // Extract potentially complete address
       		// if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {

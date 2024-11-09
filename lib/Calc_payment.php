@@ -48,7 +48,7 @@ class Calc_payment
 		}
 
 		if (($order['address']['state'] == 'QC')) {
-			$tax = $total * 14.975;
+			$tax = $total * 0.14975;
 		}
 
 		if (($order['address']['state'] == 'ON')) {
