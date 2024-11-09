@@ -375,7 +375,7 @@ label {
 }
 
 .view .body-area .media-center {
-  background-color: #fff;
+  background-color: #eff2f4;
   display: flex;
   justify-content: center;
   margin-bottom: 2em;
@@ -3428,7 +3428,7 @@ fooslider
   @include v-align-absolute(1.5em);
   padding-right: 1em;
   padding-left: 1em;
-  opacity: 50%;
+  opacity: 0.5;
 }
 
 .fs-prev, 
