@@ -132,7 +132,7 @@ use Lib\Uri;
 								        </div>
 								        <div id="tab-four-panel" class="panel">
 								            <h3>Shipping</h3>
-								            <p>We currently ship within the provinces of British Columbia and Alberta, and it usually takes 2-5 business days in the mail once shipped. Seeds ship year-round. Plants are generally available from May to September and can be reserved during off season; Shipping costs are calculated during checkout. <b>Seed orders over $100 ship free!</b> See <a href="/shipping">Shipping</a> for more details.
+								            <p>We currently ship seeds to all Canadian provinces and ship plants just within the provinces of British Columbia and Alberta. Seeds ship year-round and usually take a few days (or longer if you are ordering from a distant province). It usually takes 2-5 business days in the mail for plant orders once shipped. Plants are generally available from May to September and can be reserved during off season; Shipping costs are calculated during checkout. <b>Seed orders over $100 ship free!</b> See <a href="/shipping">Shipping</a> for more details.
 								            </p>
 								        </div>
 								    </div>

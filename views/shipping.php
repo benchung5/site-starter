@@ -24,10 +24,10 @@
 						<p>Seeds are held in individual seed envelopes in a ziplock bag, or just in a ziplock bag for larger orders. They're then shipped in boxes or envelopes. Plants are individually wrapped in shrink-wrap and wrapped together in bundles. The bundles are then wrapped with cardstock to prevent shifting then placed in boxes for shipping. Seeds may ship together with plants in combination.</p>
 
 						<h2>How Long Does Shipping Take</h2>
-						<p>Timming can vary depending on the weather and your location, but plants and seeds usually arrive within 2 to 5 business days. On checkout, you'll be able to see an estimated time of arrival for your items.</p>
+						<p>Timming can vary depending on the weather and your location, but plants usually arrive within 2 to 5 business days, and seeds in similar time (longer if shipped to a distant province). On checkout, you'll be able to see an estimated time of arrival for your items.</p>
 
 						<h2>Where do you Ship To</h2>
-						<p>We only ship within <b>BC or Alberta</b> in Canada at the moment. We do this to make sure plants arrive in a timely manner and to reduce shipping costs for customers.</p>
+						<p>We ship seeds to all Canadian provinces. Plants ship only within <b>BC or Alberta</b> in Canada at the moment. We do this to make sure plants arrive in a timely manner and to reduce shipping costs for customers. If you have an order of both plants and seeds, the shipping address must be withing BC or Alberta.</p>
 
 						<h2>Is On-Site Pick Up Possible</h2>
 						<p>We are primarily an online nursery, but we welcome pickup by appointment for orders of at least $50. To arrange for pickup, simply use our online shopping cart to pick your items, then on checkout, choose the option "I'd like to pick up my order instead" and fill out the contact form to arrange for a time. Or you can simply <a href="/contact">contact us</a> by phone or email to see what we have and make arrangements.</p>

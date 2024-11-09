@@ -21,20 +21,45 @@ var CustomerInfo = {
 		this.checkAllComplete();
 	},
 	addressElementChanged: function(e) {
+		let cart = JSON.parse(localStorage.getItem('cart')) || [];
+		console.log(cart);
 		if (e.complete) {
-      		// Extract potentially complete address
-      		if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
-      			this.setState({ address: e.value.address });
+      		// // Extract potentially complete address
+      		// if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
+      		// 	this.setState({ address: e.value.address });
       			
+      		// } else {
+      		// 	this.message("Sorry, we only ship plants and seeds to BC or Alberta");
+      		// 	this.setState({ address: null });
+      		// }
+
+			// if plants are in order, just allow shipping to BC or Alberta
+      		let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      		let isPlantOrder = false;
+      		cart.map((item) => {
+      		    if(item.productTypeName == 'Plants') {
+      		      isPlantOrder = true;
+      		    }
+      		});
+      		console.log(isPlantOrder);
+
+      		if(isPlantOrder) {
+      			// Extract potentially complete address
+      			if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
+      				this.setState({ address: e.value.address });
+      				
+      			} else {
+      				this.message("Sorry, we only ship plants and seeds to BC or Alberta");
+      				this.setState({ address: null });
+      			}
       		} else {
-      			this.message("Sorry, we only ship plants and seeds to BC or Alberta");
-      			this.setState({ address: null });
+      			this.setState({ address: e.value.address });
       		}
 		} else {
 			this.setState({ address: null });
 		}
 
-		this.checkAllComplete();
+		this.checkAllComplete(); 
 	},
 	checkAllComplete: function() {
 		if (this.state.address && this.state.email) {

@@ -47,12 +47,28 @@ class Calc_payment
 			$total = $subtotal + $total;
 		}
 
-		if ($order['address']['state'] == 'BC') {
+		if (($order['address']['state'] == 'QC')) {
+			$tax = $total * 14.975;
+		}
+
+		if (($order['address']['state'] == 'ON')) {
+			$tax = $total * 0.13;
+		}
+
+		if (($order['address']['state'] == 'SK')) {
+			$tax = $total * 0.11;
+		}
+
+		if (($order['address']['state'] == 'BC') || ($order['address']['state'] == 'MB')) {
 			$tax = $total * 0.12;
 		}
 
-		if ($order['address']['state'] == 'AB') {
+		if (($order['address']['state'] == 'AB') || ($order['address']['state'] == 'NT') || ($order['address']['state'] == 'NU') || ($order['address']['state'] == 'YT')) {
 			$tax = $total * 0.05;
+		}
+
+		if (($order['address']['state'] == 'NB') || ($order['address']['state'] == 'NL') || ($order['address']['state'] == 'NS') || ($order['address']['state'] == 'PE')) {
+			$tax = $total * 0.15;
 		}
 
 		return $tax;
