@@ -48,7 +48,7 @@ var CustomerInfo = {
       				this.setState({ address: e.value.address });
       				
       			} else {
-      				this.message("Sorry, we only ship plants and seeds to BC or Alberta");
+      				this.message("Sorry, we only ship plants to BC or Alberta");
       				this.setState({ address: null });
       			}
       		} else {

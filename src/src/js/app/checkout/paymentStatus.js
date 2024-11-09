@@ -15,6 +15,7 @@ var PaymentStatus = {
 					<p>
 						<b>We appreciate your business!</b><br>
 						A confirmation will be sent to your email address.<br>
+						*If you don't receive one, please check your junkmail inbox.<br>
 					</p>
 					<p>
 						<b>Package will be shipped to:</b><br>

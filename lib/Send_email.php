@@ -37,7 +37,7 @@ class Send_email
 			// https://console.cloud.google.com/apis/credentials/oauthclient/
 			$mail = new PHPMailer();
 
-			$name = 'customer name';
+			$from_name = 'Nature With Us';
 
 			$mail = new PHPMailer(true);
 
@@ -96,11 +96,15 @@ class Send_email
 			        )
 			    );
 
-			// Recipients
-			$mail->setFrom($email_from, $name);
-			$mail->addReplyTo($email_to, $name);
+			// set from
+			$mail->setFrom($email_from, $from_name);
+			$mail->addReplyTo($email_from, $from_name);
 
+			// add receipments:
+			//one to customer
 			$mail->addAddress($email_to, $email_to);
+			//one to company
+			$mail->addAddress($email_from, $from_name);
 
 			$mail->Subject = $subject;
 
@@ -108,7 +112,7 @@ class Send_email
 			$mail->msgHTML($message);
 
 			//Replace the plain text body with one created manually
-			$mail->AltBody = 'This is a plain-text message body';
+			$mail->AltBody = 'This is your intended order confirmation email. It appears your email client does not support HTML email. Please email info@naturewithus.com if you would like to see your order confirmation details.';
 
 			if (!$mail->send()) {
 			    //$output = json_encode(array('type'=>'error', 'text' => '<b>'.$from.'</b> is invalid.'));
