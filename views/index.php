@@ -11,8 +11,8 @@ $this->insert('featured', $view_data );
                     <div class="center content-container">
                         <h1>Northern Restoration Seeds and Seedlings</h1>
                         <p>We provide northern <span style="color: #e0e003;">native, naturalized, medicinal</span> seeds and seedlings for naturalists, restoration projects, and wild plant enthusiasts.
-                            
                         </p>
+                        <p style="color: red;">Please note: The recent Canada Post strike may cause order delivery delays. We're sorry for the inconvience.</p>
                         <a class="button-action transparent" href="/plants#?native_to=western-north-america">View Seeds & Plants</a>
                     </div>
                 </div>
