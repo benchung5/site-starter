@@ -149,6 +149,7 @@ var CustomerInfo = {
 			el: 
 			`<div class="inner">
 				<h2>Customer Info</h2>
+				<p style="color: red;">Please note: The recent Canada Post strike may cause order delivery delays. We're sorry for the inconvience.</p>
 				<div id="link-authentication-element">
 				  <!-- Stripe.js injects link authentication element-->
 				</div>
