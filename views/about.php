@@ -8,7 +8,7 @@ use Lib\Utils;
 
 <div class="site-wrapper">
 	<div class="content-wrapper view">
-		<section id="about-hero">
+		<section id="page-hero">
 		    <div class="row">
 		        <div class="small-12 large-7 columns">
 		            <div class="left">

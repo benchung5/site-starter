@@ -133,8 +133,9 @@ class Stripe_payment_webhook extends Controller
           $transaction['line2'] = $paymentIntent->shipping->address->line2;
           $transaction['postal_code'] = $paymentIntent->shipping->address->postal_code;
           $transaction['state'] = $paymentIntent->shipping->address->state;
-          $transaction['tax'] = $metadata['tax'];
+          $transaction['subtotal'] = $metadata['subtotal'];
           $transaction['shipping'] = $metadata['shipping'];
+          $transaction['tax'] = $metadata['tax'];
           $transaction['created'] = $paymentIntent->created;
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
@@ -154,6 +155,7 @@ class Stripe_payment_webhook extends Controller
           $shipping = number_format(($metadata['shipping']/100), 2);
 
           $email_body = 'Thank you for your business! Below are your order details...<br><br>'.
+          'customer name: ' . $transaction['name'].'<br>'.
           'customer email: ' . $transaction['email'].'<br>'.
           '<b>order# ' . $order_id.'</b><br><br>';
           
@@ -162,19 +164,23 @@ class Stripe_payment_webhook extends Controller
               $email_body .= $product->commonName.' - '.$product->productTypeName.' ('.$product->productTypeVariationName.') x '.$product->quantity.'<br>--------------------------------------------<br>';
           }
 
-          $email_body .= '<br>tax: $'.$tax.'<br>'.
+          $email_body .= 'subtotal: $'.$subtotal.'<br>'.
           'shipping: $'.$shipping.'<br>'.
+          '<br>tax: $'.$tax.'<br>'.
           '<b>total: $'.$amount.'</b><br><br>'.
-          '<b>shipping address:</b><br>'.$transaction['line1'].'<br>';
+          '<b>shipping address:</b>'.
+          $transaction['name'].'<br>'.
+          $transaction['line1'].'<br>';
 
           if ($transaction['line2']) {
             $email_body .= $transaction['line2'].'<br>';
           }
 
-          $email_body .= $transaction['postal_code'].'<br>'.
-          $transaction['state'].'<br><br>';
+          $email_body .= $transaction['city'].'<br>'.
+          $transaction['state'].'<br>'.
+          $transaction['postal_code'].'<br><br>';
 
-          $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>289-697-8873";
+          $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>250-981-1324";
 
           // Utils::dbug($paymentIntent);
           // Utils::dbug($metadata);

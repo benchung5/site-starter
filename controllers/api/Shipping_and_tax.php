@@ -53,6 +53,7 @@ class Shipping_and_tax extends Controller
 			$metadata = [
 					  		'customer_message' => $data['order']['message'],
 					  		'products' => $products,
+					  		'subtotal' => $subtotal,
 					  		'shipping' => $shipping_cost,
 					  		'tax' => $tax,
 					  		// 'email' => $data['order']['email'],

@@ -41,7 +41,7 @@ use Lib\Utils;
 	                        </div>
 	                        <div class="icon-with-text phone">
 	                            <div class="icon"></div>
-	                            Call Us: 289-697-8873
+	                            Call Us: 250-981-1324
 	                        </div>
                         </div>
 					</div>

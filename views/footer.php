@@ -8,12 +8,12 @@
     </div> -->
     <div class="row footer-bottom">
         <div class="small-12 columns">
-            <div class="copywright padding-columns">© naturewithus.com&nbsp;2023.
+            <div class="copywright padding-columns">© naturewithus.com&nbsp;2025
             </div>
             <div class="contact-icons">
                 <div class="icon-with-text phone">
                     <div class="icon"></div>
-                    289-697-8873
+                    250-981-1324
                 </div>
             </div>
         </div>

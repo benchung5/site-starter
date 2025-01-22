@@ -48,13 +48,6 @@ mixins
   }
 }
 
-//foundation flex-video override
-.responsive-embed, .flex-video {
-    padding-bottom: 56.3%;
-    margin-bottom: 0;
-}
-
-
 /* ==========================================================================
 extends
 ========================================================================== */
@@ -620,69 +613,6 @@ for scroll trigger
     opacity: 1.0;
 }
 
-
-/* ==========================================================================
-parts
-========================================================================== */
-
-.button-action {
-  @extend %button-base;
-  font-size: 0.9em;
-  padding: 1em 3em;
-  letter-spacing: 0.01em;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  display: inline-block;
-  &:hover {
-    color: #e0e003;
-    background: #fff !important;
-    box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
-  }
-  &.transparent {
-    background: rgba(255, 255, 255, 0.3);
-    border: 2px solid #fff;
-  }
-  &.solid {
-    background: $pink;
-    border: 0 none;
-    &:hover {
-      color: #fff;
-      background: $pink !important;
-      box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
-    }
-  }
-}
-
-.socials {
-   display: flex;
-   &>*{
-    flex-shrink: 0;
-   }
-}
-
-.close-btn {
-  background: url(../img/icons/profile-close.svg) no-repeat;
-  width: 24px;
-  height: 24px;
-  position: fixed;
-  z-index: 10;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-}
-
-.logo {
-  background: url(../img/icons/aito-logo-colour.svg) no-repeat;
-  width: 91px;
-  height: 91px;
-}
-
-.logo-wide {
-  background: url(../img/icons/venture-logo.svg) no-repeat;
-  width: 150px;
-  height: 33px;
-}
-
 /* ==========================================================================
 page layout
 ========================================================================== */
@@ -775,7 +705,7 @@ body[data-checkout] {
 #header {
   background: #2f2a33;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
   .header-inner {
     display: flex;
     justify-content: space-between;
@@ -1227,20 +1157,16 @@ services
 about
 ========================================================================== */
 
-#about-hero {
+#page-hero {
   width: 100%;
-  min-height: 90vh;
+  min-height: 100vh;
   position: relative;
-  background-image: url(../img/about-bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 7em 2em 0;
+  background-image: url(../img/about-bg.jpg);
   .left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 3em;
+    margin-bottom: 6em;
     h1, h2, p {
       color: #fff;
     }
@@ -1265,6 +1191,7 @@ about
     h2 {
       font-size: 2em;
       font-family: $secondary-title-font;
+      font-weight: 600;
       max-width: 250px;
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
       @media (min-width: $hero-small) {
@@ -1279,9 +1206,8 @@ about
       text-shadow: 0 2px 2px rgba(0,0,0,0.4);
       max-width: 800px;
     }
-    @include breakpoint(large up) {
-     text-align: left;
-     align-items: flex-start;
+    @include breakpoint(medium down) {
+     text-align: center;
     }
     @include breakpoint(xlarge down) {
      background-image: url(../img/about-bg-sml.jpg);
@@ -1820,7 +1746,6 @@ gallery
 ========================================================================== */
 
 footer {
-
   background-color: #2f2a33;
   color: #ddd;
   padding: 2em; 
@@ -1843,9 +1768,19 @@ footer {
           text-transform: uppercase;
           max-width: 50%;
           overflow-wrap: break-word;
+          @include breakpoint(medium down) {
+            max-width: 100%;
+          }
       }
       .contact-icons {
         max-width: 50%;
+        @include breakpoint(medium down) {
+          max-width: 100%;
+        }
+      }
+      @include breakpoint(medium down) {
+        flex-direction: column;
+        align-items: center;
       }
     }
   }
@@ -2404,9 +2339,10 @@ internal loader
       height: 5rem;
       transform-origin: center center;
       .path {
+        stroke: #fff;
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
-        animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+        animation: dash 1.5s ease-in-out infinite;
         stroke-linecap: round;
         stroke-width: 3;
       }
@@ -2436,7 +2372,7 @@ internal loader
   }
 }
 
-@keyframes color {
+/*@keyframes color {
   100%,
   0% {
     stroke: $light-green;
@@ -2451,7 +2387,7 @@ internal loader
   90% {
     stroke: $light-green;
   }
-}
+}*/
 
 /* ==========================================================================
 loading button
@@ -2633,6 +2569,65 @@ parts
     border: 0 none;
   }
 }
+
+.button-action {
+  @extend %button-base;
+  font-size: 0.9em;
+  padding: 1em 3em;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  &:hover {
+    color: #e0e003;
+    background: #fff !important;
+    box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
+  }
+  &.transparent {
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid #fff;
+  }
+  &.solid {
+    background: $pink;
+    border: 0 none;
+    &:hover {
+      color: #fff;
+      background: $pink !important;
+      box-shadow: 0 10px 15px 0 rgba(0,0,0,0.10);
+    }
+  }
+}
+
+.socials {
+   display: flex;
+   &>*{
+    flex-shrink: 0;
+   }
+}
+
+.close-btn {
+  background: url(../img/icons/profile-close.svg) no-repeat;
+  width: 24px;
+  height: 24px;
+  position: fixed;
+  z-index: 10;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.logo {
+  background: url(../img/icons/aito-logo-colour.svg) no-repeat;
+  width: 91px;
+  height: 91px;
+}
+
+.logo-wide {
+  background: url(../img/icons/venture-logo.svg) no-repeat;
+  width: 150px;
+  height: 33px;
+}
+
 
 /* ==========================================================================
 map buttons

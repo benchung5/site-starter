@@ -72,10 +72,10 @@ var Loader = {
 		inst.initialize({
 			el: 
 			`
-			<div class="preload-wrapper" style="min-height: ${options.minHeight ? options.minHeight : 'auto'}">
-			  <div class="preload-internal" style="visibility: hidden; opacity: 0;">
+			<div class="preload-wrapper" style="min-height: ${options.minHeight ? options.minHeight : 'auto'};">
+			  <div class="preload-internal" style="visibility: hidden; opacity: 0; z-index: ${options.zIndex ? options.zIndex : '10'};">
 			    <svg class="circular" viewBox="25 25 50 50" style="width: ${options.size ? options.size : '5rem'}; height: ${options.size ? options.size : '5rem'};">
-			      <circle class="path" cx="50" cy="50" r="20" fill="none" strokeWidth="2" strokeMiterlimit="10"/>
+			      <circle class="path" cx="50" cy="50" r="20" style="stroke: ${options.color ? options.color : '#fff'};" fill="none" strokeWidth="2" strokeMiterlimit="10"/>
 			    </svg>
 			  </div>
 			</div> 
