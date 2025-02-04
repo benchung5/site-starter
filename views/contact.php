@@ -14,7 +14,7 @@
 					<div class="small-12 large-5 columns sidebar">
 		                <div class="icon-with-text phone">
 		                    <div class="icon"></div>
-		                    Call Us: 250-981-1324
+		                    Call us: 250-981-1324
 		                </div>
                         <div class="icon-with-text email">
                             <div class="icon"></div>

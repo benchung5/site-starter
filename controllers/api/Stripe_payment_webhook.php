@@ -66,28 +66,6 @@ class Stripe_payment_webhook extends Controller
       }
     }
 
-    // $payload = @file_get_contents('php://input');
-    // // $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
-    // $event = null;
-
-    // try {
-    //   $event = \Stripe\Webhook::constructEvent(
-    //     $payload, $sig_header, $endpoint_secret
-    //   );
-    // } catch(\UnexpectedValueException $e) {
-    //   Utils::dbug('Invalid payload:');
-    //   Utils::dbug($e);
-    //   // Invalid payload
-    //   http_response_code(400);
-    //   exit();
-    // } catch(\Stripe\Exception\SignatureVerificationException $e) {
-    //   Utils::dbug('Invalid signature:');
-    //   Utils::dbug($e);
-    //   // Invalid signature
-    //   http_response_code(400);
-    //   exit();
-    // }
-
     try {
       // Handle the event
       switch ($event->type) {
@@ -115,9 +93,8 @@ class Stripe_payment_webhook extends Controller
           // handlePaymentMethodAttached($paymentMethod);
           break;
         case 'payment_intent.succeeded':
-          // Utils::dbug("entering - payment_intent.succeeded");
+          //Utils::dbug("entering - payment_intent.succeeded");
           $paymentIntent = $event->data->object;
-
           $metadata = $paymentIntent->metadata->toArray();
 
           $transaction = [];
@@ -140,6 +117,7 @@ class Stripe_payment_webhook extends Controller
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
 
+
           $result = $this->temp_cart->get_products($paymentIntent->id);
           
           $transaction['products'] = json_encode($result->products);
@@ -151,6 +129,7 @@ class Stripe_payment_webhook extends Controller
 
           // //send customer confirmation email
           $amount = number_format(($transaction['amount']/100), 2);
+          $subtotal = number_format(($transaction['subtotal']/100), 2);
           $tax = number_format(($metadata['tax']/100), 2);
           $shipping = number_format(($metadata['shipping']/100), 2);
 
@@ -166,9 +145,9 @@ class Stripe_payment_webhook extends Controller
 
           $email_body .= 'subtotal: $'.$subtotal.'<br>'.
           'shipping: $'.$shipping.'<br>'.
-          '<br>tax: $'.$tax.'<br>'.
+          'tax: $'.$tax.'<br>'.
           '<b>total: $'.$amount.'</b><br><br>'.
-          '<b>shipping address:</b>'.
+          '<b>shipping address:</b><br>'.
           $transaction['name'].'<br>'.
           $transaction['line1'].'<br>';
 
@@ -176,16 +155,15 @@ class Stripe_payment_webhook extends Controller
             $email_body .= $transaction['line2'].'<br>';
           }
 
-          $email_body .= $transaction['city'].'<br>'.
-          $transaction['state'].'<br>'.
+          $email_body .= $transaction['city'].', '.$transaction['state'].'<br>'.
           $transaction['postal_code'].'<br><br>';
 
           $email_body .= "If you have any questions, please don't hesitate to contact us:<br>info@naturewithus.com<br>250-981-1324";
 
-          // Utils::dbug($paymentIntent);
-          // Utils::dbug($metadata);
-          // Utils::dbug($order_id);
-          // Utils::dbug($email_body);
+          // Utils::dbug("$paymentIntent: ", $paymentIntent);
+          // Utils::dbug("$metadata: ", $metadata);
+          // Utils::dbug("$order_id: ",$order_id);
+          // Utils::dbug("$email_body: ",$email_body);
 
           Send_email::send($transaction['email'], 'Your Order Confirmation - naturewithus.com', $email_body );
           //Send_email::send($paymentIntent->metadata->email, 'Your Order Confirmation - naturewithus.com', $email_body );
