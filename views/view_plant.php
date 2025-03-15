@@ -96,7 +96,7 @@ use Lib\Uri;
 	            		            	            	</tr>
 		            	            	            	<tr>
 		            	            		            	<th>Cost/Gram</th>
-		            	            		            	<td>' . $cost_gram . ' For bulk orders (min $20)</td>
+		            	            		            	<td>$' . $cost_gram . '</td>
 		            	            	            	</tr>
 				            			            	<tr>
 				            				            	<th>Dormancy Treatment</th>

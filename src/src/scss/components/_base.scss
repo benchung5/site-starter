@@ -250,7 +250,8 @@ body {
 }
 
 p {
-  overflow-wrap: break-word;
+/*  overflow-wrap: break-word;*/
+  overflow-wrap: anywhere;
 }
 
 a, a:link, a:visited, a:hover, a:active {
@@ -258,20 +259,13 @@ a, a:link, a:visited, a:hover, a:active {
     // color: #535353 !important;
 }
 
-.content-wrapper {
-  li {
-    margin-bottom: 1em;
-    padding-left: 0.5em;
-  }
-}
-
 h1 {
   @extend %primary-title;
 }
 
-h2, h3 {
+h2, h3, h4 {
   @extend %secondary-title;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 
 h4, h5 {

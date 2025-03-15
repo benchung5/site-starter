@@ -99,6 +99,8 @@ var Cart = {
 	},
 	localUpdated: function(e) {
 		let val = JSON.parse(e.value);
+		console.log("localUpdated fired with: ");
+		console.log(val);
 		this.buildItems(val);
 	},
 	init: function(options) {

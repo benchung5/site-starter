@@ -53,6 +53,9 @@ load foundation plugins - keep this
 		//make a new function to replace it, then call the original
 		//function within this
 		localStorage.setItem = function(key, value) {
+		  
+		  //CustomEvent("sceneLoaded", { bubbles: false, cancelable: false, detail: 'my event detail' });
+		  // const evt = document.createEvent('localUpdated');
 		  const evt = new Event('localUpdated');
 		        evt.key = key; 
 		        evt.value = value; 
