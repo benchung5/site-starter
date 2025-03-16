@@ -145,6 +145,7 @@ var Cart = {
 
 		//listen for our custom event for local storage updated
 		document.addEventListener("localUpdated", inst.localUpdated.bind(inst));
+		console.log('cart-init');
 
 		inst.cart = JSON.parse(localStorage.getItem('cart')) || [];
 		inst.buildItems(inst.cart);
