@@ -49,14 +49,20 @@ load foundation plugins - keep this
 		// ---------------------------------------------------------/
 		//capture the original function
 		const localStore = localStorage.setItem;
+		console.log("test");
 
 		//make a new function to replace it, then call the original
 		//function within this
 		localStorage.setItem = function(key, value) {
+			console.log("localStorage.setItem called");
 		  
-		  //CustomEvent("sceneLoaded", { bubbles: false, cancelable: false, detail: 'my event detail' });
-		  const evt = document.createEvent('Event');
-		  evt.initEvent("localUpdated", true, true);
+		  // const evt = document.createEvent('Event');
+		  // evt.initEvent("localUpdated", true, true);
+			const evt = new CustomEvent("localUpdated", { bubbles: false, cancelable: false, detail: {
+				"key": key,
+				"value": value,
+			} });
+
 		  // const evt = new Event('localUpdated');
 		        evt.key = key; 
 		        evt.value = value; 
