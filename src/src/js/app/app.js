@@ -49,7 +49,7 @@ load foundation plugins - keep this
 		// ---------------------------------------------------------/
 		//capture the original function
 		const localStore = localStorage.setItem;
-		console.log("test");
+		console.log("localStore: ", localStore);
 
 		//make a new function to replace it, then call the original
 		//function within this
@@ -71,6 +71,8 @@ load foundation plugins - keep this
 		  // 'this' refers to the object that calls the function
 		  localStore.apply(this, arguments);
 		};
+
+		console.log(localStorage.setItem);
 		
 		appStateStore.init();
 		CartPopup.init();
