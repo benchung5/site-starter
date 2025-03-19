@@ -48,30 +48,6 @@ load foundation plugins - keep this
 		//because no existing event for this
 		// ---------------------------------------------------------/
 		
-		//capture the original function
-		const localStore = localStorage.setItem;
-
-		//make a new function to replace it, then call the original
-		//function within this
-		window.localStorage.setItem = function(key, value) {	  
-		  // const evt = document.createEvent('Event');
-		  // evt.initEvent("localUpdated", true, true);
-			const evt = new CustomEvent("localUpdated", { bubbles: false, cancelable: false, detail: {
-				"key": key,
-				"value": value,
-			} });
-
-		  // const evt = new Event('localUpdated');
-		        evt.key = key; 
-		        evt.value = value; 
-
-		  document.dispatchEvent(evt);
-		  // 'this' refers to the object that calls the function
-		  localStore.apply(this, arguments);
-		}
-
-		console.log(localStorage.setItem);
-		
 		appStateStore.init();
 		CartPopup.init();
 		CartIcon.init();

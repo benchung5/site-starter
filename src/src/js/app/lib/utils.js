@@ -274,3 +274,20 @@ export var detachReAttach = {
         callback();
     }
 };
+
+export function setLocalStorage(key, value) { 
+  // const evt = document.createEvent('Event');
+  // evt.initEvent("localUpdated", true, true);
+  // const evt = new CustomEvent("localUpdated", { bubbles: false, cancelable: false, detail: {
+  //  "key": key,
+  //  "value": value,
+  // } });
+
+  const evt = new Event('localUpdated');
+        evt.key = key; 
+        evt.value = value; 
+
+  document.dispatchEvent(evt);
+  // 'this' refers to the object that calls the function
+  localStorage.setItem(key, value);
+}

@@ -1,5 +1,6 @@
 import productListStore from '../storage/productListStore';
 import xhr from '../xhr';
+import { setLocalStorage } from '../lib/utils';
 
 export function addItemToCart(item) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -14,7 +15,7 @@ export function addItemToCart(item) {
         cart.push(item);
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
+    setLocalStorage('cart', JSON.stringify(cart));
 }
 
 export function postNotifyMe(formData, callback) {

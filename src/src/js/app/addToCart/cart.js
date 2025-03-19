@@ -4,6 +4,7 @@ import { imgName } from '../lib/stringUtils';
 import { formatPrice } from '../lib/cartUtils';
 import InputPlusMinus from '../parts/inputPlusMinus';
 import appStateStore from '../storage/appStateStore';
+import { setLocalStorage } from '../lib/utils';
 
 //config
 const env = process.env.NODE_ENV || "development";
@@ -28,7 +29,7 @@ var Cart = {
 		});
 		//updated localstorage with the modified values
 		//*buildItems gets fired on custom event when localstorage is updated
-		localStorage.setItem('cart', JSON.stringify(cartClone));
+		setLocalStorage('cart', JSON.stringify(cartClone));
 	},
 	buildItems: function(cart) {
 		this.cartList.innerHTML = '';
@@ -82,7 +83,7 @@ var Cart = {
 
 		//updated localstorage with the modified values
 		//*buildItems gets fired on custom event when localstorage is updated
-		localStorage.setItem('cart', JSON.stringify(cartClone));
+		setLocalStorage('cart', JSON.stringify(cartClone));
 	},
 	onCheckoutClick: function(e) {
 		e.preventDefault();

@@ -10,6 +10,7 @@ import checkoutStore from '../storage/checkoutStore';
 import { getUrlParams } from '../lib/utils';
 const env = process.env.NODE_ENV || "development";
 var { STRIPE_PUBLISHABLE_KEY } = require('../secret')[env];
+import { setLocalStorage } from '../lib/utils';
 
 
 (function() {
@@ -101,7 +102,7 @@ var { STRIPE_PUBLISHABLE_KEY } = require('../secret')[env];
               }];
 
         testCart = JSON.stringify(testCart);
-        localStorage.setItem('cart', testCart);
+        setLocalStorage('cart', testCart);
 
         inst.order.test = 25465;
       }
