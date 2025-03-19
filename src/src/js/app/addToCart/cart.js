@@ -98,6 +98,8 @@ var Cart = {
 		appStateStore.setData({ showCart: false});
 	},
 	localUpdated: function(e) {
+		console.log("event value: ");
+		console.log(e);
 		let val = JSON.parse(e.value);
 		console.log("localUpdated fired with: ");
 		console.log(val);
@@ -145,7 +147,6 @@ var Cart = {
 
 		//listen for our custom event for local storage updated
 		document.addEventListener("localUpdated", inst.localUpdated.bind(inst));
-		console.log('cart-init');
 
 		inst.cart = JSON.parse(localStorage.getItem('cart')) || [];
 		inst.buildItems(inst.cart);
