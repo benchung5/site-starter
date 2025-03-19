@@ -98,11 +98,7 @@ var Cart = {
 		appStateStore.setData({ showCart: false});
 	},
 	localUpdated: function(e) {
-		console.log("event value: ");
-		console.log(e);
 		let val = JSON.parse(e.value);
-		console.log("localUpdated fired with: ");
-		console.log(val);
 		this.buildItems(val);
 	},
 	init: function(options) {
