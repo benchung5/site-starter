@@ -13,6 +13,7 @@ import { getUrlParams } from '../../lib/utils';
 import plantFields from './plantFields';
 import { checkFieldErrors } from '../../lib/formUtils';
 import UpdateMessage from '../parts/updateMessage';
+import SourceProducts from '../products/sourceProducts';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -87,6 +88,7 @@ var PlantEdit = {
 
 				//update the link to the live article
 				this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
+				this.products.href = `#source-products?source=${apiData.id}`;
 				//record the current plant id
 				this.plantId = apiData.id
 				//create the fields
@@ -165,7 +167,10 @@ var PlantEdit = {
               <div class="row">
                   <div class="main-window columns small-12 large-9">
                       <h3>Edit Plant</h3>
-                      <a id="link" style="float: right; display: inline-block;" target="_blank">&nbsp;&nbsp;view plant</a>
+                      <div style="float: right; display: inline-block;">
+												<a id="products" target="_blank">&nbsp;&nbsp;view products</a>&nbsp;
+												<a id="link" target="_blank">&nbsp;&nbsp;view plant</a>
+                      </div>
                       <form>
 	                      <div id="form-fields">
 	                      </div>
@@ -184,6 +189,7 @@ var PlantEdit = {
 		mainWindow.before(inst.sidebar.el);
 		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.link = inst.el.querySelector('#link');
+		inst.products = inst.el.querySelector('#products');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);

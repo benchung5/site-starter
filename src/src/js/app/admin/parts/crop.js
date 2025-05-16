@@ -248,7 +248,7 @@ var Crop = {
 		//call initialize on Component first
 		inst.initialize({
 			el: 
-			`<div class="crop">
+			`<div class="crop modal-window">
 				<canvas id="canvas"></canvas>
 				<div class="verify-action">
 				  <div class="buttons">

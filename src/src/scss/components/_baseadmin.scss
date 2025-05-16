@@ -6,23 +6,6 @@ admin Styles
   height: auto !important;
 }
 
-.modal {
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 2;
-  opacity: 0;
-  visibility: hidden;
-  &.on {
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-}
-
 .header-nav {
   list-style-type: none;
   padding: 0;
@@ -144,6 +127,21 @@ select.multiselect {
 .item-list > li {
   padding: 0.5em 1em;
   border-bottom: 1px solid #D8D8D8;
+  display: flex;
+  justify-content: space-between;
+  & > div {
+    font-size: 80%;
+    flex-basis: 20%;
+    max-width: 20%;
+  }
+  & > div:last-child {
+    flex-basis: 5%;
+    max-width: 5%;
+  }
+  & > div:first-child {
+    flex-basis: 10%;
+    max-width: 10%;
+  }
 }
 .item-list li a {
  float: right;
@@ -240,18 +238,15 @@ button.copy-btn {
   top: 5px;
   left: 5px;
   position: absolute;
-  z-index: 10;
+  z-index: 2;
   font-size: 0.8em;
   cursor: pointer;
 }
 
 .crop {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  flex-grow: 1;
-  max-width: 400px;
-  padding: 2em;
+  flex-direction: column;
   #canvas {
     margin-bottom: 20px;
   }
@@ -276,19 +271,48 @@ button.copy-btn {
 }
 
 /* ==========================================================================
-login/signin
+products
 ========================================================================== */
 
-.sign-in-popup, .sign-in-popup label {
+#products-list-container {
+  padding: 1em;
+  border: 1px solid #D8D8D8;
+}
+
+
+/* ==========================================================================
+modal
+========================================================================== */
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 3;
+  opacity: 0;
+  visibility: hidden;
+  &.on {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+.modal-window {
+/*  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;*/
+  flex-grow: 0.5;
+  padding: 3em;
   color: #fff;
 }
 
-.sign-in-popup {
-  flex-grow: 1;
-  max-width: 400px;
-  .main-window {
-    padding: 3em;
-  }
+.modal-window label {
+  color: #fff;
 }
 
 

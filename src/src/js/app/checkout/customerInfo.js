@@ -40,7 +40,6 @@ var CustomerInfo = {
       		      isPlantOrder = true;
       		    }
       		});
-      		console.log(isPlantOrder);
 
       		if(isPlantOrder) {
       			// Extract potentially complete address

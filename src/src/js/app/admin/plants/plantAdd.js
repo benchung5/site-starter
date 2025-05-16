@@ -11,6 +11,7 @@ import appStateStore from '../../storage/appStateStore';
 import plantFields from './plantFields';
 import { checkFieldErrors } from '../../lib/formUtils';
 import UpdateMessage from '../parts/updateMessage';
+var { ADMIN_URL } = require('../../config')['globals'];
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
@@ -62,7 +63,8 @@ var PlantAdd = {
 		if(response.error) {
 			this.updateMessage.renderError(`<span>Error: ${response.error}</span>`);
 		} else {
-			this.updateMessage.renderSuccess(`Tree: ${response.common_name}<br/>successfully added.`);
+			this.updateMessage.renderSuccess(`Tree: ${response.common_name}<br/>successfully added.<br/><a href="/${ADMIN_URL}#plant-edit?plant=${response.slug}">edit plant</a>`);
+
 		}
 	},
 	onLoad: function() {

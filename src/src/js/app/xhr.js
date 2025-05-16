@@ -46,17 +46,27 @@ var Xhr = {
 
 		fetch(url, parameters)
 		.then(res => {
+			const contentType = res.headers.get("content-type");
 			if (res.ok) {
-				//convert to json gives another promise .then (below)
-				return res.json();
+				if (contentType && contentType.indexOf("application/json") !== -1) {
+					//convert to json gives another promise .then (below)
+					return res.json();
+				} else {
+					return res.text();
+				}
+
 			} else {
 				console.log('error, response status: ', res.status);
 				return res.json();
 			}
 		})
 		.then(data => {
-			//sent the data back
-			callback(data);
+			if(typeof data === 'string') {
+				callback({error: data});
+			} else {
+				//sent the data back
+				callback(data);
+			}
 		})
 		.catch(error => console.log('xhr callback error: ', error))
 	}

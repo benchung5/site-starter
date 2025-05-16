@@ -276,6 +276,9 @@ export var detachReAttach = {
 };
 
 export function setLocalStorage(key, value) { 
+  //making the custom event 'localUpdated' for when localStorage is updated
+  //because no existing event for this
+  // ---------------------------------------------------------/
   // const evt = document.createEvent('Event');
   // evt.initEvent("localUpdated", true, true);
   // const evt = new CustomEvent("localUpdated", { bubbles: false, cancelable: false, detail: {

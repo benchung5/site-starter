@@ -34,4 +34,16 @@ class Products_model extends Model
 
 		return $result;
 	}
+
+	public function update($opts = [])
+	{
+		$tree_id = $this->db->table('products')->where($opts['where'])->get()->id;
+
+		// streight updates
+		if (isset($opts['where']) && isset($opts['update'])) {
+			$this->db->table('products');
+			$this->db->where($opts['where'])->update($opts['update']);
+		}
+	}
+
 }

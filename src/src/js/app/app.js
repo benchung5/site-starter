@@ -44,10 +44,6 @@ load foundation plugins - keep this
 
 	//cart
 	if(!isAdminPage) {
-		//making the custom event 'localUpdated' for when localStorage is updated
-		//because no existing event for this
-		// ---------------------------------------------------------/
-		
 		appStateStore.init();
 		CartPopup.init();
 		CartIcon.init();

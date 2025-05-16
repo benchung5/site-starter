@@ -8,6 +8,7 @@ import PageNotFound from './404';
 import PlantsList from './plants/plantsList';
 import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
+import SourceProducts from './products/sourceProducts';
 import ArticleList from './articles/articleList';
 import ArticleAdd from './articles/articleAdd';
 import ArticleEdit from './articles/articleEdit';
@@ -15,6 +16,7 @@ import Auth from './auth/auth';
 import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
 import plantTablesStore from '../storage/plantTablesStore';
+import productTablesStore from '../storage/productTablesStore';
 import articleListStore from '../storage/articleListStore';
 import articleFilterStore from '../storage/articleFilterStore';
 import articleTablesStore from '../storage/articleTablesStore';
@@ -78,6 +80,18 @@ import SignInPopup from './auth/signInPopup';
 						});
 					}
 				});
+			} else if(route === 'source-products') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.sourceProducts.onLoad();
+						this.el.appendChild(this.sourceProducts.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.sourceProducts.onLoad();
+							this.el.appendChild(this.sourceProducts.el);
+						});
+					}
+				});
 			} else if(route === 'article-list') {
 				Auth.authenticate((authData) => {
 					if(authData.id) {
@@ -126,8 +140,6 @@ import SignInPopup from './auth/signInPopup';
 			inst.initialize({
 				container: document.querySelector('.js-app-container'),
 			});
-
-			console.log(plantFilterStore);
 			
 			//init storage items
 			plantListStore.init();
@@ -137,6 +149,7 @@ import SignInPopup from './auth/signInPopup';
 			articleListStore.init();
 			articleFilterStore.init();
 			articleTablesStore.init();
+			productTablesStore.init();
 
 			//components to show
 			inst.signIn = SignIn.init();
@@ -146,6 +159,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.plantsList = PlantsList.init();
 			inst.plantAdd = PlantAdd.init();
 			inst.plantEdit = PlantEdit.init();
+			inst.sourceProducts = SourceProducts.init();
 			inst.articleList = ArticleList.init();
 			inst.articleAdd = ArticleAdd.init();
 			inst.articleEdit = ArticleEdit.init();

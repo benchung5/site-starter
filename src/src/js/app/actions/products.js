@@ -29,3 +29,23 @@ export function getProducts(searchObj, callback) {
 	    appStateStore.setData({ isLoading: false });
 	}, searchObj);
 }
+
+export function addProduct(formData, callback) {
+    xhr.send(`${SERVER_URL}/products/create`,
+    {
+        method: 'POST',
+        body: formData,
+    }, (apiData) => {
+        callback(apiData);
+    });
+}
+
+export function fetchProductTables(callback) {
+    xhr.send(`${SERVER_URL}/product_tables/all`,
+    {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    }, (apiData) => {
+        callback(apiData);
+    });
+}

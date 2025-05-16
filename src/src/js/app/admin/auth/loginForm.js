@@ -46,7 +46,7 @@ var LoginForm = {
 		inst.initialize({
 			el: 
 			`
-			<div class="main-window">
+			<div>
 				<h3>Login</h3>
 				<form>
 					<div id="form-fields">

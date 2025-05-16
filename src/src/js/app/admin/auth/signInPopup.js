@@ -21,7 +21,7 @@ var SignInPopup = {
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
-		inst.initialize({ el: `<div class="sign-in-popup"></div>` });
+		inst.initialize({ el: `<div class="modal-window"></div>` });
 
 		inst.loginForm = LoginForm.init({ onSignIn: inst.onSignIn.bind(inst) });
 		inst.el.appendChild(inst.loginForm.el);
