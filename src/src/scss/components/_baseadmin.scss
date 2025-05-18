@@ -94,14 +94,6 @@ side menu
   }
 }
 
-.item-list {
-  list-style-type: none;
-  border-left: 1px solid #D8D8D8;
-  border-top: 1px solid #D8D8D8;
-  border-right: 1px solid #D8D8D8;
-  margin-left: 0;
-}
-
 textarea {
   min-height: 12em;
   max-width: 100%;
@@ -124,25 +116,44 @@ select.multiselect {
   margin-bottom: 0.5em;
 }
 
+.item-list {
+  list-style-type: none;
+  border-left: 1px solid #D8D8D8;
+  border-top: 1px solid #D8D8D8;
+  border-right: 1px solid #D8D8D8;
+  margin-left: 0;
+}
+
 .item-list > li {
   padding: 0.5em 1em;
   border-bottom: 1px solid #D8D8D8;
   display: flex;
   justify-content: space-between;
-  & > div {
-    font-size: 80%;
-    flex-basis: 20%;
-    max-width: 20%;
-  }
-  & > div:last-child {
-    flex-basis: 5%;
-    max-width: 5%;
-  }
-  & > div:first-child {
-    flex-basis: 10%;
-    max-width: 10%;
+  font-size: 80%;
+  & > *:last-child {
+    display: flex;
+    justify-content: flex-end;
   }
 }
+
+.item-list {
+  &.large > li {
+    & > * {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+  }
+}
+
+.item-list {
+  &.small > li {
+    & > * {
+      flex-basis: 15%;
+      max-width: 15%;
+    }
+  }
+}
+
 .item-list li a {
  float: right;
  margin-left: 10px;

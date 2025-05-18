@@ -47,10 +47,12 @@ var PlantsList = {
 
 		plantListStore.storageData.trees.map((tree) => {
 			let el = this.createEl(
-			   `<li className="list-group-item">
-			        <span>${tree.common_name}</span>
-			        <a id="delete" href="" data-id=${tree.id} data-slug=${tree.slug}>Delete</a>
-			        <a href="/${globals.ADMIN_URL}#plant-edit?plant=${tree.slug}">edit</Link>
+			   `<li class="list-group-item">
+			        <div>${tree.common_name}</div>
+			   		<div class="options">
+					   <a id="delete" href="" data-id=${tree.id} data-slug=${tree.slug}>Delete</a>
+					   <a href="/${globals.ADMIN_URL}#plant-edit?plant=${tree.slug}">edit</a>
+			   		</div>
 			    </li>`);
 
 				el.querySelector('#delete').addEventListener('click', this.onDeleteTreeClick.bind(this), false);
@@ -71,7 +73,7 @@ var PlantsList = {
                 <div class="row">
                     <div class="main-window columns small-12 large-9">
                         <h3>Trees</h3>
-                        <ul class="list-group item-list">
+                        <ul class="list-group item-list large">
                         </ul>
                     </div>
                 </div>

@@ -38,6 +38,16 @@ class Products extends Controller
 		}		
 	}
 
+	public function single($id) 
+	{
+		$tree = $this->products->get(['id' => $id]);
+		if ($tree) {
+			Utils::json_respond(SUCCESS_RESPONSE, $tree);
+		} else {
+			Utils::json_respond(SUCCESS_RESPONSE, array());
+		}
+	}
+
 	public function create()
 	{
 		//handle posted input
@@ -52,11 +62,25 @@ class Products extends Controller
 		}
 	}
 
+	public function update() 
+	{
+		$data = Utils::read_post();
+
+		try {
+			$this->update_product($data, false);
+
+			Utils::json_respond(SUCCESS_RESPONSE, $data);	
+		} catch (Exception $e) {
+			Utils::json_respond(JWT_PROCESSING_ERROR, $e->getMessage());
+		}		
+	}
+
 	protected function update_product($data, $is_add) 
 	{
 		//'add' or 'update'
 		//use isset version for optional fields
 		$update_data = [
+			'source_id' => $data['source_id'],
 			'product_type_id' => $data['product_type_id'],
 			'product_type_variation_id' => $data['product_type_variation_id'],
 			'status_id' => $data['status_id'],
@@ -79,11 +103,11 @@ class Products extends Controller
 			$updated_product = $this->products->get(['id' => $new_product_id]);
 		} else {
 			$this->products->update([
-				'where' => ['id' => $data['product_id']], 
+				'where' => ['id' => $data['id']], 
 				'update' => $update_data,
 			]);
 
-			$updated_product = $this->products->get(['id' => $data['product_id']]);
+			$updated_product = $this->products->get(['id' => $data['id']]);
 		}
 		
 		return $updated_product;

@@ -88,7 +88,7 @@ var PlantEdit = {
 
 				//update the link to the live article
 				this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
-				this.products.href = `#source-products?source=${apiData.id}`;
+				this.products.href = `#source-products?source=${apiData.id}?slug=${apiData.slug}`;
 				//record the current plant id
 				this.plantId = apiData.id
 				//create the fields
@@ -115,7 +115,6 @@ var PlantEdit = {
 						this.formFields.appendChild(dropdownSelect.el);
 					}
 					if(item.type === 'multiSelect') {
-						console.log('multiselect: ', apiData[item.name]);
 						let multiSelect = FieldMultiSelect.init({
 							name: item.name,
 							label: item.label,
@@ -168,7 +167,7 @@ var PlantEdit = {
                   <div class="main-window columns small-12 large-9">
                       <h3>Edit Plant</h3>
                       <div style="float: right; display: inline-block;">
-												<a id="products" target="_blank">&nbsp;&nbsp;view products</a>&nbsp;
+												<a id="products">&nbsp;&nbsp;view products</a>&nbsp;
 												<a id="link" target="_blank">&nbsp;&nbsp;view plant</a>
                       </div>
                       <form>

@@ -4,14 +4,14 @@ import FieldHidden from '../parts/fieldHidden';
 import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
 import FieldTextarea from '../parts/fieldTextarea';
-import { fetchProductTables, addProduct } from '../../actions/products';
+import { fetchProductTables, getProduct, updateProduct } from '../../actions/products';
 import productTablesStore from '../../storage/productTablesStore';
 import appStateStore from '../../storage/appStateStore';
 import productFields from './productFields';
 import { checkFieldErrors } from '../../lib/formUtils';
 import UpdateMessage from '../parts/updateMessage';
 
-var ProductAdd = {
+var ProductEdit = {
 	submitForm: function(e) {
 		// prevent form from refreshing the page
 		e.preventDefault();
@@ -54,10 +54,14 @@ var ProductAdd = {
 			this.onSuccess();
 		}
 	},
-	buildFromSource: function(source) {
+	buildFromId: function(id) {
 		//first clear the form fields
 		this.formFields.innerHTML = '';
 		this.updateMessage.clear();
+
+		getProduct(id, (apiData) => {
+				console.log(apiData);
+		});
 
 		//get product table data
 		fetchProductTables((productTables) => {
@@ -66,13 +70,13 @@ var ProductAdd = {
 
 			//create the fields
 			productFields.map((item) => {
-				if(item.name === 'source_id') {
-					let input = FieldHidden.init({
-						name: item.name,
-						value: source,
-					});
-					this.formFields.appendChild(input.el);
-				}
+				// if(item.name === 'source_id') {
+				// 	let input = FieldHidden.init({
+				// 		name: item.name,
+				// 		value: source,
+				// 	});
+				// 	this.formFields.appendChild(input.el);
+				// }
 				if(item.type === 'input') {
 					let input = FieldInput.init({
 						name: item.name,
@@ -113,6 +117,8 @@ var ProductAdd = {
 				}
 			});
 		});
+
+
 	},
 	init: function(opts) {
 		var proto = Object.assign({}, this, Component)
@@ -123,7 +129,7 @@ var ProductAdd = {
 		//call initialize on Component first
 		inst.initialize({ el: 
 		`<div class="modal-window">
-        <h3>Add Product</h3>
+        <h3>Edit Product</h3>
         <form>
           <div id="form-fields">
           </div>
@@ -134,7 +140,6 @@ var ProductAdd = {
 		});
 
 		//options
-		// inst.source = opts.source;
 		inst.onSuccess = opts.onSuccess;
 
 		//elements
@@ -150,4 +155,4 @@ var ProductAdd = {
 	}
 }
 
-export default ProductAdd;
+export default ProductEdit;

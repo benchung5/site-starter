@@ -9,7 +9,6 @@ const env = process.env.NODE_ENV || "development";
 var { SERVER_URL } = require('../config')[env];
 
 export function getProducts(searchObj, callback) {
-
 	appStateStore.setData({ isLoading: true });
 	xhr.send(`${SERVER_URL}/products/search/`, 
 	{
@@ -28,6 +27,33 @@ export function getProducts(searchObj, callback) {
 	    callback(data);
 	    appStateStore.setData({ isLoading: false });
 	}, searchObj);
+}
+
+export function getProduct(id, callback) {
+    xhr.send(`${SERVER_URL}/products/single/${id}`, 
+    {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    }, (apiData) => {
+        //if no response data, return a formatted object
+        let data = {};
+        if (!apiData ) {
+            data = {}
+        } else {
+            data = apiData;
+        }
+        callback(data);
+    });
+}
+
+export function updateProduct(formData, callback) {
+    xhr.send(`${SERVER_URL}/products/update`,
+    {
+        method: 'POST',
+        body: formData
+    }, (apiData) => {
+        callback(apiData);
+    });
 }
 
 export function addProduct(formData, callback) {
