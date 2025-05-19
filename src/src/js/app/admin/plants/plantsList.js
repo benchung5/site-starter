@@ -50,7 +50,8 @@ var PlantsList = {
 			   `<li class="list-group-item">
 			        <div>${tree.common_name}</div>
 			   		<div class="options">
-					   <a id="delete" href="" data-id=${tree.id} data-slug=${tree.slug}>Delete</a>
+			   		   <a id="products" href="#source-products?source=${tree.id}?slug=${tree.slug}">products</a>
+					   <a id="delete" href="" data-id=${tree.id} data-slug=${tree.slug}>delete</a>
 					   <a href="/${globals.ADMIN_URL}#plant-edit?plant=${tree.slug}">edit</a>
 			   		</div>
 			    </li>`);

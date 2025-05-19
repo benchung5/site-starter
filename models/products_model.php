@@ -39,31 +39,27 @@ class Products_model extends Model
 
 	public function add($opts)
 	{
-		if (is_array($opts['insert'])) {
-			$this->db->table('products')->insert($opts['insert']);
-			$new_product_id = $this->db->insertId();
+		$this->db->table('products')->insert($opts);
+		$new_product_id = $this->db->insertId();
 
-			// // many to many tables
-			// if (isset($opts['joins'])) {
-			// 	$joins = $opts['joins'];
-			// 	$this->insert_joins($new_product_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
-			// 	$this->insert_joins($new_product_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
-			// 	$this->insert_joins($new_product_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
-			// 	$this->insert_joins($new_product_id, $joins, 'light', 'light_id', 'trees_light');
-			// 	$this->insert_joins($new_product_id, $joins, 'soil', 'soil_id', 'trees_soil');
-			// 	$this->insert_joins($new_product_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
-			// 	$this->insert_joins($new_product_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
-			// 	$this->insert_joins($new_product_id, $joins, 'transplanting', 'transplanting_id', 'trees_transplanting');
-			// 	$this->insert_joins($new_product_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
-			// 	$this->insert_joins($new_product_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
-			// 	// $this->insert_joins($new_product_id, $joins, 'insects', 'insects_id', 'trees_insects');
-			// 	// $this->insert_joins($new_product_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
-			// }
+		// // many to many tables
+		// if (isset($opts['joins'])) {
+		// 	$joins = $opts['joins'];
+		// 	$this->insert_joins($new_product_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
+		// 	$this->insert_joins($new_product_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
+		// 	$this->insert_joins($new_product_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
+		// 	$this->insert_joins($new_product_id, $joins, 'light', 'light_id', 'trees_light');
+		// 	$this->insert_joins($new_product_id, $joins, 'soil', 'soil_id', 'trees_soil');
+		// 	$this->insert_joins($new_product_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
+		// 	$this->insert_joins($new_product_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
+		// 	$this->insert_joins($new_product_id, $joins, 'transplanting', 'transplanting_id', 'trees_transplanting');
+		// 	$this->insert_joins($new_product_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
+		// 	$this->insert_joins($new_product_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
+		// 	// $this->insert_joins($new_product_id, $joins, 'insects', 'insects_id', 'trees_insects');
+		// 	// $this->insert_joins($new_product_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
+		// }
 
-			return $new_product_id;
-		}
-
-		return false;
+		return $new_product_id;
 	}
 
 	public function update($opts = [])
@@ -92,6 +88,40 @@ class Products_model extends Model
 		// 	// $this->update_joins($product_id, $joins, 'insects', 'insects_id', 'trees_insects');
 		// 	// $this->update_joins($product_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
 		// }
+	}
+
+	public function remove($opts = [])
+	{
+		if ($opts) {
+			$this->db->table('products');
+
+			if (isset($opts['id'])) {
+				$this->db->where('id', '=', $opts['id']);
+			}
+
+			$product = $this->db->get();
+
+			$deleted_product_id = $product->id;
+
+			$this->db->table('products')->where('id', $deleted_product_id)->delete();
+
+			// // remove joins
+			// $this->db->table('trees_eco_benefits')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_native_to')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_shapes')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_light')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_soil')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_natural_habitat')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_common_uses')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_transplanting')->where('tree_id', $deleted_product_id)->delete();
+			// $this->db->table('trees_tolerances')->where('tree_id', $deleted_product_id)->delete();
+			// // $this->db->table('trees_insects')->where('tree_id', $deleted_product_id)->delete();
+			// // $this->db->table('trees_diseases')->where('tree_id', $deleted_product_id)->delete();
+
+			return $deleted_product_id;
+		}
+
+		return false;
 	}
 
 }

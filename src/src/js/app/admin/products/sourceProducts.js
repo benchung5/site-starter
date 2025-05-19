@@ -1,9 +1,10 @@
 import Component from '../../component';
 import { getUrlParams } from '../../lib/utils';
-import { getProducts } from '../../actions/products';
+import { getProducts, deleteProduct } from '../../actions/products';
 import productListStore from '../../storage/productListStore';
 import ProductAdd from './productAdd';
 import ProductEdit from './productEdit';
+import VerifyAction from '../parts/verifyAction';
 import Modal from '../../parts/modal';
 import Sidebar from '../sidebar';
 
@@ -19,63 +20,76 @@ var SourceProducts = {
 		this.productEdit.buildFromId(e.srcElement.dataset.edit);
 		this.modalEdit.open();
 	},
+	onDeleteClick: function(e) {
+		e.preventDefault();
+		this.verifyAction.open((verified) => {
+			if(verified) {
+				let id = e.srcElement.dataset.delete;
+				deleteProduct({id: id}, (apiData) => {
+					// // shoud say deleted product id
+					// console.log(apiData);
+					this.buildItems();
+				});
+			}
+		});
+	},
 	buildItems: function() {
 		//first clear the form
 		this.sourceProductList.innerHTML = '';
 
-		if(productListStore.storageData.products.length) {
-			let productTypeList = [];
+		getProducts({source_id: this.source}, (apiData) => {
+			productListStore.setData(apiData);
+			if(productListStore.storageData.products.length) {
+				let productTypeList = [];
 
-			productListStore.storageData.products.map((item) => {
-				if (!productTypeList.includes(item.productTypeName)) {
-					productTypeList.push(item.productTypeName);
-				}
-			});
-
-			//render it
-			productTypeList.map((productTypeItem) => {
-				let productTypeEl = this.createEl(`<div><span>product type: ${productTypeItem}</span>
-												   <ul id="products-by-type-list" class="list-group item-list small"></ul></div>`);
-				let productListEl = productTypeEl.querySelector('#products-by-type-list');
-				productListStore.storageData.products.map((productItem) => {
-					if (productItem.productTypeName == productTypeItem) {
-						let productEl = this.createEl(`<li clasname="list-group-item">
-							<div>id: ${productItem.id}</div>
-							<div>price: $${productItem.price/100}</div>
-							<div>status: ${productItem.status}</div>
-							<div>amount available: ${productItem.amount_available}</div>
-							<div>variation: ${productItem.productTypeVariationName}</div>
-							<div>
-								<a data-delete="${productItem.id}"">delete</a>
-								<a data-edit="${productItem.id}">edit</a>
-							</div>
-							</li>`);
-						productListEl.appendChild(productEl);
-						let editButton = productEl.querySelector('[data-edit]');
-						editButton.addEventListener('click', this.onEditClick.bind(this), false);
+				productListStore.storageData.products.map((item) => {
+					if (!productTypeList.includes(item.productTypeName)) {
+						productTypeList.push(item.productTypeName);
 					}
-
-					
 				});
-				this.sourceProductList.appendChild(productTypeEl);
-			});
-		}
-		//close the add or edit product modal once data is updated
-		this.modalAdd.close();
-		this.modalEdit.close();
+
+				//render it
+				productTypeList.map((productTypeItem) => {
+					let productTypeEl = this.createEl(`<div><span>product type: ${productTypeItem}</span>
+													   <ul id="products-by-type-list" class="list-group item-list small"></ul></div>`);
+					let productListEl = productTypeEl.querySelector('#products-by-type-list');
+					productListStore.storageData.products.map((productItem) => {
+						if (productItem.productTypeName == productTypeItem) {
+							let productEl = this.createEl(`<li clasname="list-group-item">
+								<div>id: ${productItem.id}</div>
+								<div>price: $${productItem.price/100}</div>
+								<div>status: ${productItem.status}</div>
+								<div>amount available: ${productItem.amount_available}</div>
+								<div>variation: ${productItem.productTypeVariationName}</div>
+								<div>
+									<a data-delete="${productItem.id}"">delete</a>
+									<a data-edit="${productItem.id}">edit</a>
+								</div>
+								</li>`);
+							productListEl.appendChild(productEl);
+							let editButton = productEl.querySelector('[data-edit]');
+							editButton.addEventListener('click', this.onEditClick.bind(this), false);
+							let deleteButton = productEl.querySelector('[data-delete]');
+							deleteButton.addEventListener('click', this.onDeleteClick.bind(this), false);
+						}
+
+						
+					});
+					this.sourceProductList.appendChild(productTypeEl);
+				});
+
+				//close the add or edit product modal once data is updated
+				this.modalAdd.close();
+				this.modalEdit.close();
+			}
+		});
 	},
 	onLoad: function() {
 		this.source = getUrlParams('source')[0];
 		this.slug = getUrlParams('slug')[0];
 		this.sourceProductEl.innerHTML = this.slug;
 		this.sourceLinkEl.href = `#plant-edit?plant=${this.slug}`;
-		this.getSourceProducts();
-	},
-	getSourceProducts: function() {
-		getProducts({source_id: this.source}, (apiData) => {
-			productListStore.setData(apiData);
-			this.buildItems();
-		});
+		this.buildItems();
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -105,13 +119,16 @@ var SourceProducts = {
 
 		inst.sidebar = Sidebar.init({});
 		inst.productAdd = ProductAdd.init({
-			onSuccess: inst.getSourceProducts.bind(inst),
+			onSuccess: inst.buildItems.bind(inst),
 		});
 		inst.productEdit = ProductEdit.init({
-			onSuccess: inst.getSourceProducts.bind(inst),
+			onSuccess: inst.buildItems.bind(inst),
 		});
 		inst.modalAdd = Modal.init({ contentElement: inst.productAdd.el });
 		inst.modalEdit = Modal.init({ contentElement: inst.productEdit.el });
+		inst.verifyAction = VerifyAction.init({
+			message: 'delete item?'
+		});
 
 
 		const mainWindow = inst.el.querySelector('.main-window');
