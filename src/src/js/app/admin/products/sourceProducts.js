@@ -62,6 +62,7 @@ var SourceProducts = {
 		}
 		//close the add or edit product modal once data is updated
 		this.modalAdd.close();
+		this.modalEdit.close();
 	},
 	onLoad: function() {
 		this.source = getUrlParams('source')[0];

@@ -80,7 +80,7 @@ class Products extends Controller
 		//'add' or 'update'
 		//use isset version for optional fields
 		$update_data = [
-			'source_id' => $data['source_id'],
+			'id' => $data['id'],
 			'product_type_id' => $data['product_type_id'],
 			'product_type_variation_id' => $data['product_type_variation_id'],
 			'status_id' => $data['status_id'],

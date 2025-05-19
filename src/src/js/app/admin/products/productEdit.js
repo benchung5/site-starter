@@ -37,7 +37,7 @@ var ProductEdit = {
 			appStateStore.setData({ formTouched: false });
 
 			// call action to submit edited
-			addProduct(formData, this.renderUpdated.bind(this));
+			updateProduct(formData, this.renderUpdated.bind(this));
 
 			this.updateMessage.clear();
 		}
@@ -50,7 +50,7 @@ var ProductEdit = {
 		if(response.error) {
 			this.updateMessage.renderError(`<span>Error: ${response.error}</span>`);
 		} else {
-			this.updateMessage.renderSuccess(`Product id: ${response.id}<br/>successfully added.`);
+			this.updateMessage.renderSuccess(`Product id: ${response.id}<br/>successfully updated.`);
 			this.onSuccess();
 		}
 	},
@@ -59,64 +59,68 @@ var ProductEdit = {
 		this.formFields.innerHTML = '';
 		this.updateMessage.clear();
 
-		getProduct(id, (apiData) => {
-				console.log(apiData);
+		//get the product
+		getProduct(id, (product) => {
+				//get product table data
+				fetchProductTables((productTables) => {
+					//use productTablesStore because some values exist there statically and not in the productTables
+					productTablesStore.setData(productTables);
+
+					//create the fields
+					productFields.map((item) => {
+						if(item.name === 'id') {
+							let input = FieldHidden.init({
+								name: item.name,
+								value: product.id,
+							});
+							this.formFields.appendChild(input.el);
+						}
+						if(item.type === 'input') {
+							let input = FieldInput.init({
+								name: item.name,
+								label: item.label,
+								error: item.error,
+								condition: item.condition,
+								value: product[item.name],
+							});
+							this.formFields.appendChild(input.el);
+						}
+						if(item.type === 'dropdownSelect') {
+							let dropdownSelect = FieldDropdownSelect.init({
+								name: item.name,
+								label: item.label,
+								error: item.error,
+								condition: item.condition,
+								selectItems: productTablesStore.storageData[item.name],
+								value: product[item.name],
+							});
+							this.formFields.appendChild(dropdownSelect.el);
+						}
+						if(item.type === 'multiSelect') {
+							let multiSelect = FieldMultiSelect.init({
+								name: item.name,
+								label: item.label,
+								error: item.error,
+								condition: item.condition,
+								selectItems: productTablesStore.storageData[item.name],
+								value: product[item.name],
+							});
+							this.formFields.appendChild(multiSelect.el);
+						}
+						if(item.type === 'textarea') {
+							let textarea = FieldTextarea.init({
+								name: item.name,
+								label: item.label,
+								error: item.error,
+								condition: item.condition,
+								value: product[item.name],
+							});
+							this.formFields.appendChild(textarea.el);
+						}
+					});
+				});
 		});
 
-		//get product table data
-		fetchProductTables((productTables) => {
-			//use productTablesStore because some values exist there statically and not in the productTables
-			productTablesStore.setData(productTables);
-
-			//create the fields
-			productFields.map((item) => {
-				// if(item.name === 'source_id') {
-				// 	let input = FieldHidden.init({
-				// 		name: item.name,
-				// 		value: source,
-				// 	});
-				// 	this.formFields.appendChild(input.el);
-				// }
-				if(item.type === 'input') {
-					let input = FieldInput.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition
-					});
-					this.formFields.appendChild(input.el);
-				}
-				if(item.type === 'dropdownSelect') {
-					let dropdownSelect = FieldDropdownSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						selectItems: productTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(dropdownSelect.el);
-				}
-				if(item.type === 'multiSelect') {
-					let multiSelect = FieldMultiSelect.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-						selectItems: productTablesStore.storageData[item.name]
-					});
-					this.formFields.appendChild(multiSelect.el);
-				}
-				if(item.type === 'textarea') {
-					let textarea = FieldTextarea.init({
-						name: item.name,
-						label: item.label,
-						error: item.error,
-						condition: item.condition,
-					});
-					this.formFields.appendChild(textarea.el);
-				}
-			});
-		});
 
 
 	},
