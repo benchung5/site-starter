@@ -9,7 +9,7 @@ class Stripe_payment_webhook extends Controller
 {
   public function __construct() 
   {
-    $this->payment_transactions = $this->load_model('payment_transactions_model');
+    $this->orders = $this->load_model('orders_model');
     $this->temp_cart = $this->load_model('temp_cart_model');
     parent::__construct();
   }
@@ -122,7 +122,7 @@ class Stripe_payment_webhook extends Controller
           
           $transaction['products'] = json_encode($result->products);
 
-          $order_id = $this->payment_transactions->add($transaction);
+          $order_id = $this->orders->add($transaction);
 
           //clear this entry from temp cart
           $this->temp_cart->remove($paymentIntent->id);

@@ -10,6 +10,7 @@ import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
 import SourceProducts from './products/sourceProducts';
 import ArticleList from './articles/articleList';
+import OrdersList from './orders/ordersList';
 import ArticleAdd from './articles/articleAdd';
 import ArticleEdit from './articles/articleEdit';
 import Auth from './auth/auth';
@@ -20,8 +21,13 @@ import productTablesStore from '../storage/productTablesStore';
 import articleListStore from '../storage/articleListStore';
 import articleFilterStore from '../storage/articleFilterStore';
 import articleTablesStore from '../storage/articleTablesStore';
+import orderFilterStore from '../storage/orderFilterStore';
+import orderListStore from '../storage/orderListStore';
+import orderTablesStore from '../storage/orderTablesStore';
 import appStateStore from '../storage/appStateStore';
 import SignInPopup from './auth/signInPopup';
+
+//*don't forget to init components to show and storage items at the bottom
 
 
 (function() {
@@ -102,6 +108,16 @@ import SignInPopup from './auth/signInPopup';
 						});
 					}
 				});
+			} else if(route === 'orders-list') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.el.appendChild(this.ordersList.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.el.appendChild(this.ordersList.el);
+						});
+					}
+				});
 			} else if(route === 'article-add') {
 				Auth.authenticate((authData) => {
 					if(authData.id) {
@@ -150,6 +166,9 @@ import SignInPopup from './auth/signInPopup';
 			articleFilterStore.init();
 			articleTablesStore.init();
 			productTablesStore.init();
+			orderFilterStore.init();
+			orderListStore.init();
+			orderTablesStore.init();
 
 			//components to show
 			inst.signIn = SignIn.init();
@@ -163,6 +182,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.articleList = ArticleList.init();
 			inst.articleAdd = ArticleAdd.init();
 			inst.articleEdit = ArticleEdit.init();
+			inst.ordersList = OrdersList.init();
 			inst.signInPopup = SignInPopup.init();
 
 			Router.init(inst.update.bind(inst));

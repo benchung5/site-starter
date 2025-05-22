@@ -14,6 +14,7 @@ var Sidebar = {
 		{ title: 'Add User', link: 'signup', active: false },
 		{ title: 'View Categories', link: 'category-list', active: false },
 		{ title: 'Add Category', link: 'category-add', active: false },
+		{ title: 'View Orders', link: 'orders-list', active: false },
 		{ title: 'Backup', link: 'backup', active: false },
 	],
 	build: function() {
