@@ -27,6 +27,7 @@ class Shipping_and_tax extends Controller
 			$subtotal = Calc_payment::calc_subtotal($data['order']);
 			$shipping_cost = Calc_payment::calc_shipping($data['order']);
 			$tax = Calc_payment::calc_tax($data['order']);
+
 			// remove later
 			// **************************************
 			// **************************************

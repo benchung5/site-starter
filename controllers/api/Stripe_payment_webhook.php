@@ -11,6 +11,7 @@ class Stripe_payment_webhook extends Controller
   {
     $this->orders = $this->load_model('orders_model');
     $this->temp_cart = $this->load_model('temp_cart_model');
+    $this->orders_products = $this->load_model('orders_products_model');
     parent::__construct();
   }
 
@@ -117,12 +118,17 @@ class Stripe_payment_webhook extends Controller
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
 
-
           $result = $this->temp_cart->get_products($paymentIntent->id);
-          
           $transaction['products'] = json_encode($result->products);
 
+          $products = json_decode($result->products);
+
           $order_id = $this->orders->add($transaction);
+
+          //add product associations to order
+          foreach ($products as $product) {
+            $this->orders_products->add(['order_id' => $order_id, 'product_id' => $product->id, 'quantity' => $product->quantity]);
+          }
 
           //clear this entry from temp cart
           $this->temp_cart->remove($paymentIntent->id);
@@ -139,7 +145,7 @@ class Stripe_payment_webhook extends Controller
           '<b>order# ' . $order_id.'</b><br><br>';
           
           $email_body .= 'items:<br>--------------------------------------------<br>';
-          foreach (json_decode($result->products) as $product) {
+          foreach ($products as $product) {
               $email_body .= $product->commonName.' - '.$product->productTypeName.' ('.$product->productTypeVariationName.') x '.$product->quantity.'<br>--------------------------------------------<br>';
           }
 

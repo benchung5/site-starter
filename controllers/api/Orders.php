@@ -106,7 +106,7 @@ class Orders extends Controller
 		$data = Utils::json_read();
 
 		// remove order, associations, and files
-		$id = $this->orders->remove(['id' => $data]);
+		$id = $this->orders->remove($data);
 
 		Utils::json_respond(SUCCESS_RESPONSE, $id);
 	}

@@ -62,7 +62,7 @@ var MainSourceProducts = {
 					let priceOrMessage = formatPrice(item.price);
 					let inputOrNotify = null;
 
-					if((item.amount_available > 0) && (!item.status)) {
+					if((item.amount_available > 0) && (item.status == 'Available')) {
 						let inputPlusMinus = InputPlusMinus.init({
 							inputName: item.id,
 							maxValue: item.amount_available,
@@ -72,11 +72,7 @@ var MainSourceProducts = {
 					} else {
 						inputOrNotify = this.createEl(`<a data-${item.id} class="btn-secondary">Notify Me</a>`);
 						inputOrNotify.addEventListener('click', this.onNotifyMeClick.bind(this, item));
-						if (item.status) {
-							priceOrMessage = item.status;
-						} else {
-							priceOrMessage = 'Out of Stock';
-						}
+						priceOrMessage = item.status;
 					}
 
 					let product = this.createEl(`<div class="product"><div class="prod-variation-name">${item.productTypeVariationName}</div>

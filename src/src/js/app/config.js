@@ -1,7 +1,7 @@
 module.exports = {
    "development": {
       SERVER_URL: "/api",
-      DOMAIN_URL: 'http://localhost',
+      DOMAIN_URL: 'http://dev.naturewithus.com',
       ROOT_URL: "/",
       ARTICLES_UPLOADS_PATH: '/uploads/articles/',
       PLANTS_UPLOADS_PATH: '/uploads/trees/',

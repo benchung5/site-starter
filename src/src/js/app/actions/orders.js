@@ -136,7 +136,7 @@ export function addOrder(formData, callback) {
 }
 
 export function deleteOrder(order, callback) {
-    xhr.send(`${SERVER_URL}/order/delete`, 
+    xhr.send(`${SERVER_URL}/orders/delete`, 
     {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},

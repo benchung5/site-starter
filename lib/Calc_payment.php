@@ -34,7 +34,7 @@ class Calc_payment
 			}
 		}
 
-		return $shipping_cost;
+		return intval($shipping_cost);
 	}
 
 	public static function calc_tax($order) {
@@ -71,7 +71,7 @@ class Calc_payment
 			$tax = $total * 0.15;
 		}
 
-		return $tax;
+		return intval($tax);
 	}
 
 	public static function calc_subtotal($order) {
@@ -91,7 +91,7 @@ class Calc_payment
 		$valid = true;
 
 		foreach ($order['products'] as $product) {
-			$existing_product = $products_model->get($product['id']);
+			$existing_product = $products_model->get(['id' => $product['id']]);
 
 			if (!$existing_product) {
 				$valid = false;

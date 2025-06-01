@@ -32,9 +32,13 @@ class Products_model extends Model
 			$this->db->where('p.id', '=', $opts['id']);
 			$this->db->select('*');
 			$result = $this->db->get();
+
+			return $result;
+		} else {
+			return false;
 		}
 
-		return $result;
+		
 	}
 
 	public function add($opts)
