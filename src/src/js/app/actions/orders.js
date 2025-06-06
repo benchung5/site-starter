@@ -31,11 +31,7 @@ export function getOrder(id, callback) {
         let data = {};
         if (!apiData ) {
             data = {
-                category: [],
-                themes: [],
-                // make images null so we know it's an intentional clear
-                // an empty array makes it show the placeholder image
-                images: null
+                products: [],
             }
         } else {
             data = apiData;

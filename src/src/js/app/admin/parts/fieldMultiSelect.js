@@ -47,6 +47,8 @@ var FieldMultiselect = {
 		inst.select = inst.el.querySelector('#select');
 		inst.select.addEventListener('blur', (e) => {
 			inst.select = inst.el.querySelector('select');
+			//clear first
+			errorEl.innerHTML = '';
 			if((options.condition === 'required') && (inst.select.value == '')) {
 				errorEl.innerHTML = options.error;
 			}

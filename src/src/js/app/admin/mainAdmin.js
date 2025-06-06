@@ -11,6 +11,7 @@ import PlantEdit from './plants/plantEdit';
 import SourceProducts from './products/sourceProducts';
 import ArticleList from './articles/articleList';
 import OrdersList from './orders/ordersList';
+import OrderEdit from './orders/orderEdit';
 import ArticleAdd from './articles/articleAdd';
 import ArticleEdit from './articles/articleEdit';
 import Auth from './auth/auth';
@@ -118,6 +119,18 @@ import SignInPopup from './auth/signInPopup';
 						});
 					}
 				});
+			} else if(route === 'order-edit') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.orderEdit.onLoad();
+						this.el.appendChild(this.orderEdit.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.orderEdit.onLoad();
+							this.el.appendChild(this.orderEdit.el);
+						});
+					}
+				});
 			} else if(route === 'article-add') {
 				Auth.authenticate((authData) => {
 					if(authData.id) {
@@ -183,6 +196,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.articleAdd = ArticleAdd.init();
 			inst.articleEdit = ArticleEdit.init();
 			inst.ordersList = OrdersList.init();
+			inst.orderEdit = OrderEdit.init();
 			inst.signInPopup = SignInPopup.init();
 
 			Router.init(inst.update.bind(inst));

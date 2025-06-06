@@ -96,8 +96,26 @@ export function checkFieldErrors(form, fieldsData) {
               fieldEl.querySelector('.error').innerHTML = '';
             }
           }
+          if(field.type == 'dateInput') {
+            let isValid = validateDate(fieldEl.querySelector('.form-control').value);
+            if(!isValid) {
+              fieldEl.querySelector('.error').innerHTML = 'please enter a valid date';
+              hasErrors = true;
+            } else {
+              fieldEl.querySelector('.error').innerHTML = '';
+            }
+          }
         }
       });
     });
     return hasErrors;
+}
+
+export function validateDate(val) {
+  //validte YYYY-MM-DD
+  let date_regex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+  if (date_regex.test(val)) {
+      return true;
+  }
+  return false;
 }

@@ -1,0 +1,24 @@
+const orderFields = [
+	{name: 'id', type: 'hiddenField', error: null, condition: null},
+	{name: 'payment_intent_id', label: 'payment intent id', type: 'input', error: 'Please enter a price', condition: null},
+	{name: 'amount', label: 'amount', type: 'input', error: 'Please enter an amount', condition: null},
+	{name: 'amount_received', label: 'amount received', type: 'input', error: 'Please enter an amount received', condition: null},
+	{name: 'subtotal', label: 'subtotal', type: 'input', error: 'Please enter a subtotal', condition: null},
+	{name: 'tax', label: 'tax', type: 'input', error: 'Please enter a tax amount', condition: null},
+	{name: 'shipping', label: 'shipping', type: 'input', error: null, condition: null},
+	{name: 'description', label: 'description', type: 'textarea', error: null, condition: null},
+	{name: 'email', label: 'email', type: 'input', error: 'Please enter an email address', condition: null},
+	{name: 'name', label: 'name', type: 'input', error: 'Please enter a name', condition: null},
+	{name: 'phone', label: 'phone', type: 'input', error: null, condition: null},
+	{name: 'city', label: 'city', type: 'input', error: null, condition: null},
+	{name: 'line1', label: 'address line 1', type: 'input', error: null, condition: null},
+	{name: 'line2', label: 'address line 2', type: 'input', error: null, condition: null},
+	{name: 'postal_code', label: 'postal code', type: 'input', error: null, condition: null},
+	{name: 'state', label: 'province', type: 'input', error: null, condition: null},
+	{name: 'created', label: 'created', type: 'input', error: null, condition: null},
+	{name: 'canceled_at', label: 'cancelled at', type: 'input', error: null, condition: null},
+	{name: 'cancellation_reason', label: 'cancellation reason', type: 'input', error: null, condition: null},
+	{name: 'shipped', label: 'shipped', type: 'dateInput', error: null, condition: 'required'},
+];
+
+export default orderFields;

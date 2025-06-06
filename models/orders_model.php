@@ -66,6 +66,11 @@ class Orders_model extends Model
 			// 	->count('p.id', 'seeds')
 			// 	->getAll();
 
+			$result->products = $this->db->table('products p')
+				->innerJoin('orders_products op', 'p.id', 'op.product_id')
+				->where('op.order_id', $result->id)
+				->getAll();
+
 			return $result;
 		}
 
@@ -102,13 +107,11 @@ class Orders_model extends Model
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
 
-		// // many to many tables
-		// if (isset($opts['joins'])) {
-		// 	$joins = $opts['joins'];
-		// 	$this->update_joins($tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
-		// 	$this->update_joins($tree_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
-		// 	$this->update_joins($tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
-		// }
+		// many to many tables
+		if (isset($opts['joins'])) {
+			$joins = $opts['joins'];
+			$this->update_joins($order_id, $joins, 'products', 'product_id', 'orders_products');
+		}
 	}
 
 	protected function update_joins($id, $joins, $table_name, $table_id_name, $join_table_name) {

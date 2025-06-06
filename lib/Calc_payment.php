@@ -60,7 +60,8 @@ class Calc_payment
 		}
 
 		if (($order['address']['state'] == 'BC') || ($order['address']['state'] == 'MB')) {
-			$tax = $total * 0.12;
+			// $tax = $total * 0.12;
+			$tax = $total * 0.05;
 		}
 
 		if (($order['address']['state'] == 'AB') || ($order['address']['state'] == 'NT') || ($order['address']['state'] == 'NU') || ($order['address']['state'] == 'YT')) {

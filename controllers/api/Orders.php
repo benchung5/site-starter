@@ -61,25 +61,58 @@ class Orders extends Controller
 		//'add' or 'update'
 		//use isset version for optional fields
 		$update_data = [
-			'name' => $data['name']
+			// 'amount' => $data['amount'],
+			// 'amount_received' => $data['amount_received'],
+			// 'subtotal' => $data['subtotal'],
+			// 'tax' => $data['tax'],
+			// 'shipping' => $data['shipping'],
+			// 'description' => $data['description'],
+			// 'email' => $data['email'],
+			// 'name' => $data['name'],
+			// 'phone' => $data['phone'],
+			// 'city' => $data['city'],
+			// 'line1' => $data['line1'],
+			// 'line2' => $data['line2'],
+			// 'postal_code' => $data['postal_code'],
+			// 'state' => $data['state'],
+			// 'created' => $data['created'],
+			// 'canceled_at' => $data['canceled_at'],
+			// 'cancellation_reason' => $data['cancellation_reason'],
+			'shipped' => $data['shipped']
 		];
 
-		// if(isset($data['other_common_names'])) { $update_data['other_common_names'] = $data['other_common_names']; };
-		// if(isset($data['genus_id'])) { $update_data['genus_id'] = $data['genus_id']; };
-		// if(isset($data['specific_epithet'])) { $update_data['specific_epithet'] = $data['specific_epithet']; };
+		if(!empty($data['payment_intent_id'])) { $update_data['payment_intent_id'] = $data['payment_intent_id']; };
+		if(!empty($data['amount'])) { $update_data['amount'] = $data['amount']; };
+		if(!empty($data['amount_received'])) { $update_data['amount_received'] = $data['amount_received']; };
+		if(!empty($data['subtotal'])) { $update_data['subtotal'] = $data['subtotal']; };
+		if(!empty($data['tax'])) { $update_data['tax'] = $data['tax']; };
+		if(!empty($data['shipping'])) { $update_data['shipping'] = $data['shipping']; };
+		if(isset($data['description'])) { $update_data['description'] = $data['description']; };
+		if(isset($data['email'])) { $update_data['email'] = $data['email']; };
+		if(isset($data['name'])) { $update_data['name'] = $data['name']; };
+		if(isset($data['phone'])) { $update_data['phone'] = $data['phone']; };
+		if(isset($data['city'])) { $update_data['city'] = $data['city']; };
+		if(isset($data['line1'])) { $update_data['line1'] = $data['line1']; };
+		if(isset($data['line2'])) { $update_data['line2'] = $data['line2']; };
+		if(isset($data['postal_code'])) { $update_data['postal_code'] = $data['postal_code']; };
+		if(isset($data['state'])) { $update_data['state'] = $data['state']; };
+		if(!empty($data['created'])) { $update_data['created'] = $data['created']; };
+		if(!empty($data['canceled_at'])) { $update_data['canceled_at'] = $data['canceled_at']; };
+		if(isset($data['cancellation_reason'])) { $update_data['cancellation_reason'] = $data['cancellation_reason']; };
+		// if(isset($data['shipped'])) { $update_data['shipped'] = $data['shipped']; };
 	
 
-		// // the many to many table data...
-		// $joins_data = [
-		// 	'eco_benefits' => !empty($data['eco_benefits']) ? $data['eco_benefits'] : null,
-		// 	'native_to' => !empty($data['native_to']) ? $data['native_to'] : null,
-		// 	'shapes' => !empty($data['shapes']) ? $data['shapes'] : null,
-		// ];
+		// the many to many table data...
+		$joins_data = [
+			'products' => !empty($data['products']) ? $data['products'] : null,
+			// 	'native_to' => !empty($data['native_to']) ? $data['native_to'] : null,
+			// 	'shapes' => !empty($data['shapes']) ? $data['shapes'] : null,
+		];
 
 		if ($is_add) {
 			$insert_data = [
 				'insert' => $update_data,
-				// 'joins' => $joins_data
+				'joins' => $joins_data
 			];
 
 			$new_order_id = $this->orders->add($insert_data);
@@ -88,7 +121,7 @@ class Orders extends Controller
 			$this->orders->update([
 				'where' => ['id' => $data['order_id']], 
 				'update' => $update_data,
-				// 'joins' => $joins_data
+				'joins' => $joins_data
 			]);
 
 			$updated_order = $this->orders->get(['id' => $data['order_id']]);

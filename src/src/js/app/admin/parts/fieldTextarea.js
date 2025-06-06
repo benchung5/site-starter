@@ -147,6 +147,7 @@ var FieldTextarea = {
 			       cols="50"
 			       name="${options.name}"
 			   >${options.value || ''}</textarea>
+			 <div class="error"></div>
 		     </div>`
 		});
 
@@ -154,6 +155,8 @@ var FieldTextarea = {
 		let errorEl = inst.el.querySelector('.error');
 		inst.el.querySelector('textarea').addEventListener('blur', (e) => {
 			inst.input = inst.el.querySelector('textarea');
+			//clear first
+			errorEl.innerHTML = '';
 			if((options.condition === 'required') && (inst.input.value == '')) {
 				errorEl.innerHTML = options.error;
 			}
