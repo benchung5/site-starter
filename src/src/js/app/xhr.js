@@ -61,7 +61,13 @@ var Xhr = {
 			}
 		})
 		.then(data => {
-			if(typeof data === 'string') {
+			let datatest = JSON.stringify(data);
+			datatest = datatest.toLowerCase();
+			let hasError = datatest.includes('error');
+			if(typeof data === 'string' && hasError) {
+				callback({error: data});
+			}
+			if(typeof data === 'string' && hasError) {
 				callback({error: data});
 			} else {
 				//sent the data back

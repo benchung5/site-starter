@@ -12,6 +12,7 @@ import SourceProducts from './products/sourceProducts';
 import ArticleList from './articles/articleList';
 import OrdersList from './orders/ordersList';
 import OrderEdit from './orders/orderEdit';
+import OrderProductList from './products/orderProductList';
 import ArticleAdd from './articles/articleAdd';
 import ArticleEdit from './articles/articleEdit';
 import Auth from './auth/auth';
@@ -19,11 +20,13 @@ import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
 import plantTablesStore from '../storage/plantTablesStore';
 import productTablesStore from '../storage/productTablesStore';
+import orderProductTablesStore from '../storage/orderProductTablesStore';
 import articleListStore from '../storage/articleListStore';
 import articleFilterStore from '../storage/articleFilterStore';
 import articleTablesStore from '../storage/articleTablesStore';
 import orderFilterStore from '../storage/orderFilterStore';
 import orderListStore from '../storage/orderListStore';
+import orderProductListStore from '../storage/orderProductListStore';
 import orderTablesStore from '../storage/orderTablesStore';
 import appStateStore from '../storage/appStateStore';
 import SignInPopup from './auth/signInPopup';
@@ -96,6 +99,18 @@ import SignInPopup from './auth/signInPopup';
 						this.signInPopup.open(() => {
 							this.sourceProducts.onLoad();
 							this.el.appendChild(this.sourceProducts.el);
+						});
+					}
+				});
+			} else if(route === 'order-product-list') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.orderProductList.onLoad();
+						this.el.appendChild(this.orderProductList.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.orderProductList.onLoad();
+							this.el.appendChild(this.orderProductList.el);
 						});
 					}
 				});
@@ -181,6 +196,8 @@ import SignInPopup from './auth/signInPopup';
 			productTablesStore.init();
 			orderFilterStore.init();
 			orderListStore.init();
+			orderProductListStore.init();
+			orderProductTablesStore.init();
 			orderTablesStore.init();
 
 			//components to show
@@ -197,6 +214,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.articleEdit = ArticleEdit.init();
 			inst.ordersList = OrdersList.init();
 			inst.orderEdit = OrderEdit.init();
+			inst.orderProductList = OrderProductList.init();
 			inst.signInPopup = SignInPopup.init();
 
 			Router.init(inst.update.bind(inst));

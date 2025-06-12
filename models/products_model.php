@@ -14,12 +14,19 @@ class Products_model extends Model
 		}
 
 		$this->db
-			->select('p.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status')
+			->select('p.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status, t.common_name source_name')
 			->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
 			->leftJoin('product_type_variations ptv', 'p.product_type_variation_id', 'ptv.id')
-			->leftJoin('product_statuses ps', 'p.status_id', 'ps.id');
+			->leftJoin('product_statuses ps', 'p.status_id', 'ps.id')
+			->leftJoin('trees t', 't.id', 'p.source_id');
 
 		$result = $this->db->getAll();
+
+		//combine the "name"
+		foreach ($result as $prod_result) {
+			$name = $prod_result->source_name.' > '.$prod_result->productTypeName.' ('.$prod_result->productTypeVariationName.')';
+			$prod_result->name = $name;
+		}
 
 		return $result;
 	}

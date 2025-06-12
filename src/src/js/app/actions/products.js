@@ -1,7 +1,6 @@
 import xhr from '../xhr';
 import appStateStore from '../storage/appStateStore';
 import { getUrlParams } from '../lib/utils';
-import productListStore from '../storage/productListStore';
 import { formatSearchString } from '../lib/stringUtils';
 
 //config

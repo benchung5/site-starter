@@ -119,12 +119,12 @@ class Orders extends Controller
 			$updated_order = $this->orders->get(['id' => $new_order_id]);
 		} else {
 			$this->orders->update([
-				'where' => ['id' => $data['order_id']], 
+				'where' => ['id' => $data['id']], 
 				'update' => $update_data,
 				'joins' => $joins_data
 			]);
 
-			$updated_order = $this->orders->get(['id' => $data['order_id']]);
+			$updated_order = $this->orders->get(['id' => $data['id']]);
 		}
 
 		$this->orders->update([

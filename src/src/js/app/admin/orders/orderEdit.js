@@ -23,7 +23,7 @@ var OrderEdit = {
 		let formData = new FormData(e.target);
 
 		//append the current order id
-		formData.append('order_id', this.orderId);
+		formData.append('id', this.orderId);
 
 		// //delete any empty fields in formData
 		// Array.from(formData).map((item) => {
@@ -54,7 +54,7 @@ var OrderEdit = {
 		if(response.error) {
 			this.updateMessage.renderError(`<span>Error: ${response.error}</span>`);
 		} else {
-			this.updateMessage.renderSuccess(`Order: ${response.order_id}<br/>successfully updated.`);
+			this.updateMessage.renderSuccess(`Order: ${response.id}<br/>successfully updated.`);
 		}
 	},
 	onLoad: function() {
@@ -68,6 +68,8 @@ var OrderEdit = {
 			//get order table data
 			fetchOrderTables((orderTablesData) => {
 				orderTablesStore.setData(orderTablesData);
+				//update the link to the products
+				this.products.href = `#order-product-list?order=${apiData.id}`;
 				//record the current order id
 				this.orderId = apiData.id
 				//create the fields
@@ -143,6 +145,9 @@ var OrderEdit = {
               <div class="row">
                   <div class="main-window columns small-12 large-9">
                       <h3>Edit Order</h3>
+                      <div style="float: right; display: inline-block;">
+												<a id="products">&nbsp;&nbsp;view products</a>&nbsp;
+                      </div>
                       <form>
 	                      <div id="form-fields">
 	                      </div>
@@ -159,6 +164,7 @@ var OrderEdit = {
 		inst.updateMessage = UpdateMessage.init({});
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
+		inst.products = inst.el.querySelector('#products');
 		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
