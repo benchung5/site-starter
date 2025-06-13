@@ -25,8 +25,9 @@ class Shipping_and_tax extends Controller
 			echo json_encode(['error' => "Sorry, there was a problem calculating this order. Try again or contact us for help. We're sorry for the inconvenience."]);
 		} else {
 			$subtotal = Calc_payment::calc_subtotal($data['order']);
-			$shipping_cost = Calc_payment::calc_shipping($data['order']);
-			$tax = Calc_payment::calc_tax($data['order']);
+			$shipping_obj = Calc_payment::calc_shipping($data['order']);
+			$shipping_cost = $shipping_obj->grand_total_before_tax;
+			$tax = Calc_payment::calc_tax($data['order'], $shipping_cost);
 
 			// remove later
 			// **************************************
@@ -56,6 +57,7 @@ class Shipping_and_tax extends Controller
 					  		'products' => $products,
 					  		'subtotal' => $subtotal,
 					  		'shipping' => $shipping_cost,
+					  		'box_count' => $shipping_obj->box_count,
 					  		'tax' => $tax,
 					  		// 'email' => $data['order']['email'],
 					  	];

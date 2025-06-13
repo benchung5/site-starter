@@ -3,17 +3,26 @@ namespace Config;
 
 class Config 
 {
-	private static $config = [
+	private static $paths_config = [
 	    'ROOT_URL' => '/',
 	    'CONTROLLER_PATH' => './controllers/',
 	    'VIEW_PATH' => './views/',
 	    'MODEL_PATH' => './models/',
 	    'SIGNIN_KEY' => 'sQPMBNCVkgs"f?>$%^*fgbfgbdSfds###$%#$bdFp%upsfbdf',
-	    'ADMIN_ID' => '752'
+	    'ADMIN_ID' => '752',
+	    'COMPANY_POSTAL_CODE' => 'V2N6A2',
+	];
+
+	private static $company_info_config = [
+	    'COMPANY_POSTAL_CODE' => 'V2N6A2',
 	];
 
 	public static function paths($key = null) {
-		return self::$config[$key];
+		return self::$paths_config[$key];
+	}
+
+	public static function company_info($key = null) {
+		return self::$company_info_config[$key];
 	}
 
 	public static function define_constants()

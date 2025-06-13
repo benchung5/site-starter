@@ -113,6 +113,7 @@ class Stripe_payment_webhook extends Controller
           $transaction['state'] = $paymentIntent->shipping->address->state;
           $transaction['subtotal'] = $metadata['subtotal'];
           $transaction['shipping'] = $metadata['shipping'];
+          $transaction['box_count'] = $metadata['box_count'];
           $transaction['tax'] = $metadata['tax'];
           $transaction['created'] = $paymentIntent->created;
           $transaction['canceled_at'] = $paymentIntent->canceled_at;

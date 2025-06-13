@@ -36,14 +36,14 @@ import { setLocalStorage } from '../lib/utils';
         this.orderSummary.updateShippingAndTax(apiData.shipping, apiData.tax, apiData.total);
         checkoutStore.setData({ calcShippingLoading: false});
         checkoutStore.setData({customerDetailsUpdating: false});
-      }
 
-      if (!this.payment) {
-        this.payment = Payment.init({
-          stripe: this.stripe,
-          elements: this.elements,
-          message: this.showMessage.bind(this),
-        });
+        if (!this.payment) {
+          this.payment = Payment.init({
+            stripe: this.stripe,
+            elements: this.elements,
+            message: this.showMessage.bind(this),
+          });
+        }
       }
     },
     init: function() {
