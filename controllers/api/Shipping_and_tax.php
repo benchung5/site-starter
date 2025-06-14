@@ -17,16 +17,25 @@ class Shipping_and_tax extends Controller
 	public function index()
 	{
 		$data = Utils::json_read();
+		$error = (object)[];
 
 		$verified = Calc_payment::verify_products($data['order']);
 
 		if (!$verified) {
 			http_response_code(500);
-			echo json_encode(['error' => "Sorry, there was a problem calculating this order. Try again or contact us for help. We're sorry for the inconvenience."]);
+			echo json_encode(['error' => "Sorry, there was a problem calculating this order. Please try again or contact us to make an order. We're sorry for the inconvenience."]);
 		} else {
 			$subtotal = Calc_payment::calc_subtotal($data['order']);
+			if ($subtotal < 4800) {
+				$error->error = 'Sorry, looks like this order is less than $48 (the minimum order amount before shipping). Feel free to add more items to reach this amount.';
+				Utils::json_respond(JWT_PROCESSING_ERROR, $error);
+			}
 			$shipping_obj = Calc_payment::calc_shipping($data['order']);
 			$shipping_cost = $shipping_obj->grand_total_before_tax;
+			if ($data['order']['pickup'] !== 'yes' && $shipping_cost == 0) {
+				$error->error = 'There was an error calculating shipping to your address. Please try again or contact us to make an order. We apololgize for the inconvinience';
+				Utils::json_respond(JWT_PROCESSING_ERROR, $error);
+			}
 			$tax = Calc_payment::calc_tax($data['order'], $shipping_cost);
 
 			// remove later

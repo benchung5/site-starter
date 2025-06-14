@@ -120,7 +120,6 @@ class Calc_payment
                                         //convert to cents
                                         $box->total_before_tax = $box->total_before_tax * 100;
                                     }
-
                                 }
                             }
                         }
