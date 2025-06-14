@@ -23,36 +23,7 @@ var CustomerInfo = {
 	addressElementChanged: function(e) {
 		let cart = JSON.parse(localStorage.getItem('cart')) || [];
 		if (e.complete) {
-      		// // Extract potentially complete address
-      		// if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
-      		// 	this.setState({ address: e.value.address });
-      			
-      		// } else {
-      		// 	this.message("Sorry, we only ship plants and seeds to BC or Alberta");
-      		// 	this.setState({ address: null });
-      		// }
-
-			// if plants are in order, just allow shipping to BC or Alberta
-      		let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      		let isPlantOrder = false;
-      		cart.map((item) => {
-      		    if(item.productTypeName == 'Plants') {
-      		      isPlantOrder = true;
-      		    }
-      		});
-
-      		if(isPlantOrder) {
-      			// Extract potentially complete address
-      			if (e.value.address.state == 'BC' || e.value.address.state == 'AB') {
-      				this.setState({ address: e.value.address });
-      				
-      			} else {
-      				this.message("Sorry, we only ship plants to BC or Alberta");
-      				this.setState({ address: null });
-      			}
-      		} else {
-      			this.setState({ address: e.value.address });
-      		}
+			this.checkAddress(e.value.address);
 		} else {
 			this.setState({ address: null });
 		}
@@ -82,36 +53,63 @@ var CustomerInfo = {
 			this.messageLabelEl.innerHTML = "Message (optional)";
 		}
 	},
+	checkAddress: function(address) {
+		// if plants are in order, just allow shipping to BC or Alberta
+  		let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  		let isPlantOrder = false;
+  		cart.map((item) => {
+  		    if(item.productTypeName == 'Plants') {
+  		      isPlantOrder = true;
+  		    }
+  		});
+
+  		if(isPlantOrder) {
+  			// Extract potentially complete address
+  			if (address.state == 'BC' || address.state == 'AB') {
+  				this.setState({ address: address });
+  				return true;
+  			} else {
+  				this.message("Sorry, we only ship plants to BC or Alberta");
+  				this.setState({ address: null });
+  				return false;
+  			}
+  		} else {
+  			this.setState({ address: address });
+  			return true;
+  		}
+	},
 	onCalculateShippingClick: function(e) {
 		e.preventDefault();
- 		//todo...calculate shipping and tax and update order summary
- 		checkoutStore.setData({ calcShippingLoading: true});
+		let isValidAddress = this.checkAddress(this.state.address);
+		if(isValidAddress) {
+	 		checkoutStore.setData({ calcShippingLoading: true});
 
- 		let formData = new FormData(this.additionalInfoForm);
- 		let additionalInfoArray = Array.from(formData);
- 		const address = this.state.address;
- 		const email = this.state.email;
+	 		let formData = new FormData(this.additionalInfoForm);
+	 		let additionalInfoArray = Array.from(formData);
+	 		const address = this.state.address;
+	 		const email = this.state.email;
 
- 		let message = '';
- 		let pickup = '';
+	 		let message = '';
+	 		let pickup = '';
 
- 		additionalInfoArray.map((item) => {
- 			if (item[0] == 'message') {
- 				message = item[1];
- 			}
- 			if (item[0] == 'pickup') {
- 				pickup = item[1];
- 			}
- 		})
+	 		additionalInfoArray.map((item) => {
+	 			if (item[0] == 'message') {
+	 				message = item[1];
+	 			}
+	 			if (item[0] == 'pickup') {
+	 				pickup = item[1];
+	 			}
+	 		})
 
-		this.detach();
+			this.detach();
 
-		this.onCalculateShipping({
-			pickup: pickup,
-			message: message,
-			address: address,
-			email: email
-		});
+			this.onCalculateShipping({
+				pickup: pickup,
+				message: message,
+				address: address,
+				email: email
+			});
+		}
 	},
 	calcShippingLoading: function(e) {
 		// this.calculateButton.isLoading(e.detail.calcShippingLoading);

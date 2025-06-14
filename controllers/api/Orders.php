@@ -96,6 +96,7 @@ class Orders extends Controller
 		if(isset($data['line2'])) { $update_data['line2'] = $data['line2']; };
 		if(isset($data['postal_code'])) { $update_data['postal_code'] = $data['postal_code']; };
 		if(isset($data['state'])) { $update_data['state'] = $data['state']; };
+		if(isset($data['order_summary'])) { $update_data['order_summary'] = $data['order_summary']; };
 		if(!empty($data['created'])) { $update_data['created'] = $data['created']; };
 		if(!empty($data['canceled_at'])) { $update_data['canceled_at'] = $data['canceled_at']; };
 		if(isset($data['cancellation_reason'])) { $update_data['cancellation_reason'] = $data['cancellation_reason']; };

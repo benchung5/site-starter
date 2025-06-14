@@ -27,11 +27,7 @@ class Stripe_payment_webhook extends Controller
     // If you are using an endpoint defined with the API or dashboard, look in your webhook settings
     // at https://dashboard.stripe.com/webhooks (click 'reveal' under Signing secret in webhooks)
 
-    // // This is your Stripe CLI webhook secret for testing your endpoint locally.
-    // $endpoint_secret = 'whsec_6fa8dc72fd0596811364a7ce129abc61a3cfc5e2cb13cfd7cb49bada848bb236';
-
-    // The live webhook secret.
-    $endpoint_secret = 'whsec_iVwxuK2dqJ0rYlk9W2WP12XcaYWMVZPq';
+    $endpoint_secret = Secret::keys('ENDPOINT_SECRET');
 
 
     $payload = @file_get_contents('php://input');
@@ -118,16 +114,23 @@ class Stripe_payment_webhook extends Controller
           $transaction['created'] = $paymentIntent->created;
           $transaction['canceled_at'] = $paymentIntent->canceled_at;
           $transaction['cancellation_reason'] = $paymentIntent->cancellation_reason;
+          $transaction['order_summary'] = '';
 
           $result = $this->temp_cart->get_products($paymentIntent->id);
-          $transaction['products'] = json_encode($result->products);
-
           $products = json_decode($result->products);
-
-          $order_id = $this->orders->add($transaction);
-
-          //add product associations to order
           foreach ($products as $product) {
+            //format the price
+            $product->price = number_format(($product->price/100), 2);
+            //create a summary
+            $product->summary = $product->commonName." - ".$product->productTypeName." (".$product->productTypeVariationName.")  $".$product->price." x ".$product->quantity;
+          }
+          foreach ($products as $product) {
+            //construct the order summary of products
+            $transaction['order_summary'] .= $product->summary."\n---------------------------------------------------\n";
+          }
+          $order_id = $this->orders->add($transaction);
+          foreach ($products as $product) {
+            //add product associations to order
             $this->orders_products->add(['order_id' => $order_id, 'product_id' => $product->id, 'quantity' => $product->quantity]);
           }
 
@@ -145,9 +148,10 @@ class Stripe_payment_webhook extends Controller
           'customer email: ' . $transaction['email'].'<br>'.
           '<b>order# ' . $order_id.'</b><br><br>';
           
-          $email_body .= 'items:<br>--------------------------------------------<br>';
+          $email_body .= 'items:<br>---------------------------------------------------<br>';
           foreach ($products as $product) {
-              $email_body .= $product->commonName.' - '.$product->productTypeName.' ('.$product->productTypeVariationName.') x '.$product->quantity.'<br>--------------------------------------------<br>';
+            //construct the order summary of products
+            $email_body .= $product->summary."<br>---------------------------------------------------<br>";
           }
 
           $email_body .= 'subtotal: $'.$subtotal.'<br>'.

@@ -101,6 +101,13 @@ class Orders_model extends Model
 	{
 		$order_id = $this->db->table('orders')->where($opts['where'])->get()->id;
 
+		//date data type won't accept an empty string, so convert to null
+		if (isset($opts['update'])) {
+			if ($opts['update']['shipped'] == '') {
+				$opts['update']['shipped'] = null;
+			}
+		}
+
 		// streight updates
 		if (isset($opts['where']) && isset($opts['update'])) {
 			$this->db->table('orders');

@@ -15,10 +15,11 @@ const orderFields = [
 	{name: 'line2', label: 'address line 2', type: 'input', error: null, condition: null},
 	{name: 'postal_code', label: 'postal code', type: 'input', error: null, condition: null},
 	{name: 'state', label: 'province', type: 'input', error: null, condition: null},
+	{name: 'order_summary', label: 'order summary', type: 'textarea', error: null, condition: null},
 	{name: 'created', label: 'created', type: 'input', error: null, condition: null},
 	{name: 'canceled_at', label: 'cancelled at', type: 'input', error: null, condition: null},
 	{name: 'cancellation_reason', label: 'cancellation reason', type: 'input', error: null, condition: null},
-	{name: 'shipped', label: 'shipped', type: 'dateInput', error: null, condition: 'required'},
+	{name: 'shipped', label: 'shipped', type: 'dateInput', error: null, condition: null},
 ];
 
 export default orderFields;

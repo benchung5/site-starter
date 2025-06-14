@@ -19,7 +19,7 @@ var OrderTablesStore = {
 		'line2' : [],
 		'postal_code' : [],
 		'state' : [],
-		'products' : [],
+		'order_summary' : [],
 		'created' : [],
 		'canceled_at' : [],
 		'cancellation_reason' : [],

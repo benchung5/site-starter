@@ -86,23 +86,31 @@ export function checkFieldErrors(form, fieldsData) {
     let hasErrors = false;
     const fields = Array.from(form.querySelectorAll('.form-group'));
     fields.map((fieldEl) => {
+      let fieldVal = fieldEl.querySelector('.form-control').value;
+      let fieldErrorDisplay = fieldEl.querySelector('.error');
+
       fieldsData.map((field) => {
         if(fieldEl.dataset.name == field.name) {
-          if(field.condition == 'required') {
-            if(!fieldEl.querySelector('.form-control').value) {
-              fieldEl.querySelector('.error').innerHTML = field.error;
+          if(field.type == 'dateInput') {
+            let isValid = false;
+            if (fieldVal == '') {
+              isValid = true;
+            } else {
+              isValid = validateDate(fieldVal);
+            }
+            if(!isValid) {
+              fieldErrorDisplay.innerHTML = 'please enter a valid date';
               hasErrors = true;
             } else {
-              fieldEl.querySelector('.error').innerHTML = '';
+              fieldErrorDisplay.innerHTML = '';
             }
           }
-          if(field.type == 'dateInput') {
-            let isValid = validateDate(fieldEl.querySelector('.form-control').value);
-            if(!isValid) {
-              fieldEl.querySelector('.error').innerHTML = 'please enter a valid date';
+          if(field.condition == 'required') {
+            if(!fieldVal) {
+              fieldErrorDisplay.innerHTML = field.error;
               hasErrors = true;
             } else {
-              fieldEl.querySelector('.error').innerHTML = '';
+              fieldErrorDisplay.innerHTML = '';
             }
           }
         }

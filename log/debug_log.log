@@ -1,0 +1,21 @@
+stdClass Object
+(
+    [id] => 139
+    [productTypeName] => Plants
+    [productTypeVariationName] => 3 Pack
+    [price] => 5000
+    [amount_available] => 50
+    [status] => Available
+    [source_name] => American Red Raspberry
+    [name] => American Red Raspberry > Plants (3 Pack)
+    [image] => PXL_20230709_005430773-657.jpg
+    [plantId] => 222
+    [commonName] => American Red Raspberry
+    [botanicalName] => Rubusstrigosus&nbsp;subsp.&nbsp;
+    [plantUrl] => 
+    [quantity] => 3
+)
+
+-----------------------------------------------
+from: C:\xampp\xampp\htdocs\1pix_app\controllers\api\Stripe_payment_webhook.php
+-----------------------------------------------
