@@ -378,7 +378,7 @@ label {
   margin-bottom: 0.5em;
 }
 
-.view .body-area a {
+.view .body-area a, #message-container a {
   color: $dark-green;
 }
 
@@ -4041,4 +4041,34 @@ checkout
 
 #info-summary {
   margin-bottom: 2.5rem;
+}
+
+/* ==========================================================================
+sandbox
+========================================================================== */
+
+.data-list {
+  margin: 2rem;
+  border-top: 1px solid #D8D8D8;
+  border-right: 1px solid #D8D8D8;
+  border-left: 1px solid #D8D8D8;
+  .list-header {
+      font-weight: 600;
+      font-size: 85%;
+  }
+  .list-row, .list-header {
+    border-bottom: 1px solid #D8D8D8;
+    display: flex;
+    & > * {
+      padding: 0.5rem;
+      flex: 1; /*distribute space evenly accross columns*/
+      min-width: 0; /*ensures long words don't widen even column size*/
+      word-wrap: break-word;
+      hyphens: auto;
+      &:last-child {
+        flex: 2;
+      }
+    }
+
+  }
 }

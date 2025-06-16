@@ -54,126 +54,131 @@ import { setLocalStorage } from '../lib/utils';
 
       let cart = JSON.parse(localStorage.getItem('cart'));
 
-      let total = 0;
-      cart.map((item) => {
-        const subtotal = parseInt(item.price) * parseInt(item.quantity);
-        total = total + subtotal;
-      });
-
-      if(total < 4800) {
-        this.showMessage('Sorry, looks like this order is less than $48 (the minimum order amount before shipping). Feel free to add more items to reach this amount.');
+      if (!cart) {
+        this.showMessage('Your cart is empty. Feel free to <a href="/plants">continue shopping</a>');
       } else {
-          checkoutStore.init();
+        let total = 0;
+        cart.map((item) => {
+          const subtotal = parseInt(item.price) * parseInt(item.quantity);
+          total = total + subtotal;
+        });
 
-          let elementsContainerEl = document.querySelector("#elements-container");
-          let customerInfoContainerEl = document.querySelector("#customer-info-container");
+        if(total < 4800) {
+          this.showMessage('Sorry, looks like this order is less than $48 (the minimum order amount before shipping). Feel free to <a href="/plants">continue shopping</a>.');
+        } else {
+            checkoutStore.init();
 
-          inst.order = {
-            paymentIntentId: '',
-            products: [],
-            address: [],
-            pickup: '',
-            message: '',
-            email: '',
-          };
+            let elementsContainerEl = document.querySelector("#elements-container");
+            let customerInfoContainerEl = document.querySelector("#customer-info-container");
 
-          // This is your test publishable API key.
-          inst.stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+            inst.order = {
+              paymentIntentId: '',
+              products: [],
+              address: [],
+              pickup: '',
+              message: '',
+              email: '',
+            };
 
-          // themes can be found here: https://docs.stripe.com/elements/appearance-api
-          const appearance = {
-            theme: 'stripe',
-            variables: { 
-              colorPrimary: '#645f68;',
-              colorText: '#645f68',
-              fontFamily: 'lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif',
+            // This is your test publishable API key.
+            inst.stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
+
+            // themes can be found here: https://docs.stripe.com/elements/appearance-api
+            const appearance = {
+              theme: 'stripe',
+              variables: { 
+                colorPrimary: '#645f68;',
+                colorText: '#645f68',
+                fontFamily: 'lato, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif',
+              }
+            };
+            // the element group to modify
+            inst.elements = null;
+
+            // remove later
+            // **************************************
+            // **************************************
+            const hash = getUrlParams('test')[0];
+            if (hash == 25465) {
+              let testCart = [{
+                        "id": "111",
+                        "productTypeName": "Plants",
+                        "productTypeVariationName": "3 Pack",
+                        "price": "50",
+                        "amount_available": "1",
+                        "status": null,
+                        "image": null,
+                        "plantId": "220",
+                        "commonName": "Test Prod",
+                        "botanicalName": "",
+                        "plantUrl": "",
+                        "quantity": "1"
+                    }];
+
+              testCart = JSON.stringify(testCart);
+              setLocalStorage('cart', testCart);
+
+              inst.order.test = 25465;
             }
-          };
-          // the element group to modify
-          inst.elements = null;
+            // **************************************
+            // **************************************
 
-          // remove later
-          // **************************************
-          // **************************************
-          const hash = getUrlParams('test')[0];
-          if (hash == 25465) {
-            let testCart = [{
-                      "id": "111",
-                      "productTypeName": "Plants",
-                      "productTypeVariationName": "3 Pack",
-                      "price": "50",
-                      "amount_available": "1",
-                      "status": null,
-                      "image": null,
-                      "plantId": "220",
-                      "commonName": "Test Prod",
-                      "botanicalName": "",
-                      "plantUrl": "",
-                      "quantity": "1"
-                  }];
+            // check for payment completion response, otherwise start customer info form
+            const statusClientSecret = new URLSearchParams(window.location.search).get(
+              "payment_intent_client_secret");
 
-            testCart = JSON.stringify(testCart);
-            setLocalStorage('cart', testCart);
-
-            inst.order.test = 25465;
-          }
-          // **************************************
-          // **************************************
-
-          // check for payment completion response, otherwise start customer info form
-          const statusClientSecret = new URLSearchParams(window.location.search).get(
-            "payment_intent_client_secret");
-
-          if (statusClientSecret) {
-            inst.paymentStatus = PaymentStatus.init({
-              stripe: inst.stripe,
-              message: inst.showMessage.bind(inst),
-              clientSecret: statusClientSecret
-            });
-            //remove stuff from localstorage
-            localStorage.removeItem('cart');
-          } else {
-            localStorage.getItem('cart');
-            inst.orderSummary = OrderSummary.init({ 
-              cart: cart
-            });
-            if(cart.length !== 0) {
-              elementsContainerEl.style.display = 'block';
-              inst.order.products = cart;
-              postOrder(inst.order, (apiData) => {
-                inst.order.paymentIntentId = apiData.paymentIntentId;
-                inst.elements = inst.stripe.elements({ clientSecret: apiData.clientSecret, appearance });
-                inst.customerInfo = CustomerInfo.init({
-                  stripe: inst.stripe,
-                  elements: inst.elements,
-                  message: inst.showMessage.bind(inst),
-                  onCalculateShipping: (info) => {
-                    inst.showMessage('');
-                    if(!inst.customerInfoSummary) {
-                      inst.customerInfoSummary = CustomerInfoSummary.init({
-                        customerInfo: info,
-                        onButtonClick: inst.onChangeCustomerInfo.bind(inst),
-                      });
-                    } else {
-                      inst.customerInfoSummary.update(info);
-                      inst.customerInfoSummary.reAttach();
-                    }
-
-                    const cart = JSON.parse(localStorage.getItem('cart'));
-                    inst.order.address = info.address;
-                    inst.order.pickup = info.pickup;
-                    inst.order.message = info.message;
-                    inst.order.email = info.email;
-
-                    calcShippingAndTax(inst.order, (apiData) => {
-                      inst.onTotalUpdated(apiData);
-                    });
-                  }
-                });
+            if (statusClientSecret) {
+              inst.paymentStatus = PaymentStatus.init({
+                stripe: inst.stripe,
+                message: inst.showMessage.bind(inst),
+                clientSecret: statusClientSecret
               });
+              //remove stuff from localstorage
+              localStorage.removeItem('cart');
+            } else {
+              localStorage.getItem('cart');
+              inst.orderSummary = OrderSummary.init({ 
+                cart: cart
+              });
+              if(cart.length !== 0) {
+                elementsContainerEl.style.display = 'block';
+                inst.order.products = cart;
+                postOrder(inst.order, (apiData) => {
+                  inst.order.paymentIntentId = apiData.paymentIntentId;
+                  inst.elements = inst.stripe.elements({ clientSecret: apiData.clientSecret, appearance });
+                  inst.customerInfo = CustomerInfo.init({
+                    stripe: inst.stripe,
+                    elements: inst.elements,
+                    message: inst.showMessage.bind(inst),
+                    onCalculateShipping: (info) => {
+                      inst.showMessage('');
+                      if(!inst.customerInfoSummary) {
+                        inst.customerInfoSummary = CustomerInfoSummary.init({
+                          customerInfo: info,
+                          onButtonClick: inst.onChangeCustomerInfo.bind(inst),
+                        });
+                      } else {
+                        inst.customerInfoSummary.update(info);
+                        inst.customerInfoSummary.reAttach();
+                      }
+
+                      const cart = JSON.parse(localStorage.getItem('cart'));
+                      inst.order.address = info.address;
+                      inst.order.pickup = info.pickup;
+                      inst.order.message = info.message;
+                      inst.order.email = info.email;
+
+                      calcShippingAndTax(inst.order, (apiData) => {
+                        inst.onTotalUpdated(apiData);
+                      });
+                    }
+                  });
+                });
+              }
             }
           }
-        }
+      }
+
       }
   }
 

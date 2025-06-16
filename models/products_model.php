@@ -13,8 +13,18 @@ class Products_model extends Model
 			$this->db->where('p.source_id', '=', $opts['source_id']);
 		}
 
+		// only in products of certain variation
+		if (isset($opts['status_id'])) {
+			$this->db->where('p.status_id', '=', $opts['status_id']);
+		}
+
+		if (isset($opts['select'])) {
+			$this->db->select($opts['select']);
+		} else {
+			$this->db->select('p.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status, t.common_name source_name, CONCAT_WS(" - ",t.common_name, pt.name, ptv.name) name');
+		}
+
 		$this->db
-			->select('p.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status, t.common_name source_name')
 			->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
 			->leftJoin('product_type_variations ptv', 'p.product_type_variation_id', 'ptv.id')
 			->leftJoin('product_statuses ps', 'p.status_id', 'ps.id')
@@ -22,11 +32,11 @@ class Products_model extends Model
 
 		$result = $this->db->getAll();
 
-		//combine the "name"
-		foreach ($result as $prod_result) {
-			$name = $prod_result->source_name.' > '.$prod_result->productTypeName.' ('.$prod_result->productTypeVariationName.')';
-			$prod_result->name = $name;
-		}
+		// //combine the "name"
+		// foreach ($result as $prod_result) {
+		// 	$name = $prod_result->source_name.' > '.$prod_result->productTypeName.' ('.$prod_result->productTypeVariationName.')';
+		// 	$prod_result->name = $name;
+		// }
 
 		return $result;
 	}

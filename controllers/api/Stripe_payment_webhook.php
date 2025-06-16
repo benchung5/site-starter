@@ -12,6 +12,7 @@ class Stripe_payment_webhook extends Controller
     $this->orders = $this->load_model('orders_model');
     $this->temp_cart = $this->load_model('temp_cart_model');
     $this->orders_products = $this->load_model('orders_products_model');
+    $this->products = $this->load_model('products_model');
     parent::__construct();
   }
 
@@ -132,6 +133,22 @@ class Stripe_payment_webhook extends Controller
           foreach ($products as $product) {
             //add product associations to order
             $this->orders_products->add(['order_id' => $order_id, 'product_id' => $product->id, 'quantity' => $product->quantity]);
+            //update product quantities
+            $existing_product = $this->products->get(['id' => $product->id]);
+            $new_quantity = intval($existing_product->amount_available) - intval($product->quantity);
+            Utils::dbug($new_quantity);
+            $this->products->update([
+              'where' => ['id' => $product->id], 
+              'update' => ['amount_available' => $new_quantity],
+            ]);
+            //if no more available, update the status to "out of stock"
+            $updated_product = $this->products->get(['id' => $product->id]);
+            if ($updated_product->amount_available == 0) {
+              $this->products->update([
+                'where' => ['id' => $product->id], 
+                'update' => ['status_id' => 3],
+              ]);
+            }
           }
 
           //clear this entry from temp cart

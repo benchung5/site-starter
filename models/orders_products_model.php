@@ -17,7 +17,7 @@ class Orders_products_model extends Model
 				->leftJoin('product_type_variations ptv', 'p.product_type_variation_id', 'ptv.id')
 				->leftJoin('product_statuses ps', 'p.status_id', 'ps.id')
 				->leftJoin('trees t', 't.id', 'p.source_id')
-				->select('op.quantity, op.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status, t.common_name source_name');
+				->select('op.quantity, op.id, pt.name productTypeName, ptv.name productTypeVariationName, p.id product_id, p.price, p.amount_available, ps.name status, t.common_name source_name');
 		}
 
 		$result = $this->db->getAll();

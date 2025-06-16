@@ -10,3 +10,5 @@ lib/Db.php
 secret.txt
 server_installation.txt
 config/Secret.php
+controllers/Sandbox.php
+views/sandbox.php
