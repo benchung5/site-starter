@@ -1,6 +1,8 @@
 import Component from '../component';
 import { getData } from '../actions/sandbox';
 import Sidebar from './sidebar';
+const env = process.env.NODE_ENV || "development";
+var { DOMAIN_URL } = require('../config')[env];
 
 
 var Sandbox = {
@@ -9,6 +11,24 @@ var Sandbox = {
 			this.sandbox.innerHTML = apiData;
 		});
 		
+	},
+	onPrintClick(e) {
+		e.preventDefault();
+
+		let w = window.open();
+		w.document.write('<html><head><link href="/assets/css/admin.css" rel="stylesheet" type="text/css"></head><body class="sandbox-body-print">');
+		w.document.write(this.sandbox.innerHTML);
+		w.document.write('</body></html>');
+		w.print();
+		w.close();
+	
+		// let w = window.open(`${DOMAIN_URL}/sandbox`, "_blank", "width=800,height=600");
+		// w.addEventListener("load", () => {
+		// 	w.document.write('<html><head><link href="/assets/css/admin.css" rel="stylesheet" type="text/css"></head><body class="sandbox-body-print">');
+		// 	w.document.write(this.sandbox.innerHTML);
+		// 	w.document.write('</body></html>');
+		//     w.print();
+		// });
 	},
 	init: function(opts) {
 		var proto = Object.assign({}, this, Component)
@@ -21,6 +41,7 @@ var Sandbox = {
 		`<div class="admin-main">
           <div class="row">
               <div class="main-window columns small-12 large-9">
+								<a id="print">print</a>
 								<div id="sandbox-data">
 								</div>
               </div>
@@ -29,9 +50,11 @@ var Sandbox = {
 		});
 
 		inst.sidebar = Sidebar.init({});
-		const mainWindow = inst.el.querySelector('.main-window');
-		mainWindow.before(inst.sidebar.el);
+		inst.mainWindow = inst.el.querySelector('.main-window');
+		inst.mainWindow.before(inst.sidebar.el);
 		inst.sandbox = inst.el.querySelector('#sandbox-data');
+		inst.printButton = inst.el.querySelector('#print');
+		inst.printButton.addEventListener('click', inst.onPrintClick.bind(inst));
 
 		// //options
 		// inst.onSuccess = opts.onSuccess;

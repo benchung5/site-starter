@@ -3998,8 +3998,9 @@ custom multiselect
 sandbox
 ========================================================================== */
 
+
 .data-list {
-  margin: 2rem;
+  /*@media print, screen and (min-width: 40em) {*/
   border-top: 1px solid #D8D8D8;
   border-right: 1px solid #D8D8D8;
   border-left: 1px solid #D8D8D8;
@@ -4020,6 +4021,10 @@ sandbox
         flex: 2;
       }
     }
-
   }
 }
+
+.sandbox-body-print {
+  font-size: 80% !important;
+}
+
