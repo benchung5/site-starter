@@ -15,20 +15,20 @@ var Sandbox = {
 	onPrintClick(e) {
 		e.preventDefault();
 
-		let w = window.open();
-		w.document.write('<html><head><link href="/assets/css/admin.css" rel="stylesheet" type="text/css"></head><body class="sandbox-body-print">');
-		w.document.write(this.sandbox.innerHTML);
-		w.document.write('</body></html>');
-		w.print();
-		w.close();
+		// let w = window.open();
+		// w.document.write('<html><head><link href="/assets/css/admin.css" rel="stylesheet" type="text/css"></head><body class="sandbox-body-print">');
+		// w.document.write(this.sandbox.innerHTML);
+		// w.document.write('</body></html>');
+		// w.print();
+		// w.close();
 	
-		// let w = window.open(`${DOMAIN_URL}/sandbox`, "_blank", "width=800,height=600");
-		// w.addEventListener("load", () => {
-		// 	w.document.write('<html><head><link href="/assets/css/admin.css" rel="stylesheet" type="text/css"></head><body class="sandbox-body-print">');
-		// 	w.document.write(this.sandbox.innerHTML);
-		// 	w.document.write('</body></html>');
-		//     w.print();
-		// });
+		let w = window.open(`${DOMAIN_URL}/sandbox`, "_blank", "width=800,height=600");
+		w.addEventListener("load", () => {
+			w.document.write('<html><head><link href="/assets/css/admin.css" rel="stylesheet" type="text/css"></head><body class="sandbox-body-print">');
+			w.document.write(this.sandbox.innerHTML);
+			w.document.write('</body></html>');
+		    w.print();
+		});
 	},
 	init: function(opts) {
 		var proto = Object.assign({}, this, Component)
