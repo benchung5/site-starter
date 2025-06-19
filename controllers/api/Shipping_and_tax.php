@@ -38,17 +38,17 @@ class Shipping_and_tax extends Controller
 			}
 			$tax = Calc_payment::calc_tax($data['order'], $shipping_cost);
 
-			// remove later
-			// **************************************
-			// **************************************
-			if (isset($data['order']['test'])) {
-				if ($data['order']['test'] == 25465) {
-					$shipping_cost = 0;
-					$tax = 0;
-				}
-			}
-			// **************************************
-			// **************************************
+			// // remove later
+			// // **************************************
+			// // **************************************
+			// if (isset($data['order']['test'])) {
+			// 	if ($data['order']['test'] == 25465) {
+			// 		$shipping_cost = 0;
+			// 		$tax = 0;
+			// 	}
+			// }
+			// // **************************************
+			// // **************************************
 			$total = $subtotal + $shipping_cost + $tax;
 			
 			$stripeSecretKey = Secret::keys('STRIPE_API_KEY');

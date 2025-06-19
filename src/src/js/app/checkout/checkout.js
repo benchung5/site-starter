@@ -52,6 +52,43 @@ import { setLocalStorage } from '../lib/utils';
       // assign the instance constructor to the prototype so 'this' refers to the instance
       proto.constructor = inst;
 
+      inst.order = {
+        paymentIntentId: '',
+        products: [],
+        address: [],
+        pickup: '',
+        message: '',
+        email: '',
+      };
+
+      // // remove later
+      // // **************************************
+      // // **************************************
+      // const hash = getUrlParams('test')[0];
+      // if (hash == 25465) {
+      //   let testCart = [{
+      //             "id": "111",
+      //             "productTypeName": "Plants",
+      //             "productTypeVariationName": "3 Pack",
+      //             "price": "5000",
+      //             "amount_available": "1",
+      //             "status": null,
+      //             "image": null,
+      //             "plantId": "220",
+      //             "commonName": "Test Prod",
+      //             "botanicalName": "",
+      //             "plantUrl": "",
+      //             "quantity": "1"
+      //         }];
+
+      //   testCart = JSON.stringify(testCart);
+      //   setLocalStorage('cart', testCart);
+
+      //   inst.order.test = 25465;
+      // }
+      // // **************************************
+      // // **************************************
+
       let cart = JSON.parse(localStorage.getItem('cart'));
 
       if (!cart) {
@@ -63,6 +100,8 @@ import { setLocalStorage } from '../lib/utils';
           total = total + subtotal;
         });
 
+
+
         if(total < 4800) {
           this.showMessage('Sorry, looks like this order is less than $48 (the minimum order amount before shipping). Feel free to <a href="/plants">continue shopping</a>.');
         } else {
@@ -70,15 +109,6 @@ import { setLocalStorage } from '../lib/utils';
 
             let elementsContainerEl = document.querySelector("#elements-container");
             let customerInfoContainerEl = document.querySelector("#customer-info-container");
-
-            inst.order = {
-              paymentIntentId: '',
-              products: [],
-              address: [],
-              pickup: '',
-              message: '',
-              email: '',
-            };
 
             // This is your test publishable API key.
             inst.stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
@@ -94,34 +124,6 @@ import { setLocalStorage } from '../lib/utils';
             };
             // the element group to modify
             inst.elements = null;
-
-            // remove later
-            // **************************************
-            // **************************************
-            const hash = getUrlParams('test')[0];
-            if (hash == 25465) {
-              let testCart = [{
-                        "id": "111",
-                        "productTypeName": "Plants",
-                        "productTypeVariationName": "3 Pack",
-                        "price": "50",
-                        "amount_available": "1",
-                        "status": null,
-                        "image": null,
-                        "plantId": "220",
-                        "commonName": "Test Prod",
-                        "botanicalName": "",
-                        "plantUrl": "",
-                        "quantity": "1"
-                    }];
-
-              testCart = JSON.stringify(testCart);
-              setLocalStorage('cart', testCart);
-
-              inst.order.test = 25465;
-            }
-            // **************************************
-            // **************************************
 
             // check for payment completion response, otherwise start customer info form
             const statusClientSecret = new URLSearchParams(window.location.search).get(
