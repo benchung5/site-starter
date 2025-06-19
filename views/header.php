@@ -15,6 +15,7 @@ use Config\Config as Config;
                 <li><a href="/" title="Nature With Us Home">Home</a></li>
                 <li><a href="/about" title="About Nature With Us">About</a></li>
                 <li><a href="/plants" title="Search Our Plants">Our Catalogue</a></li>
+                <li><a href="/shipping" title="Shipping">Shipping</a></li>
                 <li><a href="/articles" title="Articles">Articles</a></li>
                 <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>
               </ul>
@@ -36,6 +37,7 @@ use Config\Config as Config;
               <ul class="menu menu-mobile vertical">
                   <li><a href="/" title="Nature With Us Home">Home</a></li>
                   <li><a href="/plants" title="Search Our Plants">Our Catalogue</a></li>
+                  <li><a href="/shipping" title="Shipping">Shipping</a></li>
                   <li><a href="/articles" title="Articles">Articles</a></li>
                   <li><a href="/about" title="About Nature With Us">About</a></li>
                   <li><a href="/contact" title="Contact Nature Wtih Us">Contact</a></li>

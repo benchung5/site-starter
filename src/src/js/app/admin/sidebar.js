@@ -15,6 +15,7 @@ var Sidebar = {
 		{ title: 'View Categories', link: 'category-list', active: false },
 		{ title: 'Add Category', link: 'category-add', active: false },
 		{ title: 'View Orders', link: 'orders-list', active: false },
+		{ title: 'Sandbox', link: 'sandbox', active: false },
 		{ title: 'Backup', link: 'backup', active: false },
 	],
 	build: function() {

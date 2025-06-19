@@ -49,6 +49,14 @@ class Utils
 		echo $response; exit;
 	}
 
+	public static function html_respond($code, $data)
+	{
+		header("content-type: text/html");
+		header('Status: '.$code);
+		$response = $data;
+		echo $response; exit;
+	}
+
 	public static function json_respond_error($code, $message) 
 	{
 		header('Status: '.$code);

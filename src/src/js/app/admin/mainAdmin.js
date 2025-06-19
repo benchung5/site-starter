@@ -15,6 +15,7 @@ import OrderEdit from './orders/orderEdit';
 import OrderProductList from './products/orderProductList';
 import ArticleAdd from './articles/articleAdd';
 import ArticleEdit from './articles/articleEdit';
+import Sandbox from './sandbox';
 import Auth from './auth/auth';
 import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
@@ -170,6 +171,18 @@ import SignInPopup from './auth/signInPopup';
 						});
 					}
 				});
+			} else if(route === 'sandbox') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.sandbox.onLoad();
+						this.el.appendChild(this.sandbox.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.articleEdit.onLoad();
+							this.el.appendChild(this.sandbox.el);
+						});
+					}
+				});
 			} else {
 				this.el.appendChild(this.pageNotFound.el);
 			}
@@ -216,6 +229,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.orderEdit = OrderEdit.init();
 			inst.orderProductList = OrderProductList.init();
 			inst.signInPopup = SignInPopup.init();
+			inst.sandbox = Sandbox.init();
 
 			Router.init(inst.update.bind(inst));
 

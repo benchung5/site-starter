@@ -43,6 +43,9 @@ use Lib\Utils;
 	                            <div class="icon"></div>
 	                            Call Us: 250-981-1324
 	                        </div>
+	                        <div>
+	                        	<a href="/returns_and_guarantee">Returns and Guarantee</a>
+	                        </div>
                         </div>
 					</div>
 				</div>

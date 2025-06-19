@@ -122,8 +122,7 @@ use Lib\Uri;
 								        	if ($view_data['tree']->seed_prod_count[0]->seeds) {
 								        		echo '
 								        		<h3>Growing From Plants</h3>
-								        		<p>Seedlings are a more economical option than established plants and an easier start than growing from seed. Our plants are shipped in soil blocks or plug trays. Plants do surprizingly well in the mail but need special care upon arrival. Please see
-								        		<a href="/articles/native-plants/planting-mail-order-seedlings">Planting Mail Order Seedlings</a> for information on how to plant and care for seedlings.</p>	
+								        		<p>Seedlings are a more economical option than established plants and an easier start than growing from seed. 4 pack plants indavidually have and approximate 2" square root ball. We also have large soil block plants, which are a bit more established than the seedlings. These grow as approximate 4" blocks. Plants do surprizingly well in the mail but need special care upon arrival. Please see <a href="/articles/native-plants/planting-mail-order-seedlings">Planting Mail Order Seedlings</a> for information on how to plant and care for seedlings.</p>	
 								        		';
 								        	} else {
 								        		echo 'No plants available for this plant at this time.';

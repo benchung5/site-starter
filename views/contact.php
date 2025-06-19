@@ -20,6 +20,15 @@
                             <div class="icon"></div>
                             <div class="email-img"></div>
                         </div>
+						<div class="info-box">
+							<div class="left">
+								<a href="/shipping">Shipping</a>
+	                    	</div>
+							<div class="right">
+		                       <a href="/returns_and_guarantee">Returns and Guarantee</a>
+	
+	                    	</div>
+                    	</div>
                         <div class="spacer-sml"></div>
 						<div class="socials">
 						    <a href="https://www.facebook.com/niagaratreeandgarden" target="_blank" class="social facebook"></a>

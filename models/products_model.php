@@ -28,7 +28,8 @@ class Products_model extends Model
 			->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
 			->leftJoin('product_type_variations ptv', 'p.product_type_variation_id', 'ptv.id')
 			->leftJoin('product_statuses ps', 'p.status_id', 'ps.id')
-			->leftJoin('trees t', 't.id', 'p.source_id');
+			->leftJoin('trees t', 't.id', 'p.source_id')
+			->orderBy('name');
 
 		$result = $this->db->getAll();
 
