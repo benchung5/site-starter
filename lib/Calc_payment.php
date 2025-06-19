@@ -52,8 +52,7 @@ class Calc_payment
                     $customer_number = Secret::keys('CANADA_POST_CUSTOMER_NUMBER');
                     $username = Secret::keys('CANADA_POST_API_USERNAME');
                     $password = Secret::keys('CANADA_POST_API_PASSWORD');
-
-                    $service_url = 'https://ct.soa-gw.canadapost.ca/rs/ship/price';
+                    $endpoint_url = Secret::keys('CANADA_POST_API_ENDPOINT');
                     
                     $origin_postal_code = Config::company_info('COMPANY_POSTAL_CODE');; 
 
@@ -83,7 +82,7 @@ class Calc_payment
                     </mailing-scenario>
                     XML;
                     
-                    $curl = curl_init($service_url); // Create REST Request
+                    $curl = curl_init($endpoint_url); // Create REST Request
                     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
                     curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
                     //curl_setopt($curl, CURLOPT_CAINFO, realpath(dirname($_SERVER['SCRIPT_FILENAME'])) . '/cert/cacert.pem');
