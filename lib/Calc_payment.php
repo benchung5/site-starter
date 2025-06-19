@@ -22,6 +22,9 @@ class Calc_payment
                 $product_count = $product_count + $product['quantity'];
             }
 
+            //remove spaces in the postal code so api can read it
+            $destination_postal_code = preg_replace('/\s+/', '', $order['address']['postal_code']);
+
             //add to box
             $boxes = [];
             $box_index = 0;
@@ -53,7 +56,6 @@ class Calc_payment
                     $service_url = 'https://ct.soa-gw.canadapost.ca/rs/ship/price';
                     
                     $origin_postal_code = Config::company_info('COMPANY_POSTAL_CODE');; 
-                    $destination_postal_code = 'V5Z1B6';
 
                     // 8.3lb = 3.77kg
                     // 12in = 30.48cm
