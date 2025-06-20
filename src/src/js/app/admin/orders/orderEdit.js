@@ -8,6 +8,7 @@ import Sidebar from '../sidebar';
 import orderFields from './orderFields';
 import orderTablesStore from '../../storage/orderTablesStore';
 import { fetchOrderTables, getOrder, updateOrder } from '../../actions/orders';
+import { printShippingLabel } from '../../actions/shipping';
 import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import { checkFieldErrors } from '../../lib/formUtils';
@@ -70,6 +71,8 @@ var OrderEdit = {
 				orderTablesStore.setData(orderTablesData);
 				//update the link to the products
 				this.products.href = `#order-product-list?order=${apiData.id}`;
+				//update the link to the label
+				this.shippingLabel.href = `/shipment/download_shipping_label/${apiData.id}`;
 				//record the current order id
 				this.orderId = apiData.id
 				//create the fields
@@ -146,7 +149,7 @@ var OrderEdit = {
                   <div class="main-window columns small-12 large-9">
                       <h3>Edit Order</h3>
                       <div style="float: right; display: inline-block;">
-												<a id="products">&nbsp;&nbsp;view products</a>&nbsp;
+												<a id="products">&nbsp;&nbsp;view products</a>&nbsp;<a id="shipping-label">&nbsp;&nbsp;print label</a>
                       </div>
                       <form>
 	                      <div id="form-fields">
@@ -165,6 +168,7 @@ var OrderEdit = {
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.products = inst.el.querySelector('#products');
+		inst.shippingLabel = inst.el.querySelector('#shipping-label');
 		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.form = inst.el.querySelector('form');
 		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
@@ -174,5 +178,6 @@ var OrderEdit = {
 		return inst;
 	}
 }
+
 
 export default OrderEdit;
