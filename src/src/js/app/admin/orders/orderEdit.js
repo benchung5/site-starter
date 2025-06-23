@@ -8,16 +8,21 @@ import Sidebar from '../sidebar';
 import orderFields from './orderFields';
 import orderTablesStore from '../../storage/orderTablesStore';
 import { fetchOrderTables, getOrder, updateOrder } from '../../actions/orders';
-import { printShippingLabel } from '../../actions/shipping';
 import appStateStore from '../../storage/appStateStore';
 import { getUrlParams } from '../../lib/utils';
 import { checkFieldErrors } from '../../lib/formUtils';
 import UpdateMessage from '../parts/updateMessage';
+import Modal from '../../parts/modal';
+import ShippingLabel from './shippingLabel';
 
 //config
 var { ADMIN_URL } = require('../../config')['globals'];
 
 var OrderEdit = {
+	onPrintShippingLabelClick: function(e) {
+		e.preventDefault();
+		this.modalShippingLabel.open();
+	},
 	submitForm: function(e) {
 		//prevent form from refreshing the page
 		e.preventDefault();
@@ -74,7 +79,8 @@ var OrderEdit = {
 				//update the link to the label
 				this.shippingLabel.href = `/shipment/download_shipping_label/${apiData.id}`;
 				//record the current order id
-				this.orderId = apiData.id
+				this.orderId = apiData.id;
+				this.shippingLabel.buildFromOrder(this.orderId);
 				//create the fields
 				orderFields.map((item) => {
 					if(item.type === 'input') {
@@ -168,10 +174,15 @@ var OrderEdit = {
 		const mainWindow = inst.el.querySelector('.main-window');
 		mainWindow.before(inst.sidebar.el);
 		inst.products = inst.el.querySelector('#products');
-		inst.shippingLabel = inst.el.querySelector('#shipping-label');
+		inst.printShippingLabel = inst.el.querySelector('#shipping-label');
+		inst.shippingLabel = ShippingLabel.init({
+			onSuccess: () => { inst.modalShippingLabel.close(); },
+		});
+		inst.modalShippingLabel = Modal.init({ contentElement: inst.shippingLabel.el });
 		inst.formFields = inst.el.querySelector('#form-fields');
 		inst.form = inst.el.querySelector('form');
-		inst.form.addEventListener('submit', inst.submitForm.bind(inst));
+		inst.printShippingLabel.addEventListener('click', inst.onPrintShippingLabelClick.bind(inst));
+		inst.form.addEventListener('submit', inst.submitForm.bind(inst)); 
 		inst.formFields.addEventListener('focus', () => { appStateStore.setData({ formTouched: true }) }, true);
 		inst.form.after(inst.updateMessage.el);
 

@@ -8,7 +8,7 @@ use Lib\Utils;
 
 class Process_shipment
 {
-    public static function create_shipment($order) 
+    public static function create_shipment($order, $dimensions) 
     {
         /**
          * CreateNonContractShipment Canada Post service.
@@ -67,11 +67,11 @@ class Process_shipment
                     </address-details>
                 </destination>
                 <parcel-characteristics>
-                    <weight>15</weight>
+                    <weight>{$dimensions['weight']}</weight>
                     <dimensions>
-                        <length>1</length>
-                        <width>1</width>
-                        <height>1</height>
+                        <length>{$dimensions['length']}</length>
+                        <width>{$dimensions['width']}</width>
+                        <height>{$dimensions['height']}</height>
                     </dimensions>
                 </parcel-characteristics>
                 <preferences>

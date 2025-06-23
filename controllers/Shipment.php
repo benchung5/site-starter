@@ -13,10 +13,11 @@ class Shipment extends Controller
 		parent::__construct();
 	}
 
-	public function download_shipping_label($order_number)
+	public function download_shipping_label()
 	{
-		$order = $this->orders->get(['id' => $order_number]);
-		$shipment_info = Process_shipment::create_shipment($order);
+		$data = Utils::read_post();
+		$order = $this->orders->get(['id' => $data['order_id']]);
+		$shipment_info = Process_shipment::create_shipment($order, $data);
 		Process_shipment::print_label($shipment_info);
 	}
 
