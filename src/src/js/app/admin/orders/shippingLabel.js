@@ -91,6 +91,7 @@ var ShippingLabel = {
 		inst.initialize({ el: 
 		`<div class="modal-window">
         <h3>Print Shipping Label</h3>
+		   <span>Weights: 1>1.57, 2>2.01, 3>3.45, 6>3.77</span>
         <form>
           <div id="form-fields">
           </div>

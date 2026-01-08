@@ -546,6 +546,10 @@ helper classes
   font-weight: bold;
 }
 
+.italic {
+  font-style: italic;
+}
+
 .clear {
   clear: both;
   width: 100%;
@@ -1752,40 +1756,236 @@ gallery
 
 footer {
   background-color: #2f2a33;
+  background-image: url(/assets/img/footer-forest-bg.svg);
+  background-repeat: repeat-x;
+  background-position: bottom center;
+  background-size: auto 100%;
   color: #ddd;
   padding: 2em; 
+  padding-top: 4em;
+  position: relative;
   //force them to maintain vertical height
   flex-shrink: 0;
+  
+  // Ensure content is above background
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
   a {
     color: #b4b4b4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .footer-main {
+    padding-bottom: 2.5em;
+    margin-bottom: 2em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    .footer-content {
+      display: grid;
+      // Make the newsletter/subscribe column wider on desktop
+      grid-template-columns: 1.2fr 1.4fr 2.2fr;
+      gap: 2.5em;
+      max-width: 1200px;
+      margin: 0 auto;
+      
+      @include breakpoint(medium down) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2em;
+      }
+      
+      @include breakpoint(small down) {
+        grid-template-columns: 1fr;
+        gap: 2em;
+      }
+    }
+    
+    .footer-column {
+      h4 {
+        color: #fff;
+        font-size: 1em;
+        font-weight: 500;
+        margin-bottom: 1em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        
+        li {
+          a {
+            color: #b4b4b4;
+            font-size: 0.9em;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            display: inline-block;
+            
+            &:hover {
+              color: #fff;
+              padding-left: 5px;
+            }
+          }
+        }
+      }
+      
+      p {
+        color: #b4b4b4;
+        font-size: 0.9em;
+        line-height: 1.6;
+        margin-bottom: 1.25em;
+      }
+    }
+    
+    .footer-newsletter {
+      @include breakpoint(medium down) {
+        grid-column: 1 / -1;
+      }
+      
+      .footer-newsletter-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75em;
+        margin-bottom: 1.5em;
+        
+        input[type="email"] {
+          background-color: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #fff;
+          padding: 0.75em 1em;
+          border-radius: 4px;
+          font-size: 0.9em;
+          transition: background-color 0.3s ease, border-color 0.3s ease;
+          
+          &::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+          }
+          
+          &:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+          }
+        }
+        
+        .newsletter-button {
+          background-color: #8a9f3b;
+          color: #fff;
+          border: none;
+          padding: 0.75em 1.5em;
+          border-radius: 4px;
+          font-size: 0.9em;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.2s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          
+          &:hover {
+            background-color: #7a8f2b;
+            transform: translateY(-2px);
+          }
+          
+          &:active {
+            transform: translateY(0);
+          }
+          
+          &:disabled {
+            background-color: #6a7f1b;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.7;
+          }
+        }
+        
+        .newsletter-message {
+          font-size: 0.85em;
+          margin-top: 0.5em;
+          min-height: 1.2em;
+          
+          &.success {
+            color: #8a9f3b;
+          }
+          
+          &.error {
+            color: #e74c3c;
+          }
+        }
+      }
+      
+      .footer-social-links {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        
+        .social-link {
+          color: #b4b4b4;
+          transition: color 0.3s ease, transform 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+          
+          &:hover {
+            color: #fff;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
   }
 
   .footer-bottom {
-    .columns {
+    .footer-bottom-content {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: baseline;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5em;
       color: #7c7982;
+      font-size: 0.85em;
+      text-align: center;
+      
       .copywright {
-          font-size: 0.8em;
-          display: inline-block;
-          text-transform: uppercase;
-          max-width: 50%;
-          overflow-wrap: break-word;
-          @include breakpoint(medium down) {
-            max-width: 100%;
-          }
+        color: #7c7982;
       }
-      .contact-icons {
-        max-width: 50%;
-        @include breakpoint(medium down) {
-          max-width: 100%;
-        }
-      }
-      @include breakpoint(medium down) {
-        flex-direction: column;
+      
+      .footer-bottom-links {
+        display: flex;
         align-items: center;
+        gap: 0;
+        
+        a {
+          color: #7c7982;
+          text-decoration: none;
+          transition: color 0.3s ease;
+          padding: 0 0.75em;
+          position: relative;
+          
+          &:hover {
+            color: #fff;
+          }
+          
+          &:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 1em;
+            background-color: #7c7982;
+          }
+        }
       }
     }
   }
@@ -1814,6 +2014,17 @@ single view
     margin-bottom: 4em;
     img {
       margin-bottom: 2em;
+    }
+    
+    .last-updated {
+      font-size: 0.85em;
+      color: #999;
+      margin-bottom: 1.5em;
+      
+      strong {
+        font-weight: 500;
+        color: #999;
+      }
     }
   }
   .images, .image {
