@@ -2,6 +2,7 @@
 namespace Controllers\Api;
 use Lib\Controller;
 use Lib\Utils;
+use Lib\Send_email;
 
 class Subscribers extends Controller 
 {
@@ -57,7 +58,32 @@ class Subscribers extends Controller
 					Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, 'Failed to subscribe. Please try again.');
 				}
 			} else {
-				Utils::json_respond(SUCCESS_RESPONSE, ['message' => 'Thank you for subscribing!', 'id' => $result]);
+				// Send success response first (subscription is saved, so user gets success)
+				header("content-type: application/json");
+				header('Status: ' . SUCCESS_RESPONSE);
+				$response_data = json_encode(['message' => 'Thank you for subscribing!', 'id' => $result]);
+				echo $response_data;
+				
+				// Ensure all output is flushed before attempting email
+				while (ob_get_level() > 0) {
+					ob_end_flush();
+				}
+				flush();
+				
+				if (function_exists('fastcgi_finish_request')) {
+					fastcgi_finish_request();
+				}
+				
+				// Now send email (if this dies, response already sent)
+				$email_subject = 'Thank You for Subscribing - Nature With Us';
+				$email_body = 'Thank you for subscribing to our newsletter!<br><br>'.
+					'You will now receive updates about our latest products, gardening tips, and special offers.<br><br>'.
+					'If you have any questions, please don\'t hesitate to contact us:<br>'.
+					'info@naturewithus.com<br>250-981-1324<br><br>'.
+					'Best regards,<br>The Nature With Us Team';
+				
+				// Send email (will also send to info@naturewithus.com automatically)
+				Send_email::send($email, $email_subject, $email_body);
 			}
 		} catch (Exception $e) {
 			Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, 'An error occurred. Please try again later.');
