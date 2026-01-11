@@ -253,4 +253,37 @@ class Articles_model extends Model
 			}
 		}
 	}
+
+	public function get_related($article_id, $category_ids, $limit = 6) {
+		if (empty($category_ids)) {
+			return [];
+		}
+
+		$this->db->table('articles a');
+		$this->db->select('a.id, a.slug, a.name, a.body, a.created_on, a.images');
+		$this->db->innerJoin('article_categories ac', 'ac.article_id', 'a.id');
+		$this->db->innerJoin('categories c', 'c.id', 'ac.category_id');
+		$this->db->in('c.id', $category_ids);
+		$this->db->where('a.id', '!=', $article_id);
+		$this->db->groupBy('a.id');
+		$this->db->orderBy('a.created_on', 'DESC');
+		$this->db->limit(0, $limit);
+
+		$result = $this->db->getAll();
+
+		if ($result) {
+			foreach ($result as $entry) {
+				$entry->images = Json_decode($entry->images) ?: [];
+				
+				// get categories for each article
+				$entry->categories = $this->db->table('categories c')
+					->innerJoin('article_categories ac', 'ac.category_id', 'c.id')
+					->select('c.id, c.slug, c.name')
+					->where('ac.article_id', $entry->id)
+					->getAll();
+			}
+		}
+
+		return $result ?: [];
+	}
 }

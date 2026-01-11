@@ -424,7 +424,7 @@ let simpleWebpackConfig = {
   },
   module: {
     rules: [
-      // { test: /\.js$/, use: 'babel-loader' },
+      { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
       { test: /\.css$/, use: 'style-loader'}
     ]
   },

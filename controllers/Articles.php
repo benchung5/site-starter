@@ -25,6 +25,16 @@ class Articles extends Controller
 		if ($article) {
 			$view_data = [];
 			$view_data['article'] = $article;
+			
+			// Get related articles from the same categories
+			$category_ids = [];
+			if ($article->categories) {
+				foreach ($article->categories as $cat) {
+					$category_ids[] = $cat->id;
+				}
+			}
+			$view_data['related_articles'] = $this->articles->get_related($article->id, $category_ids, 3);
+			
 			$this->render('view', $view_data, $article->name);
 		} else {
 			$this->render('404');

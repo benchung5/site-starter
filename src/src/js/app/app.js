@@ -7,6 +7,7 @@ import loadVideo from './loadVideo';
 import bodyClasses from './bodyClasses';
 import windowSize from './windowSize';
 import mobileMenu from './mobileMenu';
+import headerTransparency from './headerTransparency';
 import fooSlider from './fooSlider';
 import homePage from './homePage';
 import treeRemovalCalculator from './treeRemovalCalculator';
@@ -41,6 +42,11 @@ load foundation plugins - keep this
 	windowSize();
 
 	mobileMenu();
+	
+	//header transparency on scroll
+	if(!isAdminPage) {
+		headerTransparency();
+	}
 
 	//cart
 	if(!isAdminPage) {

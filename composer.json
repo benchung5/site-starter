@@ -16,5 +16,10 @@
 		"phpmailer/phpmailer": "^6.2",
 		"stripe/stripe-php": "^13.11",
 		"league/oauth2-google": "^4.0"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^2.1",
+		"friendsofphp/php-cs-fixer": "^3.92",
+		"squizlabs/php_codesniffer": "^4.0"
 	}
 }
