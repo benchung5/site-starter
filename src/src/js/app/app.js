@@ -11,6 +11,7 @@ import headerTransparency from './headerTransparency';
 import fooSlider from './fooSlider';
 import homePage from './homePage';
 import treeRemovalCalculator from './treeRemovalCalculator';
+import articleView from './articleView';
 import CartIcon from './addToCart/cartIcon';
 import CartPopup from './addToCart/CartPopup';
 import MainSourceProducts from './addToCart/mainSourceProducts';
@@ -71,6 +72,14 @@ load foundation plugins - keep this
 	//tree removal calculator
 	if(window.location.pathname == '/tree_removal_calculator') {
 		treeRemovalCalculator();
+	}
+
+	//article view page animations
+	if(window.location.pathname.indexOf('/articles/') === 0) {
+		const pathParts = window.location.pathname.split('/').filter(part => part.length > 0);
+		if(pathParts.length >= 3) { // /articles/category/slug
+			articleView();
+		}
 	}
 
 	fooSlider();

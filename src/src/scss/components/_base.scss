@@ -2034,7 +2034,7 @@ single view
     max-width: 900px;
     margin: 0 auto;
     
-    .title-area {
+  .title-area {
       margin-top: 3em;
       margin-bottom: 3em;
       
@@ -2045,19 +2045,19 @@ single view
       
       h1 {
         margin-bottom: 0.3em;
-        font-weight: 600;
+      font-weight: 600;
         font-size: 3em;
         line-height: 1.2;
         @include breakpoint(medium down) {
           font-size: 2em;
         }
-      }
-      h1, span {
-        display: block;
-      }
-      h2 {
-        font-size: 1em;
-      }
+    }
+    h1, span {
+      display: block;
+    }
+    h2 {
+      font-size: 1em;
+    }
       
       .article-meta {
         display: flex;
@@ -2363,7 +2363,9 @@ Related Posts Section
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.8s ease, transform 0.8s ease;
+    opacity: 0;
+    transform: translateY(30px);
     
     &:hover {
       transform: translateY(-4px);
