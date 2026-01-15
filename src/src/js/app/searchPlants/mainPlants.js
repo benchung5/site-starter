@@ -1,6 +1,7 @@
 import Component from '../component';
 import SideMenuMobile from '../parts/sideMenuMobile';
 import GridViewPlants from './gridViewPlants';
+import SideMenu from '../parts/sideMenu';
 import plantTablesStore from '../storage/plantTablesStore';
 import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
@@ -10,9 +11,12 @@ import { searchTrees, updateFilterFromUrl } from '../actions/plants';
 
 (function() {
 	var Main = {
-		onUpdate: function() {
+		onUpdate: function(filterData) {
+		if (this.gridViewPlants && this.gridViewPlants.loader) {
+			this.gridViewPlants.loader.isLoading(true);
+		}
 			//search trees
-			searchTrees(plantFilterStore.storageData, (apiData) => {
+			searchTrees(filterData || plantFilterStore.storageData, (apiData) => {
 				plantListStore.setData(apiData);
 			});
 		},
@@ -59,6 +63,14 @@ import { searchTrees, updateFilterFromUrl } from '../actions/plants';
       				tablesStore: plantTablesStore.storageData
       			});
       			inst.el.appendChild(gridViewPlants.el);
+			inst.gridViewPlants = gridViewPlants;
+
+			const sideMenu = SideMenu.init({
+				onUpdate: inst.onUpdate.bind(inst),
+				filterStore: plantFilterStore,
+				tablesStore: plantTablesStore.storageData
+			});
+			gridViewPlants.el.querySelector('.left').appendChild(sideMenu.el);
 
       			const buttonShowMenu = ButtonShowMenu.init({ searchText: 'Search Plants' });
       			inst.el.querySelector('.filter-container').appendChild(buttonShowMenu.el);

@@ -71,11 +71,10 @@ export function searchArticles(searchObj, callback) {
             query.mode = inObj.mode;
         }
 
-    	//format categories, query only active ones
+    	//format categories, query selected ones
     	if (inObj.categories && (inObj.categories.length !== 0)) {
-    		//return a new array without undefined
     		let catArray = inObj.categories.reduce(function(result, item) {
-    		  if(item.active) {
+    		  if(item && (item.active === undefined || item.active)) {
     		    result.push(item.id);
     		  }
     		  return result;
@@ -163,23 +162,17 @@ export function updateFilterFromUrl(callback) {
     fetchArticleTables((apiData) => {
         articleTablesStore.setData(apiData);
 
-        let modifiedCategories = articleTablesStore.storageData.categories.map((item, index) => {
-            // if url contains selected categories, just select those
-            let selectedCategories = getUrlParams('categories');
-            let isActive = true;
-            if (selectedCategories) {
-                isActive = false;
-                if ((selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1)) {
-                    isActive = true;
-                }
+        let modifiedCategories = articleTablesStore.storageData.categories.filter((item) => {
+            if (!selectedCategories) {
+                return false;
             }
-            return Object.assign(item, { active: isActive });
+            return (selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1);
         });
 
         articleFilterStore.setData({ 
-            categories: modifiedCategories, 
-            search: search[0] || '',
-            offset: parseInt(offset[0] || 0)
+            categories: modifiedCategories,
+            search: (search && search[0]) || '',
+            offset: parseInt((offset && offset[0]) || 0)
         });
 
         //search

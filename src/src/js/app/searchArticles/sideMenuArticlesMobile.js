@@ -22,7 +22,11 @@ var SideMenuMobile = {
 			`<div></div>`
 		});
 
-		inst.sideMenuArticlesContent = SideMenuArticlesContent.init({});
+		inst.sideMenuArticlesContent = SideMenuArticlesContent.init({
+			onUpdate: options.onUpdate,
+			filterStore: options.filterStore,
+			tablesStore: options.categories ? { categories: options.categories } : options.tablesStore
+		});
 
 		inst.modalFromSide = ModalFromSide.init({
 			content: inst.sideMenuArticlesContent.el,

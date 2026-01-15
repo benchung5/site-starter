@@ -154,7 +154,7 @@ export function setUrlParams(key, val) {
     }
 
     //re-index the array incase we had to remove one due to empty value
-    finalParts.filter(val => val)
+    finalParts = finalParts.filter(val => val)
 
     // if key doesn't exist and it has a value, just add it in with it's new values
     if ((!containsKey) && (val.length)) {

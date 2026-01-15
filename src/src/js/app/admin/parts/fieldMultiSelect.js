@@ -9,7 +9,7 @@ var FieldMultiselect = {
 		this.fieldHidden.el.value = this.state.value.toString();
 	},
 	onOptionClick: function(e) {
-		const optionValue = e.target.dataset['value'];
+		const optionValue = String(e.target.dataset['value']);
 
 		if(! this.state.value.includes(optionValue)) {
 			//add the value
@@ -68,7 +68,7 @@ var FieldMultiselect = {
 		//set initial selected if presnent
 		if(options.value) {
 			let valueArray = options.value.map((item) => {
-				return item.id;
+				return String(item.id);
 			});
 			inst.setState({ value: valueArray });
 

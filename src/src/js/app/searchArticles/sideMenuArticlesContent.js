@@ -1,9 +1,8 @@
 import Component from '../component';
-import SearchArticles from '../parts/searchArticles';
 import FilterArticles from './filterArticles';
 
 var SideMenuArticlesContent = {
-	init: function() {
+	init: function(options) {
 		var proto = Object.assign({}, this, Component);
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
@@ -20,15 +19,11 @@ var SideMenuArticlesContent = {
              `
 		});
 
-		//side menu header
-		const searchArticles = SearchArticles.init({
-			placeholder: 'Search Articles',
-			hasButton: true
-		});
-
 		//article filter
 		const filterArticles = FilterArticles.init({
-			buttonHeight: 40
+			filterStore: options.filterStore,
+			tablesStore: options.tablesStore,
+			onUpdate: options.onUpdate
 		});
 		const filter = inst.el.querySelector('#filter');
 		filter.appendChild(filterArticles.el);

@@ -1,6 +1,5 @@
 import Component from '../component';
 import Loader from '../parts/loader';
-import SideMenu from '../parts/sideMenu';
 import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
 // import appStateStore from '../storage/appStateStore';
@@ -11,6 +10,7 @@ var { PLANTS_UPLOADS_PATH } = require('../config')[env];
 
 var GridViewPlants = {
 	buildItems: function() {
+		this.loader.isLoading(true);
 		this.cardsContainer.innerHTML = '';
 		this.listStore.storageData.trees.map((item) => {
 			let card = this.createEl(`
@@ -57,10 +57,8 @@ var GridViewPlants = {
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
 
-		inst.initialize({});
-
-		inst.gridView = inst.createEl(
-			`<div>
+		inst.initialize({
+			el:`<div>
                 <div class="row">
                     <div class="small-12 columns">
                         ${/* optional title here */''}
@@ -71,40 +69,41 @@ var GridViewPlants = {
                     	${/* sideMenu */''}
                     </div>
                     <div class="right">
-                        <div class="cards-container">
-                        	${/* cards render here */''}
-                        </div>
+						<div id="loader-container">
+							<div class="cards-container">
+								${/* cards render here */''}
+							</div>
+						</div>
                         ${/* Pagination */''}
                     </div>
                 </div>
             </div>`
-		);
+		});
 
 		inst.listStore = options.listStore;
 		// appStateStore.init();
 
 		//build components
-		inst.sideMenu = SideMenu.init({
-			onUpdate: options.onUpdate,
-			filterStore: options.filterStore,
-			tablesStore: options.tablesStore
-		});
-		inst.gridView.querySelector('.left').appendChild(inst.sideMenu.el);
-		inst.cardsContainer = inst.gridView.querySelector('.cards-container');
+		inst.cardsContainer = inst.el.querySelector('.cards-container');
+		inst.loaderContainer = inst.el.querySelector('#loader-container');
 		inst.pagination = Pagination.init({
 			listStore: options.listStore,
 			filterStore: options.filterStore,
 			onUpdate : options.onUpdate,
 		});
-		inst.gridView.querySelector('.right').appendChild(inst.pagination.el);
+		inst.el.querySelector('.right').appendChild(inst.pagination.el);
 
 		inst.loader = Loader.init({
-			children: inst.gridView,
-			isInitialPageLoad: true,
-			isFullScreen: true
+			children: inst.cardsContainer,
+			isInitialPageLoad: false,
+			isFullScreen: false,
+			centerOnScreen: true,
+			minHeight: '200px',
+			color: '#bcbc1d',
+			backgroundColor: 'rgba(255,255,255,0.8)'
 		});
 
-		inst.el = inst.loader.el;
+		inst.loaderContainer.appendChild(inst.loader.el);
 
 		inst.listStore.addListener(inst.buildItems.bind(inst));
 

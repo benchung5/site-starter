@@ -74,9 +74,11 @@ var Loader = {
 			`
 			<div class="preload-wrapper" style="min-height: ${options.minHeight ? options.minHeight : 'auto'};">
 			  <div class="preload-internal" style="visibility: hidden; opacity: 0; z-index: ${options.zIndex ? options.zIndex : '10'};">
-			    <svg class="circular" viewBox="25 25 50 50" style="width: ${options.size ? options.size : '5rem'}; height: ${options.size ? options.size : '5rem'};">
-			      <circle class="path" cx="50" cy="50" r="20" style="stroke: ${options.color ? options.color : '#fff'};" fill="none" strokeWidth="2" strokeMiterlimit="10"/>
-			    </svg>
+			    <div class="loader-center">
+			      <svg class="circular" viewBox="25 25 50 50" style="width: ${options.size ? options.size : '5rem'}; height: ${options.size ? options.size : '5rem'};">
+			        <circle class="path" cx="50" cy="50" r="20" style="stroke: ${options.color ? options.color : '#fff'};" fill="none" strokeWidth="2" strokeMiterlimit="10"/>
+			      </svg>
+			    </div>
 			  </div>
 			</div> 
 			`
@@ -94,6 +96,12 @@ var Loader = {
 		inst.preload.style.backgroundColor = options.backgroundColor ? options.backgroundColor : inst.preload.style.backgroundColor;
 		if(options.isFullScreen) {
 			inst.preload.style.position = "fixed";
+		}
+		if (options.centerOnScreen) {
+			const centerWrap = inst.el.querySelector('.loader-center');
+			if (centerWrap) {
+				addClass(centerWrap, 'center-on-screen');
+			}
 		}
 
 		inst.el.appendChild(options.children);

@@ -11,14 +11,28 @@ var FilterPlants = {
 		let formData = new FormData(e.target);
 		let formDataArray = Array.from(formData);
 		let filterStoreClone = clone(this.filterStore.storageData);
+		// reset multi-select filters so deselecting clears prior selections
+		filterStoreClone.trees_category_id = [];
+		filterStoreClone.native_to = [];
+		const submittedMap = new Map(formDataArray.map((item) => [item[0], item[1]]));
+		const multiSelectKeys = ['trees_category_id', 'native_to'];
 
 		let modifiedFormData = formDataArray.map((item) => {
 			if(item[0] == 'search') {
 				Object.assign(filterStoreClone, { [item[0]]: item[1] });
-				setUrlParams([item[0]], item[1]);
+				setUrlParams(item[0], item[1]);
 			} else {
+				if (!item[1]) {
+					setUrlParams(item[0], []);
+					filterStoreClone[item[0]] = [];
+					return;
+				}
 				let filterObjsArr = [];
-				let ids = item[1].split(",");
+				let ids = item[1]
+					.split(",")
+					.map((id) => id.trim())
+					.filter((id) => id.length);
+				ids = Array.from(new Set(ids));
 				let filterObjs = ids.map((id) => {
 					this.tablesStore[item[0]].map((itemInnerInner) => {
 						if (itemInnerInner.id == id) {
@@ -29,9 +43,23 @@ var FilterPlants = {
 				Object.assign(filterStoreClone, { [item[0]]: filterObjsArr });
 
 				//update the hash url with the selected items
-				let filterObjsArrSlugs = flattenObjArray(filterObjsArr, 'slug');
-				setUrlParams([item[0]], filterObjsArrSlugs);
+				let filterObjsArrSlugs = flattenObjArray(filterObjsArr, 'slug') || [];
+				filterObjsArrSlugs = Array.from(new Set(filterObjsArrSlugs));
+				if (filterObjsArrSlugs.length) {
+					setUrlParams(item[0], filterObjsArrSlugs);
+				} else {
+					setUrlParams(item[0], []);
+					filterStoreClone[item[0]] = [];
+				}
 			}
+		// clear url params for multi-selects that have no selections submitted
+		multiSelectKeys.forEach((key) => {
+			const submittedValue = submittedMap.get(key);
+			if (!submittedValue) {
+				setUrlParams(key, []);
+				filterStoreClone[key] = [];
+			}
+		});
 
 		});
 
@@ -40,7 +68,7 @@ var FilterPlants = {
 		appStateStore.setData({ showMenu: false });
 
 		this.filterStore.setData(filterStoreClone);
-		this.onUpdate();
+		this.onUpdate(filterStoreClone);
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -80,7 +108,8 @@ var FilterPlants = {
 			label: 'plant name',
 			error: null,
 			condition: null,
-			value: inst.filterStore.storageData.search
+			value: inst.filterStore.storageData.search,
+			clearable: true
 		});
 		inst.formFields.appendChild(input.el);
 

@@ -10,9 +10,12 @@ import { searchArticles, updateFilterFromUrl } from '../actions/articles';
 
 (function() {
 	var MainArticles = {
-		onUpdate: function() {
+		onUpdate: function(filterData) {
+			if (this.gridViewArticles && this.gridViewArticles.loader) {
+				this.gridViewArticles.loader.isLoading(true);
+			}
 			//search articles
-			searchArticles(articleFilterStore.storageData, (apiData) => {
+			searchArticles(filterData || articleFilterStore.storageData, (apiData) => {
 				articleListStore.setData(apiData);
 			});
 		},
@@ -51,13 +54,14 @@ import { searchArticles, updateFilterFromUrl } from '../actions/articles';
 	      			});
 	      			inst.el.appendChild(sideMenuArticles.el);
 
-	      			const gridViewArticles = GridViewArticles.init({
+      			const gridViewArticles = GridViewArticles.init({
 	      				filterStore: articleFilterStore,
 	      				listStore: articleListStore,
 	      				onUpdate: inst.onUpdate.bind(inst),
 	      				categories: articleTablesStore.storageData.categories,
 	      			});
 	      			inst.el.appendChild(gridViewArticles.el);
+				inst.gridViewArticles = gridViewArticles;
 
 	      			const buttonShowMenu = ButtonShowMenu.init();
 	      			inst.el.querySelector('.filter-container').appendChild(buttonShowMenu.el);
