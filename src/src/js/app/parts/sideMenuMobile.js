@@ -26,10 +26,12 @@ var SideMenuMobile = {
 			filterStore: options.filterStore,
 			tablesStore: options.tablesStore,
 			onUpdate: options.onUpdate,
+			filterComponent: options.filterComponent,
 		});
 
 		inst.modalFromSide = ModalFromSide.init({
 			content: inst.sideMenuContent.el,
+			title: options.title,
 			onCloseClick: inst.closeMenu.bind(inst),
 		});
 

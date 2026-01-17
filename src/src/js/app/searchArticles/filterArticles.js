@@ -4,7 +4,7 @@ import FieldMultiSelect from '../admin/parts/fieldMultiSelect';
 import FieldInput from '../admin/parts/fieldInput';
 import appStateStore from '../storage/appStateStore';
 
-var ArticleFilter = {
+var FilterArticles = {
 	submitForm: function(e) {
 		e.preventDefault();
 		let formData = new FormData(e.target);
@@ -72,6 +72,9 @@ var ArticleFilter = {
 		      <form>
                   <div id="form-fields">
                   </div>
+				  	<p>
+						Use the above filter to search our articles.
+					</p>
                   <button action="submit" class="btn btn-primary">Search Articles</button>
               </form>
 			</div>`
@@ -110,4 +113,4 @@ var ArticleFilter = {
 	}
 }
 
-export default ArticleFilter;
+export default FilterArticles;

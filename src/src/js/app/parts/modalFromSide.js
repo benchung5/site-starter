@@ -31,6 +31,7 @@ var ModalFromSide = {
 		var inst = Object.create(proto);
 		// assign the instance constructor to the prototype so 'this' refers to the instance
 		proto.constructor = inst;
+		inst.title = options.title || "";
 
 		//call initialize on Component first
 		inst.initialize({
@@ -38,7 +39,7 @@ var ModalFromSide = {
 			`
 			<div class="modal-from-side">
 				<div class="side-menu-mobile close">
-					<div class="menu-header"><h2 class="menu-header-left">${options.title || ""}</h2><div class="menu-header-right"></div></div>
+					<div class="menu-header"><h2 class="menu-header-left">${inst.title}</h2><div class="menu-header-right"></div></div>
 	            </div>
             </div>
             `

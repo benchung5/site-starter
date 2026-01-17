@@ -10,7 +10,9 @@ var { PLANTS_UPLOADS_PATH } = require('../config')[env];
 
 var GridViewPlants = {
 	buildItems: function() {
-		this.loader.isLoading(true);
+		if (this.loader && this.hasRenderedOnce) {
+			this.loader.isLoading(true);
+		}
 		this.cardsContainer.innerHTML = '';
 		this.listStore.storageData.trees.map((item) => {
 			let card = this.createEl(`
@@ -49,7 +51,10 @@ var GridViewPlants = {
 			card.querySelector('.image').appendChild(image);
 			this.cardsContainer.appendChild(card);
 		});
-		this.loader.isLoading(false);
+		if (this.loader && this.hasRenderedOnce) {
+			this.loader.isLoading(false);
+		}
+		this.hasRenderedOnce = true;
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -59,11 +64,6 @@ var GridViewPlants = {
 
 		inst.initialize({
 			el:`<div>
-                <div class="row">
-                    <div class="small-12 columns">
-                        ${/* optional title here */''}
-                    </div>
-                </div>
                 <div class="row grid-view-inner">
                     <div class="left">
                     	${/* sideMenu */''}
@@ -81,6 +81,7 @@ var GridViewPlants = {
 		});
 
 		inst.listStore = options.listStore;
+		inst.hasRenderedOnce = false;
 		// appStateStore.init();
 
 		//build components
@@ -100,7 +101,9 @@ var GridViewPlants = {
 			centerOnScreen: true,
 			minHeight: '200px',
 			color: '#bcbc1d',
-			backgroundColor: 'rgba(255,255,255,0.8)'
+			zIndex: 2,
+			backgroundColor: '#f4f6f7',
+			hideChildrenOnLoad: true
 		});
 
 		inst.loaderContainer.appendChild(inst.loader.el);

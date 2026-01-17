@@ -1,6 +1,6 @@
-import Component from '../component';
-import { formatSearchString } from '../lib/stringUtils';
-import { setUrlParams } from '../lib/utils';
+import Component from '../../component';
+import { formatSearchString } from '../../lib/stringUtils';
+import { setUrlParams } from '../../lib/utils';
 
 var SearchTrees = {
 	updateSearchInput: function() {

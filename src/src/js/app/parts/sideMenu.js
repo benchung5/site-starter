@@ -15,10 +15,15 @@ var SideMenu = {
             </div>`
 		});
 
+		if(options.title) {
+			inst.el.innerHTML = `<h1>${options.title}</h1>`;
+		}
+
 		inst.sideMenuContent = SideMenuContent.init({
 			filterStore: options.filterStore,
 			tablesStore: options.tablesStore,
 			onUpdate: options.onUpdate,
+			filterComponent: options.filterComponent,
 		});
 		inst.el.appendChild(inst.sideMenuContent.el);
 

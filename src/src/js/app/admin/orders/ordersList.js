@@ -1,8 +1,8 @@
 import Component from '../../component';
 import { getSingle, deleteOrder, searchOrders, resetFilter, updateFilterFromUrl } from '../../actions/orders';
 import Sidebar from '../sidebar';
-import Search from '../../parts/search';
-import Pagination from '../../parts/pagination';
+import Search from '../parts/search';
+import Pagination from '../parts/pagination';
 import orderListStore from '../../storage/orderListStore';
 import orderFilterStore from '../../storage/orderFilterStore';
 import { globals } from '../../config';

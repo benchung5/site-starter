@@ -1,7 +1,5 @@
 import Component from '../component';
 // import Search from './search';
-import SideMenuHeader from './sideMenuHeader';
-import FilterPlants from './filterPlants';
 
 var SideMenuContent = {
 	init: function(options) {
@@ -22,7 +20,7 @@ var SideMenuContent = {
 		});
 
 		//filter
-		const filterPlants = FilterPlants.init({
+		const filterPlants = options.filterComponent.init({
 			buttonHeight: 40,
 			tablesStore: options.tablesStore,
 			onUpdate: options.onUpdate,

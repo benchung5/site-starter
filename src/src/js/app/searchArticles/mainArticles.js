@@ -1,6 +1,7 @@
 import Component from '../component';
-import SideMenuArticlesMobile from './sideMenuArticlesMobile';
 import GridViewArticles from './gridViewArticles';
+import SideMenuMobile from '../parts/sideMenuMobile';
+import FilterArticles from './filterArticles';
 import appStateStore from '../storage/appStateStore';
 import articleTablesStore from '../storage/articleTablesStore';
 import articleListStore from '../storage/articleListStore';
@@ -33,6 +34,38 @@ import { searchArticles, updateFilterFromUrl } from '../actions/articles';
 	      	//only return articles in production mode for searchArticles
 	      	articleFilterStore.setData({ mode: 2 });
 
+	      	const appContainer = document.querySelector('.articles-container');
+	      	const pagePlaceholder = document.createElement('div');
+	      	pagePlaceholder.className = 'page-loading-placeholder page-loading-placeholder--articles';
+	      	pagePlaceholder.innerHTML = `
+	      		<div class="row grid-view-inner">
+	      			<div class="left"></div>
+	      			<div class="right">
+	      				<div class="articles-container page-placeholder-articles">
+	      					${Array.from({ length: 5 }).map(() => `
+	      						<div class="article-row placeholder-card">
+	      							<div class="inner">
+	      								<div class="image">
+	      									<div class="placeholder-image skeleton"></div>
+	      								</div>
+	      								<div class="info">
+	      									<div class="info-body">
+	      										<div class="placeholder-line skeleton"></div>
+	      										<div class="placeholder-line skeleton"></div>
+	      										<div class="placeholder-line short skeleton"></div>
+	      									</div>
+	      								</div>
+	      							</div>
+	      						</div>
+	      					`).join('')}
+	      				</div>
+	      			</div>
+	      		</div>
+	      	`;
+	      	if (appContainer) {
+	      		appContainer.appendChild(pagePlaceholder);
+	      	}
+
 	      	//get the filter settings from the url
 	      	updateFilterFromUrl(() => {
 	      			//call initialize on Component first
@@ -47,19 +80,26 @@ import { searchArticles, updateFilterFromUrl } from '../actions/articles';
 	      		        </div>`
 	      			});
 
-	      			const sideMenuArticles = SideMenuArticlesMobile.init({
-	      				onUpdate: inst.onUpdate.bind(inst),
-	      				filterStore: articleFilterStore,
-	      				categories: articleTablesStore.storageData.categories
-	      			});
-	      			inst.el.appendChild(sideMenuArticles.el);
+				if (pagePlaceholder && pagePlaceholder.parentNode) {
+					pagePlaceholder.parentNode.removeChild(pagePlaceholder);
+				}
+
+      			const sideMenuMobile = SideMenuMobile.init({
+      				title: 'Search Articles',
+      				onUpdate: inst.onUpdate.bind(inst),
+      				filterStore: articleFilterStore,
+      				tablesStore: articleTablesStore.storageData,
+					filterComponent: FilterArticles
+      			});
+      			inst.el.appendChild(sideMenuMobile.el);
 
       			const gridViewArticles = GridViewArticles.init({
-	      				filterStore: articleFilterStore,
-	      				listStore: articleListStore,
-	      				onUpdate: inst.onUpdate.bind(inst),
-	      				categories: articleTablesStore.storageData.categories,
-	      			});
+      				filterStore: articleFilterStore,
+      				listStore: articleListStore,
+      				onUpdate: inst.onUpdate.bind(inst),
+      				tablesStore: articleTablesStore.storageData,
+					filterComponent: FilterArticles
+      			});
 	      			inst.el.appendChild(gridViewArticles.el);
 				inst.gridViewArticles = gridViewArticles;
 

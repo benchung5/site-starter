@@ -1,6 +1,6 @@
 import Component from '../component';
 import Loader from '../parts/loader';
-import SideMenuArticles from './sideMenuArticles';
+import SideMenu from '../parts/sideMenu';
 import Pagination from '../parts/pagination';
 import { imgName } from '../lib/stringUtils';
 //config
@@ -9,7 +9,7 @@ var { ARTICLES_UPLOADS_PATH } = require('../config')[env];
 
 var GridViewArticles = {
 	buildItems: function() {
-		if (this.loader) {
+		if (this.loader && this.hasRenderedOnce) {
 			this.loader.isLoading(true);
 		}
 		this.cardsContainer.innerHTML = '';
@@ -70,9 +70,10 @@ var GridViewArticles = {
 
 		}
 		
-		if (this.loader) {
+		if (this.loader && this.hasRenderedOnce) {
 			this.loader.isLoading(false);
 		}
+		this.hasRenderedOnce = true;
 	},
 	init: function(options) {
 		var proto = Object.assign({}, this, Component);
@@ -81,6 +82,7 @@ var GridViewArticles = {
 		proto.constructor = inst;
 
 		inst.listStore = options.listStore;
+		inst.hasRenderedOnce = false;
 
 		inst.initialize({
 			el:
@@ -107,12 +109,14 @@ var GridViewArticles = {
 		});
 
 		//build components
-		inst.sideMenuArticles = SideMenuArticles.init({
+		inst.sideMenu = SideMenu.init({
+			title: 'Search Articles',
 			onUpdate: options.onUpdate,
 			filterStore: options.filterStore,
-			categories: options.categories
+			tablesStore: options.tablesStore,
+			filterComponent: options.filterComponent
 		});
-		inst.el.querySelector('.left').appendChild(inst.sideMenuArticles.el);
+		inst.el.querySelector('.left').appendChild(inst.sideMenu.el);
 		inst.cardsContainer = inst.el.querySelector('.articles-container');
 		inst.loaderContainer = inst.el.querySelector('#loader-container');
 		inst.pagination = Pagination.init({
@@ -129,7 +133,9 @@ var GridViewArticles = {
 			centerOnScreen: true,
 			minHeight: '200px',
 			color: '#bcbc1d',
-			backgroundColor: 'rgba(255,255,255,0.8)'
+			zIndex: 2,
+			backgroundColor: '#f4f6f7',
+			hideChildrenOnLoad: true
 		});
 
 		inst.loaderContainer.appendChild(inst.loader.el);

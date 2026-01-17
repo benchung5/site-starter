@@ -87,9 +87,12 @@ var FilterPlants = {
                   <br/>
                   <br/>
                   <p>
-                  	Use the above filter to search trees, shrubs, woody plants, grasses, and sedges of the north.
-      			  	We are constantly building our selection, and working on our online ordering system. In the mean time
-      			  	let us know what we can help you find.
+                  	Use the above filter to search for traditionally used medicinal plants of the north, hardy to zone 4.
+      			  	<br/>
+					<italic>
+						Note: The fields in this filter and plant listingsare intended for education use and are not a substitute for 
+						professional medical advice.
+					</italic>
       			  </p>
       			  <br/>
               </form>

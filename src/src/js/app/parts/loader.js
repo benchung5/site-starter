@@ -10,11 +10,20 @@ import { addClass, removeClass } from '../lib/utils';
 // inst.el = inst.loader.el;
 
 var Loader = {
+	setChildrenHidden: function(isHidden) {
+		if (this.children) {
+			this.children.style.opacity = isHidden ? 0 : '';
+			this.children.style.pointerEvents = isHidden ? 'none' : '';
+		}
+	},
 	// onLoadingChange: function(e) {
 
 	// },
 	isLoading: function(isLoading) {
 		if(isLoading && (!this.isInitialPageLoad)) {
+			if (this.hideChildrenOnLoad) {
+				this.setChildrenHidden(true);
+			}
 			this.setState({isLoading : true});
 			this.startLock();
 			this.showLoadingAnimation.animate();
@@ -67,6 +76,7 @@ var Loader = {
 		proto.constructor = inst;
 
 		inst.delayFinish = options.delayFinish;
+		inst.hideChildrenOnLoad = options.hideChildrenOnLoad;
 
 		//call initialize on Component first
 		inst.initialize({
@@ -104,7 +114,11 @@ var Loader = {
 			}
 		}
 
-		inst.el.appendChild(options.children);
+		inst.children = options.children;
+		inst.el.appendChild(inst.children);
+		if (inst.hideChildrenOnLoad && inst.isInitialPageLoad) {
+			inst.setChildrenHidden(true);
+		}
 
 		//animation
 		inst.showLoadingAnimation = animation.init(inst.preload, {
@@ -123,6 +137,9 @@ var Loader = {
 			ease: 'ease-in-out',
 			onEnd: () => {
 				inst.preload.style.visibility = 'hidden';
+				if (inst.hideChildrenOnLoad) {
+					inst.setChildrenHidden(false);
+				}
 			}
 		});
 

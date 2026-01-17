@@ -640,6 +640,11 @@ body:not([data-index]) .content-wrapper {
   padding-top: 5em; // Account for fixed header height
 }
 
+.content-wrapper > .articles-container,
+.content-wrapper > .plant-search-container {
+  min-height: calc(100vh - 12rem);
+}
+
 
 .columns.medium-media-padding {
   @include breakpoint(medium down) {
@@ -2712,6 +2717,208 @@ $L:     1150px;
 }
 
 /* ==========================================================================
+page loading placeholders (plants + articles)
+========================================================================== */
+
+.page-loading-placeholder {
+  width: 100%;
+}
+
+.page-loading-placeholder .page-placeholder-grid,
+.page-loading-placeholder .page-placeholder-articles {
+  margin: 2em 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.page-loading-placeholder .placeholder-card .inner {
+  background-color: #fff;
+  box-shadow: $card-box-shadow;
+  height: 100%;
+}
+
+.page-loading-placeholder .placeholder-image {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+}
+
+.page-loading-placeholder .placeholder-line {
+  height: 12px;
+  margin: 0.4em 0;
+  width: 85%;
+}
+
+.page-loading-placeholder .placeholder-line.short {
+  width: 60%;
+}
+
+.skeleton {
+  background-color: #eee;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150px;
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+  animation: skeleton-loading 1.2s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+/* ==========================================================================
+pagination (public)
+========================================================================== */
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0 3.5rem;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    margin: 0;
+  }
+  a,
+  span {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1;
+    text-decoration: none;
+    border: 1px solid $border-color;
+    color: $black;
+    background: #fff;
+  }
+  .current span {
+    background: #2f2a33;
+    border-color: #2f2a33;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50%;
+  }
+  .pagination-ellipsis {
+    border: 0;
+    width: auto;
+    height: auto;
+    padding: 0 0.25rem;
+    color: $dark-gray;
+    background: transparent;
+  }
+  .pagination-previous a,
+  .pagination-next a {
+    font-size: 1.1rem;
+    color: #2f2a33;
+  }
+  .pagination-arrow {
+    width: 36px;
+    height: 24px;
+    display: block;
+  }
+ 
+  .pagination-arrow--prev {
+
+  }
+  .pagination-arrow--next {
+    transform: rotate(180deg);
+  }
+  .disabled a {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}
+
+.page-loading-placeholder--plants .placeholder-card .inner .image .placeholder-image {
+  height: 0;
+  padding-bottom: 100%;
+}
+
+.page-loading-placeholder--plants .placeholder-card {
+  padding: .25em;
+  display: inline-block;
+  width: 50%;
+  @include MQ(S) {
+    width: 33.33333%;
+  }
+  @include MQ(M) {
+    width: 25%;
+  }
+  @include MQ(L) {
+    width: 20%;
+  }
+}
+
+.page-loading-placeholder--plants .placeholder-card .inner .info {
+  background: #fff;
+  padding: 1em 1.7em;
+  font-size: .8em;
+}
+
+.page-loading-placeholder--articles .placeholder-card {
+  padding: .25em;
+  display: inline-block;
+  width: 50%;
+}
+
+.page-loading-placeholder--articles .placeholder-card .inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-loading-placeholder--articles .placeholder-card .image {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-loading-placeholder--articles .placeholder-card .info {
+  background: #fff;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+@media only screen and (min-width: 1000px) {
+  .page-loading-placeholder--articles .placeholder-card .inner {
+    flex-direction: row;
+  }
+  .page-loading-placeholder--articles .placeholder-card .image {
+    min-width: 200px;
+    align-self: stretch;
+  }
+}
+
+/* ==========================================================================
 filter
 ========================================================================== */
 
@@ -2801,12 +3008,8 @@ form input clear button
 }
 
 .search-filter {
-  margin: 0 0.5em 0.5em 0.5em;
-  padding-top: 0.5em;
+  padding: 0.5rem;
   font-size: 0.8rem;
-  label, input {
-
-  }
   input {
     height: inherit;
     border-radius: 0;
@@ -3674,7 +3877,11 @@ menu
 // standard version
 .side-menu {
   // overflow-y: scroll;
-  // height: 100%;
+  h1 {
+      font-weight: lighter;
+      padding: 0.5rem;
+      margin: 0;
+    }
   background: #fff;
   box-shadow: $light-shadow;
   //animation in react component
@@ -3697,7 +3904,6 @@ menu
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e1e0e2;
   .menu-header-right {
     display: flex;
     position: relative;
@@ -4690,7 +4896,9 @@ cart
   .list {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    
     .header {
+      border-top: 1px solid #e1e0e2;
       border-bottom: 1px solid #e1e0e2;
       display: flex;
       justify-content: space-between;
@@ -4723,6 +4931,7 @@ cart
       justify-content: space-between;
       flex-wrap: wrap;
       border-bottom: 1px solid #e1e0e2;
+      
       h3 {
         font-size: 1rem;
         font-weight: 600;
