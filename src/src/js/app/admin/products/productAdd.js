@@ -1,6 +1,5 @@
 import Component from '../../component';
 import FieldInput from '../parts/fieldInput';
-import FieldHidden from '../parts/fieldHidden';
 import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
 import FieldTextarea from '../parts/fieldTextarea';
@@ -58,6 +57,7 @@ var ProductAdd = {
 		//first clear the form fields
 		this.formFields.innerHTML = '';
 		this.updateMessage.clear();
+		this.presetSources = [{ id: source }];
 
 		//get product table data
 		fetchProductTables((productTables) => {
@@ -66,13 +66,6 @@ var ProductAdd = {
 
 			//create the fields
 			productFields.map((item) => {
-				if(item.name === 'source_id') {
-					let input = FieldHidden.init({
-						name: item.name,
-						value: source,
-					});
-					this.formFields.appendChild(input.el);
-				}
 				if(item.type === 'input') {
 					let input = FieldInput.init({
 						name: item.name,
@@ -93,12 +86,17 @@ var ProductAdd = {
 					this.formFields.appendChild(dropdownSelect.el);
 				}
 				if(item.type === 'multiSelect') {
+					let value = null;
+					if (item.name === 'source_ids') {
+						value = this.presetSources;
+					}
 					let multiSelect = FieldMultiSelect.init({
 						name: item.name,
 						label: item.label,
 						error: item.error,
 						condition: item.condition,
-						selectItems: productTablesStore.storageData[item.name]
+						selectItems: productTablesStore.storageData[item.name],
+						value: value,
 					});
 					this.formFields.appendChild(multiSelect.el);
 				}

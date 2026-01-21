@@ -2,7 +2,7 @@ import Component from '../../component';
 import { getSingle, deletePlant, searchTrees, resetFilter, updateFilterFromUrl } from '../../actions/plants';
 import Sidebar from '../sidebar';
 import Search from '../parts/search';
-import Pagination from '../parts/pagination';
+import Pagination from '../../parts/pagination';
 import plantListStore from '../../storage/plantListStore';
 import plantFilterStore from '../../storage/plantFilterStore';
 import { globals } from '../../config';

@@ -10,6 +10,7 @@ var Sidebar = {
 		{ title: 'Add Articles', link: 'article-add', active: false },
 		{ title: 'View Plants', link: 'plants-list', active: false },
 		{ title: 'Add Plants', link: 'plant-add', active: false },
+		{ title: 'View Products', link: 'products-list', active: false },
 		{ title: 'View Users', link: 'users-list', active: false },
 		{ title: 'Add User', link: 'signup', active: false },
 		{ title: 'View Categories', link: 'category-list', active: false },

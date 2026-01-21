@@ -1,6 +1,6 @@
 import Component from '../../component';
 import { getUrlParams } from '../../lib/utils';
-import { getProducts, deleteProduct } from '../../actions/products';
+import { getProducts, removeProductSource } from '../../actions/products';
 import productListStore from '../../storage/productListStore';
 import ProductAdd from './productAdd';
 import ProductEdit from './productEdit';
@@ -25,9 +25,7 @@ var SourceProducts = {
 		this.verifyAction.open((verified) => {
 			if(verified) {
 				let id = e.srcElement.dataset.delete;
-				deleteProduct({id: id}, (apiData) => {
-					// // shoud say deleted product id
-					// console.log(apiData);
+				removeProductSource({ product_id: id, source_id: this.source }, (apiData) => {
 					this.buildItems();
 				});
 			}
@@ -62,7 +60,7 @@ var SourceProducts = {
 								<div>amount available: ${productItem.amount_available}</div>
 								<div>variation: ${productItem.productTypeVariationName}</div>
 								<div>
-									<a data-delete="${productItem.id}"">delete</a>
+									<a data-delete="${productItem.id}"">remove</a>
 									<a data-edit="${productItem.id}">edit</a>
 								</div>
 								</li>`);
@@ -127,7 +125,7 @@ var SourceProducts = {
 		inst.modalAdd = Modal.init({ contentElement: inst.productAdd.el });
 		inst.modalEdit = Modal.init({ contentElement: inst.productEdit.el });
 		inst.verifyAction = VerifyAction.init({
-			message: 'delete item?'
+			message: 'remove item?'
 		});
 
 

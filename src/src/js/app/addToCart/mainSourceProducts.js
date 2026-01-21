@@ -23,8 +23,14 @@ var MainSourceProducts = {
 			productListStore.storageData.products.map((productListStoreItem) => {
 				if (formDataItem[0] == productListStoreItem.id && formDataItem[1] > 0) {
 					let productListStoreItemClone = clone(productListStoreItem);
+					const productImage = productListStoreItem.images && productListStoreItem.images.length
+						? productListStoreItem.images[0].name
+						: null;
+					const imageRefType = productImage ? 'products' : 'trees';
+					const imageName = productImage || this.currentPlantImage;
 					let newItem = Object.assign(productListStoreItemClone, 
-						{ image : this.currentPlantImage }, 
+						{ image : imageName },
+						{ imageRefType : imageRefType },
 						{ plantId : this.currentPlantId}, 
 						{ commonName : this.currentPlantCommonName },
 						{ botanicalName : this.currentPlantBotanicalName },

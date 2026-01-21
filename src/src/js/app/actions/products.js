@@ -56,6 +56,17 @@ export function deleteProduct(product, callback) {
     });
 }
 
+export function removeProductSource(data, callback) {
+    xhr.send(`${SERVER_URL}/products/remove_source`,
+    {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }, (apiData) => {
+        callback(apiData);
+    });
+}
+
 export function updateProduct(formData, callback) {
     xhr.send(`${SERVER_URL}/products/update`,
     {

@@ -5,6 +5,7 @@ module.exports = {
       ROOT_URL: "/",
       ARTICLES_UPLOADS_PATH: '/uploads/articles/',
       PLANTS_UPLOADS_PATH: '/uploads/trees/',
+      PRODUCTS_UPLOADS_PATH: '/uploads/products/',
    },
    "production": {
       DOMAIN_URL: 'https://naturewithus.com',
@@ -12,6 +13,7 @@ module.exports = {
       ROOT_URL: "/",
       ARTICLES_UPLOADS_PATH: '/uploads/articles/',
       PLANTS_UPLOADS_PATH: '/uploads/trees/',
+      PRODUCTS_UPLOADS_PATH: '/uploads/products/',
    },
    "globals": {
       HIDE_MENU_THRESHOLD: 1150,

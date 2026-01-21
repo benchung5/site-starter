@@ -175,15 +175,17 @@ class Trees_model extends Model
 
 			// seeds
 			$result->seed_prod_count = $this->db->table('products p')
-				->where('source_id', $result->id)
 				->where('pt.name', 'Seeds')
+				->innerJoin('products_sources ps', 'ps.product_id', 'p.id')
+				->where('ps.source_id', $result->id)
 				->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
 				->count('p.id', 'seeds')
 				->getAll();
 
 			$result->plant_prod_count = $this->db->table('products p')
-				->where('source_id', $result->id)
 				->where('pt.name', 'Plants')
+				->innerJoin('products_sources ps', 'ps.product_id', 'p.id')
+				->where('ps.source_id', $result->id)
 				->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
 				->count('p.id', 'plants')
 				->getAll();

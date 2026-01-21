@@ -26,10 +26,13 @@ class Products extends Controller
 		$opts = [];
 
 		if(isset($data['source_id'])) { $opts['source_id'] = $data['source_id']; };
+		if(isset($data['offset'])) { $opts['offset'] = $data['offset']; };
+		if(isset($data['limit'])) { $opts['limit'] = $data['limit']; };
 
+		$count = $this->products->get_all($opts, true);
 		$products = $this->products->get_all($opts);
 
-		$result = ['products' => $products];
+		$result = ['products' => $products, 'count' => $count, 'offset' => isset($data['offset']) ? (int)$data['offset'] : 0, 'limit' => isset($data['limit']) ? (int)$data['limit'] : 0];
 
 		if ($result) {
 			Utils::json_respond(SUCCESS_RESPONSE, $result);
@@ -87,20 +90,38 @@ class Products extends Controller
 			'amount_available' => $data['amount_available'],
 		];
 
+		if (isset($data['images'])) { $update_data['images'] = $data['images']; }
+
+		$joins_data = [
+			'source_ids' => !empty($data['source_ids']) ? $data['source_ids'] : null,
+		];
+
 		if ($is_add) {
-			$update_data['source_id'] = $data['source_id'];
-			$new_product_id = $this->products->add($update_data);
+			$new_product_id = $this->products->add([
+				'insert' => $update_data,
+				'joins' => $joins_data,
+			]);
 			$updated_product = $this->products->get(['id' => $new_product_id]);
 		} else {
 			$this->products->update([
 				'where' => ['id' => $data['id']], 
 				'update' => $update_data,
+				'joins' => $joins_data,
 			]);
 
 			$updated_product = $this->products->get(['id' => $data['id']]);
 		}
 		
 		return $updated_product;
+	}
+
+	public function remove_source()
+	{
+		$data = Utils::json_read();
+
+		$removed = $this->products->remove_source($data['product_id'], $data['source_id']);
+
+		Utils::json_respond(SUCCESS_RESPONSE, $removed);
 	}
 
 	public function delete()

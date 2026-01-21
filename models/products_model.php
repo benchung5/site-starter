@@ -4,13 +4,15 @@ use Lib\Utils;
 
 class Products_model extends Model
 {
-	public function get_all($opts = [])
+	public function get_all($opts = [], $isCount = false)
 	{
 		$this->db->table('products p');
 
 		// only in products that belong to the source
 		if (isset($opts['source_id'])) {
-			$this->db->where('p.source_id', '=', $opts['source_id']);
+			$this->db
+				->innerJoin('products_sources ps_filter', 'ps_filter.product_id', 'p.id')
+				->where('ps_filter.source_id', '=', $opts['source_id']);
 		}
 
 		// only in products of certain variation
@@ -18,18 +20,31 @@ class Products_model extends Model
 			$this->db->where('p.status_id', '=', $opts['status_id']);
 		}
 
-		if (isset($opts['select'])) {
-			$this->db->select($opts['select']);
-		} else {
-			$this->db->select('p.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status, t.common_name source_name, CONCAT_WS(" - ",t.common_name, pt.name, ptv.name) name');
-		}
-
 		$this->db
 			->leftJoin('product_types pt', 'p.product_type_id', 'pt.id')
 			->leftJoin('product_type_variations ptv', 'p.product_type_variation_id', 'ptv.id')
 			->leftJoin('product_statuses ps', 'p.status_id', 'ps.id')
-			->leftJoin('trees t', 't.id', 'p.source_id')
-			->orderBy('name');
+			->leftJoin('products_sources ps_src', 'ps_src.product_id', 'p.id')
+			->leftJoin('trees t', 't.id', 'ps_src.source_id')
+			->groupBy('p.id');
+
+		if ($isCount) {
+			$this->db->select('DISTINCT p.id');
+			$result = $this->db->getAll();
+			return count($result);
+		}
+
+		if (isset($opts['select'])) {
+			$this->db->select($opts['select']);
+		} else {
+			$this->db->select('p.id, pt.name productTypeName, ptv.name productTypeVariationName, p.price, p.amount_available, ps.name status, MIN(t.common_name) source_name, GROUP_CONCAT(DISTINCT t.common_name ORDER BY t.common_name SEPARATOR ", ") source_names, p.images, CONCAT_WS(" - ", MIN(t.common_name), pt.name, ptv.name) name');
+		}
+
+		if (isset($opts['offset'])) {
+			$this->db->limit($opts['offset'], $opts['limit']);
+		}
+
+		$this->db->orderBy('name');
 
 		$result = $this->db->getAll();
 
@@ -39,7 +54,13 @@ class Products_model extends Model
 		// 	$prod_result->name = $name;
 		// }
 
-		return $result;
+		if ($result) {
+			foreach ($result as $product) {
+				$product->images = Json_decode($product->images) ?: [];
+			}
+		}
+
+		return $result ?: [];
 	}
 
 	public function get($opts = []) 
@@ -51,6 +72,16 @@ class Products_model extends Model
 			$this->db->select('*');
 			$result = $this->db->get();
 
+			if ($result) {
+				$result->images = Json_decode($result->images) ?: [];
+				$result->sources = $this->db->table('trees t')
+					->select('t.id, t.common_name AS name, t.slug')
+					->innerJoin('products_sources ps', 'ps.source_id', 't.id')
+					->where('ps.product_id', $result->id)
+					->orderBy('t.common_name')
+					->getAll();
+			}
+
 			return $result;
 		} else {
 			return false;
@@ -61,25 +92,15 @@ class Products_model extends Model
 
 	public function add($opts)
 	{
-		$this->db->table('products')->insert($opts);
+		$insert_data = isset($opts['insert']) ? $opts['insert'] : $opts;
+		$this->db->table('products')->insert($insert_data);
 		$new_product_id = $this->db->insertId();
 
-		// // many to many tables
-		// if (isset($opts['joins'])) {
-		// 	$joins = $opts['joins'];
-		// 	$this->insert_joins($new_product_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
-		// 	$this->insert_joins($new_product_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
-		// 	$this->insert_joins($new_product_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
-		// 	$this->insert_joins($new_product_id, $joins, 'light', 'light_id', 'trees_light');
-		// 	$this->insert_joins($new_product_id, $joins, 'soil', 'soil_id', 'trees_soil');
-		// 	$this->insert_joins($new_product_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
-		// 	$this->insert_joins($new_product_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
-		// 	$this->insert_joins($new_product_id, $joins, 'transplanting', 'transplanting_id', 'trees_transplanting');
-		// 	$this->insert_joins($new_product_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
-		// 	$this->insert_joins($new_product_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
-		// 	// $this->insert_joins($new_product_id, $joins, 'insects', 'insects_id', 'trees_insects');
-		// 	// $this->insert_joins($new_product_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
-		// }
+		// many to many tables
+		if (isset($opts['joins'])) {
+			$joins = $opts['joins'];
+			$this->insert_joins($new_product_id, $joins, 'source_ids', 'source_id', 'products_sources');
+		}
 
 		return $new_product_id;
 	}
@@ -94,22 +115,41 @@ class Products_model extends Model
 			$this->db->where($opts['where'])->update($opts['update']);
 		}
 
-		// // many to many tables
-		// if (isset($opts['joins'])) {
-		// 	$joins = $opts['joins'];
-		// 	$this->update_joins($product_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
-		// 	$this->update_joins($product_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
-		// 	$this->update_joins($product_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
-		// 	$this->update_joins($product_id, $joins, 'light', 'light_id', 'trees_light');
-		// 	$this->update_joins($product_id, $joins, 'soil', 'soil_id', 'trees_soil');
-		// 	$this->update_joins($product_id, $joins, 'natural_habitat', 'natural_habitat_id', 'trees_natural_habitat');
-		// 	$this->update_joins($product_id, $joins, 'common_uses', 'common_use_id', 'trees_common_uses');
-		// 	$this->update_joins($product_id, $joins, 'transplanting', 'transplanting_id', 'trees_transplanting');
-		// 	$this->update_joins($product_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
-		// 	$this->update_joins($product_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
-		// 	// $this->update_joins($product_id, $joins, 'insects', 'insects_id', 'trees_insects');
-		// 	// $this->update_joins($product_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
-		// }
+		// many to many tables
+		if (isset($opts['joins'])) {
+			$joins = $opts['joins'];
+			$this->update_joins($product_id, $joins, 'source_ids', 'source_id', 'products_sources');
+		}
+	}
+
+	protected function insert_joins($product_id, $joins, $table_name, $table_id_name, $join_table_name) {
+		if (isset($joins[$table_name])) {
+			$ids = (! is_array($joins[$table_name])) ? explode(',', $joins[$table_name]) : $joins[$table_name];
+
+			foreach ($ids as $id) {
+				if ($id === '' || $id === null) {
+					continue;
+				}
+				$ins = ['product_id' => $product_id, $table_id_name => $id];
+				$this->db->table($join_table_name)->insert($ins);
+			}
+		}
+	}
+
+	protected function update_joins($id, $joins, $table_name, $table_id_name, $join_table_name) {
+		if (isset($joins[$table_name])) {
+			// clear existing associations
+			$this->db->table($join_table_name)->where('product_id', $id)->delete();
+
+			// insert new associations
+			$associatons = is_array($joins[$table_name]) ? $joins[$table_name] : explode(',', $joins[$table_name]);
+			foreach ($associatons as $associaton_id) {
+				if ($associaton_id === '' || $associaton_id === null) {
+					continue;
+				}
+				$this->db->table($join_table_name)->insert(['product_id' => $id, $table_id_name => $associaton_id]);
+			}
+		}
 	}
 
 	public function remove($opts = [])
@@ -127,7 +167,8 @@ class Products_model extends Model
 
 			$this->db->table('products')->where('id', $deleted_product_id)->delete();
 
-			// // remove joins
+			// remove joins
+			$this->db->table('products_sources')->where('product_id', $deleted_product_id)->delete();
 			// $this->db->table('trees_eco_benefits')->where('tree_id', $deleted_product_id)->delete();
 			// $this->db->table('trees_native_to')->where('tree_id', $deleted_product_id)->delete();
 			// $this->db->table('trees_shapes')->where('tree_id', $deleted_product_id)->delete();
@@ -141,6 +182,19 @@ class Products_model extends Model
 			// // $this->db->table('trees_diseases')->where('tree_id', $deleted_product_id)->delete();
 
 			return $deleted_product_id;
+		}
+
+		return false;
+	}
+
+	public function remove_source($product_id, $source_id)
+	{
+		if ($product_id && $source_id) {
+			$this->db->table('products_sources')
+				->where('product_id', $product_id)
+				->where('source_id', $source_id)
+				->delete();
+			return true;
 		}
 
 		return false;

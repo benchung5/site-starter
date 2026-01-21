@@ -9,6 +9,7 @@ import PlantsList from './plants/plantsList';
 import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
 import SourceProducts from './products/sourceProducts';
+import ProductsList from './products/productsList';
 import ArticleList from './articles/articleList';
 import OrdersList from './orders/ordersList';
 import OrderEdit from './orders/orderEdit';
@@ -21,6 +22,7 @@ import plantListStore from '../storage/plantListStore';
 import plantFilterStore from '../storage/plantFilterStore';
 import plantTablesStore from '../storage/plantTablesStore';
 import productTablesStore from '../storage/productTablesStore';
+import productFilterStore from '../storage/productFilterStore';
 import orderProductTablesStore from '../storage/orderProductTablesStore';
 import articleListStore from '../storage/articleListStore';
 import articleFilterStore from '../storage/articleFilterStore';
@@ -100,6 +102,18 @@ import SignInPopup from './auth/signInPopup';
 						this.signInPopup.open(() => {
 							this.sourceProducts.onLoad();
 							this.el.appendChild(this.sourceProducts.el);
+						});
+					}
+				});
+			} else if(route === 'products-list') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.productsList.onLoad();
+						this.el.appendChild(this.productsList.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.productsList.onLoad();
+							this.el.appendChild(this.productsList.el);
 						});
 					}
 				});
@@ -207,6 +221,7 @@ import SignInPopup from './auth/signInPopup';
 			articleFilterStore.init();
 			articleTablesStore.init();
 			productTablesStore.init();
+			productFilterStore.init();
 			orderFilterStore.init();
 			orderListStore.init();
 			orderProductListStore.init();
@@ -222,6 +237,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.plantAdd = PlantAdd.init();
 			inst.plantEdit = PlantEdit.init();
 			inst.sourceProducts = SourceProducts.init();
+			inst.productsList = ProductsList.init();
 			inst.articleList = ArticleList.init();
 			inst.articleAdd = ArticleAdd.init();
 			inst.articleEdit = ArticleEdit.init();

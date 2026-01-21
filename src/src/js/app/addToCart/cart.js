@@ -8,7 +8,7 @@ import { setLocalStorage } from '../lib/utils';
 
 //config
 const env = process.env.NODE_ENV || "development";
-var { PLANTS_UPLOADS_PATH, DOMAIN_URL } = require('../config')[env];
+var { PLANTS_UPLOADS_PATH, PRODUCTS_UPLOADS_PATH, DOMAIN_URL } = require('../config')[env];
 
 var Cart = {
 //redirect to ${DOMAIN_URL}/checkout
@@ -58,8 +58,10 @@ var Cart = {
 					onRemove: this.onRemove.bind(this),
 				});
 
+				const imageBasePath = item.imageRefType === 'products' ? PRODUCTS_UPLOADS_PATH : PLANTS_UPLOADS_PATH;
+				const imageSrc = item.image ? `${imageBasePath + imgName(item.image, 'small')}` : '/assets/img/placeholder-images/placeholder-img.png';
 				let cartItem = this.createEl(`<div class="cart-item">
-					<a class="first" href="${item.plantUrl}"><img src="${PLANTS_UPLOADS_PATH + imgName(item.image, 'small')}"/></a>
+					<a class="first" href="${item.plantUrl}"><img src="${imageSrc}"/></a>
 					<div class="name"><div><a href="${item.plantUrl}"><h3>${item.commonName}</h3></a><a href="${item.plantUrl}"><h4>${item.botanicalName}</a></h4>${item.productTypeName}: ${item.productTypeVariationName}</div></div>
 					<div class="header cart-item mobile"><div class="price">Price</div><div class="quantity">Quantity</div><div class="total">Total</div></div>
 					<div class="price">${formatPrice(item.price)}</div>

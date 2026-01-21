@@ -97,13 +97,17 @@ var ProductEdit = {
 							this.formFields.appendChild(dropdownSelect.el);
 						}
 						if(item.type === 'multiSelect') {
+							let value = product[item.name];
+							if (item.name === 'source_ids') {
+								value = product.sources || [];
+							}
 							let multiSelect = FieldMultiSelect.init({
 								name: item.name,
 								label: item.label,
 								error: item.error,
 								condition: item.condition,
 								selectItems: productTablesStore.storageData[item.name],
-								value: product[item.name],
+								value: value,
 							});
 							this.formFields.appendChild(multiSelect.el);
 						}

@@ -3994,6 +3994,89 @@ custom multiselect
   }
 }
 
+// Product sources multiselect should be scrollable.
+.form-group[data-name="source_ids"] .multiselect {
+  max-height: 14rem;
+  overflow-y: auto;
+}
+
+/* ==========================================================================
+admin pagination (reuse public component with admin styling)
+========================================================================== */
+
+.admin-main {
+  .pagination-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1rem;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    padding: 0.35rem 0;
+    gap: 0.35rem;
+
+    li {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    li a,
+    li span {
+      font-size: 0.95rem;
+      color: #4b4b4b;
+      text-decoration: none;
+      padding: 0.35rem 0.55rem;
+      border-radius: 0;
+      line-height: 1.2;
+    }
+
+    li a {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+    }
+
+    li.disabled a {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    li.current span {
+      background: #3f3f46;
+      color: #ffffff;
+    }
+
+    .pagination-previous a,
+    .pagination-next a {
+      color: #3f3f46;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid #e0e0e0;
+      background: #ffffff;
+    }
+
+    .pagination-arrow {
+      display: block;
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+    }
+
+    .pagination-arrow--next {
+      transform: rotate(180deg);
+    }
+
+    .pagination-ellipsis {
+      color: #9a9a9a;
+    }
+  }
+}
+
 /* ==========================================================================
 sandbox
 ========================================================================== */

@@ -5,7 +5,8 @@ var ProductTablesStore = {
 	storageData: {
 		'product_type_id' : [],
 		'product_type_variation_id' : [],
-		'status_id' : []
+		'status_id' : [],
+		'source_ids' : []
 
 	},
 	init: function() {

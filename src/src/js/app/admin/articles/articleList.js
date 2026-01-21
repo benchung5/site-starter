@@ -2,7 +2,7 @@ import Component from '../../component';
 import { getSingle, deleteArticle, resetFilter, searchArticles, updateFilterFromUrl } from '../../actions/articles';
 import Sidebar from '../sidebar';
 import Search from '../parts/search';
-import Pagination from '../parts/pagination';
+import Pagination from '../../parts/pagination';
 import articleListStore from '../../storage/articleListStore';
 import articleFilterStore from '../../storage/articleFilterStore';
 import { globals } from '../../config';
