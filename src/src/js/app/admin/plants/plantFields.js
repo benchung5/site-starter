@@ -9,7 +9,7 @@ const plantFields = [
 	{name: 'subspecies', label: 'subspecies', type: 'input', error: null, condition: null},
 	{name: 'variety', label: 'variety', type: 'input', error: null, condition: null},
 	{name: 'cultivar', label: 'cultivar', type: 'input', error: null, condition: null},
-	{name: 'trees_category_id', label: 'category', type: 'dropdownSelect', error: 'Please enter a category', condition: 'required'},
+{name: 'trees_category_id', label: 'category', type: 'multiSelect', error: 'Please enter a category', condition: 'required'},
 	{name: 'zone_id', label: 'zone', type: 'dropdownSelect', error: null, condition: null},
 	{name: 'eco_benefits', label: 'eco benefits', type: 'multiSelect', error: null, condition: null},
 	{name: 'native_to', label: 'native to', type: 'multiSelect', error: null, condition: null},

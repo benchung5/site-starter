@@ -1,0 +1,173 @@
+RewriteEngine On
+
+# sitemap.xml to sitemap.php
+RewriteRule ^sitemap\.xml/?$ sitemap.php
+
+# Redirect article URLs from deprecated categories to sustainable landscapes.
+RewriteCond %{REQUEST_URI} ^/articles/([^/]+)/([^/]+)/?$
+RewriteCond %1 !^(medicinal-plants|native-plants|sustainable-landscapes)$
+RewriteRule ^articles/[^/]+/(.+)$ /articles/sustainable-landscapes/$1 [R=301,L]
+
+#301 redirects
+
+Redirect 301 /plants/deciduous-trees/black-ash https://naturewithus.com/articles/native-plants/black-ash
+Redirect 301 /plants/deciduous-trees/black-cherry https://naturewithus.com/articles/native-plants/black-cherry
+Redirect 301 /plants/shrubs-woody-plants/black-chokeberry https://naturewithus.com/articles/native-plants/black-chokeberry
+Redirect 301 /plants/shrubs-woody-plants/american-bladdernut https://naturewithus.com/articles/native-plants/american-bladdernut
+Redirect 301 /plants/deciduous-trees/american-chestnut https://naturewithus.com/articles/native-plants/american-chestnut
+Redirect 301 /plants/deciduous-trees/american-linden https://naturewithus.com/articles/native-plants/american-linden
+Redirect 301 /plants/deciduous-trees/american-sycamore https://naturewithus.com/articles/native-plants/american-sycamore
+Redirect 301 /plants/shrubs-woody-plants/common-witch-hazel https://naturewithus.com/articles/native-plants/common-witch-hazel
+Redirect 301 /plants/shrubs-woody-plants/balsam-willow https://naturewithus.com/articles/native-plants/balsam-willow
+Redirect 301 /plants/shrubs-woody-plants/bayberry-willow https://naturewithus.com/articles/native-plants/bayberry-willow
+Redirect 301 /plants/deciduous-trees/bitternut-hickory https://naturewithus.com/articles/native-plants/bitternut-hickory
+Redirect 301 /plants/deciduous-trees/black-ash https://naturewithus.com/articles/native-plants/black-ash
+Redirect 301 /plants/deciduous-trees/black-cherry https://naturewithus.com/articles/native-plants/black-cherry
+Redirect 301 /plants/shrubs-woody-plants/black-chokeberry https://naturewithus.com/articles/native-plants/black-chokeberry
+
+Redirect 301 /plants/deciduous-trees/black-oak https://naturewithus.com/articles/native-plants/black-oak
+Redirect 301 /plants/deciduous-trees/black-walnut https://naturewithus.com/articles/native-plants/black-walnut
+Redirect 301 /plants/deciduous-trees/black-willow https://naturewithus.com/articles/native-plants/black-willow
+Redirect 301 /plants/deciduous-trees/blue-beech https://naturewithus.com/articles/native-plants/blue-beech
+
+Redirect 301 /plants/deciduous-trees/boxelder-maple https://naturewithus.com/articles/native-plants/boxelder-maple
+Redirect 301 /plants/deciduous-trees/bur-oak https://naturewithus.com/articles/native-plants/bur-oak
+Redirect 301 /plants/deciduous-trees/butternut https://naturewithus.com/articles/native-plants/butternut
+Redirect 301 /plants/shrubs-woody-plants/buttonbush https://naturewithus.com/articles/native-plants/buttonbush
+Redirect 301 /plants/deciduous-trees/cherry-birch https://naturewithus.com/articles/native-plants/cherry-birch
+
+Redirect 301 /plants/deciduous-trees/chinquapin-oak https://naturewithus.com/articles/native-plants/chinquapin-oak
+Redirect 301 /plants/shrubs-woody-plants/downy-arrowwood https://naturewithus.com/articles/native-plants/downy-arrowwood
+Redirect 301 /plants/deciduous-trees/eastern-cottonwood https://naturewithus.com/articles/native-plants/eastern-cottonwood
+Redirect 301 /plants/deciduous-trees/eastern-hemlock https://naturewithus.com/articles/native-plants/eastern-hemlock
+Redirect 301 /plants/shrubs-woody-plants/eastern-prickly-gooseberry https://naturewithus.com/articles/native-plants/eastern-prickly-gooseberry
+
+Redirect 301 /plants/deciduous-trees/eastern-redbud https://naturewithus.com/articles/native-plants/eastern-redbud
+Redirect 301 /plants/deciduous-trees/eastern-white-cedar https://naturewithus.com/articles/native-plants/eastern-white-cedar
+Redirect 301 /plants/deciduous-trees/eastern-white-pine https://naturewithus.com/articles/native-plants/eastern-white-pine
+Redirect 301 /plants/shrubs-woody-plants/gray-dogwood https://naturewithus.com/articles/native-plants/gray-dogwood
+Redirect 301 /plants/deciduous-trees/green-ash https://naturewithus.com/articles/native-plants/green-ash
+Redirect 301 /plants/deciduous-trees/hop-hornbeam https://naturewithus.com/articles/native-plants/hop-hornbeam
+Redirect 301 /plants/deciduous-trees/kentucky-coffeetree https://naturewithus.com/articles/native-plants/kentucky-coffeetree
+Redirect 301 /plants/deciduous-trees/largetooth-aspen https://naturewithus.com/articles/native-plants/largetooth-aspen
+Redirect 301 /plants/shrubs-woody-plants/meadow-willow https://naturewithus.com/articles/native-plants/meadow-willow
+Redirect 301 /plants/shrubs-woody-plants/missouri-river-willow https://naturewithus.com/articles/native-plants/missouri-river-willow
+Redirect 301 /plants/deciduous-trees/northern-hackberry https://naturewithus.com/articles/native-plants/northern-hackberry
+
+Redirect 301 /plants/deciduous-trees/peachleaf-willow https://naturewithus.com/articles/native-plants/peachleaf-willow
+Redirect 301 /plants/deciduous-trees/pignut-hickory https://naturewithus.com/articles/native-plants/pignut-hickory
+Redirect 301 /plants/deciduous-trees/pin-oak https://naturewithus.com/articles/native-plants/pin-oak
+Redirect 301 /plants/shrubs-woody-plants/pipevine https://naturewithus.com/articles/native-plants/pipevine
+Redirect 301 /plants/shrubs-woody-plants/prairie-willow https://naturewithus.com/articles/native-plants/prairie-willow
+Redirect 301 /plants/deciduous-trees/red-hickory https://naturewithus.com/articles/native-plants/red-hickory
+Redirect 301 /plants/deciduous-trees/red-hickory https://naturewithus.com/articles/native-plants/red-hickory
+Redirect 301 /plants/deciduous-trees/red-maple https://naturewithus.com/articles/native-plants/red-maple
+
+Redirect 301 /plants/deciduous-trees/red-mulberry https://naturewithus.com/articles/native-plants/red-mulberry
+Redirect 301 /plants/deciduous-trees/red-oak https://naturewithus.com/articles/native-plants/red-oak
+Redirect 301 /plants/shrubs-woody-plants/sand-cherry https://naturewithus.com/articles/native-plants/sand-cherry
+Redirect 301 /plants/shrubs-woody-plants/sand-dune-willow https://naturewithus.com/articles/native-plants/sand-dune-willow
+Redirect 301 /plants/deciduous-trees/sassafras https://naturewithus.com/articles/native-plants/sassafras
+Redirect 301 /plants/deciduous-trees/shellbark-hickory https://naturewithus.com/articles/native-plants/shellbark-hickory
+Redirect 301 /plants/shrubs-woody-plants/silky-dogwood https://naturewithus.com/articles/native-plants/silky-dogwood
+Redirect 301 /plants/deciduous-trees/silver-maple https://naturewithus.com/articles/native-plants/silver-maple
+Redirect 301 /plants/shrubs-woody-plants/smooth-arrowwood https://naturewithus.com/articles/native-plants/smooth-arrowwood
+Redirect 301 /plants/deciduous-trees/sugar-maple https://naturewithus.com/articles/native-plants/sugar-maple
+Redirect 301 /plants/shrubs-woody-plants/swamp-gooseberry https://naturewithus.com/articles/native-plants/swamp-gooseberry
+Redirect 301 /plants/shrubs-woody-plants/three-toothed-cinquefool https://naturewithus.com/articles/native-plants/three-toothed-cinquefoil
+Redirect 301 /plants/deciduous-trees/swamp-white-oak https://naturewithus.com/articles/native-plants/swamp-white-oak
+Redirect 301 /plants/deciduous-trees/tulip-tree https://naturewithus.com/articles/native-plants/tulip-tree
+Redirect 301 /plants/shrubs-woody-plants/virgins-bower https://naturewithus.com/articles/native-plants/virgins-bower
+Redirect 301 /plants/shrubs-woody-plants/virginia-creeper https://naturewithus.com/articles/native-plants/virginia-creeper
+Redirect 301 /plants/deciduous-trees/white-ash https://naturewithus.com/articles/native-plants/white-ash
+Redirect 301 /plants/deciduous-trees/white-oak https://naturewithus.com/articles/native-plants/white-oak
+Redirect 301 /plants/deciduous-trees/yellow-birch https://naturewithus.com/articles/native-plants/yellow-birch
+
+Redirect 301 /plants/shrubs-woody-plants/american-black-currant https://naturewithus.com/articles/native-plants/american-black-currant
+Redirect 301 /plants/deciduous-trees/alternate-leaf-dogwood https://naturewithus.com/articles/native-plants/alternate-leaf-dogwood
+
+# redirect www to non www
+RewriteCond %{HTTP_HOST} www.naturewithus.com
+RewriteRule (.*) https://naturewithus.com/$1 [R=301,L]
+
+#uncomment the below
+#---------------------------
+## Ensure we are using HTTPS
+#RewriteCond %{HTTPS} !on
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# if the file/directory with the specified name in the browser doesn't exist, 
+# and the requested filename is not a symbolic link, 
+# and not an image or json file, procede to the RewriteRule
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_URI} !(\.gif|\.jpg|\.png|\.ico|.json)$ [NC]
+# redirect to index.php, append the query string (QSA),  
+RewriteRule ^ index.php [QSA,L]
+
+# display php errors
+php_flag display_startup_errors on
+php_flag display_errors on
+
+#Hide php version response headers
+php_value expose_php Off
+
+# disable server choosing /file as /file.php
+Options -Multiviews
+
+# enables symlinks in webroot to point to a file/dir
+Options +FollowSymlinks
+
+# disable directory browsing
+Options -Indexes
+
+#Block php includes from user download
+<Files ~ "\.inc\.php$">
+  order allow,deny
+  deny from all
+</Files>
+
+#Protect htaccess
+<Files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</Files>
+
+#Disable TRACE Requests
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+RewriteRule .* - [F]
+
+#Apache Standard Settings
+ServerSignature Off
+AcceptPathInfo off
+FileETag none
+
+# Caching
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/gif "access plus 1 week"
+ExpiresByType image/jpeg "access plus 1 week"
+ExpiresByType image/png "access plus 1 week"
+ExpiresByType text/css "access plus 1 week"
+ExpiresByType text/javascript "access plus 1 week"
+ExpiresByType application/javascript "access plus 1 week"
+ExpiresByType application/x-javascript "access plus 1 week"
+AddType image/vnd.microsoft.icon .ico
+ExpiresByType image/vnd.microsoft.icon "access plus 3 months"
+</IfModule>
+
+# GZIP compression
+<IfModule mod_expires.c>
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE text/javascript
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>

@@ -26,7 +26,8 @@ class Trees_model extends Model
 		if (isset($opts['category'])) {
 			// _category_slug and _category_id are not to be used in the result
 			// they're only named so they don't overwrite the tree id and slug in this same query
-			$this->db->innerJoin('trees_category tc', 'tc.id', 't.trees_category_id');
+			$this->db->innerJoin('trees_categories ttc', 'ttc.tree_id', 't.id');
+			$this->db->innerJoin('trees_category tc', 'tc.id', 'ttc.trees_category_id');
 			$this->db->select('t.*, tc.slug AS _category_slug, tc.id AS _category_id');
 			$this->db->where('tc.slug', '=' , $opts['category']);
 		}
@@ -73,10 +74,13 @@ class Trees_model extends Model
 				->get();
 
 			// categories
-			$result->trees_category = $this->db->table('trees_category')
-				->select('id, slug, name')
-				->where('id', $result->trees_category_id)
-				->get();
+			$result->trees_categories = $this->db->table('trees_category tc')
+				->select('tc.id, tc.slug, tc.name')
+				->innerJoin('trees_categories ttc', 'ttc.trees_category_id', 'tc.id')
+				->where('ttc.tree_id', $result->id)
+				->orderBy('tc.name')
+				->getAll();
+			$result->trees_category = $result->trees_categories ? $result->trees_categories[0] : null;
 
 			// shapes
 			$result->shapes = $this->db->table('trees_shapes ts')
@@ -210,6 +214,7 @@ class Trees_model extends Model
 			// many to many tables
 			if (isset($opts['joins'])) {
 				$joins = $opts['joins'];
+				$this->insert_joins($new_tree_id, $joins, 'trees_category_id', 'trees_category_id', 'trees_categories');
 				$this->insert_joins($new_tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
 				$this->insert_joins($new_tree_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
 				$this->insert_joins($new_tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
@@ -254,6 +259,7 @@ class Trees_model extends Model
 		// many to many tables
 		if (isset($opts['joins'])) {
 			$joins = $opts['joins'];
+			$this->update_joins($tree_id, $joins, 'trees_category_id', 'trees_category_id', 'trees_categories');
 			$this->update_joins($tree_id, $joins, 'eco_benefits', 'eco_benefit_id', 'trees_eco_benefits');
 			$this->update_joins($tree_id, $joins, 'native_to', 'native_to_id', 'trees_native_to');
 			$this->update_joins($tree_id, $joins, 'shapes', 'shape_id', 'trees_shapes');
@@ -302,6 +308,7 @@ class Trees_model extends Model
 			$this->db->table('trees')->where('id', $deleted_tree_id)->delete();
 
 			// remove joins
+			$this->db->table('trees_categories')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_eco_benefits')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_native_to')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_shapes')->where('tree_id', $deleted_tree_id)->delete();
@@ -336,7 +343,10 @@ class Trees_model extends Model
 		// only in category
 		if (isset($opts['trees_category'])) {
 			if (count($opts['trees_category']) > 0) {
-				$this->db->in('t.trees_category_id', $opts['trees_category']);
+				$this->db
+					->innerJoin('trees_categories ttc_filter', 'ttc_filter.tree_id', 't.id')
+					->innerJoin('trees_category tc_filter', 'tc_filter.id', 'ttc_filter.trees_category_id')
+					->in('tc_filter.id', $opts['trees_category']);
 			} else {
 				// force no results since trees_category is queried but no trees_category is selected
 				return [];
@@ -395,7 +405,7 @@ class Trees_model extends Model
 			if (isset($opts['select'])) {
 				$this->db->select(implode(',', $opts['select']));
 			} else {
-				$this->db->select('DISTINCT t.id, t.slug, t.common_name, t.trees_category_id');
+				$this->db->select('DISTINCT t.id, t.slug, t.common_name');
 			}
 
 			//offset and limit
@@ -408,9 +418,10 @@ class Trees_model extends Model
 				//->select('GROUP_CONCAT(ft.name ORDER BY ft.sort_order, ft.name) AS images')
 				// ->select('GROUP_CONCAT(ft.description ORDER BY ft.sort_order, ft.name) AS image_descriptions')
 				->select('t.images')
-				->select('GROUP_CONCAT(DISTINCT c.slug) AS category')
+				->select('MIN(c.slug) AS category')
 				->leftJoin('files_trees ft', 'ft.ref_id', 't.id')
-				->leftJoin('trees_category c', 't.trees_category_id', 'c.id')
+				->leftJoin('trees_categories ttc', 'ttc.tree_id', 't.id')
+				->leftJoin('trees_category c', 'ttc.trees_category_id', 'c.id')
 				->groupBy('t.id');
 
 			$result = $this->db->orderBy('common_name')->getAll();

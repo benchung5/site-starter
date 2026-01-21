@@ -87,7 +87,8 @@ var PlantEdit = {
 				plantTablesStore.setData(plantTablesData);
 
 				//update the link to the live article
-				this.link.href = `/plants/${apiData.trees_category.slug}/${apiData.slug}`;
+				const primaryCategory = apiData.trees_category || (apiData.trees_categories && apiData.trees_categories[0]);
+				this.link.href = primaryCategory ? `/plants/${primaryCategory.slug}/${apiData.slug}` : `/plants/${apiData.slug}`;
 				this.products.href = `#source-products?source=${apiData.id}?slug=${apiData.slug}`;
 				//record the current plant id
 				this.plantId = apiData.id
@@ -115,12 +116,16 @@ var PlantEdit = {
 						this.formFields.appendChild(dropdownSelect.el);
 					}
 					if(item.type === 'multiSelect') {
+						let value = apiData[item.name];
+						if (item.name === 'trees_category_id') {
+							value = apiData.trees_categories || [];
+						}
 						let multiSelect = FieldMultiSelect.init({
 							name: item.name,
 							label: item.label,
 							error: item.error,
 							condition: item.condition,
-							value: apiData[item.name],
+							value: value,
 							selectItems: plantTablesStore.storageData[item.name]
 						});
 						this.formFields.appendChild(multiSelect.el);

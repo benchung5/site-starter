@@ -2652,7 +2652,7 @@ $L:     1150px;
 .cards-container {
   margin: 2em 0;
   width: calc(100% + 1em);
-  margin-top: -.5em;
+  margin-top: -.25em;
   margin-left: -.5em;
   display: flex;
   flex-direction: row;
@@ -2678,6 +2678,7 @@ $L:     1150px;
         margin: 0 auto;
         img {
           width: 100%;
+          transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
         }
         .img-info {
           @include h-align-absolute(15px);
@@ -2691,6 +2692,10 @@ $L:     1150px;
           background-size: 30px 30px;
           background-repeat: no-repeat;
         }
+      }
+      &:hover .image img {
+        transform: scale(1.05);
+        filter: brightness(0.85);
       }
       .info {
         background: #fff;
@@ -2792,7 +2797,7 @@ pagination (public)
   justify-content: center;
   margin: 2.5rem 0 3.5rem;
 }
-
+ 
 .pagination {
   display: flex;
   align-items: center;
@@ -2924,21 +2929,35 @@ filter
 
 .filter-container {
   flex: 1 1 0px;
-  padding-right: 0.625rem;
-  padding-left: 0.625rem;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
   display: block;
   @include MQ(M) {
     display: none;
   }
 }
 
-// Articles page specific: show mobile menu button below 1000px, hide above
-body:has(.articles-container) .filter-container {
+// Articles + plants pages: show mobile filter bar below 1000px and keep it sticky
+.articles-container .filter-container,
+.plant-search-container .filter-container {
   @media only screen and (max-width: 999px) {
     display: block;
+    position: fixed;
+    top: 5em;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2;
   }
   @media only screen and (min-width: 1000px) {
     display: none;
+  }
+}
+
+.articles-container .grid-view-inner,
+.plant-search-container .grid-view-inner {
+  @media only screen and (max-width: 999px) {
+    padding-top: 3.5em; // reserve space for fixed filter bar
   }
 }
 .filter {
@@ -3088,9 +3107,13 @@ arcticles
   align-items: stretch;
   .article-row {
     cursor: pointer;
-    padding: .25em;
+    
+    padding: 0 0 .5em 0;
     display: inline-block;
     width: 50%;
+    @include MQ(L) {
+      padding: .25em;
+    }
     .inner {
       background-color: #fff;
       box-shadow: $card-box-shadow;
@@ -3119,6 +3142,7 @@ arcticles
           height: 100%;
           object-fit: cover;
           object-position: center;
+          transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
         }
         @include MQ(S) {
           width: auto;
@@ -3139,18 +3163,20 @@ arcticles
         }
         // Below 1000px: images fill entire horizontal space, crop center
         @media only screen and (max-width: 999px) {
-          width: 100%;
-          height: auto;
-          min-width: 100%;
-          align-self: auto;
+          width: 200px;
+          min-width: 200px;
+          height: 100%;
+          align-self: stretch;
           img {
             width: 100%;
-            height: auto;
-            min-height: 200px;
-            max-height: 300px;
+            height: 100%;
             object-fit: cover;
             object-position: center;
           }
+        }
+        @media only screen and (max-width: 480px) {
+          width: 125px;
+          min-width: 125px;
         }
         // At 1000px and above: revert to vertical fill (row layout)
         @media only screen and (min-width: 1000px) {
@@ -3165,6 +3191,10 @@ arcticles
             object-position: center;
           }
         }
+      }
+      &:hover .image img {
+        transform: scale(1.05);
+        filter: brightness(0.85);
       }
       .info {
         background: #fff;
@@ -3219,7 +3249,8 @@ arcticles
       }
       // Below 1000px: switch to column layout with search at top, images fill horizontally
       @media only screen and (max-width: 999px) {
-        flex-direction: column;
+        flex-direction: row;
+        align-items: stretch;
       }
     }
     // Default: 1 column layout
@@ -3228,6 +3259,10 @@ arcticles
     // At M breakpoint (630px+): switch to 2 columns
     @include MQ(M) {
       width: 50%;
+    }
+    // Below 1000px: force single column layout
+    @media only screen and (max-width: 999px) {
+      width: 100%;
     }
   }
 }
@@ -3876,17 +3911,17 @@ menu
 
 // standard version
 .side-menu {
-  // overflow-y: scroll;
+  background: #fff;
+  box-shadow: $light-shadow;
+  //animation in react component
+  box-shadow: none;
+  margin: 0.25em 0 0.25em 0;
   h1 {
       font-weight: lighter;
       padding: 0.5rem;
       margin: 0;
     }
-  background: #fff;
-  box-shadow: $light-shadow;
-  //animation in react component
-  box-shadow: none;
-  margin: 0.2em 0 0.5em 0;
+
   &.close {
     box-shadow: none;
   }

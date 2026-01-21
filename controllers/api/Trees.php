@@ -74,7 +74,6 @@ class Trees extends Controller
 		if(isset($data['subspecies'])) { $update_data['subspecies'] = $data['subspecies']; };
 		if(isset($data['variety'])) { $update_data['variety'] = $data['variety']; };
 		if(isset($data['cultivar'])) { $update_data['cultivar'] = $data['cultivar']; };
-		if(isset($data['trees_category_id'])) { $update_data['trees_category_id'] = $data['trees_category_id']; };
 		if(isset($data['zone_id'])) { $update_data['zone_id'] = $data['zone_id']; };
 		if(isset($data['reproduction_type_id'])) { $update_data['reproduction_type_id'] = $data['reproduction_type_id']; };
 		if(!empty($data['height_min'])) { $update_data['height_min'] = $data['height_min']; };
@@ -95,6 +94,7 @@ class Trees extends Controller
 
 		// the many to many table data...
 		$joins_data = [
+			'trees_category_id' => !empty($data['trees_category_id']) ? $data['trees_category_id'] : null,
 			'eco_benefits' => !empty($data['eco_benefits']) ? $data['eco_benefits'] : null,
 			'native_to' => !empty($data['native_to']) ? $data['native_to'] : null,
 			'shapes' => !empty($data['shapes']) ? $data['shapes'] : null,
@@ -209,7 +209,7 @@ class Trees extends Controller
 			'trees_category' => isset($data['trees_category_id']) ? $data['trees_category_id'] : null, 
 			'native_to' => isset($data['native_to']) ? $data['native_to'] : null,
 			'mode' => isset($data['mode']) ? $data['mode'] : null,
-			'select' => ['t.id', 't.slug', 't.common_name', 't.trees_category_id'],
+			'select' => ['t.id', 't.slug', 't.common_name'],
 		];
 
 		//just to count the results *without the offset and limit
