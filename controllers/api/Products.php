@@ -111,7 +111,30 @@ class Products extends Controller
 
 			$updated_product = $this->products->get(['id' => $data['id']]);
 		}
-		
+
+		// handle image deletions
+		$original_images = $updated_product->images ?: [];
+		$updated_images = isset($data['updated_images']) ? json_decode($data['updated_images']) : $original_images;
+		$original_names = array_map(function($item) { return $item->name; }, $original_images);
+		$updated_names = array_map(function($item) { return $item->name; }, $updated_images ?: []);
+		$deleted_images = array_diff($original_names, $updated_names);
+		if ($deleted_images) {
+			Upload::remove('products', $deleted_images);
+		}
+
+		// record new images into the product if any
+		$new_images = Upload::upload('products', $updated_product->id, $data);
+		if ($new_images) {
+			foreach ($new_images as $ni) {
+				array_push($updated_images, $ni);
+			}
+		}
+
+		$this->products->update([
+			'where' => ['id' => $updated_product->id], 
+			'update' => ['images' => json_encode($updated_images, true)]
+		]);
+
 		return $updated_product;
 	}
 
@@ -127,6 +150,16 @@ class Products extends Controller
 	public function delete()
 	{
 		$data = Utils::json_read();
+
+		// remove file uploads (need to do this before removing the files to get lookup)
+		$product = $this->products->get(['id' => $data['id']]);
+		if ($product && $product->images) {
+			$uploads = [];
+			foreach ($product->images as $image) {
+				$uploads[] = $image->name;
+			}
+			Upload::remove('products', $uploads);
+		}
 
 		// remove tree, associations, and files
 		$id = $this->products->remove($data);

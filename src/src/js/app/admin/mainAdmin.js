@@ -10,6 +10,7 @@ import PlantAdd from './plants/plantAdd';
 import PlantEdit from './plants/plantEdit';
 import SourceProducts from './products/sourceProducts';
 import ProductsList from './products/productsList';
+import ProductEditPage from './products/productEditPage';
 import ArticleList from './articles/articleList';
 import OrdersList from './orders/ordersList';
 import OrderEdit from './orders/orderEdit';
@@ -114,6 +115,18 @@ import SignInPopup from './auth/signInPopup';
 						this.signInPopup.open(() => {
 							this.productsList.onLoad();
 							this.el.appendChild(this.productsList.el);
+						});
+					}
+				});
+			} else if(route === 'product-edit') {
+				Auth.authenticate((authData) => {
+					if(authData.id) {
+						this.productEditPage.onLoad();
+						this.el.appendChild(this.productEditPage.el);
+					} else {
+						this.signInPopup.open(() => {
+							this.productEditPage.onLoad();
+							this.el.appendChild(this.productEditPage.el);
 						});
 					}
 				});
@@ -238,6 +251,7 @@ import SignInPopup from './auth/signInPopup';
 			inst.plantEdit = PlantEdit.init();
 			inst.sourceProducts = SourceProducts.init();
 			inst.productsList = ProductsList.init();
+			inst.productEditPage = ProductEditPage.init();
 			inst.articleList = ArticleList.init();
 			inst.articleAdd = ArticleAdd.init();
 			inst.articleEdit = ArticleEdit.init();

@@ -27,6 +27,13 @@ class Tree_tables extends Controller
 		$this->tolerances = $this->load_model('tolerances_model');
 		$this->reproduction_types = $this->load_model('reproduction_types_model');
 		$this->dormancy_treatments = $this->load_model('dormancy_treatments_model');
+		$this->tastes = $this->load_model('tastes_model');
+		$this->organ_systems = $this->load_model('organ_systems_model');
+		$this->thermal_nature = $this->load_model('thermal_nature_model');
+		$this->moisture = $this->load_model('moisture_model');
+		$this->parts_used = $this->load_model('parts_used_model');
+		$this->preparations = $this->load_model('preparations_model');
+		$this->organs_and_tissue = $this->load_model('organs_and_tissue_model');
 		// $this->insects = $this->load_model('insects_model');
 		// $this->diseases = $this->load_model('diseases_model');
 		$this->growth_rate = $this->load_model('growth_rate_model');
@@ -62,6 +69,13 @@ class Tree_tables extends Controller
 			'tolerances' => $this->tolerances->get_all() ?: [],
 			'reproduction_type_id' => $this->reproduction_types->get_all() ?: [],
 			'dormancy_treatment_id' => $this->dormancy_treatments->get_all() ?: [],
+			'tastes' => $this->tastes->get_all() ?: [],
+			'organ_systems' => $this->organ_systems->get_all() ?: [],
+			'thermal_nature' => $this->thermal_nature->get_all() ?: [],
+			'moisture' => $this->moisture->get_all() ?: [],
+			'parts_used' => $this->parts_used->get_all() ?: [],
+			'preparations' => $this->preparations->get_all() ?: [],
+			'organs_and_tissue' => $this->organs_and_tissue->get_all() ?: [],
 			// 'insects' => $this->insects->get_all() ?: [],
 			// 'diseases' => $this->diseases->get_all() ?: [],
 			'growth_rate' => $this->growth_rate->get_all() ?: [],

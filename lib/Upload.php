@@ -62,6 +62,9 @@ class Upload
 			} elseif ($ref_type == 'trees') {
 				$files = Controller::load_model('files_trees_model');
 				$tags = Controller::load_model('tags_files_trees_model');
+			} elseif ($ref_type == 'products') {
+				$files = null;
+				$tags = null;
 			}
 
 			//image info fields
@@ -96,12 +99,18 @@ class Upload
 						// 	$file_data['caption'] = $imgInfoFields[$count][2];
 						// }
 
-						//add file to db, get new id and name with id
-						$new_id = $files->add($file_data);
-						$new_name = pathinfo($croppedVersion['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($croppedVersion['name'], PATHINFO_EXTENSION);
+						if ($files) {
+							//add file to db, get new id and name with id
+							$new_id = $files->add($file_data);
+							$new_name = pathinfo($croppedVersion['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($croppedVersion['name'], PATHINFO_EXTENSION);
 
-						//update filename with new file id
-						$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
+							//update filename with new file id
+							$files->update(['where' => ['id' => $new_id], 'update' => ['name' => $new_name]]);
+						} else {
+							//products don't have a files table; use a unique id for naming only
+							$new_id = uniqid();
+							$new_name = pathinfo($croppedVersion['name'], PATHINFO_FILENAME).'-'.$new_id.'.'.pathinfo($croppedVersion['name'], PATHINFO_EXTENSION);
+						}
 
 						// store the new image in new_files (to return from this function)
 						$tag = (! empty($imgInfoFields[$count][0])) ? $imgInfoFields[$count][0] : '';

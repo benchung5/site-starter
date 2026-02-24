@@ -3,7 +3,6 @@ import { getUrlParams } from '../../lib/utils';
 import { getProducts, removeProductSource } from '../../actions/products';
 import productListStore from '../../storage/productListStore';
 import ProductAdd from './productAdd';
-import ProductEdit from './productEdit';
 import VerifyAction from '../parts/verifyAction';
 import Modal from '../../parts/modal';
 import Sidebar from '../sidebar';
@@ -17,8 +16,8 @@ var SourceProducts = {
 	},
 	onEditClick: function(e) {
 		e.preventDefault();
-		this.productEdit.buildFromId(e.srcElement.dataset.edit);
-		this.modalEdit.open();
+		const id = e.srcElement.dataset.edit;
+		window.location.href = `#product-edit?product=${id}`;
 	},
 	onDeleteClick: function(e) {
 		e.preventDefault();
@@ -76,9 +75,8 @@ var SourceProducts = {
 					this.sourceProductList.appendChild(productTypeEl);
 				});
 
-				//close the add or edit product modal once data is updated
+				//close the add product modal once data is updated
 				this.modalAdd.close();
-				this.modalEdit.close();
 			}
 		});
 	},
@@ -119,11 +117,7 @@ var SourceProducts = {
 		inst.productAdd = ProductAdd.init({
 			onSuccess: inst.buildItems.bind(inst),
 		});
-		inst.productEdit = ProductEdit.init({
-			onSuccess: inst.buildItems.bind(inst),
-		});
 		inst.modalAdd = Modal.init({ contentElement: inst.productAdd.el });
-		inst.modalEdit = Modal.init({ contentElement: inst.productEdit.el });
 		inst.verifyAction = VerifyAction.init({
 			message: 'remove item?'
 		});

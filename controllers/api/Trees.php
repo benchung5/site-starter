@@ -87,7 +87,12 @@ class Trees extends Controller
 		if(!empty($data['seeds_gram'])) { $update_data['seeds_gram'] = $data['seeds_gram']; };
 		if(!empty($data['cost_gram'])) { $update_data['cost_gram'] = $data['cost_gram']; };
 		if(!empty($data['dormancy_treatment_id'])) { $update_data['dormancy_treatment_id'] = $data['dormancy_treatment_id']; };
-		if(!empty($data['seeding_instructions'])) { $update_data['seeding_instructions'] = $data['seeding_instructions']; };
+		if(!empty($data['growing_instructions'])) { $update_data['growing_instructions'] = $data['growing_instructions']; };
+		if(isset($data['special_chemistry'])) { $update_data['special_chemistry'] = $data['special_chemistry']; };
+		if(isset($data['signature'])) { $update_data['signature'] = $data['signature']; };
+		if(isset($data['precautions'])) { $update_data['precautions'] = $data['precautions']; };
+		if(isset($data['combinations'])) { $update_data['combinations'] = $data['combinations']; };
+		if(isset($data['chinese_medicine'])) { $update_data['chinese_medicine'] = $data['chinese_medicine']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 		if(!empty($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
@@ -105,6 +110,13 @@ class Trees extends Controller
 			'transplanting' => !empty($data['transplanting']) ? $data['transplanting'] : null,
 			'unique_attractions' => !empty($data['unique_attractions']) ? $data['unique_attractions'] : null,
 			'tolerances' => !empty($data['tolerances']) ? $data['tolerances'] : null,
+			'tastes' => !empty($data['tastes']) ? $data['tastes'] : null,
+			'organ_systems' => !empty($data['organ_systems']) ? $data['organ_systems'] : null,
+			'thermal_nature' => !empty($data['thermal_nature']) ? $data['thermal_nature'] : null,
+			'moisture' => !empty($data['moisture']) ? $data['moisture'] : null,
+			'parts_used' => !empty($data['parts_used']) ? $data['parts_used'] : null,
+			'preparations' => !empty($data['preparations']) ? $data['preparations'] : null,
+			'organs_and_tissue' => !empty($data['organs_and_tissue']) ? $data['organs_and_tissue'] : null,
 			// 'insects' => !empty($data['insects']) ? $data['insects'] : null,
 			// 'diseases' => !empty($data['diseases']) ? $data['diseases'] : null,
 		];

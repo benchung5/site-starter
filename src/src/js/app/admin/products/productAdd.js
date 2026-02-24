@@ -3,6 +3,7 @@ import FieldInput from '../parts/fieldInput';
 import FieldDropdownSelect from '../parts/fieldDropdownSelect';
 import FieldMultiSelect from '../parts/fieldMultiSelect';
 import FieldTextarea from '../parts/fieldTextarea';
+import FieldAddImages from '../parts/fieldAddImages';
 import { fetchProductTables, addProduct } from '../../actions/products';
 import productTablesStore from '../../storage/productTablesStore';
 import appStateStore from '../../storage/appStateStore';
@@ -15,6 +16,13 @@ var ProductAdd = {
 		// prevent form from refreshing the page
 		e.preventDefault();
 		let formData = new FormData(e.target);
+
+		// append new image data to formData
+		this.fieldAddImages.state.croppedOut.map((item, index) => {
+			formData.append('image'+'_'+index+'_original', item.originalFile);
+			formData.append('image'+'_'+index+'_cropped', item.croppedFile);
+			formData.append('image'+'_'+index+'_info', item.tag_id + '|||' + item.description + '|||' + item.caption);
+		});
 
 		//delete any empty fields in formData
 		Array.from(formData).map((item) => {
@@ -110,6 +118,12 @@ var ProductAdd = {
 					this.formFields.appendChild(textarea.el);
 				}
 			});
+
+			//init fieldAddImages (products don't use tags)
+			this.fieldAddImages = FieldAddImages.init({
+				tags: [{ id: '', name: 'none' }]
+			});
+			this.formFields.appendChild(this.fieldAddImages.el);
 		});
 	},
 	init: function(opts) {

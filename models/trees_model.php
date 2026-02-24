@@ -138,6 +138,55 @@ class Trees_model extends Model
 				->innerJoin('tolerances tl', 'tl.id', 'tt.tolerance_id')
 				->getAll();
 
+			// tastes
+			$result->tastes = $this->db->table('plants_tastes pt')
+				->select('t.id, t.name')
+				->where('pt.tree_id', $result->id)
+				->innerJoin('tastes t', 't.id', 'pt.taste_id')
+				->getAll();
+
+			// organ_systems
+			$result->organ_systems = $this->db->table('plants_organ_systems pos')
+				->select('os.id, os.name')
+				->where('pos.tree_id', $result->id)
+				->innerJoin('organ_systems os', 'os.id', 'pos.organ_system_id')
+				->getAll();
+
+			// thermal_nature
+			$result->thermal_nature = $this->db->table('plants_thermal_nature ptn')
+				->select('tn.id, tn.name')
+				->where('ptn.tree_id', $result->id)
+				->innerJoin('thermal_nature tn', 'tn.id', 'ptn.thermal_nature_id')
+				->getAll();
+
+			// moisture
+			$result->moisture = $this->db->table('plants_moisture pm')
+				->select('m.id, m.name')
+				->where('pm.tree_id', $result->id)
+				->innerJoin('moisture m', 'm.id', 'pm.moisture_id')
+				->getAll();
+
+			// parts_used
+			$result->parts_used = $this->db->table('plants_parts_used ppu')
+				->select('pu.id, pu.name')
+				->where('ppu.tree_id', $result->id)
+				->innerJoin('parts_used pu', 'pu.id', 'ppu.parts_used_id')
+				->getAll();
+
+			// preparations
+			$result->preparations = $this->db->table('plants_preparations ppr')
+				->select('pr.id, pr.name')
+				->where('ppr.tree_id', $result->id)
+				->innerJoin('preparations pr', 'pr.id', 'ppr.preparation_id')
+				->getAll();
+
+			// organs_and_tissue
+			$result->organs_and_tissue = $this->db->table('plants_organs_and_tissue poat')
+				->select('oat.id, oat.name')
+				->where('poat.tree_id', $result->id)
+				->innerJoin('organs_and_tissue oat', 'oat.id', 'poat.organ_and_tissue_id')
+				->getAll();
+
 			// dormancy_treatment
 			$result->dormancy_treatment = $this->db->table('dormancy_treatments')
 				->select('id, name')
@@ -227,6 +276,13 @@ class Trees_model extends Model
 				$this->insert_joins($new_tree_id, $joins, 'transplanting', 'transplanting_id', 'trees_transplanting');
 				$this->insert_joins($new_tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 				$this->insert_joins($new_tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
+				$this->insert_joins($new_tree_id, $joins, 'tastes', 'taste_id', 'plants_tastes');
+				$this->insert_joins($new_tree_id, $joins, 'organ_systems', 'organ_system_id', 'plants_organ_systems');
+				$this->insert_joins($new_tree_id, $joins, 'thermal_nature', 'thermal_nature_id', 'plants_thermal_nature');
+				$this->insert_joins($new_tree_id, $joins, 'moisture', 'moisture_id', 'plants_moisture');
+				$this->insert_joins($new_tree_id, $joins, 'parts_used', 'parts_used_id', 'plants_parts_used');
+				$this->insert_joins($new_tree_id, $joins, 'preparations', 'preparation_id', 'plants_preparations');
+				$this->insert_joins($new_tree_id, $joins, 'organs_and_tissue', 'organ_and_tissue_id', 'plants_organs_and_tissue');
 				// $this->insert_joins($new_tree_id, $joins, 'insects', 'insects_id', 'trees_insects');
 				// $this->insert_joins($new_tree_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
 			}
@@ -272,6 +328,13 @@ class Trees_model extends Model
 			$this->update_joins($tree_id, $joins, 'transplanting', 'transplanting_id', 'trees_transplanting');
 			$this->update_joins($tree_id, $joins, 'unique_attractions', 'unique_attraction_id', 'trees_unique_attractions');
 			$this->update_joins($tree_id, $joins, 'tolerances', 'tolerance_id', 'trees_tolerances');
+			$this->update_joins($tree_id, $joins, 'tastes', 'taste_id', 'plants_tastes');
+			$this->update_joins($tree_id, $joins, 'organ_systems', 'organ_system_id', 'plants_organ_systems');
+			$this->update_joins($tree_id, $joins, 'thermal_nature', 'thermal_nature_id', 'plants_thermal_nature');
+			$this->update_joins($tree_id, $joins, 'moisture', 'moisture_id', 'plants_moisture');
+			$this->update_joins($tree_id, $joins, 'parts_used', 'parts_used_id', 'plants_parts_used');
+			$this->update_joins($tree_id, $joins, 'preparations', 'preparation_id', 'plants_preparations');
+			$this->update_joins($tree_id, $joins, 'organs_and_tissue', 'organ_and_tissue_id', 'plants_organs_and_tissue');
 			// $this->update_joins($tree_id, $joins, 'insects', 'insects_id', 'trees_insects');
 			// $this->update_joins($tree_id, $joins, 'diseases', 'disease_id', 'trees_diseases');
 		}
@@ -320,6 +383,13 @@ class Trees_model extends Model
 			$this->db->table('trees_common_uses')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_transplanting')->where('tree_id', $deleted_tree_id)->delete();
 			$this->db->table('trees_tolerances')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_tastes')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_organ_systems')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_thermal_nature')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_moisture')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_parts_used')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_preparations')->where('tree_id', $deleted_tree_id)->delete();
+			$this->db->table('plants_organs_and_tissue')->where('tree_id', $deleted_tree_id)->delete();
 			// $this->db->table('trees_insects')->where('tree_id', $deleted_tree_id)->delete();
 			// $this->db->table('trees_diseases')->where('tree_id', $deleted_tree_id)->delete();
 

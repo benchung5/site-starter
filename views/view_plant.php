@@ -75,7 +75,7 @@ use Lib\Uri;
 
 				        				$dormancy_treatment = $view_data['tree']->dormancy_treatment ? Utils::sanitize($view_data['tree']->dormancy_treatment->name) : 'Coming soon...';
 
-				        				$seeding_instructions = $view_data['tree']->seeding_instructions ? Utils::sanitize($view_data['tree']->seeding_instructions) : 'Coming soon...';
+				        				$growing_instructions = $view_data['tree']->growing_instructions ? Utils::sanitize($view_data['tree']->growing_instructions) : 'Coming soon...';
 
 				        				echo '
 							        	<h3>Growing From Seed</h3>
@@ -103,8 +103,8 @@ use Lib\Uri;
 				            				            	<td>' . $dormancy_treatment . '</td>
 				            			            	</tr>
 				            			            	<tr>
-				            				            	<th>Seeding Instructions</th>
-				            				            	<td>' . $seeding_instructions . '</td>
+				            				            	<th>Growing Instructions</th>
+				            				            	<td>' . $growing_instructions . '</td>
 				            			            	</tr>
 				            		            	</tbody>
 				            	            	</table>

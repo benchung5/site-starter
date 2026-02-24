@@ -1,9 +1,7 @@
 import Component from '../../component';
 import Sidebar from '../sidebar';
 import VerifyAction from '../parts/verifyAction';
-import Modal from '../../parts/modal';
 import Pagination from '../../parts/pagination';
-import ProductEdit from './productEdit';
 import productListStore from '../../storage/productListStore';
 import productFilterStore from '../../storage/productFilterStore';
 import { getProducts, deleteProduct } from '../../actions/products';
@@ -28,8 +26,8 @@ var ProductsList = {
 	},
 	onEditClick: function(e) {
 		e.preventDefault();
-		this.productEdit.buildFromId(e.target.getAttribute("data-id"));
-		this.modalEdit.open();
+		const id = e.target.getAttribute("data-id");
+		window.location.href = `#product-edit?product=${id}`;
 	},
 	renderList: function() {
 		this.itemList.innerHTML = '';
@@ -89,11 +87,6 @@ var ProductsList = {
 			listStore: productListStore,
 			onUpdate: inst.onUpdate.bind(inst),
 		});
-		inst.productEdit = ProductEdit.init({
-			onSuccess: inst.onLoad.bind(inst),
-		});
-		inst.modalEdit = Modal.init({ contentElement: inst.productEdit.el });
-
 		inst.build();
 
 		return inst;
