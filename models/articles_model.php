@@ -42,15 +42,32 @@ class Articles_model extends Model
 			// 	// ->orderBy('sort_order, name')
 			// 	->getAll();
 
-			// get images
-			$result->images = Json_decode($result->images) ?: [] ;
-			foreach ($result->images as $image) {
-				if(property_exists($image, 'tag')) {
-					$image->tag_name = $this->db->table('tags_files_articles t')
-						->select('*')
-						->where('id', $image->tag)
-						->get()->name;
+			// get images (normalize to objects; handle both object and array from json_decode)
+			$raw = Json_decode($result->images) ?: [] ;
+			$result->images = [];
+			foreach ($raw as $image) {
+				$img = is_array($image) ? (object) $image : $image;
+				$hasTag = (is_array($image) && isset($image['tag'])) || (is_object($image) && property_exists($image, 'tag'));
+				if ($hasTag) {
+					$tagId = is_array($image) ? $image['tag'] : $image->tag;
+					$tagRow = $this->db->table('tags_files_articles t')
+						->select('name')
+						->where('id', $tagId)
+						->get();
+					if ($tagRow && (is_object($tagRow) ? isset($tagRow->name) : isset($tagRow['name']))) {
+						$img->tag_name = is_object($tagRow) ? $tagRow->name : $tagRow['name'];
+					} elseif ($tagId) {
+						// Fallback: try tags_files_trees (for plant-converted articles)
+						$tagRow = $this->db->table('tags_files_trees t')
+							->select('name')
+							->where('id', $tagId)
+							->get();
+						if ($tagRow && (is_object($tagRow) ? isset($tagRow->name) : isset($tagRow['name']))) {
+							$img->tag_name = is_object($tagRow) ? $tagRow->name : $tagRow['name'];
+						}
+					}
 				}
+				$result->images[] = $img;
 			}
 
 			// get categories
