@@ -83,42 +83,53 @@ if (!is_dir($destDir)) {
 $moved = 0;
 $missing = [];
 
+// Helper: get -med or -sml variant of filename (e.g. image.jpg -> image-med.jpg)
+$variant = function ($base, $suffix) {
+    return preg_replace('/(\.[\w\d_-]+)$/i', '-' . $suffix . '$1', $base);
+};
+
 foreach ($mappings as $sourceFile => $destFile) {
-    $destPath = $destDir . '/' . $destFile;
-    $found = false;
-    $srcPath = null;
+    $variants = [
+        ['src' => $sourceFile, 'dest' => $destFile],
+        ['src' => $variant($sourceFile, 'med'), 'dest' => $variant($destFile, 'med')],
+        ['src' => $variant($sourceFile, 'sml'), 'dest' => $variant($destFile, 'sml')],
+    ];
 
-    foreach ($sourcePaths as $srcBase) {
-        $srcPath = $srcBase . '/' . $sourceFile;
-        if (file_exists($srcPath)) {
-            $found = true;
-            break;
-        }
-        // Try case-insensitive / glob for Windows or different extensions
-        $glob = glob($srcBase . '/' . pathinfo($sourceFile, PATHINFO_FILENAME) . '.*');
-        if ($glob) {
-            $srcPath = $glob[0];
-            $found = true;
-            break;
-        }
-    }
+    foreach ($variants as $v) {
+        $destPath = $destDir . '/' . $v['dest'];
+        $found = false;
+        $srcPath = null;
 
-    if ($found && $srcPath) {
-        if (rename($srcPath, $destPath)) {
-            $moved++;
-            echo "Moved: " . basename($srcPath) . " -> $destFile\n";
-        } else {
-            // Fallback: copy then delete (e.g. cross-filesystem)
-            if (copy($srcPath, $destPath)) {
-                unlink($srcPath);
-                $moved++;
-                echo "Moved (copy+delete): " . basename($srcPath) . " -> $destFile\n";
-            } else {
-                echo "FAIL: $sourceFile\n";
+        foreach ($sourcePaths as $srcBase) {
+            $srcPath = $srcBase . '/' . $v['src'];
+            if (file_exists($srcPath)) {
+                $found = true;
+                break;
+            }
+            $glob = glob($srcBase . '/' . pathinfo($v['src'], PATHINFO_FILENAME) . '.*');
+            if ($glob) {
+                $srcPath = $glob[0];
+                $found = true;
+                break;
             }
         }
-    } else {
-        $missing[] = $sourceFile;
+
+        if ($found && $srcPath) {
+            if (rename($srcPath, $destPath)) {
+                $moved++;
+                echo "Moved: " . basename($srcPath) . " -> {$v['dest']}\n";
+            } else {
+                if (copy($srcPath, $destPath)) {
+                    unlink($srcPath);
+                    $moved++;
+                    echo "Moved (copy+delete): " . basename($srcPath) . " -> {$v['dest']}\n";
+                } else {
+                    echo "FAIL: {$v['src']}\n";
+                }
+            }
+        } elseif ($v['src'] === $sourceFile) {
+            $missing[] = $sourceFile;
+        }
     }
 }
 

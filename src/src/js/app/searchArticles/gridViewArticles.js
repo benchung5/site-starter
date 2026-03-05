@@ -48,11 +48,15 @@ var GridViewArticles = {
 				let image = null;
 
 				if (item.images.length) {
+					const medSrc = ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium');
+					const origSrc = ARTICLES_UPLOADS_PATH + item.images[0].name;
+					// Fallback to original if -med doesn't exist (e.g. migrated plant images)
+					const imgAlt = item.images[0].description || '';
 					image = this.createEl(`
 						<picture>
-						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}" media="(max-width: 1275px)"/>
-						    <source srcSet="${ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}"/>
-						    <img alt="${item.images[0].description}" src="${ARTICLES_UPLOADS_PATH + imgName(item.images[0].name, 'medium')}"/> 
+						    <source srcSet="${medSrc}" media="(max-width: 1275px)"/>
+						    <source srcSet="${medSrc}"/>
+						    <img alt="${imgAlt}" src="${medSrc}" data-fallback="${origSrc}" onerror="if(this.dataset.fallback){this.onerror=null;this.src=this.dataset.fallback}"/> 
 						</picture>
 					`);
 				} else {
