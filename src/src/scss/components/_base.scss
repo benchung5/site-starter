@@ -1377,8 +1377,111 @@ explore
 contact
 ========================================================================== */
 
+/* Contact page hero banner */
+.contact-hero-banner {
+  width: 100%;
+  min-height: 480px;
+  position: relative;
+  background-attachment: fixed;
+  background-image: url(../img/bg-contact-hero.jpg);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .contact-hero-inner h1 {
+    color: #fff;
+    font-weight: 600;
+    font-family: "Open Sans", arial, sans-serif;
+    font-size: 3em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.contact-photo-wrapper {
+  width: 100%;
+  overflow: hidden;
+
+  .contact-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: top;
+  }
+}
+
+.contact-page-internal .columns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contact form section - centered, full width */
+.contact-page-internal .contact-form-section {
+  text-align: center;
+  max-width: 500px;
+
+  .contact-form-title {
+    margin-bottom: 0.5em;
+    font-weight: 600;
+  }
+
+  .contact-form-subtitle {
+    margin-bottom: 1em;
+  }
+}
+
+.contact-page-internal .contact-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .contact-sidebar-item {
+    justify-content: center;
+  }
+
+  .info-box {
+    justify-content: center;
+  }
+}
+
+.contact-form-fullwidth {
+  width: 100%;
+  max-width: 100%;
+
+  .contact-input {
+    width: 100%;
+    margin-bottom: 0.75em;
+
+    input,
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 0.5em 0.75em;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+  }
+
+  .contact-submit-btn {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
 [data-contact] .content-wrapper {
     position: relative;
+    background-attachment: fixed;
     background-image: url(../img/faded-jap-maple-bg.jpg);
     background-size: 100% auto;
     background-repeat: no-repeat;
@@ -4635,11 +4738,14 @@ body {
       
         .panel {
           border-top: solid 1px #e1e0e2;
-          padding: 2em 4em;
+          padding: 2em 0;
           min-height: 300px;
           display: none;
           width: 100%;
           flex-basis: auto;
+          h3 {
+            margin-bottom: 2rem;
+          }
           & > div {
 
           }
@@ -4671,8 +4777,7 @@ body {
 
 #tab-one:checked ~ .tabs #tab-one-label,
 #tab-two:checked ~ .tabs #tab-two-label,
-#tab-three:checked ~ .tabs #tab-three-label,
-#tab-four:checked ~ .tabs #tab-four-label{
+#tab-three:checked ~ .tabs #tab-three-label {
     background-color: #fff;
     border: solid 1px #e1e0e2;
     border-bottom: none;
@@ -4685,10 +4790,29 @@ body {
 
 #tab-one:checked ~ .tabs #tab-one-panel,
 #tab-two:checked ~ .tabs #tab-two-panel,
-#tab-three:checked ~ .tabs #tab-three-panel,
-#tab-four:checked ~ .tabs #tab-four-panel{
+#tab-three:checked ~ .tabs #tab-three-panel {
     display: block;
 }
+
+/* Seeds, Plants, Shipping tabs - uncomment when re-enabling in view_plant.php
+#tab-four:checked ~ .tabs #tab-four-label,
+#tab-five:checked ~ .tabs #tab-five-label,
+#tab-six:checked ~ .tabs #tab-six-label {
+    background-color: #fff;
+    border: solid 1px #e1e0e2;
+    border-bottom: none;
+    color: #8b9e00;
+    cursor: default;
+    padding-left: 2.5em;
+    background: #f4f6f7 url(../img/icons/arrow-black.svg) no-repeat 1em center;
+    background-size: 0.55em;
+}
+#tab-four:checked ~ .tabs #tab-four-panel,
+#tab-five:checked ~ .tabs #tab-five-panel,
+#tab-six:checked ~ .tabs #tab-six-panel {
+    display: block;
+}
+*/
 
 @media (max-width: 600px){
   .flex-tabs{
@@ -4709,34 +4833,35 @@ body {
     
     #tab-one-label{order:1;}
     #tab-two-label{order: 3;}
-    #tab-three-label{order: 5;};
-    #tab-four-label{order: 7;};
+    #tab-three-label{order: 5;}
+    /* Seeds, Plants, Shipping - uncomment when re-enabling: #tab-four-label{order: 7;} #tab-five-label{order: 9;} #tab-six-label{order: 11;} #tab-four-panel{order: 8;} #tab-five-panel{order: 10;} #tab-six-panel{order: 12;} */
     #tab-one-panel{order: 2;}
     #tab-two-panel{order: 4;}
     #tab-three-panel{order: 6;}
-    #tab-four-panel{ order: 8;}
   }
   
     #tab-one:checked ~ .tabs #tab-one-label,
     #tab-two:checked ~ .tabs #tab-two-label,
-    #tab-three:checked ~ .tabs #tab-three-label,
-    #tab-four:checked ~ .tabs #tab-four-label{
+    #tab-three:checked ~ .tabs #tab-three-label {
       border-bottom: none;
     }
   
   #tab-one:checked ~ .tabs #tab-one-panel,
   #tab-two:checked ~ .tabs #tab-two-panel,
-  #tab-three:checked ~ .tabs #tab-three-panel,
-  #tab-four:checked ~ .tabs #tab-four-panel{
+  #tab-three:checked ~ .tabs #tab-three-panel {
     border-bottom: 1px solid #f4f6f7;
   }
 }
 
 .plant-details {
   font-size: 0.9rem;
+  h3 {
+    margin-bottom: 2rem;
+  }
   .list {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 2rem;
     line-height: 1.5em;
     min-width: 240px;
     .title {
