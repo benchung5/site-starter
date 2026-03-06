@@ -76,7 +76,7 @@ use Lib\Uri;
 								        	<h3>Traditional Use</h3>
 								        	<?php
 								        	$tree = $view_data['tree'];
-								        	$has_use_content = !empty($tree->folk_use) || !empty($tree->chinese_medicine) || !empty($tree->special_chemistry) || !empty($tree->signature) || !empty($tree->combinations) || !empty($tree->precautions) || !empty($tree->tastes) || !empty($tree->organ_systems) || !empty($tree->thermal_nature) || !empty($tree->moisture) || !empty($tree->parts_used) || !empty($tree->preparations) || !empty($tree->organs_and_tissue);
+								        	$has_use_content = !empty($tree->folk_use) || !empty($tree->chinese_medicine) || !empty($tree->special_chemistry) || !empty($tree->signature) || !empty($tree->combinations) || !empty($tree->precautions) || !empty($tree->medicinal_species) || !empty($tree->tastes) || !empty($tree->organ_systems) || !empty($tree->thermal_nature) || !empty($tree->moisture) || !empty($tree->parts_used) || !empty($tree->preparations) || !empty($tree->organs_and_tissue);
 								        	if ($has_use_content) {
 								        		echo '<div class="row small-media-padding">';
 								        		echo '<div class="small-12 large-6 columns small-media-padding">';
@@ -103,6 +103,9 @@ use Lib\Uri;
 								        		echo '<div class="small-12 large-6 columns small-media-padding">';
 								        		// MultiSelect fields in table (same format as seeds tab)
 								        		$table_rows = [];
+								        		if (!empty($tree->medicinal_species)) {
+								        			$table_rows[] = ['Medicinal Species', Utils::sanitize($tree->medicinal_species)];
+								        		}
 								        		if (!empty($tree->tastes)) {
 								        			$names = array_map(function($t) { return $t->name; }, $tree->tastes);
 								        			$table_rows[] = ['Tastes', Utils::sanitize(implode(', ', $names))];

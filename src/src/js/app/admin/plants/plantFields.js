@@ -32,6 +32,7 @@ const plantFields = [
     {name: 'transplanting', label: 'transplanting', type: 'multiSelect', error: null, condition: null},
     {name: 'unique_attractions', label: 'unique attractions', type: 'multiSelect', error: null, condition: null},
     {name: 'tolerances', label: 'tolerances', type: 'multiSelect', error: null, condition: null},
+    {name: 'medicinal_species', label: 'medicinal species', type: 'input', error: null, condition: null},
     {name: 'tastes', label: 'tastes', type: 'multiSelect', error: null, condition: null},
     {name: 'organ_systems', label: 'organ systems', type: 'multiSelect', error: null, condition: null},
     {name: 'thermal_nature', label: 'thermal nature', type: 'multiSelect', error: null, condition: null},

@@ -94,6 +94,7 @@ class Trees extends Controller
 		if(isset($data['combinations'])) { $update_data['combinations'] = $data['combinations']; };
 		if(isset($data['folk_use'])) { $update_data['folk_use'] = $data['folk_use']; };
 		if(isset($data['chinese_medicine'])) { $update_data['chinese_medicine'] = $data['chinese_medicine']; };
+		if(isset($data['medicinal_species'])) { $update_data['medicinal_species'] = $data['medicinal_species']; };
 		if(isset($data['body'])) { $update_data['body'] = $data['body']; };
 		if(!empty($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
