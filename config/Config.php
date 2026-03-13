@@ -28,8 +28,8 @@ class Config
 	public static function define_constants()
 	{
 		/*site title*/
-		define('SITE_TITLE', 'Northern Wild Seeds | Nature With Us');
-		define('SITE_DESCRIPTION', 'Order native tree, plant, and wildflower seeds + seedlings. Located in northern BC, we sell online to wild plant enthusiasts and restoration companies.');
+		define('SITE_TITLE', 'Northern Medicinal Plants – Grow, Learn, & Use Herbs');
+		define('SITE_DESCRIPTION', 'Learn to grow, harvest, and use medicinal plants hardy to northern climates. Guides, tips, and educational resources for cold-climate herbal gardeners.');
 
 		/*Security*/
 		define('SECRETE_KEY', 'test123');

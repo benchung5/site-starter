@@ -14,7 +14,7 @@ class Plants extends Controller
 
 	public function index() 
 	{
-		$this->render('plants', null, 'Search Native & Medicinal Plants Of the North', 'native trees, shrubs, herbaceous plants, and sedges of Canada');
+		$this->render('plants', null, 'Northern Medicinal Plant Guide - Zone 4 & Cold-Hardy Herbs', 'Explore medicinal plants that thrive in northern climates. Find plant guides, care tips, and traditional uses for cold-hardy herbs.');
 
 		$this->load_script('mainPlants.js');
 	}
@@ -26,7 +26,9 @@ class Plants extends Controller
 		if ($plant) {
 			$view_data = [];
 			$view_data['tree'] = $plant;
-			$this->render('view_plant', $view_data, $plant->common_name);
+			$title = $plant->common_name . ' – Grow & Use in Northern Gardens';
+			$description = 'Learn how to grow and use ' . $plant->common_name . ' in northern climates. Find plant guides, care tips, and traditional uses for cold-hardy herbs.';
+			$this->render('view_plant', $view_data, $title, $description);
 			$this->load_script('mainSourceProducts.js');
 		} else {
 			$this->render('404');
