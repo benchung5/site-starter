@@ -444,9 +444,112 @@ class Trees_model extends Model
 					->innerJoin('native_to nt', 'nt.id', '_tnt.native_to_id')
 					->in('nt.id', $opts['native_to']);
 			} else {
-				// force no results since native_to is queried but no native_to is selected
 				return [];
 			}
+		}
+
+		// only in light
+		if (isset($opts['light']) && count($opts['light']) > 0) {
+			$this->db
+				->innerJoin('trees_light _tl', '_tl.tree_id', 't.id')
+				->innerJoin('light _l', '_l.id', '_tl.light_id')
+				->in('_l.id', $opts['light']);
+		}
+
+		// only in soil
+		if (isset($opts['soil']) && count($opts['soil']) > 0) {
+			$this->db
+				->innerJoin('trees_soil _ts', '_ts.tree_id', 't.id')
+				->innerJoin('soil _s', '_s.id', '_ts.soil_id')
+				->in('_s.id', $opts['soil']);
+		}
+
+		// only in natural_habitat
+		if (isset($opts['natural_habitat']) && count($opts['natural_habitat']) > 0) {
+			$this->db
+				->innerJoin('trees_natural_habitat _tnh', '_tnh.tree_id', 't.id')
+				->innerJoin('natural_habitat _nh', '_nh.id', '_tnh.natural_habitat_id')
+				->in('_nh.id', $opts['natural_habitat']);
+		}
+
+		// only in common_uses (Garden uses)
+		if (isset($opts['common_uses']) && count($opts['common_uses']) > 0) {
+			$this->db
+				->innerJoin('trees_common_uses _tcu', '_tcu.tree_id', 't.id')
+				->innerJoin('common_uses _cu', '_cu.id', '_tcu.common_use_id')
+				->in('_cu.id', $opts['common_uses']);
+		}
+
+		// only in unique_attractions
+		if (isset($opts['unique_attractions']) && count($opts['unique_attractions']) > 0) {
+			$this->db
+				->innerJoin('trees_unique_attractions _tua', '_tua.tree_id', 't.id')
+				->innerJoin('unique_attractions _ua', '_ua.id', '_tua.unique_attraction_id')
+				->in('_ua.id', $opts['unique_attractions']);
+		}
+
+		// only in eco_benefits
+		if (isset($opts['eco_benefits']) && count($opts['eco_benefits']) > 0) {
+			$this->db
+				->innerJoin('trees_eco_benefits _teb', '_teb.tree_id', 't.id')
+				->innerJoin('eco_benefits _eb', '_eb.id', '_teb.eco_benefit_id')
+				->in('_eb.id', $opts['eco_benefits']);
+		}
+
+		// only in tastes (Traditional use)
+		if (isset($opts['tastes']) && count($opts['tastes']) > 0) {
+			$this->db
+				->innerJoin('plants_tastes _pt', '_pt.tree_id', 't.id')
+				->innerJoin('tastes _t', '_t.id', '_pt.taste_id')
+				->in('_t.id', $opts['tastes']);
+		}
+
+		// only in organ_systems (Traditional use)
+		if (isset($opts['organ_systems']) && count($opts['organ_systems']) > 0) {
+			$this->db
+				->innerJoin('plants_organ_systems _pos', '_pos.tree_id', 't.id')
+				->innerJoin('organ_systems _os', '_os.id', '_pos.organ_system_id')
+				->in('_os.id', $opts['organ_systems']);
+		}
+
+		// only in thermal_nature (Traditional use)
+		if (isset($opts['thermal_nature']) && count($opts['thermal_nature']) > 0) {
+			$this->db
+				->innerJoin('plants_thermal_nature _ptn', '_ptn.tree_id', 't.id')
+				->innerJoin('thermal_nature _tn', '_tn.id', '_ptn.thermal_nature_id')
+				->in('_tn.id', $opts['thermal_nature']);
+		}
+
+		// only in moisture (Traditional use)
+		if (isset($opts['moisture']) && count($opts['moisture']) > 0) {
+			$this->db
+				->innerJoin('plants_moisture _pm', '_pm.tree_id', 't.id')
+				->innerJoin('moisture _m', '_m.id', '_pm.moisture_id')
+				->in('_m.id', $opts['moisture']);
+		}
+
+		// only in parts_used (Traditional use)
+		if (isset($opts['parts_used']) && count($opts['parts_used']) > 0) {
+			$this->db
+				->innerJoin('plants_parts_used _ppu', '_ppu.tree_id', 't.id')
+				->innerJoin('parts_used _pu', '_pu.id', '_ppu.parts_used_id')
+				->in('_pu.id', $opts['parts_used']);
+		}
+
+		// only in preparations (Traditional use)
+		if (isset($opts['preparations']) && count($opts['preparations']) > 0) {
+			$this->db
+				->innerJoin('plants_preparations _ppr', '_ppr.tree_id', 't.id')
+				->innerJoin('preparations _pr', '_pr.id', '_ppr.preparation_id')
+				->in('_pr.id', $opts['preparations']);
+		}
+
+		// only in organs_and_tissue (Traditional use)
+		if (isset($opts['organs_and_tissue']) && count($opts['organs_and_tissue']) > 0) {
+			$this->db
+				->innerJoin('plants_organs_and_tissue _poat', '_poat.tree_id', 't.id')
+				->innerJoin('organs_and_tissue _oat', '_oat.id', '_poat.organ_and_tissue_id')
+				->in('_oat.id', $opts['organs_and_tissue']);
 		}
 
 		// use search criteria

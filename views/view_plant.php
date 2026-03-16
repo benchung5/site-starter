@@ -202,17 +202,69 @@ use Lib\Uri;
 						<div class="plant-details">
 							<h3>Plant Details</h3>
 							<div class="list">
-								<div class="title">Botanical Name</div>
+								<div class="title">Botanical name</div>
 								<div class="info"><?= Utils::sanitize($view_data['tree']->family_genus->genus_name) .' '. Utils::sanitize($view_data['tree']->specific_epithet); ?>
 									<?php if($view_data['tree']->subspecies) {echo 'subsp.&nbsp;'; echo Utils::sanitize($view_data['tree']->subspecies);}?>
 								</div>
-								<?= $view_data['tree']->other_common_names ? '<div class="title">Other Names</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->other_common_names) . '</div>' : ''; ?>
 
-								<?= $view_data['tree']->other_species ? '<div class="title">Other Botanical Names</div>' . '<div class="info">' .Utils::sanitize($view_data['tree']->other_species) . '</div>' : ''; ?>
-								<div class="title">Family</div> 
+								<?php
+								$other_names_parts = [];
+								if (!empty($view_data['tree']->other_common_names)) $other_names_parts[] = $view_data['tree']->other_common_names;
+								if (!empty($view_data['tree']->other_species)) $other_names_parts[] = $view_data['tree']->other_species;
+								if (!empty($other_names_parts)) {
+									echo '<div class="title">Other names</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(' | ', $other_names_parts)) . '</div>';
+								}
+								?>
+
+								<div class="title">Family</div>
 								<div class="info"><?= Utils::sanitize($view_data['tree']->family_genus->family_name) ?></div>
-							
-								<hr/>
+
+								<?php
+								$light = [];
+								if ($view_data['tree']->light) {
+									foreach ($view_data['tree']->light as $_light) {
+										$light[] = $_light->name;
+									}
+									echo '<div class="title">Light</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $light)) . '</div>';
+								}
+								?>
+
+								<?php
+								$soil = [];
+								if ($view_data['tree']->soil) {
+									foreach ($view_data['tree']->soil as $_soil) {
+										$soil[] = $_soil->name;
+									}
+									echo '<div class="title">Soil</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $soil)) . '</div>';
+								}
+								?>
+
+								<?php
+								if ($view_data['tree']->height_min && $view_data['tree']->height_max) {
+									if ($view_data['tree']->height_min == $view_data['tree']->height_max) {
+										echo '<div class="title">Height</div><div class="info">' . Utils::sanitize($view_data['tree']->height_min) . 'ft</div>';
+									} else {
+										echo '<div class="title">Height</div><div class="info">' . Utils::sanitize($view_data['tree']->height_min) . '-' . Utils::sanitize($view_data['tree']->height_max) . 'ft</div>';
+									}
+								} elseif ($view_data['tree']->height_max) {
+									echo '<div class="title">Height</div><div class="info">up to ' . Utils::sanitize($view_data['tree']->height_max) . 'ft</div>';
+								}
+								?>
+
+								<?php
+								if ($view_data['tree']->width_min && $view_data['tree']->width_max) {
+									if ($view_data['tree']->width_min == $view_data['tree']->width_max) {
+										echo '<div class="title">Width</div><div class="info">' . Utils::sanitize($view_data['tree']->width_min) . 'ft</div>';
+									} else {
+										echo '<div class="title">Width</div><div class="info">' . Utils::sanitize($view_data['tree']->width_min) . '-' . Utils::sanitize($view_data['tree']->width_max) . 'ft</div>';
+									}
+								} elseif ($view_data['tree']->width_max) {
+									echo '<div class="title">Width</div><div class="info">up to ' . Utils::sanitize($view_data['tree']->width_max) . 'ft</div>';
+								}
+								?>
 
 								<?php
 								$native_to = [];
@@ -220,25 +272,8 @@ use Lib\Uri;
 									foreach ($view_data['tree']->native_to as $_native_to) {
 										$native_to[] = $_native_to->name;
 									}
-									echo '<div class="title">Native to</div>';
-									echo '<div class="info">';
-									echo Utils::sanitize(implode(', ', $native_to));
-									echo '</div>';
-								}
-								?>
-
-								<?= $view_data['tree']->zone ? '<div class="title">Hardy to zone</div>' . '<div class="info">' .Utils::sanitize($view_data['tree']->zone->name) . '</div>' : ''; ?>
-
-								<?php
-								$eco_benefits = [];
-								if ($view_data['tree']->eco_benefits) {
-									foreach ($view_data['tree']->eco_benefits as $_eco_benefit) {
-										$eco_benefits[] = $_eco_benefit->name;
-									}
-									echo '<div class="title">Eco benefits</div>';
-									echo '<div class="info">';
-									echo Utils::sanitize(implode(', ', $eco_benefits));
-									echo '</div>';
+									echo '<div class="title">Native To</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $native_to)) . '</div>';
 								}
 								?>
 
@@ -249,127 +284,49 @@ use Lib\Uri;
 										$natural_habitats[] = $natural_habitat->name;
 									}
 									echo '<div class="title">Natural habitat</div>';
-									echo '<div class="info">';
-									echo Utils::sanitize(implode(', ', $natural_habitats));
-									echo '</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $natural_habitats)) . '</div>';
 								}
 								?>
 
 								<?php
-								$shapes = [];
-								if ($view_data['tree']->shapes) {
-									foreach ($view_data['tree']->shapes as $shape) {
-										$shapes[] = $shape->name;
+								$garden_uses = [];
+								if ($view_data['tree']->common_uses) {
+									foreach ($view_data['tree']->common_uses as $common_use) {
+										$garden_uses[] = $common_use->name;
 									}
-									echo '<div class="title">Shapes</div>';
-									echo '<div class="info">';
-									echo Utils::sanitize(implode(', ', $shapes));
-									echo '</div>';
+									echo '<div class="title">Garden uses</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $garden_uses)) . '</div>';
 								}
 								?>
 
-								<?php 
-
-								if ($view_data['tree']->height_min && $view_data['tree']->height_max) {
-									if ($view_data['tree']->height_min == $view_data['tree']->height_max) {
-										echo '<div class="title">Height</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->height_min) . 'ft</div>';
-									} else {
-										echo '<div class="title">Height</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->height_min) . '-' . Utils::sanitize($view_data['tree']->height_max) . 'ft</div>';
-									}	
-								} elseif ($view_data['tree']->height_max) {
-									echo '<div class="title">Height</div>' . '<div class="info">up to ' . Utils::sanitize($view_data['tree']->height_max) . 'ft</div>';
+								<?php
+								$unique_attractions = [];
+								if ($view_data['tree']->unique_attractions) {
+									foreach ($view_data['tree']->unique_attractions as $unique_attraction) {
+										$unique_attractions[] = $unique_attraction->name;
+									}
+									echo '<div class="title">Unique attractions</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $unique_attractions)) . '</div>';
 								}
-
-								if ($view_data['tree']->width_min && $view_data['tree']->width_max) {
-									if ($view_data['tree']->width_min == $view_data['tree']->width_max) {
-										echo '<div class="title">width</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->width_min) . 'ft</div>';
-									} else {
-										echo '<div class="title">width</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->width_min) . '-' . Utils::sanitize($view_data['tree']->width_max) . 'ft</div>';
-									}	
-								}
-
 								?>
 
-								<?= $view_data['tree']->growth_rate ? '<div class="title">Growth rate</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->growth_rate) . '</div>' : ''; ?>
-
-									<?= $view_data['tree']->lifespan_min && $view_data['tree']->lifespan_max ? '<div class="title">Lifespan</div>' . '<div class="info">' . Utils::sanitize($view_data['tree']->lifespan_min) . '-' . Utils::sanitize($view_data['tree']->lifespan_max) . ' years</div>' : ''; ?>
-
-									<?php
-									$unique_attractions = [];
-									if ($view_data['tree']->unique_attractions) {
-										foreach ($view_data['tree']->unique_attractions as $unique_attraction) {
-											$unique_attractions[] = $unique_attraction->name;
-										}
-										echo '<div class="title">Unique attractions</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $unique_attractions));
-										echo '</div>';
+								<?php
+								$eco_benefits = [];
+								if ($view_data['tree']->eco_benefits) {
+									foreach ($view_data['tree']->eco_benefits as $_eco_benefit) {
+										$eco_benefits[] = $_eco_benefit->name;
 									}
+									echo '<div class="title">Eco benefits</div>';
+									echo '<div class="info">' . Utils::sanitize(implode(', ', $eco_benefits)) . '</div>';
+								}
+								?>
 
-									$tolerances = [];
-									if ($view_data['tree']->tolerances) {
-										foreach ($view_data['tree']->tolerances as $tolerance) {
-											$tolerances[] = $tolerance->name;
-										}
-										echo '<div class="title">Tolerances</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $tolerances));
-										echo '</div>';
-									}
-
-									$common_uses = [];
-									if ($view_data['tree']->common_uses) {
-										foreach ($view_data['tree']->common_uses as $common_use) {
-											$common_uses[] = $common_use->name;
-										}
-										echo '<div class="title">Common uses</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $common_uses));
-										echo '</div>';
-									}
-
-									$light = [];
-									if ($view_data['tree']->light) {
-										foreach ($view_data['tree']->light as $_light) {
-											$light[] = $_light->name;
-										}
-										echo '<div class="title">Light</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $light));
-										echo '</div>';
-									}
-
-									$transplanting = [];
-									if ($view_data['tree']->transplanting) {
-										foreach ($view_data['tree']->transplanting as $_transplanting) {
-											$transplanting[] = $_transplanting->name;
-										}
-										echo '<div class="title">Transplanting</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $transplanting));
-										echo '</div>';
-									}
-
-									$soil = [];
-									if ($view_data['tree']->soil) {
-										foreach ($view_data['tree']->soil as $_soil) {
-											$soil[] = $_soil->name;
-										}
-										echo '<div class="title">Soil</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize(implode(', ', $soil));
-										echo '</div>';
-									}
-
-									$reproduction_type = [];
-									if ($view_data['tree']->reproduction_type) {
-										echo '<div class="title">Reproduction type</div>';
-										echo '<div class="info">';
-										echo Utils::sanitize($view_data['tree']->reproduction_type->name);
-										echo '</div>';
-									}
-									?>	
-
+								<?php
+								if ($view_data['tree']->reproduction_type) {
+									echo '<div class="title">Reproduction type</div>';
+									echo '<div class="info">' . Utils::sanitize($view_data['tree']->reproduction_type->name) . '</div>';
+								}
+								?>
 							</div>
 						</div>
 						<?php

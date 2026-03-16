@@ -75,31 +75,85 @@ export function searchTrees(searchObj, callback) {
         
     	//format trees_category_id
     	if (inObj.trees_category_id && (inObj.trees_category_id.length !== 0)) {
-    		//return a new array without undefined
-    		let catArray = inObj.trees_category_id.reduce(function(result, item) {          
-              if(item) {
-
-    		    result.push(item.id);
-    		  }
+    		let catArray = inObj.trees_category_id.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
     		  return result;
     		}, []);
-
     		query.trees_category_id = catArray;
+    	}
+
+    	//format light
+    	if (inObj.light && (inObj.light.length !== 0)) {
+    		let lightArray = inObj.light.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
+    		  return result;
+    		}, []);
+    		query.light = lightArray;
+    	}
+
+    	//format soil
+    	if (inObj.soil && (inObj.soil.length !== 0)) {
+    		let soilArray = inObj.soil.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
+    		  return result;
+    		}, []);
+    		query.soil = soilArray;
     	}
 
     	//format native_to
     	if (inObj.native_to && (inObj.native_to.length !== 0)) {
-    		//return a new array without undefined
     		let nativeToArray = inObj.native_to.reduce(function(result, item) {
-    		  // if(item.active) {
-              if(item) {
-    		    result.push(item.id);
-    		  }
+    		  if (item) result.push(item.id);
     		  return result;
     		}, []);
-
     		query.native_to = nativeToArray;
     	}
+
+    	//format natural_habitat
+    	if (inObj.natural_habitat && (inObj.natural_habitat.length !== 0)) {
+    		let naturalHabitatArray = inObj.natural_habitat.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
+    		  return result;
+    		}, []);
+    		query.natural_habitat = naturalHabitatArray;
+    	}
+
+    	//format common_uses (Garden uses)
+    	if (inObj.common_uses && (inObj.common_uses.length !== 0)) {
+    		let commonUsesArray = inObj.common_uses.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
+    		  return result;
+    		}, []);
+    		query.common_uses = commonUsesArray;
+    	}
+
+    	//format unique_attractions
+    	if (inObj.unique_attractions && (inObj.unique_attractions.length !== 0)) {
+    		let uniqueAttractionsArray = inObj.unique_attractions.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
+    		  return result;
+    		}, []);
+    		query.unique_attractions = uniqueAttractionsArray;
+    	}
+
+    	//format eco_benefits
+    	if (inObj.eco_benefits && (inObj.eco_benefits.length !== 0)) {
+    		let ecoBenefitsArray = inObj.eco_benefits.reduce(function(result, item) {
+    		  if (item) result.push(item.id);
+    		  return result;
+    		}, []);
+    		query.eco_benefits = ecoBenefitsArray;
+    	}
+
+    	// format usage fields (Traditional use)
+    	['tastes', 'organ_systems', 'thermal_nature', 'moisture', 'parts_used', 'preparations', 'organs_and_tissue'].forEach(function(key) {
+    		if (inObj[key] && (inObj[key].length !== 0)) {
+    			query[key] = inObj[key].reduce(function(result, item) {
+    				if (item) result.push(item.id);
+    				return result;
+    			}, []);
+    		}
+    	});
 
     	return query;
     }
@@ -146,47 +200,56 @@ export function deletePlant(tree, callback) {
     });
 }
 
+function filterBySlugs(tableData, selectedSlugs) {
+    if (!selectedSlugs || selectedSlugs.length === 0) return [];
+    return tableData.filter((item) => selectedSlugs.indexOf(item.slug) > -1);
+}
+
 export function updateFilterFromUrl(callback) {
-    //*later on, make this funtion more abstract
     const selectedCategories = getUrlParams('trees_category_id');
+    const selectedLight = getUrlParams('light');
+    const selectedSoil = getUrlParams('soil');
     const selectedNativeTo = getUrlParams('native_to');
+    const selectedNaturalHabitat = getUrlParams('natural_habitat');
+    const selectedCommonUses = getUrlParams('common_uses');
+    const selectedUniqueAttractions = getUrlParams('unique_attractions');
+    const selectedEcoBenefits = getUrlParams('eco_benefits');
+    const selectedTastes = getUrlParams('tastes');
+    const selectedOrganSystems = getUrlParams('organ_systems');
+    const selectedThermalNature = getUrlParams('thermal_nature');
+    const selectedMoisture = getUrlParams('moisture');
+    const selectedPartsUsed = getUrlParams('parts_used');
+    const selectedPreparations = getUrlParams('preparations');
+    const selectedOrgansAndTissue = getUrlParams('organs_and_tissue');
     const search = getUrlParams('search');
     const offset = getUrlParams('offset');
 
     fetchPlantTables((apiData) => {
         plantTablesStore.setData(apiData);
-
-        //return just the selected categories
-        let modifiedCategories = plantTablesStore.storageData.trees_category_id.filter((item, index) => {
-            if (selectedCategories) {
-                return (selectedCategories.length > 0) && (selectedCategories.indexOf(item.slug) > -1);
-            }
-        });
-
-        //return just the selected nativeTo
-        let modifiedNativeTo = plantTablesStore.storageData.native_to.filter((item, index) => {
-            if (selectedNativeTo) {
-                return (selectedNativeTo.length > 0) && (selectedNativeTo.indexOf(item.slug) > -1);
-            }
-        });
+        const tables = plantTablesStore.storageData;
 
         plantFilterStore.setData({
-            trees_category_id: modifiedCategories,
-        });
-
-        plantFilterStore.setData({ 
-            native_to: modifiedNativeTo, 
-        });
-
-        plantFilterStore.setData({ 
+            trees_category_id: filterBySlugs(tables.trees_category_id, selectedCategories),
+            light: filterBySlugs(tables.light, selectedLight),
+            soil: filterBySlugs(tables.soil, selectedSoil),
+            native_to: filterBySlugs(tables.native_to, selectedNativeTo),
+            natural_habitat: filterBySlugs(tables.natural_habitat, selectedNaturalHabitat),
+            common_uses: filterBySlugs(tables.common_uses, selectedCommonUses),
+            unique_attractions: filterBySlugs(tables.unique_attractions, selectedUniqueAttractions),
+            eco_benefits: filterBySlugs(tables.eco_benefits, selectedEcoBenefits),
+            tastes: filterBySlugs(tables.tastes, selectedTastes),
+            organ_systems: filterBySlugs(tables.organ_systems, selectedOrganSystems),
+            thermal_nature: filterBySlugs(tables.thermal_nature, selectedThermalNature),
+            moisture: filterBySlugs(tables.moisture, selectedMoisture),
+            parts_used: filterBySlugs(tables.parts_used, selectedPartsUsed),
+            preparations: filterBySlugs(tables.preparations, selectedPreparations),
+            organs_and_tissue: filterBySlugs(tables.organs_and_tissue, selectedOrgansAndTissue),
             search: search[0] || '',
             offset: parseInt(offset[0] || 0)
         });
 
-        //search trees
         searchTrees(plantFilterStore.storageData, (apiData) => {
             plantListStore.setData(apiData);
-
             callback();
         });
     });
@@ -194,7 +257,21 @@ export function updateFilterFromUrl(callback) {
 
 export function resetFilter(callback) {
     plantFilterStore.setData({ 
-        trees_category_id: [], 
+        trees_category_id: [],
+        light: [],
+        soil: [],
+        native_to: [],
+        natural_habitat: [],
+        common_uses: [],
+        unique_attractions: [],
+        eco_benefits: [],
+        tastes: [],
+        organ_systems: [],
+        thermal_nature: [],
+        moisture: [],
+        parts_used: [],
+        preparations: [],
+        organs_and_tissue: [],
         search: '',
         offset: 0
     });

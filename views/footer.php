@@ -17,7 +17,7 @@
                     <ul>
                         <li><a href="/" title="Home">Home</a></li>
                         <li><a href="/about" title="About">About</a></li>
-                        <li><a href="/plants" title="Our Catalogue">Our Catalogue</a></li>
+                        <li><a href="/plants" title="Medicinal Plants">Medicinal Plants</a></li>
                         <li><a href="/articles" title="Articles">Articles</a></li>
                         <li><a href="/shipping" title="Shipping">Shipping</a></li>
                         <li><a href="/returns_and_guarantee" title="Returns & Guarantee">Returns &amp; Guarantee</a></li>

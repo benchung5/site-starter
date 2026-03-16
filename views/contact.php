@@ -49,7 +49,7 @@
 									<textarea name="message" maxlength="1000" cols="25" rows="6" placeholder="Message"></textarea>
 								</div>
 								<div class="contact-input">
-									<input class="button contact-submit-btn" type="submit" value="Send Your Question">								
+									<input class="btn btn-primary contact-submit-btn" type="submit" value="Send Your Question">								
 								</div>
 							</form>
 						</div>

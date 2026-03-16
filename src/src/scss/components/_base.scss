@@ -1159,6 +1159,10 @@ services
     margin-bottom: 2em;
     line-height: 1.8em;
   }
+  li {
+    margin: inherit;
+    font-size: 1.1em;
+  }
   .large {
     font-size: 2em;
     font-weight: 600;
@@ -1202,8 +1206,8 @@ about
   background-repeat: no-repeat;
   padding: 7em 2em 0;
   background-image: url(../img/about-bg.jpg);
-  .left {
-    margin-bottom: 6em;
+  .top {
+    margin-bottom: 7.5em;
     h1, h2, p {
       color: #fff;
     }
@@ -1212,18 +1216,6 @@ about
       font-family: $title-font;
       font-size: 3.5em;
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-      @media (min-width: $hero-small) {
-        //font-size: 4em;
-      }
-      @media (min-width: $hero-medium) {
-        //font-size: 5em;
-      }
-      @media (min-width: $hero-large) {
-        //font-size: 6em;
-      }
-      @media (min-width: $hero-xlarge) {
-        //font-size: 6em;
-      }
     }
     h2 {
       font-size: 2em;
@@ -1241,7 +1233,6 @@ about
       font-weight: 400;
       font-size: 1.5em;
       text-shadow: 0 2px 2px rgba(0,0,0,0.4);
-      max-width: 800px;
     }
     @include breakpoint(medium down) {
      text-align: center;
@@ -1453,7 +1444,7 @@ contact
 .contact-form-fullwidth {
   width: 100%;
   max-width: 100%;
-
+  margin-bottom: 7rem;
   .contact-input {
     width: 100%;
     margin-bottom: 0.75em;
@@ -1463,7 +1454,6 @@ contact
       width: 100%;
       max-width: 100%;
       box-sizing: border-box;
-      padding: 0.5em 0.75em;
     }
 
     textarea {
@@ -1471,11 +1461,9 @@ contact
       resize: vertical;
     }
   }
-
   .contact-submit-btn {
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
+    background-color: #313131;
+    
   }
 }
 
@@ -2617,6 +2605,9 @@ start filter page
   .grid-view-inner {
     .left {
       position: sticky;
+      top: 1em;
+      max-height: calc(100vh - 6em);
+      overflow-y: auto;
       // Reduce sidebar to 25% width on plants page
       @media only screen and (min-width: 630px) {
         flex: 0 0 25%;
@@ -2637,6 +2628,26 @@ start filter page
         flex: 0 0 75%;
         max-width: 75%;
         min-width: 75%;
+      }
+    }
+    // Below 1000px: hide sidebar when mobile filter bar appears
+    @media only screen and (max-width: 999px) {
+      flex-direction: column;
+      .left {
+        display: none !important;
+      }
+      .right {
+        flex: 0 0 100%;
+        max-width: 100%;
+        min-width: 100%;
+        width: 100%;
+      }
+    }
+    // At 1000px and above: show sidebar
+    @media only screen and (min-width: 1000px) {
+      flex-direction: row;
+      .left {
+        display: block;
       }
     }
   }
@@ -3132,10 +3143,37 @@ form input clear button
 .search-filter {
   padding: 0.5rem;
   font-size: 0.8rem;
+  .filter-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    .filter-reset {
+      width: 100%;
+    }
+  }
   input {
     height: inherit;
     border-radius: 0;
     border: 1px solid #e6e6e6;
+  }
+  .filter-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e8e8e8;
+    &--usage {
+      margin-top: 1.25rem;
+      padding: 1rem 0.75rem;
+      background-color: #f9f8f7;
+      border-radius: 2px;
+      border-top-color: #e0dfde;
+    }
+    &__heading {
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+      padding-left: 0.25rem;
+      text-align: center;
+    }
   }
   .multiselect {
     display: block;
@@ -4068,6 +4106,8 @@ menu
   box-shadow: none;
   //full screen on mobile
   width: 33rem;
+  max-height: 100vh;
+  overflow-y: auto;
   @include breakpoint(medium down) {
    width: 100%;
   }
