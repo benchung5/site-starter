@@ -20,6 +20,10 @@ use Lib\Meta;
   <meta name="description" content="<?php
     $page_description = Meta::get_page_description();
     echo $page_description ?:  SITE_DESCRIPTION;  ?>">
+  <?php $canonical_url = Meta::get_canonical_url(); if ($canonical_url): ?>
+  <link rel="canonical" href="<?= htmlspecialchars($canonical_url, ENT_QUOTES, 'UTF-8') ?>">
+  <meta property="og:url" content="<?= htmlspecialchars($canonical_url, ENT_QUOTES, 'UTF-8') ?>">
+  <?php endif; ?>
   <meta name="author" content="Ben Chung">
    
   <!-- Mobile app Tags -->

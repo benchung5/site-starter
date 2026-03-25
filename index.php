@@ -8,6 +8,8 @@ use Lib\Utils;
 
 Config::define_constants();
 
+Uri::maybe_redirect_canonical_request();
+
 $segments = Uri::get_parts();
 
 $controller_dir = isset($segments['controller_dir']) ? $segments['controller_dir'].'/' : '';

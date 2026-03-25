@@ -1,6 +1,7 @@
 
 <?php 
 use Config\Config as Config;
+use Lib\Meta;
 use Lib\Utils;
 ?>
 
@@ -41,8 +42,8 @@ use Lib\Utils;
 						<div class="body-area"><?= $view_data['article']->body ?>
 							
 						<?php  
-						    // Always use production URL for share links
-						    $url = "https://naturewithus.com" . $_SERVER['REQUEST_URI'];
+						    $canonical = Meta::get_canonical_url();
+						    $url = $canonical ? $canonical : ('https://naturewithus.com' . $_SERVER['REQUEST_URI']);
 						    
 						    $encoded_url = urlencode($url);
 						    $encoded_title = urlencode($view_data['article']->name);

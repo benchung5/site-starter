@@ -5,8 +5,17 @@ class Meta
 {
 	protected static $page_title = '';
 	protected static $description = '';
+	protected static $canonical_url = '';
 
 	public function __construct() {
+	}
+
+	public static function set_canonical_url($url) {
+		self::$canonical_url = $url;
+	}
+
+	public static function get_canonical_url() {
+		return self::$canonical_url;
 	}
 
 	public static function set_page_title($title) {

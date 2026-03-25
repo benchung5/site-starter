@@ -1,6 +1,8 @@
 <?php
 namespace Controllers;
 use Lib\Controller;
+use Lib\Meta;
+use Lib\Uri;
 use Lib\Utils;
 
 class Plants extends Controller 
@@ -24,6 +26,7 @@ class Plants extends Controller
 		$plant = $this->trees->get(['category' => $category, 'slug' => $title]);
 		
 		if ($plant) {
+			Meta::set_canonical_url(Uri::get_current_domain() . '/plants/' . $category . '/' . $title);
 			$view_data = [];
 			$view_data['tree'] = $plant;
 			$title = $plant->common_name . ' – Grow & Use in Northern Gardens';

@@ -1,6 +1,8 @@
 <?php
 namespace Controllers;
 use Lib\Controller;
+use Lib\Meta;
+use Lib\Uri;
 use Lib\Utils;
 
 class Articles extends Controller 
@@ -23,6 +25,7 @@ class Articles extends Controller
 		$article = $this->articles->get(['category' => $category, 'slug' => $title]);
 
 		if ($article) {
+			Meta::set_canonical_url(Uri::get_current_domain() . '/articles/' . $category . '/' . $title);
 			$view_data = [];
 			$view_data['article'] = $article;
 			

@@ -223,12 +223,13 @@ export function updateFilterFromUrl(callback) {
     const selectedOrgansAndTissue = getUrlParams('organs_and_tissue');
     const search = getUrlParams('search');
     const offset = getUrlParams('offset');
+    const modeParam = getUrlParams('mode');
 
     fetchPlantTables((apiData) => {
         plantTablesStore.setData(apiData);
         const tables = plantTablesStore.storageData;
 
-        plantFilterStore.setData({
+        var filterPatch = {
             trees_category_id: filterBySlugs(tables.trees_category_id, selectedCategories),
             light: filterBySlugs(tables.light, selectedLight),
             soil: filterBySlugs(tables.soil, selectedSoil),
@@ -246,7 +247,12 @@ export function updateFilterFromUrl(callback) {
             organs_and_tissue: filterBySlugs(tables.organs_and_tissue, selectedOrgansAndTissue),
             search: search[0] || '',
             offset: parseInt(offset[0] || 0)
-        });
+        };
+        if (modeParam.length && modeParam[0] && /^\d+$/.test(modeParam[0])) {
+            filterPatch.mode = parseInt(modeParam[0], 10);
+        }
+
+        plantFilterStore.setData(filterPatch);
 
         searchTrees(plantFilterStore.storageData, (apiData) => {
             plantListStore.setData(apiData);
@@ -273,7 +279,8 @@ export function resetFilter(callback) {
         preparations: [],
         organs_and_tissue: [],
         search: '',
-        offset: 0
+        offset: 0,
+        mode: null
     });
 
     //search trees

@@ -198,6 +198,69 @@ select.multiselect {
     padding: 0.5em 1em;
   }
 
+/* Admin plants list: title row + inline filters + search */
+.admin-plants-head {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.admin-plants-title {
+  margin: 0;
+  line-height: 1.2;
+  flex: 0 1 auto;
+}
+
+.admin-plants-inline-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 0.65rem 1.25rem;
+  margin-left: auto;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.admin-plants-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.admin-plants-filter-label {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-plants-filter-select {
+  font-size: 0.8rem !important;
+  line-height: 1.2;
+  padding: 0.22rem 0.4rem !important;
+  height: auto !important;
+  min-width: 5.5rem;
+  max-width: 7.5rem;
+  margin-bottom: 0 !important;
+}
+
+.admin-plants-search-row {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.admin-plants-search-row .search-form {
+  width: 100%;
+  margin-bottom: 0;
+}
+
 /* ==========================================================================
 img drop preview/drozone
 ========================================================================== */

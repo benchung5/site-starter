@@ -71,4 +71,91 @@ class Uri
 
 		return $parts;
 	}
+
+	/**
+	 * Path prefix before routing segments (e.g. /1pix_app when the app lives in a subfolder).
+	 */
+	private static function get_script_path_prefix()
+	{
+		$dir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+		if ($dir === '/' || $dir === '.') {
+			return '';
+		}
+		return $dir;
+	}
+
+	/**
+	 * 301 redirect when the request has junk path segments (e.g. /article/slug/123) or
+	 * tracking query parameters (fbclid, trk, utm_*, gclid, etc.).
+	 */
+	public static function maybe_redirect_canonical_request()
+	{
+		$parts = self::get_parts();
+		$controller = ucfirst($parts['controller']);
+
+		$pathChanged = false;
+		$targetPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
+
+		if (($controller === 'Articles' || $controller === 'Plants')
+			&& !empty($parts['action'])
+			&& isset($parts['params'][0])
+			&& empty($parts['controller_dir'])
+			&& count($parts['params']) > 1) {
+			$prefix = self::get_script_path_prefix();
+			$suffix = $parts['controller'] . '/' . $parts['action'] . '/' . $parts['params'][0];
+			$targetPath = ($prefix === '' ? '' : $prefix) . '/' . $suffix;
+			$targetPath = preg_replace('#/+#', '/', $targetPath);
+			if ($targetPath === '' || $targetPath[0] !== '/') {
+				$targetPath = '/' . ltrim($targetPath, '/');
+			}
+			$pathChanged = true;
+		}
+
+		$cleanGet = $_GET;
+		$queryChanged = false;
+		$removeKeys = ['fbclid', 'trk', 'gclid', 'msclkid', 'mc_cid', 'mc_eid'];
+		foreach ($removeKeys as $k) {
+			if (isset($cleanGet[$k])) {
+				unset($cleanGet[$k]);
+				$queryChanged = true;
+			}
+		}
+		foreach (array_keys($cleanGet) as $k) {
+			if (strpos($k, 'utm_') === 0) {
+				unset($cleanGet[$k]);
+				$queryChanged = true;
+			}
+		}
+
+		if (!$pathChanged && !$queryChanged) {
+			return;
+		}
+
+		$targetQuery = http_build_query($cleanGet);
+		$targetUrl = self::get_current_domain() . $targetPath;
+		if ($targetQuery !== '') {
+			$targetUrl .= '?' . $targetQuery;
+		}
+
+		if (!self::urls_are_equivalent($targetUrl, self::get_current_url())) {
+			header('Location: ' . $targetUrl, true, 301);
+			exit;
+		}
+	}
+
+	private static function urls_are_equivalent($a, $b)
+	{
+		$pa = parse_url($a);
+		$pb = parse_url($b);
+		$pathA = $pa['path'] ?? '/';
+		$pathB = $pb['path'] ?? '/';
+		if (rtrim($pathA, '/') !== rtrim($pathB, '/')) {
+			return false;
+		}
+		parse_str($pa['query'] ?? '', $qa);
+		parse_str($pb['query'] ?? '', $qb);
+		ksort($qa);
+		ksort($qb);
+		return $qa === $qb;
+	}
 }
