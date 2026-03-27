@@ -43,7 +43,6 @@ use Lib\Uri;
 						</div>
 						<?php endif ?>
 
-						<!-- don't sanitize body since we need html -->
 						<div id="desktop-body-area-container">
 							<div id="body-area" class="body-area">
 								<div class="worko-tabs">
@@ -70,7 +69,9 @@ use Lib\Uri;
 
 								        <div id="tab-one-panel" class="panel active">
 								          <h3>About This Plant</h3>
-								          <?= $view_data['tree']->body ?>
+								          <div class="plant-usage-field plant-usage-field--about">
+								            <div class="plant-usage-field__body"><?= Utils::sanitizeRichHtml($view_data['tree']->body ?? '') ?></div>
+								          </div>
 								        </div>
 								        <div id="tab-two-panel" class="panel">
 								        	<h3>Traditional Use</h3>
@@ -81,23 +82,22 @@ use Lib\Uri;
 								        		echo '<div class="row small-media-padding">';
 								        		echo '<div class="small-12 large-6 columns small-media-padding">';
 								        		// Text fields in order: Folk Use, Chinese Medicine, Special Chemistry, Signature, Combinations, Precautions
-								        		if (!empty($tree->folk_use)) {
-								        			echo '<h4>Folk Use</h4><p>' . nl2br(Utils::sanitize($tree->folk_use)) . '</p>';
-								        		}
-								        		if (!empty($tree->chinese_medicine)) {
-								        			echo '<h4>Chinese Medicine</h4><p>' . nl2br(Utils::sanitize($tree->chinese_medicine)) . '</p>';
-								        		}
-								        		if (!empty($tree->special_chemistry)) {
-								        			echo '<h4>Special Chemistry</h4><p>' . nl2br(Utils::sanitize($tree->special_chemistry)) . '</p>';
-								        		}
-								        		if (!empty($tree->signature)) {
-								        			echo '<h4>Signature</h4><p>' . nl2br(Utils::sanitize($tree->signature)) . '</p>';
-								        		}
-								        		if (!empty($tree->combinations)) {
-								        			echo '<h4>Combinations</h4><p>' . nl2br(Utils::sanitize($tree->combinations)) . '</p>';
-								        		}
-								        		if (!empty($tree->precautions)) {
-								        			echo '<h4>Precautions</h4><p>' . nl2br(Utils::sanitize($tree->precautions)) . '</p>';
+								        		$usage_text_blocks = [
+								        			['folk_use', 'Folk Use'],
+								        			['chinese_medicine', 'Chinese Medicine'],
+								        			['special_chemistry', 'Special Chemistry'],
+								        			['signature', 'Signature'],
+								        			['combinations', 'Combinations'],
+								        			['precautions', 'Precautions'],
+								        		];
+								        		foreach ($usage_text_blocks as $usage_block) {
+								        			$key = $usage_block[0];
+								        			if (!empty($tree->$key)) {
+								        				echo '<div class="plant-usage-field">';
+								        				echo '<h4>' . Utils::sanitize($usage_block[1]) . '</h4>';
+								        				echo '<div class="plant-usage-field__body">' . Utils::formatUsageHtml($tree->$key) . '</div>';
+								        				echo '</div>';
+								        			}
 								        		}
 								        		echo '</div>';
 								        		echo '<div class="small-12 large-6 columns small-media-padding">';
@@ -151,8 +151,14 @@ use Lib\Uri;
 								        <div id="tab-three-panel" class="panel">
 								        	<h3>Growing Guide</h3>
 								        	<?php
-								        	$growing_instructions = $view_data['tree']->growing_instructions ? nl2br(Utils::sanitize($view_data['tree']->growing_instructions)) : 'Growing information coming soon.';
-								        	echo '<p>' . $growing_instructions . '</p>';
+								        	$gi = $view_data['tree']->growing_instructions ?? '';
+								        	if (!empty($gi)) {
+								        		echo '<div class="plant-usage-field plant-usage-field--growing">';
+								        		echo '<div class="plant-usage-field__body">' . Utils::formatUsageHtml($gi) . '</div>';
+								        		echo '</div>';
+								        	} else {
+								        		echo '<p>Growing information coming soon.</p>';
+								        	}
 								        	?>
 								        </div>
 								        <?php /* Seeds, Plants, Shipping panels - uncomment to re-enable

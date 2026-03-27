@@ -4727,6 +4727,22 @@ plant view
 
  
 .content-wrapper.view-plant {
+  .plant-usage-field {
+    margin-bottom: 1.5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    h4 {
+      margin-top: 0;
+    }
+    .plant-usage-field__body {
+      display: block;
+    }
+    &--about,
+    &--growing {
+      margin-bottom: 0;
+    }
+  }
   .internal {
     .title-area {
       margin-bottom: 1.5em;

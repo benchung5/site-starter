@@ -72,6 +72,50 @@ class Utils
 		return $str;
 	}
 
+	/**
+	 * Rich HTML from CMS fields: allow a safe subset of tags, strip scripts/event handlers,
+	 * and block dangerous href/src protocols.
+	 */
+	public static function sanitizeRichHtml($str)
+	{
+		if ($str === null || $str === '') {
+			return '';
+		}
+		$allowed = '<p><br><blockquote><strong><b><em><i><u><a><ul><ol><li><h1><h2><h3><h4><h5><h6>'
+			. '<span><div><table><thead><tbody><tr><th><td><sup><sub><hr><figure><figcaption><img>';
+		$html = strip_tags((string) $str, $allowed);
+		$html = preg_replace('/\s+on\w+\s*=\s*(["\']).*?\1/i', '', $html);
+		$html = preg_replace('/\s+on\w+\s*=\s*[^\s>]*/i', '', $html);
+		$html = preg_replace_callback(
+			'#\b(href|src)\s*=\s*([\'"])(.*?)\2#i',
+			function ($m) {
+				$url = trim($m[3]);
+				if ($url !== '' && preg_match('#^(javascript|data|vbscript):#i', $url)) {
+					return $m[1] . '=' . $m[2] . '#' . $m[2];
+				}
+				return $m[0];
+			},
+			$html
+		);
+		return $html;
+	}
+
+	/**
+	 * Usage / growing text fields: sanitize HTML when the stored value contains tags;
+	 * otherwise escape and preserve line breaks (legacy plain text).
+	 */
+	public static function formatUsageHtml($str)
+	{
+		if ($str === null || $str === '') {
+			return '';
+		}
+		$str = (string) $str;
+		if (preg_match('/<[a-z][\s\S]*>/i', $str)) {
+			return self::sanitizeRichHtml($str);
+		}
+		return nl2br(htmlspecialchars($str, ENT_QUOTES, 'UTF-8'));
+	}
+
 	public static function dbug($data) 
 	{
 		$dir = 'from: '.debug_backtrace()[0]['file'];
