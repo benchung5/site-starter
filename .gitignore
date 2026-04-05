@@ -10,3 +10,4 @@ lib/Db.php
 secret.txt
 server_installation.txt
 config/Secret.php
+test1_db.sql
