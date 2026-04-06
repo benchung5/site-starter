@@ -56,7 +56,7 @@ $this->insert('featured', $view_data );
                             <h3>Sharing Northern Medicinal Plant Knowledge</h3>
                             <p>
                                 We are surrounded by a seemingly limitless abundance of living flora with hundreds and even thousands of years history in nutritive and traditional medicinal use.  
-                                <a style="color:#e0e003;" href="/articles">Discover what secrets these wild plants have in store.</a>
+                                <a style="color:#e0e003;" href="/articles#search=?categories=medicinal-plants">Discover what secrets these wild plants have in store.</a>
                                 </p>
 
                         </div>

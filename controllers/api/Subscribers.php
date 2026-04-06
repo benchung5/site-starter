@@ -85,7 +85,7 @@ class Subscribers extends Controller
 				// Send email (will also send to info@naturewithus.com automatically)
 				Send_email::send($email, $email_subject, $email_body);
 			}
-		} catch (Exception $e) {
+		} catch (\Throwable $e) {
 			Utils::json_respond(VALIDATE_PARAMETER_DATATYPE, 'An error occurred. Please try again later.');
 		}
 	}

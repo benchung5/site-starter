@@ -60,7 +60,19 @@ class Utils
 	public static function json_respond_error($code, $message) 
 	{
 		header('Status: '.$code);
-		http_response_code(500);
+		// Use real HTTP status codes so crawlers (GET on POST-only APIs) are not reported as 5xx.
+		$http = 500;
+		if ($code === REQUEST_METHOD_NOT_VALID) {
+			$http = 405;
+		} elseif ($code === REQUEST_CONTENTTYPE_NOT_VALID) {
+			$http = 415;
+		} elseif ($code === ACCESS_TOKEN_ERRORS) {
+			$http = 401;
+		} elseif ($code === INTERNAL_ERROR) {
+			$http = 500;
+		}
+		http_response_code($http);
+		header('Content-Type: application/json');
 		$response = json_encode(['error' => $message]);
 		echo $response; exit;
 	}
