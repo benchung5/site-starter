@@ -35,6 +35,19 @@ class Trees_model extends Model
 		$result = $this->db->get();
 
 		if ($result) {
+			// Decode HTML entities stored for latin1-safe Chinese / unicode text
+			$text_fields = [
+				'common_name', 'other_common_names', 'specific_epithet', 'other_species',
+				'subspecies', 'variety', 'cultivar', 'growing_instructions', 'body',
+				'special_chemistry', 'signature', 'precautions', 'combinations',
+				'folk_use', 'chinese_medicine', 'medicinal_species',
+			];
+			foreach ($text_fields as $field) {
+				if (isset($result->$field) && is_string($result->$field)) {
+					$result->$field = Utils::decodeHtmlEntitiesToUtf8($result->$field);
+				}
+			}
+
 			// get images
 			$result->images = Json_decode($result->images) ?: [] ;
 			foreach ($result->images as $image) {

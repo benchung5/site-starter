@@ -99,6 +99,13 @@ class Trees extends Controller
 		if(!empty($data['mode_id'])) { $update_data['mode_id'] = $data['mode_id']; };
 		//if(isset($data['images'])) { $update_data['images'] = $data['images']; };
 
+		// trees text columns are latin1 — store non-latin1 (e.g. Chinese) as HTML entities
+		foreach ($update_data as $key => $value) {
+			if (is_string($value)) {
+				$update_data[$key] = Utils::encodeForLatin1Db($value);
+			}
+		}
+
 		// the many to many table data...
 		$joins_data = [
 			'trees_category_id' => !empty($data['trees_category_id']) ? $data['trees_category_id'] : null,

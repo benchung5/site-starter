@@ -85,6 +85,29 @@ class Utils
 	}
 
 	/**
+	 * Encode characters outside latin1 (codepoints > 255) as HTML numeric entities.
+	 * Needed because trees text columns are latin1 and reject UTF-8 Chinese, etc.
+	 */
+	public static function encodeForLatin1Db($str)
+	{
+		if ($str === null || $str === '') {
+			return $str;
+		}
+		return mb_encode_numericentity((string) $str, [0x100, 0x10FFFF, 0, 0xFFFFFF], 'UTF-8');
+	}
+
+	/**
+	 * Decode HTML entities back to UTF-8 for editing / display.
+	 */
+	public static function decodeHtmlEntitiesToUtf8($str)
+	{
+		if ($str === null || $str === '') {
+			return $str;
+		}
+		return html_entity_decode((string) $str, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+	}
+
+	/**
 	 * Rich HTML from CMS fields: allow a safe subset of tags, strip scripts/event handlers,
 	 * and block dangerous href/src protocols.
 	 */
